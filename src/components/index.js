@@ -49,7 +49,7 @@ export const FromInventory = ({inventory, offset=-1}) => (
   <span key={inventory} dangerouslySetInnerHTML={{__html: _fromInventory(inventory, offset)}} />
 )
 FromInventory.propTypes = {
-  inventory: React.PropTypes.string.isRequired,
+  inventory: React.PropTypes.string,
   offset: React.PropTypes.number
 }
 
@@ -97,14 +97,14 @@ ManyMap.propTypes = {
 // value to truncate each item; otherwise displays the item in full
 export const AllButSelection = ({selection, expansions, offset=null, conjunction="and"}) => {
   let unselected = expansions.filter((item) => (
-      item !== selection
+      item != selection
   ))
   for (var item of unselected) {
     if (offset) {
       item = _fromInventory(item, offset)
     }
   }
-  return iteratedList(unselected, conjunction)
+  return iteratedList(unselected, null, conjunction)
 }
 AllButSelection.propTypes = {
   selection: React.PropTypes.string,
@@ -117,8 +117,8 @@ const iteratedList = (items, handler=null, conjunction="and") => (
   <span>{
     [...items].map((t, i) =>
       <span key={i}>
+        { items.length > 1 && i === items.length -1 ? ` ${conjunction} `: "" }
         <Link handler={handler} text={t}/>
-        { i === t.length -1 ? ` ${conjunction} `: "" }
         { i < items.length - 1 && items.length > 2 ? ", ": "" }
       </span>
   )}
