@@ -7,3 +7,4 @@ ve
 deploy
 build/*.map
 dist
+build/*.js

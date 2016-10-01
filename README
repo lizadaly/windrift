@@ -4,4 +4,4 @@ npm install
 
 Run package tests:
 
-mocha --compilers js:babel-core/register 'src/**/*test.js'
+mocha --compilers js:babel-core/register 'src/**/test*.js'
