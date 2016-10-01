@@ -1,0 +1,49 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Windrift</title>
+
+  <meta name="keywords" content="XXX" />
+  <meta name="description" content="XXX" />
+  <meta name="author" content="XXX" />
+  <meta name="copyright" content="XXX" />
+  <link rel="stylesheet" href="css/app.css" />
+</head>
+
+<body id="body">
+
+  <nav class="top-bar">
+    <div class="top-bar-left">
+      <ul class="menu">
+        <li id="about-toggle" class="about-toggle"><a href="#" onClick="about(event)">About</a>
+          <aside id="about-modal" class="about-modal">
+            <p>
+              Your game information goes here.
+            </p>
+            <div class="close"><a href="#" onClick="about(event)"><small>close</small></a></div>
+
+          </aside>
+        </li>
+      </ul>
+    </div>
+    <div class="top-bar-right">
+      <ul class="menu">
+        <li><a href="#" onClick="reset(event)">Restart</a></li>
+        <li><a href="#" onClick="reverse(event)">Toggle Night Mode</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Body -->
+  <article id="article" class="row columns"></article>
+
+  <script defer src="src/ui.js"></script>
+  <script defer src="build/bundle.js"></script>
+</body>
+
+</html>
