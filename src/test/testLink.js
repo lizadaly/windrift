@@ -6,7 +6,6 @@ import 'jsdom-global/register'
 
 import {List, Link} from '../components'
 
-
 describe('<Link />', () => {
   before(() => {
     sinon.stub(console, 'error', (warning) => { throw new Error(warning) })
@@ -49,6 +48,12 @@ describe('<Link />', () => {
     // Use mount() for any call with dangerouslySetInnerHTML
     // https://github.com/airbnb/enzyme/issues/419
     const wrapper = mount(<Link text={text} handler={func} />)
+    assert.equal(text, wrapper.text())
+  }),
+
+  it('renders the text passed inside a span when no onClick handler is supplied', () => {
+    const text = "Sample text"
+    const wrapper = mount(<Link text={text} />)
     assert.equal(text, wrapper.text())
   }),
 

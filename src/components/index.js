@@ -4,7 +4,7 @@ import { showNextSection, showNextChapter, updateInventory, setExpansions, updat
 import { inverter } from '../lib'
 import { connect } from 'react-redux'
 
-/* A nextChapter link */
+/* A link that prints the label and advances the user to the next chapter */
 export const NextChapter = ({chapter, label="Continue"}) => (
   <div className="next-chapter-link"><List expansions={[label, ""]} tag={"c" + chapter + "next"} nextUnit="chapter"/></div>
 )
@@ -26,18 +26,33 @@ Link.propTypes = {
   handler: React.PropTypes.func
 }
 
+/* A function that returns the most-significant word from a phrase,
+typically in the inventory list (e.g. "a tired-looking cap"). Nothing
+magic here, just returns the last word, typically the noun, unless `offset`
+is deliberately set to a value.
 
-function _fromInventory(inventory, offset="last") {
+If `offset` exceeds the length of the string, the default offset value
+will be used.
+ */
+function _fromInventory(inventory, offset=-1) {
   let inv = inventory ? inventory.split(" ") : ""
-  let out = offset === "last" ? inv[inv.length - 1] : inv[offset]
+  if (offset > inv.length - 1) {
+    console.warn("Offset ", offset, " exceeded the length of the string ", inv)
+    offset = -1
+  }
+  let out = offset === -1 ? inv[inv.length - 1] : inv[offset]
   return out
 }
 
 /* Return a word from an inventory list. By default, returns the last word. Otherwise,
-return the offset word */
-export const FromInventory = ({inventory, offset="last"}) => (
+return the offset word, as a zero-indexed value into the array */
+export const FromInventory = ({inventory, offset=-1}) => (
   <span key={inventory} dangerouslySetInnerHTML={{__html: _fromInventory(inventory, offset)}} />
 )
+FromInventory.propTypes = {
+  inventory: React.PropTypes.string.isRequired,
+  offset: React.PropTypes.number
+}
 
 /* For a given value of an inventory property, return the value from the `from`
 map that matches. Accepts an optional `offset` which is passed through to `fromInventory`.
@@ -45,7 +60,7 @@ If the map evaluates to string, return wrapped HTML;
 if the map evaluates to a function, call it;
 otherwise return the node.
  */
-export const Map = ({from, to, offset="last"}) => {
+export const Map = ({from, to, offset=-1}) => {
   var _from = _fromInventory(from, offset)
   if (!to[_from] || typeof to[_from] === 'string')
     return <span key={to[_from]} dangerouslySetInnerHTML={{__html: to[_from]}} />

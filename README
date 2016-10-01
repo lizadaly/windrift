@@ -3,5 +3,4 @@ npm install
 
 
 Run package tests:
-cd src
-mocha
+npm test

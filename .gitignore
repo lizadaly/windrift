@@ -8,3 +8,4 @@ deploy
 build/*.map
 dist
 build/*.js
+coverage
