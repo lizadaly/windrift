@@ -26,6 +26,7 @@ describe('<NextChapter />', () => {
     expect(l.prop('expansions')).to.have.length(2)
     expect(l.prop('expansions')[0]).to.equal("Continue")
   }),
+
   it('renders a set of expansions with the label text supplied', () => {
     const label = "Foo"
     const wrapper = shallow(<NextChapter chapter="0" label={label}/>)

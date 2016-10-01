@@ -7,6 +7,7 @@ import { createStore, compose } from 'redux'
 import { gameApp } from './reducers'
 import { persistStore, autoRehydrate } from 'redux-persist'
 
+
 import { Counter } from './components/counter'
 import { setStateBoolean } from "./actions"
 import { GameUtils } from "./util"
@@ -32,8 +33,8 @@ class _Game extends React.Component {
         {
           Array(this.props.currentChapter + 1).fill().map((_, i) => {
             return <div key={"chapter" + i} className={i === this.props.currentChapter ? 'current-chapter' : ''}>{this.chapters[i]}</div>
-              })
-              }
+          })
+        }
       </div>
     }
 }
@@ -43,7 +44,7 @@ _Game.contextTypes = {
 
 const mapStateToProps = (state) => {
   return {
-    currentChapter: state.bookmarks.size - 1
+    currentChapter: state.bookmarks.length - 1
   }
 }
 
@@ -60,7 +61,7 @@ const startGame = () => {
       if (history.state) {
         // Use this state instead of reserializing
         if (history.state.counter != store.getState().counter) {
-          persister.rehydrate(history.state)
+          persister.rehydrate(Immutable.Map(history.state))
           history.replaceState(history.state, "")
           window.lockHistory = true
         }

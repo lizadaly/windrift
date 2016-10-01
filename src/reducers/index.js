@@ -1,47 +1,47 @@
-import Immutable from 'immutable'
 import { combineReducers } from 'redux'
 import { SHOW_NEXT_CHAPTER, SHOW_NEXT_SECTION, UPDATE_INVENTORY,
          SET_EXPANSIONS, UPDATE_STATE_COUNTER } from "../actions"
 
-const zeroed = Immutable.List([0])
-
-function bookmarks(state=zeroed, action) {
+function bookmarks(state=[0], action) {
   switch (action.type) {
-    // Next chapter adds a new item to the array and sets its value to 0,
-    // so we have a new chapter, at section 0
+    // Next chapter adds a new item to the array and sets its value to 0
     case SHOW_NEXT_CHAPTER:
-      return state.push([0])
-    // Next section simply increments the last item in the current array by 1
+      return [
+        ...state,
+        0
+      ]
     case SHOW_NEXT_SECTION:
-      return state.set(-1, state.last() + 1)
+      let b = state.slice()
+      b[b.length - 1] += 1
+      return b
     default:
       return state
   }
 }
 
-function inventory(state=Immutable.Map(), action) {
+function inventory(state={}, action) {
   switch (action.type) {
     case UPDATE_INVENTORY:
-      var inv = Immutable.Map()
+      var inv = {}
       if (action.sel === undefined && ! action.tag in state) {
-        inv.set(action.tag, undefined)
+        inv[action.tag] = undefined
       }
       else if (action.sel === undefined && action.tag in state) {
         // no op, leave the current value alone
       }
       else {
-        inv.set(action.tag, action.sel)
+        inv[action.tag] = action.sel
       }
-      return inv.merge(state)
+      return Object.assign({}, state, inv)
     default:
       return state
   }
 }
 
-function expansions(state=Immutable.Map(), action) {
+function expansions(state=[], action) {
   switch (action.type) {
     case SET_EXPANSIONS:
-      return state.merge(action.expansions)
+      return Object.assign({}, state, action.expansions)
     default:
       return state
   }
