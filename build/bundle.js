@@ -30354,10 +30354,12 @@
 	/* A nextChapter link */
 	var NextChapter = exports.NextChapter = function NextChapter(_ref) {
 	  var chapter = _ref.chapter;
+	  var _ref$label = _ref.label;
+	  var label = _ref$label === undefined ? "Continue" : _ref$label;
 	  return React.createElement(
 	    'div',
 	    { className: 'next-chapter-link' },
-	    React.createElement(List, { expansions: ["Continue", ""], tag: "c" + chapter + "next", nextUnit: 'chapter' })
+	    React.createElement(List, { expansions: [label, ""], tag: "c" + chapter + "next", nextUnit: 'chapter' })
 	  );
 	};
 
