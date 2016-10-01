@@ -1,8 +1,8 @@
 {
-  "name": "foundation-sites-template",
-  "version": "1.0.0",
-  "description": "Basic template for a new Foundation for Sites project.",
-  "main": "gulpfile.js",
+  "name": "windrift",
+  "version": "0.0.1",
+  "description": "A React/Redux interactive narrative framework",
+  "main": "src/app.js",
   "devDependencies": {
     "babel": "^6.5.2",
     "babel-cli": "^6.16.0",
@@ -24,19 +24,15 @@
     "rewire": "^2.5.2",
     "sinon": "^1.17.6"
   },
-  "scripts": {
-    "start": "gulp",
-    "build": "gulp sass"
-  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/zurb/foundation-sites-template.git"
+    "url": "https://github.com/lizadaly/windrift.git"
   },
   "bugs": {
-    "url": "https://github.com/zurb/foundation-sites/issues",
-    "email": "foundation@zurb.com"
+    "url": "https://github.com/lizadaly/windrift/issues",
+    "email": "liza@lizadaly.com"
   },
-  "author": "ZURB <foundation@zurb.com>",
+  "author": "Liza Daly <liza@lizadaly.com>",
   "license": "MIT",
   "private": true,
   "dependencies": {
