@@ -1,6 +1,4 @@
 npm install
 
-
-
 Run package tests:
 npm test

@@ -61,19 +61,21 @@ if the map evaluates to a function, call it;
 otherwise return the node.
  */
 export const Map = ({from, to, offset=-1}) => {
-  var _from = _fromInventory(from, offset)
-  if (!to[_from] || typeof to[_from] === 'string')
+  if (!from)
+    return null
+  const _from = _fromInventory(from.toLowerCase(), offset)
+  if (!to[_from])
+    return null
+  if (typeof to[_from] === 'string')
     return <span key={to[_from]} dangerouslySetInnerHTML={{__html: to[_from]}} />
   else if (typeof to[_from] == 'function')
     return to[_from]()
   return to[_from]
 }
 Map.propTypes = {
-  from: React.PropTypes.string,
+  from: React.PropTypes.string, // Cannot be isRequired, as the value may be unset
   to: React.PropTypes.object.isRequired,
-  offset: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.number])
+  offset: React.PropTypes.number
 }
 
 /* Given an inventory _array_, where the value in inventory is an array which

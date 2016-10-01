@@ -23,7 +23,7 @@ class _Game extends React.Component {
     constructor(props) {
       super(props)
       this.chapters = [
-        <Introduction chapterId="0"/>
+        <Introduction chapterId={0}/>
         // Add more elements here
       ]
     }

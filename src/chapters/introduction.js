@@ -10,10 +10,22 @@ const _Introduction = ({currentSection, inventory}) => {
       <h3>Welcome to Windrift</h3>
       <p>Windrift is a framework for writing interactive stories. </p>
       <p>
-        It produces works very much like <List expansions={["other systems:", ["Twine", "Undum", "ChoiceScript"]]}
+        It produces works very much like <List expansions={["other narrative systems", ["Twine", "inklewriter", "ChoiceScript"], "Twine, inklewriter, or ChoiceScript"]}
                                            conjunction="or" tag="c0_languages"/>—
         frameworks that generate long-form stories that incorporate user choice or action.
       </p>
+      <aside style={{fontStyle: "italic"}}>
+        <Map from={inventory.c0_languages} to={{
+          twine: <span>(I agree, Twine is excellent, but you should also check out the others as well.
+            If you’re new to Twine, <a href="https://emshort.wordpress.com/2012/11/10/choice-based-narrative-tools-twine/">Emily Short</a> has an excellent writeup.)</span>,
+          inklewriter: <span>(The folks at inkle have made some great commercial adventure games,
+            and with <a href="http://www.inklestudios.com/inklewriter/">inklewriter</a>, you can
+          make your own too—no coding required.)</span>,
+          choicescript: <span>(Many award-winning games have been made in this tool from
+            Choice of Games. <a href="https://www.choiceofgames.com/make-your-own-games/choicescript-intro/">Give it a shot</a>).
+          </span>
+        }} />
+      </aside>
     </section>,
     <section>
       <h3>Should I use Windrift?</h3>
@@ -33,6 +45,8 @@ const _Introduction = ({currentSection, inventory}) => {
         If <List expansions={["writing code", "dealing with syntax errors", "fighting with transpilers"]} tag="c0_code" nextUnit={null} /> doesn’t
         scare you, <List expansions={["read on", "read on"]} tag="c0_continue"/>.
       </p>
+    </section>,
+    <section>
       <h3>What is Windrift good for, then?</h3>
       <p>
         Windrift is written on top of React and Redux, two frameworks for creating
@@ -80,7 +94,7 @@ const _Introduction = ({currentSection, inventory}) => {
           which means your game can be installed on a mobile device and played offline.
         </li>
       </ul>
-      <NextChapter chapter="1" />
+      <NextChapter chapter={1} />
     </section>
   ]
   return <RenderSection currentSection={currentSection} sections={sections} />
