@@ -38,7 +38,7 @@ describe('<Map />', () => {
     assert.equal(matchText, wrapper.text())
   }),
 
-  it('when the `to` value is a string, return wrapped HTML', () => {
+  it('when the `to` value is a string, returns wrapped HTML', () => {
     const from = "a rusty lock"
     const matchText = "The lock withers under your gaze"
     const to = {lock: matchText}
@@ -46,7 +46,7 @@ describe('<Map />', () => {
     assert.equal(1, wrapper.find('span').length)
   }),
 
-  it('the wrapped HTML should include the output as the `key`', () => {
+  it('includes the output as the `key` when the result is wrapped HTML', () => {
     const from = "a rusty lock"
     const matchText = "The lock withers under your gaze"
     const to = {lock: matchText}
@@ -54,26 +54,26 @@ describe('<Map />', () => {
     assert.equal(matchText, wrapper.find('span').key())
   }),
 
-  it('the component should accept only strings as the `from` parameter', () => {
+  it('accepts only strings as the `from` parameter', () => {
     const from = 1
     const to = {"a": "b"}
     assert.throws(() => shallow(<Map from={from} to={to} />), Error)
   }),
 
-  it('the component should accept only objects as the `to` parameter', () => {
+  it('accepts only objects as the `to` parameter', () => {
     const from = "1"
     const to = "1"
     assert.throws(() => shallow(<Map from={from} to={to} />), Error)
   }),
 
-  it('the component should return null if no `from` parameter was supplied', () => {
+  it('return nulls if no `from` parameter was supplied', () => {
     const from = null
     const to = {"a": "b"}
     const wrapper = shallow(<Map from={from} to={to} />)
     assert.isNull(wrapper.type())
   }),
 
-  it('Keys in the `to` map should match regardless of `from` case', () => {
+  it('does case-insensitive mapping of the `from` value', () => {
     const from = "SHOUTING"
     const matchText = "I'm not shouting, you're shouting"
     const to = {"shouting": matchText}
@@ -81,13 +81,30 @@ describe('<Map />', () => {
     assert.equal(matchText, wrapper.text())
   }),
 
-  it('Keys in the `to` map should match regardless of `from` case', () => {
-    const from = "SHOUTING"
-    const matchText = "I'm not shouting, you're shouting"
-    const to = {"shouting": matchText}
-    const wrapper = mount(<Map from={from} to={to} />)
-    assert.equal(matchText, wrapper.text())
-  })
+  it('when the `to` value is a React node, returns an equivalent React Node', () => {
+    const from = "a rusty lock"
+    const text = "A paragraph for your thoughts?"
+    const matchText = <foo>{text}</foo>
+    const to = {lock: matchText}
+    const wrapper = shallow(<Map from={from} to={to} />)
+    assert.equal(1, wrapper.find('foo').length)
+    assert.equal(text, wrapper.childAt(0).text())
+  }),
 
+  it('when the `to` value is a function, calls that function', () => {
+    const from = "a rusty lock"
+    const text = "Hello from func"
+    const func = () => (<p>{text}</p>)
+    const to = {lock: func}
+    const wrapper = shallow(<Map from={from} to={to} />)
+    assert.equal(text, wrapper.childAt(0).text())
+  }),
+
+  it('when the `from` key does not match anything in `to`, returns null', () => {
+    const from = "foo"
+    const to = {lock: "box"}
+    const wrapper = shallow(<Map from={from} to={to} />)
+    assert.isNull(wrapper.type())
+  })
 
 })
