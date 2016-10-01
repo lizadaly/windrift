@@ -1,6 +1,6 @@
 import React from 'react'
 import sinon from 'sinon'
-import { shallow, render } from 'enzyme'
+import { shallow } from 'enzyme'
 import { assert } from 'chai'
 
 import {NextChapter, List, Link} from '../components'
@@ -9,12 +9,12 @@ var rewire = require('rewire')
 var comp = rewire('../components/index.js')
 var _List = comp.__get__('_List')
 
-before(() => {
-  sinon.stub(console, 'error', (warning) => { throw new Error(warning) })
-})
-after(() => { console.error.restore() })
-
 describe('<NextChapter />', () => {
+  before(() => {
+    sinon.stub(console, 'error', (warning) => { throw new Error(warning) })
+  }),
+  after(() => { console.error.restore() }),
+
   it('renders a next chapter List element', () => {
     const wrapper = shallow(<NextChapter chapter={0} />)
     assert.equal(1, wrapper.find(List).length)
