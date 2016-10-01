@@ -88,7 +88,7 @@ const _Introduction = ({currentSection, inventory}) => {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    currentSection: state.bookmarks[ownProps.chapterId],
+    currentSection: state.bookmarks.get(ownProps.chapterId),
     inventory: state.inventory
   }
 }

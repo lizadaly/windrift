@@ -43,7 +43,7 @@ _Game.contextTypes = {
 
 const mapStateToProps = (state) => {
   return {
-    currentChapter: state.bookmarks.length - 1
+    currentChapter: state.bookmarks.size - 1
   }
 }
 
@@ -60,17 +60,12 @@ const startGame = () => {
       if (history.state) {
         // Use this state instead of reserializing
         if (history.state.counter != store.getState().counter) {
-//          console.log("reserializing state with counter ", history.state.counter)
           persister.rehydrate(history.state)
           history.replaceState(history.state, "")
           window.lockHistory = true
         }
       }
     })
-    /*
-    let unsubscribe = store.subscribe(() =>
-      console.log(store.getState())
-    )*/
     ReactDOM.render(<Provider store={store}><Game/></Provider>, document.getElementById('article'))
 }
 

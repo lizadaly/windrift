@@ -3,9 +3,6 @@ export const SHOW_NEXT_CHAPTER = "SHOW_NEXT_CHAPTER"
 export const UPDATE_INVENTORY = "UPDATE_INVENTORY"
 export const SET_EXPANSIONS = "SET_EXPANSIONS"
 export const UPDATE_STATE_COUNTER = "UPDATE_STATE_COUNTER"
-export const UPDATE_DECK = "UPDATE_DECK"
-export const UPDATE_HANDS = "UPDATE_HANDS"
-export const UPDATE_CHOSEN = "UPDATE_CHOSEN"
 
 // Show the next section of text
 export const showNextSection = (section) => {
@@ -45,26 +42,5 @@ export const updateStateCounter = (counter) => {
   return {
     type: UPDATE_STATE_COUNTER,
     counter
-  }
-}
-// Update the user's deck of cards REMOVE WHEN PUBLISHING
-export const updateDeck = (deck) => {
-  return {
-    type: UPDATE_DECK,
-    deck
-  }
-}
-// Update the user's hands of cards REMOVE WHEN PUBLISHING
-export const updateHands = (hands) => {
-  return {
-    type: UPDATE_HANDS,
-    hands
-  }
-}
-// Update the user's cards they've picked REMOVE WHEN PUBLISHING
-export const updateChosen = (chosen) => {
-  return {
-    type: UPDATE_CHOSEN,
-    chosen
   }
 }
