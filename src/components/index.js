@@ -78,9 +78,8 @@ Map.propTypes = {
   offset: React.PropTypes.number
 }
 
-/* Given an inventory _array_, where the value in inventory is an array which
-   may contain 0, 1, or many items, return matching values from the
-   `to` object */
+/* Given an array `from` which may contain 0, 1, or many items, return
+  matching values from the `to` object */
 export const ManyMap = ({from, to}) => {
   if (!from)
     return null
@@ -94,29 +93,6 @@ ManyMap.propTypes = {
   to: React.PropTypes.object.isRequired
 }
 
-/* Given an inventory _array_, where the value in inventory is an array which
-   may contain 0, 1, or many items, return a random matching value that
-   matches from the `to` object. Items in the array will only be considered if
-   they are greater than or equal to `indexStart`, which defaults to 0 */
-export const AnyMap = ({from, to, indexStart=0}) => {
-  if (!from) {
-    if (to[undefined]) {
-      return to[undefined]
-    }
-    return null
-  }
-  let matches = from.filter((item, index) =>
-    Object.keys(to).indexOf(item) != -1 && index <= indexStart)
-
-  return <span>
-    {to[matches[Math.floor(Math.random() * matches.length)]]}
-  </span>
-}
-AnyMap.propTypes = {
-  from: React.PropTypes.array,
-  to: React.PropTypes.object.isRequired,
-  indexStart: React.PropTypes.number
-}
 
 // Display all items in an expansion _except_ the user's selection.
 // If `offset` is not null, calls _fromInventory with that offset
@@ -133,6 +109,11 @@ export const AllButSelection = ({selection, expansions, offset=null}) => {
     }
   }
   return iteratedList(notSelectedDisplay)
+}
+AllButSelection.propTypes = {
+  selection: React.PropTypes.string,
+  expansions: React.PropTypes.array,
+  offset: React.PropTypes.number
 }
 // For a list of items, return a JSX node of markup
 const iteratedList = (items) => (
