@@ -1,7 +1,6 @@
 const React = require('react')
 const ReactCSSTransitionGroup = require('react-addons-css-transition-group')
 import { showNextSection, showNextChapter, updateInventory, setExpansions, updateStateCounter } from "../actions"
-import { inverter } from '../lib'
 import { connect } from 'react-redux'
 
 /* A link that prints the label and advances the user to the next chapter */
@@ -93,36 +92,34 @@ ManyMap.propTypes = {
   to: React.PropTypes.object.isRequired
 }
 
-
 // Display all items in an expansion _except_ the user's selection.
 // If `offset` is not null, calls _fromInventory with that offset
 // value to truncate each item; otherwise displays the item in full
-export const AllButSelection = ({selection, expansions, offset=null}) => {
-  let notSelected = inverter(selection, expansions)
-  let notSelectedDisplay = []
-  for (var item of notSelected) {
+export const AllButSelection = ({selection, expansions, offset=null, conjunction="and"}) => {
+  let unselected = expansions.filter((item) => (
+      item !== selection
+  ))
+  for (var item of unselected) {
     if (offset) {
-      notSelectedDisplay.push(_fromInventory(item, offset))
-    }
-    else {
-      notSelectedDisplay.push(item)
+      item = _fromInventory(item, offset)
     }
   }
-  return iteratedList(notSelectedDisplay)
+  return iteratedList(unselected, conjunction)
 }
 AllButSelection.propTypes = {
   selection: React.PropTypes.string,
   expansions: React.PropTypes.array,
   offset: React.PropTypes.number
 }
+
 // For a list of items, return a JSX node of markup
-const iteratedList = (items) => (
+const iteratedList = (items, handler=null, conjunction="and") => (
   <span>{
     [...items].map((t, i) =>
       <span key={i}>
-        { i == items.length -1 ? "and ": "" }
-        { t }
-        { i < items.length -1 ? ", ": "" }
+        <Link handler={handler} text={t}/>
+        { i === t.length -1 ? ` ${conjunction} `: "" }
+        { i < items.length - 1 && items.length > 2 ? ", ": "" }
       </span>
   )}
   </span>
@@ -189,14 +186,7 @@ class _List extends React.Component {
       return <Link handler={handler} text={text}/>
     }
     else {
-      return <span>{
-        [...text].map((t, i) =>
-          <span key={t}>
-            { i == text.length -1 ? ` ${this.props.conjunction} `: "" }
-            <Link handler={handler} text={t}/>
-            { text.length > 2 && i < text.length -1 ? ", ": "" }
-          </span>
-      )}</span>
+      return iteratedList(text, handler)
     }
   }
 }
