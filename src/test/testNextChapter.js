@@ -5,10 +5,6 @@ import { assert } from 'chai'
 
 import {NextChapter, List, Link} from '../components'
 
-var rewire = require('rewire')
-var comp = rewire('../components/index.js')
-var _List = comp.__get__('_List')
-
 describe('<NextChapter />', () => {
   before(() => {
     sinon.stub(console, 'error', (warning) => { throw new Error(warning) })

@@ -18,7 +18,9 @@ for the last item in a List */
 export const Link = ({text, handler}) => {
   if (handler)
     return <a href="#" onClick={handler} dangerouslySetInnerHTML={{__html: text}}/>
-  return <span dangerouslySetInnerHTML={{__html: text}}/>
+  if (text)
+    return <span dangerouslySetInnerHTML={{__html: text}}/>
+  return null
 }
 Link.propTypes = {
   text: React.PropTypes.string.isRequired,
@@ -240,3 +242,5 @@ export const List = connect(
   mapStateToProps,
   mapDispatchToProps
 )(_List)
+
+export const TestList = _List

@@ -14,21 +14,21 @@ describe('<AllButSelection />', () => {
     console.error.restore()
   }),
 
-  it('displays a string when two items do not match', () => {
+  it('displays a formatted string when two items do not match', () => {
     const selection = "a"
     const expansions = ["a", "b", "c"]
     const wrapper = mount(<AllButSelection selection={selection} expansions={expansions} />)
     assert.equal("b and c", wrapper.text())
   }),
 
-  it("displays a string when one item doesn't matches", () => {
+  it("displays a formatted string when one item doesn't match", () => {
     const selection = "a"
     const expansions = ["a", "b"]
     const wrapper = mount(<AllButSelection selection={selection} expansions={expansions} />)
     assert.equal("b", wrapper.text())
   }),
 
-  it("displays a string when all items don't match", () => {
+  it("displays a formatted string when all items don't match", () => {
     const selection = "z"
     const expansions = ["a", "b", "c"]
     const wrapper = mount(<AllButSelection selection={selection} expansions={expansions} />)

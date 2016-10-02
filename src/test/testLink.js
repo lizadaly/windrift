@@ -1,8 +1,9 @@
+import 'jsdom-global/register'
+
 import React from 'react'
 import sinon from 'sinon'
 import { shallow, mount } from 'enzyme'
 import { assert } from 'chai'
-import 'jsdom-global/register'
 
 import {List, Link} from '../components'
 
