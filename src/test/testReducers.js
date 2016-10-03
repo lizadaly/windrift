@@ -72,6 +72,29 @@ describe('inventory()', () => {
     let sel2 = 'sel2'
     let state2 = r.inventory(state1, actionCreator(sel2, tag2))
     assert.deepEqual({t0_test: sel, t0_test2: sel2}, state2)
+  }),
+
+  it('sets a placeholder value for a tag if sel is undefined and not already set', () => {
+    let state1 = r.inventory(state, actionCreator(undefined, tag))
+    assert.deepEqual({t0_test: undefined}, state1)
+  }),
+
+  it('will not overwrite a previously defined value if sel is undefined', () => {
+    let state1 = r.inventory(state, actionCreator(sel, tag))
+    assert.deepEqual({t0_test: sel}, state1)
+    let state2 = r.inventory(state1, actionCreator(undefined, tag))
+    // Should remain sel, not overwrite with undefined
+    assert.deepEqual({t0_test: sel}, state2)
   })
 
+})
+describe('expansions()', () => {
+  let action, state
+  beforeEach(() => {
+    action = {type: null}
+    state = []
+  }),
+  it('defaults to an empty obj', () => {
+    assert.deepEqual({}, r.expansions(state, a.setExpansions({})))
+  })
 })

@@ -173,6 +173,7 @@ class _List extends React.Component {
       }
     }
     // Tick the clock
+    window.lockHistory = false
     this.props.onUpdateCounter()
 
     this.setState({
@@ -202,32 +203,6 @@ _List.defaultProps = {
   conjunction: "and"
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-      // Set the expansion list for a given tag and return the expansion object
-      onSetExpansions: (expansions, tag, currentExpansion) => {
-        var exp = {}
-        exp[tag] = {currentExpansion: currentExpansion, expansions: expansions}
-        dispatch(setExpansions(exp))
-      },
-      // Set the inventory object and return the changed inventory
-      onUpdateInventory: (sel, tag) => {
-        dispatch(updateInventory(sel, tag))
-      },
-      onCompleteSection: () => {
-        dispatch(showNextSection())
-      },
-      onCompleteChapter: () => {
-        dispatch(showNextChapter())
-      },
-      onUpdateCounter: () => {
-        // Force unlocking the history before dispatching
-        window.lockHistory = false
-        dispatch(updateStateCounter())
-      }
-    }
-}
-
 const mapStateToProps = (state, ownProps, currentExpansion=0) => {
   if (state.expansions.hasOwnProperty(ownProps.tag)) {
     currentExpansion = state.expansions[ownProps.tag].currentExpansion
@@ -238,7 +213,13 @@ const mapStateToProps = (state, ownProps, currentExpansion=0) => {
 }
 export const List = connect(
   mapStateToProps,
-  mapDispatchToProps
+  {
+    onSetExpansions: setExpansions,
+    onUpdateInventory: updateInventory,
+    onCompleteSection: showNextSection,
+    onCompleteChapter: showNextChapter,
+    onUpdateCounter: updateStateCounter
+  }
 )(_List)
 
 export const TestList = _List

@@ -23,10 +23,7 @@ export function inventory(state={}, action) {
   switch (action.type) {
     case UPDATE_INVENTORY:
       var inv = {}
-      if (action.sel === undefined && ! action.tag in state) {
-        inv[action.tag] = undefined
-      }
-      else if (action.sel === undefined && action.tag in state) {
+      if (action.sel === undefined && action.tag in state) {
         // no op, leave the current value alone
       }
       else {
