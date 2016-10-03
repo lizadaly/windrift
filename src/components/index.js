@@ -170,7 +170,7 @@ class _List extends React.Component {
       }
       // The no-op version just expands in place (usually because another selector)
       // will do the expansion
-      else if (this.props.nextUnit === "none")  {
+      else {
         // no-op
       }
     }
