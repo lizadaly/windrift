@@ -10,10 +10,7 @@ import { createMockStore } from 'redux-test-utils'
 import {List, TestList} from '../components'
 
 describe('<List />', () => {
-  let store
-  let options
-  let func
-  let fakeStore
+  let store, options, func, fakeStore
   before(() => {
     sinon.stub(console, 'error', (warning) => { throw new Error(warning) })
   }),
