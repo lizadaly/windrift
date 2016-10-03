@@ -53,22 +53,26 @@ describe('<List />', () => {
     const wrapper = mount(<List expansions={expansions} tag={tag}/>, options)
     assert.equal("a, b,  and c", wrapper.text())
   }),
+
   it('displays an anchor element', () => {
     const wrapper = mount(<List expansions={["a", "b"]} tag={"t0_test"}/>, options)
     assert.equal(1, wrapper.find('a').length)
   }),
+
   it('displays each available choice as an anchor', () => {
     const expansions = [["a", "b", "c"], "d"]
     const tag = "t0_test"
     const wrapper = mount(<List expansions={expansions} tag={tag}/>, options)
     assert.equal(3, wrapper.find('a').length)
   }),
+
   it('sets the current expansion state if clicked on', () => {
     const wrapper = mount(<TestList expansions={["a", "b"]} tag={"t0_test"} {...fakeStore}/>)
     assert.equal(0, wrapper.state('currentExpansion'))
     wrapper.find('a').simulate('click')
     assert.equal(1, wrapper.state('currentExpansion'))
   }),
+
   it('stops displaying anchors when no more expansions can be clicked on', () => {
     const expansions = ["a", "b", "c"]
     const wrapper = mount(<TestList expansions={expansions} tag={"t0_test"} {...fakeStore}/>)
@@ -78,12 +82,14 @@ describe('<List />', () => {
     wrapper.find('a').simulate('click')
     assert.equal(0, wrapper.find('a').length)
   }),
+
   it('updates the current expansion state in response to props (like the store)', () => {
     const wrapper = mount(<TestList expansions={["a", "b"]} tag={"t0_test"} {...fakeStore}/>)
     assert.equal(0, wrapper.state('currentExpansion'))
     wrapper.setProps({currentExpansion: 1})
     assert.equal(1, wrapper.state('currentExpansion'))
   }),
+
   it('displays the second expansion if clicked on', () => {
     const expansions = ["a", "b", "c"]
     const wrapper = mount(<TestList expansions={expansions} tag={"t0_test"} {...fakeStore}/>)
@@ -91,17 +97,20 @@ describe('<List />', () => {
     wrapper.find('a').simulate('click')
     assert.equal("b", wrapper.text())
   }),
+
   it('calls the onSetExpansions reducer method when mounted', () => {
     fakeStore.onSetExpansions = sinon.spy()
     const wrapper = mount(<TestList expansions={["a", "b", "c"]} tag={"t0_test"} {...fakeStore}/>)
     assert(fakeStore.onSetExpansions.calledOnce)
   }),
+
   it('calls the onSetExpansions reducer method when clicked on', () => {
     fakeStore.onSetExpansions = sinon.spy()
     const wrapper = mount(<TestList expansions={["a", "b", "c"]} tag={"t0_test"} {...fakeStore}/>)
     wrapper.find('a').simulate('click')
     assert(fakeStore.onSetExpansions.calledTwice)
   }),
+
   it('calls the onUpdateInventory reducer method and initializes the tag to undefined when mounted', () => {
     fakeStore.onUpdateInventory = sinon.spy()
     const tag = "t0_test"
@@ -109,6 +118,7 @@ describe('<List />', () => {
     assert(fakeStore.onUpdateInventory.calledOnce)
     assert(fakeStore.onUpdateInventory.calledWith(undefined, tag))
   }),
+
   it('calls the onUpdateInventory reducer method with the new inventory value when clicked on', () => {
     fakeStore.onUpdateInventory = sinon.spy()
     const tag = "t0_test"
@@ -121,6 +131,7 @@ describe('<List />', () => {
     wrapper.find('a').simulate('click')
     assert(fakeStore.onUpdateInventory.calledWith(expansions[2], tag))
   }),
+
   it('calls the onCompleteSection reducer method when more no expansions are available', () => {
     fakeStore.onCompleteSection = sinon.spy()
     const expansions = ["a", "b"]
@@ -128,6 +139,7 @@ describe('<List />', () => {
     wrapper.find('a').simulate('click')
     assert(fakeStore.onCompleteSection.calledOnce)
   }),
+
   it('calls the onCompleteSection reducer method when more no expansions are available and nextUnit is "section"', () => {
     fakeStore.onCompleteSection = sinon.spy()
     fakeStore.onCompleteChapter = sinon.spy()
@@ -137,6 +149,7 @@ describe('<List />', () => {
     assert(fakeStore.onCompleteSection.calledOnce)
     assert.isFalse(fakeStore.onCompleteChapter.called)
   }),
+
   it('calls the onCompleteSection reducer method when more no expansions are available and nextUnit is "chapter"', () => {
     fakeStore.onCompleteSection = sinon.spy()
     fakeStore.onCompleteChapter = sinon.spy()
@@ -146,6 +159,7 @@ describe('<List />', () => {
     assert.isFalse(fakeStore.onCompleteSection.called)
     assert(fakeStore.onCompleteChapter.calledOnce)
   }),
+
   it('calls no completion methods when more no expansions are available and nextUnit is "none" or null', () => {
     fakeStore.onCompleteSection = sinon.spy()
     fakeStore.onCompleteChapter = sinon.spy()
@@ -154,6 +168,13 @@ describe('<List />', () => {
     wrapper.find('a').simulate('click')
     assert.isFalse(fakeStore.onCompleteSection.called)
     assert.isFalse(fakeStore.onCompleteChapter.called)
+  }),
+
+  it('calls the onUpdateCounter method when an expansion is selected', () => {
+    fakeStore.onUpdateCounter = sinon.spy()
+    const wrapper = mount(<TestList expansions={["a", "b"]} tag={"c0_test"} {...fakeStore}/>)
+    wrapper.find('a').simulate('click')
+    assert(fakeStore.onUpdateCounter.calledOnce)
   })
 
 })

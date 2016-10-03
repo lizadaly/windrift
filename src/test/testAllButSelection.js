@@ -34,5 +34,13 @@ describe('<AllButSelection />', () => {
     const wrapper = mount(<AllButSelection selection={selection} expansions={expansions} />)
     // There's an extra space here but it's HTML so emoji shrug?
     assert.equal("a, b,  and c", wrapper.text())
+  }),
+
+  it("uses the `offset` parameter to format results", () => {
+    const selection = "an angry aardvark"
+    const expansions = ["an angry aardvark", "a beautiful beatle", "a crabby crab"]
+    const wrapper = mount(<AllButSelection selection={selection} expansions={expansions} offset={-1} />)
+    assert.equal("beatle and crab", wrapper.text())
   })
+
 })

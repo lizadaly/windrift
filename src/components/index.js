@@ -18,9 +18,7 @@ for the last item in a List */
 export const Link = ({text, handler}) => {
   if (handler)
     return <a href="#" onClick={handler} dangerouslySetInnerHTML={{__html: text}}/>
-  if (text)
-    return <span dangerouslySetInnerHTML={{__html: text}}/>
-  return null
+  return <span dangerouslySetInnerHTML={{__html: text}}/>
 }
 Link.propTypes = {
   text: React.PropTypes.string.isRequired,
@@ -101,10 +99,10 @@ export const AllButSelection = ({selection, expansions, offset=null, conjunction
   let unselected = expansions.filter((item) => (
       item != selection
   ))
-  for (var item of unselected) {
-    if (offset) {
-      item = _fromInventory(item, offset)
-    }
+  if (offset !== null) {
+    unselected = unselected.map((item) => (
+        _fromInventory(item, offset)
+    ))
   }
   return iteratedList(unselected, null, conjunction)
 }
