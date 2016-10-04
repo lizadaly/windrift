@@ -5,29 +5,27 @@ import * as r from '../reducers'
 import * as a from '../actions'
 
 describe('bookmarks()', () => {
-  let action, state
+  let state
   beforeEach(() => {
-    action = {type: null}
     state = [0]
   }),
   it('defaults to a one-item array containing zero: first chapter, first section', () => {
+    var action = {type: null }
     assert.deepEqual([0], r.bookmarks(state, action))
   }),
 
   it('creates a new chapter by adding a new item to the array and setting its value to zero', () => {
-    action.type = a.SHOW_NEXT_CHAPTER
-    assert.deepEqual([0, 0], r.bookmarks(state, action))
+    assert.deepEqual([0, 0], r.bookmarks(state, a.showNextChapter()))
+
   }),
 
   it('creates a new section by incrementing the value of the last item in the array', () => {
-    action.type = a.SHOW_NEXT_SECTION
-    assert.deepEqual([1], r.bookmarks(state, action))
+    assert.deepEqual([1], r.bookmarks(state, a.showNextSection()))
   }),
 
-  it('only increments the last item in the array', () => {
-    action.type = a.SHOW_NEXT_SECTION
+  it('only increments the last item in the array when showing the next section', () => {
     state = [1,0]
-    assert.deepEqual([1,1], r.bookmarks(state, action))
+    assert.deepEqual([1,1], r.bookmarks(state, a.showNextSection()))
   })
 
 
@@ -89,12 +87,31 @@ describe('inventory()', () => {
 
 })
 describe('expansions()', () => {
-  let action, state
+  let state
+  const tag = 't0_test'
+  const sel = 'test'
   beforeEach(() => {
-    action = {type: null}
-    state = []
+    state = {}
   }),
   it('defaults to an empty obj', () => {
-    assert.deepEqual({}, r.expansions(state, a.setExpansions({})))
+    assert.deepEqual({}, r.expansions(state, {type: a.SET_EXPANSIONS, expansion: {}}))
+  }),
+  it('returns an object with the current expansion and a list of expansions', () => {
+    assert.deepEqual({t0_test: {currentExpansion: 0, expansions: [sel]}}, r.expansions(state, a.setExpansions([sel], tag, 0)))
+  })
+}),
+describe('counter()', () => {
+  let state
+  beforeEach(() => {
+    state = 0
+  }),
+  it('defaults to 1', () => {
+    assert.equal(1, r.counter(state, {type: a.UPDATE_STATE_COUNTER}))
+  }),
+  it('increments the turn counter', () => {
+    var state1 = r.counter(state, a.updateStateCounter())
+    assert.equal(2, r.counter(state1, a.updateStateCounter()))
+    var state2 = r.counter(state1, a.updateStateCounter())
+    assert.equal(3, r.counter(state2, a.updateStateCounter()))
   })
 })

@@ -21,12 +21,12 @@ export const showNextChapter = (chapter) => {
 }
 
 // Initialize the expansions set
-export const setExpansions = (expansions, tag, currentExpansion) => {
-  var exp = {}
-  exp[tag] = {currentExpansion: currentExpansion, expansions: expansions}
+export const setExpansions = (exps, tag, currentExpansion) => {
+  var expansions = {}
+  expansions[tag] = {currentExpansion: currentExpansion, expansions: exps}
   return {
     type: SET_EXPANSIONS,
-    exp
+    expansions
   }
 }
 
