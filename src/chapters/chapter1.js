@@ -1,9 +1,9 @@
 const React = require('react')
 import { List, FromInventory, Map, AllButSelection, NextChapter } from '../components'
 import { connect } from 'react-redux'
-import { RenderSection } from "."
+import { RenderSection } from "../components"
 
-const _Introduction = ({currentSection, inventory}) => {
+export const Chapter = ({currentSection, inventory}) => {
   const languages = ["Twine", "inklewriter", "ChoiceScript"]
   var sections = [
     <section>
@@ -105,14 +105,3 @@ const _Introduction = ({currentSection, inventory}) => {
   ]
   return <RenderSection currentSection={currentSection} sections={sections} />
 }
-
-const mapStateToProps = (state, ownProps) => {
-  return {
-    currentSection: state.bookmarks[ownProps.chapterId],
-    inventory: state.inventory
-  }
-}
-
-export const Introduction = connect(
-  mapStateToProps
-)(_Introduction)

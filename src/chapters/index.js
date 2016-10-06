@@ -1,18 +1,22 @@
-const ReactCSSTransitionGroup = require('react-addons-css-transition-group')
 const React = require('react')
+import { connect } from 'react-redux'
 
-export * from "./introduction.js"
+import { Chapter } from "./chapter1.js"
 
-export const RenderSection = ({currentSection, sections}) => {
-  var sections = [...Array(currentSection + 1).keys()].map((item, i) => {
-    return <div key={item} aria-live="polite">{sections[item]}</div>
-    })
+const mapStateToProps = (state, ownProps) => {
+  return {
+    currentSection: state.bookmarks[ownProps.chapterId],
+    inventory: state.inventory
+  }
+}
 
-  return (
-    <div>
-      <ReactCSSTransitionGroup transitionName="section" transitionAppear={true} transitionAppearTimeout={500} transitionEnterTimeout={500} transitionLeaveTimeout={300}>
-        {sections}
-      </ReactCSSTransitionGroup>
-    </div>
-  )
+export function chapters() {
+  var unwrapped = [Chapter]
+  var chapters = []
+
+  unwrapped.forEach((chapter, index) => {
+    let C = connect(mapStateToProps)(chapter)
+    chapters.push(<C chapterId={index}/>)
+  })
+  return chapters
 }

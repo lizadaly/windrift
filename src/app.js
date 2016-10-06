@@ -6,14 +6,11 @@ import { Provider, connect } from 'react-redux'
 import { createStore, compose } from 'redux'
 import { gameApp } from './reducers'
 import { persistStore, autoRehydrate } from 'redux-persist'
-
-
 import { Counter } from './components/counter'
 import { setStateBoolean } from "./actions"
 import { GameUtils } from "./util"
 
-import { Introduction } from './chapters'
-
+import { chapters } from './chapters'
 // Call the polyfill
 GameUtils()
 
@@ -22,10 +19,7 @@ window.lockHistory = false  // GLOBAL to set the history for the browser as lock
 class _Game extends React.Component {
     constructor(props) {
       super(props)
-      this.chapters = [
-        <Introduction chapterId={0}/>
-        // Add more elements here
-      ]
+      this.chapters = chapters()
     }
     render() {
       // Display all chapters up to the currentChapter
@@ -62,7 +56,7 @@ const startGame = () => {
       if (history.state) {
         // Use this state instead of reserializing
         if (history.state.counter != store.getState().counter) {
-          persister.rehydrate(Immutable.Map(history.state))
+          persister.rehydrate(history.state)
           history.replaceState(history.state, "")
           window.lockHistory = true
         }
