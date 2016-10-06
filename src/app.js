@@ -4,15 +4,11 @@ const Shim = require('es6-shim')
 
 import { Provider, connect } from 'react-redux'
 import { createStore, compose } from 'redux'
-import { gameApp } from './reducers'
 import { persistStore, autoRehydrate } from 'redux-persist'
-import { Counter } from './components/counter'
-import { setStateBoolean } from "./actions"
-import { GameUtils } from "./util"
 
+import { gameApp } from './reducers'
+import { Counter } from './components/counter'
 import { chapters } from './chapters'
-// Call the polyfill
-GameUtils()
 
 window.lockHistory = false  // GLOBAL to set the history for the browser as locked; unlocked on next tick
 
