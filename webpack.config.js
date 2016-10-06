@@ -2,6 +2,7 @@ var webpack = require('webpack');
 
 var PROD = (process.env.NODE_ENV === 'production')
 
+
 module.exports = {
 
     context: __dirname + "/src",
@@ -41,6 +42,9 @@ module.exports = {
         : [new webpack.DefinePlugin({
                 "process.env": {
                     NODE_ENV: JSON.stringify("develop")
-                }
-            })]
+                },
+
+            })
+
+          ]
 };

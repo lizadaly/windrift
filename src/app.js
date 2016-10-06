@@ -5,17 +5,24 @@ const Shim = require('es6-shim')
 import { Provider, connect } from 'react-redux'
 import { createStore, compose } from 'redux'
 import { persistStore, autoRehydrate } from 'redux-persist'
-
-import { gameApp } from './reducers'
 import { Counter } from './components/counter'
-import { chapters } from './chapters'
+import { gameApp } from './reducers'
+
+// Dynamically load all JS in the 'chapters' directory as a Chapter object
+var chaptersList = require.context('./chapters', true, /\.js$/)
 
 window.lockHistory = false  // GLOBAL to set the history for the browser as locked; unlocked on next tick
 
 class _Game extends React.Component {
     constructor(props) {
       super(props)
-      this.chapters = chapters()
+      this.chapters = []
+      chaptersList.keys().forEach((filename, index) => {
+        let chapter = chaptersList(filename).default
+        // React requires this be uppercase, hooray
+        let C = connect(chapterMapper)(chapter)
+        this.chapters.push(<C chapterId={index}/>)
+      })
     }
     render() {
       // Display all chapters up to the currentChapter
@@ -31,7 +38,14 @@ class _Game extends React.Component {
 }
 _Game.contextTypes = {
   store: React.PropTypes.object.isRequired
-};
+}
+
+const chapterMapper = (state, ownProps) => {
+  return {
+    currentSection: state.bookmarks[ownProps.chapterId],
+    inventory: state.inventory
+  }
+}
 
 const mapStateToProps = (state) => {
   return {

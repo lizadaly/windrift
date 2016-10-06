@@ -1,9 +1,7 @@
 const React = require('react')
-import { List, FromInventory, Map, AllButSelection, NextChapter } from '../components'
-import { connect } from 'react-redux'
-import { RenderSection } from "../components"
+import { List, FromInventory, Map, AllButSelection, NextChapter, RenderSection } from '../components'
 
-export const Chapter = ({currentSection, inventory}) => {
+export default ({currentSection, inventory}) => {
   const languages = ["Twine", "inklewriter", "ChoiceScript"]
   var sections = [
     <section>
@@ -105,3 +103,5 @@ export const Chapter = ({currentSection, inventory}) => {
   ]
   return <RenderSection currentSection={currentSection} sections={sections} />
 }
+
+//export default Chapter
