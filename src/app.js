@@ -7,9 +7,11 @@ import { createStore, compose } from 'redux'
 import { persistStore, autoRehydrate } from 'redux-persist'
 import { Counter } from './components/counter'
 import { gameApp } from './reducers'
+import config from './config.json'
 
 // Dynamically load all JS in the 'chapters' directory as a Chapter object
 var chaptersList = require.context('./chapters', true, /\.js$/)
+
 
 window.lockHistory = false  // GLOBAL to set the history for the browser as locked; unlocked on next tick
 
@@ -60,13 +62,13 @@ export const Game = connect(
 
 const startGame = () => {
     var store = createStore(gameApp, undefined, autoRehydrate())
-    var persister = persistStore(store)
+    var persister = persistStore(store, {keyPrefix: config.identifier})
     window.lockHistory = true
     window.addEventListener("popstate", function(e) {
-      if (history.state) {
+      if (history.state.hasOwnProperty(config.identifier)) {
         // Use this state instead of reserializing
-        if (history.state.counter != store.getState().counter) {
-          persister.rehydrate(history.state)
+        if (history.state[config.identifier].counter != store.getState().counter) {
+          persister.rehydrate(history.state[config.identifier])
           history.replaceState(history.state, "")
           window.lockHistory = true
         }

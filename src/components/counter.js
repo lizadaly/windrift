@@ -2,21 +2,27 @@
 const React = require('react')
 import { connect } from 'react-redux'
 import { setStateBoolean } from "../actions"
+import config from '../config.json'
 
 class _Counter extends React.Component {
   constructor(props) {
     super(props)
-//    console.log("Pushing initial state")
     this.updatePushState(props.serializedState, props.counter)
   }
+  prepState(serializedState) {
+    // Return the state prefixed with our unique key
+    var state = {}
+    state[config.identifier] = serializedState
+    return state
+  }
   updatePushState(serializedState, counter) {
-    //console.log("Updating push state with counter: ", counter)
-    history.pushState(serializedState, "", "")
+    var state = this.prepState(serializedState)
+    history.pushState(state, "", "")
   }
   componentWillReceiveProps(p) {
-    //console.log("Previous counter: ", this.props.counter)
     if (window.lockHistory) {
-      history.replaceState(p.serializedState, "", "")
+      let state = this.prepState(p.serializedState)
+      history.replaceState(state, "", "")
       window.lockHistory = false
     }
     else if (p.counter > this.props.counter) {

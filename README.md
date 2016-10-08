@@ -122,6 +122,26 @@ Windrift offer a few other components for rendering text that you'll probably us
 
 From here on out, some familiarity with React/Redux is assumed.
 
+### The store
+
+Windrift uses the Redux global store to manage the game state and tracks four values:
+
+* **Bookmarks**
+   This data structure tracks where the user is in the story as the current chapter and current section. It's initialized as chapter 0, section 0 and increments each time the `showNextSection` and `showNextChapter` action creators are called.
+
+* **Inventory**
+  An Object of key/value pairs, where the key is a given List `tag`, and the value is the most-recent selection from that List.
+
+* **Expansions**
+  An Object of key/value pairs, where the key is a given List `tag` and the value is an Object containing the array of possible expansions for this List, and an index value into that array as `currentExpansion`, reflecting how far the user has progressed in clicking through the expansions.
+
+* **Counter**
+  A simple integer value that increments at each step through the story. This is used exclusively to manage persisting the game state to the web browser so that resume and back/forward through browser history work properly.
+
+### Story lifecycle
+
+Windrift initializes all the chapters that are available in the story by collecting all files in `src/chapters/*.js`. Files can be named how you like, as long as they can be evaluated in alphabetical order (e.g. `1.js` or `chapter1.js`)
+
 Each chapter is a React component with a lightweight signature:
 
 1. A Chapter should be a _stateless functional component_
@@ -146,5 +166,3 @@ export default ({currentSection, inventory}) => {
   return <RenderSection currentSection={currentSection} sections={sections} />
 }
 ```
-
-It's possible to write stateful components, but I recommend that any custom state be managed as Redux actions.

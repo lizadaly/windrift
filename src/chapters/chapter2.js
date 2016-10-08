@@ -6,7 +6,7 @@ export default ({currentSection, inventory}) => {
     <section>
       <h2>Examples</h2>
       
-    </section>
-  ]
-  return <RenderSection currentSection={currentSection} sections={sections} />
-}
+      </section>
+      ]
+      return <RenderSection currentSection={currentSection} sections={sections} />
+      }
