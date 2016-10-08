@@ -55,8 +55,8 @@ Given this List: `['awkward', 'interesting', 'wonderful']`
 
 ...the rendering will display this text, in sequence, with each choice replacing the previous as the user clicks on the hyperlinks:
 
-1. "Uh, yeah, it's really <u>awkward</u> to see you"
-2. "Uh, yeah, it's really <u>interesting</u> to see you"
+1. "Uh, yeah, it's really _awkward_ to see you"
+2. "Uh, yeah, it's really _interesting_ to see you"
 3. "Uh, yeah, it's really wonderful to see you"
 
 The last item in any List is not a hyperlink, and that text remains after the list sequence is completed.
@@ -70,8 +70,8 @@ Given a List tagged as `dinner_choice`:
 
 The rendering will produce, in sequence:
 
-1. "What do you want for dinner? We got <u>the usual</u>."
-2. "What do you want for dinner? We got <u>mutton pudding</u>, <u>salad cake</u>, or <u>pine nut loaf</u>."
+1. "What do you want for dinner? We got _the usual_."
+2. "What do you want for dinner? We got _mutton pudding_, _salad cake_, or _pine nut loaf_."
 
 If the player choose the second item:
 
@@ -113,7 +113,7 @@ Windrift offer a few other components for rendering text that you'll probably us
 
 **AllButSelection** takes an array and a string, and returns all items but that string. It's used to produce renderings like this:
 
-1. "What do you want for dinner? We got <u>mutton pudding</u>, <u>salad cake</u>, or <u>pine nut loaf</u>."
+1. "What do you want for dinner? We got _mutton pudding_, _salad cake_, or _pine nut loaf_."
 2. "What do you want for dinner? We got pine nut loaf. Actually, good choice, since it turns out we're all out of mutton pudding and salad cake."
 
 **ManyMap** is similar to *Map* but takes an array `from` rather than a single value. It will return all matching values in the `to` object for any item in the `from` array. This is useful when you want to display text based on _multiple_ choices the user has made across different Lists.
