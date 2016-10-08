@@ -2,7 +2,6 @@
 const React = require('react')
 import { connect } from 'react-redux'
 import { setStateBoolean } from "../actions"
-import config from '../config.json'
 
 class _Counter extends React.Component {
   constructor(props) {
@@ -12,7 +11,7 @@ class _Counter extends React.Component {
   prepState(serializedState) {
     // Return the state prefixed with our unique key
     var state = {}
-    state[config.identifier] = serializedState
+    state[this.props.identifier] = serializedState
     return state
   }
   updatePushState(serializedState, counter) {
@@ -31,10 +30,14 @@ class _Counter extends React.Component {
   }
   render() {
     return null
-  }
+  } 
 }
 _Counter.defaultProps = {
   counter: 0
+}
+_Counter.propTypes = {
+  identifier: React.PropTypes.string.isRequired,
+  counter: React.PropTypes.number
 }
 
 const mapStateToProps = (state) => {

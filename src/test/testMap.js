@@ -105,6 +105,14 @@ describe('<Map />', () => {
     const to = {lock: "box"}
     const wrapper = shallow(<Map from={from} to={to} />)
     assert.isNull(wrapper.type())
+  }),
+
+  it('when the `from` string evaluates to undefined and there is an undefined key in `to`, return the value for `unselected`', () => {
+    const from = undefined
+    const to = {lock: "box", unselected: "default"}
+    const wrapper = mount(<Map from={from} to={to} />)
+    assert.equal("default", wrapper.text())
   })
+
 
 })
