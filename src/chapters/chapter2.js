@@ -12,8 +12,8 @@ export default ({currentSection, inventory}) => {
         with glittering chandeliers overhead. The entrance from the street is to
         the <List expansions={["north", "north"]} tag="foyer_north" />,
         <Map from={inventory.foyer_north} to={{
-          undefined: " and there  ",
-          north: `but you've only just arrived, and besides, the weather
+          unselected: " and there  ",
+          north: ` but you've only just arrived, and besides, the weather
           outside seems to be getting worse. There `
         }} />
         are doorways <List expansions={[["south", "west"],["south", "west"]]} tag="foyer_exits" />.

@@ -12,7 +12,7 @@ export function bookmarks(state=[0], action) {
       ]
     case SHOW_NEXT_SECTION:
       let b = state.slice()
-      b[b.length - 1] += 1
+      b[b.length - 1] += action.increment
       return b
     default:
       return state

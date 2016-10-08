@@ -16,7 +16,6 @@ describe('bookmarks()', () => {
 
   it('creates a new chapter by adding a new item to the array and setting its value to zero', () => {
     assert.deepEqual([0, 0], r.bookmarks(state, a.showNextChapter()))
-
   }),
 
   it('creates a new section by incrementing the value of the last item in the array', () => {
@@ -26,6 +25,10 @@ describe('bookmarks()', () => {
   it('only increments the last item in the array when showing the next section', () => {
     state = [1,0]
     assert.deepEqual([1,1], r.bookmarks(state, a.showNextSection()))
+  }),
+  it('allows jumping to a later section via overriding the default nextSection value', () => {
+    state = [1,0]
+    assert.deepEqual([1,3], r.bookmarks(state, a.showNextSection(3)))
   })
 
 

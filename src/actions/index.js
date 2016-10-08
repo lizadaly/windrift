@@ -5,10 +5,10 @@ export const SET_EXPANSIONS = "SET_EXPANSIONS"
 export const UPDATE_STATE_COUNTER = "UPDATE_STATE_COUNTER"
 
 // Show the next section of text
-export const showNextSection = (section) => {
+export const showNextSection = (increment=1) => {
   return {
     type: SHOW_NEXT_SECTION,
-    section
+    increment
   }
 }
 
