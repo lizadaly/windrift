@@ -20,6 +20,8 @@ export const showNextChapter = (chapter) => {
   }
 }
 
+// Go to the chapter by index value
+
 // Initialize the expansions set
 export const setExpansions = (exps, tag, currentExpansion) => {
   var expansions = {}

@@ -13,6 +13,8 @@
 @include foundation-thumbnail;
 @include foundation-top-bar;
 
+@import "game";
+
 $section-margin: $global-margin * 4;
 
 
@@ -29,6 +31,9 @@ section {
 }
 .current-chapter {
   margin-bottom: $section-margin;
+}
+.chapter {
+
 }
 
 .medium-margin {

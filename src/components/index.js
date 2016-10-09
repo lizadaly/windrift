@@ -59,23 +59,29 @@ If the map evaluates to string, return wrapped HTML;
 if the map evaluates to a function, call it;
 otherwise return the node.
  */
-export const Map = ({from, to, offset=-1}) => {
-  const _from = from ? _fromInventory(from.toLowerCase(), offset) : 'unselected'
-  if (!to.hasOwnProperty(_from)) {
-    return null
-  }
-  if (typeof to[_from] === 'string') {
-    return <span key={to[_from]} dangerouslySetInnerHTML={{__html: to[_from]}} />
-  }
-  else if (typeof to[_from] == 'function') {
-    return to[_from]()
-  }
-  return to[_from]
+export const Map = ({from, to, offset}) => {
+    from = from ? _fromInventory(from.toLowerCase(), offset) : 'unselected'
+
+    if (!to.hasOwnProperty(from)) {
+      return null
+    }
+
+    if (typeof to[from] === 'string') {
+      return <span key={to[from]} dangerouslySetInnerHTML={{__html: to[from]}} />
+    }
+    else if (typeof to[from] == 'function') {
+      return to[from]()
+    }
+    return to[from]
 }
 Map.propTypes = {
   from: React.PropTypes.string, // Cannot be isRequired, as the value may be unset
   to: React.PropTypes.object.isRequired,
-  offset: React.PropTypes.number
+  offset: React.PropTypes.number,
+  triggers: React.PropTypes.object
+}
+Map.defaultProps = {
+  offset: -1
 }
 
 /* Given an array `from` which may contain 0, 1, or many items, return
@@ -137,7 +143,7 @@ sets the inventory property `key` to the current selected value. */
 
 class _List extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.handleChange = this.handleChange.bind(this)
     this.state = {
       currentExpansion: this.props.currentExpansion,
@@ -154,12 +160,14 @@ class _List extends React.Component {
   }
   handleChange(e) {
     e.preventDefault()
-    var currentExpansion = this.state.currentExpansion + 1
+    // Move the expansion counter by one unless we're already there
+    const atLastExpansion = this.state.currentExpansion === this.props.expansions.length - 1
+    var currentExpansion = !atLastExpansion ? this.state.currentExpansion + 1 : this.state.currentExpansion
     this.props.onSetExpansions(this.props.expansions, this.props.tag, currentExpansion)
     this.props.onUpdateInventory(e.target.textContent, this.props.tag)
 
     // Are we at the last set? If so, there may be some events to fire
-    if (currentExpansion === this.props.expansions.length - 1) {
+    if (!atLastExpansion && currentExpansion === this.props.expansions.length - 1) {
 
       if (this.props.nextUnit === "chapter") {
         this.props.onCompleteChapter()
@@ -183,7 +191,7 @@ class _List extends React.Component {
   }
   render () {
     let text = this.props.expansions[this.state.currentExpansion]
-    let handler = this.state.currentExpansion < this.props.expansions.length - 1 ? this.handleChange : null
+    let handler = this.props.persistLast || this.state.currentExpansion < this.props.expansions.length - 1 ? this.handleChange : null
     if (typeof(text) === "string") {
       return <Link handler={handler} text={text}/>
     }
@@ -197,11 +205,13 @@ _List.propTypes = {
   tag: React.PropTypes.string.isRequired,
   expansions: React.PropTypes.array.isRequired,
   currentExpansion: React.PropTypes.number,
-  conjunction: React.PropTypes.string
+  conjunction: React.PropTypes.string,
+  persistLast: React.PropTypes.bool
 }
 _List.defaultProps = {
   nextUnit: 'section',
-  conjunction: "and"
+  conjunction: 'and',
+  persistLast: false
 }
 
 const mapStateToProps = (state, ownProps, currentExpansion=0) => {
@@ -227,7 +237,8 @@ export const TestList = _List
 
 export const RenderSection = ({currentSection, sections}) => {
   var sections = [...Array(currentSection + 1).keys()].map((item, i) => {
-    return <div key={item} aria-live="polite">{sections[item]}</div>
+    return <div key={item} className={i === currentSection ? 'current-section' : 'section'}
+             aria-live="polite">{sections[item]}</div>
     })
 
   return (
