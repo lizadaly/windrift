@@ -4,6 +4,7 @@ const Shim = require('es6-shim')
 
 import { Provider, connect } from 'react-redux'
 import { createStore, compose } from 'redux'
+import { ActionCreators } from 'redux-undo'
 import { persistStore, autoRehydrate } from 'redux-persist'
 import { showNextSection } from "./actions"
 import { Counter } from './components/counter'
@@ -16,18 +17,14 @@ class _Game extends React.Component {
       super(props)
       // Dynamically load all JS in the 'chapters' directory as a Chapter object
       this.chapters = []
-      /*
+
       props.chaptersList.keys().forEach((filename, index) => {
         let chapter = props.chaptersList(filename).default
         // React requires this be uppercase, hooray
         let C = connect(chapterMapper)(chapter)
         this.chapters.push(<C chapterId={index}/>)
       })
-      */
-    }
-    componentWillMount() {
-      console.log("showing")
-      this.props.showNextSection()
+
     }
     render() {
       // Display all chapters up to the currentChapter
@@ -41,7 +38,6 @@ class _Game extends React.Component {
     }
 }
 _Game.contextTypes = {
-  store: React.PropTypes.object,
   config: React.PropTypes.object,
   chapterList: React.PropTypes.array
 }
@@ -49,7 +45,7 @@ _Game.contextTypes = {
 const chapterMapper = (state, ownProps) => {
   return {
     currentSection: state.bookmarks.present[ownProps.chapterId],
-    inventory: state.inventory
+    inventory: state.inventory.present
   }
 }
 
@@ -67,22 +63,12 @@ export const Game = connect(
 
 
 export const startGame = (game) => {
-//    var store = createStore(gameApp, undefined, autoRehydrate())
-    var store = createStore(gameApp, undefined)
-/*
+    var store = createStore(gameApp, undefined, autoRehydrate())
     var persister = persistStore(store, {keyPrefix: game.props.config.identifier})
-    window.lockHistory = true
     window.addEventListener("popstate", function(e) {
       if (history.state.hasOwnProperty(game.props.config.identifier)) {
-        // Use this state instead of reserializing
-        if (history.state[game.props.config.identifier].counter != store.getState().counter) {
-          persister.rehydrate(history.state[game.props.config.identifier])
-          history.replaceState(history.state, "")
-          window.lockHistory = true
-        }
       }
     })
-*/
     ReactDOM.render(<Provider store={store}>{game}</Provider>, document.getElementById('article'))
 }
 

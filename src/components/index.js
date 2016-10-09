@@ -151,7 +151,6 @@ class _List extends React.Component {
   }
   componentWillMount() {
     this.props.onSetExpansions(this.props.expansions, this.props.tag, this.props.currentExpansion)
-    this.props.onUpdateInventory(undefined, this.props.tag)
   }
   componentWillReceiveProps(newProps) {
     if (newProps.currentExpansion != this.state.currentExpansion)  {
@@ -181,10 +180,6 @@ class _List extends React.Component {
         // no-op
       }
     }
-    // Tick the clock
-    window.lockHistory = false
-    this.props.onUpdateCounter()
-
     this.setState({
       currentExpansion: currentExpansion,
     })
@@ -215,8 +210,8 @@ _List.defaultProps = {
 }
 
 const mapStateToProps = (state, ownProps, currentExpansion=0) => {
-  if (state.expansions.hasOwnProperty(ownProps.tag)) {
-    currentExpansion = state.expansions[ownProps.tag].currentExpansion
+  if (state.expansions.present.hasOwnProperty(ownProps.tag)) {
+    currentExpansion = state.expansions.present[ownProps.tag].currentExpansion
   }
   return {
     currentExpansion: currentExpansion,
