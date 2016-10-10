@@ -5,7 +5,7 @@ export default ({currentSection, inventory}) => {
     const sections = [
       <section>
         <h2>Cloak of Darkness</h2>
-        <h6>A interactive demonstration</h6>
+        <h4>A interactive demonstration</h4>
         <p>
           Hurrying through the rainswept November night, you're glad to see the
           bright lights of the Opera House. It's surprising that there aren't more
