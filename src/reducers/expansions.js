@@ -2,7 +2,7 @@ import undoable from 'redux-undo'
 import { SET_EXPANSIONS } from "../actions"
 
 
-const expansions = (state=[], action) => {
+export const _expansions = (state=[], action) => {
   switch (action.type) {
     case SET_EXPANSIONS:
       return Object.assign({}, state, action.expansions)
@@ -11,4 +11,4 @@ const expansions = (state=[], action) => {
   }
 }
 
-export default undoable(expansions)
+export default undoable(_expansions)

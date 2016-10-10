@@ -27,7 +27,8 @@ describe('<List />', () => {
       store = {
           subscribe: () => {},
           dispatch: () => {},
-          getState: () => ({expansions: {}})
+          getState: () => ({expansions: {present: {}},
+                            counter: {present: 0}})
       }
       options = {
           context: {
@@ -42,7 +43,8 @@ describe('<List />', () => {
           onUpdateInventory: func,
           onCompleteSection: func,
           onUpdateCounter: func,
-          currentExpansion: 0
+          currentExpansion: 0,
+          config: {}
       }
   }),
 
@@ -129,14 +131,6 @@ describe('<List />', () => {
       const wrapper = mount(<TestList expansions={["a", "b", "c"]} tag={"t0_test"} {...fakeStore}/>)
       wrapper.find('a').simulate('click')
       assert(fakeStore.onSetExpansions.calledTwice)
-  }),
-
-  it('calls the onUpdateInventory reducer method and initializes the tag to undefined when mounted', () => {
-      fakeStore.onUpdateInventory = sinon.spy()
-      const tag = "t0_test"
-      const wrapper = mount(<TestList expansions={["a", "b", "c"]} tag={tag} {...fakeStore}/>)
-      assert(fakeStore.onUpdateInventory.calledOnce)
-      assert(fakeStore.onUpdateInventory.calledWith(undefined, tag))
   }),
 
   it('calls the onUpdateInventory reducer method with the new inventory value when clicked on', () => {
@@ -229,9 +223,9 @@ describe('<List />', () => {
       const expansions = ["a", "b"]
       const wrapper = mount(<TestList persistLast={true} expansions={expansions} tag={"c0_test"} {...fakeStore}/>)
       wrapper.find('a').simulate('click')
-      assert(fakeStore.onUpdateInventory.calledTwice)
+      assert(fakeStore.onUpdateInventory.calledOnce)
       wrapper.find('a').simulate('click')
-      assert(fakeStore.onUpdateInventory.calledThrice)
+      assert(fakeStore.onUpdateInventory.calledTwice)
   }),
 
   it('allows resetting an existing inventory property', () => {

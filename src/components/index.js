@@ -180,10 +180,11 @@ class _List extends React.Component {
         // no-op
       }
     }
-    const s = {}
-    s[this.props.config.identifier] = this.props.counter
-    history.pushState(s, "", "")
-
+    if (this.props.config && this.props.config.hasOwnProperty('identifer')) {
+      const s = {}
+      s[this.props.config.identifier] = this.props.counter
+      history.pushState(s, "", "")
+    }
     this.props.onUpdateCounter()
 
     this.setState({
@@ -205,6 +206,7 @@ _List.propTypes = {
   nextUnit: React.PropTypes.oneOf(['chapter', 'section', 'none']),
   tag: React.PropTypes.string.isRequired,
   expansions: React.PropTypes.array.isRequired,
+  config: React.PropTypes.object,
   currentExpansion: React.PropTypes.number,
   conjunction: React.PropTypes.string,
   persistLast: React.PropTypes.bool

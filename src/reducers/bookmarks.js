@@ -3,7 +3,7 @@ import { SHOW_NEXT_CHAPTER, SHOW_NEXT_SECTION } from "../actions"
 
 const INITIAL_STATE = [0]
 
-const bookmarks = (state=INITIAL_STATE, action) => {
+export const _bookmarks = (state=INITIAL_STATE, action) => {
   switch (action.type) {
     // Next chapter adds a new item to the array and sets its value to 0
     case SHOW_NEXT_CHAPTER:
@@ -19,4 +19,4 @@ const bookmarks = (state=INITIAL_STATE, action) => {
       return state
   }
 }
-export default undoable(bookmarks)
+export default undoable(_bookmarks)

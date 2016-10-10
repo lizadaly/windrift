@@ -1,7 +1,7 @@
 import undoable from 'redux-undo'
 import { UPDATE_INVENTORY } from "../actions"
 
-const inventory = (state={}, action) => {
+export const _inventory = (state={}, action) => {
   switch (action.type) {
     case UPDATE_INVENTORY:
       var inv = {}
@@ -16,4 +16,4 @@ const inventory = (state={}, action) => {
       return state
   }
 }
-export default undoable(inventory)
+export default undoable(_inventory)
