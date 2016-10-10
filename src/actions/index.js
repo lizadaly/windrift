@@ -3,6 +3,7 @@ export const SHOW_NEXT_CHAPTER = "SHOW_NEXT_CHAPTER"
 export const UPDATE_INVENTORY = "UPDATE_INVENTORY"
 export const SET_EXPANSIONS = "SET_EXPANSIONS"
 export const UPDATE_STATE_COUNTER = "UPDATE_STATE_COUNTER"
+export const GET_CONFIG = "GET_CONFIG"
 
 // Show the next section of text
 export const showNextSection = (increment=1) => {
@@ -46,5 +47,11 @@ export const updateStateCounter = (counter) => {
   return {
     type: UPDATE_STATE_COUNTER,
     counter
+  }
+}
+export const getConfig = (config) => {
+  return {
+    type: GET_CONFIG,
+    config
   }
 }

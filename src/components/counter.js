@@ -6,31 +6,19 @@ import { setStateBoolean } from "../actions"
 class _Counter extends React.Component {
   constructor(props) {
     super(props)
-    this.updatePushState(props.serializedState, props.counter)
+    this.updateReplaceState(props.counter, props.identifier)
   }
-  prepState(serializedState) {
-    // Return the state prefixed with our unique key
-    var state = {}
-    state[this.props.identifier] = serializedState
-    return state
-  }
-  updatePushState(serializedState, counter) {
-    var state = this.prepState(serializedState)
-    history.pushState(state, "", "")
+  updateReplaceState(counter, identifier) {
+    const s = {}
+    s[identifier] = counter
+    history.replaceState(s, "", "")
   }
   componentWillReceiveProps(p) {
-    if (window.lockHistory) {
-      let state = this.prepState(p.serializedState)
-      history.replaceState(state, "", "")
-      window.lockHistory = false
-    }
-    else if (p.counter > this.props.counter) {
-      this.updatePushState(p.serializedState, p.counter)
-    }
+    this.updateReplaceState(p.counter, this.props.identifier)
   }
   render() {
     return null
-  } 
+  }
 }
 _Counter.defaultProps = {
   counter: 0
@@ -42,11 +30,9 @@ _Counter.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
-    counter: state.counter,
-    serializedState: state //{bookmarks: state.bookmarks, inventory: state.inventory, expansions: state.expansions}
+    counter: state.counter.present
   }
 }
 export const Counter = connect(
-  mapStateToProps,
-  { setStateBoolean }
+  mapStateToProps
 )(_Counter)

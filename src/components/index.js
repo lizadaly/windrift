@@ -180,6 +180,10 @@ class _List extends React.Component {
         // no-op
       }
     }
+    const s = {}
+    s[this.props.config.identifier] = this.props.counter
+    history.pushState(s, "", "")
+
     this.props.onUpdateCounter()
 
     this.setState({
@@ -217,6 +221,8 @@ const mapStateToProps = (state, ownProps, currentExpansion=0) => {
   }
   return {
     currentExpansion: currentExpansion,
+    counter: state.counter.present,
+    config: state.config
   }
 }
 export const List = connect(

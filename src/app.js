@@ -27,6 +27,7 @@ class _Game extends React.Component {
     render() {
       // Display all chapters up to the currentChapter
       return <div>
+        <Counter identifier={this.props.config.identifier} />
         {
           Array(this.props.currentChapter + 1).fill().map((_, i) => {
             return <div key={"chapter" + i} className={i === this.props.currentChapter ? 'current-chapter' : 'chapter'}>{this.chapters[i]}</div>
@@ -64,8 +65,11 @@ export const startGame = (game) => {
     var store = createStore(gameApp, undefined, autoRehydrate())
     var persister = persistStore(store, {keyPrefix: game.props.config.identifier})
     window.addEventListener("popstate", function(e) {
+      console.log(history.state)
       if (history.state.hasOwnProperty(game.props.config.identifier)) {
-
+        let timeOffset = history.state[game.props.config.identifier] - store.getState().counter.present
+        console.log("Rolling back time to ", timeOffset)
+        store.dispatch(ActionCreators.jump(timeOffset))
       }
     })
     ReactDOM.render(<Provider store={store}>{game}</Provider>, document.getElementById('article'))
