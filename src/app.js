@@ -10,8 +10,6 @@ import { showNextSection } from "./actions"
 import { Counter } from './components/counter'
 import gameApp from './reducers'
 
-window.lockHistory = false  // GLOBAL to set the history for the browser as locked; unlocked on next tick
-
 class _Game extends React.Component {
     constructor(props) {
       super(props)
@@ -67,6 +65,7 @@ export const startGame = (game) => {
     var persister = persistStore(store, {keyPrefix: game.props.config.identifier})
     window.addEventListener("popstate", function(e) {
       if (history.state.hasOwnProperty(game.props.config.identifier)) {
+
       }
     })
     ReactDOM.render(<Provider store={store}>{game}</Provider>, document.getElementById('article'))

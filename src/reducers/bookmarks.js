@@ -19,4 +19,4 @@ const bookmarks = (state=INITIAL_STATE, action) => {
       return state
   }
 }
-export default undoable(bookmarks, {debug: true})
+export default undoable(bookmarks)

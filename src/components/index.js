@@ -180,8 +180,10 @@ class _List extends React.Component {
         // no-op
       }
     }
+    this.props.onUpdateCounter()
+
     this.setState({
-      currentExpansion: currentExpansion,
+      currentExpansion: currentExpansion
     })
   }
   render () {
