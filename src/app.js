@@ -6,7 +6,7 @@ import { Provider, connect } from 'react-redux'
 import { createStore, compose } from 'redux'
 import { ActionCreators } from 'redux-undo'
 import { persistStore, autoRehydrate } from 'redux-persist'
-import { showNextSection } from "./actions"
+import { showNextSection,  } from "./actions"
 import { Counter } from './components/counter'
 import gameApp from './reducers'
 
@@ -60,11 +60,11 @@ export const Game = connect(
 )(_Game)
 
 export const startGame = (game) => {
-  var store = createStore(gameApp, undefined, autoRehydrate())
+  var store = createStore(gameApp, {config: game.props.config}, autoRehydrate())
   var persister = persistStore(store, {keyPrefix: game.props.config.identifier})
   window.addEventListener("popstate", function(e) {
-    if (history.state.hasOwnProperty(game.props.config.identifier)) {
-      let timeOffset = history.state[game.props.config.identifier] - store.getState().counter.present
+    if (history.state.hasOwnProperty(store.getState().config.identifier)) {
+      let timeOffset = history.state[store.getState().config.identifier] - store.getState().counter.present
       store.dispatch(ActionCreators.jump(timeOffset))
     }
   })

@@ -180,7 +180,7 @@ class _List extends React.Component {
         // no-op
       }
     }
-    if (this.props.config && this.props.config.hasOwnProperty('identifer')) {
+    if (this.props.config && this.props.config.hasOwnProperty('identifier')) {
       const s = {}
       s[this.props.config.identifier] = this.props.counter
       history.pushState(s, "", "")
