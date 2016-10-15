@@ -198,7 +198,7 @@ class _List extends React.Component {
       return <Link handler={handler} text={text}/>
     }
     else {
-      return iteratedList(text, handler)
+      return iteratedList(text, handler, this.props.conjunction)
     }
   }
 }
