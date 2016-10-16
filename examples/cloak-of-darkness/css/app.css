@@ -1608,6 +1608,8 @@ kbd {
     z-index: -1; }
     #message.won {
       background: url("../images/cloak-win.png") no-repeat bottom left; }
+    #message.lost {
+      background: url("../images/cloak-lost.png") no-repeat bottom left; }
     #message > h1 {
       margin-left: 300px; }
     #message > h1 span {

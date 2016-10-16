@@ -91,7 +91,7 @@ export default ({currentSection, inventory}) => {
         </p>
         <Map from={inventory.message} to={{
           message: <div id="finale">The message reads:
-            <div id="message" className={inventory.bar_north == "randomly"? "lost" : "won"}>
+            <div id="message" className={inventory.bar_north === "around randomly" ? "lost" : "won"}>
               <h1><span>
                 <Map from={inventory.bar_north} to={{
                   unselected: "You have won.",

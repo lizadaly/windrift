@@ -31808,7 +31808,7 @@
 	          'The message reads:',
 	          React.createElement(
 	            'div',
-	            { id: 'message', className: inventory.bar_north == "randomly" ? "lost" : "won" },
+	            { id: 'message', className: inventory.bar_north === "around randomly" ? "lost" : "won" },
 	            React.createElement(
 	              'h1',
 	              null,
