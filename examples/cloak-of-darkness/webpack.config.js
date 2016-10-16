@@ -7,10 +7,6 @@ module.exports = [{
     path: __dirname + "/build",
     filename: "cloak.js"
   },
-  /*
-  externals: {
-    "windrift": "Windrift"
-  },*/
   module: {
     loaders: [{
         test: /.js/,
