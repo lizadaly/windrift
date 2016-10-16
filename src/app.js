@@ -6,7 +6,7 @@ import { Provider, connect } from 'react-redux'
 import { createStore, compose } from 'redux'
 import { ActionCreators } from 'redux-undo'
 import { persistStore, autoRehydrate } from 'redux-persist'
-import { showNextSection,  } from "./actions"
+import { showNextSection } from "./actions"
 import { Counter } from './components/counter'
 import gameApp from './reducers'
 
