@@ -16,14 +16,41 @@
 @import "game";
 
 $section-margin: $global-margin * 4;
+#finale p {
+    margin-top: 4rem;
+    @media screen and (min-width: 40em) {
+      margin-top: 500px;
+    }
+}
 
-body {
+#message {
+    @media screen and (min-width: 40em) {
+        position: absolute;
+        left: 0;
+        width: 100vw;
+        height: 700px;
+        z-index: -1;
+
+        &.won {
+            background: url("../images/cloak-win.png") no-repeat bottom left;
+        }
+
+        & > h1 {
+            margin-left: 300px;
+        }
+
+        & > h1 span {
+            background: $white;
+            display: inline-block;
+        }
+    }
+}
+#content {
   @media screen and (min-width: 40em) {
-    background: $white url("../images/cloak.png") no-repeat top left;
-
+    background: url("../images/cloak.png") no-repeat top left;
   }
   @media screen and (min-width: 64em) {
-    background: $white url("../images/cloak.png") no-repeat top left;
+    background: url("../images/cloak.png") no-repeat top left;
   }
 }
 
@@ -219,7 +246,7 @@ aside.about-modal {
 
 }
 a[href^="http://"] {
-    background: url(http://upload.wikimedia.org/wikipedia/commons/6/64/Icon_External_Link.png)     center right no-repeat;
+    background: url(../images/link.png)     center right no-repeat;
     padding-right: 13px;
 }
 

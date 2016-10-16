@@ -380,11 +380,11 @@ html {
 body {
   padding: 0;
   margin: 0;
-  font-family: "Neuton", serif;
+  font-family: "Playfair Display", serif;
   font-weight: normal;
   line-height: 1.75;
   color: #0a0a0a;
-  background: #fefefe;
+  background: #fffaf0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; }
 
@@ -900,7 +900,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Lato", sans-serif;
+  font-family: "Berkshire Swash", sans-serif;
   font-weight: 500;
   font-style: normal;
   color: #484848;
@@ -940,10 +940,10 @@ h6 {
     font-size: 6rem; }
 
   h2 {
-    font-size: 2.1875rem; }
+    font-size: 2.8125rem; }
 
   h3 {
-    font-size: 1.5625rem; }
+    font-size: 2.1875rem; }
 
   h4 {
     font-size: 1.25rem; }
@@ -1276,7 +1276,7 @@ kbd {
     width: 0;
     height: 0;
     border: inset 0.4em;
-    border-color: #fefefe transparent transparent;
+    border-color: #fffaf0 transparent transparent;
     border-top-style: solid;
     border-bottom-width: 0;
     position: relative;
@@ -1387,7 +1387,7 @@ kbd {
     margin: 0;
     font-size: inherit; }
     .button-group .button:not(:last-child) {
-      border-right: 10px solid #fefefe; }
+      border-right: 10px solid #fffaf0; }
   .button-group.tiny {
     font-size: 0.6rem; }
   .button-group.small {
@@ -1405,34 +1405,34 @@ kbd {
       float: none; }
   .button-group.primary .button {
     background-color: #333;
-    color: #fefefe; }
+    color: #fffaf0; }
     .button-group.primary .button:hover, .button-group.primary .button:focus {
       background-color: #292929;
-      color: #fefefe; }
+      color: #fffaf0; }
   .button-group.secondary .button {
     background-color: #777;
-    color: #fefefe; }
+    color: #fffaf0; }
     .button-group.secondary .button:hover, .button-group.secondary .button:focus {
       background-color: #5f5f5f;
-      color: #fefefe; }
+      color: #fffaf0; }
   .button-group.success .button {
     background-color: #8a8a8a;
-    color: #fefefe; }
+    color: #fffaf0; }
     .button-group.success .button:hover, .button-group.success .button:focus {
       background-color: #6e6e6e;
-      color: #fefefe; }
+      color: #fffaf0; }
   .button-group.alert .button {
     background-color: #f32853;
-    color: #fefefe; }
+    color: #fffaf0; }
     .button-group.alert .button:hover, .button-group.alert .button:focus {
       background-color: #d60c37;
-      color: #fefefe; }
+      color: #fffaf0; }
   .button-group.warning .button {
     background-color: #ffae00;
-    color: #fefefe; }
+    color: #fffaf0; }
     .button-group.warning .button:hover, .button-group.warning .button:focus {
       background-color: #cc8b00;
-      color: #fefefe; }
+      color: #fffaf0; }
   .button-group.stacked .button, .button-group.stacked-for-small .button {
     width: 100%; }
     .button-group.stacked .button:not(:last-child), .button-group.stacked-for-small .button:not(:last-child) {
@@ -1441,7 +1441,7 @@ kbd {
     .button-group.stacked-for-small .button {
       width: auto; }
       .button-group.stacked-for-small .button:not(:last-child) {
-        border-right: 10px solid #fefefe; } }
+        border-right: 10px solid #fffaf0; } }
   @media screen and (min-width: 0em) and (max-width: 39.9375em) {
     .button-group.stacked-for-small.expanded {
       display: block; }
@@ -1523,7 +1523,7 @@ kbd {
   display: none; }
 
 .thumbnail {
-  border: solid 4px #fefefe;
+  border: solid 4px #fffaf0;
   box-shadow: 0 0 0 1px rgba(10, 10, 10, 0.2);
   display: inline-block;
   line-height: 0;
@@ -1593,12 +1593,33 @@ kbd {
 .top-bar-right {
   float: right; }
 
+#finale p {
+  margin-top: 4rem; }
+  @media screen and (min-width: 40em) {
+    #finale p {
+      margin-top: 500px; } }
+
 @media screen and (min-width: 40em) {
-  body {
-    background: #fefefe url("../images/cloak.png") no-repeat top left; } }
+  #message {
+    position: absolute;
+    left: 0;
+    width: 100vw;
+    height: 700px;
+    z-index: -1; }
+    #message.won {
+      background: url("../images/cloak-win.png") no-repeat bottom left; }
+    #message > h1 {
+      margin-left: 300px; }
+    #message > h1 span {
+      background: #fffaf0;
+      display: inline-block; } }
+
+@media screen and (min-width: 40em) {
+  #content {
+    background: url("../images/cloak.png") no-repeat top left; } }
 @media screen and (min-width: 64em) {
-  body {
-    background: #fefefe url("../images/cloak.png") no-repeat top left; } }
+  #content {
+    background: url("../images/cloak.png") no-repeat top left; } }
 
 .button {
   border: 0; }
@@ -1631,16 +1652,16 @@ nav img {
 
 body.nightmode {
   background: #0a0a0a;
-  color: #fefefe; }
+  color: #fffaf0; }
   body.nightmode h1, body.nightmode h2, body.nightmode h3, body.nightmode h4, body.nightmode h5, body.nightmode h6, body.nightmode a {
-    color: #fefefe !important; }
+    color: #fffaf0 !important; }
   body.nightmode blockquote {
     background: #0a0a0a;
-    color: #fefefe; }
+    color: #fffaf0; }
   body.nightmode aside.about-modal, body.nightmode li.about-toggle {
     background: #0a0a0a; }
   body.nightmode aside.about-modal {
-    border: 1px solid #fefefe; }
+    border: 1px solid #fffaf0; }
 
 article {
   margin-top: 2rem; }
@@ -1752,7 +1773,7 @@ aside.about-modal {
     background: #f6f6f6; }
 
 a[href^="http://"] {
-  background: url(http://upload.wikimedia.org/wikipedia/commons/6/64/Icon_External_Link.png) center right no-repeat;
+  background: url(../images/link.png) center right no-repeat;
   padding-right: 13px; }
 
 /* Uses for styles that should only be visible to assistive tech like screenreaders */

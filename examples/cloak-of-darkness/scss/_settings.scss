@@ -19,7 +19,7 @@ $light-gray: #f6f6f6;
 $medium-gray: #cacaca;
 
 $black: #0a0a0a;
-$white: #fefefe;
+$white: #fffaf0;
 
 $body-background: $white;
 $body-font-color: $black;
@@ -61,8 +61,8 @@ $block-grid-max: 8;
 // 4. Base Typography
 // ------------------
 
-$body-font-family: 'Neuton', serif;
-$header-font-family: 'Lato', sans-serif;
+$body-font-family: 'Playfair Display', serif;
+$header-font-family: 'Berkshire Swash', sans-serif;
 $header-font-weight: 500;
 $header-font-style: normal;
 $font-family-monospace: Inconsolata, Consolas, 'Liberation Mono', Courier, monospace;
@@ -77,8 +77,8 @@ $header-sizes: (
   ),
   medium: (
     'h1': 96,
-    'h2': 35,
-    'h3': 25,
+    'h2': 45,
+    'h3': 35,
     'h4': 20,
     'h5': 18,
     'h6': 16,

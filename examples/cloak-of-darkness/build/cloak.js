@@ -31643,14 +31643,18 @@
 	      'Cloak of Darkness'
 	    ),
 	    React.createElement(
-	      'h4',
+	      'aside',
 	      null,
-	      'A interactive demonstration'
-	    ),
-	    React.createElement(
-	      'p',
-	      null,
-	      'Hurrying through the rainswept November night, you\'re glad to see the bright lights of the Opera House. It\'s surprising that there aren\'t more people about but, hey, what do you expect in a cheap demo game...?'
+	      React.createElement(
+	        'p',
+	        null,
+	        'Hurrying through the rainswept November night, you\'re glad to see the bright lights of the Opera House.'
+	      ),
+	      React.createElement(
+	        'p',
+	        null,
+	        'It\'s surprising that there aren\'t more people about\u2026'
+	      )
 	    ),
 	    React.createElement(
 	      'h3',
@@ -31800,27 +31804,37 @@
 	    React.createElement(_windrift.Map, { from: inventory.message, to: {
 	        message: React.createElement(
 	          'div',
-	          null,
+	          { id: 'finale' },
 	          'The message reads:',
-	          React.createElement(_windrift.Map, { from: inventory.bar_north, to: {
-	              unselected: React.createElement(
-	                'h1',
+	          React.createElement(
+	            'div',
+	            { id: 'message', className: inventory.bar_north == "randomly" ? "lost" : "won" },
+	            React.createElement(
+	              'h1',
+	              null,
+	              React.createElement(
+	                'span',
 	                null,
-	                'You have won.'
-	              ),
-	              north: React.createElement(
-	                'h1',
-	                null,
-	                'You have won.'
-	              ),
-	              randomly: React.createElement(
-	                'h1',
-	                null,
-	                'You have lost.'
+	                React.createElement(_windrift.Map, { from: inventory.bar_north, to: {
+	                    unselected: "You have won.",
+	                    north: "You have won.",
+	                    randomly: "You have lost."
+	                  } })
 	              )
-	            } }),
-	          ' '
+	            )
+	          ),
+	          React.createElement(
+	            'p',
+	            null,
+	            'About the ',
+	            React.createElement(
+	              'a',
+	              { href: 'http://www.firthworks.com/roger/cloak/' },
+	              'Cloak of Darkness specification'
+	            )
+	          )
 	        )
+
 	      } })
 	  )];
 	  return React.createElement(_windrift.RenderSection, { currentSection: currentSection, sections: sections });

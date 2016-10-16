@@ -5,12 +5,15 @@ export default ({currentSection, inventory}) => {
     const sections = [
       <section>
         <h2>Cloak of Darkness</h2>
-        <h4>A interactive demonstration</h4>
-        <p>
-          Hurrying through the rainswept November night, you're glad to see the
-          bright lights of the Opera House. It's surprising that there aren't more
-          people about but, hey, what do you expect in a cheap demo game...?
-        </p>
+        <aside>
+          <p>
+            Hurrying through the rainswept November night, you're glad to see the
+            bright lights of the Opera House.
+          </p>
+          <p>It's surprising that there aren't more
+          people about…</p>
+
+        </aside>
         <h3>Foyer of Opera House</h3>
         <p>
           You are standing in a spacious hall, splendidly decorated in red and gold,
@@ -87,12 +90,22 @@ export default ({currentSection, inventory}) => {
           of <List expansions={["scrawled message", "scrawled message"]} tag="message" /> in the sawdust on the floor.
         </p>
         <Map from={inventory.message} to={{
-          message: <div>The message reads:
-            <Map from={inventory.bar_north} to={{
-              unselected: <h1>You have won.</h1>,
-              north: <h1>You have won.</h1>,
-              randomly: <h1>You have lost.</h1>
-            }}/> </div>
+          message: <div id="finale">The message reads:
+            <div id="message" className={inventory.bar_north == "randomly"? "lost" : "won"}>
+              <h1><span>
+                <Map from={inventory.bar_north} to={{
+                  unselected: "You have won.",
+                  north: "You have won.",
+                  randomly: "You have lost."
+                }}/>
+              </span></h1>
+            </div>
+            <p>
+              About the <a href="http://www.firthworks.com/roger/cloak/">Cloak of Darkness specification</a>
+            </p>
+
+          </div>
+
         }} />
       </section>
     ]
