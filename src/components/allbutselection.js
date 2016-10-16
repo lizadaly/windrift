@@ -18,7 +18,7 @@ const AllButSelection = ({selection, expansions, offset=null, conjunction="and"}
 }
 AllButSelection.propTypes = {
   selection: React.PropTypes.string,
-  expansions: React.PropTypes.array,
+  expansions: React.PropTypes.array.isRequired,
   offset: React.PropTypes.number
 }
 
