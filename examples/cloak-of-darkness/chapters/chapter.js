@@ -72,10 +72,6 @@ export default ({currentSection, inventory}) => {
         }}/>
       </section>,
       <section>
-        <p>You decide to see what’s  <Map from={inventory.foyer_south} to={{
-          unselected: "south of the foyer",
-          south: " happening over in the bar"
-        }} />.</p>
         <Map from={inventory.cloak_hang} to={{
           unselected: <p>On your way out the door, your cloak snags on the wall hook.
           Damn! That cost a fortune.</p>,
@@ -83,6 +79,11 @@ export default ({currentSection, inventory}) => {
             see the dingy bar in its full “glory.”
           </p>
         }}/>
+        <p>You decide to see what’s  <Map from={inventory.foyer_south} to={{
+          unselected: "south of the foyer",
+          south: " happening over in the bar"
+        }} />.</p>
+
         <h3>The Bar</h3>
         <p>
           The bar, much rougher than you'd have guessed after the opulence of the

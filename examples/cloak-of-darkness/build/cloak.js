@@ -31767,16 +31767,6 @@
 	  ), React.createElement(
 	    'section',
 	    null,
-	    React.createElement(
-	      'p',
-	      null,
-	      'You decide to see what\u2019s  ',
-	      React.createElement(_windrift.Map, { from: inventory.foyer_south, to: {
-	          unselected: "south of the foyer",
-	          south: " happening over in the bar"
-	        } }),
-	      '.'
-	    ),
 	    React.createElement(_windrift.Map, { from: inventory.cloak_hang, to: {
 	        unselected: React.createElement(
 	          'p',
@@ -31789,6 +31779,16 @@
 	          'Thanks to the absence of your magical, light-absorbing cloak, you can see the dingy bar in its full \u201Cglory.\u201D'
 	        )
 	      } }),
+	    React.createElement(
+	      'p',
+	      null,
+	      'You decide to see what\u2019s  ',
+	      React.createElement(_windrift.Map, { from: inventory.foyer_south, to: {
+	          unselected: "south of the foyer",
+	          south: " happening over in the bar"
+	        } }),
+	      '.'
+	    ),
 	    React.createElement(
 	      'h3',
 	      null,
