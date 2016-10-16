@@ -1,0 +1,236 @@
+@charset 'utf-8';
+
+@import 'settings';
+@import 'foundation';
+
+@include foundation-global-styles;
+@include foundation-flex-grid;
+@include foundation-typography;
+@include foundation-button;
+@include foundation-visibility-classes;
+@include foundation-button-group;
+@include foundation-menu;
+@include foundation-thumbnail;
+@include foundation-top-bar;
+
+@import "game";
+
+$section-margin: $global-margin * 4;
+
+body {
+  @media screen and (min-width: 40em) {
+    background: $white url("../images/cloak.png") no-repeat top left;
+
+  }
+  @media screen and (min-width: 64em) {
+    background: $white url("../images/cloak.png") no-repeat top left;
+  }
+}
+
+.button {
+    border: 0 ;
+}
+h1 {
+  line-height: 1em;
+  margin-bottom: .25em;
+  font-weight: 600;
+}
+section {
+    margin: 0;
+}
+.current-chapter {
+  margin-bottom: $section-margin;
+}
+.chapter {
+
+}
+
+.medium-margin {
+    margin-top: $global-margin * 2;
+}
+.large-margin {
+    margin-top: $section-margin;
+}
+
+figure {
+    margin:0;
+}
+
+nav a {
+    text-decoration: none;
+}
+nav img {
+    height: 1rem;
+}
+body {
+  &.nightmode {
+    background: $black;
+    color: $white;
+    h1, h2, h3, h4, h5, h6, a {
+      color: $white !important;
+    }
+    blockquote {
+      background: $black;
+      color: $white;
+    }
+    aside.about-modal, li.about-toggle {
+      background: $black;
+    }
+    aside.about-modal {
+      border: 1px solid $white;
+    }
+  }
+}
+article {
+    margin-top: $global-margin;
+}
+
+blockquote {
+    margin-top: $global-margin;
+}
+
+ol li {
+  margin-bottom: .5em;
+  font-size: smaller;
+}
+.top-bar-title {
+    background: $light-gray;
+    text-align: center;
+}
+
+
+.small {
+  font-size: smaller;
+}
+h1 {
+  text-align: center;
+  padding: .5em 0 0 0;
+  text-transform: uppercase;
+}
+h2.subtitle {
+  padding: 0;
+  color: $dark-gray;
+}
+h5 {
+  color: $dark-gray;
+  text-align: center;
+}
+h2 {
+  text-align: center;
+  padding: 1.5em 0 1em 0;
+}
+h3 {
+  padding: 1em 0 0 0;
+}
+
+hr {
+  width: 25%;
+  margin: $global-margin * 2 auto;
+}
+.next-chapter-link {
+  margin-top: 3rem;
+  text-align: center;
+  font-style: italic;
+  a {
+    text-decoration: none;
+  }
+  &::before {
+    position: relative;
+    content: " ";
+    background-image: url(../images/ornament.svg);
+    background-position: center;
+    background-size: 200px;
+    background-repeat: no-repeat;
+
+    display: block;
+    margin: auto;
+    opacity: 0.25;
+    width: 200px;
+    height: 20px;
+  }
+}
+
+
+
+/* Section animations */
+.section-enter, .section-appear {
+  opacity: 0.01;
+}
+
+.section-enter.section-enter-active, .section-appear.section-appear-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.section-leave {
+  opacity: 1;
+}
+
+.section-leave.section-leave-active {
+  opacity: 0.01;
+  transition: opacity 300ms ease-in;
+}
+
+/* About modal */
+.about-toggle {
+  position: relative;
+
+  &.open {
+    background: $light-gray;
+    a {
+      color: $black;
+    }
+  }
+}
+div.close {
+  a {
+    text-decoration: none !important;
+  }
+  a small {
+    font-size: smaller;
+  }
+  text-align: center;
+  position: absolute;
+  right: .5rem;
+  bottom: .5rem;
+}
+
+aside.about-modal {
+
+    display: none;
+
+    a {
+      text-transform: none;
+      font-size: inherit;
+      text-decoration: underline;
+
+    }
+    &.open {
+      display: block;
+      background: $light-gray;
+    }
+    position: absolute;
+    font-size: smaller;
+    top: 2rem;
+    left: 0;
+
+    width: 15rem;
+    padding: 1em;
+
+}
+a[href^="http://"] {
+    background: url(http://upload.wikimedia.org/wikipedia/commons/6/64/Icon_External_Link.png)     center right no-repeat;
+    padding-right: 13px;
+}
+
+/* Uses for styles that should only be visible to assistive tech like screenreaders */
+.visuallyhidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}

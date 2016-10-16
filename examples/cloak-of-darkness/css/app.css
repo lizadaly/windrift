@@ -380,7 +380,7 @@ html {
 body {
   padding: 0;
   margin: 0;
-  font-family: "georgia", serif;
+  font-family: "Neuton", serif;
   font-weight: normal;
   line-height: 1.75;
   color: #0a0a0a;
@@ -431,7 +431,7 @@ button {
   display: none !important; }
 
 .row {
-  max-width: 34.375rem;
+  max-width: 46.875rem;
   margin-left: auto;
   margin-right: auto;
   display: flex;
@@ -900,7 +900,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: Helvetica, Arial, sans-serif;
+  font-family: "Lato", sans-serif;
   font-weight: 500;
   font-style: normal;
   color: #484848;
@@ -964,7 +964,7 @@ a {
     border: 0; }
 
 hr {
-  max-width: 34.375rem;
+  max-width: 46.875rem;
   height: 0;
   border-right: 0;
   border-top: 0;
@@ -1592,6 +1592,13 @@ kbd {
 
 .top-bar-right {
   float: right; }
+
+@media screen and (min-width: 40em) {
+  body {
+    background: #fefefe url("../images/cloak.png") no-repeat top left; } }
+@media screen and (min-width: 64em) {
+  body {
+    background: #fefefe url("../images/cloak.png") no-repeat top left; } }
 
 .button {
   border: 0; }
