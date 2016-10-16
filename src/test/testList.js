@@ -7,7 +7,7 @@ import {shallow, mount} from 'enzyme'
 import {shallowWithStore, shallowWithState} from 'enzyme-redux'
 import {createMockStore} from 'redux-test-utils'
 
-import {List, TestList} from '../components'
+import {List, TestList} from '../components/list'
 
 describe('<List />', () => {
   let store,
@@ -57,12 +57,7 @@ describe('<List />', () => {
   }),
 
   it('displays a list of expansions if an array is the first item', () => {
-      const expansions = [
-          [
-              "a", "b", "c"
-          ],
-          "d"
-      ]
+      const expansions = [["a", "b", "c"], "d"]
       const tag = "t0_test"
       const wrapper = mount(
           <List expansions={expansions} tag={tag}/>, options)
@@ -76,12 +71,7 @@ describe('<List />', () => {
   }),
 
   it('displays each available choice as an anchor', () => {
-      const expansions = [
-          [
-              "a", "b", "c"
-          ],
-          "d"
-      ]
+      const expansions = [["a", "b", "c"], "d"]
       const tag = "t0_test"
       const wrapper = mount(
           <List expansions={expansions} tag={tag}/>, options)

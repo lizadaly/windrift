@@ -136,344 +136,78 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.RenderSection = exports.TestList = exports.List = exports.AllButSelection = exports.ManyMap = exports.Map = exports.FromInventory = exports.Link = exports.NextChapter = undefined;
 
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	var _list = __webpack_require__(377);
 
-	var _actions = __webpack_require__(4);
-
-	var _reactRedux = __webpack_require__(5);
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
-	var React = __webpack_require__(8);
-	var ReactCSSTransitionGroup = __webpack_require__(61);
-
-
-	/* A link that prints the label and advances the user to the next chapter */
-	var NextChapter = exports.NextChapter = function NextChapter(_ref) {
-	  var chapter = _ref.chapter;
-	  var _ref$label = _ref.label;
-	  var label = _ref$label === undefined ? "Continue" : _ref$label;
-	  return React.createElement(
-	    'div',
-	    { className: 'next-chapter-link' },
-	    React.createElement(List, { expansions: [label, ""], tag: "c" + chapter + "next", nextUnit: 'chapter' })
-	  );
-	};
-	NextChapter.propTypes = {
-	  chapter: React.PropTypes.number.isRequired,
-	  label: React.PropTypes.string
-	};
-
-	/* A Link that the user interacts with to potentially change state. If no handler
-	is supplied, then the text is displayed as static HTML. This typically occurs
-	for the last item in a List */
-	var Link = exports.Link = function Link(_ref2) {
-	  var text = _ref2.text;
-	  var handler = _ref2.handler;
-
-	  if (handler) return React.createElement('a', { href: '#', onClick: handler, dangerouslySetInnerHTML: { __html: text } });
-	  return React.createElement('span', { dangerouslySetInnerHTML: { __html: text } });
-	};
-	Link.propTypes = {
-	  text: React.PropTypes.string.isRequired,
-	  handler: React.PropTypes.func
-	};
-
-	/* A function that returns the most-significant word from a phrase,
-	typically in the inventory list (e.g. "a tired-looking cap"). Nothing
-	magic here, just returns the last word, typically the noun, unless `offset`
-	is deliberately set to a value.
-
-	If `offset` exceeds the length of the string, the default offset value
-	will be used.
-	 */
-	function _fromInventory(inventory) {
-	  var offset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : -1;
-
-	  var inv = inventory ? inventory.split(" ") : "";
-	  if (offset > inv.length - 1) {
-	    console.warn("Offset ", offset, " exceeded the length of the string ", inv);
-	    offset = -1;
-	  }
-	  var out = offset === -1 ? inv[inv.length - 1] : inv[offset];
-	  return out;
-	}
-
-	/* Return a word from an inventory list. By default, returns the last word. Otherwise,
-	return the offset word, as a zero-indexed value into the array */
-	var FromInventory = exports.FromInventory = function FromInventory(_ref3) {
-	  var inventory = _ref3.inventory;
-	  var _ref3$offset = _ref3.offset;
-	  var offset = _ref3$offset === undefined ? -1 : _ref3$offset;
-	  return React.createElement('span', { key: inventory, dangerouslySetInnerHTML: { __html: _fromInventory(inventory, offset) } });
-	};
-	FromInventory.propTypes = {
-	  inventory: React.PropTypes.string,
-	  offset: React.PropTypes.number
-	};
-
-	/* For a given value of an inventory property, return the value from the `from`
-	map that matches. Accepts an optional `offset` which is passed through to `fromInventory`.
-	If the map evaluates to string, return wrapped HTML;
-	if the map evaluates to a function, call it;
-	otherwise return the node.
-	 */
-	var Map = exports.Map = function Map(_ref4) {
-	  var from = _ref4.from;
-	  var to = _ref4.to;
-	  var offset = _ref4.offset;
-
-	  from = from ? _fromInventory(from.toLowerCase(), offset) : 'unselected';
-
-	  if (!to.hasOwnProperty(from)) {
-	    return null;
-	  }
-
-	  if (typeof to[from] === 'string') {
-	    return React.createElement('span', { key: to[from], dangerouslySetInnerHTML: { __html: to[from] } });
-	  } else if (typeof to[from] == 'function') {
-	    return to[from]();
-	  }
-	  return to[from];
-	};
-	Map.propTypes = {
-	  from: React.PropTypes.string, // Cannot be isRequired, as the value may be unset
-	  to: React.PropTypes.object.isRequired,
-	  offset: React.PropTypes.number,
-	  triggers: React.PropTypes.object
-	};
-	Map.defaultProps = {
-	  offset: -1
-	};
-
-	/* Given an array `from` which may contain 0, 1, or many items, return
-	  matching values from the `to` object */
-	var ManyMap = exports.ManyMap = function ManyMap(_ref5) {
-	  var from = _ref5.from;
-	  var to = _ref5.to;
-
-	  if (!from) return null;
-	  var matches = from.filter(function (item) {
-	    return Object.keys(to).indexOf(item) != -1;
+	Object.keys(_list).forEach(function (key) {
+	  if (key === "default" || key === "__esModule") return;
+	  Object.defineProperty(exports, key, {
+	    enumerable: true,
+	    get: function get() {
+	      return _list[key];
+	    }
 	  });
-	  return React.createElement(
-	    'span',
-	    null,
-	    [].concat(_toConsumableArray(matches)).map(function (item, i) {
-	      return React.createElement(
-	        'span',
-	        { key: i },
-	        to[item]
-	      );
-	    })
-	  );
-	};
-	ManyMap.propTypes = {
-	  from: React.PropTypes.array,
-	  to: React.PropTypes.object.isRequired
-	};
+	});
 
-	// Display all items in an expansion _except_ the user's selection.
-	// If `offset` is not null, calls _fromInventory with that offset
-	// value to truncate each item; otherwise displays the item in full
-	var AllButSelection = exports.AllButSelection = function AllButSelection(_ref6) {
-	  var selection = _ref6.selection;
-	  var expansions = _ref6.expansions;
-	  var _ref6$offset = _ref6.offset;
-	  var offset = _ref6$offset === undefined ? null : _ref6$offset;
-	  var _ref6$conjunction = _ref6.conjunction;
-	  var conjunction = _ref6$conjunction === undefined ? "and" : _ref6$conjunction;
+	var _map = __webpack_require__(380);
 
-	  var unselected = expansions.filter(function (item) {
-	    return item != selection;
+	Object.keys(_map).forEach(function (key) {
+	  if (key === "default" || key === "__esModule") return;
+	  Object.defineProperty(exports, key, {
+	    enumerable: true,
+	    get: function get() {
+	      return _map[key];
+	    }
 	  });
-	  if (offset !== null) {
-	    unselected = unselected.map(function (item) {
-	      return _fromInventory(item, offset);
-	    });
-	  }
-	  return iteratedList(unselected, null, conjunction);
-	};
-	AllButSelection.propTypes = {
-	  selection: React.PropTypes.string,
-	  expansions: React.PropTypes.array,
-	  offset: React.PropTypes.number
-	};
+	});
 
-	// For a list of items, return a JSX node of markup
-	var iteratedList = function iteratedList(items) {
-	  var handler = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-	  var conjunction = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "and";
-	  return React.createElement(
-	    'span',
-	    null,
-	    [].concat(_toConsumableArray(items)).map(function (t, i) {
-	      return React.createElement(
-	        'span',
-	        { key: i },
-	        items.length > 1 && i === items.length - 1 ? ' ' + conjunction + ' ' : "",
-	        React.createElement(Link, { handler: handler, text: t }),
-	        i < items.length - 1 && items.length > 2 ? ", " : ""
-	      );
-	    })
-	  );
-	};
+	var _manymap = __webpack_require__(381);
 
-	/* An array of expansions that can be "examined." Accepts an array and
-	reveals items one-by-one. Arrays may be nested one-level deep; if the current
-	item is an array, each value will be displayed separated by commas and ending
-	with "and". When only one item remains, nextUnit is fired (which may be null)
-	in which case no event is triggered.
-
-	Each time an expansion is revealed, onSetExpansions is called and onUpdateInventory
-	sets the inventory property `key` to the current selected value. */
-
-	var _List = function (_React$Component) {
-	  _inherits(_List, _React$Component);
-
-	  function _List(props) {
-	    _classCallCheck(this, _List);
-
-	    var _this = _possibleConstructorReturn(this, (_List.__proto__ || Object.getPrototypeOf(_List)).call(this, props));
-
-	    _this.handleChange = _this.handleChange.bind(_this);
-	    _this.state = {
-	      currentExpansion: _this.props.currentExpansion
-	    };
-	    return _this;
-	  }
-
-	  _createClass(_List, [{
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
-	      this.props.onSetExpansions(this.props.expansions, this.props.tag, this.props.currentExpansion);
+	Object.keys(_manymap).forEach(function (key) {
+	  if (key === "default" || key === "__esModule") return;
+	  Object.defineProperty(exports, key, {
+	    enumerable: true,
+	    get: function get() {
+	      return _manymap[key];
 	    }
-	  }, {
-	    key: 'componentWillReceiveProps',
-	    value: function componentWillReceiveProps(newProps) {
-	      if (newProps.currentExpansion != this.state.currentExpansion) {
-	        this.setState({ currentExpansion: newProps.currentExpansion });
-	      }
-	    }
-	  }, {
-	    key: 'handleChange',
-	    value: function handleChange(e) {
-	      e.preventDefault();
-	      // Move the expansion counter by one unless we're already there
-	      var atLastExpansion = this.state.currentExpansion === this.props.expansions.length - 1;
-	      var currentExpansion = !atLastExpansion ? this.state.currentExpansion + 1 : this.state.currentExpansion;
-	      this.props.onSetExpansions(this.props.expansions, this.props.tag, currentExpansion);
-	      this.props.onUpdateInventory(e.target.textContent, this.props.tag);
-
-	      // Are we at the last set? If so, there may be some events to fire
-	      if (!atLastExpansion && currentExpansion === this.props.expansions.length - 1) {
-
-	        if (this.props.nextUnit === "chapter") {
-	          this.props.onCompleteChapter();
-	        } else if (this.props.nextUnit === "section") {
-	          this.props.onCompleteSection();
-	        }
-	        // The no-op version just expands in place (usually because another selector)
-	        // will do the expansion
-	        else {
-	            // no-op
-	          }
-	      }
-	      if (this.props.config && this.props.config.hasOwnProperty('identifier')) {
-	        var s = {};
-	        s[this.props.config.identifier] = this.props.counter;
-	        history.pushState(s, "", "");
-	      }
-	      this.props.onUpdateCounter();
-
-	      this.setState({
-	        currentExpansion: currentExpansion
-	      });
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var text = this.props.expansions[this.state.currentExpansion];
-	      var handler = this.props.persistLast || this.state.currentExpansion < this.props.expansions.length - 1 ? this.handleChange : null;
-	      if (typeof text === "string") {
-	        return React.createElement(Link, { handler: handler, text: text });
-	      } else {
-	        return iteratedList(text, handler, this.props.conjunction);
-	      }
-	    }
-	  }]);
-
-	  return _List;
-	}(React.Component);
-
-	_List.propTypes = {
-	  nextUnit: React.PropTypes.oneOf(['chapter', 'section', 'none']),
-	  tag: React.PropTypes.string.isRequired,
-	  expansions: React.PropTypes.array.isRequired,
-	  config: React.PropTypes.object,
-	  currentExpansion: React.PropTypes.number,
-	  conjunction: React.PropTypes.string,
-	  persistLast: React.PropTypes.bool
-	};
-	_List.defaultProps = {
-	  nextUnit: 'section',
-	  conjunction: 'and',
-	  persistLast: false
-	};
-
-	var mapStateToProps = function mapStateToProps(state, ownProps) {
-	  var currentExpansion = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
-
-	  if (state.expansions.present.hasOwnProperty(ownProps.tag)) {
-	    currentExpansion = state.expansions.present[ownProps.tag].currentExpansion;
-	  }
-	  return {
-	    currentExpansion: currentExpansion,
-	    counter: state.counter.present,
-	    config: state.config
-	  };
-	};
-	var List = exports.List = (0, _reactRedux.connect)(mapStateToProps, {
-	  onSetExpansions: _actions.setExpansions,
-	  onUpdateInventory: _actions.updateInventory,
-	  onCompleteSection: _actions.showNextSection,
-	  onCompleteChapter: _actions.showNextChapter,
-	  onUpdateCounter: _actions.updateStateCounter
-	})(_List);
-
-	var TestList = exports.TestList = _List;
-
-	var RenderSection = exports.RenderSection = function RenderSection(_ref7) {
-	  var currentSection = _ref7.currentSection;
-	  var sections = _ref7.sections;
-
-	  var sections = [].concat(_toConsumableArray(Array(currentSection + 1).keys())).map(function (item, i) {
-	    return React.createElement(
-	      'div',
-	      { key: item, className: i === currentSection ? 'current-section' : 'section',
-	        'aria-live': 'polite' },
-	      sections[item]
-	    );
 	  });
+	});
 
-	  return React.createElement(
-	    'div',
-	    null,
-	    React.createElement(
-	      ReactCSSTransitionGroup,
-	      { transitionName: 'section', transitionAppear: true, transitionAppearTimeout: 500, transitionEnterTimeout: 500, transitionLeaveTimeout: 300 },
-	      sections
-	    )
-	  );
-	};
+	var _link = __webpack_require__(379);
+
+	Object.keys(_link).forEach(function (key) {
+	  if (key === "default" || key === "__esModule") return;
+	  Object.defineProperty(exports, key, {
+	    enumerable: true,
+	    get: function get() {
+	      return _link[key];
+	    }
+	  });
+	});
+
+	var _rendersection = __webpack_require__(382);
+
+	Object.keys(_rendersection).forEach(function (key) {
+	  if (key === "default" || key === "__esModule") return;
+	  Object.defineProperty(exports, key, {
+	    enumerable: true,
+	    get: function get() {
+	      return _rendersection[key];
+	    }
+	  });
+	});
+
+	var _nextchapter = __webpack_require__(384);
+
+	Object.keys(_nextchapter).forEach(function (key) {
+	  if (key === "default" || key === "__esModule") return;
+	  Object.defineProperty(exports, key, {
+	    enumerable: true,
+	    get: function get() {
+	      return _nextchapter[key];
+	    }
+	  });
+	});
 
 /***/ },
 /* 4 */
@@ -31839,6 +31573,449 @@
 	  )];
 	  return React.createElement(_windrift.RenderSection, { currentSection: currentSection, sections: sections });
 	};
+
+/***/ },
+/* 377 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.TestList = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _reactRedux = __webpack_require__(5);
+
+	var _util = __webpack_require__(378);
+
+	var _util2 = _interopRequireDefault(_util);
+
+	var _link = __webpack_require__(379);
+
+	var _link2 = _interopRequireDefault(_link);
+
+	var _actions = __webpack_require__(4);
+
+	var actions = _interopRequireWildcard(_actions);
+
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var React = __webpack_require__(8);
+
+	/* An array of expansions that can be "examined." Accepts an array and
+	reveals items one-by-one. Arrays may be nested one-level deep; if the current
+	item is an array, each value will be displayed separated by commas and ending
+	with "and". When only one item remains, nextUnit is fired (which may be null)
+	in which case no event is triggered.
+
+	Each time an expansion is revealed, onSetExpansions is called and onUpdateInventory
+	sets the inventory property `key` to the current selected value. */
+
+	var _List = function (_React$Component) {
+	  _inherits(_List, _React$Component);
+
+	  function _List(props) {
+	    _classCallCheck(this, _List);
+
+	    var _this = _possibleConstructorReturn(this, (_List.__proto__ || Object.getPrototypeOf(_List)).call(this, props));
+
+	    _this.handleChange = _this.handleChange.bind(_this);
+	    _this.state = {
+	      currentExpansion: _this.props.currentExpansion
+	    };
+	    return _this;
+	  }
+
+	  _createClass(_List, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      this.props.onSetExpansions(this.props.expansions, this.props.tag, this.props.currentExpansion);
+	    }
+	  }, {
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(newProps) {
+	      if (newProps.currentExpansion != this.state.currentExpansion) {
+	        this.setState({ currentExpansion: newProps.currentExpansion });
+	      }
+	    }
+	  }, {
+	    key: 'handleChange',
+	    value: function handleChange(e) {
+	      e.preventDefault();
+	      // Move the expansion counter by one unless we're already there
+	      var atLastExpansion = this.state.currentExpansion === this.props.expansions.length - 1;
+	      var currentExpansion = !atLastExpansion ? this.state.currentExpansion + 1 : this.state.currentExpansion;
+	      this.props.onSetExpansions(this.props.expansions, this.props.tag, currentExpansion);
+	      this.props.onUpdateInventory(e.target.textContent, this.props.tag);
+
+	      // Are we at the last set? If so, there may be some events to fire
+	      if (!atLastExpansion && currentExpansion === this.props.expansions.length - 1) {
+
+	        if (this.props.nextUnit === "chapter") {
+	          this.props.onCompleteChapter();
+	        } else if (this.props.nextUnit === "section") {
+	          this.props.onCompleteSection();
+	        }
+	        // The no-op version just expands in place (usually because another selector)
+	        // will do the expansion
+	        else {
+	            // no-op
+	          }
+	      }
+	      if (this.props.config && this.props.config.hasOwnProperty('identifier')) {
+	        var s = {};
+	        s[this.props.config.identifier] = this.props.counter;
+	        history.pushState(s, "", "");
+	      }
+	      this.props.onUpdateCounter();
+
+	      this.setState({
+	        currentExpansion: currentExpansion
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var text = this.props.expansions[this.state.currentExpansion];
+	      var handler = this.props.persistLast || this.state.currentExpansion < this.props.expansions.length - 1 ? this.handleChange : null;
+	      if (typeof text === "string") {
+	        return React.createElement(_link2.default, { handler: handler, text: text });
+	      } else {
+	        return (0, _util2.default)(text, handler, this.props.conjunction);
+	      }
+	    }
+	  }]);
+
+	  return _List;
+	}(React.Component);
+
+	_List.propTypes = {
+	  nextUnit: React.PropTypes.oneOf(['chapter', 'section', 'none']),
+	  tag: React.PropTypes.string.isRequired,
+	  expansions: React.PropTypes.array.isRequired,
+	  config: React.PropTypes.object,
+	  currentExpansion: React.PropTypes.number,
+	  conjunction: React.PropTypes.string,
+	  persistLast: React.PropTypes.bool
+	};
+	_List.defaultProps = {
+	  nextUnit: 'section',
+	  conjunction: 'and',
+	  persistLast: false
+	};
+
+	var mapStateToProps = function mapStateToProps(state, ownProps) {
+	  var currentExpansion = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+
+	  if (state.expansions.present.hasOwnProperty(ownProps.tag)) {
+	    currentExpansion = state.expansions.present[ownProps.tag].currentExpansion;
+	  }
+	  return {
+	    currentExpansion: currentExpansion,
+	    counter: state.counter.present,
+	    config: state.config
+	  };
+	};
+	var List = (0, _reactRedux.connect)(mapStateToProps, {
+	  onSetExpansions: actions.setExpansions,
+	  onUpdateInventory: actions.updateInventory,
+	  onCompleteSection: actions.showNextSection,
+	  onCompleteChapter: actions.showNextChapter,
+	  onUpdateCounter: actions.updateStateCounter
+	})(_List);
+
+	exports.default = List;
+
+	/* Special export for unit tests */
+
+	var TestList = exports.TestList = _List;
+
+/***/ },
+/* 378 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+	var React = __webpack_require__(8);
+
+	/* A function that returns the most-significant word from a phrase,
+	typically in the inventory list (e.g. "a tired-looking cap"). Nothing
+	magic here, just returns the last word, typically the noun, unless `offset`
+	is deliberately set to a value.
+
+	If `offset` exceeds the length of the string, the default offset value
+	will be used.
+	 */
+
+	var wordFromInventory = exports.wordFromInventory = function wordFromInventory(inventory) {
+	  var offset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : -1;
+
+	  var inv = inventory ? inventory.split(" ") : "";
+	  if (offset > inv.length - 1) {
+	    console.warn("Offset ", offset, " exceeded the length of the string ", inv);
+	    offset = -1;
+	  }
+	  var out = offset === -1 ? inv[inv.length - 1] : inv[offset];
+	  return out;
+	};
+
+	/* For a list of items, return a JSX node of markup with links and appropriate
+	conjunctions */
+	var iteratedList = exports.iteratedList = function iteratedList(items) {
+	  var handler = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+	  var conjunction = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "and";
+	  return React.createElement(
+	    "span",
+	    null,
+	    [].concat(_toConsumableArray(items)).map(function (t, i) {
+	      return React.createElement(
+	        "span",
+	        { key: i },
+	        items.length > 1 && i === items.length - 1 ? " " + conjunction + " " : "",
+	        React.createElement(Link, { handler: handler, text: t }),
+	        i < items.length - 1 && items.length > 2 ? ", " : ""
+	      );
+	    })
+	  );
+	};
+
+/***/ },
+/* 379 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var React = __webpack_require__(8);
+
+	/* A Link that the user interacts with to potentially change state. If no handler
+	is supplied, then the text is displayed as static HTML. This typically occurs
+	for the last item in a List */
+	var Link = function Link(_ref) {
+	  var text = _ref.text;
+	  var handler = _ref.handler;
+
+	  if (handler) return React.createElement("a", { href: "#", onClick: handler, dangerouslySetInnerHTML: { __html: text } });
+	  return React.createElement("span", { dangerouslySetInnerHTML: { __html: text } });
+	};
+	Link.propTypes = {
+	  text: React.PropTypes.string.isRequired,
+	  handler: React.PropTypes.func
+	};
+
+	exports.default = Link;
+
+/***/ },
+/* 380 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _util = __webpack_require__(378);
+
+	var _util2 = _interopRequireDefault(_util);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var React = __webpack_require__(8);
+
+	/* For a given value of an inventory property, return the value from the `from`
+	map that matches. Accepts an optional `offset` which is passed through to `fromInventory`.
+	If the map evaluates to string, return wrapped HTML;
+	if the map evaluates to a function, call it;
+	otherwise return the node.
+	 */
+	var Map = function Map(_ref) {
+	  var from = _ref.from;
+	  var to = _ref.to;
+	  var offset = _ref.offset;
+
+	  from = from ? wordfromInventory(from.toLowerCase(), offset) : 'unselected';
+
+	  if (!to.hasOwnProperty(from)) {
+	    return null;
+	  }
+
+	  if (typeof to[from] === 'string') {
+	    return React.createElement('span', { key: to[from], dangerouslySetInnerHTML: { __html: to[from] } });
+	  } else if (typeof to[from] == 'function') {
+	    return to[from]();
+	  }
+	  return to[from];
+	};
+	Map.propTypes = {
+	  from: React.PropTypes.string, // Cannot be isRequired, as the value may be unset
+	  to: React.PropTypes.object.isRequired,
+	  offset: React.PropTypes.number,
+	  triggers: React.PropTypes.object
+	};
+	Map.defaultProps = {
+	  offset: -1
+	};
+
+	exports.default = Map;
+
+/***/ },
+/* 381 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+	var React = __webpack_require__(8);
+
+	/* Given an array `from` which may contain 0, 1, or many items, return
+	  matching values from the `to` object */
+	var ManyMap = exports.ManyMap = function ManyMap(_ref) {
+	  var from = _ref.from;
+	  var to = _ref.to;
+
+	  if (!from) return null;
+	  var matches = from.filter(function (item) {
+	    return Object.keys(to).indexOf(item) != -1;
+	  });
+	  return React.createElement(
+	    'span',
+	    null,
+	    [].concat(_toConsumableArray(matches)).map(function (item, i) {
+	      return React.createElement(
+	        'span',
+	        { key: i },
+	        to[item]
+	      );
+	    })
+	  );
+	};
+	ManyMap.propTypes = {
+	  from: React.PropTypes.array,
+	  to: React.PropTypes.object.isRequired
+	};
+
+/***/ },
+/* 382 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _transition = __webpack_require__(383);
+
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+	var React = __webpack_require__(8);
+
+	/* Render up to the value of `currentSection` from the `sections` array.
+	Wraps each section in a Transition with the configuration from SectionTransition */
+	var RenderSection = function RenderSection(_ref) {
+	  var currentSection = _ref.currentSection;
+	  var sections = _ref.sections;
+
+	  var sections = [].concat(_toConsumableArray(Array(currentSection + 1).keys())).map(function (item, i) {
+	    return React.createElement(
+	      'div',
+	      { key: item, className: i === currentSection ? 'current-section' : 'section',
+	        'aria-live': 'polite' },
+	      sections[item]
+	    );
+	  });
+
+	  return React.createElement(
+	    'div',
+	    null,
+	    React.createElement(
+	      _transition.Transition,
+	      _transition.SectionTransition,
+	      sections
+	    )
+	  );
+	};
+	exports.default = RenderSection;
+
+/***/ },
+/* 383 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var React = __webpack_require__(8);
+	var Transition = __webpack_require__(61);
+
+	// Wraps the "new section" display in a CSS transformation (section)
+	var SectionTransition = exports.SectionTransition = { transitionName: "section", transitionAppear: true, transitionAppearTimeout: 500, transitionEnterTimeout: 500, transitionLeaveTimeout: 300 };
+	var ListTransition = exports.ListTransition = { transitionName: "list", transitionAppear: true, transitionAppearTimeout: 500, transitionEnterTimeout: 500, transitionLeaveTimeout: 300 };
+	var MapTransition = exports.MapTransition = { transitionName: "map", transitionAppear: true, transitionAppearTimeout: 500, transitionEnterTimeout: 500, transitionLeaveTimeout: 300 };
+
+	exports.default = Transition;
+
+/***/ },
+/* 384 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _list = __webpack_require__(377);
+
+	var _list2 = _interopRequireDefault(_list);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var React = __webpack_require__(8);
+
+	/* A link that prints the label and advances the user to the next chapter */
+	var NextChapter = function NextChapter(_ref) {
+	  var chapter = _ref.chapter;
+	  var _ref$label = _ref.label;
+	  var label = _ref$label === undefined ? "Continue" : _ref$label;
+	  return React.createElement(
+	    'div',
+	    { className: 'next-chapter-link' },
+	    React.createElement(_list2.default, { expansions: [label, ""], tag: "c" + chapter + "next", nextUnit: 'chapter' })
+	  );
+	};
+	NextChapter.propTypes = {
+	  chapter: React.PropTypes.number.isRequired,
+	  label: React.PropTypes.string
+	};
+
+	exports.default = NextChapter;
 
 /***/ }
 /******/ ]);
