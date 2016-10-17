@@ -1,5 +1,4 @@
 import 'jsdom-global/register'
-
 import React from 'react'
 import sinon from 'sinon'
 import { shallow, mount } from 'enzyme'
@@ -46,15 +45,13 @@ describe('<Link />', () => {
   it('renders the text passed inside an anchor when an onClick handler is supplied', () => {
     const func = () => {}
     const text = "Sample text"
-    // Use mount() for any call with dangerouslySetInnerHTML
-    // https://github.com/airbnb/enzyme/issues/419
-    const wrapper = mount(<Link text={text} handler={func} />)
+    const wrapper = shallow(<Link text={text} handler={func} />)
     assert.equal(text, wrapper.text())
   }),
 
   it('renders the text passed inside a span when no onClick handler is supplied', () => {
     const text = "Sample text"
-    const wrapper = mount(<Link text={text} />)
+    const wrapper = shallow(<Link text={text} />)
     assert.equal(text, wrapper.text())
   }),
 
