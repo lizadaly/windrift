@@ -16,7 +16,7 @@ const Map = ({from, to, offset}) => {
     }
 
     if (typeof to[from] === 'string') {
-      return <span key={to[from]} dangerouslySetInnerHTML={{__html: to[from]}} />
+      return <span key={to[from]}>{to[from]}</span>
     }
     else if (typeof to[from] == 'function') {
       return to[from]()
