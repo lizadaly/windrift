@@ -19,23 +19,13 @@ class _List extends React.Component {
   constructor(props) {
     super(props)
     this.handleChange = this.handleChange.bind(this)
-    this.state = {
-      currentExpansion: this.props.currentExpansion,
-    }
-  }
-  componentWillMount() {
-    this.props.onSetExpansions(this.props.expansions, this.props.tag, this.props.currentExpansion)
-  }
-  componentWillReceiveProps(newProps) {
-    if (newProps.currentExpansion != this.state.currentExpansion)  {
-      this.setState({currentExpansion: newProps.currentExpansion})
-    }
   }
   handleChange(e) {
     e.preventDefault()
+
     // Move the expansion counter by one unless we're already there
-    const atLastExpansion = this.state.currentExpansion === this.props.expansions.length - 1
-    var currentExpansion = !atLastExpansion ? this.state.currentExpansion + 1 : this.state.currentExpansion
+    const atLastExpansion = this.props.currentExpansion === this.props.expansions.length - 1
+    var currentExpansion = !atLastExpansion ? this.props.currentExpansion + 1 : this.props.currentExpansion
     this.props.onSetExpansions(this.props.expansions, this.props.tag, currentExpansion)
     this.props.onUpdateInventory(e.target.textContent, this.props.tag)
 
@@ -48,26 +38,24 @@ class _List extends React.Component {
       else if (this.props.nextUnit === "section") {
         this.props.onCompleteSection()
       }
-      // The no-op version just expands in place (usually because another selector)
-      // will do the expansion
+      // The no-op version just expands in place (usually because another selector
+      // will do the expansion)
       else {
         // no-op
       }
     }
+    // Update the counter in the browser (if check is a workaround to avoid test complaints)
     if (this.props.config && this.props.config.hasOwnProperty('identifier')) {
       const s = {}
       s[this.props.config.identifier] = this.props.counter
       history.pushState(s, "", "")
     }
+    // Update the counter in the global store
     this.props.onUpdateCounter()
-
-    this.setState({
-      currentExpansion: currentExpansion
-    })
   }
   render () {
-    let text = this.props.expansions[this.state.currentExpansion]
-    let handler = this.props.persistLast || this.state.currentExpansion < this.props.expansions.length - 1 ? this.handleChange : null
+    let text = this.props.expansions[this.props.currentExpansion]
+    let handler = this.props.persistLast || this.props.currentExpansion < this.props.expansions.length - 1 ? this.handleChange : null
     if (typeof(text) === "string") {
       return <Link handler={handler} text={text}/>
     }
@@ -93,7 +81,9 @@ _List.defaultProps = {
 
 const mapStateToProps = (state, ownProps, currentExpansion=0) => {
   if (state.expansions.present.hasOwnProperty(ownProps.tag)) {
+    if (state.expansions.present[ownProps.tag].hasOwnProperty('currentExpansion')) {
     currentExpansion = state.expansions.present[ownProps.tag].currentExpansion
+    }
   }
   return {
     currentExpansion: currentExpansion,
