@@ -74,11 +74,11 @@
 	"use strict";
 
 	module.exports = {
-		"title": "Windrift",
+		"title": "Cloak of Darkness",
 		"author": "Liza Daly",
-		"identifier": "windrift-documentation-28035F12-9D2B-429E-BBB1-3C9FB87B56C4-",
+		"identifier": "cloak-of-darkness-example-8FABA597-45AB-4982-8E4E-ECFBF817E639",
 		"license": "https://creativecommons.org/licenses/by/4.0/",
-		"version": "0.0.1"
+		"version": "1.0.0"
 	};
 
 /***/ },
@@ -296,31 +296,17 @@
 	    var _this = _possibleConstructorReturn(this, (_List.__proto__ || Object.getPrototypeOf(_List)).call(this, props));
 
 	    _this.handleChange = _this.handleChange.bind(_this);
-	    _this.state = {
-	      currentExpansion: _this.props.currentExpansion
-	    };
 	    return _this;
 	  }
 
 	  _createClass(_List, [{
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
-	      this.props.onSetExpansions(this.props.expansions, this.props.tag, this.props.currentExpansion);
-	    }
-	  }, {
-	    key: 'componentWillReceiveProps',
-	    value: function componentWillReceiveProps(newProps) {
-	      if (newProps.currentExpansion != this.state.currentExpansion) {
-	        this.setState({ currentExpansion: newProps.currentExpansion });
-	      }
-	    }
-	  }, {
 	    key: 'handleChange',
 	    value: function handleChange(e) {
 	      e.preventDefault();
+
 	      // Move the expansion counter by one unless we're already there
-	      var atLastExpansion = this.state.currentExpansion === this.props.expansions.length - 1;
-	      var currentExpansion = !atLastExpansion ? this.state.currentExpansion + 1 : this.state.currentExpansion;
+	      var atLastExpansion = this.props.currentExpansion === this.props.expansions.length - 1;
+	      var currentExpansion = !atLastExpansion ? this.props.currentExpansion + 1 : this.props.currentExpansion;
 	      this.props.onSetExpansions(this.props.expansions, this.props.tag, currentExpansion);
 	      this.props.onUpdateInventory(e.target.textContent, this.props.tag);
 
@@ -332,28 +318,26 @@
 	        } else if (this.props.nextUnit === "section") {
 	          this.props.onCompleteSection();
 	        }
-	        // The no-op version just expands in place (usually because another selector)
-	        // will do the expansion
+	        // The no-op version just expands in place (usually because another selector
+	        // will do the expansion)
 	        else {
 	            // no-op
 	          }
 	      }
+	      // Update the counter in the browser (if check is a workaround to avoid test complaints)
 	      if (this.props.config && this.props.config.hasOwnProperty('identifier')) {
 	        var s = {};
 	        s[this.props.config.identifier] = this.props.counter;
 	        history.pushState(s, "", "");
 	      }
+	      // Update the counter in the global store
 	      this.props.onUpdateCounter();
-
-	      this.setState({
-	        currentExpansion: currentExpansion
-	      });
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var text = this.props.expansions[this.state.currentExpansion];
-	      var handler = this.props.persistLast || this.state.currentExpansion < this.props.expansions.length - 1 ? this.handleChange : null;
+	      var text = this.props.expansions[this.props.currentExpansion];
+	      var handler = this.props.persistLast || this.props.currentExpansion < this.props.expansions.length - 1 ? this.handleChange : null;
 	      if (typeof text === "string") {
 	        return React.createElement(_link2.default, { handler: handler, text: text });
 	      } else {
@@ -384,7 +368,9 @@
 	  var currentExpansion = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
 
 	  if (state.expansions.present.hasOwnProperty(ownProps.tag)) {
-	    currentExpansion = state.expansions.present[ownProps.tag].currentExpansion;
+	    if (state.expansions.present[ownProps.tag].hasOwnProperty('currentExpansion')) {
+	      currentExpansion = state.expansions.present[ownProps.tag].currentExpansion;
+	    }
 	  }
 	  return {
 	    currentExpansion: currentExpansion,
@@ -6312,14 +6298,21 @@
 	  var text = _ref.text;
 	  var handler = _ref.handler;
 
-	  if (handler) return React.createElement("a", { href: "#", onClick: handler, dangerouslySetInnerHTML: { __html: text } });
-	  return React.createElement("span", { dangerouslySetInnerHTML: { __html: text } });
+	  if (handler) return React.createElement(
+	    "a",
+	    { href: "#", onClick: handler },
+	    text
+	  );
+	  return React.createElement(
+	    "span",
+	    null,
+	    text
+	  );
 	};
 	Link.propTypes = {
 	  text: React.PropTypes.string.isRequired,
 	  handler: React.PropTypes.func
 	};
-
 	exports.default = Link;
 
 /***/ },
@@ -6423,7 +6416,11 @@
 	  }
 
 	  if (typeof to[from] === 'string') {
-	    return React.createElement('span', { key: to[from], dangerouslySetInnerHTML: { __html: to[from] } });
+	    return React.createElement(
+	      'span',
+	      { key: to[from] },
+	      to[from]
+	    );
 	  } else if (typeof to[from] == 'function') {
 	    return to[from]();
 	  }
@@ -24644,7 +24641,11 @@
 	  var inventory = _ref.inventory;
 	  var _ref$offset = _ref.offset;
 	  var offset = _ref$offset === undefined ? -1 : _ref$offset;
-	  return React.createElement('span', { key: inventory, dangerouslySetInnerHTML: { __html: (0, _util.wordFromInventory)(inventory, offset) } });
+	  return React.createElement(
+	    'span',
+	    { key: inventory },
+	    (0, _util.wordFromInventory)(inventory, offset)
+	  );
 	};
 	FromInventory.propTypes = {
 	  inventory: React.PropTypes.string,
@@ -24690,7 +24691,7 @@
 	};
 	AllButSelection.propTypes = {
 	  selection: React.PropTypes.string,
-	  expansions: React.PropTypes.array,
+	  expansions: React.PropTypes.array.isRequired,
 	  offset: React.PropTypes.number
 	};
 

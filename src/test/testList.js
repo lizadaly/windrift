@@ -78,49 +78,26 @@ describe('<List />', () => {
       assert.equal(3, wrapper.find('a').length)
   }),
 
-  it('sets the current expansion state if clicked on', () => {
-      const wrapper = mount(<TestList expansions={["a", "b"]} tag={"t0_test"} {...fakeStore}/>)
-      assert.equal(0, wrapper.state('currentExpansion'))
-      wrapper.find('a').simulate('click')
-      assert.equal(1, wrapper.state('currentExpansion'))
-  }),
 
   it('stops displaying anchors when no more expansions can be clicked on', () => {
       const expansions = ["a", "b", "c"]
-      const wrapper = mount(<TestList expansions={expansions} tag={"t0_test"} {...fakeStore}/>)
+      let wrapper = mount(<TestList expansions={expansions} tag={"t0_test"} {...fakeStore} currentExpansion={0} />)
       assert.equal(1, wrapper.find('a').length)
-      wrapper.find('a').simulate('click')
-      assert.equal(1, wrapper.find('a').length)
-      wrapper.find('a').simulate('click')
+      wrapper = shallow(<TestList expansions={expansions} tag={"t0_test"} {...fakeStore} currentExpansion={2} />)
       assert.equal(0, wrapper.find('a').length)
   }),
 
-  it('updates the current expansion state in response to props (like the store)', () => {
-      const wrapper = mount(<TestList expansions={["a", "b"]} tag={"t0_test"} {...fakeStore}/>)
-      assert.equal(0, wrapper.state('currentExpansion'))
-      wrapper.setProps({currentExpansion: 1})
-      assert.equal(1, wrapper.state('currentExpansion'))
-  }),
-
-  it('displays the second expansion if clicked on', () => {
+  it('displays the nth expansion based on the current value', () => {
       const expansions = ["a", "b", "c"]
-      const wrapper = mount(<TestList expansions={expansions} tag={"t0_test"} {...fakeStore}/>)
-      assert.equal("a", wrapper.text())
-      wrapper.find('a').simulate('click')
+      const wrapper = mount(<TestList expansions={expansions} tag={"t0_test"} {...fakeStore} currentExpansion={1}/>)
       assert.equal("b", wrapper.text())
-  }),
-
-  it('calls the onSetExpansions reducer method when mounted', () => {
-      fakeStore.onSetExpansions = sinon.spy()
-      const wrapper = mount(<TestList expansions={["a", "b", "c"]} tag={"t0_test"} {...fakeStore}/>)
-      assert(fakeStore.onSetExpansions.calledOnce)
   }),
 
   it('calls the onSetExpansions reducer method when clicked on', () => {
       fakeStore.onSetExpansions = sinon.spy()
       const wrapper = mount(<TestList expansions={["a", "b", "c"]} tag={"t0_test"} {...fakeStore}/>)
       wrapper.find('a').simulate('click')
-      assert(fakeStore.onSetExpansions.calledTwice)
+      assert(fakeStore.onSetExpansions.calledOnce)
   }),
 
   it('calls the onUpdateInventory reducer method with the new inventory value when clicked on', () => {
@@ -130,12 +107,6 @@ describe('<List />', () => {
       const wrapper = mount(<TestList expansions={expansions} tag={tag} {...fakeStore}/>)
       wrapper.find('a').simulate('click')
       assert(fakeStore.onUpdateInventory.calledWith(expansions[0], tag))
-      fakeStore.onUpdateInventory.reset()
-      wrapper.find('a').simulate('click')
-      assert(fakeStore.onUpdateInventory.calledWith(expansions[1], tag))
-      fakeStore.onUpdateInventory.reset()
-      wrapper.find('a').simulate('click')
-      assert(fakeStore.onUpdateInventory.calledWith(expansions[2], tag))
   }),
 
   it('calls the onCompleteSection reducer method when more no expansions are available', () => {
@@ -198,45 +169,17 @@ describe('<List />', () => {
     wrapper.find('a').simulate('click')
     wrapper.find('a').simulate('click')
   }),
-  it('does not call the onCompleteSection reducer method if the user clicks on the last expansion twice', () => {
-      fakeStore.onCompleteSection = sinon.spy()
-      const expansions = ["a", "b"]
-      const wrapper = mount(<TestList persistLast={true} expansions={expansions} tag={"c0_test"} {...fakeStore}/>)
-      wrapper.find('a').simulate('click')
-      assert(fakeStore.onCompleteSection.calledOnce)
-      wrapper.find('a').simulate('click')
-      // Still should be just once
-      assert(fakeStore.onCompleteSection.calledOnce)
-  }),
-  it('does call the onUpdateInventory reducer method if the user clicks on the last expansion twice', () => {
-      fakeStore.onUpdateInventory = sinon.spy()
-      const expansions = ["a", "b"]
-      const wrapper = mount(<TestList persistLast={true} expansions={expansions} tag={"c0_test"} {...fakeStore}/>)
-      wrapper.find('a').simulate('click')
-      assert(fakeStore.onUpdateInventory.calledOnce)
-      wrapper.find('a').simulate('click')
-      assert(fakeStore.onUpdateInventory.calledTwice)
-  }),
 
   it('allows resetting an existing inventory property', () => {
     fakeStore.onUpdateInventory = sinon.spy()
     const expansions = ["a", ["b", "c"]]
     const tag = "c0_test"
-    const wrapper = mount(<TestList persistLast={true} expansions={expansions} tag={tag} {...fakeStore}/>)
+    let wrapper = mount(<TestList persistLast={true} expansions={expansions} tag={tag} {...fakeStore}/>)
     wrapper.find('a').simulate('click')
     assert(fakeStore.onUpdateInventory.calledWith(expansions[0], tag))
-    fakeStore.onUpdateInventory.reset()
+    wrapper = mount(<TestList persistLast={true} expansions={expansions} tag={tag} {...fakeStore} currentExpansion={1}/>)
     wrapper.find('a').first().simulate('click')
     assert(fakeStore.onUpdateInventory.calledWith(expansions[1][0], tag))
-    fakeStore.onUpdateInventory.reset()
-    wrapper.find('a').first().simulate('click')
-    assert(fakeStore.onUpdateInventory.calledWith(expansions[1][0], tag))
-    fakeStore.onUpdateInventory.reset()
-    wrapper.find('a').first().simulate('click')
-    assert(fakeStore.onUpdateInventory.calledWith(expansions[1][0], tag))
-    fakeStore.onUpdateInventory.reset()
-    wrapper.find('a').last().simulate('click')
-    assert(fakeStore.onUpdateInventory.calledWith(expansions[1][1], tag))
   })
 
 })
