@@ -1,6 +1,6 @@
 {
   "name": "windrift",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "scripts": {
     "test": "_mocha --require src/test/global --compilers js:babel-core/register --recursive 'src/**/test*.js'"
   },
@@ -44,7 +44,7 @@
   },
   "author": "Liza Daly <liza@lizadaly.com>",
   "license": "MIT",
-  "private": true,
+  "private": false,
   "dependencies": {
     "es6-shim": "^0.35.1",
     "react": "^15.0.1",
