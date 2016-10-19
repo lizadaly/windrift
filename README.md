@@ -140,7 +140,7 @@ Windrift uses the Redux global store to manage the game state and tracks four va
 
 ### Story lifecycle
 
-Windrift initializes all the chapters that are available in the story by collecting all files in `src/chapters/*.js`. Files can be named how you like, as long as they can be evaluated in alphabetical order (e.g. `1.js` or `chapter1.js`)
+Windrift initializes all the chapters that are available in the story by collecting all files in `chapters/*.js`. Files can be named how you like, as long as they can be evaluated in alphabetical order (e.g. `1.js` or `chapter1.js`)
 
 Each chapter is a React component with a lightweight signature:
 
