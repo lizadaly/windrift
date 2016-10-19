@@ -153,7 +153,7 @@ The `<RenderSection>` component must pass two props:
 2. `sections`, returning an array of React nodes, typically HTML `<section>` elements
 
 ### Example: A minimal Chapter
-```javascript
+```jsx
 const React = require('react')
 
 export default ({currentSection, inventory}) => {
