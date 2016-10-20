@@ -107,12 +107,31 @@ describe('<Map />', () => {
     assert.isNull(wrapper.type())
   }),
 
-  it('when the `from` string evaluates to undefined and there is an undefined key in `to`, return the value for `unselected`', () => {
+  it('when the `from` string evaluates to undefined and there is an `_undefined` key in `to`, return that value', () => {
     const from = undefined
-    const to = {lock: "box", unselected: "default"}
+    const to = {lock: "box", _undefined: "default"}
     const wrapper = mount(<Map from={from} to={to} />)
     assert.equal("default", wrapper.text())
+  }),
+
+  it("if there's a mapping key `_any`, it should match any value not included explicitly", () => {
+    const from = "doesn't exist"
+    const to = {lock: "box", _any: "matched"}
+    const wrapper = mount(<Map from={from} to={to} />)
+    assert.equal("matched", wrapper.text())
+  }),
+
+  it("allows the user to use both `_undefined` and `_any` in the same Map", () => {
+    var from = undefined
+    const to = {_undefined: "undefined", lock: "box", _any: "any"}
+    var wrapper = mount(<Map from={from} to={to} />)
+    assert.equal("undefined", wrapper.text())
+    var from = "defined but not matching"
+    var wrapper = mount(<Map from={from} to={to} />)
+    assert.equal("any", wrapper.text())
   })
+
+
 
 
 })

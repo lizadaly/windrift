@@ -2,6 +2,9 @@ const React = require('react')
 
 import {wordFromInventory} from './util'
 
+const MATCH_UNDEFINED = '_undefined'
+const MATCH_WILDCARD = '_any'
+
 /* For a given value of an inventory property, return the value from the `from`
 map that matches. Accepts an optional `offset` which is passed through to `fromInventory`.
 If the map evaluates to string, return wrapped HTML;
@@ -9,18 +12,28 @@ if the map evaluates to a function, call it;
 otherwise return the node.
  */
 const Map = ({from, to, offset}) => {
-    from = from ? wordFromInventory(from.toLowerCase(), offset) : 'unselected'
+    // Downcase the input if it exists, otherwise set it to the UNDEFINED key
+    from = from ? wordFromInventory(from.toLowerCase(), offset) : MATCH_UNDEFINED
 
+    // Does the `to` map have a matching key?
     if (!to.hasOwnProperty(from)) {
-      return null
+      // If not, does it have a wildcard?
+      if (to.hasOwnProperty(MATCH_WILDCARD)) {
+        from = MATCH_WILDCARD
+      }
+      // If no wildcard was provided, there's no match
+      else {
+        return null
+      }
     }
-
+    // From here on out, we know there's a match in the dictionary, so evaluate the possible types:
     if (typeof to[from] === 'string') {
       return <span key={to[from]}>{to[from]}</span>
     }
     else if (typeof to[from] == 'function') {
       return to[from]()
     }
+    // The value was a React node, so just return that
     return to[from]
 }
 Map.propTypes = {
