@@ -46,7 +46,7 @@ class _List extends React.Component {
 
       // If there was a provided onComplete, call it now
       if (this.props.onComplete) {
-        this.props.onComplete()
+        this.props.onComplete(e.target.textContent)
       }
     }
     // Update the counter in the browser (if check is a workaround to avoid test complaints)

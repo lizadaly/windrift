@@ -180,12 +180,28 @@ describe('<List />', () => {
     assert(fakeStore.onUpdateInventory.calledWith(expansions[1][0], TAG))
   }),
 
-  it('calls the optional onComplete if supplied when the list is complete', () => {
+  it('calls the optional onComplete if supplied when the List is complete', () => {
     const func = sinon.spy()
     const expansions = ["a", "b"]
     const wrapper = mount(<TestList onComplete={func} expansions={expansions} tag={TAG} {...fakeStore}/>)
     wrapper.find('a').simulate('click')
     assert(func.calledOnce)
+  }),
+
+  it('does not the onComplete if there are more items in the List', () => {
+    const func = sinon.spy()
+    const expansions = ["a", "b", "c"]
+    const wrapper = mount(<TestList onComplete={func} expansions={expansions} tag={TAG} {...fakeStore}/>)
+    wrapper.find('a').simulate('click')
+    assert(!func.called)
+  }),
+
+  it('provides the final selection value to the onComplete callback ', () => {
+    const func = sinon.spy()
+    const expansions = ["a", "b"]
+    const wrapper = mount(<TestList onComplete={func} expansions={expansions} tag={TAG} {...fakeStore}/>)
+    wrapper.find('a').simulate('click')
+    assert(func.calledWith(expansions[0]))
   })
 
 })
