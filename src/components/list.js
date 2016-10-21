@@ -5,6 +5,8 @@ import {iteratedList} from "./util"
 import Link from "./link"
 import * as actions from "../actions"
 
+// Special value to match the last selection by the user
+const MATCH_LAST = "_last"
 
 /* An array of expansions that can be "examined." Accepts an array and
 reveals items one-by-one. Arrays may be nested one-level deep; if the current
@@ -27,7 +29,16 @@ class _List extends React.Component {
     const atLastExpansion = this.props.currentExpansion === this.props.expansions.length - 1
     var currentExpansion = !atLastExpansion ? this.props.currentExpansion + 1 : this.props.currentExpansion
     this.props.onSetExpansions(this.props.expansions, this.props.tag, currentExpansion)
-    this.props.onUpdateInventory(e.target.textContent, this.props.tag)
+
+    // Set the inventory property to be the value of what the user selected, unless
+    // the special key "_last" (MATCH_LAST) was provided, in which case use the last item
+    // set in the inventory (as determined by mapStateToProps)
+    var userSelection = e.target.textContent
+
+    if (e.target.textContent === MATCH_LAST) {
+      userSelection = this.props.lastSelection
+    }
+    this.props.onUpdateInventory(userSelection, this.props.tag)
 
     // Are we at the last set? If so, there may be some events to fire
     if (!atLastExpansion && currentExpansion === this.props.expansions.length - 1) {
@@ -60,13 +71,18 @@ class _List extends React.Component {
   }
   render () {
     let text = this.props.expansions[this.props.currentExpansion]
-    let handler = this.props.persistLast || this.props.currentExpansion < this.props.expansions.length - 1 ? this.handleChange : null
-    if (typeof(text) === "string") {
-      return <Link handler={handler} text={text}/>
+    const atLastExpansion = this.props.currentExpansion === this.props.expansions.length - 1
+
+    // If this is MATCH_LAST, don't actually show that property, show the value of last selection
+    if (text === MATCH_LAST && atLastExpansion) {
+      text = this.props.lastSelection
     }
-    else {
-      return iteratedList(text, handler, this.props.conjunction)
-    }
+
+    // Create an onclick handler if we're at the last expansion and/or persisting the last item
+    let handler = this.props.persistLast || !atLastExpansion ? this.handleChange : null
+
+    return iteratedList(text, handler, this.props.conjunction)
+
   }
 }
 _List.propTypes = {
@@ -85,16 +101,20 @@ _List.defaultProps = {
   persistLast: false
 }
 
-const mapStateToProps = (state, ownProps, currentExpansion=0) => {
+const mapStateToProps = (state, ownProps, currentExpansion=0, lastSelection=undefined) => {
   if (state.expansions.present.hasOwnProperty(ownProps.tag)) {
     if (state.expansions.present[ownProps.tag].hasOwnProperty('currentExpansion')) {
     currentExpansion = state.expansions.present[ownProps.tag].currentExpansion
     }
   }
+  if (state.inventory.present.hasOwnProperty(ownProps.tag)) {
+    lastSelection = state.inventory.present[ownProps.tag]
+  }
   return {
     currentExpansion: currentExpansion,
     counter: state.counter.present,
-    config: state.config
+    config: state.config,
+    lastSelection: lastSelection
   }
 }
 export const List = connect(

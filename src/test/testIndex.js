@@ -15,7 +15,8 @@ describe('index.js', () => {
         subscribe: () => {},
         dispatch: () => {},
         getState: () => ({expansions: {present: {}},
-                          counter: {present: 0}})
+                          counter: {present: 0},
+                          inventory: {present: {}}})
     }
     options = {
       context: {

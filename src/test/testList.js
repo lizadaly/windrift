@@ -30,7 +30,8 @@ describe('<List />', () => {
           subscribe: () => {},
           dispatch: () => {},
           getState: () => ({expansions: {present: {}},
-                            counter: {present: 0}})
+                            counter: {present: 0},
+                            inventory: {present: {}}})
       }
       options = {
           context: {
@@ -46,7 +47,9 @@ describe('<List />', () => {
           onCompleteSection: func,
           onUpdateCounter: func,
           currentExpansion: 0,
-          config: {}
+          config: {},
+          lastSelection: undefined
+
       }
   }),
 
@@ -202,6 +205,24 @@ describe('<List />', () => {
     const wrapper = mount(<TestList onComplete={func} expansions={expansions} tag={TAG} {...fakeStore}/>)
     wrapper.find('a').simulate('click')
     assert(func.calledWith(expansions[0]))
+  }),
+
+  it('allows the special value `_last` to represent the last item selected by the user', () => {
+    var expansions = ["a", "b", "c"]
+    fakeStore.currentExpansion = 0
+    var wrapper = mount(<TestList expansions={expansions} tag={TAG} {...fakeStore}/>)
+    assert("a" === wrapper.text())
+    fakeStore.currentExpansion = 1
+    wrapper = mount(<TestList expansions={expansions} tag={TAG} {...fakeStore}/>)
+    assert("b" === wrapper.text())
+    fakeStore.currentExpansion = 2
+    wrapper = mount(<TestList expansions={expansions} tag={TAG} {...fakeStore}/>)
+    assert("c" === wrapper.text())
+    fakeStore.lastSelection = "a"
+    fakeStore.currentExpansion = 2
+    expansions = ["a", "b", "_last"]
+    wrapper = mount(<TestList expansions={expansions} tag={TAG} {...fakeStore}/>)
+    assert("a" === wrapper.text())
   })
 
 })
