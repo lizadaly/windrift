@@ -192,9 +192,18 @@ describe('<List />', () => {
   it('calls the optional onComplete if supplied when the List is complete', () => {
     const func = sinon.spy()
     const expansions = ["a", "b"]
-    const wrapper = mount(<TestList onComplete={func} expansions={expansions} tag={TAG} {...fakeStore}/>)
-    wrapper.find('a').simulate('click')
+    var wrapper = mount(<TestList onComplete={func} expansions={expansions} tag={TAG} {...fakeStore}/>)
+    wrapper.update()
+    assert(!func.called)
+    fakeStore.currentExpansion = 1 // Set to last
+    wrapper = mount(<TestList onComplete={func} expansions={expansions} tag={TAG} {...fakeStore}/>)
+    wrapper.update()
     assert(func.calledOnce)
+
+    // Shouldn't keep calling though
+    wrapper.update()
+    assert(func.calledOnce)
+
   }),
 
   it('does not the onComplete if there are more items in the List', () => {
@@ -208,8 +217,10 @@ describe('<List />', () => {
   it('provides the final selection value to the onComplete callback ', () => {
     const func = sinon.spy()
     const expansions = ["a", "b"]
+    fakeStore.currentExpansion = 1 // Set to last
+    fakeStore.lastSelection = "a"
     const wrapper = mount(<TestList onComplete={func} expansions={expansions} tag={TAG} {...fakeStore}/>)
-    wrapper.find('a').simulate('click')
+    wrapper.update()
     assert(func.calledWith(expansions[0]))
   }),
 

@@ -21,6 +21,31 @@ class _List extends React.Component {
   constructor(props) {
     super(props)
     this.handleChange = this.handleChange.bind(this)
+
+    var oc
+    // Call it right now?
+    if (this.shouldCallOnComplete(props.onComplete)) {
+      var onComplete = props.onComplete.bind(this)
+      onComplete(props.lastSelection)
+    }
+    else if (props.onComplete) {
+      oc = props.onComplete
+    }
+    this.state = {
+      onComplete: oc
+    }
+  }
+  shouldCallOnComplete(func) {
+    const atLastExpansion = this.props.currentExpansion === this.props.expansions.length - 1
+    return atLastExpansion && func
+  }
+  componentDidUpdate(prevProps) {
+    if (this.shouldCallOnComplete(this.state.onComplete)) {
+      this.state.onComplete(this.props.lastSelection)
+      this.setState({
+        onComplete: undefined
+      })
+    }
   }
   handleChange(e) {
     e.preventDefault()
@@ -28,7 +53,9 @@ class _List extends React.Component {
     // Move the expansion counter by one unless we're already there
     const atLastExpansion = this.props.currentExpansion === this.props.expansions.length - 1
     var currentExpansion = !atLastExpansion ? this.props.currentExpansion + 1 : this.props.currentExpansion
+
     this.props.onSetExpansions(this.props.expansions, this.props.tag, currentExpansion)
+
 
     // Set the inventory property to be the value of what the user selected, unless
     // the special key "_last" (MATCH_LAST) was provided, in which case use the last item
@@ -40,7 +67,7 @@ class _List extends React.Component {
     }
     this.props.onUpdateInventory(userSelection, this.props.tag)
 
-    // Are we at the last set? If so, there may be some events to fire
+    // Are we t the last set? If so, there may be some events to fire
     if (!atLastExpansion && currentExpansion === this.props.expansions.length - 1) {
 
       if (this.props.nextUnit === "chapter") {
@@ -55,10 +82,7 @@ class _List extends React.Component {
         // no-op
       }
 
-      // If there was a provided onComplete, call it now
-      if (this.props.onComplete) {
-        this.props.onComplete(e.target.textContent)
-      }
+
     }
     // Update the counter in the browser (if check is a workaround to avoid test complaints)
     if (this.props.config && this.props.config.hasOwnProperty('identifier')) {
