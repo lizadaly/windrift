@@ -43,6 +43,11 @@ class _List extends React.Component {
       else {
         // no-op
       }
+
+      // If there was a provided onComplete, call it now
+      if (this.props.onComplete) {
+        this.props.onComplete()
+      }
     }
     // Update the counter in the browser (if check is a workaround to avoid test complaints)
     if (this.props.config && this.props.config.hasOwnProperty('identifier')) {
@@ -71,7 +76,8 @@ _List.propTypes = {
   config: React.PropTypes.object,
   currentExpansion: React.PropTypes.number,
   conjunction: React.PropTypes.string,
-  persistLast: React.PropTypes.bool
+  persistLast: React.PropTypes.bool,
+  onComplete: React.PropTypes.func
 }
 _List.defaultProps = {
   nextUnit: 'section',

@@ -121,7 +121,7 @@ describe('<Map />', () => {
     assert.equal("matched", wrapper.text())
   }),
 
-  it("allows the user to use both `_undefined` and `_any` in the same Map", () => {
+  it("allows the author to use both `_undefined` and `_any` in the same Map", () => {
     var from = undefined
     const to = {_undefined: "undefined", lock: "box", _any: "any"}
     var wrapper = mount(<Map from={from} to={to} />)
@@ -129,8 +129,28 @@ describe('<Map />', () => {
     var from = "defined but not matching"
     var wrapper = mount(<Map from={from} to={to} />)
     assert.equal("any", wrapper.text())
-  })
+  }),
 
+  it("allows the author to specify an onChange callback that will be fired when the Map is re-evaluated", () => {
+    var from = "echo"
+    const to = {"echo": "echo echo echo"}
+    const func = sinon.spy()
+    const wrapper = mount(<Map from={from} to={to} onChange={func} />)
+    wrapper.update()
+    // It's only called once, on the change
+    assert(func.calledOnce)
+  }),
+
+  it("allows the author to specify an onLoad callback that will be fired when the Map is initialized", () => {
+    var from = "echo"
+    const to = {"echo": "echo echo echo"}
+    const func = sinon.spy()
+    const wrapper = mount(<Map from={from.sel} to={to} onLoad={func} />)
+    // It's only called once, on the initial mount
+    assert(func.calledOnce)
+    wrapper.update()
+    assert(func.calledOnce)
+  })
 
 
 
