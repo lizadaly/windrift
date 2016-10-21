@@ -24,8 +24,11 @@ export const wordFromInventory = (inventory, offset=-1) => {
 
 /* For a list of items, return a JSX node of markup with links and appropriate
 conjunctions */
-export const iteratedList = (items, handler=null, conjunction="and") => (
-  <span>{
+export const iteratedList = (items, handler=null, conjunction="and") => {
+  if (typeof items === 'string') {
+    items = [items]
+  }
+  return <span>{
     [...items].map((t, i) =>
       <span key={i}>
         { items.length > 1 && i === items.length -1 ? ` ${conjunction} `: "" }
@@ -34,4 +37,4 @@ export const iteratedList = (items, handler=null, conjunction="and") => (
       </span>
   )}
   </span>
-)
+}

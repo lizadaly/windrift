@@ -60,6 +60,12 @@ describe('<List />', () => {
       assert.equal("a", wrapper.text())
   }),
 
+  it("displays a single item correctly", () => {
+      const expansions = ["chicken"]
+      const wrapper = mount(<List expansions={expansions} tag={TAG}/>, options)
+      assert.equal("chicken", wrapper.text())
+  }),
+
   it('displays a list of expansions if an array is the first item', () => {
       const expansions = [["a", "b", "c"], "d"]
       const wrapper = mount(
