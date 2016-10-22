@@ -22,11 +22,16 @@ class _List extends React.Component {
     super(props)
     this.handleChange = this.handleChange.bind(this)
 
+    if (props.onLoad) {
+      var onLoad = props.onLoad.bind(this)
+      onLoad()
+    }
+
     var oc
     // Call it right now?
     if (this.shouldCallOnComplete(props.onComplete)) {
-      var onComplete = props.onComplete.bind(this)
-      onComplete(props.lastSelection)
+      var onComplete = props.onComplete.bind(this, props.lastSelection)
+      onComplete()
     }
     else if (props.onComplete) {
       oc = props.onComplete
@@ -117,6 +122,7 @@ _List.propTypes = {
   currentExpansion: React.PropTypes.number,
   conjunction: React.PropTypes.string,
   persistLast: React.PropTypes.bool,
+  onLoad: React.PropTypes.func,
   onComplete: React.PropTypes.func
 }
 _List.defaultProps = {

@@ -220,7 +220,6 @@ describe('<List />', () => {
     fakeStore.currentExpansion = 1 // Set to last
     fakeStore.lastSelection = "a"
     const wrapper = mount(<TestList onComplete={func} expansions={expansions} tag={TAG} {...fakeStore}/>)
-    wrapper.update()
     assert(func.calledWith(expansions[0]))
   }),
 
@@ -240,6 +239,14 @@ describe('<List />', () => {
     expansions = ["a", "b", "_last"]
     wrapper = mount(<TestList expansions={expansions} tag={TAG} {...fakeStore}/>)
     assert("a" === wrapper.text())
+  }),
+
+  it('allows the author to set an onLoad function to be called in the constructor', () => {
+    const func = sinon.spy()
+    const expansions = ["a", "b"]
+    const wrapper = mount(<TestList onLoad={func} expansions={expansions} tag={TAG} {...fakeStore}/>)
+    assert(func.calledOnce)
+
   })
 
 })
