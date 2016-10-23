@@ -55,6 +55,35 @@ describe('<FromInventory />', () => {
     const inv = "the last word"
     const wrapper = mount(<FromInventory inventory={inv} />)
     assert.equal(inv, wrapper.find('span').key())
-  })
+  }),
+  it('calls the optional onLoad function on the evaluated item', () => {
+    const inv = "word"
+    const func = sinon.spy()
+    const wrapper = mount(<FromInventory inventory={inv} onLoad={func}/>)
+    assert(func.calledOnce)
 
+  }),
+  it('calls the optional onLoad function on the evaluated item after it has been processed by its offset', () => {
+    const inv = "the last word"
+    const func = sinon.spy()
+    var wrapper = mount(<FromInventory inventory={inv} onLoad={func}/>)
+    assert(func.calledWith("word"))
+
+    var wrapper = mount(<FromInventory inventory={inv} onLoad={func} offset={0}/>)
+    assert(func.calledWith("the"))
+  }),
+
+  it('is safe to set an onLoad function even if the inventory value is undefined', () => {
+    const inv = undefined
+    const func = sinon.spy()
+    const wrapper = mount(<FromInventory inventory={inv} onLoad={func}/>)
+    assert(!func.called)
+    assert("" == wrapper.text())
+  }),
+
+  it('will return the entire string if offset is null', () => {
+    const inv = "the last word"
+    const wrapper = mount(<FromInventory inventory={inv} offset={null}/>)
+    assert("the last word" == wrapper.text())
+  })
 })

@@ -7,12 +7,19 @@ typically in the inventory list (e.g. "a tired-looking cap"). Nothing
 magic here, just returns the last word, typically the noun, unless `offset`
 is deliberately set to a value.
 
+If offset is explicitly set to `null` (versus undefined), return the
+entire inventory value unmodified.
+
 If `offset` exceeds the length of the string, the default offset value
 will be used.
  */
 
 export const wordFromInventory = (inventory, offset=-1) => {
+  if (offset === null) {
+    return inventory
+  }
   let inv = inventory ? inventory.split(" ") : ""
+
   if (offset > inv.length - 1) {
     console.warn("Offset ", offset, " exceeded the length of the string ", inv)
     offset = -1
