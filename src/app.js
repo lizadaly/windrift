@@ -62,11 +62,15 @@ export const Game = connect(
 export const startGame = (game) => {
   var store = createStore(gameApp, {config: game.props.config}, autoRehydrate())
   var persister = persistStore(store, {keyPrefix: game.props.config.identifier})
-  window.addEventListener("popstate", function(e) {
-    if (history.state.hasOwnProperty(store.getState().config.identifier)) {
-      let timeOffset = history.state[store.getState().config.identifier] - store.getState().counter.present
-      store.dispatch(ActionCreators.jump(timeOffset))
-    }
-  })
+
+  if (game.props.config.enableUndo) {
+    window.addEventListener("popstate", function(e) {
+      if (history.state.hasOwnProperty(store.getState().config.identifier)) {
+        let timeOffset = history.state[store.getState().config.identifier] - store.getState().counter.present
+        store.dispatch(ActionCreators.jump(timeOffset))
+      }
+    })
+  }
   ReactDOM.render(<Provider store={store}>{game}</Provider>, document.getElementById('article'))
+
 }
