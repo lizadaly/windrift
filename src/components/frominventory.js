@@ -11,16 +11,16 @@ any onLoad event.
 If passed an optional onLoad, run that function on the value returned from
 `wordFromInventory.` This is safe to run even if inventory is undefined.
  */
-const FromInventory = ({inventory, onLoad, offset=-1}) => {
-  let word = wordFromInventory(inventory, offset)
+const FromInventory = ({from, onLoad, offset=-1}) => {
+  let word = wordFromInventory(from, offset)
   if (onLoad && word) {
     word = onLoad(word)
   }
-  return <span key={inventory}>{word}</span>
+  return <span key={from}>{word}</span>
 }
 
 FromInventory.propTypes = {
-  inventory: React.PropTypes.string,
+  from: React.PropTypes.string,
   offset: React.PropTypes.number,
   onLoad: React.PropTypes.func
 }
