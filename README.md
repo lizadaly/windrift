@@ -22,7 +22,7 @@ The [starter project](https://github.com/lizadaly/windrift-starter) contains all
 
 ## Works
 
-Win drift is designed to produce narratives that are informed by user selection and choice, similar to systems like Twine. In fact, a Windrift story may appear, in its final form, almost indistinguishable from a work authored in Twine.
+Windrift is designed to produce narratives that are informed by user selection and choice, similar to systems like Twine. A Windrift story may appear, in its final form, almost indistinguishable from a work authored in Twine.
 
 As an authoring environment, though, it has different goals:
 
@@ -30,9 +30,7 @@ As an authoring environment, though, it has different goals:
 * An explicit design goal of Windrift was that a story could be readable from start-to-finish as if no user interaction had occurred. You don't have to author your story this way, but Windrift makes that possible.
 * Twine is meant to be approachable to non-programmers. Windrift is a JavaScript framework on top of other JavaScript frameworks. I hope you like JavaScript.
 * Windrift stories are easy to unit test, snapshot, and make use of the excellent set of developer tools available for React/Redux out of the box. Everything about Windrift's design is meant to be consistent with current best practices in web development.
-* Out of the box, the Windrift UI has been thoroughly tested in all major desktop and mobile browsers and is fully accessible to screenreaders.
-
-
+* The Windrift UI has been thoroughly tested in all major desktop and mobile browsers and is fully accessible to screenreaders.
 
 ## Design
 
@@ -40,14 +38,11 @@ A Windrift story has two conceptual layers:
 
 * The current world model, or <i>state</i>. This is the record of all the choices the user has made in the game, and their current point in the story.
 
-* The <i>rendering</i> of that state, which is the text displayed by the engine at that point in time.
+* The <i>rendering</i> of that state, which is the text displayed by the engine in response to that model.
 
-Nothing is tracked "in memory": the state acts as a ledger of events, and the rendering reflects that ledger in the narrative that you write.
+The world model is implemented as an <i>immutable</i> object. Each time the user makes a change to the state (as by selecting some text), the old state is discarded and a new one takes it place. It's up to you, the author, whether your rendering reflects that something changed, or leaves it out entirely, as if it never happened.
 
-The world model is implemented as an <i>immutable</i> object. Each time the user makes a change to the state (as by selecting some text), the old state is discarded and a new one takes it place. It's up to you, the author, whether you keep a record of that change in the state (and thus, the rendering reflects that a change occurred) or leave it out of the new state, as if it never existed.
-
-
-It is impossible for the rendering to go out of sync with that state. While a typical story is read linearly, moving forward in time, it would be possible (in fact, quite easy) to make a Windrift story that appeared to write over itself, undo itself, or modified itself entirely in response to user selections.
+It is impossible for the rendering to go out of sync with the state. While a typical story is read linearly, moving forward in time, it would be possible (in fact, quite easy) to make a Windrift story that appeared to write over itself, undo itself, or modified itself entirely in response to user selections.
 
 Windrift persists each state snapshot to the user's browser, enabling undo (through the browser back button) and resume (even if the user has navigated away).
 
@@ -55,7 +50,7 @@ Windrift persists each state snapshot to the user's browser, enabling undo (thro
 
 A Windrift story is composed of a series of <b>chapters</b> contained in individual files. Each chapter is made up of <b>sections</b> that are revealed in response to a user interaction.
 
-(The section/chapter division is primarily for the author's benefit. You could write an entire novel's worth of text in a single chapter if you like.)
+The section/chapter division is primarily for the author's benefit. You could write an entire novel's worth of text in a single chapter if you like. You don't have to call them "chapers" or express the division to the reader if you don't want.
 
 ### Lists
 The primary mode of interaction with a Windrift story is via Lists.
@@ -100,7 +95,7 @@ When the player has selected the final item in a list, two events are triggered:
 
 ### Inventory
 
-When a final choice is made in a list, it goes into the reader's `inventory`, the part of the state containing all the selections they've made. The inventory is made up of buckets each named with a List `tag`, and is accessible as `inventory.tagname` at any point in the story.
+When a final choice is made in a list, it goes into the reader's `inventory`, the part of the state containing all the selections they've made. The inventory is made up of buckets indexed by List `tag`. The value in each bucket is accessible as `inventory.tagname` at any point in the story.
 
 ### Maps
 
@@ -135,8 +130,6 @@ See the [Advanced demo](https://lizadaly.github.io/windrift/examples/advanced/) 
 use Lists and Maps to create rich experiences.
 
 ### Other components
-
-Windrift offer a few other components for rendering text that you'll probably use less often:
 
 **AllButSelection** takes an array and a string, and returns all items but that string. It's used to produce renderings like this:
 
@@ -204,3 +197,13 @@ export default ({currentSection, inventory}) => {
 ```
 
 Plenty more examples and next steps for getting started with Windrift are available in the [starter project](https://github.com/lizadaly/windrift-starter).
+
+### The Redux store and history
+
+Under the hood, Windrift uses [redux-undo](https://github.com/omnidan/redux-undo) to record a ledger of every interaction at every point in time. Each time the user advances through the story, the entire state is copied into the `past`, an array of snapshots starting from time 0.
+
+When a reader plays for 15 turns and hits the browser back button, an event is fired that pulls the history at time step -1. The entire game state is reconstituted at time stamp 14, and the old timestep 15 is now in the `future`. If the reader then hits the browser forward button, the entire state snapshot is pulled from the future and reconstituted as the present.
+
+In turn, the whole past/present/future store is saved via [redux-persist](https://github.com/rt2zz/redux-persist) to the browser's `localStorage` object. If the reader refreshes the browser or returns to the story after a period of time, the entire store is reconstituted from `localStorage`.
+
+The Windrift base components only know about the `present`; they do not have any direct access to the past or the future versions of the store. It is possible to imagine a story that made use of this additional data to implement more sophisticated state changes, but that's for a future enhancement.
