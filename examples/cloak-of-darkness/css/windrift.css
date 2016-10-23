@@ -1,0 +1,30 @@
+/* Base styles provided by Windrift */
+
+/* Give the base container some breathing room */
+.container {
+  margin: 2em 15%;
+}
+
+/* If the scrolling mode is "scrolling", ensure that the most-recent chapter
+doesn't bump up against the bottom margin */
+.pagination-scrolling .current-chapter {
+  margin-bottom: 3em;
+}
+
+/* If the scrolling mode is "by-chapter", only the current chapter should be visible */
+.pagination-by-chapter .chapter {
+  display: none;
+}
+.pagination-by-chapter .current-chapter {
+  display: block
+}
+
+/* If the scrolling mode is "by-section", only the current section of the current
+chapter should be visible */
+.pagination-by-section .section,
+.pagination-by-section .chapter .current-section {
+  display: none;
+}
+.pagination-by-section .current-chapter .current-section {
+  display: block
+}

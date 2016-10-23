@@ -1,0 +1,31 @@
+.label {
+  position: relative;
+  bottom: 2px;
+}
+pre, code {
+  font-family: Consolas, Menlo, monospace;
+}
+.block-container {
+  margin: auto;
+  padding: 0 2rem;
+  text-align: center;
+}
+.block {
+  margin: auto;
+  width: 100px;
+  height: 100px;
+  border: 1px solid gray;
+}
+code {
+  border: none;
+  background: rgb(245,245,245);
+}
+small {
+  text-transform: uppercase;
+}
+pre {
+  white-space: pre-wrap;
+  margin: .5rem;
+  padding: .5rem;
+  background: rgb(240,240,240)
+}
