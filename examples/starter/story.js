@@ -31948,7 +31948,24 @@
 	    React.createElement(
 	      'p',
 	      null,
-	      'Welcome to the Windrift Starter package. Lets try out a few features:'
+	      'Welcome to the starter application for ',
+	      React.createElement(
+	        'a',
+	        { href: 'https://github.com/lizadaly/windrift/' },
+	        'Windrift'
+	      ),
+	      ', a framework for writing interactive stories. The source code for this demo is available in the ',
+	      React.createElement(
+	        'a',
+	        { href: 'https://github.com/lizadaly/windrift-starter' },
+	        'windrift-starter'
+	      ),
+	      ' repository.'
+	    ),
+	    React.createElement(
+	      'p',
+	      null,
+	      'This page will walk through some of the most common features of a Windrift story, and can be used as a way to bootstrap your own story.'
 	    ),
 	    React.createElement(
 	      'h4',
