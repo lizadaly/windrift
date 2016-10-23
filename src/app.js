@@ -15,8 +15,7 @@ class _Game extends React.Component {
     super(props)
     // Dynamically load all JS in the 'chapters' directory as a Chapter object
     this.chapters = []
-
-    props.chaptersList.keys().forEach((filename, index) => {
+    props.chaptersList.keys().sort().forEach((filename, index) => {
       let chapter = props.chaptersList(filename).default
       // React requires this be uppercase, hooray
       let C = connect(chapterMapper)(chapter)
