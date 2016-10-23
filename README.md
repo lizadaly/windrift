@@ -6,16 +6,30 @@ Windrift was used to write [Stone Harbor](https://stoneharborgame.com/), an entr
 
 You don't need to know anything about React/Redux to understand Windrift's design principles, but you probably need JavaScript experience to be able to effectively write a Windrift story.
 
+## Project structure
+
+This repository contains the Windrift core library. You may be interested in quickly browsing some of
+the example stories:
+
+* [Cloak of Darkness](https://lizadaly.github.io/windrift/examples/cloak-of-darkness/), the canonical "sample game" for interactive  fiction systems. [[source code](https://github.com/lizadaly/windrift/tree/master/examples/cloak-of-darkness)]
+* [Advanced usage](https://lizadaly.github.io/windrift/examples/advanced/), changing the UI in response to reader choices. [[source code](https://github.com/lizadaly/windrift/tree/master/examples/advanced)]
+
+### Starter project
+
+*If you are interested in writing a narrative with Windrift, [use this repository](https://github.com/lizadaly/windrift-starter).*
+
+The [starter project](https://github.com/lizadaly/windrift-starter) contains all of the machinery necessary to create a Windrift web application, including a development web server and deployment instructions.
+
 ## Works
 
-Windrift is designed to produce narratives that are informed by user selection and choice, similar to systems like Twine. In fact, a Windrift story may appear, in its final form, almost indistinguishable from a work authored in Twine.
+Win drift is designed to produce narratives that are informed by user selection and choice, similar to systems like Twine. In fact, a Windrift story may appear, in its final form, almost indistinguishable from a work authored in Twine.
 
 As an authoring environment, though, it has different goals:
 
 * Twine is optimized for writing _branching_ stories. Windrift is better suited for _mutable_ stories.
 * An explicit design goal of Windrift was that a story could be readable from start-to-finish as if no user interaction had occurred. You don't have to author your story this way, but Windrift makes that possible.
 * Twine is meant to be approachable to non-programmers. Windrift is a JavaScript framework on top of other JavaScript frameworks. I hope you like JavaScript.
-* Windrift stories are easy to unit test, snapshot, and make use of the excellent set of developer tools available for React/Redux out of the box.
+* Windrift stories are easy to unit test, snapshot, and make use of the excellent set of developer tools available for React/Redux out of the box. Everything about Windrift's design is meant to be consistent with current best practices in web development.
 * Out of the box, the Windrift UI has been thoroughly tested in all major desktop and mobile browsers and is fully accessible to screenreaders.
 
 
@@ -105,7 +119,20 @@ to: {
 
 Any string can be passed to a Map, but typically you'll pass in a specific inventory value, as above.
 
-The combination of Lists and Maps can unlock a surprising amount of interactivity.
+Maps can return a variety of types:
+
+* Plain text (this is most common)
+* HTML, of arbitrary complexity
+* A function, which executes arbitrary code
+
+The combination of Lists and Maps can unlock a surprising amount of interactivity:
+
+* A List can take, as its `expansions` argument, a function rather than a handwritten array.
+* A Map can return a List, or other Maps.
+* Both Lists and Maps can accept various callbacks to execute arbitrary code during their lifecycles.
+
+See the [Advanced demo](https://lizadaly.github.io/windrift/examples/advanced/) for some ways to
+use Lists and Maps to create rich experiences.
 
 ### Other components
 
@@ -117,6 +144,15 @@ Windrift offer a few other components for rendering text that you'll probably us
 2. "What do you want for dinner? We got pine nut loaf. Actually, good choice, since it turns out we're all out of mutton pudding and salad cake."
 
 **ManyMap** is similar to *Map* but takes an array `from` rather than a single value. It will return all matching values in the `to` object for any item in the `from` array. This is useful when you want to display text based on _multiple_ choices the user has made across different Lists.
+
+**FromInventory** returns an item from the inventory with some transformations applied to it. By default, it returns the last word of a multiword string, to enable you to write:
+
+```
+You select the _purple spangled basset hound_ as your spirit animal.
+The _basset hound_ squirms in your grasp.
+```
+
+`FromInventory` takes a string (usually an inventory item) and returns the string offset by the value of the `offset` parameter (usually -1, for the last word, but here it would be -2.) It takes an optional `onLoad` callback which will pass the inventory string through an arbitrary transformation—for example, you might use this to upcase a term.
 
 ## Writing in Windrift
 
@@ -140,7 +176,7 @@ Windrift uses the Redux global store to manage the game state and tracks four va
 
 ### Story lifecycle
 
-Windrift initializes all the chapters that are available in the story by collecting all files in `chapters/*.js`. Files can be named how you like, as long as they can be evaluated in alphabetical order (e.g. `1.js` or `chapter1.js`)
+Windrift initializes all the chapters that are available in the story by collecting all files in `chapters/*.js`. Files can be named how you like, as long as they can be evaluated in alphabetical order (e.g. `1.js` or `chapter1.js`—if you think you'll have more 9 chapters, be sure to zero-pad the filenames.)
 
 Each chapter is a React component with a lightweight signature:
 
@@ -159,10 +195,12 @@ const React = require('react')
 export default ({currentSection, inventory}) => {
   var sections = [
     <section>
-      <h2>Cloak of Darkness</h2>
-      <p>You are standing in a spacious hall, splendidly decorated in red and gold, with glittering chandeliers overhead. The entrance from the street is to the north, and there are doorways south and west.</p>
+      <h2>West of House</h2>
+      <p>You are standing just off to the side of the famously cantankerous fictional doctor.</p>
     </section>
   ]
   return <RenderSection currentSection={currentSection} sections={sections} />
 }
 ```
+
+Plenty more examples and next steps for getting started with Windrift are available in the [starter project](https://github.com/lizadaly/windrift-starter).
