@@ -11,6 +11,8 @@ You don't need to know anything about React/Redux to understand Windrift's desig
 This repository contains the Windrift core library. You may be interested in quickly browsing some of
 the example stories:
 
+* [Windrift starter](https://lizadaly.github.io/windrift/examples/starter/), the demo story supplied with the
+[starter project](https://github.com/lizadaly/windrift-starter).
 * [Cloak of Darkness](https://lizadaly.github.io/windrift/examples/cloak-of-darkness/), the canonical "sample game" for interactive  fiction systems. [[source code](https://github.com/lizadaly/windrift/tree/master/examples/cloak-of-darkness)]
 * [Advanced usage](https://lizadaly.github.io/windrift/examples/advanced/), changing the UI in response to reader choices. [[source code](https://github.com/lizadaly/windrift/tree/master/examples/advanced)]
 
