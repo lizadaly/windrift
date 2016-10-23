@@ -45,3 +45,15 @@ export const iteratedList = (items, handler=null, conjunction="and") => {
   )}
   </span>
 }
+
+const resetMessage = "Restart the story from the beginning?"
+
+/* Reset the game and remove the local storage */
+export const resetGame = (e, message=resetMessage) => {
+  e.preventDefault();
+  var conf = confirm(message)
+  if (conf) {
+      localStorage.clear();
+      location.replace(window.location.href);
+  }
+}
