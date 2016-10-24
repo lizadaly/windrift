@@ -32017,10 +32017,11 @@
 	    React.createElement(
 	      'p',
 	      null,
-	      'If you want to modify the user\'s response somehow, like by pluralizing it, you can use the ',
+	      'If you want to modify the user\u2019s response somehow, like by pluralizing it, you can use the ',
 	      '<FromInventory>',
-	      'component to do so safely (even if the value wasn\'t yet set by the user):'
+	      ' component to do so safely (even if the value wasn\u2019t yet set by the user):'
 	    ),
+	    'One <FromInventory from={inventory.animal} onLoad={(from) => from.substring(0, from.length -1)} />, two{\' \'}\n{inventory.animal}. <FromInventory from={inventory.animal} onLoad={(from) => from.charAt(0).toUpperCase() + from.slice(1)} /> are great.\n',
 	    React.createElement(
 	      'p',
 	      { className: 'game-text' },
@@ -32062,7 +32063,7 @@
 	    React.createElement(
 	      'p',
 	      { className: 'game-text' },
-	      'I suppose that\'s an ',
+	      'I suppose that\u2019s an ',
 	      React.createElement(_windrift.List, { expansions: ["acceptable", "understandable", "admirable"], tag: 'adj1' }),
 	      ' choice...'
 	    )
@@ -32116,12 +32117,12 @@
 	    React.createElement(
 	      'pre',
 	      null,
-	      'Looks like you\'ll have two {inventory.animal} named\n    { inventory.name1 === inventory.name2 ? "the same" : "differently" }.'
+	      'Looks like you\u2019ll have two {inventory.animal} named\n    { inventory.name1 === inventory.name2 ? "the same" : "differently" }.'
 	    ),
 	    React.createElement(
 	      'p',
 	      { className: 'game-text' },
-	      'Looks like you\'ll have two ',
+	      'Looks like you\u2019ll have two ',
 	      inventory.animal,
 	      ' named ',
 	      inventory.name1 === inventory.name2 ? "the same" : "differently",
@@ -32140,7 +32141,7 @@
 	    React.createElement(
 	      'pre',
 	      null,
-	      '<Map from={inventory.name2} to={{\n      vladimir: " that\'s a fine Russian name",\n      xi\xF9l\xE1n: " that\'s a fine Chinese name",\n      ikiaq: " that\'s a fine Inuit name"\n    }}/>'
+	      '<Map from={inventory.name2} to={{\n      vladimir: " that\u2019s a fine Russian name",\n      xi\xF9l\xE1n: " that\u2019s a fine Chinese name",\n      ikiaq: " that\u2019s a fine Inuit name"\n    }}/>'
 	    ),
 	    React.createElement(
 	      'p',
@@ -32148,9 +32149,9 @@
 	      inventory.name2,
 	      ':',
 	      React.createElement(_windrift.Map, { from: inventory.name2, to: {
-	          vladimir: " that's a fine Russian name",
-	          xiùlán: " that's a fine Chinese name",
-	          ikiaq: " that's a fine Inuit name"
+	          vladimir: " that’s a fine Russian name",
+	          xiùlán: " that’s a fine Chinese name",
+	          ikiaq: " that’s a fine Inuit name"
 	        } }),
 	      '.'
 	    ),
