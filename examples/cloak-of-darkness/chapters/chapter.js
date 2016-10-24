@@ -85,7 +85,7 @@ export default ({currentSection, inventory}) => {
 
         <h3>The Bar</h3>
         <p>
-          The bar, much rougher than you'd have guessed after the opulence of the
+          The bar, much rougher than you’d have guessed after the opulence of the
           foyer to the north, is completely empty. There seems to be some sort
           of <List expansions={["scrawled message", "scrawled message"]} tag="message" /> in the sawdust on the floor.
         </p>
