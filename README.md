@@ -14,6 +14,8 @@ the example stories:
 * [Windrift starter](https://lizadaly.github.io/windrift/examples/starter/), the demo story supplied with the
 [starter project](https://github.com/lizadaly/windrift-starter). [[source code](https://github.com/lizadaly/windrift-starter/blob/master/chapters/chapter1.js)]
 * [Cloak of Darkness](https://lizadaly.github.io/windrift/examples/cloak-of-darkness/), the canonical "sample game" for interactive  fiction systems. [[source code](https://github.com/lizadaly/windrift/tree/master/examples/cloak-of-darkness)]
+* [Stone Harbor excerpt](https://lizadaly.github.io/windrift/examples/stone-harbor-excerpt), the Prologue from Stone Harbor,
+updated to work with the latest Windrift. [[source code](https://github.com/lizadaly/windrift/tree/master/examples/stone-harbor-excerpt)]
 * [Advanced usage](https://lizadaly.github.io/windrift/examples/advanced/), changing the UI in response to reader choices. [[source code](https://github.com/lizadaly/windrift/tree/master/examples/advanced)]
 
 ### Starter project
