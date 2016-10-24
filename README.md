@@ -12,7 +12,7 @@ This repository contains the Windrift core library. You may be interested in qui
 the example stories:
 
 * [Windrift starter](https://lizadaly.github.io/windrift/examples/starter/), the demo story supplied with the
-[starter project](https://github.com/lizadaly/windrift-starter).
+[starter project](https://github.com/lizadaly/windrift-starter). [[source code](https://github.com/lizadaly/windrift-starter/blob/master/chapters/chapter1.js)]
 * [Cloak of Darkness](https://lizadaly.github.io/windrift/examples/cloak-of-darkness/), the canonical "sample game" for interactive  fiction systems. [[source code](https://github.com/lizadaly/windrift/tree/master/examples/cloak-of-darkness)]
 * [Advanced usage](https://lizadaly.github.io/windrift/examples/advanced/), changing the UI in response to reader choices. [[source code](https://github.com/lizadaly/windrift/tree/master/examples/advanced)]
 
@@ -214,5 +214,5 @@ The Windrift base components only know about the `present`; they do not have any
 
 You're welcome to browse the [Stone Harbor source](https://github.com/lizadaly/stone-harbor-game) as a Windrift
 reference, but Windrift has moved on since the story was written and the two are not entirely compatible.
-Of particular interest might be the [tarot deck implementation](https://github.com/lizadaly/stone-harbor-game/blob/master/src/chapters/chapter5.js#L202), which uses
+Of interest might be the [tarot deck implementation](https://github.com/lizadaly/stone-harbor-game/blob/master/src/chapters/chapter5.js#L202), which uses
 a custom component with custom actions and reducers.
