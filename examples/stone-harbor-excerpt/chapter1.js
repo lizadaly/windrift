@@ -88,7 +88,7 @@ export default ({currentSection, inventory}) => {
         you tell him, but it’s useless, he’s burnt anyway. He squeezes past the
         woman—the police officer—who watches him with a mix of pity and
         contempt.
-        He's in such a hurry he doesn’t think to pick up his extra money on the table,
+        He’s in such a hurry he doesn’t think to pick up his extra money on the table,
         and in the distraction of the moment you quietly slide it into your pocket.
         His <FromInventory inventory={inventory.p0_customer_clothes} /> also lies forgotten.
       </p>
