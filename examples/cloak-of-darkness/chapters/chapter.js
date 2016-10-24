@@ -7,10 +7,10 @@ export default ({currentSection, inventory}) => {
         <h2>Cloak of Darkness</h2>
         <aside>
           <p>
-            Hurrying through the rainswept November night, you're glad to see the
+            Hurrying through the rainswept November night, you’re glad to see the
             bright lights of the Opera House.
           </p>
-          <p>It's surprising that there aren't more
+          <p>It’s surprising that there aren't more
           people about…</p>
 
         </aside>
@@ -102,7 +102,9 @@ export default ({currentSection, inventory}) => {
               </span></h1>
             </div>
             <p>
-              About the <a href="http://www.firthworks.com/roger/cloak/">Cloak of Darkness specification</a>
+              Read about the <a href="http://www.firthworks.com/roger/cloak/">Cloak of Darkness specification</a>, 
+              and <a href="https://github.com/lizadaly/windrift/tree/master/examples/cloak-of-darkness">about this
+              implementation</a>.
             </p>
 
           </div>
