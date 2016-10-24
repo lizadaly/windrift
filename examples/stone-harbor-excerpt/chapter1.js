@@ -150,7 +150,7 @@ export default ({currentSection, inventory}) => {
       <p>You’re angry too, though you’re not sure why.
         “And now I operate it. For tourists and suckers. <i>For entertainment purposes only.</i>”</p>
       <p>“I knew this was a waste of time,” Whitby says. She tosses
-        a <List expansions={["leather glove", "tense and furious glove"]} tag="p0_glove"/> on the desk. "There, I did what I came to do.”
+        a <List expansions={["leather glove", "tense and furious glove"]} tag="p0_glove"/> on the desk. ”There, I did what I came to do.”
       </p>
     </section>,
     <section>
