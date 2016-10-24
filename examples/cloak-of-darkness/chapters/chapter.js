@@ -10,8 +10,7 @@ export default ({currentSection, inventory}) => {
             Hurrying through the rainswept November night, you’re glad to see the
             bright lights of the Opera House.
           </p>
-          <p>It’s surprising that there aren't more
-          people about…</p>
+          <p>It’s surprising that there aren’t more people about…</p>
 
         </aside>
         <h3>Foyer of Opera House</h3>
