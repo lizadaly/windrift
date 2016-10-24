@@ -32020,16 +32020,12 @@
 	      'If you want to modify the user\u2019s response somehow, like by pluralizing it, you can use the ',
 	      '<FromInventory>',
 	      ' component to do so safely (even if the value wasn\u2019t yet set by the user):'
-<<<<<<< HEAD
 	    ),
 	    React.createElement(
 	      'pre',
 	      null,
 	      'One <FromInventory from={inventory.animal} onLoad={(from) => from.substring(0, from.length -1)} />, two{\' \'}\n{inventory.animal}. <FromInventory from={inventory.animal} onLoad={(from) => from.charAt(0).toUpperCase() + from.slice(1)} /> are great.\n'
-=======
->>>>>>> c827909ecb58831b3c7ddb7b21bb3078834475b2
 	    ),
-	    'One <FromInventory from={inventory.animal} onLoad={(from) => from.substring(0, from.length -1)} />, two{\' \'}\n{inventory.animal}. <FromInventory from={inventory.animal} onLoad={(from) => from.charAt(0).toUpperCase() + from.slice(1)} /> are great.\n',
 	    React.createElement(
 	      'p',
 	      { className: 'game-text' },
