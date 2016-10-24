@@ -209,3 +209,10 @@ When a reader plays for 15 turns and hits the browser back button, an event is f
 In turn, the whole past/present/future store is saved via [redux-persist](https://github.com/rt2zz/redux-persist) to the browser's `localStorage` object. If the reader refreshes the browser or returns to the story after a period of time, the entire store is reconstituted from `localStorage`.
 
 The Windrift base components only know about the `present`; they do not have any direct access to the past or the future versions of the store. It is possible to imagine a story that made use of this additional data to implement more sophisticated state changes, but that's for a future enhancement.
+
+## A note about Stone Harbor
+
+You're welcome to browse the [Stone Harbor source](https://github.com/lizadaly/stone-harbor-game) as a Windrift
+reference, but Windrift has moved on since the story was written and the two are not entirely compatible.
+Of particular interest might be the [tarot deck implementation](https://github.com/lizadaly/stone-harbor-game/blob/master/src/chapters/chapter5.js#L202), which uses
+a custom component with custom actions and reducers.
