@@ -1,10 +1,11 @@
 {
-  "title": "Windrift Advanced demo",
+  "title": "Stone Harbor sample chapter",
   "author": "Liza Daly",
-  "identifier": "windrift-advanced",
+  "identifier": "stone-harbor-sample",
   "keywords": "starter windrift javascript react interactive-fiction",
-  "description": "A demo of more advanced features in the Windrift story framework",
+  "description": "A sample chapter from the story 'Stone Harbor'",
   "license": "CC BY 4.0",
   "version": "1.0.0",
-  "pagination": "scrolling"
+  "pagination": "scrolling",
+  "enableUndo": true
 }

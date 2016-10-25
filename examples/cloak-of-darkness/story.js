@@ -98,6 +98,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	exports.startGame = exports.Game = exports.NextChapter = exports.AllButSelection = exports.FromInventory = exports.Link = exports.ManyMap = exports.RenderSection = exports.List = exports.Map = undefined;
 
 	var _components = __webpack_require__(4);
 
@@ -164,6 +165,9 @@
 	    return _app.startGame;
 	  }
 	});
+
+
+	window.resetGame = _components.resetGame;
 
 /***/ },
 /* 4 */
@@ -244,6 +248,15 @@
 	  enumerable: true,
 	  get: function get() {
 	    return _interopRequireDefault(_allbutselection).default;
+	  }
+	});
+
+	var _util = __webpack_require__(63);
+
+	Object.defineProperty(exports, 'resetGame', {
+	  enumerable: true,
+	  get: function get() {
+	    return _util.resetGame;
 	  }
 	});
 
@@ -6319,7 +6332,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.iteratedList = exports.wordFromInventory = undefined;
+	exports.resetGame = exports.iteratedList = exports.wordFromInventory = undefined;
 
 	var _link = __webpack_require__(64);
 
@@ -6381,6 +6394,20 @@
 	      );
 	    })
 	  );
+	};
+
+	var resetMessage = "Restart the story from the beginning?";
+
+	/* Reset the game and remove the local storage */
+	var resetGame = exports.resetGame = function resetGame(e) {
+	  var message = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : resetMessage;
+
+	  e.preventDefault();
+	  var conf = confirm(message);
+	  if (conf) {
+	    localStorage.clear();
+	    location.replace(window.location.href);
+	  }
 	};
 
 /***/ },
@@ -24919,8 +24946,7 @@
 	    var _this = _possibleConstructorReturn(this, (_Game.__proto__ || Object.getPrototypeOf(_Game)).call(this, props));
 
 	    _this.chapters = [];
-
-	    props.chaptersList.keys().forEach(function (filename, index) {
+	    props.chaptersList.keys().sort().forEach(function (filename, index) {
 	      var chapter = props.chaptersList(filename).default;
 	      // React requires this be uppercase, hooray
 	      var C = (0, _reactRedux.connect)(chapterMapper)(chapter);
@@ -24978,12 +25004,15 @@
 	var startGame = exports.startGame = function startGame(game) {
 	  var store = (0, _redux.createStore)(_reducers2.default, { config: game.props.config }, (0, _reduxPersist.autoRehydrate)());
 	  var persister = (0, _reduxPersist.persistStore)(store, { keyPrefix: game.props.config.identifier });
-	  window.addEventListener("popstate", function (e) {
-	    if (history.state.hasOwnProperty(store.getState().config.identifier)) {
-	      var timeOffset = history.state[store.getState().config.identifier] - store.getState().counter.present;
-	      store.dispatch(_reduxUndo.ActionCreators.jump(timeOffset));
-	    }
-	  });
+
+	  if (game.props.config.enableUndo) {
+	    window.addEventListener("popstate", function (e) {
+	      if (history.state.hasOwnProperty(store.getState().config.identifier)) {
+	        var timeOffset = history.state[store.getState().config.identifier] - store.getState().counter.present;
+	        store.dispatch(_reduxUndo.ActionCreators.jump(timeOffset));
+	      }
+	    });
+	  }
 	  ReactDOM.render(React.createElement(
 	    _reactRedux.Provider,
 	    { store: store },
@@ -31933,7 +31962,7 @@
 	      React.createElement(_windrift.List, { expansions: ["north", "north"], tag: 'foyer_north', nextUnit: null }),
 	      ',',
 	      React.createElement(_windrift.Map, { from: inventory.foyer_north, to: {
-	          _undefined: " and there  ",
+	          unselected: " and there  ",
 	          north: ' but you\'ve only just arrived, and besides, the weather\n            outside seems to be getting worse. There '
 	        } }),
 	      'are doorways ',
@@ -31966,7 +31995,7 @@
 	                  'You give up and go back into the foyer, though you note that as you step in, your cloak seems to draw light out of the room.'
 	                )
 	              ),
-	              _undefined: barDark,
+	              unselected: barDark,
 	              north: React.createElement(
 	                'div',
 	                null,
@@ -32004,8 +32033,8 @@
 	    ),
 	    React.createElement(_windrift.Map, { from: inventory.cloakroom_hook, to: {
 	        one: React.createElement(_windrift.Map, { from: inventory.cloak_hang, to: {
-	            _undefined: React.createElement(_windrift.Map, { from: inventory.bar_north, to: {
-	                _undefined: React.createElement(
+	            unselected: React.createElement(_windrift.Map, { from: inventory.bar_north, to: {
+	                unselected: React.createElement(
 	                  'p',
 	                  null,
 	                  'Your ',
@@ -32033,7 +32062,7 @@
 	    'section',
 	    null,
 	    React.createElement(_windrift.Map, { from: inventory.cloak_hang, to: {
-	        _undefined: React.createElement(
+	        unselected: React.createElement(
 	          'p',
 	          null,
 	          'On your way out the door, your cloak snags on the wall hook. Damn! That cost a fortune.'
@@ -32049,7 +32078,7 @@
 	      null,
 	      'You decide to see what\u2019s  ',
 	      React.createElement(_windrift.Map, { from: inventory.foyer_south, to: {
-	          _undefined: "south of the foyer",
+	          unselected: "south of the foyer",
 	          south: " happening over in the bar"
 	        } }),
 	      '.'
@@ -32081,7 +32110,7 @@
 	                'span',
 	                null,
 	                React.createElement(_windrift.Map, { from: inventory.bar_north, to: {
-	                    _undefined: "You have won.",
+	                    unselected: "You have won.",
 	                    north: "You have won.",
 	                    randomly: "You have lost."
 	                  } })
