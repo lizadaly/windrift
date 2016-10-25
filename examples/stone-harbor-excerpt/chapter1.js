@@ -88,7 +88,7 @@ export default ({currentSection, inventory}) => {
         you tell him, but it’s useless, he’s burnt anyway. He squeezes past the
         woman—the police officer—who watches him with a mix of pity and
         contempt.
-        He's in such a hurry he doesn’t think to pick up his extra money on the table,
+        He’s in such a hurry he doesn’t think to pick up his extra money on the table,
         and in the distraction of the moment you quietly slide it into your pocket.
         His <FromInventory inventory={inventory.p0_customer_clothes} /> also lies forgotten.
       </p>
@@ -150,7 +150,7 @@ export default ({currentSection, inventory}) => {
       <p>You’re angry too, though you’re not sure why.
         “And now I operate it. For tourists and suckers. <i>For entertainment purposes only.</i>”</p>
       <p>“I knew this was a waste of time,” Whitby says. She tosses
-        a <List expansions={["leather glove", "tense and furious glove"]} tag="p0_glove"/> on the desk. "There, I did what I came to do.”
+        a <List expansions={["leather glove", "tense and furious glove"]} tag="p0_glove"/> on the desk. ”There, I did what I came to do.”
       </p>
     </section>,
     <section>
