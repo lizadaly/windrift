@@ -31942,12 +31942,12 @@
 	      React.createElement(
 	        'p',
 	        null,
-	        'Hurrying through the rainswept November night, you\'re glad to see the bright lights of the Opera House.'
+	        'Hurrying through the rainswept November night, you\u2019re glad to see the bright lights of the Opera House.'
 	      ),
 	      React.createElement(
 	        'p',
 	        null,
-	        'It\'s surprising that there aren\'t more people about\u2026'
+	        'It\u2019s surprising that there aren\u2019t more people about\u2026'
 	      )
 	    ),
 	    React.createElement(
@@ -31962,8 +31962,8 @@
 	      React.createElement(_windrift.List, { expansions: ["north", "north"], tag: 'foyer_north', nextUnit: null }),
 	      ',',
 	      React.createElement(_windrift.Map, { from: inventory.foyer_north, to: {
-	          unselected: " and there  ",
-	          north: ' but you\'ve only just arrived, and besides, the weather\n            outside seems to be getting worse. There '
+	          _undefined: " and there  ",
+	          north: ' but you\u2019ve only just arrived, and besides, the weather\n            outside seems to be getting worse. There '
 	        } }),
 	      'are doorways ',
 	      React.createElement(_windrift.List, { expansions: ["south", "south"], tag: 'foyer_south', nextUnit: null }),
@@ -31995,7 +31995,7 @@
 	                  'You give up and go back into the foyer, though you note that as you step in, your cloak seems to draw light out of the room.'
 	                )
 	              ),
-	              unselected: barDark,
+	              _undefined: barDark,
 	              north: React.createElement(
 	                'div',
 	                null,
@@ -32033,8 +32033,8 @@
 	    ),
 	    React.createElement(_windrift.Map, { from: inventory.cloakroom_hook, to: {
 	        one: React.createElement(_windrift.Map, { from: inventory.cloak_hang, to: {
-	            unselected: React.createElement(_windrift.Map, { from: inventory.bar_north, to: {
-	                unselected: React.createElement(
+	            _undefined: React.createElement(_windrift.Map, { from: inventory.bar_north, to: {
+	                _undefined: React.createElement(
 	                  'p',
 	                  null,
 	                  'Your ',
@@ -32062,7 +32062,7 @@
 	    'section',
 	    null,
 	    React.createElement(_windrift.Map, { from: inventory.cloak_hang, to: {
-	        unselected: React.createElement(
+	        _undefined: React.createElement(
 	          'p',
 	          null,
 	          'On your way out the door, your cloak snags on the wall hook. Damn! That cost a fortune.'
@@ -32078,7 +32078,7 @@
 	      null,
 	      'You decide to see what\u2019s  ',
 	      React.createElement(_windrift.Map, { from: inventory.foyer_south, to: {
-	          unselected: "south of the foyer",
+	          _undefined: "south of the foyer",
 	          south: " happening over in the bar"
 	        } }),
 	      '.'
@@ -32091,7 +32091,7 @@
 	    React.createElement(
 	      'p',
 	      null,
-	      'The bar, much rougher than you\'d have guessed after the opulence of the foyer to the north, is completely empty. There seems to be some sort of ',
+	      'The bar, much rougher than you\u2019d have guessed after the opulence of the foyer to the north, is completely empty. There seems to be some sort of ',
 	      React.createElement(_windrift.List, { expansions: ["scrawled message", "scrawled message"], tag: 'message' }),
 	      ' in the sawdust on the floor.'
 	    ),
@@ -32110,7 +32110,7 @@
 	                'span',
 	                null,
 	                React.createElement(_windrift.Map, { from: inventory.bar_north, to: {
-	                    unselected: "You have won.",
+	                    _undefined: "You have won.",
 	                    north: "You have won.",
 	                    randomly: "You have lost."
 	                  } })
@@ -32120,12 +32120,19 @@
 	          React.createElement(
 	            'p',
 	            null,
-	            'About the ',
+	            'Read about the ',
 	            React.createElement(
 	              'a',
 	              { href: 'http://www.firthworks.com/roger/cloak/' },
 	              'Cloak of Darkness specification'
-	            )
+	            ),
+	            ', and ',
+	            React.createElement(
+	              'a',
+	              { href: 'https://github.com/lizadaly/windrift/tree/master/examples/cloak-of-darkness' },
+	              'about this implementation'
+	            ),
+	            '.'
 	          )
 	        )
 
