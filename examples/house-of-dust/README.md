@@ -30,7 +30,6 @@ export default ({currentSection, inventory}) => {
 
 The Stanza component returns a complete iteration of the poem assembled from its components.
 
-### The Stanza component
 ```jsx
 const Stanza = () => {
   var line = <div className="stanza">
@@ -45,21 +44,24 @@ const Stanza = () => {
 
 For each line of the poem, one word is chosen randomly to be a hyperlink. This is rendered as a Windrift List:
 
-```
+```jsx
 <List expansions={[word, word]} tag={word} />
 ```
 
 ### The story loop
 
 * For each randomly assembled line, pick one word and create a `List` object rather than a text node.
-* Assign the `tag` for that `List` to be the word, example, "dust." Dust is now hyperlinked.
+* Assign the `tag` for that `List` to be the word, example, "dust." "Dust" is now hyperlinked.
 * When a hyperlink is clicked, apply the default Windrift `List` behavior:
-  * Set the value of the List's `tag` to the value selected by the user: `inventory.dust = "dust"``
-  * Increment the current section counter.
+  * Set the value of the List's `tag` to the value selected by the user: `inventory.dust = "dust"`
+  * Increment the current section counter
 * Per default Windrift behavior, when the current section counter is incremented, the chapter is re-rendered.
 * When the chapter is re-rendered, a new Stanza is added.
 * Any occurrences of the selected word are marked by Windrift as clicked, because they share the same inventory value: `inventory.dust`. All current and future re-occurrences of "dust" will no longer be hyperlinked.
 
+#### Implementation detail
+
+Note that refreshing the page doesn't produce the same poem—this is because the `stanzas` array is stored in-memory rather than propagated to the Redux store. If this were a real work rather than a demo, you'd want to create a "Stanza was added" action to store the generated poem and provide some stability.
 
 ## References
 
