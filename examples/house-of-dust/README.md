@@ -1,6 +1,6 @@
 # The House of Dust
 
-View online: <a href="lizadaly.github.io/windrift/examples/house-of-dust/">The House of Dust</a>
+View online: <a href="https://lizadaly.github.io/windrift/examples/house-of-dust/">The House of Dust</a>
 
 This is an adaptation of <a href="http://www.centerforthehumanities.org/james-gallery/exhibitions/house-of-dust">_The House of Dust_</a> (1967), an early computer-generated poem
 by Alison Knowles and James Tenney.

@@ -1,0 +1,72 @@
+body {
+  background: url(../images/bg.jpg) repeat-y;
+  background-size: cover;
+  font-family: 'EB Garamond', serif;
+
+}
+nav.top-bar {
+  background-color: rgba(255, 255, 255, .25);
+}
+.container {
+  position: absolute;
+  top: 40px;
+  margin: 0 auto;
+  background-color: rgba(255, 255, 255, .25);
+  width: 100vw;
+  min-height: 100vh;
+}
+a {
+  color: rgb(10,10,10);
+  text-decoration: underline;
+}
+.container a {
+  color: rgb(10,10,10);
+  text-decoration: none;
+  box-shadow: 0px 5px 4px -4px rgba(255,50,50, .5);
+}
+.container a:hover {
+  color: rgb(10,10,10);
+  box-shadow: 0px 5px 5px -4px rgb(255,255,255);
+}
+@media screen and (min-width: 50em) {
+  .container {
+    width: 50vw;
+    left: 25vw;
+  }
+}
+article {
+  padding-left: 10vw !important;
+}
+@media screen and (min-width: 50em) {
+  article {
+    padding-left: 7vw !important;
+  }
+}
+.stanza {
+  margin-top: 3em;
+  font-size: 1.4rem;
+}
+.stanza p {
+  line-height: 1.2em;
+  opacity: 0;
+}
+.stanza p:nth-child(1) {
+  animation: 2s fadein 0s 1 normal forwards;
+  margin-left: 0em;
+}
+.stanza p:nth-child(2) {
+  animation: 2s fadein 0.2s 1 normal forwards;
+  margin-left: 2.5em;
+}
+.stanza p:nth-child(3) {
+  animation: 2s fadein 0.5s 1 normal forwards;
+  margin-left: 3.5em;
+}
+.stanza p:nth-child(4) {
+  animation: 2s fadein 0.9s 1 normal forwards;
+  margin-left: 4em;
+}
+@keyframes fadein {
+  from { opacity: 0; }
+  to  { opacity: 1; }
+}

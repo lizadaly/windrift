@@ -16,6 +16,7 @@ the example stories:
 * [Cloak of Darkness](https://lizadaly.github.io/windrift/examples/cloak-of-darkness/), the canonical "sample game" for interactive  fiction systems. [[source code](https://github.com/lizadaly/windrift/tree/master/examples/cloak-of-darkness)]
 * [Stone Harbor excerpt](https://lizadaly.github.io/windrift/examples/stone-harbor-excerpt), the Prologue from Stone Harbor,
 updated to work with the latest Windrift. [[source code](https://github.com/lizadaly/windrift/tree/master/examples/stone-harbor-excerpt)]
+* [The House of Dust](https://lizadaly.github.io/windrift/examples/house-of-dust), an implementation of the classic 1967 computer-generated poem. [[source code](https://github.com/lizadaly/windrift/tree/master/examples/house-of-dust)]
 * [Advanced usage](https://lizadaly.github.io/windrift/examples/advanced/), changing the UI in response to reader choices. [[source code](https://github.com/lizadaly/windrift/tree/master/examples/advanced)]
 
 ### Starter project
@@ -76,7 +77,7 @@ Authors can decide whether a particular user action should trigger one of three 
 
 A Windrift story is composed of a series of <b>chapters</b> contained in individual files. Each chapter is made up of <b>sections</b> that are revealed in response to a user interaction.
 
-The section/chapter division is primarily for the author's benefit. You could write an entire novel's worth of text in a single chapter if you like. You don't have to call them "chapers" or express the division to the reader if you don't want.
+The section/chapter division is primarily for the author's benefit. You could write an entire novel's worth of text in a single chapter if you like. You don't have to call them "chapters" or express the division to the reader if you don't want.
 
 Chapters and sections are currently modeled as arrays: it's easy to move forward or back with relative offsets, but not particularly easy to index into arbitrarily. An obvious area for future development would be a structural model that more easily permitted jumping to named chapters/sections.
 
@@ -177,7 +178,7 @@ The _basset hound_ squirms in your grasp.
 
 ## Writing in Windrift
 
-From here on out, some familiarity with React/Redux is assumed.
+This section assumes some familiarity with React/Redux.
 
 ### The store
 
