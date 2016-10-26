@@ -38,28 +38,52 @@ As an authoring environment, though, it has different goals:
 
 ## Design
 
-A Windrift story has two conceptual layers:
+### Redux principles
 
-* The current world model, or <i>state</i>. This is the record of all the choices the user has made in the game, and their current point in the story.
+Windrift was made to leverage the React/Redux frameworks, which I think have interesting properties that can apply to narrative-driven games.
 
-* The <i>rendering</i> of that state, which is the text displayed by the engine in response to that model.
+Redux manages an application's state through a series of _actions_, or assertions about _events that occurred_. Instead of calling functions like, "Change the `counter` variable from _X_ to _X+1_," a Redux application instead creates a message: "The _counter_ was incremented."
 
-The world model is implemented as an <i>immutable</i> object. Each time the user makes a change to the state (as by selecting some text), the old state is discarded and a new one takes it place. It's up to you, the author, whether your rendering reflects that something changed, or leaves it out entirely, as if it never happened.
+These messages are funneled through functions called _reducers_, which take the message, any data that goes along with it, the previous snapshot of the world, and return a new value in response to the message. In the counter example, a reducer would look at the previous version of the counter, add one to it, and return the new value.
 
-It is impossible for the rendering to go out of sync with the state. While a typical story is read linearly, moving forward in time, it would be possible (in fact, quite easy) to make a Windrift story that appeared to write over itself, undo itself, or modified itself entirely in response to user selections.
+Finally, event listeners are assigned to any UI components that might need to know about these changes—for example, in a application where a turn counter was visible in the status bar, a `Counter` component could be written that updates itself every time the counter value changes.
 
-Windrift persists each state snapshot to the user's browser, enabling undo (through the browser back button) and resume (even if the user has navigated away).
+The above is all vanilla React/Redux and is used to write thousands of web applications. I was interested in how this message/event model could apply to narrative games, by reducing them to a series of messages about things that happened, and components that return updated text in response to those changes.
 
-## Architecture and components
+### The Inventory
+
+The core Windrift library provides one global bucket for these messages, called the _inventory_, after the traditional interactive fiction word for "Stuff the player is carrying." (In practice, the _inventory_ is more likely to be a record of the series of choices a user made, rather than a list of objects in their possession.)
+
+The inventory can be thought of as a catch-all for messages of the type, "The user picked choice B out of A, B, C." Without the inventory, a Windrift author would have to write an _action_, a _reducer_ and a _listener_ for every choice presented in the game. Because most choices in a narrative game are ephemeral, it makes sense to provide a single action/reducer/store for these kinds of interactions. More complex transformations are possible by writing custom actions and reducers.
+
+With the exception of the tarot deck, _Stone Harbor_ only uses the inventory for its interactions and responses. A Windrift story that uses just the core components could almost certainly be implemented just as well in Twine or other systems. Using Redux principles _does_ enable more complex stories to be written that would be difficult or error-prone if implemented in more traditional hypertext systems.
+
+### The timeline
+
+Windrift has an implicit sense of time. It provides a global `counter` that increments on each user choice or interaction. At each user interaction, a few events happen in the background:
+
+* The users' choice is persisted to the Redux `store` (as part of the `inventory`)
+* The current global counter value is pushed to the user's browser history.
+* The entire world model (the Redux `store`) is saved off in an array called `past`. See the section below on the Redux store for more details on the past/future.
+
+Authors can decide whether a particular user action should trigger one of three timeline-based actions:
+
+* Advance to the next section
+* Advance to the next chapter
+* Do nothing
+
+### Story structure
 
 A Windrift story is composed of a series of <b>chapters</b> contained in individual files. Each chapter is made up of <b>sections</b> that are revealed in response to a user interaction.
 
 The section/chapter division is primarily for the author's benefit. You could write an entire novel's worth of text in a single chapter if you like. You don't have to call them "chapers" or express the division to the reader if you don't want.
 
+Chapters and sections are currently modeled as arrays: it's easy to move forward or back with relative offsets, but not particularly easy to index into arbitrarily. An obvious area for future development would be a structural model that more easily permitted jumping to named chapters/sections.
+
 ### Lists
 The primary mode of interaction with a Windrift story is via Lists.
 
-A List is an array of choices—called *expansions*—that are presented sequentially. Each item in a List is rendered as a clickable link. Lists are identified by a unique label—called a *tag*—that the author assigns.
+A List is an array of choices—called *expansions*—that are presented sequentially. Each item in a List is rendered as a clickable link. Lists are identified by a unique label—called a *tag*—that the author assigns. This tag becomes the reference to the choice in the inventory.
 
 #### Flat List
 A flat list is an array of individual strings. As the user clicks on each list item, the next will be revealed,  replacing the previous. You might use this device to have a character appear to stammer or talk over themselves:
