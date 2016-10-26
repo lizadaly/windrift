@@ -1,0 +1,114 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+  <head>
+      <meta charset="utf-8" />
+      <meta http-equiv="x-ua-compatible" content="ie=edge" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>A House of Dust adaptation</title>
+
+      <meta name="keywords" content="starter windrift javascript react interactive-fiction" />
+      <meta name="description" content="An adaptation of Alison Knowles and James Tenney&#x27;s A House of Dust" />
+      <meta name="author" content="Alison Knowles and James Tenney (adaption by Liza Daly)" />
+      <meta name="copyright" content="CC BY 4.0" />
+
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.2.3/foundation-flex.min.css" />
+
+      <link href="https://fonts.googleapis.com/css?family=EB+Garamond" rel="stylesheet">
+      <link rel="stylesheet" href="css/windrift.css" />
+      <style>
+      body {
+        background: url(images/bg.jpg) repeat-y;
+        background-size: cover;
+        font-family: 'EB Garamond', serif;
+
+      }
+      nav.top-bar {
+        background-color: rgba(255, 255, 255, .25);
+      }
+      .container {
+        position: absolute;
+        top: 40px;
+        margin: 0 auto;
+        background-color: rgba(255, 255, 255, .25);
+        width: 100vw;
+        min-height: 100vh;
+      }
+      a {
+        color: rgb(10,10,10);
+        text-decoration: underline;
+      }
+      .container a {
+        color: rgb(10,10,10);
+        text-decoration: none;
+        box-shadow: 0px 5px 4px -4px rgba(255,50,50, .5);
+      }
+      .container a:hover {
+        color: rgb(10,10,10);
+        box-shadow: 0px 5px 5px -4px rgb(255,255,255);
+      }
+      @media screen and (min-width: 50em) {
+        .container {
+          width: 50vw;
+          left: 25vw;
+        }
+      }
+      article {
+        padding-left: 10vw !important;
+      }
+      @media screen and (min-width: 50em) {
+        article {
+          padding-left: 7vw !important;
+        }
+      }
+      .stanza {
+        margin-top: 3em;
+        font-size: 1.4rem;
+      }
+      .stanza p {
+        line-height: 1.2em;
+        opacity: 0;
+      }
+      .stanza p:nth-child(1) {
+        animation: 2s fadein 0s 1 normal forwards;
+        margin-left: 0em;
+      }
+      .stanza p:nth-child(2) {
+        animation: 2s fadein 0.2s 1 normal forwards;
+        margin-left: 2.5em;
+      }
+      .stanza p:nth-child(3) {
+        animation: 2s fadein 0.5s 1 normal forwards;
+        margin-left: 3.5em;
+      }
+      .stanza p:nth-child(4) {
+        animation: 2s fadein 0.9s 1 normal forwards;
+        margin-left: 4em;
+      }
+      @keyframes fadein {
+        from { opacity: 0; }
+        to  { opacity: 1; }
+      }
+      </style>
+  </head>
+
+  <body class="pagination-scrolling">
+
+      <nav class="top-bar">
+        <div class="top-bar-title">
+          A House of Dust adaptation
+        </div>
+        <div>
+          <div class="top-bar-right">
+            <a href="#" onClick="resetGame(event, 'Create a new poem?')">New poem</a>
+          </div>
+        </div>
+      </nav>
+
+      <div class="container">
+        <article id="article" class="row columns"></article>
+      </div>
+
+  <script type="text/javascript" src="story.js"></script></body>
+
+</html>

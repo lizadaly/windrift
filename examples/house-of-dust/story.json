@@ -1,0 +1,11 @@
+{
+  "title": "A House of Dust adaptation",
+  "author": "Alison Knowles and James Tenney (adaption by Liza Daly)",
+  "identifier": "windrift-house-of-dust",
+  "keywords": "starter windrift javascript react interactive-fiction",
+  "description": "An adaptation of Alison Knowles and James Tenney's A House of Dust",
+  "license": "CC BY 4.0", 
+  "version": "1.0.0",
+  "pagination": "scrolling",
+  "enableUndo": false
+}
