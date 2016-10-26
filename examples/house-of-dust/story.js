@@ -81,11 +81,11 @@
 	"use strict";
 
 	module.exports = {
-		"title": "A House of Dust adaptation",
+		"title": "The House of Dust",
 		"author": "Alison Knowles and James Tenney (adaption by Liza Daly)",
 		"identifier": "windrift-house-of-dust",
 		"keywords": "starter windrift javascript react interactive-fiction",
-		"description": "An adaptation of Alison Knowles and James Tenney's A House of Dust",
+		"description": "An adaptation of Alison Knowles and James Tenney's The House of Dust",
 		"license": "CC BY 4.0",
 		"version": "1.0.0",
 		"pagination": "scrolling",
@@ -31897,8 +31897,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var map = {
-		"./chapter1.js": 387,
-		"./chapter2.js": 388
+		"./chapter1.js": 387
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -32002,52 +32001,6 @@
 	};
 	var randFromLen = function randFromLen(items) {
 	  return Math.floor(Math.random() * items.length);
-	};
-
-/***/ },
-/* 388 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _windrift = __webpack_require__(3);
-
-	var React = __webpack_require__(9);
-
-	exports.default = function (_ref) {
-	  var currentSection = _ref.currentSection;
-	  var inventory = _ref.inventory;
-
-	  var sections = [React.createElement(
-	    'section',
-	    null,
-	    React.createElement(
-	      'h2',
-	      null,
-	      'Chapter Two'
-	    ),
-	    React.createElement(
-	      'p',
-	      null,
-	      'There\u2018s really nothing here, just an example of having a second chapter.'
-	    ),
-	    React.createElement(
-	      'p',
-	      null,
-	      'More documentation is available at the ',
-	      React.createElement(
-	        'a',
-	        { href: 'https://github.com/lizadaly/windrift-starter' },
-	        'Github repo'
-	      ),
-	      ' for this project.'
-	    )
-	  )];
-	  return React.createElement(_windrift.RenderSection, { currentSection: currentSection, sections: sections });
 	};
 
 /***/ }
