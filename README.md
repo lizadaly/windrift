@@ -43,9 +43,9 @@ As an authoring environment, though, it has different goals:
 
 Windrift was made to leverage the React/Redux frameworks, which I think have interesting properties that can apply to narrative-driven games.
 
-Redux manages an application's state through a series of _actions_, or assertions about _events that occurred_. Instead of calling functions like, "Change the `counter` variable from _X_ to _X+1_," a Redux application instead creates a message: "The _counter_ was incremented."
+Redux manages an application's state through a series of _actions_, or assertions about _events that occurred_. Instead of calling functions like, "Change the `counter` variable from _X_ to _X+1_," a Redux application instead creates a message: "The `counter` was incremented."
 
-These messages are funneled through functions called _reducers_, which take the message, any data that goes along with it, the previous snapshot of the world, and return a new value in response to the message. In the counter example, a reducer would look at the previous version of the counter, add one to it, and return the new value.
+These messages are funneled through functions called _reducers_, which take the message, any data that goes along with it, and the previous snapshot of the world, and return a new value in response to the message. In the counter example, a reducer would look at the previous version of the counter, add one to it, and return the new value.
 
 Finally, event listeners are assigned to any UI components that might need to know about these changes—for example, in a application where a turn counter was visible in the status bar, a `Counter` component could be written that updates itself every time the counter value changes.
 
