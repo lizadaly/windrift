@@ -1,4 +1,5 @@
 export { default as List } from './list'
+export { default as NestedList } from './nestedlist'
 export { default as Map } from './map'
 export { default as ManyMap } from './manymap'
 export { default as Link } from './link'

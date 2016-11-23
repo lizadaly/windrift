@@ -4,12 +4,15 @@ const React = require('react')
 is supplied, then the text is displayed as static HTML. This typically occurs
 for the last item in a List */
 const Link = ({text, handler}) => {
-  if (handler)
+  if (handler) {
     return <a href="#" onClick={handler}>{text}</a>
-      return <span>{text}</span>
-    }
-    Link.propTypes = {
-      text: React.PropTypes.string.isRequired,
-      handler: React.PropTypes.func
   }
-  export default Link
+  return <span>{text}</span>
+}
+
+Link.propTypes = {
+  text: React.PropTypes.string.isRequired,
+  handler: React.PropTypes.func
+}
+
+export default Link
