@@ -28,6 +28,3 @@ chapter should be visible */
 .pagination-by-section .current-chapter .current-section {
   display: block
 }
-a {
-    text-decoration: underline !important;
-}
