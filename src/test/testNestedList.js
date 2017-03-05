@@ -97,16 +97,27 @@ describe('<NestedList />', () => {
   }),
 
   it('renders the text of the input correctly', () => {
-    var wrapper = mount(<TestNestedList expansions={ex} tag={TAG}/>)
+    var wrapper = mount(<TestNestedList expansions={ex} tag={TAG} ellipsis=""/>)
     assert.equalIgnoreSpaces("The economy grew", wrapper.text())
   }),
 
+  it('renders the passed-in ellipsis value', () => {
+    var wrapper = mount(<TestNestedList expansions={ex} tag={TAG} ellipsis="*"/>)
+    assert.equalIgnoreSpaces("The economy grew*", wrapper.text())
+  }),
+
+  it('uses the default ellipsis value when none provided', () => {
+    var wrapper = mount(<TestNestedList expansions={ex} tag={TAG} />)
+    assert.equalIgnoreSpaces("The economy grew…", wrapper.text())
+  }),
+
   it('renders the hidden text as links', () => {
-    var wrapper = mount(<TestNestedList expansions={ex} tag={TAG}/>)
+    var wrapper = mount(<TestNestedList expansions={ex} tag={TAG} ellipsis=""/>)
     assert.equal(1, wrapper.find('a').length)
   }),
+
   it('changes the value of the anchor child to "show" when clicked', () => {
-    var wrapper = mount(<TestNestedList expansions={ex} tag={TAG}/>)
+    var wrapper = mount(<TestNestedList expansions={ex} tag={TAG} ellipsis=""/>)
     wrapper.find('a').simulate('click')
     // After clicking there should be two child anchors
     assert.equal(2, wrapper.find('a').length)

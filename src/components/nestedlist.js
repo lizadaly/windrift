@@ -30,7 +30,7 @@ class _NestedList extends React.Component {
     })
   }
   render() {
-    return <div>{renderText(this.state.tokenized, this.handler, false)}</div>
+    return <div>{renderText(this.state.tokenized, this.handler, this.props.ellipsis, false)}</div>
   }
 }
 _NestedList.propTypes = {
@@ -39,10 +39,10 @@ _NestedList.propTypes = {
   expansions: React.PropTypes.string.isRequired,
   config: React.PropTypes.object,
   currentExpansion: React.PropTypes.number,
-  conjunction: React.PropTypes.string,
-  persistLast: React.PropTypes.bool,
-  onLoad: React.PropTypes.func,
-  onComplete: React.PropTypes.func
+  ellipsis: React.PropTypes.string
+}
+_NestedList.defaultProps = {
+  ellipsis: "…"
 }
 
 const mapStateToProps = (state, ownProps, currentExpansion=0, lastSelection=undefined) => {
@@ -62,12 +62,20 @@ const mapStateToProps = (state, ownProps, currentExpansion=0, lastSelection=unde
   }
 }
 
-export const renderText = (tokens, handler, inAnchor=false) => {
+export const renderText = (tokens, handler, ellipsis, inAnchor=false, printEllipsis=false) => {
   if (typeof tokens === 'string') {
-    return <span key={tokens}>{" " + tokens + " "}</span>
+    let text = " " + tokens
+    if (printEllipsis) {
+      text += ellipsis
+    }
+    else {
+      text += " "
+    }
+    return <span key={tokens}>{text}</span>
   }
   var ret = []
   var asAnchor = false
+  var includeEllipsis = false
   if (tokens[0] === 'show') {
     // Check the siblings for any hidden nodes
     for (var i=1;i<tokens.length;i++) {
@@ -78,9 +86,14 @@ export const renderText = (tokens, handler, inAnchor=false) => {
         }
       }
     }
+    // Include the ellipsis character if we're in an anchor and there's a trailing expandable node
+    if (typeof tokens[tokens.length - 1] === 'object' &&
+        tokens[tokens.length - 1][0] === 'hide' && inAnchor) {
+        includeEllipsis = true
+    }
     for (var i=1;i<tokens.length;i++) {
       var anchorValue = inAnchor || asAnchor
-      ret.push(renderText(tokens[i], handler, anchorValue))
+      ret.push(renderText(tokens[i], handler, ellipsis, anchorValue, includeEllipsis))
     }
   }
   if (asAnchor) {
