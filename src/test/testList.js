@@ -1,6 +1,8 @@
 import 'jsdom-global/register'
 import React from 'react'
 import sinon from 'sinon'
+import PropTypes from 'prop-types'
+
 import {Provider, connect} from 'react-redux'
 import {assert} from 'chai'
 import {shallow, mount} from 'enzyme'
@@ -38,7 +40,7 @@ describe('<List />', () => {
               store
           },
           childContextTypes: {
-              store: React.PropTypes.object.isRequired
+              store: PropTypes.object.isRequired
           }
       }
       fakeStore = {

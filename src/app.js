@@ -1,5 +1,6 @@
 const React = require('react')
 const ReactDOM = require('react-dom')
+import PropTypes from 'prop-types'
 const Shim = require('es6-shim')
 
 import { Provider, connect } from 'react-redux'
@@ -35,8 +36,8 @@ class _Game extends React.Component {
   }
 }
 _Game.contextTypes = {
-  config: React.PropTypes.object,
-  chapterList: React.PropTypes.array
+  config: PropTypes.object,
+  chapterList: PropTypes.array
 }
 
 const chapterMapper = (state, ownProps) => {

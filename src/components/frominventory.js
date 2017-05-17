@@ -1,5 +1,5 @@
 const React = require('react')
-
+import PropTypes from 'prop-types'
 import {wordFromInventory} from './util'
 
 /* Return a word from an inventory list. By default, returns the last word. Otherwise,
@@ -20,9 +20,9 @@ const FromInventory = ({from, onLoad, offset=-1}) => {
 }
 
 FromInventory.propTypes = {
-  from: React.PropTypes.string,
-  offset: React.PropTypes.number,
-  onLoad: React.PropTypes.func
+  from: PropTypes.string,
+  offset: PropTypes.number,
+  onLoad: PropTypes.func
 }
 
 export default FromInventory

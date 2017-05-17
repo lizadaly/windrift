@@ -1,5 +1,7 @@
 /* The global state counter */
 const React = require('react')
+import PropTypes from 'prop-types'
+
 import { connect } from 'react-redux'
 import { setStateBoolean } from "../actions"
 
@@ -24,8 +26,8 @@ _Counter.defaultProps = {
   counter: 0
 }
 _Counter.propTypes = {
-  identifier: React.PropTypes.string.isRequired,
-  counter: React.PropTypes.number
+  identifier: PropTypes.string.isRequired,
+  counter: PropTypes.number
 }
 
 const mapStateToProps = (state) => {

@@ -1,4 +1,5 @@
 const React = require('react')
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
 import {iteratedList} from "./util"
@@ -34,12 +35,12 @@ class _NestedList extends React.Component {
   }
 }
 _NestedList.propTypes = {
-  nextUnit: React.PropTypes.oneOf(['chapter', 'section', 'none']),
-  tag: React.PropTypes.string.isRequired,
-  expansions: React.PropTypes.string.isRequired,
-  config: React.PropTypes.object,
-  currentExpansion: React.PropTypes.number,
-  ellipsis: React.PropTypes.string
+  nextUnit: PropTypes.oneOf(['chapter', 'section', 'none']),
+  tag: PropTypes.string.isRequired,
+  expansions: PropTypes.string.isRequired,
+  config: PropTypes.object,
+  currentExpansion: PropTypes.number,
+  ellipsis: PropTypes.string
 }
 _NestedList.defaultProps = {
   ellipsis: "…"

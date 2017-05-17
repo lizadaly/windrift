@@ -1,4 +1,5 @@
 const React = require('react')
+import PropTypes from 'prop-types'
 
 import {iteratedList, wordFromInventory} from './util'
 
@@ -17,9 +18,9 @@ const AllButSelection = ({selection, expansions, offset=null, conjunction="and"}
   return iteratedList(unselected, null, conjunction)
 }
 AllButSelection.propTypes = {
-  selection: React.PropTypes.string,
-  expansions: React.PropTypes.array.isRequired,
-  offset: React.PropTypes.number
+  selection: PropTypes.string,
+  expansions: PropTypes.array.isRequired,
+  offset: PropTypes.number
 }
 
 export default AllButSelection

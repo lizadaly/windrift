@@ -1,5 +1,5 @@
 const React = require('react')
-
+import PropTypes from 'prop-types'
 import {wordFromInventory} from './util'
 
 const MATCH_UNDEFINED = '_undefined'
@@ -58,12 +58,12 @@ class Map extends React.Component {
     }
 }
 Map.propTypes = {
-  from: React.PropTypes.string, // Cannot be isRequired, as the value may be unset
-  to: React.PropTypes.object.isRequired,
-  offset: React.PropTypes.number,
-  triggers: React.PropTypes.object,
-  onChange: React.PropTypes.func,
-  onLoad: React.PropTypes.func
+  from: PropTypes.string, // Cannot be isRequired, as the value may be unset
+  to: PropTypes.object.isRequired,
+  offset: PropTypes.number,
+  triggers: PropTypes.object,
+  onChange: PropTypes.func,
+  onLoad: PropTypes.func
 }
 Map.defaultProps = {
   offset: -1

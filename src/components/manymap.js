@@ -1,4 +1,5 @@
 const React = require('react')
+import PropTypes from 'prop-types'
 
 /* Given an array `from` which may contain 0, 1, or many items, return
   matching values from the `to` object */
@@ -11,7 +12,7 @@ const ManyMap = ({from, to}) => {
   </span>
 }
 ManyMap.propTypes = {
-  from: React.PropTypes.array,
-  to: React.PropTypes.object.isRequired
+  from: PropTypes.array,
+  to: PropTypes.object.isRequired
 }
 export default ManyMap

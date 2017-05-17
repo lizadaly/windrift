@@ -1,4 +1,5 @@
 const React = require('react')
+import PropTypes from 'prop-types'
 
 /* A Link that the user interacts with to potentially change state. If no handler
 is supplied, then the text is displayed as static HTML. This typically occurs
@@ -11,8 +12,8 @@ const Link = ({text, handler}) => {
 }
 
 Link.propTypes = {
-  text: React.PropTypes.string.isRequired,
-  handler: React.PropTypes.func
+  text: PropTypes.string.isRequired,
+  handler: PropTypes.func
 }
 
 export default Link

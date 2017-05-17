@@ -1,5 +1,6 @@
 const React = require('react')
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
 import {iteratedList} from "./util"
 import Link from "./link"
@@ -115,15 +116,15 @@ class _List extends React.Component {
   }
 }
 _List.propTypes = {
-  nextUnit: React.PropTypes.oneOf(['chapter', 'section', 'none']),
-  tag: React.PropTypes.string.isRequired,
-  expansions: React.PropTypes.array.isRequired,
-  config: React.PropTypes.object,
-  currentExpansion: React.PropTypes.number,
-  conjunction: React.PropTypes.string,
-  persistLast: React.PropTypes.bool,
-  onLoad: React.PropTypes.func,
-  onComplete: React.PropTypes.func
+  nextUnit: PropTypes.oneOf(['chapter', 'section', 'none']),
+  tag: PropTypes.string.isRequired,
+  expansions: PropTypes.array.isRequired,
+  config: PropTypes.object,
+  currentExpansion: PropTypes.number,
+  conjunction: PropTypes.string,
+  persistLast: PropTypes.bool,
+  onLoad: PropTypes.func,
+  onComplete: PropTypes.func
 }
 _List.defaultProps = {
   nextUnit: 'section',
