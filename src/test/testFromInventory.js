@@ -8,7 +8,7 @@ import {FromInventory} from '../components'
 
 describe('<FromInventory />', () => {
   before(() => {
-    sinon.stub(console, 'error', (warning) => { throw new Error(warning) })
+    sinon.stub(console, 'error').callsFake((warning) => { throw new Error(warning) })
   }),
   after(() => {
     console.error.restore()

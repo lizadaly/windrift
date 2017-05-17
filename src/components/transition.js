@@ -1,5 +1,5 @@
 const React = require('react')
-export const Transition = require('react-addons-css-transition-group')
+export const Transition = require('react-transition-group/CSSTransitionGroup')
 
 // Wraps the "new section" display in a CSS transformation (section)
 export const SectionTransition = {transitionName: "section", transitionAppear: true, transitionAppearTimeout: 500, transitionEnterTimeout: 500, transitionLeaveTimeout:300}

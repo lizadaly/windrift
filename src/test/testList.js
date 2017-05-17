@@ -17,7 +17,7 @@ describe('<List />', () => {
       func,
       fakeStore
   before(() => {
-      sinon.stub(console, 'error', (warning) => {
+      sinon.stub(console, 'error').callsFake((warning) => {
           throw new Error(warning)
       })
   }),

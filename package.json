@@ -1,33 +1,35 @@
 {
   "name": "windrift",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "scripts": {
     "test": "_mocha --require src/test/global --compilers js:babel-core/register --recursive 'src/**/test*.js'"
   },
   "description": "A React/Redux interactive narrative framework",
   "main": "src/index.js",
   "devDependencies": {
-    "babel": "^6.5.2",
-    "babel-cli": "^6.16.0",
-    "babel-core": "^6.16.0",
-    "babel-loader": "^6.2.5",
-    "babel-plugin-transform-object-rest-spread": "^6.16.0",
-    "babel-plugin-transform-runtime": "^6.9.0",
-    "babel-preset-es2015": "^6.16.0",
-    "babel-preset-react": "^6.5.0",
+    "babel": "^6.23.0",
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.24.1",
+    "babel-loader": "^7.0.0",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
     "chai": "^3.5.0",
     "chai-string": "^1.3.0",
-    "enzyme": "^2.4.1",
+    "enzyme": "^2.8.2",
     "enzyme-redux": "^0.1.6",
     "isparta": "^4.0.0",
     "istanbul": "^1.1.0-alpha.1",
-    "jsdom": "9.5.0",
-    "jsdom-global": "2.1.0",
+    "jsdom": "10.1.0",
+    "jsdom-global": "3.0.2",
     "json-loader": "^0.5.4",
-    "mocha": "^3.1.0",
-    "react-addons-test-utils": "^15.3.2",
-    "redux-test-utils": "^0.1.1",
-    "sinon": "^1.17.6"
+    "mocha": "^3.4.1",
+    "react-addons-test-utils": "^15.5.1",
+    "react-dom": "^15.5.4",
+    "react-test-renderer": "^15.5.4",
+    "redux-test-utils": "^0.1.2",
+    "sinon": "^2.2.0"
   },
   "repository": {
     "type": "git",
@@ -41,14 +43,14 @@
   "license": "MIT",
   "private": false,
   "dependencies": {
-    "es6-shim": "^0.35.1",
-    "react": "^15.0.1",
-    "react-addons-css-transition-group": "^15.3.2",
+    "es6-shim": "^0.35.3",
+    "react": "^15.5.4",
     "react-dom": "^15.0.1",
-    "react-redux": "^4.4.5",
-    "redux": "^3.5.2",
-    "redux-persist": "^4.0.0-alpha6",
+    "react-redux": "^5.0.4",
+    "react-transition-group": "^1.1.3",
+    "redux": "^3.6.0",
+    "redux-persist": "^4.8.0",
     "redux-undo": "^1.0.0-beta9",
-    "webpack": "^1.13.0"
+    "webpack": "^2.5.1"
   }
 }

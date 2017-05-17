@@ -1,6 +1,8 @@
 // test/global.js
-import jsdom from 'jsdom';
+const jsdom = require("jsdom")
+const { JSDOM } = jsdom
 
-global.document = jsdom.jsdom('');
-global.window = document.defaultView;
-global.navigator = window.navigator;
+global.dom = new JSDOM('')
+global.window = dom.window
+global.document = window.document
+global.navigator = window.navigator

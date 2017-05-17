@@ -7,7 +7,7 @@ import {NextChapter, List, Link} from '../components'
 
 describe('<NextChapter />', () => {
   before(() => {
-    sinon.stub(console, 'error', (warning) => { throw new Error(warning) })
+    sinon.stub(console, 'error').callsFake((warning) => { throw new Error(warning) })
   }),
   after(() => { console.error.restore() }),
 
