@@ -214,13 +214,23 @@ describe('<List />', () => {
     assert(!func.called)
   }),
 
-  it('provides the final selection value to the onComplete callback ', () => {
+  it('provides the final selection value as the first argument to the onComplete callback ', () => {
     const func = sinon.spy()
     const expansions = ["a", "b"]
     fakeStore.currentExpansion = 1 // Set to last
     fakeStore.lastSelection = "a"
     const wrapper = mount(<TestList onComplete={func} expansions={expansions} tag={TAG} {...fakeStore}/>)
     assert(func.calledWith(expansions[0]))
+  }),
+
+  it('provides the tag value as the second argument to the onComplete callback ', () => {
+    const func = sinon.spy()
+    const tag = 'tag-test'
+    const expansions = ["a", "b"]
+    fakeStore.currentExpansion = 1 // Set to last
+    fakeStore.lastSelection = "a"
+    const wrapper = mount(<TestList onComplete={func} expansions={expansions} tag={tag} {...fakeStore}/>)
+    assert(func.calledWith(expansions[0], tag))
   }),
 
   it('allows the special value `_last` to represent the last item selected by the user', () => {
