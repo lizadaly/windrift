@@ -2,14 +2,14 @@ const React = require('react')
 const ReactDOM = require('react-dom')
 import PropTypes from 'prop-types'
 const Shim = require('es6-shim')
-
+import { combineReducers } from 'redux'
 import { Provider, connect } from 'react-redux'
 import { createStore, compose } from 'redux'
 import { ActionCreators } from 'redux-undo'
 import { persistStore, autoRehydrate } from 'redux-persist'
 import { showNextSection } from "./actions"
 import { Counter } from './components/counter'
-import gameApp from './reducers'
+import gameReducers from './reducers'
 
 class _Game extends React.Component {
   constructor(props) {
@@ -59,8 +59,9 @@ export const Game = connect(
   }
 )(_Game)
 
-export const startGame = (game) => {
-  var store = createStore(gameApp, {config: game.props.config}, autoRehydrate())
+export const startGame = (game, localReducers) => {
+  var reducers = combineReducers(Object.assign(gameReducers, localReducers))
+  var store = createStore(reducers, {config: game.props.config}, autoRehydrate())
   var persister = persistStore(store, {keyPrefix: game.props.config.identifier})
 
   if (game.props.config.enableUndo) {
@@ -72,5 +73,5 @@ export const startGame = (game) => {
     })
   }
   ReactDOM.render(<Provider store={store}>{game}</Provider>, document.getElementById('article'))
-
+  return store
 }
