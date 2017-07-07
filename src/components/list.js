@@ -27,18 +27,11 @@ class _List extends React.Component {
       var onLoad = props.onLoad.bind(this)
       onLoad()
     }
-
-    var oc
-    // Call it right now?
-    if (this.shouldCallOnComplete(props.onComplete)) {
-      var onComplete = props.onComplete.bind(this, props.lastSelection, props.tag)
-      onComplete()
-    }
-    else if (props.onComplete) {
-      oc = props.onComplete
-    }
-    this.state = {
-      onComplete: oc
+    if (props.onComplete) {
+      let onComplete = props.onComplete.bind(this, props.lastSelection, props.tag)
+      this.state = {
+        onComplete: onComplete
+      }
     }
   }
   shouldCallOnComplete(func) {
