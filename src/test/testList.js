@@ -222,6 +222,7 @@ describe('<List />', () => {
     fakeStore.currentExpansion = 1 // Set to last
     fakeStore.lastSelection = "a"
     const wrapper = mount(<TestList onComplete={func} expansions={expansions} tag={TAG} {...fakeStore}/>)
+    wrapper.update()
     assert(func.calledWith(expansions[0]))
   }),
 
@@ -232,6 +233,7 @@ describe('<List />', () => {
     fakeStore.currentExpansion = 1 // Set to last
     fakeStore.lastSelection = "a"
     const wrapper = mount(<TestList onComplete={func} expansions={expansions} tag={tag} {...fakeStore}/>)
+    wrapper.update()    
     assert(func.calledWith(expansions[0], tag))
   }),
 

@@ -6,12 +6,15 @@ import expansions from './expansions'
 import counter from './counter'
 import config from './config'
 
-const gameApp = combineReducers({
+var localReducers = {}
+
+const gameReducers = {
   bookmarks,
   inventory,
   expansions,
   counter,
-  config
-})
+  config,
+  localReducers
+}
 
-export default gameApp
+export default gameReducers

@@ -27,15 +27,9 @@ class _List extends React.Component {
       var onLoad = props.onLoad.bind(this)
       onLoad()
     }
-
-    var oc
-    // Call it right now?
-    if (this.shouldCallOnComplete(props.onComplete)) {
-      var onComplete = props.onComplete.bind(this, props.lastSelection, props.tag)
-      onComplete()
-    }
-    else if (props.onComplete) {
-      oc = props.onComplete
+    let oc = undefined
+    if (props.onComplete) {
+      oc = props.onComplete.bind(this, props.lastSelection, props.tag)
     }
     this.state = {
       onComplete: oc
@@ -47,7 +41,7 @@ class _List extends React.Component {
   }
   componentDidUpdate(prevProps) {
     if (this.shouldCallOnComplete(this.state.onComplete)) {
-      this.state.onComplete(this.props.lastSelection)
+      this.state.onComplete(this.props.lastSelection, this.props.tag)
       this.setState({
         onComplete: undefined
       })
@@ -73,7 +67,7 @@ class _List extends React.Component {
     }
     this.props.onUpdateInventory(userSelection, this.props.tag)
 
-    // Are we t the last set? If so, there may be some events to fire
+    // Are we at the last set? If so, there may be some events to fire
     if (!atLastExpansion && currentExpansion === this.props.expansions.length - 1) {
 
       if (this.props.nextUnit === "chapter") {
