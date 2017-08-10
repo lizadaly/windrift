@@ -109,11 +109,31 @@ Given a List tagged as `dinner_choice`:
 The rendering will produce, in sequence:
 
 1. "What do you want for dinner? We got _the usual_."
-2. "What do you want for dinner? We got _mutton pudding_, _salad cake_, or _pine nut loaf_."
+2. "What do you want for dinner? We got _mutton pudding_, _salad cake_, and _pine nut loaf_."
 
 If the player choose the second item:
 
 3. "What do you want for dinner? We got salad cake."
+
+#### List options
+
+Windrift allows the author to override aspects of how the List is rendered. By default, list items are separated by a comma-space (`, `) and joined together with a conjunction (`and`). This behavior follows usual English rules (with the Oxford comma!)
+
+`<List expansions={[['mutton pudding', 'salad cake']]} />`
+
+_mutton pudding and salad cake_
+
+`<List expansions={[['mutton pudding', 'salad cake', 'pine nut loaf']]} />`
+
+_mutton pudding, pine nut loaf, and salad cake_
+
+`<List expansions={[['mutton pudding', 'salad cake', 'pine nut loaf']]} conjunction="or" />`
+
+_mutton pudding, pine nut loaf, or salad cake_
+
+`<List expansions={[['mutton pudding', 'salad cake', 'pine nut loaf']]} separator="|" conjunction="" />`
+
+_mutton pudding|pine nut loaf|salad cake_
 
 #### List completion
 

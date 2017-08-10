@@ -61,10 +61,10 @@ class _List extends React.Component {
     // the special key "_last" (MATCH_LAST) was provided, in which case use the last item
     // set in the inventory (as determined by mapStateToProps)
     var userSelection = e.target.textContent
-
     if (e.target.textContent === MATCH_LAST) {
       userSelection = this.props.lastSelection
     }
+
     this.props.onUpdateInventory(userSelection, this.props.tag)
 
     // Are we at the last set? If so, there may be some events to fire
@@ -81,15 +81,15 @@ class _List extends React.Component {
       else {
         // no-op
       }
-
-
     }
+
     // Update the counter in the browser (if check is a workaround to avoid test complaints)
     if (this.props.config && this.props.config.hasOwnProperty('identifier')) {
       const s = {}
       s[this.props.config.identifier] = this.props.counter
       history.pushState(s, "", "")
     }
+
     // Update the counter in the global store
     this.props.onUpdateCounter()
   }
@@ -105,7 +105,7 @@ class _List extends React.Component {
     // Create an onclick handler if we're at the last expansion and/or persisting the last item
     let handler = this.props.persistLast || !atLastExpansion ? this.handleChange : null
 
-    return iteratedList(text, handler, this.props.conjunction)
+    return iteratedList(text, handler, this.props.conjunction, this.props.separator)
 
   }
 }
@@ -116,6 +116,7 @@ _List.propTypes = {
   config: PropTypes.object,
   currentExpansion: PropTypes.number,
   conjunction: PropTypes.string,
+  separator: PropTypes.string,
   persistLast: PropTypes.bool,
   onLoad: PropTypes.func,
   onComplete: PropTypes.func
@@ -123,6 +124,7 @@ _List.propTypes = {
 _List.defaultProps = {
   nextUnit: 'section',
   conjunction: 'and',
+  separator: ', ',
   persistLast: false
 }
 

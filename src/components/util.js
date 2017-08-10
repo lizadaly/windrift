@@ -30,17 +30,20 @@ export const wordFromInventory = (inventory, offset=-1) => {
 
 
 /* For a list of items, return a JSX node of markup with links and appropriate
-conjunctions */
-export const iteratedList = (items, handler=null, conjunction="and") => {
+`conjunctions, divided by `separator` */
+export const iteratedList = (items, handler=null, conjunction="and", separator=", ") => {
   if (typeof items === 'string') {
     items = [items]
+  }
+  if (conjunction.length > 0) {
+    conjunction = ' ' + conjunction + ' '
   }
   return <span>{
     [...items].map((t, i) =>
       <span key={i}>
-        { items.length > 1 && i === items.length -1 ? ` ${conjunction} `: "" }
+        { items.length > 1 && i === items.length -1 ? conjunction: "" }
         <Link handler={handler} text={t}/>
-        { i < items.length - 1 && items.length > 2 ? ", ": "" }
+        { i < items.length - 1 && items.length > 2 ? separator: "" }
       </span>
   )}
   </span>

@@ -20,11 +20,6 @@ describe('<Link />', () => {
     assert.equal(1, wrapper.find('a').length)
   }),
 
-  it('will not accept a non-string value for "text"', () => {
-    const func = () => {}
-    assert.throws(() => (shallow(<Link text={0} handler={func} />), Error))
-  }),
-
   it('will not accept a non-function value for "handler"', () => {
     const func = "string"
     assert.throws(() => (shallow(<Link text="foo" handler={func} />), Error))

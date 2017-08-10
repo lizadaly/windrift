@@ -1,6 +1,6 @@
 {
   "name": "windrift",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "scripts": {
     "test": "_mocha --require src/test/global --compilers js:babel-core/register --recursive 'src/**/test*.js'"
   },
@@ -25,7 +25,6 @@
     "json-loader": "^0.5.4",
     "mocha": "^3.4.1",
     "react-addons-test-utils": "^15.5.1",
-    "react-dom": "^15.5.4",
     "react-test-renderer": "^15.5.4",
     "redux-test-utils": "^0.1.2",
     "sinon": "^2.2.0"

@@ -88,6 +88,22 @@ describe('<List />', () => {
       assert.equal(3, wrapper.find('a').length)
   }),
 
+  it('allows the author to override the default conjunction', () => {
+    const expansions = [["a", "b", "c"], "d"]
+    const conjunction = "or"
+    const wrapper = mount(
+        <List expansions={expansions} conjunction={conjunction} tag={TAG}/>, options)
+    assert.equal("a, b,  or c", wrapper.text())
+  }),
+
+  it('allows the author to override the default separator', () => {
+    const expansions = [["a", "b", "c"], "d"]
+    const separator = "|"
+    const wrapper = mount(
+        <List expansions={expansions} separator={separator} tag={TAG}/>, options)
+    assert.equal("a|b| and c", wrapper.text())
+  }),
+
 
   it('stops displaying anchors when no more expansions can be clicked on', () => {
       const expansions = ["a", "b", "c"]
@@ -233,7 +249,7 @@ describe('<List />', () => {
     fakeStore.currentExpansion = 1 // Set to last
     fakeStore.lastSelection = "a"
     const wrapper = mount(<TestList onComplete={func} expansions={expansions} tag={tag} {...fakeStore}/>)
-    wrapper.update()    
+    wrapper.update()
     assert(func.calledWith(expansions[0], tag))
   }),
 
