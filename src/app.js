@@ -25,12 +25,20 @@ class _Game extends React.Component {
   }
   render() {
     // Display all chapters up to the currentChapter
+    var renderChapter
+    if (this.props.config.pagination === 'by-chapter') {
+        renderChapter = <div key={"chapter" + this.props.currentChapter} className="current-chapter">{this.chapters[this.props.currentChapter]}</div>
+    }
+    else {
+      renderChapter = Array(this.props.currentChapter + 1).fill().map((_, i) => (
+        <div key={"chapter" + i} className={i === this.props.currentChapter ? 'current-chapter' : 'chapter'}>{this.chapters[i]}</div>
+      ))
+    }
+
     return <div>
       <Counter identifier={this.props.config.identifier} />
       {
-        Array(this.props.currentChapter + 1).fill().map((_, i) => {
-          return <div key={"chapter" + i} className={i === this.props.currentChapter ? 'current-chapter' : 'chapter'}>{this.chapters[i]}</div>
-        })
+        renderChapter
       }
     </div>
   }

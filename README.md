@@ -81,6 +81,10 @@ The section/chapter division is primarily for the author's benefit. You could wr
 
 Chapters and sections are currently modeled as arrays: it's easy to move forward or back with relative offsets, but not particularly easy to index into arbitrarily. An obvious area for future development would be a structural model that more easily permitted jumping to named chapters/sections.
 
+New in 1.0.5: if you choose the `by-chapter` pagination option (see windrift-starter), Windrift will
+not call `render()` on any but the current chapter. This change makes the engine more performant for
+very large stories.
+
 ### Lists
 The primary mode of interaction with a Windrift story is via Lists.
 
