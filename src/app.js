@@ -23,6 +23,14 @@ class _Game extends React.Component {
       this.chapters.push(<C chapterId={index}/>)
     })
   }
+  // Jump to the top of the browser if the pagination is by-chapter and there was a props change indicating a chapter move
+  componentDidUpdate(prevProps) {
+    if (this.props.config.pagination === 'by-chapter') {
+      if (prevProps.currentChapter != this.props.currentChapter) {
+        window.scroll(0, 0)
+      }
+    }
+  }
   render() {
     // Display all chapters up to the currentChapter
     var renderChapter
@@ -71,7 +79,7 @@ const jumpFromHistory = (store) => {
 
 export const Game = connect(
   mapStateToProps, {
-    showNextSection: showNextSection
+
   }
 )(_Game)
 
@@ -91,5 +99,7 @@ export const startGame = (game, localReducers) => {
       jumpFromHistory(store)
     })
   }
-  ReactDOM.render(<Provider store={store}>{game}</Provider>, document.getElementById('article'))
+  setInterval(function () {
+    ReactDOM.render(<Provider store={store}>{game}</Provider>, document.getElementById('article'))
+  }, 50)
 }
