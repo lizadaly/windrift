@@ -78,15 +78,23 @@ const jumpFromHistory = (store) => {
 }
 
 export const Game = connect(
-  mapStateToProps, {
-
-  }
+  mapStateToProps, {}
 )(_Game)
 
+const renderGame = (store, game) => {
+  ReactDOM.render(<Provider store={store}>{game}</Provider>,
+                  document.getElementById('article'),
+                  () => {
+                      // After render callbacks
+                  })
+}
+
 export const startGame = (game, localReducers) => {
+
   var reducers = combineReducers(Object.assign(gameReducers, localReducers))
   var store = createStore(reducers, {config: game.props.config}, autoRehydrate())
-  var persister = persistStore(store, {keyPrefix: game.props.config.identifier})
+  persistStore(store, {keyPrefix: game.props.config.identifier},
+               () => renderGame(store, game))
 
   // Jump to the current point in history after hydration if there's any state at all
   if (history.state) {
@@ -99,7 +107,5 @@ export const startGame = (game, localReducers) => {
       jumpFromHistory(store)
     })
   }
-  setInterval(function () {
-    ReactDOM.render(<Provider store={store}>{game}</Provider>, document.getElementById('article'))
-  }, 50)
+
 }
