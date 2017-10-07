@@ -2,7 +2,8 @@
 
 A framework for writing mutable narratives.
 
-Windrift was used to write [Stone Harbor](https://stoneharborgame.com/), an entry in the 2016 [Interactive Fiction Competition](https://ifcomp.org). It relies heavily on the React/Redux JavaScript frameworks.
+Windrift was used to write [Stone Harbor](https://stoneharborgame.com/), an entry in the 2016 [Interactive Fiction Competition](https://ifcomp.org), and [Harmonia](https://harmonia-game.com/), in 2017.
+Windrift relies heavily on the React/Redux JavaScript frameworks.
 
 You don't need to know anything about React/Redux to understand Windrift's design principles, but you probably need JavaScript experience to be able to effectively write a Windrift story.
 
@@ -91,9 +92,9 @@ The primary mode of interaction with a Windrift story is via Lists.
 A List is an array of choices—called *expansions*—that are presented sequentially. Each item in a List is rendered as a clickable link. Lists are identified by a unique label—called a *tag*—that the author assigns. This tag becomes the reference to the choice in the inventory.
 
 #### Flat List
-A flat list is an array of individual strings. As the user clicks on each list item, the next will be revealed,  replacing the previous. You might use this device to have a character appear to stammer or talk over themselves:
+A flat list is an array of one-item arrays, each containing a string. As the user clicks on each list item, the next will be revealed,  replacing the previous. You might use this device to have a character appear to stammer or talk over themselves:
 
-Given this List: `['awkward', 'interesting', 'wonderful']`
+Given this List: `[['awkward'], ['interesting'], ['wonderful']]`
 
 ...the rendering will display this text, in sequence, with each choice replacing the previous as the user clicks on the hyperlinks:
 
@@ -146,6 +147,12 @@ When the player has selected the final item in a list, two events are triggered:
 1. The choice is added to the player's _inventory_
 2. The next section or chapter is revealed
 
+You can configure what happens when the list is exhausted by modifying the `nextUnit` property, which can be:
+
+1. `section`: Show the next default (default)
+1. `chapter`: Show the next chapter
+1. `none`: No further action
+
 ### Inventory
 
 When a final choice is made in a list, it goes into the reader's `inventory`, the part of the state containing all the selections they've made. The inventory is made up of buckets indexed by List `tag`. The value in each bucket is accessible as `inventory.tagname` at any point in the story.
@@ -157,7 +164,7 @@ Maps are the primary way to implement conditionals: "If the player chose <i>mutt
 Maps take a string `from`, to be evaluated, and an Object `to`, which is the map (or dictionary) of expected values and the text to return in response.
 
 ```
-from: 'inventory.dinner_choice'
+from: {inventory.dinner_choice}
 to: {
   'mutton pudding': 'It was dry and tasteless',
   'salad cake': 'Just like mom used to make!',
@@ -261,9 +268,17 @@ In turn, the whole past/present/future store is saved via [redux-persist](https:
 
 The Windrift base components only know about the `present`; they do not have any direct access to the past or the future versions of the store. It is possible to imagine a story that made use of this additional data to implement more sophisticated state changes, but that's for a future enhancement.
 
-## A note about Stone Harbor
+### Actions
+
+Windrift exports its primary redux actions if you want to fire them yourself in custom events. See the source code for parameters.
+
+`showNextSection`, `showNextChapter`, `updateInventory`, `updateStateCounter`
+
+## Full game source code
 
 You're welcome to browse the [Stone Harbor source](https://github.com/lizadaly/stone-harbor-game) as a Windrift
 reference, but Windrift has moved on since the story was written and the two are not entirely compatible.
 Of interest might be the [tarot deck implementation](https://github.com/lizadaly/stone-harbor-game/blob/master/src/chapters/chapter5.js#L202), which uses
 a custom component with custom actions and reducers.
+
+The source for [Harmonia](https://harmonia-game.com/) will be made available after the end of the 2017 IF Competition and is  more recent. It may be useful for those wanting to implement complex custom components, such as Harmonia's marginal annotations, which are an extension of the `List` component.
