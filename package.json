@@ -4,7 +4,7 @@
   "scripts": {
     "test": "_mocha --require src/test/global --compilers js:babel-core/register --recursive 'src/**/test*.js'",
     "build": "babel src --presets babel-preset-env --out-dir dist",
-    "prepublish": "npm run build"
+    "prepublish": "npm test && npm run build"
   },
   "description": "A React/Redux interactive narrative framework",
   "main": "./dist/index.js",
