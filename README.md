@@ -1,5 +1,5 @@
 # Windrift
-https://travis-ci.org/lizadaly/windrift.svg?branch=master
+<img src="https://travis-ci.org/lizadaly/windrift.svg?branch=master" />
 
 A framework for writing mutable narratives.
 
