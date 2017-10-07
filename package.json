@@ -1,11 +1,13 @@
 {
   "name": "windrift",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "scripts": {
-    "test": "_mocha --require src/test/global --compilers js:babel-core/register --recursive 'src/**/test*.js'"
+    "test": "_mocha --require src/test/global --compilers js:babel-core/register --recursive 'src/**/test*.js'",
+    "build": "babel src --presets babel-preset-env --out-dir dist",
+    "prepublish": "npm run build"
   },
   "description": "A React/Redux interactive narrative framework",
-  "main": "src/index.js",
+  "main": "./dist/index.js",
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-core": "^6.24.1",
