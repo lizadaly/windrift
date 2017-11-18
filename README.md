@@ -3,7 +3,7 @@
 
 A framework for writing mutable narratives.
 
-Windrift was used to write [Stone Harbor](https://stoneharborgame.com/), an entry in the 2016 [Interactive Fiction Competition](https://ifcomp.org), and [Harmonia](https://harmonia-game.com/), in 2017.
+Windrift was used to write [Stone Harbor](https://stoneharborgame.com/), an entry in the 2016 [Interactive Fiction Competition](https://ifcomp.org) [4th place], and [Harmonia](https://harmonia-game.com/), in 2017 [3rd place].
 Windrift relies heavily on the React/Redux JavaScript frameworks.
 
 You don't need to know anything about React/Redux to understand Windrift's design principles, but you probably need JavaScript experience to be able to effectively write a Windrift story.
