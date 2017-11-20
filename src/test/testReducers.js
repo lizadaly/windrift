@@ -42,7 +42,7 @@ describe('bookmarks()', () => {
 
 describe('inventory()', () => {
   let state, action
-  const actionCreator = a.updateInventory
+  let actionCreator = a.updateInventory
   const tag = 't0_test'
   const sel = 'test'
   const inv = {
@@ -92,6 +92,26 @@ describe('inventory()', () => {
     let state2 = inventory(state1, actionCreator(undefined, tag))
     // Should remain sel, not overwrite with undefined
     assert.deepEqual({t0_test: sel}, state2)
+  }),
+
+  it('will add a value with the replaceInventory action if it does not exist', () => {
+    actionCreator = a.replaceInventory
+    let state1 = inventory(state, actionCreator(sel, tag))
+    assert.deepEqual({t0_test: sel}, state1)
+  }),
+
+  it('will replace a value in replaceInventory without adding a new obj', () => {
+    actionCreator = a.replaceInventory
+    let state1 = inventory(state, actionCreator(sel, tag))
+    assert.deepEqual({t0_test: sel}, state1)
+    const newSel = 'new'
+    let state2 = inventory(state, actionCreator(newSel, tag))
+    assert.deepEqual({t0_test: newSel}, state2)
+
+    // Compare with update behavior, which will append a new obj
+    actionCreator = a.updateInventory
+    let state3 = inventory(state, actionCreator(sel, tag))
+    assert.deepEqual({t0_test: newSel, t0_test: sel}, state3)
   })
 
 })
