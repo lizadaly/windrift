@@ -65,8 +65,14 @@ class _List extends React.Component {
       userSelection = this.props.lastSelection
     }
 
-    this.props.onUpdateInventory(userSelection, this.props.tag)
-
+    // Normal behavior is to add a new inventory object, even if identical to an
+    // earlier choice. Pass prop replace=true to override this and overwrite matching entries
+    if (this.props.replace) {
+      this.props.onReplaceInventory(userSelection, this.props.tag)
+    }
+    else {
+      this.props.onUpdateInventory(userSelection, this.props.tag)
+    }
     // Are we at the last set? If so, there may be some events to fire
     if (!atLastExpansion && currentExpansion === this.props.expansions.length - 1) {
 
@@ -119,13 +125,15 @@ _List.propTypes = {
   separator: PropTypes.string,
   persistLast: PropTypes.bool,
   onLoad: PropTypes.func,
-  onComplete: PropTypes.func
+  onComplete: PropTypes.func,
+  replace: PropTypes.bool
 }
 _List.defaultProps = {
   nextUnit: 'section',
   conjunction: 'and',
   separator: ', ',
-  persistLast: false
+  persistLast: false,
+  replace: false
 }
 
 const mapStateToProps = (state, ownProps, currentExpansion=0, lastSelection=undefined) => {
@@ -149,6 +157,7 @@ export const List = connect(
   {
     onSetExpansions: actions.setExpansions,
     onUpdateInventory: actions.updateInventory,
+    onReplaceInventory: actions.replaceInventory,
     onCompleteSection: actions.showNextSection,
     onCompleteChapter: actions.showNextChapter,
     onUpdateCounter: actions.updateStateCounter
