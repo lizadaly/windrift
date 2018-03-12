@@ -282,4 +282,4 @@ reference, but Windrift has moved on since the story was written and the two are
 Of interest might be the [tarot deck implementation](https://github.com/lizadaly/stone-harbor-game/blob/master/src/chapters/chapter5.js#L202), which uses
 a custom component with custom actions and reducers.
 
-The source for [Harmonia](https://harmonia-game.com/) will be made available after the end of the 2017 IF Competition and is  more recent. It may be useful for those wanting to implement complex custom components, such as Harmonia's marginal annotations, which are an extension of the `List` component.
+The source for [Harmonia](https://github.com/lizadaly/harmonia) is more recent. It may be useful for those wanting to implement complex custom components, such as Harmonia's marginal annotations, which are an extension of the `List` component.
