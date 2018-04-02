@@ -1,8 +1,8 @@
 import undoable from 'redux-undo'
 
-import { UPDATE_STATE_COUNTER } from "../actions"
+import { UPDATE_STATE_COUNTER } from '../actions'
 
-export const _counter = (state=0, action) => {
+export const counter = (state = 0, action) => {
   switch (action.type) {
     case UPDATE_STATE_COUNTER:
       return state + 1
@@ -11,4 +11,4 @@ export const _counter = (state=0, action) => {
   }
 }
 
-export default undoable(_counter)
+export default undoable(counter)

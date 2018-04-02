@@ -4,86 +4,80 @@ import { shallow, mount } from 'enzyme'
 import { assert } from 'chai'
 import 'jsdom-global/register'
 
-import {FromInventory} from '../components'
+import { FromInventory } from '../components'
 
 describe('<FromInventory />', () => {
-  before(() => {
+  beforeEach(() => {
     sinon.stub(console, 'error').callsFake((warning) => { throw new Error(warning) })
-  }),
-  after(() => {
-    console.error.restore()
-  }),
+  })
+  afterEach(() => {
+    console.error.restore() // eslint-disable-line no-console
+  })
 
   it('returns the last word in a phrase', () => {
-    const inv = "the last word"
+    const inv = 'the last word'
     const wrapper = mount(<FromInventory from={inv} />)
-    assert.equal("word", wrapper.text())
-  }),
+    assert.equal('word', wrapper.text())
+  })
 
   it('returns the word in a one-word phrase', () => {
-    const inv = "word"
+    const inv = 'word'
     const wrapper = mount(<FromInventory from={inv} />)
-    assert.equal("word", wrapper.text())
-  }),
+    assert.equal('word', wrapper.text())
+  })
 
   it('will not accept a non-string value for "inventory"', () => {
-    assert.throws(() => (shallow(<FromInventory from={0} />), Error))
-  }),
+    assert.throws(() => (shallow(<FromInventory from={0} />)))
+  })
 
   it('will not accept a non-number value for "offset"', () => {
-    assert.throws(() => (shallow(<FromInventory from="word" offset="string"/>), Error))
-  }),
+    assert.throws(() => (shallow(<FromInventory from="word" offset="string" />)))
+  })
 
   it('returns the nth word in a phrase if offset is supplied', () => {
-    const inv = "the last word"
+    const inv = 'the last word'
     let n = 1
-    let wrapper = mount(<FromInventory from={inv} offset={n}/>)
-    assert.equal("last", wrapper.text())
+    let wrapper = mount(<FromInventory from={inv} offset={n} />)
+    assert.equal('last', wrapper.text())
     n = 0
-    wrapper = mount(<FromInventory from={inv} offset={n}/>)
-    assert.equal("the", wrapper.text())
-  }),
-
-  it('returns the last word in a phrase if offset exceeds the string length', () => {
-    const inv = "the last word"
-    let n = 10
-    const wrapper = mount(<FromInventory from={inv} offset={n} />)
-    assert.equal("word", wrapper.text())
-  }),
+    wrapper = mount(<FromInventory from={inv} offset={n} />)
+    assert.equal('the', wrapper.text())
+  })
 
   it('sets the `key` of the return value to the original inventory string', () => {
-    const inv = "the last word"
+    const inv = 'the last word'
     const wrapper = mount(<FromInventory from={inv} />)
     assert.equal(inv, wrapper.find('span').key())
-  }),
+  })
+
   it('calls the optional onLoad function on the evaluated item', () => {
-    const inv = "word"
+    const inv = 'word'
     const func = sinon.spy()
-    const wrapper = mount(<FromInventory from={inv} onLoad={func}/>)
+    mount(<FromInventory from={inv} onLoad={func} />)
     assert(func.calledOnce)
+  })
 
-  }),
   it('calls the optional onLoad function on the evaluated item after it has been processed by its offset', () => {
-    const inv = "the last word"
+    const inv = 'the last word'
     const func = sinon.spy()
-    var wrapper = mount(<FromInventory from={inv} onLoad={func}/>)
-    assert(func.calledWith("word"))
+    mount(<FromInventory from={inv} onLoad={func} />)
+    assert(func.calledWith('word'))
 
-    var wrapper = mount(<FromInventory from={inv} onLoad={func} offset={0}/>)
-    assert(func.calledWith("the"))
-  }),
+    mount(<FromInventory from={inv} onLoad={func} offset={0} />)
+    assert(func.calledWith('the'))
+  })
 
   it('is safe to set an onLoad function even if the inventory value is undefined', () => {
     const inv = undefined
     const func = sinon.spy()
-    const wrapper = mount(<FromInventory from={inv} onLoad={func}/>)
+    const wrapper = mount(<FromInventory from={inv} onLoad={func} />)
     assert(!func.called)
-    assert("" == wrapper.text())
-  }),
+    assert(wrapper.text() === '')
+  })
 
   it('will return the entire string if offset is null', () => {
-    const inv = "the last word"
-    const wrapper = mount(<FromInventory from={inv} offset={null}/>)
-    assert("the last word" == wrapper.text())
+    const inv = 'the last word'
+    const wrapper = mount(<FromInventory from={inv} offset={null} />)
+    assert(wrapper.text() === 'the last word')
   })
 })
