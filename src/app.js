@@ -38,7 +38,7 @@ class Game extends React.Component {
       renderChapter = <div key={`chapter${this.props.currentChapter}`} className="current-chapter">{this.chapters[this.props.currentChapter]}</div>
     } else {
       renderChapter = Array(this.props.currentChapter + 1).fill().map((ch, i) => (
-        <div key={ch} className={i === this.props.currentChapter ? 'current-chapter' : 'chapter'}>{this.chapters[i]}</div>
+        <div key={i} className={i === this.props.currentChapter ? 'current-chapter' : 'chapter'}>{this.chapters[i]}</div> // eslint-disable-line react/no-array-index-key
       ))
     }
 
@@ -53,8 +53,12 @@ class Game extends React.Component {
 }
 Game.propTypes = {
   config: PropTypes.object,
-  chaptersList: PropTypes.array,
-  currentChapter: PropTypes.object,
+  chaptersList: PropTypes.func,
+  currentChapter: PropTypes.number,
+}
+Game.contextTypes = {
+  config: PropTypes.object,
+  chaptersList: PropTypes.func,
 }
 
 const chapterMapper = (state, ownProps) => ({

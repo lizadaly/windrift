@@ -119,7 +119,7 @@ _List.propTypes = {
   onCompleteChapter: PropTypes.func,
   onCompleteSection: PropTypes.func,
   onUpdateInventory: PropTypes.func,
-  counter: PropTypes.object,
+  counter: PropTypes.number,
   lastSelection: PropTypes.string,
 
 }

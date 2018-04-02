@@ -23,7 +23,7 @@ const RenderSection = ({ currentSection, sections }) => {
   )
 }
 RenderSection.propTypes = {
-  currentSection: PropTypes.object.isRequired,
+  currentSection: PropTypes.number.isRequired,
   sections: PropTypes.array.isRequired,
 }
 export default RenderSection
