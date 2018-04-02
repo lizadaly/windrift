@@ -9,3 +9,5 @@ build/*.map
 dist
 build/*.js
 coverage
+.vscode
+*.code-workspace

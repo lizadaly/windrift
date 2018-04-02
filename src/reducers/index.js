@@ -1,12 +1,10 @@
-import { combineReducers } from 'redux'
-
 import bookmarks from './bookmarks'
 import inventory from './inventory'
 import expansions from './expansions'
 import counter from './counter'
 import config from './config'
 
-var localReducers = {}
+const localReducers = {}
 
 const gameReducers = {
   bookmarks,
@@ -14,7 +12,7 @@ const gameReducers = {
   expansions,
   counter,
   config,
-  localReducers
+  localReducers,
 }
 
 export default gameReducers

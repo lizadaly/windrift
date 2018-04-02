@@ -1,16 +1,20 @@
 {
   "name": "windrift",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "scripts": {
     "test": "_mocha --require src/test/global --compilers js:babel-core/register --recursive 'src/**/test*.js'",
     "build": "babel src --presets babel-preset-env --out-dir dist",
-    "prepublish": "npm test && npm run build"
+    "prepublish": "npm test && npm run build",
+    "lint": "npm run lint:js",
+    "lint:eslint": "eslint --ignore-path .gitignore",
+    "lint:js": "npm run lint:eslint -- src "
   },
   "description": "A React/Redux interactive narrative framework",
   "main": "./dist/index.js",
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-core": "^6.24.1",
+    "babel-eslint": "^8.2.2",
     "babel-loader": "^7.0.0",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-plugin-transform-runtime": "^6.23.0",
@@ -20,6 +24,14 @@
     "chai-string": "^1.3.0",
     "enzyme": "^2.8.2",
     "enzyme-redux": "^0.1.6",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-import-resolver-webpack": "^0.9.0",
+    "eslint-plugin-chai-friendly": "^0.4.1",
+    "eslint-plugin-import": "^2.10.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-mocha": "^5.0.0",
+    "eslint-plugin-react": "^7.7.0",
     "isparta": "^4.0.0",
     "istanbul": "^1.1.0-alpha.1",
     "jsdom": "10.1.0",
@@ -52,5 +64,96 @@
     "redux-persist": "^4.8.2",
     "redux-undo": "^1.0.0-beta9-9-7",
     "webpack": "^2.5.1"
+  },
+  "eslintConfig": {
+    "parser": "babel-eslint",
+    "extends": "airbnb",
+    "env": {
+      "browser": true,
+      "node": true,
+      "jest": true,
+      "es6": true
+    },
+    "plugins": [
+      "react",
+      "jsx-a11y",
+      "chai-friendly",
+      "mocha"
+    ],
+    "parserOptions": {
+      "ecmaVersion": 6,
+      "sourceType": "module",
+      "ecmaFeatures": {
+        "jsx": true
+      }
+    },
+    "rules": {
+      "arrow-parens": [
+        "error",
+        "always"
+      ],
+      "arrow-body-style": [
+        2,
+        "as-needed"
+      ],
+      "class-methods-use-this": 0,
+      "comma-dangle": [
+        2,
+        "always-multiline"
+      ],
+      "import/imports-first": 0,
+      "import/newline-after-import": 0,
+      "import/no-dynamic-require": 0,
+      "import/no-extraneous-dependencies": 0,
+      "import/no-named-as-default": 0,
+      "import/no-unresolved": 2,
+      "import/no-webpack-loader-syntax": 0,
+      "import/prefer-default-export": 0,
+      "indent": [
+        2,
+        2,
+        {
+          "SwitchCase": 1
+        }
+      ],
+      "jsx-a11y/aria-props": 2,
+      "jsx-a11y/anchor-is-valid": 0,
+      "jsx-a11y/heading-has-content": 0,
+      "jsx-a11y/label-has-for": 2,
+      "jsx-a11y/mouse-events-have-key-events": 2,
+      "jsx-a11y/role-has-required-aria-props": 2,
+      "jsx-a11y/role-supports-aria-props": 2,
+      "max-len": 0,
+      "newline-per-chained-call": 0,
+      "no-confusing-arrow": 0,
+      "no-console": 1,
+      "no-use-before-define": 0,
+      "no-prototype-builtins": 0,
+      "no-unused-expressions": 0,
+      "chai-friendly/no-unused-expressions": 2,
+      "prefer-template": 2,
+      "semi": [
+        2,
+        "never"
+      ],
+      "react/forbid-prop-types": 0,
+      "react/jsx-first-prop-new-line": [
+        2,
+        "multiline"
+      ],
+      "react/jsx-filename-extension": 0,
+      "react/jsx-no-target-blank": 0,
+      "react/require-default-props": 0,
+      "react/require-extension": 0,
+      "react/self-closing-comp": 0,
+      "require-yield": 0
+    },
+    "settings": {
+      "import/resolver": {
+        "webpack": {
+          "config": "./webpack.config.js"
+        }
+      }
+    }
   }
 }
