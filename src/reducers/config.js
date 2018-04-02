@@ -1,9 +1,9 @@
-import { GET_CONFIG } from '../actions'
+import { GET_CONFIG } from "../actions"
 
-const config = (state = {}, action) => {
+const config = (state={}, action) => {
   switch (action.type) {
     case GET_CONFIG:
-      return state
+     return state
     default:
       return state
   }

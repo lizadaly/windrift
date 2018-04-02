@@ -1,12 +1,13 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+const React = require('react')
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
-import { iteratedList } from './util'
-import * as actions from '../actions'
+import {iteratedList} from "./util"
+import Link from "./link"
+import * as actions from "../actions"
 
 // Special value to match the last selection by the user
-const MATCH_LAST = '_last'
+const MATCH_LAST = "_last"
 
 /* An array of expansions that can be "examined." Accepts an array and
 reveals items one-by-one. Arrays may be nested one-level deep; if the current
@@ -23,35 +24,35 @@ class _List extends React.Component {
     this.handleChange = this.handleChange.bind(this)
 
     if (props.onLoad) {
-      const onLoad = props.onLoad.bind(this)
+      var onLoad = props.onLoad.bind(this)
       onLoad()
     }
-    let oc
+    let oc = undefined
     if (props.onComplete) {
       oc = props.onComplete.bind(this, props.lastSelection, props.tag)
     }
     this.state = {
-      onComplete: oc,
-    }
-  }
-  componentDidUpdate() {
-    if (this.shouldCallOnComplete(this.state.onComplete)) {
-      this.state.onComplete(this.props.lastSelection, this.props.tag)
-      this.setState({ // eslint-disable-line react/no-did-update-set-state
-        onComplete: undefined,
-      })
+      onComplete: oc
     }
   }
   shouldCallOnComplete(func) {
     const atLastExpansion = this.props.currentExpansion === this.props.expansions.length - 1
     return atLastExpansion && func
   }
+  componentDidUpdate(prevProps) {
+    if (this.shouldCallOnComplete(this.state.onComplete)) {
+      this.state.onComplete(this.props.lastSelection, this.props.tag)
+      this.setState({
+        onComplete: undefined
+      })
+    }
+  }
   handleChange(e) {
     e.preventDefault()
 
     // Move the expansion counter by one unless we're already there
     const atLastExpansion = this.props.currentExpansion === this.props.expansions.length - 1
-    const currentExpansion = !atLastExpansion ? this.props.currentExpansion + 1 : this.props.currentExpansion
+    var currentExpansion = !atLastExpansion ? this.props.currentExpansion + 1 : this.props.currentExpansion
 
     this.props.onSetExpansions(this.props.expansions, this.props.tag, currentExpansion)
 
@@ -59,7 +60,7 @@ class _List extends React.Component {
     // Set the inventory property to be the value of what the user selected, unless
     // the special key "_last" (MATCH_LAST) was provided, in which case use the last item
     // set in the inventory (as determined by mapStateToProps)
-    let userSelection = e.target.textContent
+    var userSelection = e.target.textContent
     if (e.target.textContent === MATCH_LAST) {
       userSelection = this.props.lastSelection
     }
@@ -68,13 +69,17 @@ class _List extends React.Component {
 
     // Are we at the last set? If so, there may be some events to fire
     if (!atLastExpansion && currentExpansion === this.props.expansions.length - 1) {
-      if (this.props.nextUnit === 'chapter') {
+
+      if (this.props.nextUnit === "chapter") {
         this.props.onCompleteChapter()
-      } else if (this.props.nextUnit === 'section') {
+      }
+      else if (this.props.nextUnit === "section") {
         this.props.onCompleteSection()
-      } else {
-        // The no-op version just expands in place (usually because another selector
-        // will do the expansion)
+      }
+      // The no-op version just expands in place (usually because another selector
+      // will do the expansion)
+      else {
+        // no-op
       }
     }
 
@@ -82,13 +87,13 @@ class _List extends React.Component {
     if (this.props.config && this.props.config.hasOwnProperty('identifier')) {
       const s = {}
       s[this.props.config.identifier] = this.props.counter
-      window.history.pushState(s, '', '')
+      history.pushState(s, "", "")
     }
 
     // Update the counter in the global store
     this.props.onUpdateCounter()
   }
-  render() {
+  render () {
     let text = this.props.expansions[this.props.currentExpansion]
     const atLastExpansion = this.props.currentExpansion === this.props.expansions.length - 1
 
@@ -98,9 +103,10 @@ class _List extends React.Component {
     }
 
     // Create an onclick handler if we're at the last expansion and/or persisting the last item
-    const handler = this.props.persistLast || !atLastExpansion ? this.handleChange : null
+    let handler = this.props.persistLast || !atLastExpansion ? this.handleChange : null
 
     return iteratedList(text, handler, this.props.conjunction, this.props.separator)
+
   }
 }
 _List.propTypes = {
@@ -113,37 +119,29 @@ _List.propTypes = {
   separator: PropTypes.string,
   persistLast: PropTypes.bool,
   onLoad: PropTypes.func,
-  onComplete: PropTypes.func,
-  onSetExpansions: PropTypes.func,
-  onUpdateCounter: PropTypes.func,
-  onCompleteChapter: PropTypes.func,
-  onCompleteSection: PropTypes.func,
-  onUpdateInventory: PropTypes.func,
-  counter: PropTypes.object,
-  lastSelection: PropTypes.string,
-
+  onComplete: PropTypes.func
 }
 _List.defaultProps = {
   nextUnit: 'section',
   conjunction: 'and',
   separator: ', ',
-  persistLast: false,
+  persistLast: false
 }
 
-const mapStateToProps = (state, ownProps, currentExpansion = 0, lastSelection = undefined) => {
+const mapStateToProps = (state, ownProps, currentExpansion=0, lastSelection=undefined) => {
   if (state.expansions.present.hasOwnProperty(ownProps.tag)) {
     if (state.expansions.present[ownProps.tag].hasOwnProperty('currentExpansion')) {
-      currentExpansion = state.expansions.present[ownProps.tag].currentExpansion // eslint-disable-line
+    currentExpansion = state.expansions.present[ownProps.tag].currentExpansion
     }
   }
   if (state.inventory.present.hasOwnProperty(ownProps.tag)) {
-    lastSelection = state.inventory.present[ownProps.tag] // eslint-disable-line
+    lastSelection = state.inventory.present[ownProps.tag]
   }
   return {
-    currentExpansion,
+    currentExpansion: currentExpansion,
     counter: state.counter.present,
     config: state.config,
-    lastSelection,
+    lastSelection: lastSelection
   }
 }
 export const List = connect(
@@ -153,7 +151,7 @@ export const List = connect(
     onUpdateInventory: actions.updateInventory,
     onCompleteSection: actions.showNextSection,
     onCompleteChapter: actions.showNextChapter,
-    onUpdateCounter: actions.updateStateCounter,
+    onUpdateCounter: actions.updateStateCounter
   }
 )(_List)
 
