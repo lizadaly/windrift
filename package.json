@@ -1,6 +1,6 @@
 {
   "name": "windrift",
-  "version": "1.0.10",
+  "version": "1.0.11-alpha-1",
   "scripts": {
     "test": "_mocha --require src/test/global --compilers js:babel-core/register --recursive 'src/**/test*.js'",
     "build": "babel src --presets babel-preset-env --out-dir dist",
