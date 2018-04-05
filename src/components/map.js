@@ -13,20 +13,11 @@ if the map evaluates to a function, call it;
 otherwise return the node.
  */
 class Map extends React.Component {
-  constructor(props) {
-    super(props)
-    if (props.onChange) {
-      this.onChange = this.props.onChange.bind(this)
-    } else {
-      this.onChange = () => {}
-    }
-    if (props.onLoad) {
-      const onLoad = this.props.onLoad.bind(this)
-      onLoad()
-    }
+  componentDidMount() {
+    this.props.onLoad()
   }
   componentDidUpdate() {
-    this.onChange()
+    this.props.onChange()
   }
   render() {
     // Downcase the input if it exists, otherwise set it to the UNDEFINED key
@@ -61,6 +52,8 @@ Map.propTypes = {
 }
 Map.defaultProps = {
   offset: -1,
+  onChange: () => {},
+  onLoad: () => {},
 }
 
 export default Map

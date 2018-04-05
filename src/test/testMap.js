@@ -1,8 +1,8 @@
+import 'jsdom-global/register'
 import React from 'react'
 import sinon from 'sinon'
-import { shallow, mount } from 'enzyme'
+import { shallow } from 'enzyme'
 import { assert } from 'chai'
-import 'jsdom-global/register'
 
 import { Map } from '../components'
 
@@ -19,7 +19,7 @@ describe('<Map />', () => {
     const from = 'lock'
     const matchText = 'the rusty lock'
     const to = { lock: matchText, box: 'other text' }
-    const wrapper = mount(<Map from={from} to={to} />)
+    const wrapper = shallow(<Map from={from} to={to} />)
     assert.equal(matchText, wrapper.text())
   })
 
@@ -27,7 +27,7 @@ describe('<Map />', () => {
     const from = 'a rusty lock' // Only should care about 'lock'
     const matchText = 'The lock withers under your gaze'
     const to = { lock: matchText }
-    const wrapper = mount(<Map from={from} to={to} />)
+    const wrapper = shallow(<Map from={from} to={to} />)
     assert.equal(matchText, wrapper.text())
   })
 
@@ -35,7 +35,7 @@ describe('<Map />', () => {
     const from = 'a rusty lock' // Only should care about 'rusty'
     const matchText = 'The lock withers under your gaze'
     const to = { rusty: matchText }
-    const wrapper = mount(<Map from={from} to={to} offset={1} />)
+    const wrapper = shallow(<Map from={from} to={to} offset={1} />)
     assert.equal(matchText, wrapper.text())
   })
 
@@ -78,7 +78,7 @@ describe('<Map />', () => {
     const from = 'SHOUTING'
     const matchText = "I'm not shouting, you're shouting"
     const to = { shouting: matchText }
-    const wrapper = mount(<Map from={from} to={to} />)
+    const wrapper = shallow(<Map from={from} to={to} />)
     assert.equal(matchText, wrapper.text())
   })
 
@@ -111,24 +111,24 @@ describe('<Map />', () => {
   it('when the `from` string evaluates to undefined and there is an `_undefined` key in `to`, return that value', () => {
     const from = undefined
     const to = { lock: 'box', _undefined: 'default' }
-    const wrapper = mount(<Map from={from} to={to} />)
+    const wrapper = shallow(<Map from={from} to={to} />)
     assert.equal('default', wrapper.text())
   })
 
   it("if there's a mapping key `_any`, it should match any value not included explicitly", () => {
     const from = "doesn't exist"
     const to = { lock: 'box', _any: 'matched' }
-    const wrapper = mount(<Map from={from} to={to} />)
+    const wrapper = shallow(<Map from={from} to={to} />)
     assert.equal('matched', wrapper.text())
   })
 
   it('allows the author to use both `_undefined` and `_any` in the same Map', () => {
     let from
     const to = { _undefined: 'undefined', lock: 'box', _any: 'any' }
-    let wrapper = mount(<Map from={from} to={to} />)
+    let wrapper = shallow(<Map from={from} to={to} />)
     assert.equal('undefined', wrapper.text())
     from = 'defined but not matching'
-    wrapper = mount(<Map from={from} to={to} />)
+    wrapper = shallow(<Map from={from} to={to} />)
     assert.equal('any', wrapper.text())
   })
 
@@ -136,9 +136,10 @@ describe('<Map />', () => {
     const from = 'echo'
     const to = { echo: 'echo echo echo' }
     const func = sinon.spy()
-    const wrapper = mount(<Map from={from} to={to} onChange={func} />)
-    wrapper.update()
-    // It's only called once, on the change
+    const wrapper = shallow(<Map from={from} to={to} onChange={func} />)
+    assert(!func.calledOnce)
+    wrapper.setProps({ to: { echo: 'echo2' } })
+    // // It's only called once, on the change
     assert(func.calledOnce)
   })
 
@@ -146,7 +147,7 @@ describe('<Map />', () => {
     const from = 'echo'
     const to = { echo: 'echo echo echo' }
     const func = sinon.spy()
-    const wrapper = mount(<Map from={from.sel} to={to} onLoad={func} />)
+    const wrapper = shallow(<Map from={from.sel} to={to} onLoad={func} />)
     // It's only called once, on the initial mount
     assert(func.calledOnce)
     wrapper.update()
