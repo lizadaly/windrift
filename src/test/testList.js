@@ -204,16 +204,9 @@ describe('<List />', () => {
   it('calls the optional onComplete if supplied when the List is complete', () => {
     func = sinon.spy()
     const expansions = ['a', 'b']
-    let wrapper = mount(<TestList onComplete={func} expansions={expansions} tag={TAG} {...fakeStore} />)
-    wrapper.update()
+    const wrapper = shallow(<TestList onComplete={func} expansions={expansions} tag={TAG} currentExpansion={0} {...fakeStore} />)
     assert(!func.called)
-    fakeStore.currentExpansion = 1 // Set to last
-    wrapper = mount(<TestList onComplete={func} expansions={expansions} tag={TAG} {...fakeStore} />)
-    wrapper.update()
-    assert(func.calledOnce)
-
-    // Shouldn't keep calling though
-    wrapper.update()
+    wrapper.setProps({ currentExpansion: 1 })
     assert(func.calledOnce)
   })
 
@@ -225,25 +218,17 @@ describe('<List />', () => {
     assert(!func.called)
   })
 
-  it('provides the final selection value as the first argument to the onComplete callback ', () => {
+  it('provides the final selection value and tag to the onComplete callback ', () => {
     func = sinon.spy()
     const expansions = ['a', 'b']
-    fakeStore.currentExpansion = 1 // Set to last
-    fakeStore.lastSelection = 'a'
-    const wrapper = mount(<TestList onComplete={func} expansions={expansions} tag={TAG} {...fakeStore} />)
-    wrapper.update()
-    assert(func.calledWith(expansions[0]))
-  })
-
-  it('provides the tag value as the second argument to the onComplete callback ', () => {
-    func = sinon.spy()
-    const tag = 'tag-test'
-    const expansions = ['a', 'b']
-    fakeStore.currentExpansion = 1 // Set to last
-    fakeStore.lastSelection = 'a'
-    const wrapper = mount(<TestList onComplete={func} expansions={expansions} tag={tag} {...fakeStore} />)
-    wrapper.update()
-    assert(func.calledWith(expansions[0], tag))
+    const wrapper = shallow(<TestList
+      onComplete={func}
+      expansions={expansions}
+      tag={TAG}
+      {...fakeStore}
+    />)
+    wrapper.setProps({ currentExpansion: 1, lastSelection: 'a' })
+    assert(func.calledWith(expansions[0], TAG))
   })
 
   it('allows the special value `_last` to represent the last item selected by the user', () => {
@@ -267,7 +252,7 @@ describe('<List />', () => {
   it('allows the author to set an onLoad function to be called in the constructor', () => {
     func = sinon.spy()
     const expansions = ['a', 'b']
-    mount(<TestList onLoad={func} expansions={expansions} tag={TAG} {...fakeStore} />)
+    shallow(<TestList onLoad={func} expansions={expansions} tag={TAG} {...fakeStore} />)
     assert(func.calledOnce)
   })
 })

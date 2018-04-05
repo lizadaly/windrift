@@ -26,12 +26,8 @@ class _List extends React.Component {
       const onLoad = props.onLoad.bind(this)
       onLoad()
     }
-    let oc
-    if (props.onComplete) {
-      oc = props.onComplete.bind(this, props.lastSelection, props.tag)
-    }
     this.state = {
-      onComplete: oc,
+      onComplete: this.props.onComplete,
     }
   }
   componentDidUpdate() {
