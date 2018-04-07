@@ -2,10 +2,13 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 
-import { combineReducers, createStore } from 'redux'
+import { createStore } from 'redux'
 import { Provider, connect } from 'react-redux'
 import { ActionCreators } from 'redux-undo'
-import { persistStore, autoRehydrate } from 'redux-persist'
+import { persistStore, persistCombineReducers } from 'redux-persist'
+import { PersistGate } from 'redux-persist/integration/react'
+import storage from 'redux-persist/lib/storage'
+
 import { Counter } from './components/counter'
 import gameReducers from './reducers'
 
@@ -80,24 +83,21 @@ const jumpFromHistory = (store) => {
 
 export default connect(mapStateToProps, {})(Game)
 
-const renderGame = (store, game) => {
+const renderGame = (game, store, persistor) => {
+  console.log(game)
   ReactDOM.render(
-    <Provider store={store}>{game}</Provider>,
-    document.getElementById('article'),
-    () => {
-      // After render callbacks
-    }
+    <Provider store={store}>
+      <PersistGate persistor={persistor}>
+
+        {game}
+      </PersistGate>
+    </Provider>
+    ,
+    document.getElementById('article')
   )
 }
 
-export const startGame = (game, localReducers) => {
-  const reducers = combineReducers(Object.assign(gameReducers, localReducers))
-  const store = createStore(reducers, { config: game.props.config }, autoRehydrate())
-  persistStore(
-    store, { keyPrefix: game.props.config.identifier },
-    () => renderGame(store, game)
-  )
-
+const CheckHistory = (game, store) => {
   // Jump to the current point in history after hydration if there's any state at all
   if (window.history.state) {
     jumpFromHistory(store)
@@ -109,4 +109,17 @@ export const startGame = (game, localReducers) => {
       jumpFromHistory(store)
     })
   }
+  return null
+}
+
+export const startGame = (game, localReducers = {}) => {
+  const persistConfig = {
+    key: game.props.config.identifier,
+    storage,
+    debug: true,
+  }
+  const reducers = persistCombineReducers(persistConfig, Object.assign(gameReducers, localReducers))
+  const store = createStore(reducers, { config: game.props.config })
+  const persistor = persistStore(store)
+  renderGame(game, store, persistor)
 }
