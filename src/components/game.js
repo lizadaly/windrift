@@ -10,14 +10,9 @@ export class Game extends React.Component {
     super(props)
 
     // Dynamically load all JS in the 'chapters' directory as a Chapter object
-    this.chapters = []
-    props.chaptersList.keys().sort().forEach((filename, index) => {
-      const chapter = props.chaptersList(filename).default
-      // React requires this be uppercase, hooray
-      const C = connect(chapterMapper)(chapter)
-      this.chapters.push(<C chapterId={index} />)
-    })
+    this.chapters = this.initializeChapters(props.chaptersList)
   }
+
   // Jump to the top of the browser if the pagination is by-chapter and there was a props change indicating a chapter move
   componentDidUpdate(prevProps) {
     if (this.props.config.pagination === 'by-chapter') {
@@ -26,38 +21,47 @@ export class Game extends React.Component {
       }
     }
   }
+
+  /* If by-chapter, show only the current chapter. Otherwise show all chapters up to that one. */
+  getVisibleChapters() {
+    const { currentChapter } = this.props
+    const { pagination } = this.props.config
+    return pagination === 'by-chapter'
+      ? this.chapters.slice(currentChapter, currentChapter + 1)
+      : this.chapters.slice(0, currentChapter + 1)
+  }
+
+  /* Given a function that returns a list of chapter objects from the filesystem, return an array of
+     initialized chapters connected to the redux store */
+  initializeChapters(chaptersList) {
+    const chapters = []
+    chaptersList.keys().sort().forEach((filename, index) => {
+      const chapter = chaptersList(filename).default
+      // React requires this be uppercase, hooray
+      const C = connect(chapterMapper)(chapter)
+      chapters.push(<C chapterId={index} />)
+    })
+    return chapters
+  }
+
   render() {
     // Display all chapters up to the currentChapter
-    let renderChapter
-    // If by-chapter is set, only render this chapter, otherwise render all up to the current
-    // FIXME this can be refactored to less code
-    if (this.props.config.pagination === 'by-chapter') {
-      renderChapter = (
-        <div
-          key={`chapter${this.props.currentChapter}`}
-          className="current-chapter"
-        >
-          {
-            this.chapters[this.props.currentChapter]
-          }
-        </div>
-      )
-    } else {
-      renderChapter = Array(this.props.currentChapter + 1).fill().map((ch, i) => (
-        <div
-          key={this.chapters[i].chapterId}
-          className={i === this.props.currentChapter ? 'current-chapter' : 'chapter'}
-        >
-          {this.chapters[i]}
-        </div>
-      ))
-    }
+    const { currentChapter } = this.props
+    const { identifier } = this.props.config
+    const visible = this.getVisibleChapters()
 
     return (
       <div className="game">
-        <Counter identifier={this.props.config.identifier} />
+        <Counter identifier={identifier} />
         {
-          renderChapter
+          visible.map((chapter) => (
+            <div
+              key={chapter.props.chapterId}
+              className={chapter.props.chapterId === currentChapter ? 'current-chapter' : 'chapter'}
+            >
+              {chapter}
+            </div>
+          ))
         }
       </div>)
   }
