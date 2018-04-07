@@ -2,8 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import { Counter } from '../components/counter'
-
 
 export class Game extends React.Component {
   constructor(props) {
@@ -47,12 +45,10 @@ export class Game extends React.Component {
   render() {
     // Display all chapters up to the currentChapter
     const { currentChapter } = this.props
-    const { identifier } = this.props.config
     const visible = this.getVisibleChapters()
 
     return (
       <div className="game">
-        <Counter identifier={identifier} />
         {
           visible.map((chapter) => (
             <div
