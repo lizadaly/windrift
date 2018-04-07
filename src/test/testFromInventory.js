@@ -7,13 +7,6 @@ import 'jsdom-global/register'
 import { FromInventory } from '../components'
 
 describe('<FromInventory />', () => {
-  beforeEach(() => {
-    sinon.stub(console, 'error').callsFake((warning) => { throw new Error(warning) })
-  })
-  afterEach(() => {
-    console.error.restore() // eslint-disable-line no-console
-  })
-
   it('returns the last word in a phrase', () => {
     const inv = 'the last word'
     const wrapper = mount(<FromInventory from={inv} />)

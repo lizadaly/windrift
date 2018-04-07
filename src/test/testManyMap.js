@@ -1,5 +1,4 @@
 import React from 'react'
-import sinon from 'sinon'
 import { shallow } from 'enzyme'
 import { assert } from 'chai'
 import 'jsdom-global/register'
@@ -7,14 +6,6 @@ import 'jsdom-global/register'
 import { ManyMap } from '../components'
 
 describe('<ManyMap />', () => {
-  beforeEach(() => {
-    sinon.stub(console, 'error').callsFake((warning) => { throw new Error(warning) })
-  })
-
-  afterEach(() => {
-    console.error.restore() // eslint-disable-line no-console
-  })
-
   it('returns null if the `from ` array is empty ', () => {
     const from = null
     const to = { a: 'b' }

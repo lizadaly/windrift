@@ -16,14 +16,7 @@ describe('<List />', () => {
   let func
   let fakeStore
 
-  afterEach(() => {
-    console.error.restore() // eslint-disable-line no-console
-  })
-
   beforeEach(() => {
-    sinon.stub(console, 'error').callsFake((warning) => {
-      throw new Error(warning)
-    })
     func = () => {}
     store = {
       subscribe: () => {},

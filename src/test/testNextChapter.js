@@ -1,17 +1,10 @@
 import React from 'react'
-import sinon from 'sinon'
 import { shallow } from 'enzyme'
 import { assert } from 'chai'
 
 import { NextChapter, List } from '../components'
 
 describe('<NextChapter />', () => {
-  beforeEach(() => {
-    sinon.stub(console, 'error').callsFake((warning) => { throw new Error(warning) })
-  })
-
-  afterEach(() => { console.error.restore() }) // eslint-disable-line no-console
-
   it('renders a next chapter List element', () => {
     const wrapper = shallow(<NextChapter chapter={0} />)
     assert.equal(1, wrapper.find(List).length)

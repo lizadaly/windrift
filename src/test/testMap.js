@@ -7,14 +7,6 @@ import { assert } from 'chai'
 import { Map } from '../components'
 
 describe('<Map />', () => {
-  beforeEach(() => {
-    sinon.stub(console, 'error').callsFake((warning) => { throw new Error(warning) })
-  })
-
-  afterEach(() => {
-    console.error.restore() // eslint-disable-line no-console
-  })
-
   it('returns a matching key `from` from an object `to` ', () => {
     const from = 'lock'
     const matchText = 'the rusty lock'
