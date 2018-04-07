@@ -6,7 +6,7 @@ import jsdom from 'jsdom'
 
 const { JSDOM } = jsdom
 
-global.dom = new JSDOM('')
+global.dom = new JSDOM('<!doctype html><html><body><div id="article"></div></body></html>', { runScripts: 'dangerously' })
 global.window = global.dom.window
 global.document = window.document
 global.navigator = window.navigator

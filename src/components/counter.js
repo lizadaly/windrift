@@ -2,9 +2,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { connect } from 'react-redux'
-
-class _Counter extends React.Component {
+export default class Counter extends React.Component {
   constructor(props) {
     super(props)
     this.updateReplaceState(props.counter, props.identifier)
@@ -22,15 +20,10 @@ class _Counter extends React.Component {
     return null
   }
 }
-_Counter.defaultProps = {
+Counter.defaultProps = {
   counter: 0,
 }
-_Counter.propTypes = {
+Counter.propTypes = {
   identifier: PropTypes.string.isRequired,
   counter: PropTypes.number,
 }
-
-const mapStateToProps = (state) => ({
-  counter: state.counter.present,
-})
-export const Counter = connect(mapStateToProps)(_Counter)

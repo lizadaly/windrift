@@ -8,9 +8,10 @@ import { Counter } from '../components'
 export class GameContainer extends React.Component {
   constructor(props) {
     super(props)
-    if (props.config.enableUndo) {
+    this.jumpFromHistory = this.jumpFromHistory.bind(this)
+    if (props.enableUndo) {
       // If we received a browser forward/back, jump to the relevant point in history
-      window.addEventListener('popstate', this.jumpFromHistory)
+      window.document.addEventListener('popstate', this.jumpFromHistory)
     }
   }
   componentDidMount() {
@@ -19,32 +20,35 @@ export class GameContainer extends React.Component {
   }
   jumpFromHistory() {
     const browserState = window.history.state
-    const { identifier } = this.props.config
+    const { identifier } = this.props
+
     if (browserState.hasOwnProperty(identifier)) {
       const timeOffset = browserState[identifier] - this.props.counter
       console.log('Going to jump to time offset ', timeOffset)
-      this.jump(timeOffset)
+      this.props.jump(timeOffset)
     }
   }
 
   render() {
-    const { identifier } = this.props.config
     return (
       <div>
-        <Counter identifier={identifier} />
+        <Counter identifier={this.props.identifier} counter={this.props.counter} />
         {this.props.children}
       </div>)
   }
 }
 
 GameContainer.propTypes = {
-  children: PropTypes.object.isRequired,
-  config: PropTypes.object.isRequired,
+  children: PropTypes.element.isRequired,
+  enableUndo: PropTypes.bool.isRequired,
+  identifier: PropTypes.string.isRequired,
   counter: PropTypes.number.isRequired,
+  jump: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = (state) => ({
-  currentChapter: state.bookmarks.present.length - 1,
+  enableUndo: state.config.enableUndo,
+  identifier: state.config.identifier,
   counter: state.counter.present,
 })
 const mapDispatchToProps = (dispatch) => ({
