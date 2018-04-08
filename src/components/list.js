@@ -17,14 +17,42 @@ in which case no event is triggered.
 Each time an expansion is revealed, onSetExpansions is called and onUpdateInventory
 sets the inventory property `key` to the current selected value. */
 
-class _List extends React.Component {
+export class List extends React.Component {
+  static defaultProps = {
+    conjunction: 'and',
+    currentExpansion: 0,
+    nextUnit: 'section',
+    persistLast: false,
+    separator: ', ',
+  }
+  static propTypes = {
+    expansions: PropTypes.array.isRequired,
+    tag: PropTypes.string.isRequired,
+
+    // optional
+    config: PropTypes.object,
+    conjunction: PropTypes.string,
+    counter: PropTypes.number,
+    currentExpansion: PropTypes.number,
+    lastSelection: PropTypes.string,
+    nextUnit: PropTypes.oneOf(['chapter', 'section', 'none']),
+    onComplete: PropTypes.func,
+    onCompleteChapter: PropTypes.func,
+    onCompleteSection: PropTypes.func,
+    onLoad: PropTypes.func,
+    onSetExpansions: PropTypes.func,
+    onUpdateCounter: PropTypes.func,
+    onUpdateInventory: PropTypes.func,
+    persistLast: PropTypes.bool,
+    separator: PropTypes.string,
+  }
+
   constructor(props) {
     super(props)
     this.handleChange = this.handleChange.bind(this)
 
     if (props.onLoad) {
-      const onLoad = props.onLoad.bind(this)
-      onLoad()
+      props.onLoad()
     }
     this.state = {
       onComplete: this.props.onComplete,
@@ -99,32 +127,6 @@ class _List extends React.Component {
     return iteratedList(text, handler, this.props.conjunction, this.props.separator)
   }
 }
-_List.propTypes = {
-  nextUnit: PropTypes.oneOf(['chapter', 'section', 'none']),
-  tag: PropTypes.string.isRequired,
-  expansions: PropTypes.array.isRequired,
-  config: PropTypes.object,
-  currentExpansion: PropTypes.number,
-  conjunction: PropTypes.string,
-  separator: PropTypes.string,
-  persistLast: PropTypes.bool,
-  onLoad: PropTypes.func,
-  onComplete: PropTypes.func,
-  onSetExpansions: PropTypes.func,
-  onUpdateCounter: PropTypes.func,
-  onCompleteChapter: PropTypes.func,
-  onCompleteSection: PropTypes.func,
-  onUpdateInventory: PropTypes.func,
-  counter: PropTypes.number,
-  lastSelection: PropTypes.string,
-
-}
-_List.defaultProps = {
-  nextUnit: 'section',
-  conjunction: 'and',
-  separator: ', ',
-  persistLast: false,
-}
 
 const mapStateToProps = (state, ownProps, currentExpansion = 0, lastSelection = undefined) => {
   if (state.expansions.present.hasOwnProperty(ownProps.tag)) {
@@ -142,7 +144,7 @@ const mapStateToProps = (state, ownProps, currentExpansion = 0, lastSelection = 
     lastSelection,
   }
 }
-export const List = connect(
+export default connect(
   mapStateToProps,
   {
     onSetExpansions: actions.setExpansions,
@@ -151,9 +153,5 @@ export const List = connect(
     onCompleteChapter: actions.showNextChapter,
     onUpdateCounter: actions.updateStateCounter,
   }
-)(_List)
+)(List)
 
-export default List
-
-/* Special export for unit tests */
-export const TestList = _List

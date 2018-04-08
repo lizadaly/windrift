@@ -20,6 +20,7 @@
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
+    "babel-preset-stage-1": "^6.24.1",
     "chai": "^4.1.2",
     "chai-string": "^1.4.0",
     "check-prop-types": "^1.1.2",
