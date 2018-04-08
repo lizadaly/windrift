@@ -95,7 +95,7 @@ describe('<Game />', () => {
     const wrapper = shallow(<Game {...defaultProps} />)
 
     const c = {
-      chapter3: { default: () => (<div>chapter3</div>) },
+      chapter3: { default: () => (<div>chapter3</div>) }, // eslint-disable-line react/display-name
       chapter2: { default: MockChapter },
       chapter1: { default: MockChapter },
     }
