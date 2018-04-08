@@ -3,7 +3,7 @@
   "version": "1.0.11-alpha-2",
   "scripts": {
     "test": "_mocha --require src/test/global --compilers js:babel-core/register --recursive 'src/**/test*.js'",
-    "build": "babel src --presets babel-preset-env --out-dir dist",
+    "build": "babel src --presets babel-preset-env --presets stage-0 --out-dir dist",
     "prepublish": "npm test && npm run build",
     "lint": "npm run lint:js",
     "lint:eslint": "eslint --ignore-path .gitignore",
