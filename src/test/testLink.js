@@ -7,14 +7,6 @@ import { assert } from 'chai'
 import { Link } from '../components'
 
 describe('<Link />', () => {
-  beforeEach(() => {
-    sinon.stub(console, 'error').callsFake((warning) => { throw new Error(warning) })
-  })
-
-  afterEach(() => {
-    console.error.restore() // eslint-disable-line no-console
-  })
-
   it('renders an anchor link if an onClick handler is supplied', () => {
     const func = () => {}
     const wrapper = shallow(<Link text="test" handler={func} />)

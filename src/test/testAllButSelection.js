@@ -1,5 +1,4 @@
 import React from 'react'
-import sinon from 'sinon'
 import { mount } from 'enzyme'
 import { assert } from 'chai'
 
@@ -8,13 +7,6 @@ import 'jsdom-global/register'
 import { AllButSelection } from '../components'
 
 describe('<AllButSelection />', () => {
-  beforeEach(() => {
-    sinon.stub(console, 'error').callsFake((warning) => { throw new Error(warning) })
-  })
-  afterEach(() => {
-    console.error.restore() // eslint-disable-line no-console
-  })
-
   it('displays a formatted string when two items do not match', () => {
     const selection = 'a'
     const expansions = ['a', 'b', 'c']

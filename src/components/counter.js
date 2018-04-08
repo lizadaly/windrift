@@ -2,14 +2,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { connect } from 'react-redux'
-
-class _Counter extends React.Component {
+export default class Counter extends React.Component {
+  static defaultProps = {
+    counter: 0,
+  }
+  static propTypes = {
+    identifier: PropTypes.string.isRequired,
+    counter: PropTypes.number,
+  }
   constructor(props) {
     super(props)
     this.updateReplaceState(props.counter, props.identifier)
   }
-
   componentWillReceiveProps(p) {
     this.updateReplaceState(p.counter, this.props.identifier)
   }
@@ -22,15 +26,4 @@ class _Counter extends React.Component {
     return null
   }
 }
-_Counter.defaultProps = {
-  counter: 0,
-}
-_Counter.propTypes = {
-  identifier: PropTypes.string.isRequired,
-  counter: PropTypes.number,
-}
 
-const mapStateToProps = (state) => ({
-  counter: state.counter.present,
-})
-export const Counter = connect(mapStateToProps)(_Counter)

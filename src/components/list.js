@@ -17,19 +17,49 @@ in which case no event is triggered.
 Each time an expansion is revealed, onSetExpansions is called and onUpdateInventory
 sets the inventory property `key` to the current selected value. */
 
-class _List extends React.Component {
+export class List extends React.Component {
+  static defaultProps = {
+    conjunction: 'and',
+    currentExpansion: 0,
+    identifier: 'windrift',
+    nextUnit: 'section',
+    persistLast: false,
+    separator: ', ',
+  }
+  static propTypes = {
+    expansions: PropTypes.arrayOf(PropTypes.any).isRequired,
+    tag: PropTypes.string.isRequired,
+
+    // optional
+    identifier: PropTypes.string,
+    conjunction: PropTypes.string,
+    counter: PropTypes.number.isRequired,
+    currentExpansion: PropTypes.number,
+    lastSelection: PropTypes.string,
+    nextUnit: PropTypes.oneOf(['chapter', 'section', 'none']),
+    onComplete: PropTypes.func,
+    onCompleteChapter: PropTypes.func,
+    onCompleteSection: PropTypes.func,
+    onLoad: PropTypes.func,
+    onSetExpansions: PropTypes.func,
+    onUpdateCounter: PropTypes.func,
+    onUpdateInventory: PropTypes.func,
+    persistLast: PropTypes.bool,
+    separator: PropTypes.string,
+  }
+
   constructor(props) {
     super(props)
     this.handleChange = this.handleChange.bind(this)
 
     if (props.onLoad) {
-      const onLoad = props.onLoad.bind(this)
-      onLoad()
+      props.onLoad()
     }
     this.state = {
       onComplete: this.props.onComplete,
     }
   }
+
   componentDidUpdate() {
     if (this.shouldCallOnComplete(this.state.onComplete)) {
       this.state.onComplete(this.props.lastSelection, this.props.tag)
@@ -38,10 +68,12 @@ class _List extends React.Component {
       })
     }
   }
+
   shouldCallOnComplete(func) {
     const atLastExpansion = this.props.currentExpansion === this.props.expansions.length - 1
     return atLastExpansion && func
   }
+
   handleChange(e) {
     e.preventDefault()
 
@@ -74,12 +106,9 @@ class _List extends React.Component {
       }
     }
 
-    // Update the counter in the browser (if check is a workaround to avoid test complaints)
-    if (this.props.config && this.props.config.hasOwnProperty('identifier')) {
-      const s = {}
-      s[this.props.config.identifier] = this.props.counter
-      window.history.pushState(s, '', '')
-    }
+    const s = {}
+    s[this.props.identifier] = this.props.counter
+    window.history.pushState(s, `Turn: ${this.props.counter}`, null)
 
     // Update the counter in the global store
     this.props.onUpdateCounter()
@@ -99,50 +128,27 @@ class _List extends React.Component {
     return iteratedList(text, handler, this.props.conjunction, this.props.separator)
   }
 }
-_List.propTypes = {
-  nextUnit: PropTypes.oneOf(['chapter', 'section', 'none']),
-  tag: PropTypes.string.isRequired,
-  expansions: PropTypes.array.isRequired,
-  config: PropTypes.object,
-  currentExpansion: PropTypes.number,
-  conjunction: PropTypes.string,
-  separator: PropTypes.string,
-  persistLast: PropTypes.bool,
-  onLoad: PropTypes.func,
-  onComplete: PropTypes.func,
-  onSetExpansions: PropTypes.func,
-  onUpdateCounter: PropTypes.func,
-  onCompleteChapter: PropTypes.func,
-  onCompleteSection: PropTypes.func,
-  onUpdateInventory: PropTypes.func,
-  counter: PropTypes.number,
-  lastSelection: PropTypes.string,
-
-}
-_List.defaultProps = {
-  nextUnit: 'section',
-  conjunction: 'and',
-  separator: ', ',
-  persistLast: false,
-}
 
 const mapStateToProps = (state, ownProps, currentExpansion = 0, lastSelection = undefined) => {
-  if (state.expansions.present.hasOwnProperty(ownProps.tag)) {
-    if (state.expansions.present[ownProps.tag].hasOwnProperty('currentExpansion')) {
-      currentExpansion = state.expansions.present[ownProps.tag].currentExpansion // eslint-disable-line
-    }
+  const expansions = state.expansions.present
+  const inventory = state.inventory.present
+  const { tag } = ownProps
+
+  if (tag in expansions && 'currentExpansion' in expansions[tag]) {
+    currentExpansion = expansions[tag].currentExpansion // eslint-disable-line no-param-reassign,prefer-destructuring
   }
-  if (state.inventory.present.hasOwnProperty(ownProps.tag)) {
-    lastSelection = state.inventory.present[ownProps.tag] // eslint-disable-line
+
+  if (tag in inventory) {
+    lastSelection = inventory[tag] // eslint-disable-line no-param-reassign
   }
   return {
     currentExpansion,
     counter: state.counter.present,
-    config: state.config,
+    identifier: state.config.identifier,
     lastSelection,
   }
 }
-export const List = connect(
+export default connect(
   mapStateToProps,
   {
     onSetExpansions: actions.setExpansions,
@@ -151,9 +157,5 @@ export const List = connect(
     onCompleteChapter: actions.showNextChapter,
     onUpdateCounter: actions.updateStateCounter,
   }
-)(_List)
+)(List)
 
-export default List
-
-/* Special export for unit tests */
-export const TestList = _List
