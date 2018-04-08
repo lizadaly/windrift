@@ -2,11 +2,6 @@
   "presets": [
     "env",
     "react",
-    "stage-0"
-  ],
-  "plugins": [
-    "transform-object-rest-spread",
-    "transform-function-bind",
-    "transform-do-expressions"
+    "stage-1"
   ]
 }
