@@ -1,24 +1,26 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Transition from 'react-transition-group/CSSTransitionGroup'
+import { CSSTransition, TransitionGroup } from 'react-transition-group'
 
-import { SectionTransition } from './transition'
 
 /* Render up to the value of `currentSection` from the `sections` array.
 Wraps each section in a Transition with the configuration from SectionTransition */
 const RenderSection = ({ currentSection, sections }) => {
   const displaySections = [...Array(currentSection + 1).keys()].map((item, i) => (
-    <div
+    <CSSTransition
+      {...SectionTransition}
       key={item}
       className={i === currentSection ? 'current-section' : 'section'}
       aria-live="polite"
     >{sections[item]}
-    </div>
+    </CSSTransition>
   ))
 
   return (
     <div>
-      <Transition {...SectionTransition}>{displaySections}</Transition>
+      <TransitionGroup>
+        {displaySections}
+      </TransitionGroup>
     </div>
   )
 }
@@ -26,4 +28,15 @@ RenderSection.propTypes = {
   currentSection: PropTypes.number.isRequired,
   sections: PropTypes.array.isRequired,
 }
+
+// Wraps the "new section" display in a CSS transformation
+const SectionTransition = {
+  classNames: 'section',
+  timeout: {
+    appear: 500,
+    enter: 500,
+    exit: 300,
+  },
+}
+
 export default RenderSection

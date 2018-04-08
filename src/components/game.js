@@ -8,7 +8,7 @@ export class Game extends React.Component {
     config: PropTypes.object.isRequired,
     chaptersList: (props) => {
       const { chaptersList } = props
-      if (!chaptersList.hasOwnProperty('keys')) {
+      if (!('keys' in chaptersList)) {
         return new Error('chaptersList must include a keys func')
       }
       if (chaptersList.keys().length < 1) {

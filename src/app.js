@@ -14,6 +14,7 @@ require('es6-shim')
 
 const renderGame = (game, store, persistor) => {
   ReactDOM.render(
+
     <Provider store={store}>
       <PersistGate persistor={persistor}>
         <GameContainer>
@@ -30,7 +31,6 @@ export default (game, localReducers = {}) => {
   const persistConfig = {
     key: game.props.config.identifier,
     storage,
-    debug: true,
   }
   const reducers = persistCombineReducers(persistConfig, Object.assign(gameReducers, localReducers))
   const store = createStore(reducers, { config: game.props.config })
