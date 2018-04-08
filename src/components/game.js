@@ -4,6 +4,34 @@ import { connect } from 'react-redux'
 
 
 export class Game extends React.Component {
+  static propTypes = {
+    config: PropTypes.object.isRequired,
+    chaptersList: (props) => {
+      const { chaptersList } = props
+      if (!chaptersList.hasOwnProperty('keys')) {
+        return new Error('chaptersList must include a keys func')
+      }
+      if (chaptersList.keys().length < 1) {
+        return new Error('chaptersList must include at least one chapter')
+      }
+      return null
+    },
+    currentChapter: (props) => {
+      const { currentChapter, chaptersList } = props
+      if (!Number.isInteger(currentChapter) || currentChapter < 0) {
+        return new Error('currentChapter must be a positive integer')
+      }
+      if (currentChapter > chaptersList.keys().length - 1) {
+        return new Error('currentChapter cannot be greater than the total number of chapters')
+      }
+      return null
+    },
+  }
+  static contextTypes = {
+    config: PropTypes.object,
+    chaptersList: PropTypes.func,
+  }
+
   constructor(props) {
     super(props)
 
@@ -62,33 +90,7 @@ export class Game extends React.Component {
       </div>)
   }
 }
-Game.propTypes = {
-  config: PropTypes.object.isRequired,
-  chaptersList: (props) => {
-    const { chaptersList } = props
-    if (!chaptersList.hasOwnProperty('keys')) {
-      return new Error('chaptersList must include a keys func')
-    }
-    if (chaptersList.keys().length < 1) {
-      return new Error('chaptersList must include at least one chapter')
-    }
-    return null
-  },
-  currentChapter: (props) => {
-    const { currentChapter, chaptersList } = props
-    if (!Number.isInteger(currentChapter) || currentChapter < 0) {
-      return new Error('currentChapter must be a positive integer')
-    }
-    if (currentChapter > chaptersList.keys().length - 1) {
-      return new Error('currentChapter cannot be greater than the total number of chapters')
-    }
-    return null
-  },
-}
-Game.contextTypes = {
-  config: PropTypes.object,
-  chaptersList: PropTypes.func,
-}
+
 // A map-state-to-props for passing props to individual chapter components
 const chapterMapper = (state, ownProps) => ({
   currentSection: state.bookmarks.present[ownProps.chapterId],

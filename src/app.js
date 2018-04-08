@@ -8,10 +8,9 @@ import { PersistGate } from 'redux-persist/integration/react'
 import storage from 'redux-persist/lib/storage'
 
 import gameReducers from './reducers'
-import GameContainer from './components'
+import { GameContainer } from './components'
 
 require('es6-shim')
-
 
 const renderGame = (game, store, persistor) => {
   ReactDOM.render(
@@ -27,8 +26,7 @@ const renderGame = (game, store, persistor) => {
   )
 }
 
-
-export const startGame = (game, localReducers = {}) => {
+export default (game, localReducers = {}) => {
   const persistConfig = {
     key: game.props.config.identifier,
     storage,

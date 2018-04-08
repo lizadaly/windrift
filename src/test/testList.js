@@ -11,6 +11,7 @@ const tag = 't0_test'
 const defaultProps = {
   expansions: ['a', 'b', 'c'],
   tag,
+  counter: 0,
 }
 
 describe('<List />', () => {

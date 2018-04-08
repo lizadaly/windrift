@@ -11,7 +11,7 @@ export class GameContainer extends React.Component {
     this.jumpFromHistory = this.jumpFromHistory.bind(this)
     if (props.enableUndo) {
       // If we received a browser forward/back, jump to the relevant point in history
-      window.document.addEventListener('popstate', this.jumpFromHistory)
+      window.addEventListener('popstate', this.jumpFromHistory)
     }
   }
   componentDidMount() {
@@ -21,10 +21,8 @@ export class GameContainer extends React.Component {
   jumpFromHistory() {
     const browserState = window.history.state
     const { identifier } = this.props
-
-    if (browserState.hasOwnProperty(identifier)) {
+    if (identifier in browserState) {
       const timeOffset = browserState[identifier] - this.props.counter
-      console.log('Going to jump to time offset ', timeOffset)
       this.props.jump(timeOffset)
     }
   }

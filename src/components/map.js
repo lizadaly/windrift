@@ -12,7 +12,20 @@ If the map evaluates to string, return wrapped HTML;
 if the map evaluates to a function, call it;
 otherwise return the node.
  */
-class Map extends React.Component {
+export default class Map extends React.Component {
+  static propTypes = {
+    // Cannot be isRequired, as the value may be unset
+    from: PropTypes.string, // eslint-disable-line react/require-default-props
+    to: PropTypes.object.isRequired,
+    offset: PropTypes.number,
+    onChange: PropTypes.func,
+    onLoad: PropTypes.func,
+  }
+  static defaultProps = {
+    offset: -1,
+    onChange: () => {},
+    onLoad: () => {},
+  }
   componentDidMount() {
     this.props.onLoad()
   }
@@ -25,9 +38,9 @@ class Map extends React.Component {
     const { to } = this.props
 
     // Does the `to` map have a matching key?
-    if (!to.hasOwnProperty(from)) {
+    if (!(from in to)) {
       // If not, does it have a wildcard?
-      if (to.hasOwnProperty(MATCH_WILDCARD)) {
+      if (MATCH_WILDCARD in to) {
         from = MATCH_WILDCARD
       } else { // If no wildcard was provided, there's no match
         return null
@@ -43,17 +56,3 @@ class Map extends React.Component {
     return to[from]
   }
 }
-Map.propTypes = {
-  from: PropTypes.string, // Cannot be isRequired, as the value may be unset
-  to: PropTypes.object.isRequired,
-  offset: PropTypes.number,
-  onChange: PropTypes.func,
-  onLoad: PropTypes.func,
-}
-Map.defaultProps = {
-  offset: -1,
-  onChange: () => {},
-  onLoad: () => {},
-}
-
-export default Map

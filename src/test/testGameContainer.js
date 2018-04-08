@@ -3,7 +3,7 @@ import React from 'react'
 import sinon from 'sinon'
 
 import { assert } from 'chai'
-import { shallow } from 'enzyme'
+import { shallow, mount } from 'enzyme'
 
 import { GameContainer } from '../components/game-container'
 
@@ -25,6 +25,7 @@ describe('<GameContainer />', () => {
     global.window = {
       history: {
         state: {},
+        replaceState: () => {},
       },
       document: oldWindow.document,
     }
@@ -54,5 +55,12 @@ describe('<GameContainer />', () => {
     const wrapper = shallow(<GameContainer {...defaultProps} />)
     assert(wrapper.instance().props.jump.calledOnce)
     assert(wrapper.instance().props.jump.calledWith(time))
+  })
+
+  it('will render a child node', () => {
+    const Game = () => null
+    const gameVar = <Game />
+    const wrapper = mount(<GameContainer {...defaultProps} >{gameVar}</GameContainer>)
+    assert(wrapper.find('Game').exists())
   })
 })

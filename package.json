@@ -1,6 +1,6 @@
 {
   "name": "windrift",
-  "version": "1.0.11-alpha-2",
+  "version": "1.0.11",
   "scripts": {
     "test": "_mocha --require src/test/global --compilers js:babel-core/register --recursive 'src/**/test*.js'",
     "build": "babel src --presets babel-preset-env --presets stage-1 --out-dir dist",
@@ -68,7 +68,10 @@
   },
   "eslintConfig": {
     "parser": "babel-eslint",
-    "extends": "airbnb",
+    "extends": [
+      "airbnb",
+      "plugin:react/recommended"
+    ],
     "env": {
       "browser": true,
       "node": true,
@@ -102,14 +105,14 @@
         2,
         "always-multiline"
       ],
-      "import/imports-first": 0,
-      "import/newline-after-import": 0,
+      "import/imports-first": 1,
+      "import/newline-after-import": 1,
       "import/no-dynamic-require": 0,
       "import/no-extraneous-dependencies": 0,
       "import/no-named-as-default": 0,
       "import/no-unresolved": 2,
       "import/no-webpack-loader-syntax": 0,
-      "import/prefer-default-export": 0,
+      "import/prefer-default-export": 1,
       "indent": [
         2,
         2,
@@ -126,10 +129,10 @@
       "jsx-a11y/role-supports-aria-props": 2,
       "max-len": 0,
       "newline-per-chained-call": 0,
-      "no-confusing-arrow": 0,
+      "no-confusing-arrow": 1,
       "no-console": 1,
       "no-use-before-define": 0,
-      "no-prototype-builtins": 0,
+      "no-prototype-builtins": 1,
       "no-unused-expressions": 0,
       "chai-friendly/no-unused-expressions": 2,
       "prefer-template": 2,
@@ -137,16 +140,16 @@
         2,
         "never"
       ],
-      "react/forbid-prop-types": 0,
+      "react/forbid-prop-types": 1,
       "react/jsx-first-prop-new-line": [
         2,
         "multiline"
       ],
       "react/jsx-filename-extension": 0,
-      "react/jsx-no-target-blank": 0,
+      "react/jsx-no-target-blank": 1,
       "react/require-default-props": 0,
       "react/require-extension": 0,
-      "react/self-closing-comp": 0,
+      "react/self-closing-comp": 2,
       "require-yield": 0
     },
     "settings": {

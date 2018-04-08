@@ -16,6 +16,7 @@ describe('index.js', () => {
         expansions: { present: {} },
         counter: { present: 0 },
         inventory: { present: {} },
+        config: { identifier: 'test' },
       }),
     }
     options = {
@@ -33,7 +34,7 @@ describe('index.js', () => {
     mount(<Map from="a" to={{ a: 'b' }} />, options)
     mount(<ManyMap from={['a']} to={{ a: 'b' }} />, options)
     mount(<Link text="hello" />, options)
-    mount(<RenderSection currentSection={0} sections={[<div />]} />, options)
+    mount(<RenderSection currentSection={0} sections={[<div key={1} />]} />, options)
     mount(<NextChapter chapter={0} />, options)
     mount(<FromInventory inventory="foo bar" />, options)
     mount(<AllButSelection selection="foo" expansions={['foo', 'bar']} />, options)
