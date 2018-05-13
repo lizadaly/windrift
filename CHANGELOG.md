@@ -1,5 +1,13 @@
 # Changelog
 
+## Version 1.1.0 (May 2018)
+
+Added setExpansions as exported action to the public API.
+
+## Version 1.0.13 (May 2018)
+
+Upgraded dependencies to all latest versions of React/Redux.
+
 ## Version 1.0.2 (May 2017)
 
 Upgraded dependencies to all latest versions of React/Redux.
