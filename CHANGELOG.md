@@ -1,6 +1,6 @@
 # Changelog
 
-## Version 1.1.0 (May 2018)
+## Version 1.1.1 (May 2018)
 
 Added setExpansions as exported action to the public API.
 
