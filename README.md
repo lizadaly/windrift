@@ -50,11 +50,17 @@ As an authoring environment, though, it has different goals:
 
 Windrift was made to leverage the React/Redux frameworks, which I think have interesting properties that can apply to narrative-driven games.
 
-Redux manages an application's state through a series of _actions_, or assertions about _events that occurred_. Instead of calling functions like, "Change the `counter` variable from _X_ to _X+1_," a Redux application instead creates a message: "The `counter` was incremented."
+Redux manages an application's state through a series of _actions_, or
+assertions about _events that occurred_. Instead of calling functions
+like, "Change the `score` variable from _X_ to _X+1_," a Redux
+application instead creates a message: "The player's score has increased."
 
-These messages are funneled through functions called _reducers_, which take the message, any data that goes along with it, and the previous snapshot of the world, and return a new value in response to the message. In the counter example, a reducer would look at the previous version of the counter, add one to it, and return the new value.
+These messages are funneled through functions called _reducers_, which take the message, any data that goes along with it, and the previous snapshot of the world, and return a new value in response to the message. In the score example, a reducer would look at the previous version of the score, add one to it, and return the new value.
 
-Finally, event listeners are assigned to any UI components that might need to know about these changes—for example, in a application where a turn counter was visible in the status bar, a `Counter` component could be written that updates itself every time the counter value changes.
+Finally, event listeners are assigned to any UI components that might
+need to know about these changes—for example, in a application where a
+score was visible in the status bar, a `Score` component could be
+written that updates itself every time that value changes.
 
 The above is all vanilla React/Redux and is used to write thousands of web applications. I was interested in how this message/event model could apply to narrative games, by reducing them to a series of messages about things that happened, and components that return updated text in response to those changes.
 
@@ -64,7 +70,7 @@ The core Windrift library provides one global bucket for these messages, called 
 
 The inventory can be thought of as a catch-all for messages of the type, "The user picked choice B out of A, B, C." Without the inventory, a Windrift author would have to write an _action_, a _reducer_ and a _listener_ for every choice presented in the game. Because most choices in a narrative game are ephemeral, it makes sense to provide a single action/reducer/store for these kinds of interactions. More complex transformations are possible by writing custom actions and reducers.
 
-With the exception of the tarot deck, _Stone Harbor_ only uses the inventory for its interactions and responses. A Windrift story that uses just the core components could almost certainly be implemented just as well in Twine or other systems. Using Redux principles _does_ enable more complex stories to be written that would be difficult or error-prone if implemented in more traditional hypertext systems.
+A Windrift story that uses just the core components could almost certainly be implemented just as well in Twine or other systems. Using Redux principles _does_ enable more complex stories to be written that would be difficult or error-prone if implemented in more traditional hypertext systems.
 
 ### The timeline
 
@@ -155,13 +161,13 @@ When the player has selected the final item in a list, two events are triggered:
 
 You can configure what happens when the list is exhausted by modifying the `nextUnit` property, which can be:
 
-1. `section`: Show the next default (default)
+1. `section`: Show the next section (default)
 1. `chapter`: Show the next chapter
 1. `none`: No further action
 
 ### Inventory
 
-When a final choice is made in a list, it goes into the reader's `inventory`, the part of the state containing all the selections they've made. The inventory is made up of buckets indexed by List `tag`. The value in each bucket is accessible as `inventory.tagname` at any point in the story.
+When a final choice is made in a list, it goes into the reader's `inventory`, the part of the state containing all the selections they've made. The inventory is made up of buckets indexed by List `tag`. The value in each bucket is accessible as `inventory.tag` at any point in the story.
 
 ### Maps
 
@@ -208,10 +214,16 @@ use Lists and Maps to create rich experiences.
 
 ```
 You select the _purple spangled basset hound_ as your spirit animal.
-The _basset hound_ squirms in your grasp.
+The _hound_ squirms in your grasp.
 ```
 
-`FromInventory` takes a string (usually an inventory item) and returns the string offset by the value of the `offset` parameter (usually -1, for the last word, but here it would be -2.) It takes an optional `onLoad` callback which will pass the inventory string through an arbitrary transformation—for example, you might use this to upcase a term.
+`FromInventory` takes a string (usually an inventory item) and returns
+the string offset by the value of the `offset` parameter (usually -1,
+for the last word, but could be -2 in this example, in which case it
+would return "basset hound".) It takes an optional `onLoad` callback
+which will pass the inventory string through an arbitrary
+transformation before returning it—for example, you might use this to
+upcase the word if it would start a new sentence.
 
 ## Writing in Windrift
 
@@ -276,9 +288,9 @@ The Windrift base components only know about the `present`; they do not have any
 
 ### Actions
 
-Windrift exports its primary redux actions if you want to fire them yourself in custom events. See the source code for parameters.
-
-`showNextSection`, `showNextChapter`, `updateInventory`, `updateStateCounter`
+Windrift exports its primary redux actions if you want to fire them
+yourself in custom events--a common case would be a custom component
+that triggered a new chapter that was not from a `List`.
 
 ## Full game source code
 
