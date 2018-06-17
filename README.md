@@ -3,10 +3,15 @@
 
 A framework for writing mutable narratives.
 
-Windrift was used to write [Stone Harbor](https://stoneharborgame.com/), an entry in the 2016 [Interactive Fiction Competition](https://ifcomp.org) [4th place], and [Harmonia](https://harmonia-game.com/), in 2017 [3rd place].
-Windrift relies heavily on the React/Redux JavaScript frameworks.
+Windrift was used to write two games by Liza Daly: [Stone
+Harbor](https://stoneharborgame.com/), an entry in the 2016
+[Interactive Fiction Competition](https://ifcomp.org) [4th place], and
+[Harmonia](https://lizadaly.com/pages/harmonia/), in 2017 [3rd place]. It was
+also used by Enrique Henestroza Anguiano to write <a
+href="http://springthing.net/2018/play_online/TheImposter/index.html">The
+Imposter</a> (2018).
 
-You don't need to know anything about React/Redux to understand Windrift's design principles, but you probably need JavaScript experience to be able to effectively write a Windrift story.
+Windrift relies heavily on the React/Redux JavaScript frameworks. You don't need to know anything about React/Redux to understand Windrift's design principles, but you probably need JavaScript experience to be able to effectively write a Windrift story.
 
 ## Project structure
 
@@ -171,7 +176,7 @@ to: {
   'salad cake': 'Just like mom used to make!',
   'pine nut loaf': 'You call this a loaf?'
 }
-```    
+```
 
 Any string can be passed to a Map, but typically you'll pass in a specific inventory value, as above.
 
