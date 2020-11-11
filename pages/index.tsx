@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import { List } from '../core/components'
 
 export default function Home() {
   return (
@@ -10,7 +11,8 @@ export default function Home() {
 
       <main>
         Hello world!
-        </main>
+        <List expansions={["foo", "bar"]} tag="test" />
+      </main>
     </div>
   )
 }
