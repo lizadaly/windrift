@@ -41,6 +41,11 @@ export type UpdateStateCounterType = UpdateStateCounterAction
 export class Config {
     readonly identifier: string
     readonly pagination: string
+
+    constructor(identifier: string, pagination: string) {
+        this.identifier = identifier;
+        this.pagination = pagination;
+    }
 }
 
 interface GetConfigAction {

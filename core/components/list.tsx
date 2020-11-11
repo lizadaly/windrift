@@ -17,11 +17,12 @@ in which case no event is triggered.
 
 Each time an expansion is revealed, onSetExpansions is called and onUpdateInventory
 sets the inventory property `key` to the current selected value. */
-
-interface ListProps extends PropsFromRedux {
+interface OwnProps {
     expansions: Array<string>,
     tag: string,
+}
 
+interface ListProps extends PropsFromRedux, OwnProps {
     conjunction?: string,
     persistLast?: boolean,
     separator?: string,
@@ -36,18 +37,9 @@ interface ListState {
     onComplete?: Function,
 }
 
-export class List extends React.Component<ListProps, ListState> {
-    static defaultProps = {
-        conjunction: 'and',
-        currentExpansion: 0,
-        identifier: 'windrift',
-        nextUnit: 'section',
-        persistLast: false,
-        separator: ', ',
-    }
+class List extends React.Component<ListProps, ListState> {
 
-
-    constructor(props) {
+    constructor(props: ListProps) {
         super(props)
         this.handleChange = this.handleChange.bind(this)
 
@@ -68,7 +60,7 @@ export class List extends React.Component<ListProps, ListState> {
         }
     }
 
-    shouldCallOnComplete(func) {
+    shouldCallOnComplete(func: Function) {
         const atLastExpansion = this.props.currentExpansion === this.props.expansions.length - 1
         return atLastExpansion && func
     }
@@ -129,10 +121,13 @@ export class List extends React.Component<ListProps, ListState> {
 }
 
 
-const mapState = (state: RootState, ownProps: ListProps, currentExpansion = 0, lastSelection = undefined) => {
+const mapState = (state: RootState, ownProps: OwnProps) => {
     const expansions = state.expansions.present
     const inventory = state.inventory.present
     const { tag } = ownProps
+
+    let currentExpansion = 0
+    let lastSelection = undefined
 
     if (tag in expansions && 'currentExpansion' in expansions[tag]) { // Should this really be a string literal?
         currentExpansion = expansions[tag].currentExpansion
@@ -155,6 +150,7 @@ const mapDispatch = {
     // onCompleteChapter: actions.showNextChapter,
     onUpdateCounter: actions.updateStateCounter,
 }
+
 
 const connector = connect(
     mapState,
