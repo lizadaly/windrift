@@ -1,5 +1,6 @@
 export const UPDATE_INVENTORY = 'UPDATE_INVENTORY'
 export const SET_EXPANSIONS = 'SET_EXPANSIONS'
+export const UPDATE_STATE_COUNTER = 'UPDATE_STATE_COUNTER'
 
 /* Inventory */
 export type Selection = string
@@ -25,3 +26,11 @@ interface SetExpansionsAction {
     expansions: Expansions
 }
 export type SetExpansionsType = SetExpansionsAction
+
+/* Counter */
+
+interface UpdateStateCounterAction {
+    type: typeof UPDATE_STATE_COUNTER
+    counter: number
+}
+export type UpdateStateCounterType = UpdateStateCounterAction

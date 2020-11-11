@@ -31,7 +31,6 @@ interface ListProps extends PropsFromRedux {
     onCompleteChapter?: Function,
     onCompleteSection?: Function,
     onLoad?: Function,
-    onUpdateCounter?: Function,
 }
 
 type ListState = {
@@ -135,7 +134,7 @@ const mapStateToProps = (state: RootState, ownProps: ListProps, currentExpansion
     const { tag } = ownProps
 
     if (tag in expansions && 'currentExpansion' in expansions[tag]) {
-        currentExpansion = expansions[tag].currentExpansion // eslint-disable-line no-param-reassign,prefer-destructuring
+        currentExpansion = expansions[tag].currentExpansion
     }
 
     if (tag in inventory) {
@@ -143,7 +142,7 @@ const mapStateToProps = (state: RootState, ownProps: ListProps, currentExpansion
     }
     return {
         currentExpansion,
-        // counter: state.counter.present,
+        counter: state.counter.present,
         // identifier: state.config.identifier,
         lastSelection,
     }
@@ -155,7 +154,7 @@ const connector = connect(
         onUpdateInventory: actions.updateInventory,
         // onCompleteSection: actions.showNextSection,
         // onCompleteChapter: actions.showNextChapter,
-        // onUpdateCounter: actions.updateStateCounter,
+        onUpdateCounter: actions.updateStateCounter,
     }
 )
 
