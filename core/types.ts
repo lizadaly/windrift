@@ -1,6 +1,7 @@
 export const UPDATE_INVENTORY = 'UPDATE_INVENTORY'
 export const SET_EXPANSIONS = 'SET_EXPANSIONS'
 export const UPDATE_STATE_COUNTER = 'UPDATE_STATE_COUNTER'
+export const GET_CONFIG = "GET_CONFIG"
 
 /* Inventory */
 export type Selection = string
@@ -18,6 +19,7 @@ interface UpdateInventoryAction {
 export type UpdateInventoryTypes = UpdateInventoryAction
 
 /* Expansions */
+
 export type Expansion = string
 export type Expansions = Array<Expansion>
 
@@ -34,3 +36,15 @@ interface UpdateStateCounterAction {
     counter: number
 }
 export type UpdateStateCounterType = UpdateStateCounterAction
+
+/* Config */
+export class Config {
+    readonly identifier: string
+    readonly pagination: string
+}
+
+interface GetConfigAction {
+    type: typeof GET_CONFIG,
+    config: Config,
+}
+export type GetConfigType = GetConfigAction

@@ -23,7 +23,6 @@ interface ListProps extends PropsFromRedux {
     tag: string,
 
     conjunction?: string,
-    lastSelection?: string,
     persistLast?: boolean,
     separator?: string,
     nextUnit?: string, // PropTypes.oneOf(['chapter', 'section', 'none']),
@@ -33,9 +32,10 @@ interface ListProps extends PropsFromRedux {
     onLoad?: Function,
 }
 
-type ListState = {
+interface ListState {
     onComplete?: Function,
 }
+
 export class List extends React.Component<ListProps, ListState> {
     static defaultProps = {
         conjunction: 'and',
@@ -128,12 +128,13 @@ export class List extends React.Component<ListProps, ListState> {
     }
 }
 
-const mapStateToProps = (state: RootState, ownProps: ListProps, currentExpansion = 0, lastSelection = undefined) => {
+
+const mapState = (state: RootState, ownProps: ListProps, currentExpansion = 0, lastSelection = undefined) => {
     const expansions = state.expansions.present
     const inventory = state.inventory.present
     const { tag } = ownProps
 
-    if (tag in expansions && 'currentExpansion' in expansions[tag]) {
+    if (tag in expansions && 'currentExpansion' in expansions[tag]) { // Should this really be a string literal?
         currentExpansion = expansions[tag].currentExpansion
     }
 
@@ -143,19 +144,21 @@ const mapStateToProps = (state: RootState, ownProps: ListProps, currentExpansion
     return {
         currentExpansion,
         counter: state.counter.present,
-        // identifier: state.config.identifier,
+        identifier: state.config.identifier,
         lastSelection,
     }
 }
+const mapDispatch = {
+    onSetExpansions: actions.setExpansions,
+    onUpdateInventory: actions.updateInventory,
+    // onCompleteSection: actions.showNextSection,
+    // onCompleteChapter: actions.showNextChapter,
+    onUpdateCounter: actions.updateStateCounter,
+}
+
 const connector = connect(
-    mapStateToProps,
-    {
-        onSetExpansions: actions.setExpansions,
-        onUpdateInventory: actions.updateInventory,
-        // onCompleteSection: actions.showNextSection,
-        // onCompleteChapter: actions.showNextChapter,
-        onUpdateCounter: actions.updateStateCounter,
-    }
+    mapState,
+    mapDispatch
 )
 
 type PropsFromRedux = ConnectedProps<typeof connector>
