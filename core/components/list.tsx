@@ -5,6 +5,7 @@ import { connect, ConnectedProps } from 'react-redux'
 import { iteratedList } from '../util'
 import * as actions from '../actions'
 import { RootState } from '../reducers'
+import { ShowNextChapterType, ShowNextSectionType, Chapter, Section } from '../types'
 
 // Special value to match the last selection by the user
 const MATCH_LAST = '_last'
@@ -28,8 +29,6 @@ interface ListProps extends PropsFromRedux, OwnProps {
     separator?: string,
     nextUnit?: string, // PropTypes.oneOf(['chapter', 'section', 'none']),
     onComplete?: Function,
-    onCompleteChapter?: Function,
-    onCompleteSection?: Function,
     onLoad?: Function,
 }
 
@@ -146,8 +145,8 @@ const mapState = (state: RootState, ownProps: OwnProps) => {
 const mapDispatch = {
     onSetExpansions: actions.setExpansions,
     onUpdateInventory: actions.updateInventory,
-    // onCompleteSection: actions.showNextSection,
-    // onCompleteChapter: actions.showNextChapter,
+    onCompleteSection: actions.showNextSection,
+    onCompleteChapter: actions.showNextChapter,
     onUpdateCounter: actions.updateStateCounter,
 }
 
