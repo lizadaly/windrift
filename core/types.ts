@@ -7,6 +7,7 @@ export const SHOW_NEXT_CHAPTER = 'SHOW_NEXT_CHAPTER'
 
 /* Inventory */
 export type Selection = string
+
 export type Tag = string
 
 export interface Inventory {
@@ -71,3 +72,6 @@ interface ShowNextSectionAction {
     section: Section
 }
 export type ShowNextSectionType = ShowNextSectionAction
+
+/* Completion callbacks */
+export type Callback = () => void

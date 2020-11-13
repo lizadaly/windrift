@@ -4,7 +4,8 @@ import { connect, ConnectedProps } from 'react-redux'
 import { iteratedList } from '../util'
 import * as actions from '../actions'
 import { RootState } from '../reducers'
-import { ShowNextChapterType, ShowNextSectionType, Chapter, Section } from '../types'
+//import { ShowNextChapterType, ShowNextSectionType, Chapter, Section } from '../types'
+import { Callback, Tag, Expansions } from '../types'
 
 // Special value to match the last selection by the user
 const MATCH_LAST = '_last'
@@ -18,8 +19,8 @@ in which case no event is triggered.
 Each time an expansion is revealed, onSetExpansions is called and onUpdateInventory
 sets the inventory property `key` to the current selected value. */
 interface OwnProps {
-    expansions: Array<string>,
-    tag: string,
+    expansions: Expansions,
+    tag: Tag
 }
 
 interface ListProps extends PropsFromRedux, OwnProps {
@@ -27,12 +28,12 @@ interface ListProps extends PropsFromRedux, OwnProps {
     persistLast?: boolean,
     separator?: string,
     nextUnit?: string, // PropTypes.oneOf(['chapter', 'section', 'none']),
-    onComplete?: Function,
-    onLoad?: Function,
+    onComplete?: Callback,
+    onLoad?: Callback,
 }
 
 interface ListState {
-    onComplete?: Function,
+    onComplete?: Callback,
 }
 
 class List extends React.Component<ListProps, ListState> {
@@ -51,14 +52,14 @@ class List extends React.Component<ListProps, ListState> {
 
     componentDidUpdate() {
         if (this.shouldCallOnComplete(this.state.onComplete)) {
-            this.state.onComplete(this.props.lastSelection, this.props.tag)
+            this.state.onComplete() // old params: this.props.lastSelection, this.props.tag
             this.setState({
                 onComplete: undefined,
             })
         }
     }
 
-    shouldCallOnComplete(func: Function) {
+    shouldCallOnComplete(func: Callback) {
         const atLastExpansion = this.props.currentExpansion === this.props.expansions.length - 1
         return atLastExpansion && func
     }
@@ -81,7 +82,7 @@ class List extends React.Component<ListProps, ListState> {
             userSelection = this.props.lastSelection
         }
 
-        this.props.onUpdateInventory(userSelection, this.props.tag)
+        this.props.onUpdateInventory(this.props.tag, userSelection)
 
         // Are we at the last set? If so, there may be some events to fire
         if (!atLastExpansion && currentExpansion === this.props.expansions.length - 1) {
@@ -125,7 +126,7 @@ const mapState = (state: RootState, ownProps: OwnProps) => {
     const { tag } = ownProps
 
     let currentExpansion = 0
-    let lastSelection = undefined
+    let lastSelection: string = undefined
 
     if (tag in expansions && 'currentExpansion' in expansions[tag]) { // Should this really be a string literal?
         currentExpansion = expansions[tag].currentExpansion
