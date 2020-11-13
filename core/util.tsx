@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { MouseEvent } from 'react'
 import Link from './components/link'
 
 /* A function that returns the most-significant word from a phrase,
@@ -46,11 +46,10 @@ export const iteratedList = (items, handler = null, conjunction = 'and', separat
         </span>)
 }
 
-const resetMessage = 'Restart the story from the beginning?'
+const message = 'Restart the story from the beginning?'
 
 /* Reset the game and remove the local storage */
-export const resetGame = (e, message = resetMessage) => {
-    e.preventDefault()
+export const resetGame = (event: MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => {
     const conf = window.confirm(message) // eslint-disable-line no-alert
     if (conf) {
         localStorage.clear()
