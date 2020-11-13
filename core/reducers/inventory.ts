@@ -2,10 +2,10 @@ import undoable from 'redux-undo'
 import { Inventory, UpdateInventoryTypes, UPDATE_INVENTORY } from '../types'
 
 
-export function inventoryReducer(
+export const inventoryReducer = (
     state: Inventory = {},
     action: UpdateInventoryTypes,
-): Inventory {
+): Inventory => {
     switch (action.type) {
         case UPDATE_INVENTORY: {
             const inv: Inventory = {}
