@@ -75,3 +75,16 @@ export type ShowNextSectionType = ShowNextSectionAction
 
 /* Completion callbacks */
 export type Callback = () => void
+
+/* TOC and game setup */
+
+export interface TocItem {
+    filename: string
+    visible: boolean
+    title: string
+}
+export type Toc = Array<TocItem>
+
+export interface StoryConfig {
+    toc: Toc
+}

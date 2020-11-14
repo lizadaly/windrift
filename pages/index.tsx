@@ -4,26 +4,19 @@ import { resetGame } from '../core/util'
 import fs from 'fs'
 import path from 'path'
 import yaml from 'js-yaml'
-
+import { StoryConfig, Toc, TocItem } from '../core/types'
 import { GetStaticProps } from 'next'
 
 interface HomeProps {
   toc: Toc
+  storyConfig: StoryConfig
 }
-
-interface TocItem {
-  filename: string
-  visible: boolean
-  title: string
-}
-
-type Toc = Array<TocItem>
 
 export const getStaticProps: GetStaticProps = async () => {
-  const chapterPath = path.join(process.cwd(), 'pages/chapters/toc.yaml')
-  const tocYaml = yaml.safeLoad(fs.readFileSync(chapterPath, "utf8"))
+  const chapterPath = path.join(process.cwd(), 'pages/chapters/story.yaml')
+  const storyConfig = yaml.safeLoad(fs.readFileSync(chapterPath, "utf8")) as StoryConfig
 
-  const toc: Toc = tocYaml["chapters"].map((item: TocItem) => (
+  const toc: Toc = storyConfig["chapters"].map((item: TocItem) => (
     {
       filename: item["filename"],
       visible: item["visible"] || false,
@@ -31,7 +24,7 @@ export const getStaticProps: GetStaticProps = async () => {
     }
   ))
   return {
-    props: { toc }
+    props: { toc, storyConfig }
   }
 }
 
@@ -49,7 +42,7 @@ export default function Home(props: HomeProps): JSX.Element {
         <div className="top-bar-right">
           <button onClick={resetGame}>Restart</button>
         </div>
-        <Game />
+        <Game {...props} />
       </main>
     </div>
   )

@@ -2,10 +2,14 @@ import * as React from "react"
 import { connect, ConnectedProps } from 'react-redux'
 import { RootState } from "../reducers"
 
+import { StoryConfig, Toc } from '../core/types'
 
 interface OwnProps {
-    chapters: any
+    toc: Toc
+    storyConfig: StoryConfig
 }
+
+
 type GameProps = OwnProps & PropsFromRedux
 
 class Game extends React.Component<GameProps> {
