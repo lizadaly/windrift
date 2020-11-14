@@ -8,7 +8,7 @@ import storage from 'redux-persist/lib/storage'
 import reducers from '../core/reducers'
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-function Windrift({ Component, pageProps }: AppProps) {
+function Windrift({ Component, pageProps }: AppProps): JSX.Element {
     const persistConfig = {
         key: 'key',
         storage,

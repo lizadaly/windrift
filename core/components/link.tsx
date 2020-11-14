@@ -8,7 +8,7 @@ type LinkProps = {
     text: string,
     handler: React.MouseEventHandler<HTMLAnchorElement>
 }
-const Link = ({ text, handler }: LinkProps) => {
+const Link = ({ text, handler }: LinkProps): JSX.Element => {
     if (handler) {
         return <a href="#" onClick={handler} > {text} </a>
     }

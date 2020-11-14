@@ -13,7 +13,7 @@ If `offset` exceeds the length of the string, the default offset value
 will be used.
  */
 
-export const wordFromInventory = (inventory, offset = -1) => {
+export const wordFromInventory = (inventory: string, offset = -1): string => {
     if (offset === null) {
         return inventory
     }
@@ -25,7 +25,11 @@ export const wordFromInventory = (inventory, offset = -1) => {
 
 /* For a list of items, return a JSX node of markup with links and appropriate
 `conjunctions, divided by `separator` */
-export const iteratedList = (items, handler = null, conjunction = 'and', separator = ', ') => {
+export const iteratedList = (
+    items: string | Array<string>,
+    handler = null,
+    conjunction = 'and',
+    separator = ', '): JSX.Element => {
     if (typeof items === 'string') {
         items = [items] // eslint-disable-line no-param-reassign
     }
@@ -49,7 +53,9 @@ export const iteratedList = (items, handler = null, conjunction = 'and', separat
 const message = 'Restart the story from the beginning?'
 
 /* Reset the game and remove the local storage */
-export const resetGame = (event: MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => {
+export const resetGame = (event: MouseEvent<HTMLButtonElement | HTMLAnchorElement>): void => {
+    event.preventDefault()
+
     const conf = window.confirm(message) // eslint-disable-line no-alert
     if (conf) {
         localStorage.clear()
