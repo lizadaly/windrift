@@ -26,7 +26,8 @@ export const getStaticProps: GetStaticProps = async () => {
     {
       filename: item["filename"],
       visible: item["visible"] || false,
-      title: item["title"]
+      title: item["title"],
+      bookmark: 0
     }
   ))
   return {

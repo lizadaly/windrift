@@ -2,7 +2,7 @@ export const UPDATE_INVENTORY = 'UPDATE_INVENTORY'
 export const SET_EXPANSIONS = 'SET_EXPANSIONS'
 export const UPDATE_STATE_COUNTER = 'UPDATE_STATE_COUNTER'
 export const GET_CONFIG = "GET_CONFIG"
-export const SHOW_NEXT_SECTION = 'SHOW_NEXT_SECTION'
+export const INCREMENT_SECTION = 'INCREMENT_SECTION'
 export const SHOW_NEXT_CHAPTER = 'SHOW_NEXT_CHAPTER'
 
 /* Inventory */
@@ -32,13 +32,21 @@ interface SetExpansionsAction {
 }
 export type SetExpansionsType = SetExpansionsAction
 
-/* Counter */
+/* Game counter */
 
 interface UpdateStateCounterAction {
     type: typeof UPDATE_STATE_COUNTER
     counter: number
 }
 export type UpdateStateCounterType = UpdateStateCounterAction
+
+/* Section counter */
+interface IncrementSectionAction {
+    type: typeof INCREMENT_SECTION
+    counter: number
+}
+export type IncrementSectionType = IncrementSectionAction
+
 
 /* Config */
 export class Config {
@@ -72,8 +80,12 @@ export interface TocItem {
     readonly filename: string
     readonly title: string
     visible: boolean
+    bookmark: 0
 }
 export type Toc = Array<TocItem>
 
 export type PageType = React.FC
-export type ChapterType = React.FC
+export interface ChapterType {
+    filename: string
+    children: React.ReactNode
+}
