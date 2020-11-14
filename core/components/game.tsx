@@ -2,30 +2,40 @@ import * as React from "react"
 import { connect, ConnectedProps } from 'react-redux'
 import { RootState } from "../reducers"
 import dynamic from 'next/dynamic'
+import { Toc } from '../types'
 
 type GameProps = PropsFromRedux
+
+interface VisibleChapter {
+    chapter: JSX.Element
+    id: string
+}
+const visibleChapters = (toc: Toc): Array<VisibleChapter> => {
+    const chapters = toc.filter(c => c.visible).map
+        (c => {
+            const C = dynamic(() => import(`../../pages/chapters/${c.filename}`))
+            return {
+                id: c.filename,
+                chapter: <C />
+            } as VisibleChapter
+        })
+    return chapters
+}
 
 class Game extends React.Component<GameProps> {
     constructor(props: GameProps) {
         super(props)
 
-        //     // Dynamically load all JS in the 'chapters' directory as a Chapter object
-        //     //this.chapters = this.initializeChapters(props.chaptersList)
     }
     render() {
-        const chapters = this.props.config.toc.map
-            (c => {
-                const C = dynamic(() => import(`../../pages/chapters/${c.filename}`))
-                return <C />
-            })
+
+        const chapters = visibleChapters(this.props.config.toc)
 
         return <div className="game">
             {
                 chapters.map((chapter) => (
-                    <div
-                        key={"x"}
-                    >
-                        {chapter}
+                    <div key={chapter.id}>
+                        {chapter.chapter}
                     </div>
                 ))
             }
