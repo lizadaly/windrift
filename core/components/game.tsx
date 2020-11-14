@@ -7,18 +7,22 @@ import { Toc } from '../types'
 interface VisibleChapter {
     chapter: JSX.Element
     id: string
+    sections: Array<JSX.Element>
 }
 const visibleChapters = (toc: Toc): Array<VisibleChapter> => {
     const chapters = toc.filter(c => c.visible).map
         (c => {
-            const C = dynamic(() => import(`../../pages/chapters/${c.filename}`))
+            const chapter = React.createElement(dynamic(() =>
+                import(`../../pages/chapters/${c.filename}`)))
             return {
                 id: c.filename,
-                chapter: <C />
+                chapter
             } as VisibleChapter
         })
     return chapters
 }
+
+
 
 const Game = (): JSX.Element => {
     const toc = useSelector((state: RootState) => state.config.toc)

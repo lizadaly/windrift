@@ -1,17 +1,18 @@
-import * as React from "react"
-import { List } from '../../core/components'
+import { List, Section, Chapter } from '../../core/components'
+import { PageType } from '../../core/types'
 
-export default (): JSX.Element => (
-    <div>
-        <section>
-            <h1>Chapter 1</h1>
-            <List expansions={["dog", "cat"]} tag="foo" />
-        </section>
-        <section>
-            <h2>Section 2</h2>
-            <p>
-                hello world.
+
+const Page: PageType = () => <Chapter>
+    <Section>
+        <h1>Chapter 1</h1>
+        <List expansions={["dog", "cat"]} tag="foo" />
+    </Section>
+    <Section>
+        <h2>Section 2</h2>
+        <p>
+            hello world.
         </p>
-        </section>
-    </div>
-)
+    </Section>
+</Chapter>
+
+export default Page

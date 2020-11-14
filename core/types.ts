@@ -63,22 +63,6 @@ interface GetConfigAction {
 }
 export type GetConfigType = GetConfigAction
 
-/* Navigation */
-export type Chapter = number
-export type Section = number
-
-interface ShowNextChapterAction {
-    type: typeof SHOW_NEXT_CHAPTER,
-    chapter: Chapter
-}
-export type ShowNextChapterType = ShowNextChapterAction
-
-interface ShowNextSectionAction {
-    type: typeof SHOW_NEXT_SECTION,
-    section: Section
-}
-export type ShowNextSectionType = ShowNextSectionAction
-
 /* Completion callbacks */
 export type Callback = () => void
 
@@ -90,3 +74,6 @@ export interface TocItem {
     visible: boolean
 }
 export type Toc = Array<TocItem>
+
+export type PageType = React.FC
+export type ChapterType = React.FC
