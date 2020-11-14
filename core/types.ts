@@ -79,12 +79,12 @@ export type Callback = () => void
 /* TOC and game setup */
 
 export interface TocItem {
-    filename: string
+    readonly filename: string
+    readonly title: string
     visible: boolean
-    title: string
 }
 export type Toc = Array<TocItem>
 
 export interface StoryConfig {
-    toc: Toc
+    readonly toc: Toc
 }
