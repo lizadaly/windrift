@@ -1,0 +1,8 @@
+chapters:
+  - chapter:
+    filename: "chapter1.tsx"
+    visible: true
+    title: "Chapter One"
+  - chapter:
+    filename: "chapter2.tsx"
+    title: "Chapter Two"

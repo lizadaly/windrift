@@ -111,7 +111,6 @@ class List extends React.Component<ListProps, ListState> {
         if (text === MATCH_LAST && atLastExpansion) {
             text = this.props.lastSelection
         }
-
         // Create an onclick handler if we're at the last expansion and/or persisting the last item
         const handler = this.props.persistLast || !atLastExpansion ? this.handleChange : null
 
