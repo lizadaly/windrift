@@ -1,10 +1,8 @@
 import * as React from "react"
-import { connect, ConnectedProps } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { RootState } from "../reducers"
 import dynamic from 'next/dynamic'
 import { Toc } from '../types'
-
-type GameProps = PropsFromRedux
 
 interface VisibleChapter {
     chapter: JSX.Element
@@ -22,40 +20,18 @@ const visibleChapters = (toc: Toc): Array<VisibleChapter> => {
     return chapters
 }
 
-class Game extends React.Component<GameProps> {
-    constructor(props: GameProps) {
-        super(props)
+const Game = (): JSX.Element => {
+    const toc = useSelector((state: RootState) => state.config.toc)
+    const chapters = visibleChapters(toc)
 
-    }
-    render() {
-
-        const chapters = visibleChapters(this.props.config.toc)
-
-        return <div className="game">
-            {
-                chapters.map((chapter) => (
-                    <div key={chapter.id}>
-                        {chapter.chapter}
-                    </div>
-                ))
-            }
-        </div>
-
-    }
+    return <div className="game">
+        {
+            chapters.map((chapter) => (
+                <div key={chapter.id}>
+                    {chapter.chapter}
+                </div>
+            ))
+        }
+    </div>
 }
-
-const mapState = (state: RootState) => {
-
-    return {
-        inventory: state.inventory,
-        config: state.config
-    }
-}
-
-const connector = connect(
-    mapState,
-)
-
-type PropsFromRedux = ConnectedProps<typeof connector>
-
-export default connector(Game)
+export default Game
