@@ -2,15 +2,8 @@ import * as React from "react"
 import { connect, ConnectedProps } from 'react-redux'
 import { RootState } from "../reducers"
 
-import { StoryConfig, Toc } from '../core/types'
 
-interface OwnProps {
-    toc: Toc
-    storyConfig: StoryConfig
-}
-
-
-type GameProps = OwnProps & PropsFromRedux
+type GameProps = PropsFromRedux
 
 class Game extends React.Component<GameProps> {
     constructor(props: GameProps) {
@@ -20,17 +13,18 @@ class Game extends React.Component<GameProps> {
         //     //this.chapters = this.initializeChapters(props.chaptersList)
     }
     render() {
-        const { chapters } = this.props
+        const { toc } = this.props.config
+        console.log(this.props.config)
         return <div>
             hello world
-            {chapters}
         </div>
 
     }
 }
 
 const mapState = (state: RootState) => ({
-    inventory: state.inventory
+    inventory: state.inventory,
+    config: state.config
 })
 
 const connector = connect(

@@ -44,10 +44,16 @@ export type UpdateStateCounterType = UpdateStateCounterAction
 export class Config {
     readonly identifier: string
     readonly pagination: string
+    readonly toc: Toc
+    readonly title: string
+    readonly enableUndo: boolean
 
-    constructor(identifier: string, pagination: string) {
-        this.identifier = identifier;
-        this.pagination = pagination;
+    constructor(toc: Toc, title: string, pagination = "scrolling", enableUndo = false) {
+        this.identifier = title.toLowerCase().replace(/ /g, "-")
+        this.toc = toc
+        this.title = title
+        this.pagination = pagination
+        this.enableUndo = enableUndo
     }
 }
 
@@ -84,7 +90,3 @@ export interface TocItem {
     visible: boolean
 }
 export type Toc = Array<TocItem>
-
-export interface StoryConfig {
-    readonly toc: Toc
-}

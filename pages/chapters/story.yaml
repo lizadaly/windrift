@@ -1,3 +1,4 @@
+title: A Sample Game
 chapters:
   - chapter:
     filename: "chapter1.tsx"

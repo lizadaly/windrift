@@ -7,17 +7,17 @@ import { RootState } from "../reducers"
 //import { Counter } from '../components'
 
 interface GameProps extends PropsFromRedux {
-
+    children: React.ReactNode
 }
 
-export class GameContainer extends React.Component<GameProps> {
+class GameContainer extends React.Component<GameProps> {
     constructor(props: GameProps) {
         super(props)
         this.jumpFromHistory = this.jumpFromHistory.bind(this)
-        // if (props.enableUndo) {
-        //     // If we received a browser forward/back, jump to the relevant point in history
-        //     window.addEventListener('popstate', this.jumpFromHistory)
-        // }
+        if (props.enableUndo) {
+            // If we received a browser forward/back, jump to the relevant point in history
+            window.addEventListener('popstate', this.jumpFromHistory)
+        }
     }
     componentDidMount() {
         // On the first mount, also jump from the history
@@ -43,7 +43,7 @@ export class GameContainer extends React.Component<GameProps> {
 
 
 const mapState = (state: RootState) => ({
-    //enableUndo: state.config.enableUndo,
+    enableUndo: state.config.enableUndo,
     identifier: state.config.identifier,
     counter: state.counter.present,
 })
