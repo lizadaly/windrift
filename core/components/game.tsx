@@ -13,10 +13,11 @@ class Game extends React.Component<GameProps> {
         //     //this.chapters = this.initializeChapters(props.chaptersList)
     }
     render() {
-        const chapters = this.props.config.toc.map(c => {
-            const C = dynamic(() => import(`../../pages/chapters/${c.filename}`))
-            return <C />
-        })
+        const chapters = this.props.config.toc.map
+            (c => {
+                const C = dynamic(() => import(`../../pages/chapters/${c.filename}`))
+                return <C />
+            })
 
         return <div className="game">
             {

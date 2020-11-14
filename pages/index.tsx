@@ -20,7 +20,7 @@ export interface WindriftProps {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const chapterPath = path.join(process.cwd(), 'pages/chapters/story.yaml')
+  const chapterPath = path.join(process.cwd(), 'story.yaml')
   const configYaml = yaml.safeLoad(fs.readFileSync(chapterPath, "utf8"))
   const toc: Toc = configYaml["chapters"].map((item: TocItem) => (
     {
