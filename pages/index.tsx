@@ -6,7 +6,6 @@ import { GetStaticProps } from 'next'
 import fs from 'fs'
 import path from 'path'
 import yaml from 'js-yaml'
-
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import { persistStore, persistReducer } from 'redux-persist'
@@ -30,7 +29,6 @@ export const getStaticProps: GetStaticProps = async () => {
       title: item["title"]
     }
   ))
-
   return {
     props: { toc, configYaml: configYaml }
   }
@@ -50,6 +48,7 @@ export default function Home(props: WindriftProps): JSX.Element {
   const persistedReducers = persistReducer(persistConfig, reducers)
   const store = createStore(persistedReducers, { config }, composeWithDevTools())
   const persistor = persistStore(store)
+
 
   return (
     <div className="container">
