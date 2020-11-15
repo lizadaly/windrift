@@ -2,42 +2,37 @@ import * as React from "react"
 import { useSelector } from 'react-redux'
 import { RootState } from "../reducers"
 import dynamic from 'next/dynamic'
-import { Toc } from '../types'
+import { Toc, TocItem } from '../types'
 
 interface ChapterComponent {
-    chapter: JSX.Element
-    filename: string
+    component: JSX.Element
+    item: TocItem
 }
-const chapterComponents = (chapterList: Array<string>): Array<ChapterComponent> => {
-    console.log('importing')
-    const chapters = chapterList.map
-        (c => {
-            const chapter = React.createElement(dynamic(() =>
-                import(`../../pages/chapters/${c}`)))
+const chapterComponents = (toc: Toc): Array<ChapterComponent> => {
+    const chapters = Object.values(toc).map
+        (item => {
+            const component = React.createElement(dynamic(() =>
+                import(`../../pages/chapters/${item.filename}`)))
 
             return {
-                filename: c,
-                chapter,
+                item,
+                component,
             } as ChapterComponent
         })
     return chapters
 }
 
-type GameProps = {
-    chapterList: Array<string>,
-}
 
-const Game = ({ chapterList }: GameProps): JSX.Element => {
+const Game = (): JSX.Element => {
     const toc = useSelector((state: RootState) => state.toc)
-    const [components] = React.useState(() => chapterComponents(chapterList))
-
+    const [components] = React.useState(() => chapterComponents(toc))
     return <div className="game">
         {
             Object.values(toc).filter(c => c.visible).map(chapter => (
                 <div key={chapter.filename}>
                     {
-                        components.filter(co => co.filename === chapter.filename).
-                            map(component => component.chapter)[0]
+                        components.filter(co => co.item.filename === chapter.filename).
+                            map(component => component.component)[0]
                     }
                 </div>
             ))

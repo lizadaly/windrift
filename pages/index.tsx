@@ -64,7 +64,7 @@ export default function Home(props: WindriftProps): JSX.Element {
         <Provider store={store}>
           <PersistGate persistor={persistor}>
             <GameContainer>
-              <Game chapterList={Object.values(toc).map(c => c.filename)} />
+              <Game />
             </GameContainer>
           </PersistGate>
         </Provider>
