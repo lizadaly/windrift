@@ -6,6 +6,7 @@ import * as actions from '../actions'
 import { RootState } from '../reducers'
 //import { ShowNextChapterType, ShowNextSectionType, Chapter, Section } from '../types'
 import { Callback, Tag, Expansions } from '../types'
+import { ChapterContext } from './chapter'
 
 // Special value to match the last selection by the user
 const MATCH_LAST = '_last'
@@ -49,6 +50,7 @@ class List extends React.Component<ListProps, ListState> {
             onComplete: this.props.onComplete,
         }
     }
+    static contextType = ChapterContext
 
     componentDidUpdate() {
         if (this.shouldCallOnComplete(this.state.onComplete)) {
@@ -86,14 +88,8 @@ class List extends React.Component<ListProps, ListState> {
 
         // Are we at the last set? If so, there may be some events to fire
         if (!atLastExpansion && currentExpansion === this.props.expansions.length - 1) {
-            if (this.props.nextUnit === 'chapter') {
-                this.props.onCompleteChapter()
-            } else if (this.props.nextUnit === 'section') {
-                this.props.onCompleteSection()
-            } else {
-                // The no-op version just expands in place (usually because another selector
-                // will do the expansion)
-            }
+            this.props.onCompleteSection(this.context)
+            // TODO handle other callback types
         }
 
         const s = {}
@@ -144,7 +140,7 @@ const mapState = (state: RootState, ownProps: OwnProps) => {
 const mapDispatch = {
     onSetExpansions: actions.setExpansions,
     onUpdateInventory: actions.updateInventory,
-    onCompleteSection: actions.showNextSection,
+    onCompleteSection: actions.incrementSection,
     onCompleteChapter: actions.showNextChapter,
     onUpdateCounter: actions.updateStateCounter,
 }

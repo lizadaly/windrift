@@ -22,7 +22,8 @@ export interface WindriftProps {
 export const getStaticProps: GetStaticProps = async () => {
   const chapterPath = path.join(process.cwd(), 'story.yaml')
   const configYaml = yaml.safeLoad(fs.readFileSync(chapterPath, "utf8"))
-  const toc: Toc = configYaml["chapters"].map((item: TocItem) => (
+
+  const toc = configYaml["chapters"].map((item: TocItem) => (
     {
       filename: item["filename"],
       visible: item["visible"] || false,
@@ -30,15 +31,15 @@ export const getStaticProps: GetStaticProps = async () => {
       bookmark: 0
     }
   ))
+
   return {
     props: { toc, configYaml: configYaml }
   }
 }
 
 export default function Home(props: WindriftProps): JSX.Element {
-  const configYaml = props.configYaml
-
-  const config = new Config(props.toc, configYaml["title"],
+  const { configYaml, toc } = props
+  const config = new Config(configYaml["title"],
     configYaml["pagination"], configYaml["enableUndo"])
 
   const persistConfig = {
@@ -47,9 +48,8 @@ export default function Home(props: WindriftProps): JSX.Element {
   }
 
   const persistedReducers = persistReducer(persistConfig, reducers)
-  const store = createStore(persistedReducers, { config }, composeWithDevTools())
+  const store = createStore(persistedReducers, { config, toc }, composeWithDevTools())
   const persistor = persistStore(store)
-
 
   return (
     <div className="container">

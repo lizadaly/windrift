@@ -10,7 +10,7 @@ interface VisibleChapter {
     sections: Array<JSX.Element>
 }
 const visibleChapters = (toc: Toc): Array<VisibleChapter> => {
-    const chapters = toc.filter(c => c.visible).map
+    const chapters = Object.values(toc).filter(c => c.visible).map
         (c => {
             const chapter = React.createElement(dynamic(() =>
                 import(`../../pages/chapters/${c.filename}`)))
@@ -23,11 +23,10 @@ const visibleChapters = (toc: Toc): Array<VisibleChapter> => {
 }
 
 
-
 const Game = (): JSX.Element => {
-    const toc = useSelector((state: RootState) => state.config.toc)
-    const chapters = visibleChapters(toc)
+    const toc = useSelector((state: RootState) => state.toc)
 
+    const chapters = visibleChapters(toc)
     return <div className="game">
         {
             chapters.map((chapter) => (

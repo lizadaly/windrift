@@ -1,15 +1,21 @@
-import { Chapter, Section, ShowNextChapterType, ShowNextSectionType, SHOW_NEXT_CHAPTER, SHOW_NEXT_SECTION } from '../types'
+import { IncrementSectionType, INCREMENT_SECTION, COUNT_SECTION, TocItem, CountSectionType } from '../types'
 
-export function showNextChapter(chapter?: Chapter): ShowNextChapterType {
+export function showNextChapter() {
   return {
-    type: SHOW_NEXT_CHAPTER,
-    chapter,
+
   }
 }
 
-export function showNextSection(section?: Section): ShowNextSectionType {
+export function incrementSection(item: TocItem): IncrementSectionType {
   return {
-    type: SHOW_NEXT_SECTION,
-    section,
+    type: INCREMENT_SECTION,
+    item,
+  }
+}
+export const countSections = (item: TocItem, count: number): CountSectionType => {
+  return {
+    type: COUNT_SECTION,
+    item,
+    count
   }
 }

@@ -4,6 +4,7 @@ export const UPDATE_STATE_COUNTER = 'UPDATE_STATE_COUNTER'
 export const GET_CONFIG = "GET_CONFIG"
 export const INCREMENT_SECTION = 'INCREMENT_SECTION'
 export const SHOW_NEXT_CHAPTER = 'SHOW_NEXT_CHAPTER'
+export const COUNT_SECTION = 'COUNT_SECTION'
 
 /* Inventory */
 export type Selection = string
@@ -43,22 +44,26 @@ export type UpdateStateCounterType = UpdateStateCounterAction
 /* Section counter */
 interface IncrementSectionAction {
     type: typeof INCREMENT_SECTION
-    counter: number
+    item: TocItem
 }
 export type IncrementSectionType = IncrementSectionAction
 
+interface CountSectionAction {
+    type: typeof COUNT_SECTION,
+    item: TocItem,
+    count: number
+}
+export type CountSectionType = CountSectionAction
 
 /* Config */
 export class Config {
     readonly identifier: string
     readonly pagination: string
-    readonly toc: Toc
     readonly title: string
     readonly enableUndo: boolean
 
-    constructor(toc: Toc, title: string, pagination = "scrolling", enableUndo = false) {
+    constructor(title: string, pagination = "scrolling", enableUndo = false) {
         this.identifier = title.toLowerCase().replace(/ /g, "-")
-        this.toc = toc
         this.title = title
         this.pagination = pagination
         this.enableUndo = enableUndo
@@ -80,9 +85,12 @@ export interface TocItem {
     readonly filename: string
     readonly title: string
     visible: boolean
-    bookmark: 0
+    bookmark: number,
+    sectionCount: number
 }
-export type Toc = Array<TocItem>
+export type Toc = {
+    [c: string]: TocItem
+}
 
 export type PageType = React.FC
 export interface ChapterType {

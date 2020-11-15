@@ -1,5 +1,6 @@
 import React, { MouseEvent } from 'react'
 import Link from './components/link'
+import { Toc, TocItem } from './types'
 
 /* A function that returns the most-significant word from a phrase,
 typically in the inventory list (e.g. "a tired-looking cap"). Nothing
@@ -62,3 +63,7 @@ export const resetGame = (event: MouseEvent<HTMLButtonElement | HTMLAnchorElemen
         window.location.replace(window.location.href)
     }
 }
+
+export const getChapter = (toc: Toc, filename: string): TocItem => (
+    Object.values(toc).filter(c => c.filename === filename)[0]
+)
