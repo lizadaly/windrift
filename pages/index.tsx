@@ -50,7 +50,6 @@ export default function Home(props: WindriftProps): JSX.Element {
   const persistedReducers = persistReducer(persistConfig, reducers)
   const store = createStore(persistedReducers, { config, toc }, composeWithDevTools())
   const persistor = persistStore(store)
-
   return (
     <div className="container">
       <Head>
@@ -65,7 +64,7 @@ export default function Home(props: WindriftProps): JSX.Element {
         <Provider store={store}>
           <PersistGate persistor={persistor}>
             <GameContainer>
-              <Game />
+              <Game chapterList={Object.values(toc).map(c => c.filename)} />
             </GameContainer>
           </PersistGate>
         </Provider>

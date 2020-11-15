@@ -4,34 +4,41 @@ import { RootState } from "../reducers"
 import dynamic from 'next/dynamic'
 import { Toc } from '../types'
 
-interface VisibleChapter {
+interface ChapterComponent {
     chapter: JSX.Element
-    id: string
-    sections: Array<JSX.Element>
+    filename: string
 }
-const visibleChapters = (toc: Toc): Array<VisibleChapter> => {
-    const chapters = Object.values(toc).filter(c => c.visible).map
+const chapterComponents = (chapterList: Array<string>): Array<ChapterComponent> => {
+    console.log('importing')
+    const chapters = chapterList.map
         (c => {
             const chapter = React.createElement(dynamic(() =>
-                import(`../../pages/chapters/${c.filename}`)))
+                import(`../../pages/chapters/${c}`)))
+
             return {
-                id: c.filename,
-                chapter
-            } as VisibleChapter
+                filename: c,
+                chapter,
+            } as ChapterComponent
         })
     return chapters
 }
 
+type GameProps = {
+    chapterList: Array<string>,
+}
 
-const Game = (): JSX.Element => {
+const Game = ({ chapterList }: GameProps): JSX.Element => {
     const toc = useSelector((state: RootState) => state.toc)
+    const [components] = React.useState(() => chapterComponents(chapterList))
 
-    const chapters = visibleChapters(toc)
     return <div className="game">
         {
-            chapters.map((chapter) => (
-                <div key={chapter.id}>
-                    {chapter.chapter}
+            Object.values(toc).filter(c => c.visible).map(chapter => (
+                <div key={chapter.filename}>
+                    {
+                        components.filter(co => co.filename === chapter.filename).
+                            map(component => component.chapter)[0]
+                    }
                 </div>
             ))
         }
