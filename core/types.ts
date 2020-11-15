@@ -8,7 +8,6 @@ export const COUNT_SECTION = 'COUNT_SECTION'
 
 /* Inventory */
 export type Selection = string
-
 export type Tag = string
 
 export interface Inventory {
@@ -54,6 +53,14 @@ interface CountSectionAction {
     count: number
 }
 export type CountSectionType = CountSectionAction
+
+/* Chapter navigation */
+interface ShowNextChapterAction {
+    type: typeof SHOW_NEXT_CHAPTER
+    item: TocItem
+}
+export type ShowNextChapterType = ShowNextChapterAction
+
 
 /* Config */
 export class Config {

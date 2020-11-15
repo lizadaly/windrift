@@ -28,7 +28,7 @@ interface ListProps extends PropsFromRedux, OwnProps {
     conjunction?: string,
     persistLast?: boolean,
     separator?: string,
-    nextUnit?: string, // PropTypes.oneOf(['chapter', 'section', 'none']),
+    nextUnit?: 'chapter' | 'section' | 'none',
     onComplete?: Callback,
     onLoad?: Callback,
 }
@@ -66,51 +66,65 @@ class List extends React.Component<ListProps, ListState> {
         return atLastExpansion && func
     }
 
-    handleChange(e) {
+    handleChange(e: React.MouseEvent) {
         e.preventDefault()
+        const target = e.target as HTMLInputElement;
+        const item = this.context
+
+        const { nextUnit = "section", lastSelection, onCompleteChapter, onSetExpansions, onUpdateInventory,
+            onCompleteSection, currentExpansion, counter, identifier, onUpdateCounter, expansions, tag } = this.props
 
         // Move the expansion counter by one unless we're already there
-        const atLastExpansion = this.props.currentExpansion === this.props.expansions.length - 1
-        const currentExpansion = !atLastExpansion ? this.props.currentExpansion + 1 : this.props.currentExpansion
+        const atLastExpansion = currentExpansion === expansions.length - 1
+        const newExpansion = !atLastExpansion ? currentExpansion + 1 : currentExpansion
 
-        this.props.onSetExpansions(this.props.expansions, this.props.tag, currentExpansion)
+        onSetExpansions(expansions, tag, newExpansion)
 
 
         // Set the inventory property to be the value of what the user selected, unless
         // the special key "_last" (MATCH_LAST) was provided, in which case use the last item
         // set in the inventory (as determined by mapStateToProps)
-        let userSelection = e.target.textContent
-        if (e.target.textContent === MATCH_LAST) {
-            userSelection = this.props.lastSelection
+        let userSelection = target.textContent
+        if (target.textContent === MATCH_LAST) {
+            userSelection = lastSelection
         }
 
-        this.props.onUpdateInventory(this.props.tag, userSelection)
+        onUpdateInventory(tag, userSelection)
 
         // Are we at the last set? If so, there may be some events to fire
-        if (!atLastExpansion && currentExpansion === this.props.expansions.length - 1) {
-            this.props.onCompleteSection(this.context)
-            // TODO handle other callback types
+        if (!atLastExpansion && newExpansion === expansions.length - 1) {
+            if (nextUnit === 'chapter') {
+                onCompleteChapter(item)
+            } else if (nextUnit === 'section') {
+                onCompleteSection(item)
+            } else {
+                // The no-op version just expands in place (usually because another selector
+                // will do the expansion)
+            }
         }
 
         const s = {}
-        s[this.props.identifier] = this.props.counter
-        window.history.pushState(s, `Turn: ${this.props.counter}`, null)
+        s[identifier] = counter
+        window.history.pushState(s, `Turn: ${counter}`, null)
 
         // Update the counter in the global store
-        this.props.onUpdateCounter()
+        onUpdateCounter()
     }
+
     render() {
-        let text = this.props.expansions[this.props.currentExpansion]
-        const atLastExpansion = this.props.currentExpansion === this.props.expansions.length - 1
+        const { currentExpansion, expansions, lastSelection, persistLast = false, conjunction = "and", separator = ", " } = this.props
+
+        let text = expansions[currentExpansion]
+        const atLastExpansion = currentExpansion === expansions.length - 1
 
         // If this is MATCH_LAST, don't actually show that property, show the value of last selection
         if (text === MATCH_LAST && atLastExpansion) {
-            text = this.props.lastSelection
+            text = lastSelection
         }
         // Create an onclick handler if we're at the last expansion and/or persisting the last item
-        const handler = this.props.persistLast || !atLastExpansion ? this.handleChange : null
+        const handler = persistLast || !atLastExpansion ? this.handleChange : null
 
-        return iteratedList(text, handler, this.props.conjunction, this.props.separator)
+        return iteratedList(text, handler, conjunction, separator)
     }
 }
 
@@ -123,7 +137,7 @@ const mapState = (state: RootState, ownProps: OwnProps) => {
     let currentExpansion = 0
     let lastSelection: string = undefined
 
-    if (tag in expansions && 'currentExpansion' in expansions[tag]) { // Should this really be a string literal?
+    if (tag in expansions && currentExpansion in expansions[tag]) {
         currentExpansion = expansions[tag].currentExpansion
     }
 

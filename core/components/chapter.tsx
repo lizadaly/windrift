@@ -15,20 +15,21 @@ const Chapter = ({ children, filename }: ChapterType): JSX.Element => {
         )
     )
     console.log(`rendering ${item.filename}`)
-
     const dispatch = useDispatch()
 
+    // On first render, record the number of sections
     React.useEffect(() => {
         dispatch(countSections(item,
             React.Children.count(children)
         ))
     }, [dispatch])
 
+    // Display all visible child sections
     const kids = React.Children.map(children, (child, index) => {
         if (React.isValidElement(child) && index <= item.bookmark) {
             return React.cloneElement(child, {
                 visible: true
-            })
+            }) // This might have some weird side effects because the components will be new
         }
         return child
     })

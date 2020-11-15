@@ -19,14 +19,9 @@ const Page: PageType = () => <Chapter filename="chapter1">
         <p>
             hello world.
         </p>
-        <List expansions={["dog", "cat"]} tag="baz" />
+        <List expansions={["dog", "cat"]} tag="baz" nextUnit="chapter" />
     </Section>
-    <Section>
-        <h2>Section 4</h2>
-        <p>
-            hello world.
-        </p>
-    </Section>
+
 </Chapter>
 
 export default Page
