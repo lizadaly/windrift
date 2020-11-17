@@ -1,3 +1,5 @@
+import undoable from 'redux-undo'
+
 import {
     Toc, IncrementSectionType, INCREMENT_SECTION,
     COUNT_SECTION, CountSectionType, TocItem, SHOW_NEXT_CHAPTER, ShowNextChapterType
@@ -5,7 +7,7 @@ import {
 
 import { getChapter } from '../util'
 
-const config = (state: Toc = null,
+const toc = (state: Toc = null,
     action: IncrementSectionType | CountSectionType | ShowNextChapterType): Toc => {
     let item: TocItem
 
@@ -36,4 +38,4 @@ const config = (state: Toc = null,
     }
 }
 
-export default config
+export default undoable(toc)

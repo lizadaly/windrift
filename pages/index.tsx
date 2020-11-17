@@ -13,6 +13,7 @@ import { PersistGate } from 'redux-persist/integration/react'
 import storage from 'redux-persist/lib/storage'
 import reducers from '../core/reducers'
 import { composeWithDevTools } from 'redux-devtools-extension';
+import undoable from 'redux-undo'
 
 export interface WindriftProps {
   toc: Toc
@@ -48,7 +49,13 @@ export default function Home(props: WindriftProps): JSX.Element {
   }
 
   const persistedReducers = persistReducer(persistConfig, reducers)
-  const store = createStore(persistedReducers, { config, toc }, composeWithDevTools())
+  const store = createStore(persistedReducers, {
+    config, toc: {
+      past: [],
+      present: toc,
+      future: []
+    }
+  }, composeWithDevTools())
   const persistor = persistStore(store)
   return (
     <div className="container">

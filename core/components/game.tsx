@@ -24,7 +24,7 @@ const chapterComponents = (toc: Toc): Array<ChapterComponent> => {
 
 
 const Game = (): JSX.Element => {
-    const toc = useSelector((state: RootState) => state.toc)
+    const toc = useSelector((state: RootState) => state.toc.present)
     const [components] = React.useState(() => chapterComponents(toc))
     return <div className="game">
         {
