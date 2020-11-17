@@ -29,7 +29,7 @@ class GameContainer extends React.Component<GameProps> {
         const { identifier, counter } = this.props
         if (identifier in browserState) {
             const timeOffset = browserState[identifier] - counter
-            console.log(`jumping to counter ${counter} offset ${timeOffset}`)
+            console.log(`jumping from counter ${counter} offset ${timeOffset}`)
             this.props.jump(timeOffset)
         }
     }

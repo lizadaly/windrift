@@ -10,9 +10,9 @@ export const ChapterContext = React.createContext(undefined)
 const Chapter = ({ children, filename }: ChapterType): JSX.Element => {
 
     const item = useSelector((state: RootState) => getChapter(state.toc.present, filename),
-        (prev, next) => (
-            prev.bookmark != next.bookmark
-        )
+        // (prev, next) => (
+        //     prev.bookmark != next.bookmark
+        // )
     )
     console.log(`rendering ${item.filename}`)
     const dispatch = useDispatch()

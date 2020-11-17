@@ -1,5 +1,9 @@
-import undoable from 'redux-undo'
-import { Inventory, UpdateInventoryTypes, UPDATE_INVENTORY } from '../types'
+import undoable, { groupByActionTypes } from 'redux-undo'
+import cloneDeep from 'lodash.clonedeep'
+
+import {
+    Inventory, UpdateInventoryTypes, UPDATE_INVENTORY
+} from '../types'
 
 
 export const inventoryReducer = (
@@ -8,13 +12,12 @@ export const inventoryReducer = (
 ): Inventory => {
     switch (action.type) {
         case UPDATE_INVENTORY: {
-            const inv: Inventory = {}
             if (action.sel === undefined && action.tag in state) {
                 // no op, leave the current value alone
             } else {
-                inv[action.tag] = action.sel
+                state[action.tag] = action.sel
             }
-            return Object.assign({}, state, inv)
+            return cloneDeep(state)
         }
         default:
             return state

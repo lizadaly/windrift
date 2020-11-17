@@ -1,4 +1,4 @@
-import undoable from 'redux-undo'
+import undoable, { excludeAction } from 'redux-undo'
 
 import { UPDATE_STATE_COUNTER, UpdateStateCounterType } from '../types'
 
@@ -12,4 +12,4 @@ export const counter = (state = 0, action: UpdateStateCounterType): number => {
     }
 }
 
-export default undoable(counter)
+export default undoable(counter, { filter: excludeAction(UPDATE_STATE_COUNTER) })

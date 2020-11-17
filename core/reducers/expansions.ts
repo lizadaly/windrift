@@ -1,4 +1,5 @@
 import undoable from 'redux-undo'
+
 import { Expansions, SetExpansionsType, SET_EXPANSIONS } from '../types'
 
 export const expansions = (state: Expansions = [], action: SetExpansionsType): Expansions => {
