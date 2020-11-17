@@ -69,7 +69,7 @@ export class Config {
     readonly title: string
     readonly enableUndo: boolean
 
-    constructor(title: string, pagination = "scrolling", enableUndo = false) {
+    constructor(title: string, pagination = "scrolling", enableUndo = true) {
         this.identifier = title.toLowerCase().replace(/ /g, "-")
         this.title = title
         this.pagination = pagination

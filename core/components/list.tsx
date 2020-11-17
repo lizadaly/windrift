@@ -137,7 +137,7 @@ const mapState = (state: RootState, ownProps: OwnProps) => {
     let currentExpansion = 0
     let lastSelection: string = undefined
 
-    if (tag in expansions && currentExpansion in expansions[tag]) {
+    if (tag in expansions && 'currentExpansion' in expansions[tag]) {
         currentExpansion = expansions[tag].currentExpansion
     }
 

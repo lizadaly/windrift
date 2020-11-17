@@ -4,7 +4,7 @@ import { ActionCreators } from 'redux-undo'
 import { connect, ConnectedProps } from 'react-redux'
 import { RootState } from "../reducers"
 
-//import { Counter } from '../components'
+import { Counter } from '../components'
 
 interface GameProps extends PropsFromRedux {
     children: React.ReactNode
@@ -25,19 +25,21 @@ class GameContainer extends React.Component<GameProps> {
     }
     jumpFromHistory() {
         const browserState = window.history.state
-        const { identifier } = this.props
+        console.log(browserState)
+        const { identifier, counter } = this.props
         if (identifier in browserState) {
-            const timeOffset = browserState[identifier] - this.props.counter
+            const timeOffset = browserState[identifier] - counter
+            console.log(`jumping to counter ${counter} offset ${timeOffset}`)
             this.props.jump(timeOffset)
         }
     }
 
     render() {
         return (
-            <div>
-                {/* <Counter identifier={this.props.identifier} counter={this.props.counter} /> */}
+            <>
+                <Counter identifier={this.props.identifier} counter={this.props.counter} />
                 {this.props.children}
-            </div>)
+            </>)
     }
 }
 
@@ -48,7 +50,7 @@ const mapState = (state: RootState) => ({
     counter: state.counter.present,
 })
 const mapDispatch = (dispatch) => ({
-    jump: (num) => dispatch(ActionCreators.jump(num)),
+    jump: (offset: number) => dispatch(ActionCreators.jump(offset)),
 })
 
 const connector = connect(
