@@ -14,29 +14,33 @@ const toc = (state: Toc = null,
 
     switch (action.type) {
         case INCREMENT_SECTION:
-            item = getChapter(state, action.item.filename)
+            const incState = cloneDeep(state)
+            item = getChapter(incState, action.item.filename)
 
             item.bookmark = Math.min(item.bookmark + 1, action.item.sectionCount)
-            return cloneDeep(state)
+            console.log(`Updating item bookmark to ${item.bookmark}`)
+            return incState
 
         case COUNT_SECTION:
-            item = getChapter(state, action.item.filename)
+            const cntState = cloneDeep(state)
+            item = getChapter(cntState, action.item.filename)
 
             item.sectionCount = action.count
-            return cloneDeep(state)
+            return cntState
 
         case SHOW_NEXT_CHAPTER:
             // Set the item after this one to visible
-            const items = Object.values(state)
+            const chptState = cloneDeep(state)
+            const items = Object.values(chptState)
             const index = items.indexOf(action.item)
             if (index < items.length - 1) { // Ensure there are more chapters
                 items[index + 1].visible = true
             }
-            return cloneDeep(state)
+            return chptState
 
         default:
             return state
     }
 }
 
-export default undoable(toc, { filter: excludeAction([COUNT_SECTION, INCREMENT_SECTION]) })
+export default undoable(toc)

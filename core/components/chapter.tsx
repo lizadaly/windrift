@@ -14,7 +14,7 @@ const Chapter = ({ children, filename }: ChapterType): JSX.Element => {
         //     prev.bookmark != next.bookmark
         // )
     )
-    console.log(`rendering ${item.filename}`)
+    console.log(`rendering ${item.filename} with section index ${item.bookmark}`)
     const dispatch = useDispatch()
 
     // On first render, record the number of sections
