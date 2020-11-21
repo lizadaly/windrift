@@ -13,7 +13,6 @@ import { PersistGate } from 'redux-persist/integration/react'
 import storage from 'redux-persist/lib/storage'
 import reducers from '../core/reducers'
 import { composeWithDevTools } from 'redux-devtools-extension';
-import undoable from 'redux-undo'
 
 export interface WindriftProps {
   toc: Toc

@@ -1,5 +1,5 @@
 import * as React from "react"
-import { ChapterType, COUNT_SECTION } from '../types'
+import { ChapterType } from '../types'
 import { RootState } from "../reducers"
 import { useSelector, useDispatch } from 'react-redux'
 import { countSections } from '../actions/navigation'
@@ -10,9 +10,6 @@ export const ChapterContext = React.createContext(undefined)
 const Chapter = ({ children, filename }: ChapterType): JSX.Element => {
 
     const item = useSelector((state: RootState) => getChapter(state.toc.present, filename),
-        // (prev, next) => (
-        //     prev.bookmark != next.bookmark
-        // )
     )
     console.log(`rendering ${item.filename} with section index ${item.bookmark}`)
     const dispatch = useDispatch()

@@ -5,26 +5,26 @@ import { iteratedList } from '../util'
 import * as actions from '../actions'
 import { RootState } from '../reducers'
 //import { ShowNextChapterType, ShowNextSectionType, Chapter, Section } from '../types'
-import { Callback, Tag, Expansions } from '../types'
+import { Callback, Tag, Choices } from '../types'
 import { ChapterContext } from './chapter'
 
 // Special value to match the last selection by the user
 const MATCH_LAST = '_last'
 
-/* An array of expansions that can be "examined." Accepts an array and
+/* An array of choices that can be "examined." Accepts an array and
 reveals items one-by-one. Arrays may be nested one-level deep; if the current
 item is an array, each value will be displayed separated by commas and ending
 with "and". When only one item remains, nextUnit is fired (which may be null)
 in which case no event is triggered.
 
-Each time an expansion is revealed, onSetExpansions is called and onUpdateInventory
+Each time an choice is revealed, onSetchoices is called and onUpdateInventory
 sets the inventory property `key` to the current selected value. */
 interface OwnProps {
-    expansions: Expansions,
+    choices: Choices,
     tag: Tag
 }
 
-interface ListProps extends PropsFromRedux, OwnProps {
+interface ChoiceProps extends PropsFromRedux, OwnProps {
     conjunction?: string,
     persistLast?: boolean,
     separator?: string,
@@ -33,13 +33,13 @@ interface ListProps extends PropsFromRedux, OwnProps {
     onLoad?: Callback,
 }
 
-interface ListState {
+interface ChoiceState {
     onComplete?: Callback,
 }
 
-class List extends React.Component<ListProps, ListState> {
+class Choice extends React.Component<ChoiceProps, ChoiceState> {
 
-    constructor(props: ListProps) {
+    constructor(props: ChoiceProps) {
         super(props)
         this.handleChange = this.handleChange.bind(this)
 
@@ -62,8 +62,8 @@ class List extends React.Component<ListProps, ListState> {
     }
 
     shouldCallOnComplete(func: Callback) {
-        const atLastExpansion = this.props.currentExpansion === this.props.expansions.length - 1
-        return atLastExpansion && func
+        const atLastchoice = this.props.currentChoice === this.props.choices.length - 1
+        return atLastchoice && func
     }
 
     handleChange(e: React.MouseEvent) {
@@ -71,14 +71,14 @@ class List extends React.Component<ListProps, ListState> {
         const target = e.target as HTMLInputElement;
         const item = this.context
 
-        const { nextUnit = "section", lastSelection, onCompleteChapter, onSetExpansions, onUpdateInventory,
-            onCompleteSection, currentExpansion, counter, identifier, onUpdateCounter, expansions, tag } = this.props
+        const { nextUnit = "section", lastSelection, onCompleteChapter, onSetChoices, onUpdateInventory,
+            onCompleteSection, currentChoice, counter, identifier, onUpdateCounter, choices, tag } = this.props
 
-        // Move the expansion counter by one unless we're already there
-        const atLastExpansion = currentExpansion === expansions.length - 1
-        const newExpansion = !atLastExpansion ? currentExpansion + 1 : currentExpansion
+        // Move the choice counter by one unless we're already there
+        const atLastchoice = currentChoice === choices.length - 1
+        const newchoice = !atLastchoice ? currentChoice + 1 : currentChoice
 
-        onSetExpansions(expansions, tag, newExpansion)
+        onSetChoices(choices, tag, newchoice)
 
 
         // Set the inventory property to be the value of what the user selected, unless
@@ -92,14 +92,14 @@ class List extends React.Component<ListProps, ListState> {
         onUpdateInventory(tag, userSelection)
 
         // Are we at the last set? If so, there may be some events to fire
-        if (!atLastExpansion && newExpansion === expansions.length - 1) {
+        if (!atLastchoice && newchoice === choices.length - 1) {
             if (nextUnit === 'chapter') {
                 onCompleteChapter(item)
             } else if (nextUnit === 'section') {
                 onCompleteSection(item)
             } else {
                 // The no-op version just expands in place (usually because another selector
-                // will do the expansion)
+                // will do the choice)
             }
         }
 
@@ -112,17 +112,17 @@ class List extends React.Component<ListProps, ListState> {
     }
 
     render() {
-        const { currentExpansion, expansions, lastSelection, persistLast = false, conjunction = "and", separator = ", " } = this.props
+        const { currentChoice, choices, lastSelection, persistLast = false, conjunction = "and", separator = ", " } = this.props
 
-        let text = expansions[currentExpansion]
-        const atLastExpansion = currentExpansion === expansions.length - 1
+        let text = choices[currentChoice]
+        const atLastChoice = currentChoice === choices.length - 1
 
         // If this is MATCH_LAST, don't actually show that property, show the value of last selection
-        if (text === MATCH_LAST && atLastExpansion) {
+        if (text === MATCH_LAST && atLastChoice) {
             text = lastSelection
         }
-        // Create an onclick handler if we're at the last expansion and/or persisting the last item
-        const handler = persistLast || !atLastExpansion ? this.handleChange : null
+        // Create an onclick handler if we're at the last choice and/or persisting the last item
+        const handler = persistLast || !atLastChoice ? this.handleChange : null
 
         return iteratedList(text, handler, conjunction, separator)
     }
@@ -130,29 +130,29 @@ class List extends React.Component<ListProps, ListState> {
 
 
 const mapState = (state: RootState, ownProps: OwnProps) => {
-    const expansions = state.expansions.present
+    const choices = state.choices.present
     const inventory = state.inventory.present
     const { tag } = ownProps
 
-    let currentExpansion = 0
+    let currentChoice = 0
     let lastSelection: string = undefined
 
-    if (tag in expansions && 'currentExpansion' in expansions[tag]) {
-        currentExpansion = expansions[tag].currentExpansion
+    if (tag in choices && 'currentChoice' in choices[tag]) {
+        currentChoice = choices[tag].currentChoice
     }
 
     if (tag in inventory) {
         lastSelection = inventory[tag]
     }
     return {
-        currentExpansion,
+        currentChoice,
         counter: state.counter.present,
         identifier: state.config.identifier,
         lastSelection,
     }
 }
 const mapDispatch = {
-    onSetExpansions: actions.setExpansions,
+    onSetChoices: actions.setChoices,
     onUpdateInventory: actions.updateInventory,
     onCompleteSection: actions.incrementSection,
     onCompleteChapter: actions.showNextChapter,
@@ -167,4 +167,4 @@ const connector = connect(
 
 type PropsFromRedux = ConnectedProps<typeof connector>
 
-export default connector(List)
+export default connector(Choice)

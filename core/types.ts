@@ -1,5 +1,5 @@
 export const UPDATE_INVENTORY = 'UPDATE_INVENTORY'
-export const SET_EXPANSIONS = 'SET_EXPANSIONS'
+export const SET_CHOICES = 'SET_CHOICES'
 export const UPDATE_STATE_COUNTER = 'UPDATE_STATE_COUNTER'
 export const GET_CONFIG = "GET_CONFIG"
 export const INCREMENT_SECTION = 'INCREMENT_SECTION'
@@ -21,16 +21,16 @@ interface UpdateInventoryAction {
 }
 export type UpdateInventoryTypes = UpdateInventoryAction
 
-/* Expansions */
+/* choices */
 
-export type Expansion = string
-export type Expansions = Array<Expansion>
+export type Choice = string
+export type Choices = Array<Choice>
 
-interface SetExpansionsAction {
-    type: typeof SET_EXPANSIONS
-    expansions: Expansions
+interface SetChoicesAction {
+    type: typeof SET_CHOICES
+    choices: Choices
 }
-export type SetExpansionsType = SetExpansionsAction
+export type SetChoicesType = SetChoicesAction
 
 /* Game counter */
 
