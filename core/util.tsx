@@ -24,32 +24,6 @@ export const wordFromInventory = (inventory: string, offset = -1): string => {
 }
 
 
-/* For a list of items, return a JSX node of markup with links and appropriate
-`conjunctions, divided by `separator` */
-export const iteratedList = (
-    items: string | Array<string>,
-    handler = null,
-    conjunction = 'and',
-    separator = ', '): JSX.Element => {
-    if (typeof items === 'string') {
-        items = [items] // eslint-disable-line no-param-reassign
-    }
-    if (conjunction.length > 0) {
-        conjunction = ` ${conjunction} ` // eslint-disable-line no-param-reassign
-    }
-    return (
-        <span>{
-            [...items].map((t, i) =>
-                (
-                    <span key={t} >
-                        {items.length > 1 && i === items.length - 1 ? conjunction : ''}
-                        < Link handler={handler} text={t} />
-                        {i < items.length - 1 && items.length > 2 ? separator : ''}
-                    </span>
-                ))
-        }
-        </span>)
-}
 
 const message = 'Restart the story from the beginning?'
 

@@ -1,16 +1,17 @@
 import { C, R, Section, Chapter } from '../../core/components'
 import { PageType } from '../../core/types'
 
-
 const Page: PageType = () => <Chapter filename="chapter1">
     <Section>
         <h1>Chapter 1</h1>
-        <C choices={[['awkward'], ['interesting'], ['wonderful']]} tag="foo" />
-        <C choices={[['the usual'], ['mutton pudding', 'salad cake', 'pine nut loaf']]} tag="lunch" />
+        Would you like a <C choices={[['banana', 'orange', 'kiwi']]}
+            extra={{ conjunction: "or" }} tag="fruit" />
 
         <p>
-            <R tag="foo" to={{
-                "awkward": "Well this is awkward"
+            <R tag="fruit" to={{
+                "banana": "You picked banana",
+                "orange": "You picked orange",
+                "kiwi": "You picked kiwi",
             }} />
         </p>
 
@@ -27,7 +28,7 @@ const Page: PageType = () => <Chapter filename="chapter1">
         <p>
             hello world.
         </p>
-        <C choices={[["sec3", "sec3-2"]]} tag="baz" nextUnit="chapter" />
+        <C choices={[["sec3", "sec3-2"]]} tag="baz" />
     </Section>
 
 </Chapter>

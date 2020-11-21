@@ -27,13 +27,17 @@ export type Choice = string
 export type ChoiceGroup = Array<Choice>
 export type ChoicesType = Array<ChoiceGroup>
 
-export interface ChoicePick {
+export interface RemainingChoices {
+    [tag: string]: ChoicesType
+}
+
+interface ChoicePickAction {
+    type: typeof PICK_CHOICE
+    choices: ChoicesType
     index: number
     tag: Tag
 }
-interface ChoicePickAction extends ChoicePick {
-    type: typeof PICK_CHOICE
-}
+
 
 export type ChoicePickType = ChoicePickAction
 

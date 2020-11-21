@@ -4,13 +4,16 @@ import * as React from "react"
 is supplied, then the text is displayed as static HTML. This typically occurs
 for the last item in a List */
 
-type LinkProps = {
-    text: string,
-    handler: React.MouseEventHandler<HTMLAnchorElement>
+
+interface LinkProps {
+    text: string
+    index: number
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    handler: any
 }
-const Link = ({ text, handler }: LinkProps): JSX.Element => {
+const Link = ({ text, index, handler }: LinkProps): JSX.Element => {
     if (handler) {
-        return <a href="#" onClick={handler} > {text} </a>
+        return <a href="#" onClick={() => handler(event, index)}> {text} </a>
     }
     return <span>{text} </span>
 }
