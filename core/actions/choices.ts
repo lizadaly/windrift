@@ -1,13 +1,12 @@
-import { Choices, SetChoicesType, SET_CHOICES, Tag } from '../types'
+import { ChoicePickType, PICK_CHOICE, Tag } from '../types'
 
 
-// Initialize the expansions set
-export const setChoices = (choices: Choices, tag: Tag, currentChoice: number): SetChoicesType => {
-    const c: Choices = []
-    c[tag] = { currentChoice, choices }
+export const pickChoice = (tag: Tag, index: number): ChoicePickType => {
     return {
-        type: SET_CHOICES,
-        choices: c,
+        type: PICK_CHOICE,
+        tag,
+        index,
+
     }
 }
 

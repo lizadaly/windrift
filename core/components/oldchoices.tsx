@@ -1,11 +1,9 @@
 import * as React from "react"
 import { connect, ConnectedProps } from 'react-redux'
 
-import { iteratedList } from '../util'
 import * as actions from '../actions'
 import { RootState } from '../reducers'
-//import { ShowNextChapterType, ShowNextSectionType, Chapter, Section } from '../types'
-import { Callback, Tag, Choices } from '../types'
+import { Callback, Tag, WidgetType, ChoicesType } from '../types'
 import { ChapterContext } from './chapter'
 
 // Special value to match the last selection by the user
@@ -20,51 +18,28 @@ in which case no event is triggered.
 Each time an choice is revealed, onSetchoices is called and onUpdateInventory
 sets the inventory property `key` to the current selected value. */
 interface OwnProps {
-    choices: Choices,
+    choices: ChoicesType
     tag: Tag
 }
 
 interface ChoiceProps extends PropsFromRedux, OwnProps {
-    conjunction?: string,
-    persistLast?: boolean,
-    separator?: string,
+    widget: WidgetType,
+    persistLast: boolean,
     nextUnit?: 'chapter' | 'section' | 'none',
-    onComplete?: Callback,
-    onLoad?: Callback,
 }
 
 interface ChoiceState {
     onComplete?: Callback,
 }
 
-class Choice extends React.Component<ChoiceProps, ChoiceState> {
+class Choices extends React.Component<ChoiceProps, ChoiceState> {
 
     constructor(props: ChoiceProps) {
         super(props)
         this.handleChange = this.handleChange.bind(this)
-
-        if (props.onLoad) {
-            props.onLoad()
-        }
-        this.state = {
-            onComplete: this.props.onComplete,
-        }
     }
     static contextType = ChapterContext
 
-    componentDidUpdate() {
-        if (this.shouldCallOnComplete(this.state.onComplete)) {
-            this.state.onComplete() // old params: this.props.lastSelection, this.props.tag
-            this.setState({
-                onComplete: undefined,
-            })
-        }
-    }
-
-    shouldCallOnComplete(func: Callback) {
-        const atLastchoice = this.props.currentChoice === this.props.choices.length - 1
-        return atLastchoice && func
-    }
 
     handleChange(e: React.MouseEvent) {
         e.preventDefault()
@@ -76,9 +51,9 @@ class Choice extends React.Component<ChoiceProps, ChoiceState> {
 
         // Move the choice counter by one unless we're already there
         const atLastchoice = currentChoice === choices.length - 1
-        const newchoice = !atLastchoice ? currentChoice + 1 : currentChoice
+        const newChoice = !atLastchoice ? currentChoice + 1 : currentChoice
 
-        onSetChoices(choices, tag, newchoice)
+        onSetChoices(choices, tag, newChoice)
 
 
         // Set the inventory property to be the value of what the user selected, unless
@@ -92,7 +67,7 @@ class Choice extends React.Component<ChoiceProps, ChoiceState> {
         onUpdateInventory(tag, userSelection)
 
         // Are we at the last set? If so, there may be some events to fire
-        if (!atLastchoice && newchoice === choices.length - 1) {
+        if (!atLastchoice && newChoice === choices.length - 1) {
             if (nextUnit === 'chapter') {
                 onCompleteChapter(item)
             } else if (nextUnit === 'section') {
@@ -112,7 +87,7 @@ class Choice extends React.Component<ChoiceProps, ChoiceState> {
     }
 
     render() {
-        const { currentChoice, choices, lastSelection, persistLast = false, conjunction = "and", separator = ", " } = this.props
+        const { currentChoice, choices, lastSelection, persistLast = false, widget } = this.props
 
         let text = choices[currentChoice]
         const atLastChoice = currentChoice === choices.length - 1
@@ -124,7 +99,8 @@ class Choice extends React.Component<ChoiceProps, ChoiceState> {
         // Create an onclick handler if we're at the last choice and/or persisting the last item
         const handler = persistLast || !atLastChoice ? this.handleChange : null
 
-        return iteratedList(text, handler, conjunction, separator)
+        const Widget = widget as WidgetType
+        return <Widget choices={choices} handler={handler} />
     }
 }
 
@@ -167,4 +143,4 @@ const connector = connect(
 
 type PropsFromRedux = ConnectedProps<typeof connector>
 
-export default connector(Choice)
+export default connector(Choices)

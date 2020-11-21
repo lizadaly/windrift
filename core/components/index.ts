@@ -9,5 +9,5 @@ export { default as Counter } from './counter'
 export { default as R } from './response'
 export { default as Response } from './response'
 
-export { default as C } from './choice'
-export { default as Choice } from './choice'
+export { default as C } from './choices'
+export { default as Choice } from './choices'

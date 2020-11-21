@@ -1,5 +1,5 @@
 export const UPDATE_INVENTORY = 'UPDATE_INVENTORY'
-export const SET_CHOICES = 'SET_CHOICES'
+export const PICK_CHOICE = 'PICK_CHOICE'
 export const UPDATE_STATE_COUNTER = 'UPDATE_STATE_COUNTER'
 export const GET_CONFIG = "GET_CONFIG"
 export const INCREMENT_SECTION = 'INCREMENT_SECTION'
@@ -21,16 +21,25 @@ interface UpdateInventoryAction {
 }
 export type UpdateInventoryTypes = UpdateInventoryAction
 
-/* choices */
+/* Choices */
 
 export type Choice = string
-export type Choices = Array<Choice>
+export type ChoiceGroup = Array<Choice>
+export type ChoicesType = Array<ChoiceGroup>
 
-interface SetChoicesAction {
-    type: typeof SET_CHOICES
-    choices: Choices
+export interface ChoicePick {
+    index: number
+    tag: Tag
 }
-export type SetChoicesType = SetChoicesAction
+interface ChoicePickAction extends ChoicePick {
+    type: typeof PICK_CHOICE
+}
+
+export type ChoicePickType = ChoicePickAction
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+declare function Widget(props: any): JSX.Element
+export type WidgetType = typeof Widget
 
 /* Game counter */
 

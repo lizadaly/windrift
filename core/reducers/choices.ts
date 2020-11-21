@@ -1,11 +1,13 @@
 import undoable from 'redux-undo'
 
-import { Choices, SetChoicesType, SET_CHOICES } from '../types'
+import { ChoicePickType, ChoicePick, PICK_CHOICE } from '../types'
 
-export const choices = (state: Choices = [], action: SetChoicesType): Choices => {
+export const choices = (state: ChoicePick = null, action: ChoicePickType): ChoicePick => {
     switch (action.type) {
-        case SET_CHOICES:
-            return Object.assign({}, state, action.choices)
+        case PICK_CHOICE:
+            return {
+                ...action
+            }
         default:
             return state
     }
