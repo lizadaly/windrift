@@ -1,4 +1,5 @@
 import { C, R, Section, Chapter } from '../../core/components'
+import { BulletedList } from '../../core/components/widgets'
 import { PageType } from '../../core/types'
 
 const Page: PageType = () => <Chapter filename="chapter1">
@@ -21,15 +22,9 @@ const Page: PageType = () => <Chapter filename="chapter1">
         <p>
             hello world.
         </p>
-        <C choices={[["sec2", "sec2-2"]]} tag="bar" />
+        <C choices={[["sec2", "sec2-2"]]} tag="bar" nextUnit="chapter" widget={BulletedList} />
     </Section>
-    <Section>
-        <h2>Section 3</h2>
-        <p>
-            hello world.
-        </p>
-        <C choices={[["sec3", "sec3-2"]]} tag="baz" />
-    </Section>
+
 
 </Chapter>
 

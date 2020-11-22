@@ -11,7 +11,10 @@ export const choices = (
 
         case INIT_CHOICE:
             const newState = cloneDeep(state)
-            newState[action.tag] = action.choices
+            newState[action.tag] = {
+                choices: action.choices,
+                initialChoices: action.choices
+            }
             return newState
 
         case PICK_CHOICE:
@@ -29,7 +32,10 @@ export const choices = (
 
                 remainder = [[first[action.index]]]
             }
-            choiceState[action.tag] = remainder
+            choiceState[action.tag] = {
+                choices: remainder,
+                initialChoices: state[action.tag].initialChoices
+            }
             return choiceState
 
         default:

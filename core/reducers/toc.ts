@@ -17,7 +17,6 @@ const toc = (state: Toc = null,
             const incState = cloneDeep(state)
             item = getChapter(incState, action.item.filename)
             item.bookmark = Math.min(item.bookmark + 1, item.sectionCount)
-            console.log(`Updating item bookmark to ${item.bookmark}`)
             return incState
 
         case COUNT_SECTION:
@@ -31,7 +30,10 @@ const toc = (state: Toc = null,
             // Set the item after this one to visible
             const chptState = cloneDeep(state)
             const items = Object.values(chptState)
-            const index = items.indexOf(action.item)
+
+            // Find the item with this filename
+            item = getChapter(chptState, action.item.filename)
+            const index = items.indexOf(item)
             if (index < items.length - 1) { // Ensure there are more chapters
                 items[index + 1].visible = true
             }

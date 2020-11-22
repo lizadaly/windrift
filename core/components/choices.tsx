@@ -3,7 +3,7 @@ import { ChoiceGroup, ChoicesType, WidgetType } from '../types'
 import { RootState } from "../reducers"
 import { useSelector, useDispatch } from 'react-redux'
 import InlineList from "./widgets/inline-list"
-import { updateInventory, pickChoice, incrementSection, updateStateCounter } from "../actions"
+import { updateInventory, pickChoice, incrementSection, updateStateCounter, showNextChapter } from "../actions"
 import { ChapterContext } from "./chapter"
 import { useCallback, useContext } from "react"
 import { initChoice } from "../actions/choices"
@@ -27,29 +27,33 @@ const Choices = ({ choices, tag, extra, widget = InlineList, nextUnit = "section
             return c[tag]
         }
     })
-    console.log(newChoices, choices)
     const identifier = useSelector((state: RootState) => state.config.identifier)
     const counter = useSelector((state: RootState) => state.counter.present)
+
+    // Get the original picks either from props or from the state
+    const initialChoices = newChoices ? newChoices.initialChoices : choices
 
     // On first render, record the initial choices
     React.useEffect(() => {
         dispatch(initChoice(tag, choices))
     }, [dispatch])
 
-    choices = newChoices && newChoices.length > 0 ? newChoices : choices
-    console.log("Choices now: ", choices)
+    choices = newChoices && newChoices.choices.length > 0 ? newChoices.choices : choices
 
     const handler = (e: React.MouseEvent, index: number): void => {
         e.preventDefault()
         const target = e.target as HTMLInputElement
         const text = target.textContent
+
         dispatch(updateInventory(tag, text))
-        console.log("length before: ", choices.length)
         dispatch(pickChoice(tag, choices, index))
-        console.log("length after:  ", choices.length)
+
         if (choices.length === 1) {
             if (nextUnit === "section") {
                 dispatch(incrementSection(item))
+            }
+            if (nextUnit === "chapter") {
+                dispatch(showNextChapter(item))
             }
         }
         const s = {}
@@ -61,7 +65,8 @@ const Choices = ({ choices, tag, extra, widget = InlineList, nextUnit = "section
 
     const group = choices[0]
     const W = widget
-    return <W group={group} handler={group.length > 1 ? handler : null} {...extra} />
+    return <W group={group} handler={group.length > 1 ? handler : null}
+        initialChoices={initialChoices} {...extra} />
 
 }
 

@@ -29,7 +29,10 @@ export type ChoiceGroup = Array<Choice>
 export type ChoicesType = Array<ChoiceGroup>
 
 export interface RemainingChoices {
-    [tag: string]: ChoicesType
+    [tag: string]: {
+        choices: ChoicesType
+        readonly initialChoices: ChoicesType
+    }
 }
 
 interface ChoicePickAction {

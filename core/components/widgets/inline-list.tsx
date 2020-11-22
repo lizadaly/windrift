@@ -1,15 +1,14 @@
 // An inline list of items, the default
 
 import React from "react";
-import { ChoiceGroup } from "../../types";
+import { WidgetProps } from ".";
 import Link from "../link";
 
 
-interface InlineListProps {
+interface InlineListProps extends WidgetProps {
     separator: string
     conjunction: string
-    group?: ChoiceGroup
-    handler?: React.MouseEventHandler<HTMLAnchorElement>
+
 }
 declare function InlineListType(props: InlineListProps): JSX.Element
 
