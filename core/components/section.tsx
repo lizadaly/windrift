@@ -4,8 +4,7 @@ interface SectionProps {
     visible: boolean
     children: React.ReactNode
 }
-const Section: React.FC = (props: SectionProps) => {
-    const { visible = false, children } = props
+const Section: React.FC = ({ visible = false, children }: SectionProps) => {
     return visible ? <>
         {children}
     </> : null

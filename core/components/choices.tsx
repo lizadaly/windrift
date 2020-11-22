@@ -1,11 +1,11 @@
 import * as React from "react"
-import { ChoiceGroup, ChoicesType, WidgetType } from '../types'
+import { ChoicesType, WidgetType } from '../types'
 import { RootState } from "../reducers"
 import { useSelector, useDispatch } from 'react-redux'
 import InlineList from "./widgets/inline-list"
 import { updateInventory, pickChoice, incrementSection, updateStateCounter, showNextChapter } from "../actions"
 import { ChapterContext } from "./chapter"
-import { useCallback, useContext } from "react"
+import { useContext } from "react"
 import { initChoice } from "../actions/choices"
 
 interface ChoicesProps {

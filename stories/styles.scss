@@ -1,0 +1,7 @@
+/* Global styles applied here are inherited by all stories in your installation */
+
+/* Removing all padding allows you to set background colors and margins per story */
+* {
+    margin: 0;
+    padding: 0;
+}

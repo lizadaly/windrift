@@ -1,7 +1,7 @@
-import Head from 'next/head'
+import * as React from "react"
+
 import { useRouter } from 'next/router'
 import { Game, GameContainer } from '../core/components'
-import { resetGame } from '../core/util'
 import { Config, Toc, TocItem } from '../core/types'
 import { GetStaticProps, GetStaticPaths } from 'next'
 import fs from 'fs'
@@ -14,6 +14,7 @@ import { PersistGate } from 'redux-persist/integration/react'
 import storage from 'redux-persist/lib/storage'
 import reducers from '../core/reducers'
 import { composeWithDevTools } from 'redux-devtools-extension';
+import dynamic from 'next/dynamic'
 
 export interface WindriftProps {
   toc: Toc
@@ -44,7 +45,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const storyDirs = path.join(process.cwd(), 'stories')
-  const paths = fs.readdirSync(storyDirs).map((dir) => `/${dir}`)
+  const paths = fs.readdirSync(storyDirs, { withFileTypes: true }).filter((dir) =>
+    dir.isDirectory()).map((dir) => `/${dir.name}`)
   return { paths, fallback: false }
 }
 
@@ -52,7 +54,7 @@ export default function Home(props: WindriftProps): JSX.Element {
   const router = useRouter()
   const { story } = router.query
   const { toc, configYaml } = props
-  const config = new Config(configYaml["title"],
+  const config = new Config(story as string, configYaml["title"],
     configYaml["pagination"], configYaml["enableUndo"])
 
   const persistConfig = {
@@ -69,25 +71,18 @@ export default function Home(props: WindriftProps): JSX.Element {
     }
   }, composeWithDevTools())
   const persistor = persistStore(store)
-  return (
-    <div className="container">
-      <Head>
-        <title>Windrift</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
 
-      <main>
-        <div className="top-bar-right">
-          <button onClick={resetGame}>Restart</button>
-        </div>
-        <Provider store={store}>
-          <PersistGate persistor={persistor}>
-            <GameContainer >
-              <Game story={story as string} />
-            </GameContainer>
-          </PersistGate>
-        </Provider>
-      </main>
-    </div>
+  const Index = dynamic(() => import(`../stories/${story}/index.tsx`))
+
+  return (
+    <Provider store={store}>
+      <PersistGate persistor={persistor}>
+        <GameContainer>
+          <Index>
+            <Game story={story as string} />
+          </Index>
+        </GameContainer>
+      </PersistGate>
+    </Provider>
   )
 }

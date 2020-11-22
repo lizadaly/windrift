@@ -87,13 +87,13 @@ export type ShowNextChapterType = ShowNextChapterAction
 
 /* Config */
 export class Config {
-    readonly identifier: string
+    readonly identifier: string // safe for use in keys
     readonly pagination: string
     readonly title: string
     readonly enableUndo: boolean
 
-    constructor(title: string, pagination = "scrolling", enableUndo = true) {
-        this.identifier = title.toLowerCase().replace(/ /g, "-")
+    constructor(identifier: string, title: string, pagination = "scrolling", enableUndo = true) {
+        this.identifier = identifier
         this.title = title
         this.pagination = pagination
         this.enableUndo = enableUndo
@@ -127,3 +127,4 @@ export interface ChapterType {
     filename: string
     children: React.ReactNode
 }
+

@@ -10,7 +10,7 @@ const Page: PageType = () => <Chapter filename="chapter1">
 
         <p>
             <R tag="fruit" to={{
-                "banana": "You picked banana",
+                "banana": <p>You picked <b>a nice</b> banana</p>,
                 "orange": "You picked orange",
                 "kiwi": "You picked kiwi",
             }} />
