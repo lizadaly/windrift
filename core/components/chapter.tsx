@@ -9,9 +9,7 @@ export const ChapterContext = React.createContext(undefined)
 
 const Chapter = ({ children, filename }: ChapterType): JSX.Element => {
 
-    const item = useSelector((state: RootState) => getChapter(state.toc.present, filename),
-    )
-    console.log(`rendering ${item.filename} with section index ${item.bookmark}`)
+    const item = useSelector((state: RootState) => getChapter(state.toc.present, filename))
     const dispatch = useDispatch()
 
     // On first render, record the number of sections
@@ -31,9 +29,13 @@ const Chapter = ({ children, filename }: ChapterType): JSX.Element => {
         return child
     })
 
-    return <ChapterContext.Provider value={item}>
+    return <ChapterContext.Provider value={{
+        filename: item.filename,
+        bookmark: item.bookmark
+    }
+    }>
         {kids}
-    </ChapterContext.Provider>
+    </ChapterContext.Provider >
 }
 
 export default Chapter

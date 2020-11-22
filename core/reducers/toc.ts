@@ -16,8 +16,7 @@ const toc = (state: Toc = null,
         case INCREMENT_SECTION:
             const incState = cloneDeep(state)
             item = getChapter(incState, action.item.filename)
-
-            item.bookmark = Math.min(item.bookmark + 1, action.item.sectionCount)
+            item.bookmark = Math.min(item.bookmark + 1, item.sectionCount)
             console.log(`Updating item bookmark to ${item.bookmark}`)
             return incState
 

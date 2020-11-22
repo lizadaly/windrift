@@ -1,4 +1,4 @@
-import { ChoicePickType, ChoicesType, PICK_CHOICE, Tag } from '../types'
+import { ChoiceInitType, ChoicePickType, ChoicesType, INIT_CHOICE, PICK_CHOICE, Tag } from '../types'
 
 
 export const pickChoice = (tag: Tag, choices: ChoicesType, index: number): ChoicePickType => {
@@ -6,6 +6,14 @@ export const pickChoice = (tag: Tag, choices: ChoicesType, index: number): Choic
         type: PICK_CHOICE,
         choices,
         index,
+        tag,
+    }
+}
+
+export const initChoice = (tag: Tag, choices: ChoicesType): ChoiceInitType => {
+    return {
+        type: INIT_CHOICE,
+        choices,
         tag,
     }
 }

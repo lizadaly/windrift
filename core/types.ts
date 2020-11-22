@@ -1,5 +1,6 @@
 export const UPDATE_INVENTORY = 'UPDATE_INVENTORY'
 export const PICK_CHOICE = 'PICK_CHOICE'
+export const INIT_CHOICE = 'INIT_CHOICE'
 export const UPDATE_STATE_COUNTER = 'UPDATE_STATE_COUNTER'
 export const GET_CONFIG = "GET_CONFIG"
 export const INCREMENT_SECTION = 'INCREMENT_SECTION'
@@ -37,9 +38,15 @@ interface ChoicePickAction {
     index: number
     tag: Tag
 }
-
-
 export type ChoicePickType = ChoicePickAction
+
+interface ChoiceInitAction {
+    type: typeof INIT_CHOICE
+    choices: ChoicesType
+    tag: Tag
+}
+export type ChoiceInitType = ChoiceInitAction
+
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 declare function Widget(props: any): JSX.Element
