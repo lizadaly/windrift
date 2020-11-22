@@ -25,7 +25,6 @@ class GameContainer extends React.Component<GameProps> {
     }
     jumpFromHistory() {
         const browserState = window.history.state
-        console.log(browserState)
         const { identifier, counter } = this.props
         if (identifier in browserState) {
             const timeOffset = browserState[identifier] - counter

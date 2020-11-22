@@ -1,8 +1,9 @@
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 import { Game, GameContainer } from '../core/components'
 import { resetGame } from '../core/util'
 import { Config, Toc, TocItem } from '../core/types'
-import { GetStaticProps } from 'next'
+import { GetStaticProps, GetStaticPaths } from 'next'
 import fs from 'fs'
 import path from 'path'
 import yaml from 'js-yaml'
@@ -15,48 +16,42 @@ import reducers from '../core/reducers'
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 export interface WindriftProps {
-  stories: {
-    name: string,
-    settings: {
-      toc: Toc
-      configYaml: Config
+  toc: Toc
+  configYaml: Config
+}
+
+export const getStaticProps: GetStaticProps = async (context) => {
+
+  const story = context.params.story as string
+  const configPath = path.join(process.cwd(), `stories/${story}/story.yaml`)
+  const configYaml = yaml.safeLoad(fs.readFileSync(configPath, "utf8"))
+
+  const toc = configYaml["chapters"].map((item: TocItem) => (
+    {
+      filename: item["filename"],
+      visible: item["visible"] || false,
+      title: item["title"],
+      bookmark: 0
+    }
+  ))
+  return {
+    props: {
+      toc,
+      configYaml
     }
   }
 }
 
-export const getStaticProps: GetStaticProps = async () => {
-
+export const getStaticPaths: GetStaticPaths = async () => {
   const storyDirs = path.join(process.cwd(), 'stories')
-  const stories = fs.readdirSync(storyDirs).map((dir) => {
-    const chapterPath = path.join(process.cwd(), `stories/${dir}/story.yaml`)
-    const configYaml = yaml.safeLoad(fs.readFileSync(chapterPath, "utf8"))
-
-    const toc = configYaml["chapters"].map((item: TocItem) => (
-      {
-        filename: item["filename"],
-        visible: item["visible"] || false,
-        title: item["title"],
-        bookmark: 0
-      }
-    ))
-    return {
-      name: dir,
-      settings: {
-        toc,
-        configYaml
-      }
-    }
-  })
-  return {
-    props: {
-      stories
-    }
-  }
+  const paths = fs.readdirSync(storyDirs).map((dir) => `/${dir}`)
+  return { paths, fallback: false }
 }
 
 export default function Home(props: WindriftProps): JSX.Element {
-  const { stories } = props
-  const { toc, configYaml } = stories[0].settings
+  const router = useRouter()
+  const { story } = router.query
+  const { toc, configYaml } = props
   const config = new Config(configYaml["title"],
     configYaml["pagination"], configYaml["enableUndo"])
 
@@ -87,8 +82,8 @@ export default function Home(props: WindriftProps): JSX.Element {
         </div>
         <Provider store={store}>
           <PersistGate persistor={persistor}>
-            <GameContainer>
-              <Game />
+            <GameContainer >
+              <Game story={story as string} />
             </GameContainer>
           </PersistGate>
         </Provider>

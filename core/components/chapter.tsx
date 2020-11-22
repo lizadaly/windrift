@@ -29,13 +29,9 @@ const Chapter = ({ children, filename }: ChapterType): JSX.Element => {
         return child
     })
 
-    return <ChapterContext.Provider value={{
-        filename: item.filename,
-        bookmark: item.bookmark
-    }
-    }>
+    return <ChapterContext.Provider value={item}>
         {kids}
-    </ChapterContext.Provider >
+    </ChapterContext.Provider>
 }
 
 export default Chapter

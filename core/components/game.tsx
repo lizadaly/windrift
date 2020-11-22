@@ -8,11 +8,11 @@ interface ChapterComponent {
     component: JSX.Element
     item: TocItem
 }
-const chapterComponents = (toc: Toc): Array<ChapterComponent> => {
+const chapterComponents = (toc: Toc, story: string): Array<ChapterComponent> => {
     const chapters = Object.values(toc).map
         (item => {
             const component = React.createElement(dynamic(() =>
-                import(`../../stories/demo/chapters/${item.filename}`)))
+                import(`../../stories/${story}/chapters/${item.filename}`)))
 
             return {
                 item,
@@ -21,11 +21,13 @@ const chapterComponents = (toc: Toc): Array<ChapterComponent> => {
         })
     return chapters
 }
+interface GameProps {
+    story: string
+}
 
-
-const Game = (): JSX.Element => {
+const Game = ({ story }: GameProps): JSX.Element => {
     const toc = useSelector((state: RootState) => state.toc.present)
-    const [components] = React.useState(() => chapterComponents(toc))
+    const [components] = React.useState(() => chapterComponents(toc, story))
     return <div className="game">
         {
             Object.values(toc).filter(c => c.visible).map(chapter => (
