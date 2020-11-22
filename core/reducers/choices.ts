@@ -1,4 +1,4 @@
-import undoable, { groupByActionTypes } from 'redux-undo'
+import undoable, { excludeAction, groupByActionTypes } from 'redux-undo'
 import cloneDeep from 'lodash.clonedeep'
 
 import { ChoicePickType, RemainingChoices, PICK_CHOICE, INIT_CHOICE, ChoiceInitType } from '../types'
@@ -37,4 +37,4 @@ export const choices = (
     }
 }
 
-export default undoable(choices)
+export default undoable(choices, { filter: excludeAction(INIT_CHOICE) })
