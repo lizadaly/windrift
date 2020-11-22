@@ -12,7 +12,7 @@ const chapterComponents = (toc: Toc): Array<ChapterComponent> => {
     const chapters = Object.values(toc).map
         (item => {
             const component = React.createElement(dynamic(() =>
-                import(`../../pages/chapters/${item.filename}`)))
+                import(`../../stories/demo/chapters/${item.filename}`)))
 
             return {
                 item,

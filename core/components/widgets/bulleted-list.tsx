@@ -11,6 +11,7 @@ interface BulletedListProps extends WidgetProps {
 }
 declare function BulletedListType(props: BulletedListProps): JSX.Element
 
+// Passing initialChoices means you can leave the existing ones there
 const InlineList: typeof BulletedListType = ({ group = [], handler = null, initialChoices = [] }: BulletedListProps):
     JSX.Element => {
 

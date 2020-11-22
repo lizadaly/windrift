@@ -15,30 +15,48 @@ import reducers from '../core/reducers'
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 export interface WindriftProps {
-  toc: Toc
-  configYaml: Config
+  stories: {
+    name: string,
+    settings: {
+      toc: Toc
+      configYaml: Config
+    }
+  }
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const chapterPath = path.join(process.cwd(), 'story.yaml')
-  const configYaml = yaml.safeLoad(fs.readFileSync(chapterPath, "utf8"))
 
-  const toc = configYaml["chapters"].map((item: TocItem) => (
-    {
-      filename: item["filename"],
-      visible: item["visible"] || false,
-      title: item["title"],
-      bookmark: 0
+  const storyDirs = path.join(process.cwd(), 'stories')
+  const stories = fs.readdirSync(storyDirs).map((dir) => {
+    const chapterPath = path.join(process.cwd(), `stories/${dir}/story.yaml`)
+    const configYaml = yaml.safeLoad(fs.readFileSync(chapterPath, "utf8"))
+
+    const toc = configYaml["chapters"].map((item: TocItem) => (
+      {
+        filename: item["filename"],
+        visible: item["visible"] || false,
+        title: item["title"],
+        bookmark: 0
+      }
+    ))
+    return {
+      name: dir,
+      settings: {
+        toc,
+        configYaml
+      }
     }
-  ))
-
+  })
   return {
-    props: { toc, configYaml: configYaml }
+    props: {
+      stories
+    }
   }
 }
 
 export default function Home(props: WindriftProps): JSX.Element {
-  const { configYaml, toc } = props
+  const { stories } = props
+  const { toc, configYaml } = stories[0].settings
   const config = new Config(configYaml["title"],
     configYaml["pagination"], configYaml["enableUndo"])
 

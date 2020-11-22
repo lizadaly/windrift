@@ -1,5 +1,5 @@
 import * as React from "react"
-import { C } from '../../core/components'
+import { C } from '../../../core/components'
 
 const Chapter = (): JSX.Element => <section>
     <h1>Chapter 2</h1>

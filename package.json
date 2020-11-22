@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "eslint": "eslint core/*"
+    "eslint": "eslint core/*",
+    "export": "next build && next export"
   },
   "dependencies": {
     "@types/lodash.clonedeep": "^4.5.6",
