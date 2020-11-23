@@ -1,5 +1,53 @@
+/* Styles that are global to your story go here */
 
-.container {
-    padding: 5rem;
+$header-height: 50px;
+$article-margin: $header-height;
+$gutter: $header-height / 2;
+$left-right-width: $header-height * 2;
+
+.header {
+
+    nav {
+        background: gray;
+        display: grid;
+        grid-template-columns: 3fr 1fr;
+        grid-template-rows: $header-height;
+        align-items: center;
+
+        h1 {
+            justify-self: left;
+            margin-left: $left-right-width;
+        }
+        .controls {
+            display: grid;
+            justify-items: end;
+            button {
+                display: inline-block;
+                margin-right: $gutter;
+            }
+        }
+    }
+}
+
+.main {
+    display: grid;
+    grid-template-columns: $left-right-width 5fr $left-right-width;
+    grid-template-areas: "left"
+                         "content"
+                         "right";
+}
+.left {
+
+}
+.article {
+    margin-top: $article-margin;
+    h1, h2, h3, h4, h5, h6 {
+        line-height: 3rem;
+    }
+    p {
+        line-height: 1.5rem;
+    }
+}
+.right {
 
 }
