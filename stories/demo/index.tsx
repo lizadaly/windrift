@@ -15,6 +15,9 @@ const Index: React.FC = ({ children }): JSX.Element => {
             <Head>
                 <title>{config.title}</title>
                 <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+                <style>
+                    @import url('https://fonts.googleapis.com/css2?family=EB+Garamond&family=Elsie&display=swap');
+                </style>
             </Head>
 
             <header className={styles.header}>
