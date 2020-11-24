@@ -2,13 +2,26 @@ import Head from 'next/head'
 import * as React from "react"
 import { RootState } from '../../core/reducers'
 import { useSelector } from 'react-redux'
+import { GetStaticProps, GetStaticPaths } from 'next'
 
-import { resetGame } from '../../core/util'
+import { PusherProvider, PusherProviderProps } from "@harelpls/use-pusher"
 
 import styles from './Index.module.scss'
+import { useState } from 'react'
+import Content from "./content"
 
-const Index: React.FC = ({ children }): JSX.Element => {
+interface IndexProps {
+    children: React.ReactNode
+}
+const Index = ({ children }: IndexProps): JSX.Element => {
     const config = useSelector((state: RootState) => state.config)
+
+    const { NEXT_PUBLIC_PUSHER_KEY, NEXT_PUBLIC_PUSHER_CLUSTER } = config.env
+
+    const [pusherConfig] = useState(() => ({
+        clientKey: NEXT_PUBLIC_PUSHER_KEY,
+        cluster: NEXT_PUBLIC_PUSHER_CLUSTER
+    } as PusherProviderProps))
 
     return (
         <>
@@ -19,28 +32,12 @@ const Index: React.FC = ({ children }): JSX.Element => {
                     @import url('https://fonts.googleapis.com/css2?family=EB+Garamond&family=Elsie&display=swap');
                 </style>
             </Head>
-
-            <header className={styles.header}>
-                <nav>
-                    <h1>
-                        {config.title}
-                    </h1>
-                    <div className={styles.controls}>
-                        <button onClick={resetGame}>Reset</button>
-                    </div>
-                </nav>
-            </header>
-            <main className={styles.main}>
-                <nav className={styles.left}>
-
-                </nav>
-                <article className={styles.article}>
+            <PusherProvider {...pusherConfig}>
+                <Content>
                     {children}
-                </article>
-                <nav className={styles.right}>
+                </Content>
+            </PusherProvider>
 
-                </nav>
-            </main>
         </>
     )
 }

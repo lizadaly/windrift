@@ -91,12 +91,13 @@ export class Config {
     readonly pagination: string
     readonly title: string
     readonly enableUndo: boolean
-
-    constructor(identifier: string, title: string, pagination = "scrolling", enableUndo = true) {
+    readonly env: Record<string, unknown>
+    constructor(identifier: string, title: string, pagination = "scrolling", enableUndo = true, env) {
         this.identifier = identifier
         this.title = title
         this.pagination = pagination
         this.enableUndo = enableUndo
+        this.env = env
     }
 }
 

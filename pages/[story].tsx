@@ -19,6 +19,8 @@ import dynamic from 'next/dynamic'
 export interface WindriftProps {
   toc: Toc
   configYaml: Config
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  env: any,
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
@@ -35,10 +37,17 @@ export const getStaticProps: GetStaticProps = async (context) => {
       bookmark: 0
     }
   ))
+  const env = Object.keys(process.env).filter(key => key.startsWith("NEXT_PUBLIC")).
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    reduce((res: any = {}, key) => {
+      res[key] = process.env[key]
+      return res
+    }, {})
   return {
     props: {
       toc,
-      configYaml
+      configYaml,
+      env
     }
   }
 }
@@ -53,9 +62,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export default function Home(props: WindriftProps): JSX.Element {
   const router = useRouter()
   const { story } = router.query
-  const { toc, configYaml } = props
+  const { toc, configYaml, env } = props
   const config = new Config(story as string, configYaml["title"],
-    configYaml["pagination"], configYaml["enableUndo"])
+    configYaml["pagination"], configYaml["enableUndo"], env)
 
   const persistConfig = {
     key: config.identifier,

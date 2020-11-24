@@ -8,13 +8,13 @@ const Page: PageType = () => <Chapter filename="chapter1">
         Would you like a <C choices={[['banana', 'orange', 'kiwi']]}
             extra={{ conjunction: "or" }} tag="fruit" />
 
-        <p>
+        <div>
             <R tag="fruit" to={{
                 "banana": <p>You picked <b>a nice</b> banana</p>,
                 "orange": "You picked orange",
                 "kiwi": "You picked kiwi",
             }} />
-        </p>
+        </div>
 
     </Section>
     <Section>

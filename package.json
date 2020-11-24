@@ -1,7 +1,7 @@
 {
   "name": "windrift",
-  "version": "2.0.0",
-  "private": false,
+  "version": "2.0.0-alpha",
+  "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -11,6 +11,7 @@
     "vercel": "vercel"
   },
   "dependencies": {
+    "@harelpls/use-pusher": "^7.1.0",
     "@types/lodash.clonedeep": "^4.5.6",
     "@types/react-redux": "^7.1.11",
     "lodash.clonedeep": "^4.5.0",
