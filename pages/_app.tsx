@@ -1,4 +1,4 @@
-import '../stories/styles.scss'
+import '../public/styles.scss'
 
 import type { AppProps } from 'next/app'
 

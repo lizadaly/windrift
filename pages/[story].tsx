@@ -26,7 +26,7 @@ export interface WindriftProps {
 export const getStaticProps: GetStaticProps = async (context) => {
 
   const story = context.params.story as string
-  const configPath = path.join(process.cwd(), `stories/${story}/story.yaml`)
+  const configPath = path.join(process.cwd(), `public/stories/${story}/story.yaml`)
   const configYaml = yaml.safeLoad(fs.readFileSync(configPath, "utf8"))
 
   const toc = configYaml["chapters"].map((item: TocItem) => (
@@ -53,7 +53,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const storyDirs = path.join(process.cwd(), 'stories')
+  const storyDirs = path.join(process.cwd(), 'public/stories')
   const paths = fs.readdirSync(storyDirs, { withFileTypes: true }).filter((dir) =>
     dir.isDirectory()).map((dir) => `/${dir.name}`)
   return { paths, fallback: false }

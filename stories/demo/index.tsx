@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 
 import { resetGame } from '../../core/util'
 
-import styles from './Index.module.scss'
+import styles from '../../public/stories/demo/Index.module.scss'
 
 const Index: React.FC = ({ children }): JSX.Element => {
     const config = useSelector((state: RootState) => state.config)

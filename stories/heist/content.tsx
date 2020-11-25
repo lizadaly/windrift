@@ -7,7 +7,7 @@ import { resetGame } from '../../core/util'
 import { useDispatch } from 'react-redux'
 import { updateInventory } from "../../core/actions"
 
-import styles from './Content.module.scss'
+import styles from '../../public/stories/heist/Content.module.scss'
 import { useState } from 'react'
 import { v5 as uuidv5 } from 'uuid'
 import { Tag } from "../../core/types"
