@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import * as Pusher from "pusher"
 
+// TODO this should be POST
 export default (req: NextApiRequest, res: NextApiResponse): void => {
 
     const {
@@ -14,10 +15,10 @@ export default (req: NextApiRequest, res: NextApiResponse): void => {
         key: NEXT_PUBLIC_PUSHER_KEY,
         secret: PUSHER_SECRET,
     })
-    console.log(pusher)
-    pusher.trigger('test1', 'choose', { tag: "fruit", value: "orange" })
+    const { channel, tag, choice } = req.query
+    pusher.trigger(channel, 'choose', { tag, choice })
         .then(() => {
-            res.status(200).json({ name: 'success' })
+            res.status(200).json({})
         })
 
 }

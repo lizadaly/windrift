@@ -14,6 +14,7 @@
     "@harelpls/use-pusher": "^7.1.0",
     "@types/lodash.clonedeep": "^4.5.6",
     "@types/react-redux": "^7.1.11",
+    "@types/uuid": "^8.3.0",
     "lodash.clonedeep": "^4.5.0",
     "next": "^10.0.0",
     "pusher": "^4.0.1",
@@ -23,7 +24,8 @@
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
     "redux-persist": "^6.0.0",
-    "redux-undo": "^1.0.1"
+    "redux-undo": "^1.0.1",
+    "uuid": "^8.3.1"
   },
   "devDependencies": {
     "@types/js-yaml": "^3.12.5",

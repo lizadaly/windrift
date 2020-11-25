@@ -2,11 +2,8 @@ import Head from 'next/head'
 import * as React from "react"
 import { RootState } from '../../core/reducers'
 import { useSelector } from 'react-redux'
-import { GetStaticProps, GetStaticPaths } from 'next'
-
 import { PusherProvider, PusherProviderProps } from "@harelpls/use-pusher"
 
-import styles from './Index.module.scss'
 import { useState } from 'react'
 import Content from "./content"
 
@@ -22,6 +19,8 @@ const Index = ({ children }: IndexProps): JSX.Element => {
         clientKey: NEXT_PUBLIC_PUSHER_KEY,
         cluster: NEXT_PUBLIC_PUSHER_CLUSTER
     } as PusherProviderProps))
+
+
 
     return (
         <>
