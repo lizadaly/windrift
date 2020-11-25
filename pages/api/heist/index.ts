@@ -4,26 +4,20 @@ import * as Pusher from "pusher"
 export default (req: NextApiRequest, res: NextApiResponse): void => {
 
     const {
-        PUSHER_APP_ID: appId,
-        PUSHER_KEY: key,
-        PUSHER_SECRET: secret,
-        PUSHER_CLUSTER: cluster
+        PUSHER_APP_ID,
+        NEXT_PUBLIC_PUSHER_KEY,
+        PUSHER_SECRET,
+        NEXT_PUBLIC_PUSHER_CLUSTER
     } = process.env
-    const pusher = Pusher.forCluster(cluster, {
-        appId,
-        key,
-        secret,
-        useTLS: true,
-        authEndpoint: '/api/pusher/auth'
+    const pusher = Pusher.forCluster(NEXT_PUBLIC_PUSHER_CLUSTER, {
+        appId: PUSHER_APP_ID,
+        key: NEXT_PUBLIC_PUSHER_KEY,
+        secret: PUSHER_SECRET,
     })
-    app.post("/pusher/auth", function (req, res) {
-        const socketId = req.body.socket_id;
-        const channel = req.body.channel_name;
-        const auth = pusher.authenticate(socketId, channel);
-        res.send(auth);
-    });
-    pusher.trigger('heist-game', 'event-name', { message: "hello world" })
-        .then(resp => {
+    console.log(pusher)
+    pusher.trigger('test1', 'choose', { tag: "fruit", value: "orange" })
+        .then(() => {
             res.status(200).json({ name: 'success' })
         })
+
 }

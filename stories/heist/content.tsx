@@ -2,10 +2,11 @@ import Head from 'next/head'
 import * as React from "react"
 import { RootState } from '../../core/reducers'
 import { useSelector } from 'react-redux'
-import { GetStaticProps, GetStaticPaths } from 'next'
 
-import { PusherProvider, useChannel } from "@harelpls/use-pusher"
+import { useChannel, useEvent } from "@harelpls/use-pusher"
 import { resetGame } from '../../core/util'
+import { useDispatch } from 'react-redux'
+import { updateInventory } from "../../core/actions"
 
 import styles from './Content.module.scss'
 import { useState } from 'react'
@@ -17,8 +18,13 @@ interface IndexProps {
 const Content = ({ children }: IndexProps): JSX.Element => {
     const config = useSelector((state: RootState) => state.config)
 
+    const dispatch = useDispatch()
 
-    const channel = useChannel("test");
+    const channel = useChannel("test1")
+    useEvent(channel, "choose", (data) => {
+        console.log(data)
+        dispatch(updateInventory(data.tag, data.value))
+    })
 
     return (
         <>
