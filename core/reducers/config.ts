@@ -1,4 +1,4 @@
-import { InitConfigType, Config, INIT_CONFIG, } from '../types'
+import { InitConfigType, Config, INIT_CONFIG, } from 'core/types'
 
 
 const config = (state: Config = null, action: InitConfigType): Config => {

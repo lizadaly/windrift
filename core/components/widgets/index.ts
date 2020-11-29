@@ -1,4 +1,4 @@
-import { ChoiceGroup, ChoicesType } from "../../types"
+import { ChoiceGroup, ChoicesType } from "core/types"
 
 export { default as InlineList } from "./inline-list"
 export { default as BulletedList } from "./bulleted-list"

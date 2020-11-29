@@ -1,6 +1,6 @@
 import undoable from 'redux-undo'
 
-import { UPDATE_STATE_COUNTER, UpdateStateCounterType } from '../types'
+import { UPDATE_STATE_COUNTER, UpdateStateCounterType } from 'core/types'
 
 
 export const counter = (state = 0, action: UpdateStateCounterType): number => {

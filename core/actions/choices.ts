@@ -1,4 +1,4 @@
-import { ChoiceInitType, ChoicePickType, ChoicesType, INIT_CHOICE, PICK_CHOICE, Tag } from '../types'
+import { ChoiceInitType, ChoicePickType, ChoicesType, INIT_CHOICE, PICK_CHOICE, Tag } from 'core/types'
 
 
 export const pickChoice = (tag: Tag, choices: ChoicesType, index: number): ChoicePickType => {

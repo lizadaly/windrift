@@ -4,9 +4,9 @@ import cloneDeep from 'lodash.clonedeep'
 import {
     Toc, IncrementSectionType, INCREMENT_SECTION,
     COUNT_SECTION, CountSectionType, TocItem, SHOW_NEXT_CHAPTER, ShowNextChapterType
-} from '../types'
+} from 'core/types'
 
-import { getChapter } from '../util'
+import { getChapter } from 'core/util'
 
 const toc = (state: Toc = null,
     action: IncrementSectionType | CountSectionType | ShowNextChapterType): Toc => {

@@ -1,6 +1,5 @@
-import React, { MouseEvent } from 'react'
-import Link from './components/link'
-import { Toc, TocItem } from './types'
+import { MouseEvent } from 'react'
+import { Toc, TocItem } from 'core/types'
 
 /* A function that returns the most-significant word from a phrase,
 typically in the inventory list (e.g. "a tired-looking cap"). Nothing

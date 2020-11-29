@@ -1,4 +1,4 @@
-import { UPDATE_STATE_COUNTER, UpdateStateCounterType } from '../types'
+import { UPDATE_STATE_COUNTER, UpdateStateCounterType } from 'core/types'
 
 
 // Update the atomic counter for the current state change

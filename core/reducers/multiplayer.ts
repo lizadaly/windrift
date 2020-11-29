@@ -1,4 +1,4 @@
-import { InitMultiplayerType, INIT_MULTIPLAYER, Multiplayer, } from '../types'
+import { InitMultiplayerType, INIT_MULTIPLAYER, Multiplayer, } from 'core/types'
 
 const defaultMultiplayer = new Multiplayer(null, null, null, null, false)
 

@@ -1,9 +1,9 @@
 import * as React from "react"
-import { ChapterType } from '../types'
-import { RootState } from "../reducers"
+import { ChapterType } from 'core/types'
+import { RootState } from "core/reducers"
 import { useSelector, useDispatch } from 'react-redux'
-import { countSections } from '../actions/navigation'
-import { getChapter } from '../util'
+import { countSections } from 'core/actions/navigation'
+import { getChapter } from 'core/util'
 
 export const ChapterContext = React.createContext(undefined)
 

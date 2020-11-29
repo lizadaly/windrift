@@ -1,7 +1,7 @@
-import undoable, { excludeAction, groupByActionTypes } from 'redux-undo'
+import undoable, { excludeAction } from 'redux-undo'
 import cloneDeep from 'lodash.clonedeep'
 
-import { ChoicePickType, RemainingChoices, PICK_CHOICE, INIT_CHOICE, ChoiceInitType } from '../types'
+import { ChoicePickType, RemainingChoices, PICK_CHOICE, INIT_CHOICE, ChoiceInitType } from 'core/types'
 
 export const choices = (
     state: RemainingChoices = {},

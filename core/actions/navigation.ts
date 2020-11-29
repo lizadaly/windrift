@@ -1,7 +1,7 @@
 import {
   IncrementSectionType, INCREMENT_SECTION, COUNT_SECTION, TocItem,
   CountSectionType, ShowNextChapterType, SHOW_NEXT_CHAPTER,
-} from '../types'
+} from 'core/types'
 
 // TODO add more general case
 export const showNextChapter = (item: TocItem): ShowNextChapterType => (

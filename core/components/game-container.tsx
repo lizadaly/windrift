@@ -2,7 +2,7 @@ import * as React from "react"
 
 import { ActionCreators } from 'redux-undo'
 import { connect, ConnectedProps } from 'react-redux'
-import { RootState } from "../reducers"
+import { RootState } from "core/reducers"
 
 import { Counter } from '../components'
 

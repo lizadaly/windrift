@@ -4,11 +4,9 @@ import { RootState } from '../../core/reducers'
 import { useDispatch, useSelector } from 'react-redux'
 import { PusherProvider, PusherProviderProps } from "@harelpls/use-pusher"
 
-import { useState } from 'react'
 import Content from "./content"
 import { v4 as uuidv4 } from 'uuid'
-import { Multiplayer } from '../../core/types'
-import { initMultiplayer } from '../../core/actions'
+import { initMultiplayer } from 'core/actions'
 
 interface IndexProps {
     children: React.ReactNode

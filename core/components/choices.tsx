@@ -1,12 +1,12 @@
 import * as React from "react"
-import { ChoicesType, WidgetType } from '../types'
-import { RootState } from "../reducers"
+import { ChoicesType, WidgetType } from 'core/types'
+import { RootState } from "core/reducers"
 import { useSelector, useDispatch } from 'react-redux'
 import InlineList from "./widgets/inline-list"
-import { updateInventory, pickChoice, incrementSection, updateStateCounter, showNextChapter } from "../actions"
+import { updateInventory, pickChoice, incrementSection, updateStateCounter, showNextChapter } from "core/actions"
 import { ChapterContext } from "./chapter"
 import { useContext } from "react"
-import { initChoice } from "../actions/choices"
+import { initChoice } from "core/actions/choices"
 
 interface ChoicesProps {
     choices: ChoicesType

@@ -3,7 +3,7 @@ import cloneDeep from 'lodash.clonedeep'
 
 import {
     Inventory, UpdateInventoryTypes, UPDATE_INVENTORY
-} from '../types'
+} from 'core/types'
 
 
 export const inventoryReducer = (

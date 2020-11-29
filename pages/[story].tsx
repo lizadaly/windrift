@@ -1,8 +1,8 @@
 import * as React from "react"
 
 import { useRouter } from 'next/router'
-import { Game, GameContainer } from '../core/components'
-import { Config, Toc, TocItem } from '../core/types'
+import { Game, GameContainer } from 'core/components'
+import { Config, Toc, TocItem } from 'core/types'
 import { GetStaticProps, GetStaticPaths } from 'next'
 import fs from 'fs'
 import path from 'path'
@@ -12,7 +12,7 @@ import { Provider } from 'react-redux'
 import { persistStore, persistReducer } from 'redux-persist'
 import { PersistGate } from 'redux-persist/integration/react'
 import storage from 'redux-persist/lib/storage'
-import reducers from '../core/reducers'
+import reducers from 'core/reducers'
 import { composeWithDevTools } from 'redux-devtools-extension';
 import dynamic from 'next/dynamic'
 
