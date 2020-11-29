@@ -1,6 +1,6 @@
 title: Multiplayer Demo
 chapters:
   - chapter:
-    filename: "multiplayer"
+    filename: "game"
     visible: true
     title: "Tic-Tac-Toe"

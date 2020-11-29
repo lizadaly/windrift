@@ -22,9 +22,8 @@ interface ApiChoice {
 }
 const Content = ({ children }: IndexProps): JSX.Element => {
     const config = useSelector((state: RootState) => state.config)
-
-    const [channelName] = useState(uuidv5('https://github.com/lizadaly/windrift',
-        uuidv5.URL))
+    const { channelName } = useSelector((state: RootState) =>
+        state.multiplayer || { channelName: null })
 
     const dispatch = useDispatch()
     const channel = useChannel(channelName)

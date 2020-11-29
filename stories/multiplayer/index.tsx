@@ -6,7 +6,7 @@ import { PusherProvider, PusherProviderProps } from "@harelpls/use-pusher"
 
 import { useState } from 'react'
 import Content from "./content"
-import { v5 as uuidv5 } from 'uuid'
+import { v4 as uuidv4 } from 'uuid'
 import { Multiplayer } from '../../core/types'
 import { initMultiplayer } from '../../core/actions'
 
@@ -15,22 +15,31 @@ interface IndexProps {
 }
 const Index = ({ children }: IndexProps): JSX.Element => {
     const config = useSelector((state: RootState) => state.config)
+    const multiplayer = useSelector((state: RootState) => state.multiplayer)
 
-    const { NEXT_PUBLIC_PUSHER_KEY, NEXT_PUBLIC_PUSHER_CLUSTER } = config.env
-
-    const [pusherConfig] = useState(() => ({
-        clientKey: NEXT_PUBLIC_PUSHER_KEY,
-        cluster: NEXT_PUBLIC_PUSHER_CLUSTER
-    } as PusherProviderProps))
-
-    const [channelName] = useState(() => (uuidv5('https://github.com/lizadaly/windrift',
-        uuidv5.URL)))
 
     const dispatch = useDispatch()
     React.useEffect(() => {
-        const multiplayer = new Multiplayer(pusherConfig.clientKey, pusherConfig.cluster, channelName)
-        dispatch(initMultiplayer(multiplayer))
-    }, [pusherConfig, channelName])
+        if (!multiplayer.ready) {
+            const { NEXT_PUBLIC_PUSHER_KEY, NEXT_PUBLIC_PUSHER_CLUSTER } = config.env
+
+            const channelName = uuidv4()
+            const gameUrl = window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '')
+            const pusherConfig = {
+                clientKey: NEXT_PUBLIC_PUSHER_KEY,
+                cluster: NEXT_PUBLIC_PUSHER_CLUSTER
+            } as PusherProviderProps
+            multiplayer.clientKey = pusherConfig.clientKey
+            multiplayer.cluster = pusherConfig.cluster
+            multiplayer.channelName = channelName
+            multiplayer.gameUrl = gameUrl
+            multiplayer.ready = true
+            dispatch(initMultiplayer(multiplayer))
+
+            // Notify the user that they need to invite a friend
+            alert(`To begin the story, send the other player ${gameUrl}?channel=${channelName}`)
+        }
+    }, [dispatch])
 
     return (
         <>
@@ -41,11 +50,17 @@ const Index = ({ children }: IndexProps): JSX.Element => {
                     @import url('https://fonts.googleapis.com/css2?family=EB+Garamond&family=Elsie&display=swap');
                 </style>
             </Head>
-            <PusherProvider {...pusherConfig}>
-                <Content>
-                    {children}
-                </Content>
-            </PusherProvider>
+            {
+                multiplayer.ready ? <PusherProvider clientKey={multiplayer.clientKey} cluster={multiplayer.cluster}>
+                    <Content>
+                        {children}
+                    </Content>
+                </PusherProvider>
+                    : <Content>
+                        {children}
+                    </Content>
+            }
+
 
         </>
     )
