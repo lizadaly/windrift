@@ -1,6 +1,6 @@
-import { GET_CONFIG, GetConfigType, Config } from '../types'
+import { INIT_CONFIG, InitConfigType, Config } from '../types'
 
-export const getConfig = (config: Config): GetConfigType => ({
-    type: GET_CONFIG,
+export const initConfig = (config: Config): InitConfigType => ({
+    type: INIT_CONFIG,
     config,
 })

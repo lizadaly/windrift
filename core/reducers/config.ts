@@ -1,14 +1,15 @@
-import { GET_CONFIG, GetConfigType, Config, } from '../types'
+import { InitConfigType, Config, INIT_CONFIG, } from '../types'
 
 
-const config = (state: Config = null, action: GetConfigType): Config => {
+const config = (state: Config = null, action: InitConfigType): Config => {
     switch (action.type) {
-        case GET_CONFIG:
-            return state
-
+        case INIT_CONFIG: {
+            return action.config
+        }
         default:
             return state
     }
 }
 
 export default config
+

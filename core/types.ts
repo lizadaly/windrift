@@ -2,10 +2,11 @@ export const UPDATE_INVENTORY = 'UPDATE_INVENTORY'
 export const PICK_CHOICE = 'PICK_CHOICE'
 export const INIT_CHOICE = 'INIT_CHOICE'
 export const UPDATE_STATE_COUNTER = 'UPDATE_STATE_COUNTER'
-export const GET_CONFIG = "GET_CONFIG"
+export const INIT_CONFIG = "INIT_CONFIG"
 export const INCREMENT_SECTION = 'INCREMENT_SECTION'
 export const SHOW_NEXT_CHAPTER = 'SHOW_NEXT_CHAPTER'
 export const COUNT_SECTION = 'COUNT_SECTION'
+export const INIT_MULTIPLAYER = 'INIT_MULTIPLAYER'
 
 /* Inventory */
 export type Selection = string
@@ -101,11 +102,29 @@ export class Config {
     }
 }
 
-interface GetConfigAction {
-    type: typeof GET_CONFIG,
+interface InitConfigAction {
+    type: typeof INIT_CONFIG,
     config: Config,
 }
-export type GetConfigType = GetConfigAction
+export type InitConfigType = InitConfigAction
+
+/* Multiplayer config */
+export class Multiplayer {
+    readonly clientKey: string
+    readonly cluster: string
+    channelName: string
+    constructor(clientKey: string, cluster: string, channelName: string) {
+        this.clientKey = clientKey
+        this.cluster = cluster
+        this.channelName = channelName
+    }
+}
+
+interface InitMultiplayerAction {
+    type: typeof INIT_MULTIPLAYER,
+    multiplayer: Multiplayer,
+}
+export type InitMultiplayerType = InitMultiplayerAction
 
 /* Completion callbacks */
 export type Callback = () => void
