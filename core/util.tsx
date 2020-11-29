@@ -40,3 +40,4 @@ export const resetGame = (event: MouseEvent<HTMLButtonElement | HTMLAnchorElemen
 export const getChapter = (toc: Toc, filename: string): TocItem => (
     Object.values(toc).filter(c => c.filename === filename)[0]
 )
+

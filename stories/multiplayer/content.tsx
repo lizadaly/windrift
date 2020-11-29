@@ -22,8 +22,8 @@ interface ApiChoice {
 }
 const Content = ({ children }: IndexProps): JSX.Element => {
     const config = useSelector((state: RootState) => state.config)
-    const { channelName } = useSelector((state: RootState) =>
-        state.multiplayer || { channelName: null })
+    const { channelName, player } = useSelector((state: RootState) =>
+        state.multiplayer)
 
     const dispatch = useDispatch()
     const channel = useChannel(channelName)
@@ -41,6 +41,9 @@ const Content = ({ children }: IndexProps): JSX.Element => {
                     </h1>
                     <div className={styles.channel}>
                         {channelName}
+                        <br />
+                        Player {player}
+                        { }
                     </div>
                     <div className={styles.controls}>
 

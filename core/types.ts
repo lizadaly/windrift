@@ -115,13 +115,15 @@ export class Multiplayer {
     gameUrl: string
     channelName: string
     ready: boolean // True when all the params have been initialized
+    player: number
 
-    constructor(clientKey: string, cluster: string, channelName: string, gameUrl: string, ready: boolean) {
+    constructor(clientKey: string, cluster: string, channelName: string, gameUrl: string, player: number, ready: boolean) {
         this.clientKey = clientKey
         this.cluster = cluster
         this.channelName = channelName
         this.gameUrl = gameUrl
         this.ready = ready
+        this.player = player
     }
 }
 
