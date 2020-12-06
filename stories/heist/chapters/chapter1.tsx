@@ -1,5 +1,4 @@
 import { C, R, Section, Chapter } from '../../../core/components'
-import { BulletedList } from '../../../core/components/widgets'
 import { PageType } from '../../../core/types'
 
 const Page: PageType = () => <Chapter filename="chapter1">
