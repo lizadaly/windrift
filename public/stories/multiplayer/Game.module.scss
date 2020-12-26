@@ -1,5 +1,5 @@
 $cell: 100px;
-$border: 10px;
+$border: 2px;
 
 
 
@@ -9,16 +9,21 @@ $border: 10px;
     box-sizing: border-box;
     grid-gap: $border;
     grid-auto-rows: $cell;
-     grid-template-rows: $cell;
+    grid-template-rows: $cell;
+    justify-items: center;
+    align-items: stretch;
 
     .col {
-         height: $cell;
-         width: $cell;
-         box-shadow: 0 0 0 $border gray;
-         justify-items: center;
-
+        height: $cell;
+        width: $cell;
+        box-shadow: 0 0 0 $border gray;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         span {
             display: block;
+            justify-self: center;
+            align-self: center;
 
         }
         .selected {
