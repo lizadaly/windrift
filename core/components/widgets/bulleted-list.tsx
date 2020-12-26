@@ -1,4 +1,4 @@
-// An inline list of items, the default
+// A bulleted list presentation where the unpicked items remain in the list
 
 import React from "react";
 import { WidgetProps } from ".";
@@ -18,18 +18,18 @@ const InlineList: typeof BulletedListType = ({ group = [], handler = null, initi
     return (
         <ul>{
             [...initialChoices[0]].map((t, i) =>
-                (
-                    <li key={i} >
-                        <Link handler={handler} text={t} index={i} />
-                        {
-                            group.map((g) => {
-                                if (initialChoices[0] !== group && g === t) {
-                                    return "selected"
-                                }
-                            })
-                        }
-                    </li>
-                ))
+            (
+                <li key={i} >
+                    <Link handler={handler} text={t} index={i} />
+                    {
+                        group.map((g) => {
+                            if (initialChoices[0] !== group && g === t) {
+                                return "selected"
+                            }
+                        })
+                    }
+                </li>
+            ))
         }
         </ul>)
 }

@@ -1,7 +1,13 @@
-/* Global styles applied here are inherited by all stories in your installation */
+/* Global styles applied here are inherited by all stories in your installation.
+
+   See https://nextjs.org/docs/basic-features/built-in-css-support
+   for other mechanisms of injecting CSS in your story either globally or
+   (recommended where possible) as part of a CSS module.
+*/
 
 /* Removing all padding allows you to set background colors and margins per story */
 * {
     margin: 0;
     padding: 0;
 }
+

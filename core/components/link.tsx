@@ -15,7 +15,7 @@ const Link = ({ text, index, handler }: LinkProps): JSX.Element => {
     if (handler) {
         return <a href="#" onClick={() => handler(event, index)}>{text}</a>
     }
-    return <span>{text} </span>
+    return <span className="selected">{text} </span>
 }
 
 

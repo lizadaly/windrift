@@ -1,0 +1,29 @@
+$cell: 100px;
+$border: 10px;
+
+
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(3, $cell);
+    box-sizing: border-box;
+    grid-gap: $border;
+    grid-auto-rows: $cell;
+     grid-template-rows: $cell;
+
+    .col {
+         height: $cell;
+         width: $cell;
+         box-shadow: 0 0 0 $border gray;
+         justify-items: center;
+
+        span {
+            display: block;
+
+        }
+        .selected {
+            display: none;
+        }
+    }
+}
+

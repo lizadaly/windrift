@@ -63,6 +63,7 @@ const Index = ({ children }: IndexProps): JSX.Element => {
                 <style>
                     @import url('https://fonts.googleapis.com/css2?family=EB+Garamond&family=Elsie&display=swap');
                 </style>
+
             </Head>
             {
                 multiplayer.ready ? <PusherProvider clientKey={multiplayer.clientKey} cluster={multiplayer.cluster}>

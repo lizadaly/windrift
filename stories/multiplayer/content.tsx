@@ -8,8 +8,7 @@ import { useDispatch } from 'react-redux'
 import { updateInventory } from "../../core/actions"
 
 import styles from '../../public/stories/multiplayer/Content.module.scss'
-import { useState } from 'react'
-import { v5 as uuidv5 } from 'uuid'
+
 import { Tag } from "../../core/types"
 
 
@@ -51,7 +50,7 @@ const Content = ({ children }: IndexProps): JSX.Element => {
                     </div>
                 </nav>
             </header>
-            <main className={styles.main}>
+            <main className={styles.main} id="multiplayer-demo">
                 <nav className={styles.left}>
 
                 </nav>
