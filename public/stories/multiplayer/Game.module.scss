@@ -20,6 +20,11 @@ $border: 2px;
         display: flex;
         justify-content: center;
         align-items: center;
+        font-size: $cell;
+        a {
+            opacity: .5;
+            text-decoration: none;
+        }
         span {
             display: block;
             justify-self: center;

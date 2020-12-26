@@ -18,7 +18,7 @@ interface ChoicesProps {
 
 
 const Choices = ({ choices, tag, extra, widget = InlineList, nextUnit = "section" }: ChoicesProps): JSX.Element => {
-    const { channelName } = useSelector((state: RootState) =>
+    const { channelName, player } = useSelector((state: RootState) =>
         state.multiplayer)
     const dispatch = useDispatch()
     const item = useContext(ChapterContext)
@@ -47,10 +47,12 @@ const Choices = ({ choices, tag, extra, widget = InlineList, nextUnit = "section
         const text = target.textContent
 
         dispatch(updateInventory(tag, text))
-        dispatch(pickChoice(tag, choices, index))
+        dispatch(pickChoice(tag, choices, index, player))
 
         // TODO hook this in optionally or better
-        fetch(`/api?tag=${tag}&choice=${text}&channel=${channelName}`)
+        if (player !== null) {
+            fetch(`/api?tag=${tag}&choice=${text}&channel=${channelName}&player=${player}`)
+        }
 
         if (choices.length === 1) {
             if (nextUnit === "section") {

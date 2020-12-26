@@ -20,6 +20,16 @@ export const choices = (
         case PICK_CHOICE:
             const choiceState = cloneDeep(state)
 
+            // if the choices list is empty, we're deliberately destroying this
+            // choice list, so just exit early
+
+            if (action.choices.length === 0) {
+                choiceState[action.tag] = {
+                    choices: [],
+                    initialChoices: state[action.tag].initialChoices
+                }
+                return choiceState
+            }
             // toss the first choice out
             const first = action.choices.slice(0, 1)[0]
 

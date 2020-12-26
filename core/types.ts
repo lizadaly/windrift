@@ -41,6 +41,7 @@ interface ChoicePickAction {
     choices: ChoicesType
     index: number
     tag: Tag
+    player?: number
 }
 export type ChoicePickType = ChoicePickAction
 

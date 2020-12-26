@@ -15,8 +15,8 @@ export default (req: NextApiRequest, res: NextApiResponse): void => {
         key: NEXT_PUBLIC_PUSHER_KEY,
         secret: PUSHER_SECRET,
     })
-    const { channel, tag, choice } = req.query
-    pusher.trigger(channel, 'choose', { tag, choice })
+    const { channel, tag, choice, player } = req.query
+    pusher.trigger(channel, 'choose', { tag, choice, player })
         .then(() => {
             res.status(200).json({})
         })

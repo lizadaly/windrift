@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 import { useChannel, useEvent } from "@harelpls/use-pusher"
 import { resetGame } from '../../core/util'
 import { useDispatch } from 'react-redux'
-import { updateInventory } from "../../core/actions"
+import { pickChoice, updateInventory } from "../../core/actions"
 
 import styles from '../../public/stories/multiplayer/Content.module.scss'
 
@@ -18,16 +18,24 @@ interface IndexProps {
 interface ApiChoice {
     tag: Tag
     choice: string
+    player: string
 }
 const Content = ({ children }: IndexProps): JSX.Element => {
     const config = useSelector((state: RootState) => state.config)
-    const { channelName, player } = useSelector((state: RootState) =>
+    const multiplayer = useSelector((state: RootState) =>
         state.multiplayer)
+    const { channelName } = multiplayer
+    const currentPlayer = multiplayer.player
 
     const dispatch = useDispatch()
     const channel = useChannel(channelName)
-    useEvent(channel, "choose", ({ tag, choice }: ApiChoice) => {
-        dispatch(updateInventory(tag, choice))
+    useEvent(channel, "choose", ({ tag, choice, player }: ApiChoice) => {
+        // Dispatch events from other players
+        const eventPlayer = parseInt(player)
+        if (currentPlayer !== eventPlayer) {
+            dispatch(updateInventory(tag, choice))
+            dispatch(pickChoice(tag, [[choice]], 0, eventPlayer))
+        }
     })
 
     return (
@@ -41,7 +49,7 @@ const Content = ({ children }: IndexProps): JSX.Element => {
                     <div className={styles.channel}>
                         {channelName}
                         <br />
-                        Player {player}
+                        Player {currentPlayer}
                         { }
                     </div>
                     <div className={styles.controls}>

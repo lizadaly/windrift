@@ -21,13 +21,14 @@ const Page: PageType = () => {
 
             <div className={styles.board}>
                 <div className={styles.col}>
-                    <C choices={[[char]]} tag="1x1" widget={DefaultList} />
+
+                    <C choices={[[char, '']]} tag="1x1" widget={DefaultList} />
                     <R tag="1x1" to={{ "x": "X", "o": "O" }} />
 
                 </div>
                 <div className={styles.col}>
 
-                    <C choices={[[char]]} tag="1x2" widget={DefaultList} />
+                    <C choices={[[char, '']]} tag="1x2" widget={DefaultList} />
                     <R tag="1x2" to={{ "x": "X", "o": "O" }} />
                 </div>
                 <div className={styles.col}>
