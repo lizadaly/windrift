@@ -4,11 +4,14 @@ import { C, R, Section, Chapter } from 'core/components'
 import { PageType } from 'core/types'
 import styles from 'public/stories/multiplayer/Game.module.scss'
 import { DefaultList } from 'core/components/widgets'
+import Log from '../components/log'
 
 const Page: PageType = () => {
     const { player } = useSelector((state: RootState) =>
         state.multiplayer)
+
     const char = player === 1 ? "X" : "O"
+
     return <Chapter filename="game">
         <Section>
             <style global jsx>{`
@@ -18,6 +21,8 @@ const Page: PageType = () => {
             `}
             </style>
             <h1>Tic-Tac-Toe</h1>
+
+            <Log />
 
             <div className={styles.board}>
                 <div className={styles.col}>

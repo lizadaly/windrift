@@ -5,6 +5,7 @@ import counter from './counter'
 import config from './config'
 import toc from './toc'
 import multiplayer from './multiplayer'
+import log from './log'
 
 const rootReducer = combineReducers({
     inventory,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
     config,
     toc,
     multiplayer,
+    log
 })
 export type RootState = ReturnType<typeof rootReducer>
 export default rootReducer

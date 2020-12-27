@@ -3,10 +3,9 @@ import { ChoicesType, WidgetType } from 'core/types'
 import { RootState } from "core/reducers"
 import { useSelector, useDispatch } from 'react-redux'
 import InlineList from "./widgets/inline-list"
-import { updateInventory, pickChoice, incrementSection, updateStateCounter, showNextChapter } from "core/actions"
+import { initChoice, logAction, updateInventory, pickChoice, incrementSection, updateStateCounter, showNextChapter } from "core/actions"
 import { ChapterContext } from "./chapter"
 import { useContext } from "react"
-import { initChoice } from "core/actions/choices"
 
 interface ChoicesProps {
     choices: ChoicesType
@@ -44,14 +43,17 @@ const Choices = ({ choices, tag, extra, widget = InlineList, nextUnit = "section
     const handler = (e: React.MouseEvent, index: number): void => {
         e.preventDefault()
         const target = e.target as HTMLInputElement
-        const text = target.textContent
+        const choice = target.textContent
+        const timestamp = new Date()
 
-        dispatch(updateInventory(tag, text))
+        dispatch(updateInventory(tag, choice))
         dispatch(pickChoice(tag, choices, index, player))
+        dispatch(logAction(tag, choice, timestamp, player))
+
 
         // TODO hook this in optionally or better
         if (player !== null) {
-            fetch(`/api?tag=${tag}&choice=${text}&channel=${channelName}&player=${player}`)
+            fetch(`/api?tag=${tag}&choice=${choice}&channel=${channelName}&player=${player}`)
         }
 
         if (choices.length === 1) {

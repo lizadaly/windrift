@@ -10,6 +10,7 @@ import { pickChoice, updateInventory } from "../../core/actions"
 import styles from '../../public/stories/multiplayer/Content.module.scss'
 
 import { Tag } from "../../core/types"
+import { logAction } from "core/actions/log"
 
 
 interface IndexProps {
@@ -19,6 +20,7 @@ interface ApiChoice {
     tag: Tag
     choice: string
     player: string
+    timestamp: string
 }
 const Content = ({ children }: IndexProps): JSX.Element => {
     const config = useSelector((state: RootState) => state.config)
@@ -29,12 +31,14 @@ const Content = ({ children }: IndexProps): JSX.Element => {
 
     const dispatch = useDispatch()
     const channel = useChannel(channelName)
-    useEvent(channel, "choose", ({ tag, choice, player }: ApiChoice) => {
+    useEvent(channel, "choose", ({ tag, choice, player, timestamp }: ApiChoice) => {
         // Dispatch events from other players
         const eventPlayer = parseInt(player)
+        const eventTimestamp = new Date(timestamp)
         if (currentPlayer !== eventPlayer) {
             dispatch(updateInventory(tag, choice))
             dispatch(pickChoice(tag, [[choice]], 0, eventPlayer))
+            dispatch(logAction(tag, choice, eventTimestamp, eventPlayer))
         }
     })
 

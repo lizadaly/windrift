@@ -7,6 +7,7 @@ export const INCREMENT_SECTION = 'INCREMENT_SECTION'
 export const SHOW_NEXT_CHAPTER = 'SHOW_NEXT_CHAPTER'
 export const COUNT_SECTION = 'COUNT_SECTION'
 export const INIT_MULTIPLAYER = 'INIT_MULTIPLAYER'
+export const LOG_ACTION = "LOG_ACTION"
 
 /* Inventory */
 export type Selection = string
@@ -133,6 +134,24 @@ interface InitMultiplayerAction {
     multiplayer: Multiplayer,
 }
 export type InitMultiplayerType = InitMultiplayerAction
+
+/* Game log */
+// TODO something something middleware?
+interface LogAction {
+    type: typeof LOG_ACTION
+    tag: Tag
+    selection: Selection
+    timestamp: Date
+    player?: number
+}
+export type LogActionType = LogAction
+
+export interface Log {
+    tag: Tag
+    selection: Selection
+    timestamp: Date
+    player?: number
+}
 
 /* Completion callbacks */
 export type Callback = () => void
