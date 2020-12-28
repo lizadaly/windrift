@@ -146,7 +146,7 @@ interface LogAction {
 }
 export type LogActionType = LogAction
 
-export interface Log {
+export interface LogItem {
     tag: Tag
     selection: Selection
     timestamp: Date

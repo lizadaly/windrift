@@ -1,22 +1,23 @@
-import { LogActionType, LOG_ACTION, Log } from 'core/types'
-import undoable from 'redux-undo'
+import { LogActionType, LOG_ACTION, LogItem } from 'core/types'
+import cloneDeep from 'lodash.clonedeep'
 
 
-const log = (state: Log = null, action: LogActionType): Log => {
+const log = (state: LogItem[] = [], action: LogActionType): LogItem[] => {
     switch (action.type) {
         case LOG_ACTION: {
             const { tag, selection, player, timestamp } = action
-            return {
+            const log = cloneDeep(state)
+            log.push({
                 tag,
                 selection,
                 timestamp,
                 player
-            }
+            })
+            return log
         }
         default:
             return state
     }
 }
 
-export default undoable(log)
-
+export default log
