@@ -1,7 +1,7 @@
 import * as React from "react"
 import { RootState } from '../../core/reducers'
 import { useSelector } from 'react-redux'
-
+import Image from 'next/image'
 import { useChannel, useEvent } from "@harelpls/use-pusher"
 import { resetGame } from '../../core/util'
 import { useDispatch } from 'react-redux'
@@ -28,6 +28,7 @@ const Content = ({ children }: IndexProps): JSX.Element => {
         state.multiplayer)
     const { channelName } = multiplayer
     const currentPlayer = multiplayer.player
+    const otherPlayer = currentPlayer === 1 ? 2 : 1
 
     const dispatch = useDispatch()
     const channel = useChannel(channelName)
@@ -50,11 +51,23 @@ const Content = ({ children }: IndexProps): JSX.Element => {
                     <h1>
                         {config.title}
                     </h1>
-                    <div className={styles.channel}>
-                        {channelName}
-                        <br />
-                        Player {currentPlayer}
-                        { }
+                    <div className={styles.player}>
+                        You are player {currentPlayer} ⟶
+                    </div>
+                    <div className={styles.share}>
+
+
+                        <button className={styles.clipboard} onClick={() =>
+                            navigator.clipboard.writeText(`${multiplayer.gameUrl}?channel=${multiplayer.channelName}&player=2`)}>
+                            <span>Link for player {otherPlayer}</span>
+                            <Image src="/images/clipboard.svg"
+                                width={25}
+                                height={25}
+                                alt="Copy to clipboard"
+                            />
+                        </button>
+
+
                     </div>
                     <div className={styles.controls}>
 

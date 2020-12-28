@@ -24,21 +24,55 @@ $white: rgb(250, 250, 250);
     nav {
         background: $background;
         display: grid;
-        grid-template-columns: 2fr 1fr 1fr;
+        grid-template-columns: 2fr 1fr 1fr 1fr;
         grid-template-rows: $header-height;
         align-items: center;
+        font-family: 'EB Garamond', serif;
+        color: $light-gray;
 
         h1 {
             justify-self: left;
             margin-left: $left-right-width;
-            color: $light-gray;
             font-family: 'Elsie', cursive;
-            font-size: 2.5rem;
+            font-size: 2rem;
 
         }
-        .channel {
+        .player {
             display: inline-block;
-            color: white;
+            font-size: 1rem;
+            justify-self: right;
+            margin-right: 10px;
+        }
+
+        .share {
+            display: inline-block;
+
+
+            .clipboard {
+                border: 0;
+                box-shadow: none;
+                border-radius: 0;
+                cursor: pointer;
+                background: $silver;
+                color: $light-gray;
+                padding: 5px;
+                display: flex;
+                font-family: 'EB Garamond', serif;
+                font-size: 1rem;
+                align-items: center;
+                justify-content: center;
+                span {
+                    display: inline-block;
+                    margin-right: 20px;
+                }
+                img {
+
+
+                    fill: $light-gray;
+                    stroke: $light-gray;
+                }
+            }
+
         }
         .controls {
             display: grid;

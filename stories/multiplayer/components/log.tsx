@@ -12,7 +12,8 @@ const Log: React.FC = () => {
     return <div>
         {
             log.map((entry, i) =>
-                <div key={i}>{entry.tag} {entry.selection} played by {entry.player} on {entry.timestamp.toString()}</div>
+                <div key={i}>{entry.tag} {entry.selection} played by
+                {entry.player} on {entry.timestamp.toString()}</div>
             )
         }
     </div>
