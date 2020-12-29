@@ -17,13 +17,16 @@ const populateMultiplayer = (player: number, multiplayer: Multiplayer, config: C
     const { NEXT_PUBLIC_PUSHER_KEY, NEXT_PUBLIC_PUSHER_CLUSTER } = config.env
     const gameUrl = window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '') + window.location.pathname
 
-    channelName = channelName || uuidv4()
+    channelName = channelName || 'presence-' + uuidv4()
     const pusherConfig = {
         clientKey: NEXT_PUBLIC_PUSHER_KEY,
-        cluster: NEXT_PUBLIC_PUSHER_CLUSTER
+        cluster: NEXT_PUBLIC_PUSHER_CLUSTER,
+        authEndpoint: '/api/auth'
     } as PusherProviderProps
+
     multiplayer.clientKey = pusherConfig.clientKey
     multiplayer.cluster = pusherConfig.cluster
+    multiplayer.authEndpoint = pusherConfig.authEndpoint
     multiplayer.channelName = channelName
     multiplayer.gameUrl = gameUrl
     multiplayer.player = player
@@ -66,7 +69,11 @@ const Index = ({ children }: IndexProps): JSX.Element => {
 
             </Head>
             {
-                multiplayer.ready ? <PusherProvider clientKey={multiplayer.clientKey} cluster={multiplayer.cluster}>
+                multiplayer.ready ? <PusherProvider
+                    clientKey={multiplayer.clientKey}
+                    cluster={multiplayer.cluster}
+                    authEndpoint={multiplayer.authEndpoint}
+                >
                     <Content>
                         {children}
                     </Content>

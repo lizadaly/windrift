@@ -114,14 +114,18 @@ export type InitConfigType = InitConfigAction
 export class Multiplayer {
     clientKey: string
     cluster: string
+    authEndpoint: string
     gameUrl: string
     channelName: string
     ready: boolean // True when all the params have been initialized
     player: number
 
-    constructor(clientKey: string, cluster: string, channelName: string, gameUrl: string, player: number, ready: boolean) {
+    constructor(clientKey: string, cluster: string, channelName: string, gameUrl: string, player: number,
+        authEndpoint: string, ready: boolean,) {
         this.clientKey = clientKey
         this.cluster = cluster
+        this.authEndpoint = authEndpoint
+
         this.channelName = channelName
         this.gameUrl = gameUrl
         this.ready = ready
