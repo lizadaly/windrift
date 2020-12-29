@@ -44,37 +44,35 @@ const Content = ({ children }: IndexProps): JSX.Element => {
     })
 
     return (
-        <>
-
-            <header className={styles.header}>
-                <nav>
-                    <h1>
-                        {config.title}
-                    </h1>
-                    <div className={styles.player}>
-                        You are player {currentPlayer} ⟶
+        <><header className={styles.header}>
+            <nav>
+                <h1>
+                    {config.title}
+                </h1>
+                <div className={styles.player}>
+                    You are player {currentPlayer} ⟶
                     </div>
-                    <div className={styles.share}>
+                <div className={styles.share}>
 
 
-                        <button className={styles.clipboard} onClick={() =>
-                            navigator.clipboard.writeText(`${multiplayer.gameUrl}?channel=${multiplayer.channelName}&player=2`)}>
-                            <span>Link for player {otherPlayer}</span>
-                            <Image src="/images/clipboard.svg"
-                                width={25}
-                                height={25}
-                                alt="Copy to clipboard"
-                            />
-                        </button>
+                    <button className={styles.clipboard} onClick={() =>
+                        navigator.clipboard.writeText(`${multiplayer.gameUrl}?channel=${multiplayer.channelName}&player=2`)}>
+                        <span>Link for player {otherPlayer}</span>
+                        <Image src="/images/clipboard.svg"
+                            width={25}
+                            height={25}
+                            alt="Copy to clipboard"
+                        />
+                    </button>
 
 
-                    </div>
-                    <div className={styles.controls}>
+                </div>
+                <div className={styles.controls}>
 
-                        <button onClick={resetGame}>Reset</button>
-                    </div>
-                </nav>
-            </header>
+                    <button onClick={resetGame}>Reset</button>
+                </div>
+            </nav>
+        </header>
             <main className={styles.main} id="multiplayer-demo">
                 <nav className={styles.left}>
 
