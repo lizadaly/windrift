@@ -1,6 +1,8 @@
 # Windrift
 <img src="https://travis-ci.org/lizadaly/windrift.svg?branch=master" />
 
+**Note**: Windrift is undergoing a full rewrite for a version 2, to be released sometime in 2021. It will not be backwards compatible with version 1, although porting a simple story should be straightforward. You can follow the progression on the `v2` branch of this repo.
+
 A framework for writing mutable narratives.
 
 Windrift was used to write two games by Liza Daly: [Stone
