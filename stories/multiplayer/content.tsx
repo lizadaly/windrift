@@ -2,7 +2,7 @@ import * as React from "react"
 import { useSelector, useDispatch } from 'react-redux'
 
 import Image from 'next/image'
-import { useChannel, useEvent } from "@harelpls/use-pusher"
+import { useChannel, useEvent, usePresenceChannel } from "@harelpls/use-pusher"
 
 import { RootState } from 'core/reducers'
 import { resetGame } from 'core/util'
@@ -44,6 +44,10 @@ const Content = ({ children }: IndexProps): JSX.Element => {
         }
     })
 
+    const { members } = usePresenceChannel(channelName)
+
+
+
     return (
         <><header className={styles.header}>
             <nav>
@@ -82,7 +86,14 @@ const Content = ({ children }: IndexProps): JSX.Element => {
                     {children}
                 </article>
                 <nav className={styles.right}>
-
+                    {<ul>
+                        {Object.entries(members)
+                            // map them to a list
+                            .map(([id, info]) => (
+                                <li key={id}>{id}</li>
+                            ))
+                        }
+                    </ul>}
                 </nav>
             </main>
         </>
