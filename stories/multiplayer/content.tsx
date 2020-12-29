@@ -1,16 +1,17 @@
 import * as React from "react"
-import { RootState } from '../../core/reducers'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+
 import Image from 'next/image'
 import { useChannel, useEvent } from "@harelpls/use-pusher"
-import { resetGame } from '../../core/util'
-import { useDispatch } from 'react-redux'
-import { pickChoice, updateInventory } from "../../core/actions"
 
-import styles from '../../public/stories/multiplayer/Content.module.scss'
-
-import { Tag } from "../../core/types"
+import { RootState } from 'core/reducers'
+import { resetGame } from 'core/util'
+import { pickChoice, updateInventory } from "core/actions"
+import { Tag } from "core/types"
 import { logAction } from "core/actions/log"
+
+import styles from 'public/stories/multiplayer/Content.module.scss'
+
 
 
 interface IndexProps {

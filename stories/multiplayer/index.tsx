@@ -21,7 +21,7 @@ const populateMultiplayer = (player: number, multiplayer: Multiplayer, config: C
     const pusherConfig = {
         clientKey: NEXT_PUBLIC_PUSHER_KEY,
         cluster: NEXT_PUBLIC_PUSHER_CLUSTER,
-        authEndpoint: '/api/auth'
+        authEndpoint: `/api/auth/${player}`
     } as PusherProviderProps
 
     multiplayer.clientKey = pusherConfig.clientKey

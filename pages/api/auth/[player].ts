@@ -21,7 +21,7 @@ export default (req: NextApiRequest, res: NextApiResponse): void => {
             useTLS: true
         })
         const { channel_name, socket_id } = req.body
-        const player = 1
+        const { player } = req.query
         const channelData = {
             user_id: `${channel_name}--${player}`
         }
