@@ -51,9 +51,19 @@ const Choices = ({ choices, tag, extra, widget = InlineList, nextUnit = "section
         dispatch(logAction(tag, choice, timestamp, player))
 
 
-        // TODO hook this in optionally or better
+        // TODO pull this out
         if (player !== null) {
-            fetch(`/api?tag=${tag}&choice=${choice}&channel=${channelName}&player=${player}`)
+            const choiceBody = {
+                tag,
+                choice,
+                channel: channelName,
+                player,
+            }
+            fetch('/api/choose', {
+                method: "POST",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(choiceBody)
+            })
         }
 
         if (choices.length === 1) {
