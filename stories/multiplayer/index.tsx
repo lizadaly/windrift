@@ -8,6 +8,7 @@ import Content from "./content"
 import { v4 as uuidv4 } from 'uuid'
 import { initMultiplayer } from 'core/actions'
 import { Config, Multiplayer } from 'core/types'
+import { ActionCreators } from 'redux-undo'
 
 interface IndexProps {
     children: React.ReactNode
@@ -43,18 +44,19 @@ const Index = ({ children }: IndexProps): JSX.Element => {
     const dispatch = useDispatch()
 
     React.useEffect(() => {
-        if (player === 1 && !multiplayer.ready) {
-            populateMultiplayer(player, multiplayer, config)
-
-            dispatch(initMultiplayer(multiplayer))
-
-            // Notify the user that they need to invite a friend
-            alert(`To begin the story, send the other player ${multiplayer.gameUrl}?channel=${multiplayer.channelName}&player=2`)
+        const channelName = query.get("channel")
+        if (multiplayer.ready && channelName && multiplayer.channelName !== channelName) {
+            console.log(`Clearing previous game for ${channelName}`)
+            multiplayer.ready = false
         }
-        else if (player === 2) {
-            const channelName = query.get("channel")
+        if (!multiplayer.ready) {
+            dispatch(ActionCreators.clearHistory())
             populateMultiplayer(player, multiplayer, config, channelName)
             dispatch(initMultiplayer(multiplayer))
+            if (player === 1) {
+                // Notify the user that they need to invite a friend
+                alert(`To begin the story, send the other player ${multiplayer.gameUrl}?channel=${multiplayer.channelName}&player=2&init=true`)
+            }
         }
     }, [dispatch])
 
