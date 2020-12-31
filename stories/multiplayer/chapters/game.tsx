@@ -1,17 +1,26 @@
 import { RootState } from 'core/reducers'
 import { useSelector } from 'react-redux'
-import { C, R, Section, Chapter } from 'core/components'
+import { usePresenceChannel } from '@harelpls/use-pusher'
+
+import { Section, Chapter } from 'core/components'
 import { PageType } from 'core/types'
-import styles from 'public/stories/multiplayer/Game.module.scss'
-import { DefaultList } from 'core/components/widgets'
 import Log from '../components/log'
+import Board from '../components/board'
 
 const Page: PageType = () => {
-    const { player } = useSelector((state: RootState) =>
+    const { player, channelName } = useSelector((state: RootState) =>
         state.multiplayer)
-
+    const { members } = usePresenceChannel(channelName)
+    const log = useSelector((state: RootState) =>
+        state.log
+    )
+    let currentPlayer = 1
+    if (log.length > 0) {
+        const last = log[log.length - 1]
+        currentPlayer = last.player === 1 ? 2 : 1
+    }
     const char = player === 1 ? "X" : "O"
-
+    console.log(player, char)
     return <Chapter filename="game">
         <Section>
             <style global jsx>{`
@@ -20,58 +29,27 @@ const Page: PageType = () => {
                 }
             `}
             </style>
+
             <h1>Tic-Tac-Toe</h1>
+
+            <p>
+                It is {currentPlayer === player ? "your" : "the other player's"} turn.
+            </p>
 
             <Log />
 
-            <div className={styles.board}>
-                <div className={styles.col}>
+            {Object.entries(members).length < 2 &&
+                <p>
+                    Both players need to be online to continue the game. Click the
+                    "Link for Player {player === 1 ? 1 : 2}" link at the top to
+                    get a URL to share with another player.
+                </p>
+            }
+            {Object.entries(members).length === 2 &&
+                <Board char={char} myTurn={player === currentPlayer} />
+            }
 
-                    <C choices={[[char, '']]} tag="1x1" widget={DefaultList} />
-                    <R tag="1x1" to={{ "x": "X", "o": "O" }} />
 
-                </div>
-                <div className={styles.col}>
-
-                    <C choices={[[char, '']]} tag="1x2" widget={DefaultList} />
-                    <R tag="1x2" to={{ "x": "X", "o": "O" }} />
-                </div>
-                <div className={styles.col}>
-
-                    <C choices={[[char, '']]} tag="1x3" widget={DefaultList} />
-                    <R tag="1x3" to={{ "x": "X", "o": "O" }} />
-                </div>
-                <div className={styles.col}>
-
-                    <C choices={[[char, '']]} tag="2x1" widget={DefaultList} />
-                    <R tag="2x1" to={{ "x": "X", "o": "O" }} />
-                </div>
-                <div className={styles.col}>
-
-                    <C choices={[[char, '']]} tag="2x2" widget={DefaultList} />
-                    <R tag="2x2" to={{ "x": "X", "o": "O" }} />
-                </div>
-                <div className={styles.col}>
-
-                    <C choices={[[char, '']]} tag="2x3" widget={DefaultList} />
-                    <R tag="2x3" to={{ "x": "X", "o": "O" }} />
-                </div>
-                <div className={styles.col}>
-
-                    <C choices={[[char, '']]} tag="3x1" widget={DefaultList} />
-                    <R tag="3x1" to={{ "x": "X", "o": "O" }} />
-                </div>
-                <div className={styles.col}>
-
-                    <C choices={[[char, '']]} tag="3x2" widget={DefaultList} />
-                    <R tag="3x2" to={{ "x": "X", "o": "O" }} />
-                </div>
-                <div className={styles.col}>
-
-                    <C choices={[[char, '']]} tag="3x3" widget={DefaultList} />
-                    <R tag="3x3" to={{ "x": "X", "o": "O" }} />
-                </div>
-            </div>
 
         </Section>
 

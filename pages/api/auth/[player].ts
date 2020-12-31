@@ -23,7 +23,7 @@ export default (req: NextApiRequest, res: NextApiResponse): void => {
         const { channel_name, socket_id } = req.body
         const { player } = req.query
         const channelData = {
-            user_id: `${channel_name}--${player}`
+            user_id: `${player}--${channel_name}`
         }
         const auth = pusher.authenticate(socket_id, channel_name, channelData)
         res.send(auth)

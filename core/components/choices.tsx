@@ -7,7 +7,7 @@ import { initChoice, logAction, updateInventory, pickChoice, incrementSection, u
 import { ChapterContext } from "./chapter"
 import { useContext } from "react"
 
-interface ChoicesProps {
+export interface ChoicesProps {
     choices: ChoicesType
     tag: string
     nextUnit?: "chapter" | "section" | "none"

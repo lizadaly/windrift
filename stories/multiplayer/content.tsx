@@ -2,7 +2,7 @@ import * as React from "react"
 import { useSelector, useDispatch } from 'react-redux'
 
 import Image from 'next/image'
-import { useChannel, useEvent, usePresenceChannel } from "@harelpls/use-pusher"
+import { useChannel, useEvent } from "@harelpls/use-pusher"
 
 import { RootState } from 'core/reducers'
 import { resetGame } from 'core/util'
@@ -10,8 +10,8 @@ import { pickChoice, updateInventory } from "core/actions"
 import { Tag } from "core/types"
 import { logAction } from "core/actions/log"
 
-import styles from 'public/stories/multiplayer/Content.module.scss'
-
+import styles from 'public/stories/multiplayer/styles/Content.module.scss'
+import Presence from './components/presence'
 
 
 interface IndexProps {
@@ -44,7 +44,6 @@ const Content = ({ children }: IndexProps): JSX.Element => {
         }
     })
 
-    const { members } = usePresenceChannel(channelName)
 
 
 
@@ -70,7 +69,6 @@ const Content = ({ children }: IndexProps): JSX.Element => {
                         />
                     </button>
 
-
                 </div>
                 <div className={styles.controls}>
 
@@ -86,14 +84,7 @@ const Content = ({ children }: IndexProps): JSX.Element => {
                     {children}
                 </article>
                 <nav className={styles.right}>
-                    {<ul>
-                        {Object.entries(members)
-                            // map them to a list
-                            .map(([id, info]) => (
-                                <li key={id}>{id}</li>
-                            ))
-                        }
-                    </ul>}
+                    <Presence />
                 </nav>
             </main>
         </>
