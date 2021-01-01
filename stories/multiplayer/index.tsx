@@ -9,6 +9,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { initMultiplayer } from 'core/actions'
 import { Config, Multiplayer } from 'core/types'
 import { ActionCreators } from 'redux-undo'
+import { resetGame } from 'core/util'
 
 interface IndexProps {
     children: React.ReactNode
@@ -47,7 +48,7 @@ const Index = ({ children }: IndexProps): JSX.Element => {
         const channelName = query.get("channel")
         if (multiplayer.ready && channelName && multiplayer.channelName !== channelName) {
             console.log(`Clearing previous game for ${channelName}`)
-            multiplayer.ready = false
+            resetGame(null)
         }
         if (!multiplayer.ready) {
             dispatch(ActionCreators.clearHistory())

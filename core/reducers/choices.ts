@@ -52,7 +52,7 @@ export const choices = (
             }
             choiceState[action.tag] = {
                 choices: remainder,
-                initialChoices: state[action.tag].initialChoices
+                initialChoices: state[action.tag] ? state[action.tag].initialChoices : []
             }
             return choiceState
 
