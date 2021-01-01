@@ -26,6 +26,7 @@ interface GameProps {
 }
 
 const Game = ({ story }: GameProps): JSX.Element => {
+
     const toc = useSelector((state: RootState) => state.toc.present)
     const [components] = React.useState(() => chapterComponents(toc, story))
     return <div className="game">

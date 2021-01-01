@@ -114,11 +114,15 @@ $white: rgb(250, 250, 250);
     height: 100vh;
     background: $white;
 
-    grid-template-columns: $left-right-width 5fr $left-right-width;
+    grid-template-columns: $left-right-width 1fr 1fr;
     grid-template-areas: "left"
                          "content"
                          "right";
 
+
+    h1, h2, h3, h4, h5, h6, p {
+        font-family: 'EB Garamond', serif;
+    }
     .left {
         height: 100vh;
     }
@@ -126,7 +130,6 @@ $white: rgb(250, 250, 250);
         padding-top: $article-margin;
         height: 100vh;
 
-        font-family: 'EB Garamond', serif;
         font-size: 1.2rem;
 
         h1, h2, h3, h4, h5, h6 {
@@ -143,6 +146,8 @@ $white: rgb(250, 250, 250);
     }
     .right {
         height: 100vh;
+        padding-top: $article-margin;
+        padding-right: $article-margin;
 
     }
 }

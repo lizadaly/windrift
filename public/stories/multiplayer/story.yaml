@@ -4,3 +4,4 @@ chapters:
     filename: "game"
     visible: true
     title: "Tic-Tac-Toe"
+enableUndo: false

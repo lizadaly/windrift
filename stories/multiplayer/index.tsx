@@ -8,11 +8,13 @@ import Content from "./content"
 import { v4 as uuidv4 } from 'uuid'
 import { initMultiplayer } from 'core/actions'
 import { Config, Multiplayer } from 'core/types'
-import { ActionCreators } from 'redux-undo'
 import { resetGame } from 'core/util'
+import { StoryContext } from 'pages/[story]'
+import { useContext } from 'react'
 
 interface IndexProps {
-    children: React.ReactNode
+    children: React.ReactNode,
+
 }
 
 const populateMultiplayer = (player: number, multiplayer: Multiplayer, config: Config, channelName?: string): void => {
@@ -36,9 +38,12 @@ const populateMultiplayer = (player: number, multiplayer: Multiplayer, config: C
 }
 
 const Index = ({ children }: IndexProps): JSX.Element => {
-    const config = useSelector((state: RootState) => state.config)
-    const multiplayer = useSelector((state: RootState) => state.multiplayer)
     const query = new URLSearchParams(window.location.search)
+    const config = useSelector((state: RootState) => state.config)
+    const persistor = useContext(StoryContext)
+
+    const multiplayer = useSelector((state: RootState) => state.multiplayer)
+
 
     // If we got channel and player number via query params, we're not the game host
     const player = parseInt(query.get("player")) || 1
@@ -46,12 +51,12 @@ const Index = ({ children }: IndexProps): JSX.Element => {
 
     React.useEffect(() => {
         const channelName = query.get("channel")
-        if (multiplayer.ready && channelName && multiplayer.channelName !== channelName) {
+        if (channelName && multiplayer.channelName !== channelName) {
             console.log(`Clearing previous game for ${channelName}`)
-            resetGame(null)
+            resetGame(false, persistor)
+            return null
         }
         if (!multiplayer.ready) {
-            dispatch(ActionCreators.clearHistory())
             populateMultiplayer(player, multiplayer, config, channelName)
             dispatch(initMultiplayer(multiplayer))
             if (player === 1) {

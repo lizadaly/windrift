@@ -21,7 +21,9 @@ class GameContainer extends React.Component<GameProps> {
     }
     componentDidMount() {
         // On the first mount, also jump from the history
-        this.jumpFromHistory()
+        if (this.props.enableUndo) {
+            this.jumpFromHistory()
+        }
     }
     jumpFromHistory() {
         const browserState = window.history.state

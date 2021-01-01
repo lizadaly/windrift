@@ -12,6 +12,11 @@ import { logAction } from "core/actions/log"
 
 import styles from 'public/stories/multiplayer/styles/Content.module.scss'
 import Presence from './components/presence'
+import Log from "./components/log"
+import { Router, useRouter } from "next/router"
+import { useContext } from "react"
+import { StoryContext } from "pages/[story]"
+import { purgeStoredState } from "redux-persist"
 
 
 interface IndexProps {
@@ -44,8 +49,7 @@ const Content = ({ children }: IndexProps): JSX.Element => {
         }
     })
 
-
-
+    const persistor = useContext(StoryContext)
 
     return (
         <><header className={styles.header}>
@@ -72,7 +76,9 @@ const Content = ({ children }: IndexProps): JSX.Element => {
                 </div>
                 <div className={styles.controls}>
 
-                    <button onClick={resetGame}>Reset</button>
+                    <button onClick={() => {
+                        resetGame(true, persistor)
+                    }}>Reset</button>
                 </div>
             </nav>
         </header>
@@ -85,6 +91,7 @@ const Content = ({ children }: IndexProps): JSX.Element => {
                 </article>
                 <nav className={styles.right}>
                     <Presence />
+                    <Log />
                 </nav>
             </main>
         </>

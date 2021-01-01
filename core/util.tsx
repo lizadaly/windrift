@@ -25,20 +25,27 @@ export const wordFromInventory = (inventory: string, offset = -1): string => {
 
 
 
-const message = 'Restart the story from the beginning?'
 
 /* Reset the game and remove the local storage */
-export const resetGame = (event: MouseEvent<HTMLButtonElement | HTMLAnchorElement>): void => {
-    event.preventDefault()
+export const resetGame = (userInitiated: boolean, persistor): void => {
 
-    const conf = window.confirm(message) // eslint-disable-line no-alert
-    if (conf) {
-        localForage.dropInstance().then(() =>
+    if (userInitiated) {
+        const message = 'Restart the story from the beginning?'
+        persistor.flush().then(() => {
+            persistor.pause()
+            localStorage.clear()
             window.location.replace(window.location.pathname)
-        )
+        })
+    }
+    else {
+        persistor.flush().then(() => {
+            persistor.pause()
+            localStorage.clear()
+            window.location.reload()
+        })
+
     }
 }
-
 export const getChapter = (toc: Toc, filename: string): TocItem => (
     Object.values(toc).filter(c => c.filename === filename)[0]
 )

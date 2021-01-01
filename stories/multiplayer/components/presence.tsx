@@ -9,7 +9,13 @@ const Presence: React.FC = (): JSX.Element => {
     const { channelName } = useSelector((state: RootState) =>
         state.multiplayer)
     const { members } = usePresenceChannel(channelName)
+
+    if (!channelName) {
+        return null
+    }
     return <>
+        <h2>Players online</h2>
+        <p>{channelName.slice(-5)}</p>
         <ol className={styles.userList}>
             <li>
                 <span className={`1--${channelName}` in members ? styles.active : styles.inactive}>

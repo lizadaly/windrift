@@ -35,7 +35,6 @@ const Page: PageType = () => {
                 It is {currentPlayer === player ? "your" : "the other player's"} turn.
             </p>
 
-            <Log />
 
             {Object.entries(members).length < 2 &&
                 <p>

@@ -11,7 +11,7 @@ import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import { persistStore, persistReducer } from 'redux-persist'
 import { PersistGate } from 'redux-persist/integration/react'
-import * as localForage from "localforage"
+import storage from 'redux-persist/lib/storage'
 import reducers from 'core/reducers'
 import { composeWithDevTools } from 'redux-devtools-extension';
 import dynamic from 'next/dynamic'
@@ -34,9 +34,10 @@ export const getStaticProps: GetStaticProps = async (context) => {
       filename: item["filename"],
       visible: item["visible"] || false,
       title: item["title"],
-      bookmark: 0
+      bookmark: 0,
     }
   ))
+
   const env = Object.keys(process.env).filter(key => key.startsWith("NEXT_PUBLIC")).
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     reduce((res: any = {}, key) => {
@@ -59,6 +60,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
   return { paths, fallback: false }
 }
 
+export const StoryContext = React.createContext(undefined)
+
 export default function Home(props: WindriftProps): JSX.Element {
   const router = useRouter()
   const { story } = router.query
@@ -68,7 +71,7 @@ export default function Home(props: WindriftProps): JSX.Element {
 
   const persistConfig = {
     key: config.identifier,
-    storage: localForage,
+    storage: storage
   }
 
   const persistedReducers = persistReducer(persistConfig, reducers)
@@ -82,14 +85,15 @@ export default function Home(props: WindriftProps): JSX.Element {
   const persistor = persistStore(store)
 
   const Index = dynamic(() => import(`../stories/${story}/index.tsx`))
-
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor}>
         <GameContainer>
-          <Index>
-            <Game story={story as string} />
-          </Index>
+          <StoryContext.Provider value={persistor}>
+            <Index>
+              <Game story={story as string} />
+            </Index>
+          </StoryContext.Provider>
         </GameContainer>
       </PersistGate>
     </Provider>

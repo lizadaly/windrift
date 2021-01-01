@@ -25,7 +25,7 @@ const Index: React.FC = ({ children }): JSX.Element => {
                         {config.title}
                     </h1>
                     <div className={styles.controls}>
-                        <button onClick={resetGame}>Reset</button>
+                        <button onClick={() => resetGame}>Reset</button>
                     </div>
                 </nav>
             </header>
