@@ -1,5 +1,6 @@
 import * as React from "react"
-import { ChoicesType, WidgetType } from 'core/types'
+import { WidgetType } from 'core/types'
+import { ChoicesType } from 'core/actions/choices'
 import { RootState } from "core/reducers"
 import { useSelector, useDispatch } from 'react-redux'
 import InlineList from "./widgets/inline-list"

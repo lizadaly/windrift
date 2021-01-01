@@ -1,6 +1,3 @@
-export const UPDATE_INVENTORY = 'UPDATE_INVENTORY'
-export const PICK_CHOICE = 'PICK_CHOICE'
-export const INIT_CHOICE = 'INIT_CHOICE'
 export const UPDATE_STATE_COUNTER = 'UPDATE_STATE_COUNTER'
 export const INIT_CONFIG = "INIT_CONFIG"
 export const INCREMENT_SECTION = 'INCREMENT_SECTION'
@@ -9,49 +6,7 @@ export const COUNT_SECTION = 'COUNT_SECTION'
 export const INIT_MULTIPLAYER = 'INIT_MULTIPLAYER'
 export const LOG_ACTION = "LOG_ACTION"
 
-/* Inventory */
-export type Selection = string
 export type Tag = string
-
-export interface Inventory {
-    [tag: string]: string
-}
-
-interface UpdateInventoryAction {
-    type: typeof UPDATE_INVENTORY
-    tag: Tag,
-    sel: Selection,
-}
-export type UpdateInventoryTypes = UpdateInventoryAction
-
-/* Choices */
-
-export type Choice = string
-export type ChoiceGroup = Array<Choice>
-export type ChoicesType = Array<ChoiceGroup>
-
-export interface RemainingChoices {
-    [tag: string]: {
-        choices: ChoicesType
-        readonly initialChoices: ChoicesType
-    }
-}
-
-interface ChoicePickAction {
-    type: typeof PICK_CHOICE
-    choices: ChoicesType
-    index: number
-    tag: Tag
-    player?: number
-}
-export type ChoicePickType = ChoicePickAction
-
-interface ChoiceInitAction {
-    type: typeof INIT_CHOICE
-    choices: ChoicesType
-    tag: Tag
-}
-export type ChoiceInitType = ChoiceInitAction
 
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -95,7 +50,8 @@ export class Config {
     readonly title: string
     readonly enableUndo: boolean
     readonly env: Record<string, unknown>
-    constructor(identifier: string, title: string, pagination = "scrolling", enableUndo = true, env) {
+    constructor(identifier: string, title: string,
+        pagination = "scrolling", enableUndo = true, env: Record<string, unknown>) {
         this.identifier = identifier
         this.title = title
         this.pagination = pagination
@@ -120,12 +76,12 @@ export class Multiplayer {
     ready: boolean // True when all the params have been initialized
     player: number
 
-    constructor(clientKey: string, cluster: string, channelName: string, gameUrl: string, player: number,
+    constructor(clientKey: string, cluster: string, channelName: string,
+        gameUrl: string, player: number,
         authEndpoint: string, ready: boolean,) {
         this.clientKey = clientKey
         this.cluster = cluster
         this.authEndpoint = authEndpoint
-
         this.channelName = channelName
         this.gameUrl = gameUrl
         this.ready = ready

@@ -1,11 +1,15 @@
 import undoable, { excludeAction } from 'redux-undo'
 import cloneDeep from 'lodash.clonedeep'
 
-import { ChoicePickType, RemainingChoices, PICK_CHOICE, INIT_CHOICE, ChoiceInitType } from 'core/types'
+import {
+    PICK_CHOICE, INIT_CHOICE, CLEAR_CHOICES,
+    ChoicePickType, RemainingChoices,
+    ChoiceInitType, ChoicesClearType,
+} from 'core/actions/choices'
 
 export const choices = (
     state: RemainingChoices = {},
-    action: ChoicePickType | ChoiceInitType): RemainingChoices => {
+    action: ChoicePickType | ChoiceInitType | ChoicesClearType): RemainingChoices => {
 
     switch (action.type) {
 
@@ -16,6 +20,9 @@ export const choices = (
                 initialChoices: action.choices
             }
             return newState
+
+        case CLEAR_CHOICES:
+            return state
 
         case PICK_CHOICE:
             const choiceState = cloneDeep(state)
