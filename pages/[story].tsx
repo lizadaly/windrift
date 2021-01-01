@@ -11,7 +11,7 @@ import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import { persistStore, persistReducer } from 'redux-persist'
 import { PersistGate } from 'redux-persist/integration/react'
-import storage from 'redux-persist/lib/storage'
+import * as localForage from "localforage"
 import reducers from 'core/reducers'
 import { composeWithDevTools } from 'redux-devtools-extension';
 import dynamic from 'next/dynamic'
@@ -68,7 +68,7 @@ export default function Home(props: WindriftProps): JSX.Element {
 
   const persistConfig = {
     key: config.identifier,
-    storage,
+    storage: localForage,
   }
 
   const persistedReducers = persistReducer(persistConfig, reducers)

@@ -1,5 +1,6 @@
 import { MouseEvent } from 'react'
 import { Toc, TocItem } from 'core/types'
+import * as localForage from "localforage"
 
 /* A function that returns the most-significant word from a phrase,
 typically in the inventory list (e.g. "a tired-looking cap"). Nothing
@@ -32,8 +33,9 @@ export const resetGame = (event: MouseEvent<HTMLButtonElement | HTMLAnchorElemen
 
     const conf = window.confirm(message) // eslint-disable-line no-alert
     if (conf) {
-        localStorage.clear()
-        window.location.replace(window.location.href)
+        localForage.dropInstance().then(() =>
+            window.location.replace(window.location.pathname)
+        )
     }
 }
 

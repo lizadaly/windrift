@@ -20,7 +20,6 @@ const Page: PageType = () => {
         currentPlayer = last.player === 1 ? 2 : 1
     }
     const char = player === 1 ? "X" : "O"
-    console.log(player, char)
     return <Chapter filename="game">
         <Section>
             <style global jsx>{`

@@ -4,7 +4,6 @@ import { RootState } from '../../core/reducers'
 import { useSelector } from 'react-redux'
 
 import { resetGame } from '../../core/util'
-
 import styles from '../../public/stories/demo/Index.module.scss'
 
 const Index: React.FC = ({ children }): JSX.Element => {

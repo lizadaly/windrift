@@ -6,6 +6,7 @@ import {
     ChoicePickType, RemainingChoices,
     ChoiceInitType, ChoicesClearType,
 } from 'core/actions/choices'
+import { CLEAR_INVENTORY } from 'core/actions/inventory'
 
 export const choices = (
     state: RemainingChoices = {},
@@ -60,4 +61,8 @@ export const choices = (
     }
 }
 
-export default undoable(choices, { filter: excludeAction(INIT_CHOICE) })
+export default undoable(choices,
+    {
+        filter: excludeAction(INIT_CHOICE),
+        initTypes: [CLEAR_CHOICES]
+    })

@@ -29,4 +29,4 @@ export const inventoryReducer = (
             return state
     }
 }
-export default undoable(inventoryReducer)
+export default undoable(inventoryReducer, { initTypes: [CLEAR_INVENTORY] })
