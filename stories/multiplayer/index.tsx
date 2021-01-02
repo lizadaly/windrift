@@ -8,9 +8,7 @@ import Content from "./content"
 import { v4 as uuidv4 } from 'uuid'
 import { initMultiplayer } from 'core/actions'
 import { Config, Multiplayer } from 'core/types'
-import { resetGame } from 'core/util'
-import { StoryContext } from 'pages/[story]'
-import { useContext } from 'react'
+import { useState } from 'react'
 
 interface IndexProps {
     children: React.ReactNode,
@@ -38,33 +36,18 @@ const populateMultiplayer = (player: number, multiplayer: Multiplayer, config: C
 }
 
 const Index = ({ children }: IndexProps): JSX.Element => {
-    const query = new URLSearchParams(window.location.search)
     const config = useSelector((state: RootState) => state.config)
-    const persistor = useContext(StoryContext)
-
     const multiplayer = useSelector((state: RootState) => state.multiplayer)
+    const [channel, setChannel] = useState("")
 
 
-    // If we got channel and player number via query params, we're not the game host
-    const player = parseInt(query.get("player")) || 1
     const dispatch = useDispatch()
 
-    React.useEffect(() => {
-        const channelName = query.get("channel")
-        if (channelName && multiplayer.channelName !== channelName) {
-            console.log(`Clearing previous game for ${channelName}`)
-            resetGame(false, persistor)
-            return null
-        }
-        if (!multiplayer.ready) {
-            populateMultiplayer(player, multiplayer, config, channelName)
-            dispatch(initMultiplayer(multiplayer))
-            if (player === 1) {
-                // Notify the user that they need to invite a friend
-                alert(`To begin the story, send the other player ${multiplayer.gameUrl}?channel=${multiplayer.channelName}&player=2&init=true`)
-            }
-        }
-    }, [dispatch])
+    const handleSubmit = (e) => {
+        populateMultiplayer(2, multiplayer, config, channel)
+        dispatch(initMultiplayer(multiplayer))
+        e.preventDefault()
+    }
 
     return (
         <>
@@ -87,11 +70,27 @@ const Index = ({ children }: IndexProps): JSX.Element => {
                     </Content>
                 </PusherProvider>
                     : <Content>
-                        {children}
+                        <h1>Start or join a game</h1>
+                        <button onClick={() => {
+                            populateMultiplayer(1, multiplayer, config)
+                            dispatch(initMultiplayer(multiplayer))
+                            alert(`To begin the story, send the other player ${multiplayer.channelName}`)
+                        }
+                        }
+                        >
+                            Start a new game
+                        </button>
+                        or ...
+                        <form onSubmit={handleSubmit}>
+                            <label>
+                                Join a game:
+                            <input type="text" placeholder={"Channel name"} value={channel} onChange={e => setChannel(e.target.value)} />
+                            </label>
+                            <input type="submit" value="Submit" />
+                        </form>
                     </Content>
+
             }
-
-
         </>
     )
 }

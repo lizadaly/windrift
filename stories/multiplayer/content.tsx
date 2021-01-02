@@ -13,10 +13,8 @@ import { logAction } from "core/actions/log"
 import styles from 'public/stories/multiplayer/styles/Content.module.scss'
 import Presence from './components/presence'
 import Log from "./components/log"
-import { Router, useRouter } from "next/router"
 import { useContext } from "react"
 import { StoryContext } from "pages/[story]"
-import { purgeStoredState } from "redux-persist"
 
 
 interface IndexProps {
@@ -39,7 +37,7 @@ const Content = ({ children }: IndexProps): JSX.Element => {
     const dispatch = useDispatch()
     const channel = useChannel(channelName)
     useEvent(channel, "choose", ({ tag, choice, player, timestamp }: ApiChoice) => {
-        // Dispatch events from other players
+        // Dispatch events from other player
         const eventPlayer = parseInt(player)
         const eventTimestamp = new Date(timestamp)
         if (currentPlayer !== eventPlayer) {
@@ -61,10 +59,8 @@ const Content = ({ children }: IndexProps): JSX.Element => {
                     You are player {currentPlayer} ⟶
                     </div>
                 <div className={styles.share}>
-
-
                     <button className={styles.clipboard} onClick={() =>
-                        navigator.clipboard.writeText(`${multiplayer.gameUrl}?channel=${multiplayer.channelName}&player=2`)}>
+                        navigator.clipboard.writeText(multiplayer.channelName)}>
                         <span>Link for player {otherPlayer}</span>
                         <Image src="/images/clipboard.svg"
                             width={25}
@@ -72,7 +68,6 @@ const Content = ({ children }: IndexProps): JSX.Element => {
                             alt="Copy to clipboard"
                         />
                     </button>
-
                 </div>
                 <div className={styles.controls}>
 
@@ -90,8 +85,11 @@ const Content = ({ children }: IndexProps): JSX.Element => {
                     {children}
                 </article>
                 <nav className={styles.right}>
-                    <Presence />
-                    <Log />
+                    {multiplayer.ready && <>
+                        <Presence />
+                        <Log />
+                    </>
+                    }
                 </nav>
             </main>
         </>

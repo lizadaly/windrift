@@ -15,7 +15,7 @@ const Presence: React.FC = (): JSX.Element => {
     }
     return <>
         <h2>Players online</h2>
-        <p>{channelName.slice(-5)}</p>
+        <p>{channelName}</p>
         <ol className={styles.userList}>
             <li>
                 <span className={`1--${channelName}` in members ? styles.active : styles.inactive}>
