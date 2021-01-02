@@ -4,7 +4,6 @@ import { usePresenceChannel } from '@harelpls/use-pusher'
 
 import { Section, Chapter } from 'core/components'
 import { PageType } from 'core/types'
-import Log from '../components/log'
 import Board from '../components/board'
 
 const Page: PageType = () => {
@@ -39,8 +38,8 @@ const Page: PageType = () => {
             {Object.entries(members).length < 2 &&
                 <p>
                     Both players need to be online to continue the game. Click the
-                    "Link for Player {player === 1 ? 1 : 2}" link at the top to
-                    get a URL to share with another player.
+                    "Share channel with {player === 1 ? 1 : 2}" button at the top to
+                    put the channel name in your clipboard, then send that to a friend.
                 </p>
             }
             {Object.entries(members).length === 2 &&

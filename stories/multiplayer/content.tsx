@@ -55,26 +55,30 @@ const Content = ({ children }: IndexProps): JSX.Element => {
                 <h1>
                     {config.title}
                 </h1>
-                <div className={styles.player}>
-                    You are player {currentPlayer} ⟶
+                {
+                    currentPlayer && <>
+                        <div className={styles.player}>
+                            You are player {currentPlayer} ⟶
                     </div>
-                <div className={styles.share}>
-                    <button className={styles.clipboard} onClick={() =>
-                        navigator.clipboard.writeText(multiplayer.channelName)}>
-                        <span>Link for player {otherPlayer}</span>
-                        <Image src="/images/clipboard.svg"
-                            width={25}
-                            height={25}
-                            alt="Copy to clipboard"
-                        />
-                    </button>
-                </div>
-                <div className={styles.controls}>
+                        <div className={styles.share}>
+                            <button className={styles.clipboard} onClick={() =>
+                                navigator.clipboard.writeText(multiplayer.channelName)}>
+                                <span>Share channel with player {otherPlayer}</span>
+                                <Image src="/images/clipboard.svg"
+                                    width={25}
+                                    height={25}
+                                    alt="Copy to clipboard"
+                                />
+                            </button>
+                        </div>
+                        <div className={styles.controls}>
+                            <button onClick={() => {
+                                resetGame(true, persistor)
+                            }}>Reset</button>
+                        </div>
+                    </>
+                }
 
-                    <button onClick={() => {
-                        resetGame(true, persistor)
-                    }}>Reset</button>
-                </div>
             </nav>
         </header>
             <main className={styles.main} id="multiplayer-demo">

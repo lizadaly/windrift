@@ -5,6 +5,7 @@ import { usePresenceChannel } from "@harelpls/use-pusher"
 
 import styles from 'public/stories/multiplayer/styles/Presence.module.scss'
 
+
 const Presence: React.FC = (): JSX.Element => {
     const { channelName } = useSelector((state: RootState) =>
         state.multiplayer)
@@ -15,16 +16,16 @@ const Presence: React.FC = (): JSX.Element => {
     }
     return <>
         <h2>Players online</h2>
-        <p>{channelName}</p>
+        <p>Channel name: {channelName}</p>
         <ol className={styles.userList}>
             <li>
                 <span className={`1--${channelName}` in members ? styles.active : styles.inactive}>
-                    Player 1
+                    Player 1 is {`1--${channelName}` in members ? "online" : "offline"}
                 </span>
             </li>
             <li>
                 <span className={`2--${channelName}` in members ? styles.active : styles.inactive}>
-                    Player 2
+                    Player 2 {`2--${channelName}` in members ? "online" : "offline"}
                 </span>
             </li>
         </ol>

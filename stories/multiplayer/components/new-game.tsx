@@ -1,4 +1,4 @@
-import { PusherProviderProps } from "@harelpls/use-pusher"
+import { PusherProviderProps, usePusher } from "@harelpls/use-pusher"
 import { Config, Multiplayer } from "core/types"
 import { useState } from "react"
 import { useDispatch } from "react-redux"
@@ -36,12 +36,16 @@ interface NewGameProps {
 const NewGame = ({ multiplayer, config }: NewGameProps): JSX.Element => {
     const [channel, setChannel] = useState("")
 
-
     const dispatch = useDispatch()
 
     const handleSubmit = (e) => {
-        populateMultiplayer(2, multiplayer, config, channel)
-        dispatch(initMultiplayer(multiplayer))
+        if (channel.startsWith("presence-")) {
+            populateMultiplayer(2, multiplayer, config, channel)
+            dispatch(initMultiplayer(multiplayer))
+        }
+        else {
+            alert("Multiplayer channel names start with 'presence-`")
+        }
         e.preventDefault()
     }
     return <div>
