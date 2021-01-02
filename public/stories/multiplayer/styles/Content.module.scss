@@ -123,9 +123,44 @@ $white: rgb(250, 250, 250);
     h1, h2, h3, h4, h5, h6, p {
         font-family: 'EB Garamond', serif;
     }
+    button {
+        display: inline-block;
+        margin-right: $gutter;
+        background: $button;
+        color: $light-gray;
+        border: 0;
+        box-shadow: none;
+        border-radius: 0;
+        font-size: 1rem;
+        text-transform: uppercase;
+        padding: 10px;
+    }
+    input {
+        display: inline-block;
+        margin-right: $gutter;
+        border: 1px solid $silver;
+        box-shadow: none;
+        border-radius: 0;
+        font-size: 1rem;
+        text-transform: uppercase;
+        padding: 10px;
+    }
+    input[type=submit] {
+
+        background: $silver;
+        color: $light-gray;
+        border: 0;
+        box-shadow: none;
+        border-radius: 0;
+        font-size: 1rem;
+        text-transform: uppercase;
+        padding: 10px;
+    }
+
     .left {
         height: 100vh;
     }
+
     .article {
         padding-top: $article-margin;
         height: 100vh;
