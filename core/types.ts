@@ -1,3 +1,5 @@
+import { Selection } from "./actions/inventory"
+
 export const UPDATE_STATE_COUNTER = 'UPDATE_STATE_COUNTER'
 export const INIT_CONFIG = "INIT_CONFIG"
 export const INCREMENT_SECTION = 'INCREMENT_SECTION'
