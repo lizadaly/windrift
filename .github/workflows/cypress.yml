@@ -13,5 +13,5 @@ jobs:
         with:
           start: npm run dev
           # quote the url to be safe against YML parsing surprises
-          wait-on: 'http://localhost:3000'
+          wait-on: 'http://localhost:3000/demo'
           quiet: true
