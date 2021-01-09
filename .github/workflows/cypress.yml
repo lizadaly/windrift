@@ -11,9 +11,7 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
-          start:
-            npm run build
-            npm run start
+          start: npm run start
           # quote the url to be safe against YML parsing surprises
           wait-on: 'http://localhost:3000/demo'
           quiet: true
