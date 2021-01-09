@@ -80,12 +80,20 @@ $white: rgb(250, 250, 250);
             line-height: 3rem;
             color: $rusted-gold;
         }
+        h2 {
+            font-size: 1.3rem;
+            color: complement($rusted-gold);
+        }
         p {
+            margin: 1rem 0;
             line-height: 1.5rem;
 
         }
         a {
             color: $silver;
+        }
+        ul, ol {
+            margin-left: 2rem;
         }
     }
     .right {

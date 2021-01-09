@@ -1,28 +1,33 @@
-import { C, R, Section, Chapter } from 'core/components'
+import { C, Section, Chapter } from 'core/components'
 import { BulletedList } from 'core/components/widgets'
 import { PageType } from 'core/types'
 
 const Page: PageType = () => <Chapter filename="chapter1">
-    <Section>
-        <h1>Chapter 1</h1>
-        Would you like a <C choices={[['banana', 'orange', 'kiwi']]}
-            extra={{ conjunction: "or" }} tag="fruit" />
 
-        <div>
-            <R tag="fruit" to={{
-                "banana": <p>You picked <b>a nice</b> banana</p>,
-                "orange": "You picked orange",
-                "kiwi": "You picked kiwi",
-            }} />
-        </div>
+    <Section>
+        <h1>Chapter 1: Choices</h1>
+
+        <h2>Default widget: inline</h2>
+        <p>
+            This will display each choice inline, leaving behind the
+            chosen one.
+        </p>
+        Would you like a <C choices={[['banana', 'orange', 'kiwi']]}
+            extra={{ conjunction: "or" }} tag="fruit" />?
 
     </Section>
     <Section>
-        <h2>Section 2</h2>
+        <h2>Bulleted list widget</h2>
         <p>
-            hello world.
+            This will display each item as a bulleted list, like a
+            menu. All items will remain onscreen after the choice.
+
         </p>
-        <C choices={[["sec2", "sec2-2"]]} tag="bar" nextUnit="chapter" widget={BulletedList} />
+        <p>
+            What is your favorite kind of tree?
+        </p>
+        <C choices={[["poplar", "elm", "baobab"]]} tag="tree" nextUnit="chapter"
+            widget={BulletedList} />
     </Section>
 
 
