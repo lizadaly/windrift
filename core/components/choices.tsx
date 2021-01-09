@@ -1,5 +1,5 @@
 import * as React from "react"
-import { WidgetType } from 'core/types'
+import { TocItem, WidgetType } from 'core/types'
 import { ChoicesType } from 'core/actions/choices'
 import { RootState } from "core/reducers"
 import { useSelector, useDispatch } from 'react-redux'
@@ -21,7 +21,7 @@ const Choices = ({ choices, tag, extra, widget = InlineList, nextUnit = "section
     const { channelName, player } = useSelector((state: RootState) =>
         state.multiplayer)
     const dispatch = useDispatch()
-    const item = useContext(ChapterContext)
+    const item: TocItem = useContext(ChapterContext)
     const newChoices = useSelector((state: RootState) => {
         const c = state.choices.present
         if (c && tag in c) {

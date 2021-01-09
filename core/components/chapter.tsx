@@ -8,7 +8,6 @@ import { getChapter } from 'core/util'
 export const ChapterContext = React.createContext(undefined)
 
 const Chapter = ({ children, filename }: ChapterType): JSX.Element => {
-
     const item = useSelector((state: RootState) => getChapter(state.toc.present, filename))
     const dispatch = useDispatch()
 

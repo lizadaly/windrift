@@ -1,9 +1,12 @@
-import * as React from "react"
-import { C } from '../../../core/components'
+import { C, Section, Chapter } from 'core/components'
+import { PageType } from 'core/types'
 
-const Chapter = (): JSX.Element => <section>
+
+const Page: PageType = () => <Chapter filename="chapter2">
+    <Section>
     <h1>Chapter 2</h1>
     <C choices={[["dog", "cat"]]} tag="chapter-2" />
-</section>
+    </Section>
+</Chapter>
 
-export default Chapter
+export default Page

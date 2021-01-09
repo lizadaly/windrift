@@ -1,4 +1,4 @@
-import undoable, { excludeAction } from 'redux-undo'
+import undoable from 'redux-undo'
 import cloneDeep from 'lodash.clonedeep'
 
 import {

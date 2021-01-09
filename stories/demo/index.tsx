@@ -5,9 +5,11 @@ import { useSelector } from 'react-redux'
 
 import { resetGame } from '../../core/util'
 import styles from '../../public/stories/demo/Index.module.scss'
+import { StoryContext } from 'pages/[story]'
 
 const Index: React.FC = ({ children }): JSX.Element => {
     const config = useSelector((state: RootState) => state.config)
+    const persistor = React.useContext(StoryContext)
 
     return (
         <>
@@ -25,7 +27,7 @@ const Index: React.FC = ({ children }): JSX.Element => {
                         {config.title}
                     </h1>
                     <div className={styles.controls}>
-                        <button onClick={() => resetGame}>Reset</button>
+                        <button onClick={() => resetGame(true, persistor)}>Reset</button>
                     </div>
                 </nav>
             </header>
