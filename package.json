@@ -11,6 +11,7 @@
     "vercel": "vercel",
     "cy:open": "cypress open",
     "cy:run": "cypress run"
+
   },
   "dependencies": {
     "@harelpls/use-pusher": "^7.1.0",

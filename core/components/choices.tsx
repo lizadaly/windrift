@@ -1,5 +1,5 @@
 import * as React from "react"
-import { TocItem, WidgetType } from 'core/types'
+import { ChapterType, PageType, TocItem, WidgetType } from 'core/types'
 import { ChoicesType } from 'core/actions/choices'
 import { RootState } from "core/reducers"
 import { useSelector, useDispatch } from 'react-redux'
@@ -7,17 +7,18 @@ import InlineList from "./widgets/inline-list"
 import { initChoice, logAction, updateInventory, pickChoice, incrementSection, updateStateCounter, showNextChapter } from "core/actions"
 import { ChapterContext } from "./chapter"
 import { useContext } from "react"
+import { gotoChapter, Next } from "core/actions/navigation"
 
 export interface ChoicesProps {
     choices: ChoicesType
     tag: string
-    nextUnit?: "chapter" | "section" | "none"
+    next?: Next | string,
     widget?: WidgetType
     extra?: Record<string, unknown>
 }
 
 
-const Choices = ({ choices, tag, extra, widget = InlineList, nextUnit = "section" }: ChoicesProps): JSX.Element => {
+const Choices = ({ choices, tag, extra, widget = InlineList, next = Next.Section }: ChoicesProps): JSX.Element => {
     const { channelName, player } = useSelector((state: RootState) =>
         state.multiplayer)
     const dispatch = useDispatch()
@@ -68,11 +69,17 @@ const Choices = ({ choices, tag, extra, widget = InlineList, nextUnit = "section
         }
 
         if (choices.length === 1) {
-            if (nextUnit === "section") {
+            if (next === Next.Section) {
                 dispatch(incrementSection(item))
             }
-            if (nextUnit === "chapter") {
+            else if (next === Next.Chapter) {
                 dispatch(showNextChapter(item))
+            }
+            else if (next === Next.None) {
+                // no-op
+            }
+            else if (typeof next === "string") {
+                dispatch(gotoChapter(next))
             }
         }
         const s = {}

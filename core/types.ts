@@ -2,9 +2,6 @@ import { Selection } from "./actions/inventory"
 
 export const UPDATE_STATE_COUNTER = 'UPDATE_STATE_COUNTER'
 export const INIT_CONFIG = "INIT_CONFIG"
-export const INCREMENT_SECTION = 'INCREMENT_SECTION'
-export const SHOW_NEXT_CHAPTER = 'SHOW_NEXT_CHAPTER'
-export const COUNT_SECTION = 'COUNT_SECTION'
 export const INIT_MULTIPLAYER = 'INIT_MULTIPLAYER'
 export const LOG_ACTION = "LOG_ACTION"
 
@@ -23,26 +20,6 @@ interface UpdateStateCounterAction {
 }
 export type UpdateStateCounterType = UpdateStateCounterAction
 
-/* Section counter */
-interface IncrementSectionAction {
-    type: typeof INCREMENT_SECTION
-    item: TocItem
-}
-export type IncrementSectionType = IncrementSectionAction
-
-interface CountSectionAction {
-    type: typeof COUNT_SECTION,
-    item: TocItem,
-    count: number
-}
-export type CountSectionType = CountSectionAction
-
-/* Chapter navigation */
-interface ShowNextChapterAction {
-    type: typeof SHOW_NEXT_CHAPTER
-    item: TocItem
-}
-export type ShowNextChapterType = ShowNextChapterAction
 
 
 /* Config */

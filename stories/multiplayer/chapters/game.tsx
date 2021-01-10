@@ -6,7 +6,7 @@ import { Section, Chapter } from 'core/components'
 import { PageType } from 'core/types'
 import Board from '../components/board'
 
-const Page: PageType = () => {
+export const Page: PageType = () => {
     const { player, channelName } = useSelector((state: RootState) =>
         state.multiplayer)
     const { members } = usePresenceChannel(channelName)
@@ -53,4 +53,3 @@ const Page: PageType = () => {
     </Chapter >
 }
 
-export default Page

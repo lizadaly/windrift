@@ -7,3 +7,9 @@ chapters:
   - chapter:
     filename: "chapter2"
     title: "Chapter Two"
+  - chapter:
+    filename: "chapter3"
+    title: "Chapter Three"
+  - chapter:
+    filename: "chapter4"
+    title: "Chapter Four"
