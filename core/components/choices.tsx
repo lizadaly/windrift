@@ -1,13 +1,15 @@
 import * as React from "react"
+import { useSelector, useDispatch } from 'react-redux'
+
 import { TocItem, WidgetType } from 'core/types'
 import { ChoicesType } from 'core/actions/choices'
 import { RootState } from "core/reducers"
-import { useSelector, useDispatch } from 'react-redux'
-import InlineList from "./widgets/inline-list"
-import { initChoice, logAction, updateInventory, pickChoice, incrementSection, updateStateCounter, showNextChapter } from "core/actions"
-import { ChapterContext } from "./chapter"
-import { useContext } from "react"
+import { initChoice, logAction, updateInventory, pickChoice,
+    incrementSection, updateStateCounter, showNextChapter } from "core/actions"
 import { gotoChapter, Next } from "core/actions/navigation"
+
+import { ChapterContext } from "./chapter"
+import InlineList from "./widgets/inline-list"
 
 export interface ChoicesProps {
     choices: ChoicesType
@@ -17,12 +19,11 @@ export interface ChoicesProps {
     extra?: Record<string, unknown>
 }
 
-
 const Choices = ({ choices, tag, extra, widget = InlineList, next = Next.Section }: ChoicesProps) => {
     const { channelName, player } = useSelector((state: RootState) =>
         state.multiplayer)
     const dispatch = useDispatch()
-    const item: TocItem = useContext(ChapterContext)
+    const item: TocItem = React.useContext(ChapterContext)
     const newChoices = useSelector((state: RootState) => {
         const c = state.choices.present
         if (c && tag in c) {

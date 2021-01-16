@@ -1,13 +1,25 @@
 import Head from 'next/head'
 import * as React from "react"
-import { RootState } from '../../core/reducers'
 import { useSelector } from 'react-redux'
 
-import styles from '../../public/stories/demo/Index.module.scss'
-import ResetButton from 'core/components/ui/reset-button'
+import { RootState } from 'core/reducers'
+import TitleScreen from 'core/multiplayer/components/title-screen'
+import NewGame from './new-game'
+
 
 const Index: React.FC = ({ children }) => {
     const config = useSelector((state: RootState) => state.config)
+    const multiplayer = useSelector((state: RootState) => state.multiplayer)
+
+    // Component tree to render for an active story
+    const ready =  <div>
+        {children}
+    </div>
+
+    // Render tree for setting up the game
+    const setup = <div>
+        <NewGame multiplayer={multiplayer} config={config} />
+    </div>
 
     return (
         <>
@@ -17,29 +29,9 @@ const Index: React.FC = ({ children }) => {
                 <style>
                     @import url('https://fonts.googleapis.com/css2?family=EB+Garamond&family=Elsie&display=swap');
                 </style>
+
             </Head>
-
-            <header className={styles.header}>
-                <nav>
-                    <h1>
-                        {config.title}
-                    </h1>
-                    <div className={styles.controls}>
-                        <ResetButton />
-                    </div>
-                </nav>
-            </header>
-            <main className={styles.main}>
-                <nav className={styles.left}>
-
-                </nav>
-                <article className={styles.article}>
-                    {children}
-                </article>
-                <nav className={styles.right}>
-
-                </nav>
-            </main>
+            <TitleScreen ready={ready} setup={setup}/>
         </>
     )
 }

@@ -2,7 +2,6 @@ import * as React from "react"
 import { useSelector } from 'react-redux'
 
 import { RootState } from 'core/reducers'
-import { StoryContext } from "pages/[story]"
 
 import useChoiceListener from "core/multiplayer/hooks/use-choice-listener"
 import ShareButton from "core/multiplayer/components/share-button"
@@ -15,18 +14,15 @@ import ResetButton from "core/components/ui/reset-button"
 
 const Content: React.FC = ({ children }) => {
     const config = useSelector((state: RootState) => state.config)
-    const multiplayer = useSelector((state: RootState) =>
-        state.multiplayer)
+    const multiplayer = useSelector((state: RootState) => state.multiplayer)
     const currentPlayer = multiplayer.player
     const otherPlayer = currentPlayer === 1 ? 2 : 1
 
     // Listen for events from the other player. This should be at the root
     useChoiceListener(multiplayer.channelName, currentPlayer)
 
-    const persistor = React.useContext(StoryContext)
-
-    return (
-        <><header className={styles.header}>
+    return <>
+        <header className={styles.header}>
             <nav>
                 <h1>
                     {config.title}
@@ -35,7 +31,7 @@ const Content: React.FC = ({ children }) => {
                     currentPlayer && <>
                         <div className={styles.player}>
                             You are player {currentPlayer} ⟶
-                    </div>
+                        </div>
                         <div className={styles.share}>
                             <ShareButton multiplayer={multiplayer} otherPlayer={otherPlayer}/>
                         </div>
@@ -47,23 +43,22 @@ const Content: React.FC = ({ children }) => {
 
             </nav>
         </header>
-            <main className={styles.main} id="multiplayer-demo">
-                <nav className={styles.left}>
+        <main className={styles.main} id="multiplayer-demo">
+            <nav className={styles.left}>
 
-                </nav>
-                <article className={styles.article}>
-                    {children}
-                </article>
-                <nav className={styles.right}>
-                    {multiplayer.ready && <>
-                        <Presence />
-                        <Log />
-                    </>
-                    }
-                </nav>
-            </main>
-        </>
-    )
+            </nav>
+            <article className={styles.article}>
+                {children}
+            </article>
+            <nav className={styles.right}>
+                {multiplayer.ready && <>
+                    <Presence />
+                    <Log />
+                </>
+                }
+            </nav>
+        </main>
+    </>
 }
 
 export default Content

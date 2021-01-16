@@ -18,12 +18,12 @@ const TitleScreen: React.FC<Props> = ({ ready, setup }) => {
                     cluster={multiplayer.cluster}
                     authEndpoint={multiplayer.authEndpoint}
                 >
-                    {ready}
+                    <>{ready}</>
                 </PusherProvider>
-                    : {setup}
+                    : <>{setup}</>
 
             }
-        </>
+    </>
 
 }
 

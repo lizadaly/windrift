@@ -1,12 +1,12 @@
 import Head from 'next/head'
 import * as React from "react"
-import { RootState } from 'core/reducers'
 import { useSelector } from 'react-redux'
 
-import Content from "./content"
-
-import NewGame from './components/new-game'
+import { RootState } from 'core/reducers'
 import TitleScreen from 'core/multiplayer/components/title-screen'
+
+import UI from "./ui"
+import NewGame from './components/new-game'
 
 
 const Index: React.FC = ({ children }) => {
@@ -14,17 +14,16 @@ const Index: React.FC = ({ children }) => {
     const multiplayer = useSelector((state: RootState) => state.multiplayer)
 
     // Component tree to render for an active story
-    const ready =  <Content>
+    const ready =  <UI>
         {children}
-    </Content>
+    </UI>
 
     // Render tree for setting up the game
-    const setup = <Content>
+    const setup = <UI>
         <NewGame multiplayer={multiplayer} config={config} />
-    </Content>
+    </UI>
 
-    return (
-        <>
+    return  <>
             <Head>
                 <title>{config.title}</title>
                 <meta name="viewport" content="initial-scale=1.0, width=device-width" />
@@ -34,8 +33,7 @@ const Index: React.FC = ({ children }) => {
 
             </Head>
             <TitleScreen ready={ready} setup={setup}/>
-        </>
-    )
+    </>
 }
 
 export default Index

@@ -1,8 +1,9 @@
 import * as React from "react"
-import { RootState } from "core/reducers"
 import { useSelector, useDispatch } from 'react-redux'
+
 import { countSections } from 'core/actions/navigation'
 import { getChapter } from 'core/util'
+import { RootState } from "core/reducers"
 
 export const ChapterContext = React.createContext(undefined)
 
