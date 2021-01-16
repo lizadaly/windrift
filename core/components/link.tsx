@@ -8,7 +8,6 @@ for the last item in a List */
 interface LinkProps {
     text: string
     index: number
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     handler: any
 }
 const Link = ({ text, index, handler }: LinkProps): JSX.Element => {

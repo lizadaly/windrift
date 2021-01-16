@@ -3,7 +3,7 @@ import { C, R, Section, Chapter } from 'core/components'
 import { BulletedList, DefaultList } from 'core/components/widgets'
 import { PageType } from 'core/types'
 
-export const Page:PageType = () => <Chapter filename="chapter1">
+export const Page: PageType = () => <Chapter filename="chapter1">
 
     <Section>
         <h1>Chapter 1: Choices</h1>

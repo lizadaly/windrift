@@ -1,7 +1,4 @@
-import { MouseEvent } from 'react'
 import { Toc, TocItem } from 'core/types'
-import * as localForage from "localforage"
-import { Persistor } from 'redux-persist'
 
 /* A function that returns the most-significant word from a phrase,
 typically in the inventory list (e.g. "a tired-looking cap"). Nothing
@@ -27,28 +24,6 @@ export const wordFromInventory = (inventory: string, offset = -1): string => {
 
 
 
-/* Reset the game and remove the local storage */
-export const resetGame = (userInitiated: boolean, persistor: Persistor): void => {
-
-    if (userInitiated) {
-        const message = 'Restart the story from the beginning?'
-        if (confirm(message)) {
-            persistor.flush().then(() => {
-                persistor.pause()
-                localStorage.clear()
-                window.location.replace(window.location.pathname)
-            })
-        }
-    }
-    else {
-        persistor.flush().then(() => {
-            persistor.pause()
-            localStorage.clear()
-            window.location.reload()
-        })
-
-    }
-}
 export const getChapter = (toc: Toc, filename: string): TocItem => (
     Object.values(toc).filter(c => c.filename === filename)[0]
 )

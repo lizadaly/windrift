@@ -1,5 +1,4 @@
 import * as React from "react"
-import { ChapterType } from 'core/types'
 import { RootState } from "core/reducers"
 import { useSelector, useDispatch } from 'react-redux'
 import { countSections } from 'core/actions/navigation'
@@ -7,7 +6,11 @@ import { getChapter } from 'core/util'
 
 export const ChapterContext = React.createContext(undefined)
 
-const Chapter = ({ children, filename }: ChapterType): JSX.Element => {
+export type ChapterType = {
+    filename: string
+}
+
+const Chapter: React.FC<ChapterType> = ({ children, filename }) => {
     const item = useSelector((state: RootState) => getChapter(state.toc.present, filename))
     const dispatch = useDispatch()
 

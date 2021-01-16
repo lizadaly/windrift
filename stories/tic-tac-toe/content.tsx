@@ -1,10 +1,7 @@
 import * as React from "react"
 import { useSelector } from 'react-redux'
 
-
 import { RootState } from 'core/reducers'
-import { resetGame } from 'core/util'
-
 import { StoryContext } from "pages/[story]"
 
 import useChoiceListener from "core/multiplayer/hooks/use-choice-listener"
@@ -14,6 +11,7 @@ import Presence from './components/presence'
 import Log from "./components/log"
 
 import styles from 'public/stories/tic-tac-toe/styles/Content.module.scss'
+import ResetButton from "core/components/ui/reset-button"
 
 const Content: React.FC = ({ children }) => {
     const config = useSelector((state: RootState) => state.config)
@@ -42,9 +40,7 @@ const Content: React.FC = ({ children }) => {
                             <ShareButton multiplayer={multiplayer} otherPlayer={otherPlayer}/>
                         </div>
                         <div className={styles.controls}>
-                            <button onClick={() => {
-                                resetGame(true, persistor)
-                            }}>Reset</button>
+                            <ResetButton />
                         </div>
                     </>
                 }

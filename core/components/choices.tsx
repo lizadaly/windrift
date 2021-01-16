@@ -1,5 +1,5 @@
 import * as React from "react"
-import { ChapterType, PageType, TocItem, WidgetType } from 'core/types'
+import { TocItem, WidgetType } from 'core/types'
 import { ChoicesType } from 'core/actions/choices'
 import { RootState } from "core/reducers"
 import { useSelector, useDispatch } from 'react-redux'
@@ -18,7 +18,7 @@ export interface ChoicesProps {
 }
 
 
-const Choices = ({ choices, tag, extra, widget = InlineList, next = Next.Section }: ChoicesProps): JSX.Element => {
+const Choices = ({ choices, tag, extra, widget = InlineList, next = Next.Section }: ChoicesProps) => {
     const { channelName, player } = useSelector((state: RootState) =>
         state.multiplayer)
     const dispatch = useDispatch()

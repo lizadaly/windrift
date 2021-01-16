@@ -1,4 +1,5 @@
 import * as React from "react"
+// TODO update this to an FC + effects
 
 import { ActionCreators } from 'redux-undo'
 import { connect, ConnectedProps } from 'react-redux'

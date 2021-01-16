@@ -1,4 +1,5 @@
 import * as React from "react"
+// TODO update this to an FC + effects
 
 interface CounterProps {
     identifier: string

@@ -4,7 +4,7 @@ import { DefaultList } from 'core/components/widgets'
 import { PageType } from 'core/types'
 
 
-export const Page:PageType = () => <Chapter filename="chapter4">
+export const Page: PageType = () => <Chapter filename="chapter4">
 
     <Section>
         <h1>Chapter 4</h1>

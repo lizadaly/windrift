@@ -1,10 +1,9 @@
 import * as React from "react"
 
-interface SectionProps {
-    visible: boolean
-    children: React.ReactNode
+type SectionProps = {
+    visible?: boolean
 }
-const Section: React.FC = ({ visible = false, children }: SectionProps) => {
+const Section: React.FC<SectionProps> = ({ visible = false, children }) => {
     return visible ? <>
         {children}
     </> : null

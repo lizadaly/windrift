@@ -9,7 +9,7 @@ interface ResponseProps {
   tag: string,
   to: ToMap
 }
-const Response = ({ tag, to }: ResponseProps): JSX.Element => {
+const Response = ({ tag, to }: ResponseProps) => {
 
   // Get the inventory item for this tag
   let choice = useSelector((state: RootState) => state.inventory.present[tag])

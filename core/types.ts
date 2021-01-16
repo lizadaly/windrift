@@ -109,8 +109,5 @@ export type Toc = {
 }
 
 export type PageType = React.FC
-export interface ChapterType {
-    filename: string
-    children: React.ReactNode
-}
+
 
