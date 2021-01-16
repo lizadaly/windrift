@@ -15,6 +15,7 @@ import Presence from './components/presence'
 import Log from "./components/log"
 import { useContext } from "react"
 import { StoryContext } from "pages/[story]"
+import ShareButton from "core/components/multiplayer/share-button"
 
 
 interface IndexProps {
@@ -61,15 +62,7 @@ const Content = ({ children }: IndexProps): JSX.Element => {
                             You are player {currentPlayer} ⟶
                     </div>
                         <div className={styles.share}>
-                            <button className={styles.clipboard} onClick={() =>
-                                navigator.clipboard.writeText(multiplayer.channelName)}>
-                                <span>Share channel with player {otherPlayer}</span>
-                                <Image src="/images/clipboard.svg"
-                                    width={25}
-                                    height={25}
-                                    alt="Copy to clipboard"
-                                />
-                            </button>
+                            <ShareButton multiplayer={multiplayer} otherPlayer={otherPlayer}/>
                         </div>
                         <div className={styles.controls}>
                             <button onClick={() => {

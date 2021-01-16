@@ -1,0 +1,40 @@
+@import 'constants';
+
+.clipboard {
+    border: 1px solid $silver;
+    box-shadow: none;
+    border-radius: 0;
+    cursor: pointer;
+    background: $silver;
+    color: $light-gray;
+    padding: 5px;
+    display: flex;
+    font-family: 'EB Garamond', serif;
+    font-size: 1rem;
+    align-items: center;
+    justify-content: center;
+    span {
+        display: inline-block;
+        margin-right: 20px;
+    }
+    img {
+        fill: $light-gray;
+        stroke: $light-gray;
+    }
+    &:hover {
+        border: 1px solid $light-gray;
+    }
+    &:active {
+        background: $deep-red;
+        animation: pulse .2s;
+        animation-fill-mode: forwards;
+    }
+    @keyframes pulse {
+        0% {
+            transform: scale(1.0);
+        }
+        100% {
+            transform: scale(1.1);
+        }
+    }
+}
