@@ -1,7 +1,6 @@
 import * as React from "react"
 import { useSelector, useDispatch } from 'react-redux'
 
-import Image from 'next/image'
 import { useChannel, useEvent } from "@harelpls/use-pusher"
 
 import { RootState } from 'core/reducers'
