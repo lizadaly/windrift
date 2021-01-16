@@ -1,53 +1,31 @@
 import * as React from "react"
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 
-import { useChannel, useEvent } from "@harelpls/use-pusher"
 
 import { RootState } from 'core/reducers'
 import { resetGame } from 'core/util'
-import { pickChoice, updateInventory } from "core/actions"
-import { Tag } from "core/types"
-import { logAction } from "core/actions/log"
 
-import styles from 'public/stories/tic-tac-toe/styles/Content.module.scss'
+import { StoryContext } from "pages/[story]"
+
+import useChoiceListener from "core/multiplayer/hooks/use-choice-listener"
+import ShareButton from "core/multiplayer/components/share-button"
+
 import Presence from './components/presence'
 import Log from "./components/log"
-import { useContext } from "react"
-import { StoryContext } from "pages/[story]"
-import ShareButton from "core/components/multiplayer/share-button"
 
+import styles from 'public/stories/tic-tac-toe/styles/Content.module.scss'
 
-interface IndexProps {
-    children: React.ReactNode
-}
-interface ApiChoice {
-    tag: Tag
-    choice: string
-    player: string
-    timestamp: string
-}
-const Content = ({ children }: IndexProps): JSX.Element => {
+const Content: React.FC = ({ children }) => {
     const config = useSelector((state: RootState) => state.config)
     const multiplayer = useSelector((state: RootState) =>
         state.multiplayer)
-    const { channelName } = multiplayer
     const currentPlayer = multiplayer.player
     const otherPlayer = currentPlayer === 1 ? 2 : 1
 
-    const dispatch = useDispatch()
-    const channel = useChannel(channelName)
-    useEvent(channel, "choose", ({ tag, choice, player, timestamp }: ApiChoice) => {
-        // Dispatch events from other player
-        const eventPlayer = parseInt(player)
-        const eventTimestamp = new Date(timestamp)
-        if (currentPlayer !== eventPlayer) {
-            dispatch(updateInventory(tag, choice))
-            dispatch(pickChoice(tag, [[choice]], 0, eventPlayer))
-            dispatch(logAction(tag, choice, eventTimestamp, eventPlayer))
-        }
-    })
+    // Listen for events from the other player. This should be at the root
+    useChoiceListener(multiplayer.channelName, currentPlayer)
 
-    const persistor = useContext(StoryContext)
+    const persistor = React.useContext(StoryContext)
 
     return (
         <><header className={styles.header}>
