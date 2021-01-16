@@ -2,23 +2,26 @@ import Head from 'next/head'
 import * as React from "react"
 import { RootState } from 'core/reducers'
 import { useSelector } from 'react-redux'
-import { PusherProvider } from "@harelpls/use-pusher"
 
 import Content from "./content"
 
 import NewGame from './components/new-game'
-
-interface IndexProps {
-    children: React.ReactNode,
-
-}
+import TitleScreen from 'core/multiplayer/components/title-screen'
 
 
-
-const Index = ({ children }: IndexProps): JSX.Element => {
+const Index: React.FC = ({ children }) => {
     const config = useSelector((state: RootState) => state.config)
     const multiplayer = useSelector((state: RootState) => state.multiplayer)
 
+    // Component tree to render for an active story
+    const ready =  <Content>
+        {children}
+    </Content>
+
+    // Render tree for setting up the game
+    const setup = <Content>
+        <NewGame multiplayer={multiplayer} config={config} />
+    </Content>
 
     return (
         <>
@@ -30,21 +33,7 @@ const Index = ({ children }: IndexProps): JSX.Element => {
                 </style>
 
             </Head>
-            {
-                multiplayer.ready ? <PusherProvider
-                    clientKey={multiplayer.clientKey}
-                    cluster={multiplayer.cluster}
-                    authEndpoint={multiplayer.authEndpoint}
-                >
-                    <Content>
-                        {children}
-                    </Content>
-                </PusherProvider>
-                    : <Content>
-                        <NewGame multiplayer={multiplayer} config={config} />
-                    </Content>
-
-            }
+            <TitleScreen ready={ready} setup={setup}/>
         </>
     )
 }

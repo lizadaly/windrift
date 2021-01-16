@@ -6,7 +6,7 @@ import { usePresenceChannel } from "@harelpls/use-pusher"
 import styles from 'public/stories/tic-tac-toe/styles/Presence.module.scss'
 
 
-const Presence: React.FC = (): JSX.Element => {
+const Presence: React.FC = () => {
     const { channelName } = useSelector((state: RootState) =>
         state.multiplayer)
     const { members } = usePresenceChannel(channelName)

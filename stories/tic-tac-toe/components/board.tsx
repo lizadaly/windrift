@@ -8,7 +8,7 @@ interface BoardProps {
     myTurn: boolean
 }
 
-const Board = ({ char, myTurn }: BoardProps): JSX.Element => {
+const Board: React.FC<BoardProps> = ({ char, myTurn }) => {
 
     return <>
 
