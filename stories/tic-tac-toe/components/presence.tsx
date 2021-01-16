@@ -3,7 +3,7 @@ import { useSelector } from "react-redux"
 import { RootState } from "core/reducers"
 import { usePresenceChannel } from "@harelpls/use-pusher"
 
-import styles from 'public/stories/multiplayer/styles/Presence.module.scss'
+import styles from 'public/stories/tic-tac-toe/styles/Presence.module.scss'
 
 
 const Presence: React.FC = (): JSX.Element => {

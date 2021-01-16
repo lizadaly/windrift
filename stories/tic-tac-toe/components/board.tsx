@@ -1,5 +1,5 @@
 import * as React from "react"
-import styles from 'public/stories/multiplayer/styles/Game.module.scss'
+import styles from 'public/stories/tic-tac-toe/styles/Game.module.scss'
 import { DefaultList } from 'core/components/widgets'
 import { C, R } from 'core/components'
 

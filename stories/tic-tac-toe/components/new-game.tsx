@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from 'uuid'
 
 import { initMultiplayer } from 'core/actions'
 
-import styles from 'public/stories/multiplayer/styles/NewGame.module.scss'
+import styles from 'public/stories/tic-tac-toe/styles/NewGame.module.scss'
 
 
 const populateMultiplayer = (player: number, multiplayer: Multiplayer, config: Config, channelName?: string): void => {

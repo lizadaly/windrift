@@ -1,7 +1,7 @@
 import Image from 'next/image'
 
 import { Multiplayer } from 'core/types'
-import styles from 'public/styles/multiplayer-helpers/ShareButton.module.scss'
+import styles from 'public/styles/multiplayer/ShareButton.module.scss'
 
 interface ShareButtonProps {
     multiplayer: Multiplayer

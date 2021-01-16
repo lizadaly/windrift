@@ -10,7 +10,7 @@ import { pickChoice, updateInventory } from "core/actions"
 import { Tag } from "core/types"
 import { logAction } from "core/actions/log"
 
-import styles from 'public/stories/multiplayer/styles/Content.module.scss'
+import styles from 'public/stories/tic-tac-toe/styles/Content.module.scss'
 import Presence from './components/presence'
 import Log from "./components/log"
 import { useContext } from "react"
