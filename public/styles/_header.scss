@@ -2,8 +2,9 @@
 @use 'fonts';
 @use 'sizing';
 
+$header-background: linear-gradient(to right, #0f2027, #203a43, #2c5364) !default;
+
 .header {
-    $header-background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
 
     nav {
         display: grid;

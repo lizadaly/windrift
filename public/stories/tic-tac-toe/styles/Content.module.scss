@@ -1,6 +1,13 @@
-@use '/public/styles/grid';
+
+@use '/public/styles/colors' with (
+    $cool: rgb(79, 135, 101)
+);
+
+@use '/public/styles/header' with (
+    $header-background: colors.$cool,
+);
+@use '/public/styles/main';
 @use '/public/styles/sizing';
-@use '/public/styles/colors';
 
 // Overrides and additions to the default grid
 
