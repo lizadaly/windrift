@@ -11,50 +11,40 @@ import Log from "./components/log"
 import styles from 'public/stories/tic-tac-toe/styles/Content.module.scss'
 import ResetButton from "core/components/ui/reset-button"
 import { PlayerContext } from "core/multiplayer/components/multiplayer-init"
+import Grid from 'core/components/ui/grid'
 
 const Content: React.FC = ({ children }) => {
-    const config = useSelector((state: RootState) => state.config)
     const multiplayer = useSelector((state: RootState) => state.multiplayer)
     const { currentPlayer, otherPlayer } = React.useContext(PlayerContext)
 
-    return <>
-        <header className={styles.header}>
+    return <Grid
+        styles={styles}
+        header={
             <nav>
-                <h1>
-                    {config.title}
-                </h1>
-                {
-                    multiplayer.ready && <>
-                        <div className={styles.player}>
-                            You are player {currentPlayer} ⟶
-                        </div>
-                        <div className={styles.share}>
-                            <ShareButton multiplayer={multiplayer} otherPlayer={otherPlayer}/>
-                        </div>
-                        <div className={styles.controls}>
-                            <ResetButton />
-                        </div>
-                    </>
-                }
-
-            </nav>
-        </header>
-        <main className={styles.main} id="multiplayer-demo">
-            <nav className={styles.left}>
-
-            </nav>
-            <article className={styles.story}>
-                {children}
-            </article>
-            <nav className={styles.right}>
-                {multiplayer.ready && <>
-                    <Presence />
-                    <Log />
+                <h1>Multiplayer Demo</h1>
+               {
+            multiplayer.ready && <>
+                <div className={styles.player}>
+                    You are player {currentPlayer} ⟶
+                </div>
+                <div className={styles.share}>
+                    <ShareButton multiplayer={multiplayer} otherPlayer={otherPlayer}/>
+                </div>
+                <div className={styles.controls}>
+                    <ResetButton />
+                </div>
                 </>
                 }
-            </nav>
-        </main>
-    </>
+                </nav>
+        }
+        right={
+            multiplayer.ready && <>
+                <Presence />
+                <Log />
+                </>
+            }
+            >{children}
+        </Grid>
 }
 
 export default Content
