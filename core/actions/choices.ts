@@ -37,13 +37,18 @@ interface ChoicesClearAction {
 
 export type ChoicesClearType = ChoicesClearAction
 
-export const pickChoice = (tag: Tag, choices: ChoicesType, index: number, player?: number): ChoicePickType => {
+export const pickChoice = (
+    tag: Tag,
+    choices: ChoicesType,
+    index: number,
+    player?: number
+): ChoicePickType => {
     return {
         type: PICK_CHOICE,
         choices,
         index,
         tag,
-        player,
+        player
     }
 }
 
@@ -51,7 +56,7 @@ export const initChoice = (tag: Tag, choices: ChoicesType): ChoiceInitType => {
     return {
         type: INIT_CHOICE,
         choices,
-        tag,
+        tag
     }
 }
 

@@ -1,4 +1,3 @@
-
 // Initialize the current player and other player, and set up the
 // event listeners to update the current player's state based on
 // changes received from the other player.
@@ -8,16 +7,18 @@
 // Make the current and other player available as context.
 
 import * as React from 'react'
-import { RootState } from "core/reducers"
-import { useSelector } from "react-redux"
-import useChoiceListener from "../hooks/use-choice-listener"
+import { RootState } from 'core/reducers'
+import { useSelector } from 'react-redux'
+import useChoiceListener from '../hooks/use-choice-listener'
 
 export interface Players {
     currentPlayer: number
     otherPlayer: number
 }
-export const PlayerContext: React.Context<Players> =
-    React.createContext({currentPlayer: null, otherPlayer: null})
+export const PlayerContext: React.Context<Players> = React.createContext({
+    currentPlayer: null,
+    otherPlayer: null
+})
 
 const MultiplayerInit: React.FC = ({ children }) => {
     const multiplayer = useSelector((state: RootState) => state.multiplayer)
@@ -31,11 +32,10 @@ const MultiplayerInit: React.FC = ({ children }) => {
     // Listen for events from the other player
     useChoiceListener(multiplayer.channelName, currentPlayer)
 
-    return <>
-        <PlayerContext.Provider value={PlayersContext}>
-        { children }
-        </PlayerContext.Provider>
-
-    </>
+    return (
+        <>
+            <PlayerContext.Provider value={PlayersContext}>{children}</PlayerContext.Provider>
+        </>
+    )
 }
 export default MultiplayerInit

@@ -1,9 +1,9 @@
-import * as React from "react"
+import * as React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { countSections } from 'core/actions/navigation'
 import { getChapter } from 'core/util'
-import { RootState } from "core/reducers"
+import { RootState } from 'core/reducers'
 
 export const ChapterContext = React.createContext(undefined)
 
@@ -17,9 +17,7 @@ const Chapter: React.FC<ChapterType> = ({ children, filename }) => {
 
     // On first render, record the number of sections
     React.useEffect(() => {
-        dispatch(countSections(item,
-            React.Children.count(children)
-        ))
+        dispatch(countSections(item, React.Children.count(children)))
     }, [dispatch])
 
     // Display all visible child sections
@@ -32,9 +30,7 @@ const Chapter: React.FC<ChapterType> = ({ children, filename }) => {
         return child
     })
 
-    return <ChapterContext.Provider value={item}>
-        {kids}
-    </ChapterContext.Provider>
+    return <ChapterContext.Provider value={item}>{kids}</ChapterContext.Provider>
 }
 
 export default Chapter

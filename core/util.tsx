@@ -21,9 +21,5 @@ export const wordFromInventory = (inventory: string, offset = -1): string => {
     return out
 }
 
-
-
-
-export const getChapter = (toc: Toc, filename: string): TocItem => (
-    Object.values(toc).filter(c => c.filename === filename)[0]
-)
+export const getChapter = (toc: Toc, filename: string): TocItem =>
+    Object.values(toc).filter((c) => c.filename === filename)[0]

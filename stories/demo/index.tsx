@@ -1,4 +1,4 @@
-import * as React from "react"
+import * as React from 'react'
 
 import Grid from 'core/components/ui/grid'
 
@@ -10,12 +10,12 @@ const Index: React.FC = ({ children }) => {
             styles={styles}
             head={
                 <style>
-                    @import url('https://fonts.googleapis.com/css2?family=EB+Garamond&family=Elsie&display=swap');
+                    @import
+                    url('https://fonts.googleapis.com/css2?family=EB+Garamond&family=Elsie&display=swap');
                 </style>
-            }
-            >{children}
+            }>
+            {children}
         </Grid>
-
     )
 }
 

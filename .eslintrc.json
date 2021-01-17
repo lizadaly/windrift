@@ -1,15 +1,25 @@
 {
-  "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint", "jsx-a11y"],
-  "extends": [
-    "plugin:@typescript-eslint/recommended",
-    "plugin:cypress/recommended",
-    "plugin:jsx-a11y/recommended",
-    // Prettier plugin and recommended rules
-    "prettier/@typescript-eslint",
-    "plugin:prettier/recommended"
-  ],
-  "rules": {
-    "@typescript-eslint/no-explicit-any": "off"
-  }
+    "parser": "@typescript-eslint/parser",
+    "plugins": ["@typescript-eslint", "jsx-a11y"],
+    "settings": {
+        "react": {
+            "version": "detect"
+        }
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:cypress/recommended",
+        "plugin:react/recommended",
+        "plugin:jsx-a11y/recommended",
+        // Prettier plugin and recommended rules
+        "prettier/@typescript-eslint",
+        "plugin:prettier/recommended"
+    ],
+    "rules": {
+        "prettier/prettier": ["error", {}, { "usePrettierrc": true }],
+        "@typescript-eslint/no-explicit-any": "off",
+        "react/react-in-jsx-scope": "off"
+    }
 }

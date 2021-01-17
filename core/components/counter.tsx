@@ -1,4 +1,4 @@
-import * as React from "react"
+import * as React from 'react'
 // TODO update this to an FC + effects
 
 interface CounterProps {
@@ -11,7 +11,6 @@ interface BrowserState {
 }
 
 export default class Counter extends React.Component<CounterProps> {
-
     constructor(props: CounterProps) {
         super(props)
         const { counter = 0, identifier } = props
@@ -29,4 +28,3 @@ export default class Counter extends React.Component<CounterProps> {
         return null
     }
 }
-

@@ -1,4 +1,4 @@
-import { Tag } from "core/types"
+import { Tag } from 'core/types'
 
 export const UPDATE_INVENTORY = 'UPDATE_INVENTORY'
 export const CLEAR_INVENTORY = 'CLEAR_INVENTORY'
@@ -11,8 +11,8 @@ export interface Inventory {
 
 interface UpdateInventoryAction {
     type: typeof UPDATE_INVENTORY
-    tag: Tag,
-    sel: Selection,
+    tag: Tag
+    sel: Selection
 }
 export type UpdateInventoryTypes = UpdateInventoryAction
 
@@ -26,7 +26,7 @@ export type ClearInventoryTypes = ClearInventoryAction
 export const updateInventory = (tag: Tag, sel: Selection): UpdateInventoryTypes => ({
     type: UPDATE_INVENTORY,
     tag: tag,
-    sel: sel,
+    sel: sel
 })
 
 export const clearInventory = (): ClearInventoryTypes => ({

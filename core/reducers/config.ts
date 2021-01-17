@@ -1,5 +1,4 @@
-import { InitConfigType, Config, INIT_CONFIG, } from 'core/types'
-
+import { InitConfigType, Config, INIT_CONFIG } from 'core/types'
 
 const config = (state: Config = null, action: InitConfigType): Config => {
     switch (action.type) {
@@ -12,4 +11,3 @@ const config = (state: Config = null, action: InitConfigType): Config => {
 }
 
 export default config
-

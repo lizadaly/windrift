@@ -1,12 +1,11 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import * as Pusher from "pusher"
+import * as Pusher from 'pusher'
 
 // Authorize a user to Pusher
 
 // Username is just channel + '-' + player number
 
 export default (req: NextApiRequest, res: NextApiResponse): void => {
-
     if (req.method === 'POST') {
         const {
             PUSHER_APP_ID,
