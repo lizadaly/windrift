@@ -8,10 +8,10 @@
     },
     "extends": [
         "eslint:recommended",
+        "plugin:react/recommended",
         "plugin:@typescript-eslint/recommended",
         "plugin:@typescript-eslint/eslint-recommended",
         "plugin:cypress/recommended",
-        "plugin:react/recommended",
         "plugin:jsx-a11y/recommended",
         // Prettier plugin and recommended rules
         "prettier/@typescript-eslint",
@@ -20,6 +20,7 @@
     "rules": {
         "prettier/prettier": ["error", {}, { "usePrettierrc": true }],
         "@typescript-eslint/no-explicit-any": "off",
-        "react/react-in-jsx-scope": "off"
+        "react/react-in-jsx-scope": "off",
+        "react/prop-types": ["off"]
     }
 }
