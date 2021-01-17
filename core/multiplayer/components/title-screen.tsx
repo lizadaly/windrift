@@ -1,8 +1,9 @@
 import * as React from "react"
-
-import { RootState } from 'core/reducers'
 import { useSelector } from 'react-redux'
 import { PusherProvider } from "@harelpls/use-pusher"
+
+import { RootState } from 'core/reducers'
+import MultiplayerInit from "core/multiplayer/components/multiplayer-init"
 
 type Props = {
     ready: React.ReactNode,
@@ -10,7 +11,6 @@ type Props = {
 }
 const TitleScreen: React.FC<Props> = ({ ready, setup }) => {
     const multiplayer = useSelector((state: RootState) => state.multiplayer)
-
     return <>
             {
                 multiplayer.ready ? <PusherProvider
@@ -18,7 +18,9 @@ const TitleScreen: React.FC<Props> = ({ ready, setup }) => {
                     cluster={multiplayer.cluster}
                     authEndpoint={multiplayer.authEndpoint}
                 >
-                    <>{ready}</>
+                    <MultiplayerInit>
+                        {ready}
+                    </MultiplayerInit>
                 </PusherProvider>
                     : <>{setup}</>
 

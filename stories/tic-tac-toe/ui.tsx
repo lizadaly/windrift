@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux'
 
 import { RootState } from 'core/reducers'
 
-import useChoiceListener from "core/multiplayer/hooks/use-choice-listener"
 import ShareButton from "core/multiplayer/components/share-button"
 
 import Presence from './components/presence'
@@ -11,15 +10,12 @@ import Log from "./components/log"
 
 import styles from 'public/stories/tic-tac-toe/styles/Content.module.scss'
 import ResetButton from "core/components/ui/reset-button"
+import { PlayerContext } from "core/multiplayer/components/multiplayer-init"
 
 const Content: React.FC = ({ children }) => {
     const config = useSelector((state: RootState) => state.config)
     const multiplayer = useSelector((state: RootState) => state.multiplayer)
-    const currentPlayer = multiplayer.player
-    const otherPlayer = currentPlayer === 1 ? 2 : 1
-
-    // Listen for events from the other player. This should be at the root
-    useChoiceListener(multiplayer.channelName, currentPlayer)
+    const { currentPlayer, otherPlayer } = React.useContext(PlayerContext)
 
     return <>
         <header className={styles.header}>
@@ -28,7 +24,7 @@ const Content: React.FC = ({ children }) => {
                     {config.title}
                 </h1>
                 {
-                    currentPlayer && <>
+                    multiplayer.ready && <>
                         <div className={styles.player}>
                             You are player {currentPlayer} ⟶
                         </div>
