@@ -4,7 +4,7 @@
 );
 
 @use '/public/styles/header' with (
-    $header-background: colors.$cool,
+    $background: colors.$cool,
 );
 @use '/public/styles/main';
 @use '/public/styles/sizing';
@@ -34,7 +34,9 @@
 
     // Widen the right column to show the presence/log list
     grid-template-columns: sizing.$left-right-width 5fr sizing.$left-right-width * 2;
-
+    .story {
+        padding-right: sizing.$gutter;
+    }
     button {
         display: inline-block;
         margin-right: sizing.$gutter;
