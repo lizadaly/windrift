@@ -1,31 +1,35 @@
-@import 'constants';
+@use '../colors';
+@use '../sizing';
+@use '../fonts';
+
 
 .clipboard {
-    border: 1px solid $silver;
+    border: 1px solid colors.$cool;
     box-shadow: none;
     border-radius: 0;
     cursor: pointer;
-    background: $silver;
-    color: $light-gray;
+    background: colors.$cool;
+    color: colors.$contrast;
     padding: 5px;
     display: flex;
-    font-family: 'EB Garamond', serif;
+    font-family: fonts.$body;
     font-size: 1rem;
     align-items: center;
     justify-content: center;
+
     span {
         display: inline-block;
         margin-right: 20px;
     }
     img {
-        fill: $light-gray;
-        stroke: $light-gray;
+        fill: colors.$cool;
+        stroke: colors.$cool;
     }
     &:hover {
-        border: 1px solid $light-gray;
+        border: 1px solid colors.$cool;
     }
     &:active {
-        background: $deep-red;
+        background: colors.$button;
         animation: pulse .2s;
         animation-fill-mode: forwards;
     }

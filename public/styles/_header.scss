@@ -1,0 +1,44 @@
+@use 'colors';
+@use 'fonts';
+@use 'sizing';
+
+.header {
+    $header-background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+
+    nav {
+        display: grid;
+        grid-template-columns: 3fr 1fr;
+        grid-template-rows: sizing.$header-height;
+        align-items: center;
+
+        background: $header-background;
+        color: colors.$contrast;
+
+        h1 {
+            justify-self: left;
+            margin-left: sizing.$left-right-width;
+
+            font-family: fonts.$header;
+            font-size: 2.5rem;
+        }
+
+        .controls {
+            display: grid;
+            justify-items: end;
+
+            button {
+                display: inline-block;
+                margin-right: sizing.$gutter;
+                background: colors.$button;
+                color: colors.$very-light;
+                border: 0;
+                box-shadow: none;
+                border-radius: 0;
+                min-height: sizing.$header-height;
+                min-width: sizing.$header-height;
+                font-size: 1rem;
+                text-transform: uppercase;
+            }
+        }
+    }
+}

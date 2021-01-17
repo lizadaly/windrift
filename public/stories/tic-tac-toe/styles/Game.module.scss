@@ -1,8 +1,6 @@
 $cell: 100px;
 $border: 2px;
 
-
-
 .board {
     display: grid;
     grid-template-columns: repeat(3, $cell);

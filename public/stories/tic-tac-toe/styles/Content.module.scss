@@ -1,25 +1,15 @@
-/* Styles that are global to your story go here */
+@use '/public/styles/grid';
+@use '/public/styles/sizing';
+@use '/public/styles/colors';
 
-@import '../../../styles/multiplayer/constants';
+// Overrides and additions to the default grid
 
 .header {
 
     nav {
-        background: $background;
-        display: grid;
+        // Add an extra column for the share button
         grid-template-columns: 2fr 1fr 1fr 1fr;
-        grid-template-rows: $header-height;
-        align-items: center;
-        font-family: 'EB Garamond', serif;
-        color: $light-gray;
 
-        h1 {
-            justify-self: left;
-            margin-left: $left-right-width;
-            font-family: 'Elsie', cursive;
-            font-size: 2rem;
-
-        }
         .player {
             display: inline-block;
             font-size: 1rem;
@@ -29,49 +19,20 @@
 
         .share {
             display: inline-block;
-
-
-        }
-        .controls {
-            display: grid;
-            justify-items: end;
-
-            button {
-                display: inline-block;
-                margin-right: $gutter;
-                background: $button;
-                color: $light-gray;
-                border: 0;
-                box-shadow: none;
-                border-radius: 0;
-                min-height: $header-height;
-                min-width: $header-height;
-                font-size: 1rem;
-                text-transform: uppercase;
-            }
         }
     }
 }
 
 .main {
-    display: grid;
-    height: 100vh;
-    background: $white;
 
-    grid-template-columns: $left-right-width 1fr 1fr;
-    grid-template-areas: "left"
-                         "content"
-                         "right";
+    // Widen the right column to show the presence/log list
+    grid-template-columns: sizing.$left-right-width 5fr sizing.$left-right-width * 2;
 
-
-    h1, h2, h3, h4, h5, h6, p {
-        font-family: 'EB Garamond', serif;
-    }
     button {
         display: inline-block;
-        margin-right: $gutter;
-        background: $button;
-        color: $light-gray;
+        margin-right: sizing.$gutter;
+        background: colors.$button;
+        color: colors.$cool;
         border: 0;
         box-shadow: none;
         border-radius: 0;
@@ -81,8 +42,8 @@
     }
     input {
         display: inline-block;
-        margin-right: $gutter;
-        border: 1px solid $silver;
+        margin-right: sizing.$gutter;
+        border: 1px solid colors.$cool;
         box-shadow: none;
         border-radius: 0;
         font-size: 1rem;
@@ -91,8 +52,8 @@
     }
     input[type=submit] {
 
-        background: $silver;
-        color: $light-gray;
+        background: colors.$cool;
+        color: colors.$contrast;
         border: 0;
         box-shadow: none;
         border-radius: 0;
@@ -101,33 +62,5 @@
         padding: 10px;
     }
 
-    .left {
-        height: 100vh;
-    }
-
-    .article {
-        padding-top: $article-margin;
-        height: 100vh;
-
-        font-size: 1.2rem;
-
-        h1, h2, h3, h4, h5, h6 {
-            line-height: 3rem;
-            color: $rusted-gold;
-        }
-        p {
-            line-height: 1.5rem;
-
-        }
-        a {
-            color: $silver;
-        }
-    }
-    .right {
-        height: 100vh;
-        padding-top: $article-margin;
-        padding-right: $article-margin;
-
-    }
 }
 

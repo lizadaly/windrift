@@ -33,7 +33,7 @@ const Index: React.FC = ({ children }) => {
                 <nav className={styles.left}>
 
                 </nav>
-                <article className={styles.article}>
+                <article className={styles.story}>
                     {children}
                 </article>
                 <nav className={styles.right}>
