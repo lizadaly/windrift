@@ -1,8 +1,11 @@
-import { InitMultiplayerType, INIT_MULTIPLAYER, Multiplayer, } from 'core/types'
+import { InitMultiplayerType, INIT_MULTIPLAYER, Multiplayer } from 'core/types'
 
 const defaultMultiplayer = new Multiplayer(null, null, null, null, null, null, false)
 
-const multiplayer = (state: Multiplayer = defaultMultiplayer, action: InitMultiplayerType): Multiplayer => {
+const multiplayer = (
+    state: Multiplayer = defaultMultiplayer,
+    action: InitMultiplayerType
+): Multiplayer => {
     switch (action.type) {
         case INIT_MULTIPLAYER: {
             return { ...action.multiplayer }

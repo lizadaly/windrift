@@ -1,0 +1,54 @@
+@use 'colors';
+@use 'fonts';
+@use 'sizing';
+
+.main {
+    display: grid;
+    height: 100vh;
+
+    grid-template-columns: sizing.$left-right-width 5fr sizing.$left-right-width;
+    grid-template-areas: "left"
+                         "content"
+                         "right";
+
+    background: colors.$very-light;
+
+    font-family: fonts.$body;
+    font-size: 1.2rem;
+
+    .left {
+        height: 100vh;
+        font-size: 1rem;
+        padding: sizing.$story-margin 0 0 sizing.$story-margin;
+    }
+
+    .story {
+        padding-top: sizing.$story-margin;
+        height: 100vh;
+
+        h1, h2, h3, h4, h5, h6 {
+            line-height: 3rem;
+            color: colors.$warm;
+        }
+        h2 {
+            font-size: 1.3rem;
+            color: complement(colors.$warm);
+        }
+        p {
+            margin: 1rem 0;
+            line-height: 1.5rem;
+        }
+        a {
+            color: colors.$cool;
+        }
+        ul, ol {
+            margin-left: 2rem;
+        }
+    }
+
+    .right {
+        height: 100vh;
+        font-size: 1rem;
+        padding: sizing.$story-margin sizing.$story-margin 0 0;
+    }
+}

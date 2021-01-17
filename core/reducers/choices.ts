@@ -2,18 +2,21 @@ import undoable, { excludeAction } from 'redux-undo'
 import cloneDeep from 'lodash.clonedeep'
 
 import {
-    PICK_CHOICE, INIT_CHOICE, CLEAR_CHOICES,
-    ChoicePickType, RemainingChoices,
-    ChoiceInitType, ChoicesClearType,
+    PICK_CHOICE,
+    INIT_CHOICE,
+    CLEAR_CHOICES,
+    ChoicePickType,
+    RemainingChoices,
+    ChoiceInitType,
+    ChoicesClearType
 } from 'core/actions/choices'
 import { CLEAR_INVENTORY } from 'core/actions/inventory'
 
 export const choices = (
     state: RemainingChoices = {},
-    action: ChoicePickType | ChoiceInitType | ChoicesClearType): RemainingChoices => {
-
+    action: ChoicePickType | ChoiceInitType | ChoicesClearType
+): RemainingChoices => {
     switch (action.type) {
-
         case INIT_CHOICE:
             const newState = cloneDeep(state)
             newState[action.tag] = {
@@ -46,7 +49,11 @@ export const choices = (
             // If the choice array is now empty, this is the last item, so just populate it
             // with the index
             if (remainder.length === 0) {
-                console.log(`No more items, so assigning the pick of ${action.index} from ${first} as ${first[action.index]}`)
+                console.log(
+                    `No more items, so assigning the pick of ${action.index} from ${first} as ${
+                        first[action.index]
+                    }`
+                )
 
                 remainder = [[first[action.index]]]
             }
@@ -61,8 +68,7 @@ export const choices = (
     }
 }
 
-export default undoable(choices,
-    {
-        filter: excludeAction(INIT_CHOICE),
-        initTypes: [CLEAR_CHOICES]
-    })
+export default undoable(choices, {
+    filter: excludeAction(INIT_CHOICE),
+    initTypes: [CLEAR_CHOICES]
+})

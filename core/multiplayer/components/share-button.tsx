@@ -8,16 +8,15 @@ type ShareButtonProps = {
     otherPlayer: number
 }
 
-const ShareButton: React.FC<ShareButtonProps> = ({ multiplayer, otherPlayer }) => <>
-    <button className={styles.clipboard} onClick={() =>
-        navigator.clipboard.writeText(multiplayer.channelName)}>
-        <span>Share channel with player {otherPlayer}</span>
-        <Image src="/images/clipboard.svg"
-            width={25}
-            height={25}
-            alt="Copy to clipboard"
-        />
-    </button>
-</>
+const ShareButton: React.FC<ShareButtonProps> = ({ multiplayer, otherPlayer }) => (
+    <>
+        <button
+            className={styles.clipboard}
+            onClick={() => navigator.clipboard.writeText(multiplayer.channelName)}>
+            <span>Share channel with player {otherPlayer}</span>
+            <Image src="/images/clipboard.svg" width={25} height={25} alt="Copy to clipboard" />
+        </button>
+    </>
+)
 
 export default ShareButton

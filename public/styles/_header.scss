@@ -1,0 +1,49 @@
+@use 'colors';
+@use 'fonts';
+@use 'sizing';
+
+$background: linear-gradient(to right, #0f2027, #203a43, #2c5364) !default;
+$max-height: 100px;
+$min-height: sizing.$story-margin;
+
+.header {
+    max-height: $max-height;
+    min-height: $min-height;
+
+    nav {
+        display: grid;
+        grid-template-columns: 3fr 1fr;
+        grid-template-rows: sizing.$story-margin;
+        align-items: center;
+
+        background: $background;
+        color: colors.$contrast;
+
+        h1 {
+            justify-self: left;
+            margin-left: sizing.$left-right-width;
+
+            font-family: fonts.$header;
+            font-size: 2rem;
+        }
+
+        .controls {
+            display: grid;
+            justify-items: end;
+
+            button {
+                display: inline-block;
+                margin-right: sizing.$gutter;
+                background: colors.$button;
+                color: colors.$very-light;
+                border: 0;
+                box-shadow: none;
+                border-radius: 0;
+                min-height: $min-height;
+                min-width: $min-height;
+                font-size: 1rem;
+                text-transform: uppercase;
+            }
+        }
+    }
+}

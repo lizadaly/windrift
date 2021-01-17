@@ -1,4 +1,3 @@
-
 export { updateInventory } from './inventory'
 export { pickChoice, initChoice } from './choices'
 export { updateStateCounter } from './counter'

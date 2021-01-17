@@ -36,7 +36,6 @@ One feature enabled by the built-in API backend is multiplayer support—
 specifically, using <a href="https://pusher.com/">Pusher</a> for
 WebSocket notifications between multiple users.
 
-
 # To run
 
 ```
@@ -45,4 +44,3 @@ npm run dev
 
 Other help commands including deployment options as per the
 <a href="https://nextjs.org/">NextJS</a> documentation.
-

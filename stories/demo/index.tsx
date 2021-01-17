@@ -1,46 +1,21 @@
-import Head from 'next/head'
-import * as React from "react"
-import { RootState } from '../../core/reducers'
-import { useSelector } from 'react-redux'
+import * as React from 'react'
 
-import styles from '../../public/stories/demo/Index.module.scss'
-import ResetButton from 'core/components/ui/reset-button'
+import Grid from 'core/components/ui/grid'
+
+import styles from 'public/stories/demo/Index.module.scss'
 
 const Index: React.FC = ({ children }) => {
-    const config = useSelector((state: RootState) => state.config)
-
     return (
-        <>
-            <Head>
-                <title>{config.title}</title>
-                <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <Grid
+            styles={styles}
+            head={
                 <style>
-                    @import url('https://fonts.googleapis.com/css2?family=EB+Garamond&family=Elsie&display=swap');
+                    @import
+                    url('https://fonts.googleapis.com/css2?family=EB+Garamond&family=Elsie&display=swap');
                 </style>
-            </Head>
-
-            <header className={styles.header}>
-                <nav>
-                    <h1>
-                        {config.title}
-                    </h1>
-                    <div className={styles.controls}>
-                        <ResetButton />
-                    </div>
-                </nav>
-            </header>
-            <main className={styles.main}>
-                <nav className={styles.left}>
-
-                </nav>
-                <article className={styles.article}>
-                    {children}
-                </article>
-                <nav className={styles.right}>
-
-                </nav>
-            </main>
-        </>
+            }>
+            {children}
+        </Grid>
     )
 }
 

@@ -1,12 +1,11 @@
-import { Selection } from "./actions/inventory"
+import { Selection } from './actions/inventory'
 
 export const UPDATE_STATE_COUNTER = 'UPDATE_STATE_COUNTER'
-export const INIT_CONFIG = "INIT_CONFIG"
+export const INIT_CONFIG = 'INIT_CONFIG'
 export const INIT_MULTIPLAYER = 'INIT_MULTIPLAYER'
-export const LOG_ACTION = "LOG_ACTION"
+export const LOG_ACTION = 'LOG_ACTION'
 
 export type Tag = string
-
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 declare function Widget(props: any): JSX.Element
@@ -20,8 +19,6 @@ interface UpdateStateCounterAction {
 }
 export type UpdateStateCounterType = UpdateStateCounterAction
 
-
-
 /* Config */
 export class Config {
     readonly identifier: string // safe for use in keys
@@ -29,8 +26,13 @@ export class Config {
     readonly title: string
     readonly enableUndo: boolean
     readonly env: Record<string, unknown>
-    constructor(identifier: string, title: string,
-        pagination = "scrolling", enableUndo = true, env: Record<string, unknown>) {
+    constructor(
+        identifier: string,
+        title: string,
+        pagination = 'scrolling',
+        enableUndo = true,
+        env: Record<string, unknown>
+    ) {
         this.identifier = identifier
         this.title = title
         this.pagination = pagination
@@ -40,8 +42,8 @@ export class Config {
 }
 
 interface InitConfigAction {
-    type: typeof INIT_CONFIG,
-    config: Config,
+    type: typeof INIT_CONFIG
+    config: Config
 }
 export type InitConfigType = InitConfigAction
 
@@ -55,9 +57,15 @@ export class Multiplayer {
     ready: boolean // True when all the params have been initialized
     player: number
 
-    constructor(clientKey: string, cluster: string, channelName: string,
-        gameUrl: string, player: number,
-        authEndpoint: string, ready: boolean,) {
+    constructor(
+        clientKey: string,
+        cluster: string,
+        channelName: string,
+        gameUrl: string,
+        player: number,
+        authEndpoint: string,
+        ready: boolean
+    ) {
         this.clientKey = clientKey
         this.cluster = cluster
         this.authEndpoint = authEndpoint
@@ -69,8 +77,8 @@ export class Multiplayer {
 }
 
 interface InitMultiplayerAction {
-    type: typeof INIT_MULTIPLAYER,
-    multiplayer: Multiplayer,
+    type: typeof INIT_MULTIPLAYER
+    multiplayer: Multiplayer
 }
 export type InitMultiplayerType = InitMultiplayerAction
 
@@ -101,7 +109,7 @@ export interface TocItem {
     readonly filename: string
     readonly title: string
     visible: boolean
-    bookmark: number,
+    bookmark: number
     sectionCount: number
 }
 export type Toc = {
@@ -109,5 +117,3 @@ export type Toc = {
 }
 
 export type PageType = React.FC
-
-

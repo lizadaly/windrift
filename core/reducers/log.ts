@@ -1,7 +1,6 @@
 import { LogActionType, LOG_ACTION, LogItem } from 'core/types'
 import cloneDeep from 'lodash.clonedeep'
 
-
 const log = (state: LogItem[] = [], action: LogActionType): LogItem[] => {
     switch (action.type) {
         case LOG_ACTION: {

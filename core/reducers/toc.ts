@@ -1,16 +1,24 @@
 import undoable from 'redux-undo'
 import cloneDeep from 'lodash.clonedeep'
 
-import {
-    Toc,  TocItem
-} from 'core/types'
+import { Toc, TocItem } from 'core/types'
 
 import { getChapter } from 'core/util'
-import { CountSectionType, COUNT_SECTION, GotoChapterType, GOTO_CHAPTER, IncrementSectionType, INCREMENT_SECTION, ShowNextChapterType, SHOW_NEXT_CHAPTER } from 'core/actions/navigation'
+import {
+    CountSectionType,
+    COUNT_SECTION,
+    GotoChapterType,
+    GOTO_CHAPTER,
+    IncrementSectionType,
+    INCREMENT_SECTION,
+    ShowNextChapterType,
+    SHOW_NEXT_CHAPTER
+} from 'core/actions/navigation'
 
-const toc = (state: Toc = null,
-    action: IncrementSectionType | CountSectionType | ShowNextChapterType | GotoChapterType): Toc => {
-
+const toc = (
+    state: Toc = null,
+    action: IncrementSectionType | CountSectionType | ShowNextChapterType | GotoChapterType
+): Toc => {
     let item: TocItem, newState: Toc, items: TocItem[], index: number
 
     switch (action.type) {
@@ -35,10 +43,11 @@ const toc = (state: Toc = null,
             // Find the item with this filename
             item = getChapter(newState, action.item.filename)
             index = items.indexOf(item)
-            if (index < items.length - 1) { // Ensure there are more chapters
+            if (index < items.length - 1) {
+                // Ensure there are more chapters
 
                 // Set all chapters to invisible only in this check
-                items.filter(i => i.visible).forEach(i => i.visible = false)
+                items.filter((i) => i.visible).forEach((i) => (i.visible = false))
 
                 items[index + 1].visible = true
             }
@@ -47,7 +56,7 @@ const toc = (state: Toc = null,
         case GOTO_CHAPTER:
             newState = cloneDeep(state)
             items = Object.values(newState)
-            items.filter(i => i.visible).forEach(i => i.visible = false)
+            items.filter((i) => i.visible).forEach((i) => (i.visible = false))
 
             item = getChapter(newState, action.filename)
             item.visible = true

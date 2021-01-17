@@ -1,27 +1,39 @@
-import * as React from "react"
+import * as React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { TocItem, WidgetType } from 'core/types'
 import { ChoicesType } from 'core/actions/choices'
-import { RootState } from "core/reducers"
-import { initChoice, logAction, updateInventory, pickChoice,
-    incrementSection, updateStateCounter, showNextChapter } from "core/actions"
-import { gotoChapter, Next } from "core/actions/navigation"
+import { RootState } from 'core/reducers'
+import {
+    initChoice,
+    logAction,
+    updateInventory,
+    pickChoice,
+    incrementSection,
+    updateStateCounter,
+    showNextChapter
+} from 'core/actions'
+import { gotoChapter, Next } from 'core/actions/navigation'
 
-import { ChapterContext } from "./chapter"
-import InlineList from "./widgets/inline-list"
+import { ChapterContext } from './chapter'
+import InlineList from './widgets/inline-list'
 
 export interface ChoicesProps {
     choices: ChoicesType
     tag: string
-    next?: Next | string,
+    next?: Next | string
     widget?: WidgetType
     extra?: Record<string, unknown>
 }
 
-const Choices = ({ choices, tag, extra, widget = InlineList, next = Next.Section }: ChoicesProps) => {
-    const { channelName, player } = useSelector((state: RootState) =>
-        state.multiplayer)
+const Choices = ({
+    choices,
+    tag,
+    extra,
+    widget = InlineList,
+    next = Next.Section
+}: ChoicesProps) => {
+    const { channelName, player } = useSelector((state: RootState) => state.multiplayer)
     const dispatch = useDispatch()
     const item: TocItem = React.useContext(ChapterContext)
     const newChoices = useSelector((state: RootState) => {
@@ -53,17 +65,16 @@ const Choices = ({ choices, tag, extra, widget = InlineList, next = Next.Section
         dispatch(pickChoice(tag, choices, index, player))
         dispatch(logAction(tag, choice, timestamp, player))
 
-
         // TODO pull this out
         if (player !== null) {
             const choiceBody = {
                 tag,
                 choice,
                 channel: channelName,
-                player,
+                player
             }
             fetch('/api/choose', {
-                method: "POST",
+                method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(choiceBody)
             })
@@ -72,14 +83,11 @@ const Choices = ({ choices, tag, extra, widget = InlineList, next = Next.Section
         if (choices.length === 1) {
             if (next === Next.Section) {
                 dispatch(incrementSection(item))
-            }
-            else if (next === Next.Chapter) {
+            } else if (next === Next.Chapter) {
                 dispatch(showNextChapter(item))
-            }
-            else if (next === Next.None) {
+            } else if (next === Next.None) {
                 // no-op
-            }
-            else if (typeof next === "string") {
+            } else if (typeof next === 'string') {
                 dispatch(gotoChapter(next))
             }
         }
@@ -92,9 +100,14 @@ const Choices = ({ choices, tag, extra, widget = InlineList, next = Next.Section
 
     const group = choices[0]
     const W = widget
-    return <W group={group} handler={group.length > 1 ? handler : null}
-        initialChoices={initialChoices} {...extra} />
-
+    return (
+        <W
+            group={group}
+            handler={group.length > 1 ? handler : null}
+            initialChoices={initialChoices}
+            {...extra}
+        />
+    )
 }
 
 export default Choices

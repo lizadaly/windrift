@@ -1,9 +1,9 @@
-import * as React from "react"
+import * as React from 'react'
 // TODO update this to an FC + effects
 
 import { ActionCreators } from 'redux-undo'
 import { connect, ConnectedProps } from 'react-redux'
-import { RootState } from "core/reducers"
+import { RootState } from 'core/reducers'
 
 import { Counter } from '../components'
 
@@ -41,24 +41,21 @@ class GameContainer extends React.Component<GameProps> {
             <>
                 <Counter identifier={this.props.identifier} counter={this.props.counter} />
                 {this.props.children}
-            </>)
+            </>
+        )
     }
 }
-
 
 const mapState = (state: RootState) => ({
     enableUndo: state.config.enableUndo,
     identifier: state.config.identifier,
-    counter: state.counter.present,
+    counter: state.counter.present
 })
 const mapDispatch = (dispatch) => ({
-    jump: (offset: number) => dispatch(ActionCreators.jump(offset)),
+    jump: (offset: number) => dispatch(ActionCreators.jump(offset))
 })
 
-const connector = connect(
-    mapState,
-    mapDispatch
-)
+const connector = connect(mapState, mapDispatch)
 
 type PropsFromRedux = ConnectedProps<typeof connector>
 
