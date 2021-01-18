@@ -10,7 +10,7 @@ interface ApiChoice {
     timestamp: string
 }
 
-const useChoiceListener = (channelName: string, currentPlayer: number) => {
+const useChoiceListener = (channelName: string, currentPlayer: number): void => {
     const dispatch = useDispatch()
     const channel = useChannel(channelName)
     useEvent(channel, 'choose', ({ tag, choice, player, timestamp }: ApiChoice) => {

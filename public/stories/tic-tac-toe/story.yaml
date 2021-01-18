@@ -5,3 +5,7 @@ chapters:
     visible: true
     title: "Tic-Tac-Toe"
 enableUndo: false
+multiplayer:
+  enable: true
+  player1Label: "player X"
+  player2Label: "player O"

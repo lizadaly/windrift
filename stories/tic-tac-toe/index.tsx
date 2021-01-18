@@ -29,7 +29,7 @@ const Index: React.FC = ({ children }) => {
                 <meta name="viewport" content="initial-scale=1.0, width=device-width" />
                 <style>
                     @import
-                    url('https://fonts.googleapis.com/css2?family=EB+Garamond&family=Elsie&display=swap');
+                    url(https://fonts.googleapis.com/css2?family=EB+Garamond&family=Elsie&display=swap);
                 </style>
             </Head>
             <TitleScreen ready={ready} setup={setup} />

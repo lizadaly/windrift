@@ -1,4 +1,5 @@
-import { Config, Multiplayer } from 'core/types'
+import { Config } from 'core/types'
+import { Multiplayer } from 'core/actions/multiplayer'
 
 import JoinStory from 'core/multiplayer/components/join-story-form'
 import StartStory from 'core/multiplayer/components/start-story-form'

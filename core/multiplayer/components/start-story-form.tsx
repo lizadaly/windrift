@@ -1,5 +1,5 @@
-import { initMultiplayer } from 'core/actions'
-import { Multiplayer, Config } from 'core/types'
+import { initMultiplayer, Multiplayer } from 'core/actions/multiplayer'
+import { Config } from 'core/types'
 import { useDispatch } from 'react-redux'
 import { populateMultiplayer } from '..'
 

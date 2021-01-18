@@ -21,8 +21,7 @@ export const PlayerContext: React.Context<Players> = React.createContext({
 })
 
 const MultiplayerInit: React.FC = ({ children }) => {
-    const multiplayer = useSelector((state: RootState) => state.multiplayer)
-    const currentPlayer = multiplayer.player
+    const { currentPlayer, channelName } = useSelector((state: RootState) => state.multiplayer)
     const otherPlayer = currentPlayer === 1 ? 2 : 1
     const PlayersContext: Players = {
         currentPlayer,
@@ -30,7 +29,7 @@ const MultiplayerInit: React.FC = ({ children }) => {
     }
 
     // Listen for events from the other player
-    useChoiceListener(multiplayer.channelName, currentPlayer)
+    useChoiceListener(channelName, currentPlayer)
 
     return (
         <>

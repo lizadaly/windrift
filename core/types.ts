@@ -2,8 +2,6 @@ import { Selection } from './actions/inventory'
 
 export const UPDATE_STATE_COUNTER = 'UPDATE_STATE_COUNTER'
 export const INIT_CONFIG = 'INIT_CONFIG'
-export const INIT_MULTIPLAYER = 'INIT_MULTIPLAYER'
-export const LOG_ACTION = 'LOG_ACTION'
 
 export type Tag = string
 
@@ -20,24 +18,46 @@ interface UpdateStateCounterAction {
 export type UpdateStateCounterType = UpdateStateCounterAction
 
 /* Config */
+export class MultiplayerConfig {
+    readonly enabled: boolean
+    readonly player1Label: string
+    readonly player2Label: string
+    readonly channelLabel: string
+    constructor(
+        enabled: boolean,
+        player1Label = 'player 1',
+        player2Label = 'player 2',
+        channelLabel = 'channel'
+    ) {
+        this.enabled = enabled
+        this.player1Label = player1Label
+        this.player2Label = player2Label
+        this.channelLabel = channelLabel
+    }
+}
+
 export class Config {
     readonly identifier: string // safe for use in keys
     readonly pagination: string
     readonly title: string
     readonly enableUndo: boolean
     readonly env: Record<string, unknown>
+    readonly multiplayer: MultiplayerConfig
+
     constructor(
         identifier: string,
         title: string,
         pagination = 'scrolling',
         enableUndo = true,
-        env: Record<string, unknown>
+        env: Record<string, unknown>,
+        multiplayer: MultiplayerConfig = undefined
     ) {
         this.identifier = identifier
         this.title = title
         this.pagination = pagination
         this.enableUndo = enableUndo
         this.env = env
+        this.multiplayer = multiplayer
     }
 }
 
@@ -46,59 +66,6 @@ interface InitConfigAction {
     config: Config
 }
 export type InitConfigType = InitConfigAction
-
-/* Multiplayer config */
-export class Multiplayer {
-    clientKey: string
-    cluster: string
-    authEndpoint: string
-    gameUrl: string
-    channelName: string
-    ready: boolean // True when all the params have been initialized
-    player: number
-
-    constructor(
-        clientKey: string,
-        cluster: string,
-        channelName: string,
-        gameUrl: string,
-        player: number,
-        authEndpoint: string,
-        ready: boolean
-    ) {
-        this.clientKey = clientKey
-        this.cluster = cluster
-        this.authEndpoint = authEndpoint
-        this.channelName = channelName
-        this.gameUrl = gameUrl
-        this.ready = ready
-        this.player = player
-    }
-}
-
-interface InitMultiplayerAction {
-    type: typeof INIT_MULTIPLAYER
-    multiplayer: Multiplayer
-}
-export type InitMultiplayerType = InitMultiplayerAction
-
-/* Game log */
-// TODO something something middleware?
-interface LogAction {
-    type: typeof LOG_ACTION
-    tag: Tag
-    selection: Selection
-    timestamp: Date
-    player?: number
-}
-export type LogActionType = LogAction
-
-export interface LogItem {
-    tag: Tag
-    selection: Selection
-    timestamp: Date
-    player?: number
-}
 
 /* Completion callbacks */
 export type Callback = () => void

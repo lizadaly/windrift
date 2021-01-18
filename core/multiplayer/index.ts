@@ -1,10 +1,11 @@
 import { PusherProviderProps } from '@harelpls/use-pusher'
 import { v4 as uuidv4 } from 'uuid'
 
-import { Multiplayer, Config } from 'core/types'
+import { Multiplayer } from 'core/actions/multiplayer'
+import { Config } from 'core/types'
 
 export const populateMultiplayer = (
-    player: number,
+    currentPlayer: number,
     multiplayer: Multiplayer,
     config: Config,
     channelName?: string
@@ -21,7 +22,7 @@ export const populateMultiplayer = (
     const pusherConfig = {
         clientKey: NEXT_PUBLIC_PUSHER_KEY,
         cluster: NEXT_PUBLIC_PUSHER_CLUSTER,
-        authEndpoint: `/api/auth/${player}`
+        authEndpoint: `/api/auth/${currentPlayer}`
     } as PusherProviderProps
 
     multiplayer.clientKey = pusherConfig.clientKey
@@ -29,6 +30,7 @@ export const populateMultiplayer = (
     multiplayer.authEndpoint = pusherConfig.authEndpoint
     multiplayer.channelName = channelName
     multiplayer.gameUrl = gameUrl
-    multiplayer.player = player
+    multiplayer.currentPlayer = currentPlayer
+
     multiplayer.ready = true
 }

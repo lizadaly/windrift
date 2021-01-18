@@ -7,15 +7,15 @@ import { PageType } from 'core/types'
 import Board from '../components/board'
 
 export const Page: PageType = () => {
-    const { player, channelName } = useSelector((state: RootState) => state.multiplayer)
+    const { currentPlayer, channelName } = useSelector((state: RootState) => state.multiplayer)
     const { members } = usePresenceChannel(channelName)
     const log = useSelector((state: RootState) => state.log)
-    let currentPlayer = 1
+    let nextPlayer = 1
     if (log.length > 0) {
         const last = log[log.length - 1]
-        currentPlayer = last.player === 1 ? 2 : 1
+        nextPlayer = last.player === 1 ? 2 : 1
     }
-    const char = player === 1 ? 'X' : 'O'
+    const char = currentPlayer === 1 ? 'X' : 'O'
     return (
         <Chapter filename="game">
             <Section>
@@ -29,17 +29,17 @@ export const Page: PageType = () => {
 
                 <h1>Tic-Tac-Toe</h1>
 
-                <p>It is {currentPlayer === player ? 'your' : "the other player's"} turn.</p>
+                <p>It is {currentPlayer === nextPlayer ? 'your' : "the other player's"} turn.</p>
 
                 {Object.entries(members).length < 2 && (
                     <p>
-                        Both players need to be online to continue the game. Click the "Share
-                        channel with {player === 1 ? 1 : 2}" button at the top to put the channel
-                        name in your clipboard, then send that to a friend.
+                        Both players need to be online to continue the game. Click the &quot;Share
+                        channel with {currentPlayer === 1 ? 1 : 2}&quot; button at the top to put
+                        the channel name in your clipboard, then send that to a friend.
                     </p>
                 )}
                 {Object.entries(members).length === 2 && (
-                    <Board char={char} myTurn={player === currentPlayer} />
+                    <Board char={char} myTurn={nextPlayer === currentPlayer} />
                 )}
             </Section>
         </Chapter>

@@ -1,10 +1,9 @@
 import { FormEvent, useState } from 'react'
 import { useDispatch } from 'react-redux'
 
+import { Multiplayer, initMultiplayer } from 'core/actions/multiplayer'
+import { Config } from 'core/types'
 import { populateMultiplayer } from 'core/multiplayer'
-import { initMultiplayer } from 'core/actions'
-import { Multiplayer, Config } from 'core/types'
-
 type Props = {
     multiplayer: Multiplayer
     config: Config
@@ -19,7 +18,7 @@ const JoinStory: React.FC<Props> = ({ multiplayer, config }) => {
             populateMultiplayer(2, multiplayer, config, channel)
             dispatch(initMultiplayer(multiplayer))
         } else {
-            alert("Multiplayer channel names start with 'presence-`")
+            alert("Multiplayer channel names start with 'presence-")
         }
         e.preventDefault()
     }

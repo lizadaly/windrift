@@ -1,9 +1,4 @@
 import * as React from 'react'
-
-import { useRouter } from 'next/router'
-import { Game, GameContainer } from 'core/components'
-import { Config, Toc, TocItem } from 'core/types'
-import { GetStaticProps, GetStaticPaths } from 'next'
 import fs from 'fs'
 import path from 'path'
 import yaml from 'js-yaml'
@@ -12,32 +7,36 @@ import { Provider } from 'react-redux'
 import { persistStore, persistReducer } from 'redux-persist'
 import { PersistGate } from 'redux-persist/integration/react'
 import storage from 'redux-persist/lib/storage'
-import reducers from 'core/reducers'
 import { composeWithDevTools } from 'redux-devtools-extension'
+
+import { useRouter } from 'next/router'
+import { GetStaticProps, GetStaticPaths } from 'next'
 import dynamic from 'next/dynamic'
+
+import reducers from 'core/reducers'
+import { Game, GameContainer } from 'core/components'
+import { Config, MultiplayerConfig, Toc, TocItem } from 'core/types'
 
 export interface WindriftProps {
     toc: Toc
     configYaml: Config
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     env: any
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
     const story = context.params.story as string
     const configPath = path.join(process.cwd(), `public/stories/${story}/story.yaml`)
-    const configYaml = yaml.safeLoad(fs.readFileSync(configPath, 'utf8'))
+    const configYaml = yaml.safeLoad(fs.readFileSync(configPath, 'utf8')) as Record<string, any>
 
-    const toc = configYaml['chapters'].map((item: TocItem) => ({
-        filename: item['filename'],
-        visible: item['visible'] || false,
-        title: item['title'],
+    const toc = configYaml.chapters.map((item: TocItem) => ({
+        filename: item.filename,
+        visible: item.visible || false,
+        title: item.title,
         bookmark: 0
     }))
 
     const env = Object.keys(process.env)
         .filter((key) => key.startsWith('NEXT_PUBLIC'))
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         .reduce((res: any = {}, key) => {
             res[key] = process.env[key]
             return res
@@ -66,12 +65,24 @@ export default function Home(props: WindriftProps): JSX.Element {
     const router = useRouter()
     const { story } = router.query
     const { toc, configYaml, env } = props
+
+    // If multiplayer was defined at all, set up that config with any defaults
+    let multiConfig: MultiplayerConfig
+    if (configYaml.multiplayer) {
+        multiConfig = new MultiplayerConfig(
+            configYaml.multiplayer.enabled,
+            configYaml.multiplayer.player1Label,
+            configYaml.multiplayer.player2Label,
+            configYaml.multiplayer.channelLabel
+        )
+    }
     const config = new Config(
         story as string,
-        configYaml['title'],
-        configYaml['pagination'],
-        configYaml['enableUndo'],
-        env
+        configYaml.title,
+        configYaml.pagination,
+        configYaml.enableUndo,
+        env,
+        multiConfig
     )
 
     const persistConfig = {

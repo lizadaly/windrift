@@ -1,4 +1,4 @@
-import { LogActionType, LOG_ACTION, LogItem } from 'core/types'
+import { LogActionType, LOG_ACTION, LogItem } from 'core/actions/log'
 import cloneDeep from 'lodash.clonedeep'
 
 const log = (state: LogItem[] = [], action: LogActionType): LogItem[] => {

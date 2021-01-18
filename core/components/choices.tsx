@@ -32,8 +32,8 @@ const Choices = ({
     extra,
     widget = InlineList,
     next = Next.Section
-}: ChoicesProps) => {
-    const { channelName, player } = useSelector((state: RootState) => state.multiplayer)
+}: ChoicesProps): JSX.Element => {
+    const { channelName, currentPlayer } = useSelector((state: RootState) => state.multiplayer)
     const dispatch = useDispatch()
     const item: TocItem = React.useContext(ChapterContext)
     const newChoices = useSelector((state: RootState) => {
@@ -62,16 +62,16 @@ const Choices = ({
         const timestamp = new Date()
 
         dispatch(updateInventory(tag, choice))
-        dispatch(pickChoice(tag, choices, index, player))
-        dispatch(logAction(tag, choice, timestamp, player))
+        dispatch(pickChoice(tag, choices, index, currentPlayer))
+        dispatch(logAction(tag, choice, timestamp, currentPlayer))
 
         // TODO pull this out
-        if (player !== null) {
+        if (currentPlayer !== null) {
             const choiceBody = {
                 tag,
                 choice,
                 channel: channelName,
-                player
+                player: currentPlayer
             }
             fetch('/api/choose', {
                 method: 'POST',
