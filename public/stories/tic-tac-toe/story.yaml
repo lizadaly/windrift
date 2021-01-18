@@ -2,10 +2,10 @@ title: Multiplayer Demo
 chapters:
   - chapter:
     filename: "game"
-    visible: true
     title: "Tic-Tac-Toe"
 enableUndo: false
-multiplayer:
-  enable: true
-  player1Label: "player X"
-  player2Label: "player O"
+players:
+  - start: "game"
+    name: "player X"
+  - start: "game"
+    name: "player O"

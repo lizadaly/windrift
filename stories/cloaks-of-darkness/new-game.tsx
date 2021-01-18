@@ -4,7 +4,7 @@ import { Multiplayer } from 'core/actions/multiplayer'
 import JoinStory from 'core/multiplayer/components/join-story-form'
 import StartStory from 'core/multiplayer/components/start-story-form'
 
-import styles from 'public/stories/tic-tac-toe/styles/NewGame.module.scss'
+import styles from 'public/stories/cloaks-of-darkness/styles/NewGame.module.scss'
 
 type Props = {
     multiplayer: Multiplayer
@@ -13,17 +13,23 @@ type Props = {
 const NewGame: React.FC<Props> = ({ multiplayer, config }) => {
     return (
         <div>
-            <h1>Start or join a game of Tic-Tac-Toe</h1>
-
+            <h1>Start or join Cloaks of Darkness</h1>
+            <p>
+                This is a demo multiplayer hypertext story based on the
+                <i>Cloak of Darkness</i> starter interactive fiction game.
+            </p>
             <div className={styles.instructions}>
                 <div>
-                    <p>Start a game yourself and share the channel name with a friend:</p>
+                    <p>
+                        Start the story yourself and share the story code with a friend (or other
+                        browser window):
+                    </p>
                     <StartStory multiplayer={multiplayer} config={config}>
-                        Start a new game of Tic-Tac-Toe
+                        Start a new Cloaks of Darkness
                     </StartStory>
                 </div>
                 <div>
-                    <p>...or get a channel name from a friend and paste it here:</p>
+                    <p>...or get a story code from a friend and paste it here:</p>
                     <JoinStory multiplayer={multiplayer} config={config} />
                 </div>
             </div>

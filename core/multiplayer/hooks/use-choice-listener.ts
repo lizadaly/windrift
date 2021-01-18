@@ -10,12 +10,12 @@ interface ApiChoice {
     timestamp: string
 }
 
-const useChoiceListener = (channelName: string, currentPlayer: number): void => {
+const useChoiceListener = (channelName: string, currentPlayer: string): void => {
     const dispatch = useDispatch()
     const channel = useChannel(channelName)
     useEvent(channel, 'choose', ({ tag, choice, player, timestamp }: ApiChoice) => {
         // Dispatch events from other player
-        const eventPlayer = parseInt(player)
+        const eventPlayer = player
         const eventTimestamp = new Date(timestamp)
         if (currentPlayer !== eventPlayer) {
             dispatch(updateInventory(tag, choice))

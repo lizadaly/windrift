@@ -2,7 +2,6 @@ title: A Windrift Demo
 chapters:
   - chapter:
     filename: "chapter1"
-    visible: true
     title: "Chapter One"
   - chapter:
     filename: "chapter2"
@@ -13,3 +12,5 @@ chapters:
   - chapter:
     filename: "chapter4"
     title: "Chapter Four"
+players:
+  - start: "chapter1"

@@ -1,5 +1,3 @@
-import { Selection } from './actions/inventory'
-
 export const UPDATE_STATE_COUNTER = 'UPDATE_STATE_COUNTER'
 export const INIT_CONFIG = 'INIT_CONFIG'
 
@@ -18,22 +16,9 @@ interface UpdateStateCounterAction {
 export type UpdateStateCounterType = UpdateStateCounterAction
 
 /* Config */
-export class MultiplayerConfig {
-    readonly enabled: boolean
-    readonly player1Label: string
-    readonly player2Label: string
-    readonly channelLabel: string
-    constructor(
-        enabled: boolean,
-        player1Label = 'player 1',
-        player2Label = 'player 2',
-        channelLabel = 'channel'
-    ) {
-        this.enabled = enabled
-        this.player1Label = player1Label
-        this.player2Label = player2Label
-        this.channelLabel = channelLabel
-    }
+export class PlayerConfig {
+    readonly start: TocItem['filename']
+    name?: string
 }
 
 export class Config {
@@ -42,22 +27,22 @@ export class Config {
     readonly title: string
     readonly enableUndo: boolean
     readonly env: Record<string, unknown>
-    readonly multiplayer: MultiplayerConfig
+    readonly players: PlayerConfig[]
 
     constructor(
         identifier: string,
         title: string,
         pagination = 'scrolling',
         enableUndo = true,
-        env: Record<string, unknown>,
-        multiplayer: MultiplayerConfig = undefined
+        players: PlayerConfig[],
+        env: Record<string, unknown>
     ) {
         this.identifier = identifier
         this.title = title
         this.pagination = pagination
         this.enableUndo = enableUndo
+        this.players = players
         this.env = env
-        this.multiplayer = multiplayer
     }
 }
 

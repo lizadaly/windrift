@@ -10,8 +10,7 @@ const Log: React.FC = () => {
             {log.reverse().map((entry, i) => (
                 <div key={i}>
                     {entry.tag} {entry.selection} by {}
-                    player {entry.player} on{' '}
-                    {moment(entry.timestamp).format('MMM Do YYYY, h:mm:ss a')}
+                    {entry.player} on {moment(entry.timestamp).format('MMM Do YYYY, h:mm:ss a')}
                 </div>
             ))}
         </div>

@@ -1,9 +1,7 @@
 import { InitMultiplayerType, INIT_MULTIPLAYER, Multiplayer } from 'core/actions/multiplayer'
 
-const defaultMultiplayer = new Multiplayer(null, null, null, null, null, null, false, null, null)
-
 const multiplayer = (
-    state: Multiplayer = defaultMultiplayer,
+    state: Multiplayer = new Multiplayer(),
     action: InitMultiplayerType
 ): Multiplayer => {
     switch (action.type) {

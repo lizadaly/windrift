@@ -20,7 +20,7 @@ interface ChoicePickAction {
     choices: ChoicesType
     index: number
     tag: Tag
-    player?: number
+    player?: string
 }
 export type ChoicePickType = ChoicePickAction
 
@@ -41,7 +41,7 @@ export const pickChoice = (
     tag: Tag,
     choices: ChoicesType,
     index: number,
-    player?: number
+    player?: string
 ): ChoicePickType => {
     return {
         type: PICK_CHOICE,

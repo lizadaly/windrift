@@ -2,7 +2,6 @@ title: Cloaks of Darkness
 chapters:
   - chapter:
     filename: "foyer"
-    visible: true
     title: "Foyer of the Opera House"
   - chapter:
     filename: "cloakroom"
@@ -10,4 +9,9 @@ chapters:
   - chapter:
     filename: "bar"
     title: "Foyer Bar"
-enableUndo: false
+multiplayer:
+  enable: true
+  player1Label: "raccoon"
+  player2Label: "snake"
+  player1Start: "foyer"
+  player2Start: "cloakroom"

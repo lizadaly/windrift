@@ -8,12 +8,13 @@
 
 import * as React from 'react'
 import { RootState } from 'core/reducers'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import useChoiceListener from '../hooks/use-choice-listener'
+import { gotoChapter } from 'core/actions/navigation'
 
 export interface Players {
-    currentPlayer: number
-    otherPlayer: number
+    currentPlayer: string
+    otherPlayer: string
 }
 export const PlayerContext: React.Context<Players> = React.createContext({
     currentPlayer: null,
@@ -22,7 +23,17 @@ export const PlayerContext: React.Context<Players> = React.createContext({
 
 const MultiplayerInit: React.FC = ({ children }) => {
     const { currentPlayer, channelName } = useSelector((state: RootState) => state.multiplayer)
-    const otherPlayer = currentPlayer === 1 ? 2 : 1
+    const { players } = useSelector((state: RootState) => state.config)
+
+    const dispatch = useDispatch()
+
+    // Display our start chapter on first render only
+    React.useEffect(() => {
+        const start = players.filter((p) => p.name === currentPlayer)[0].start
+        dispatch(gotoChapter(start))
+    }, [currentPlayer])
+
+    const otherPlayer = currentPlayer === players[0].name ? players[1].name : players[0].name
     const PlayersContext: Players = {
         currentPlayer,
         otherPlayer

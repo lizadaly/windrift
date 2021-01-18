@@ -5,7 +5,7 @@ import { Multiplayer } from 'core/actions/multiplayer'
 import { Config } from 'core/types'
 
 export const populateMultiplayer = (
-    currentPlayer: number,
+    currentPlayer: string,
     multiplayer: Multiplayer,
     config: Config,
     channelName?: string

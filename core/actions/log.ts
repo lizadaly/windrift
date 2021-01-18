@@ -9,7 +9,7 @@ interface LogAction {
     tag: Tag
     selection: Selection
     timestamp: Date
-    player?: number
+    player?: string
 }
 export type LogActionType = LogAction
 
@@ -17,13 +17,13 @@ export interface LogItem {
     tag: Tag
     selection: Selection
     timestamp: Date
-    player?: number
+    player?: string
 }
 export const logAction = (
     tag: Tag,
     selection: Selection,
     timestamp: Date,
-    player?: number
+    player?: string
 ): LogActionType => {
     return {
         type: LOG_ACTION,

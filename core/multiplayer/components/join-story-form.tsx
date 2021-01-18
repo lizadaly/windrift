@@ -1,9 +1,10 @@
 import { FormEvent, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { Multiplayer, initMultiplayer } from 'core/actions/multiplayer'
 import { Config } from 'core/types'
 import { populateMultiplayer } from 'core/multiplayer'
+import { RootState } from 'core/reducers'
 type Props = {
     multiplayer: Multiplayer
     config: Config
@@ -11,14 +12,16 @@ type Props = {
 
 const JoinStory: React.FC<Props> = ({ multiplayer, config }) => {
     const [channel, setChannel] = useState('')
+    const player = useSelector((state: RootState) => state.config.players[1])
+
     const dispatch = useDispatch()
 
     const handler = (e: FormEvent) => {
         if (channel.startsWith('presence-')) {
-            populateMultiplayer(2, multiplayer, config, channel)
+            populateMultiplayer(player.name, multiplayer, config, channel)
             dispatch(initMultiplayer(multiplayer))
         } else {
-            alert("Multiplayer channel names start with 'presence-")
+            alert("Story code names start with 'presence-")
         }
         e.preventDefault()
     }

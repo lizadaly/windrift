@@ -6,9 +6,7 @@ import { usePresenceChannel } from '@harelpls/use-pusher'
 import styles from 'public/styles/multiplayer/Presence.module.scss'
 
 const Presence: React.FC = () => {
-    const { player1Label, player2Label, channelLabel } = useSelector(
-        (state: RootState) => state.config.multiplayer
-    )
+    const players = useSelector((state: RootState) => state.config.players)
     const { channelName } = useSelector((state: RootState) => state.multiplayer)
     const { members } = usePresenceChannel(channelName)
 
@@ -18,26 +16,28 @@ const Presence: React.FC = () => {
     return (
         <>
             <h2>Players online</h2>
-            <p>
-                {channelLabel}: {channelName}
-            </p>
+            <p>Story code: {channelName}</p>
             <ol className={styles.userList}>
                 <li>
                     <span
                         className={
-                            `1--${channelName}` in members ? styles.active : styles.inactive
+                            `${players[0].name}--${channelName}` in members
+                                ? styles.active
+                                : styles.inactive
                         }>
-                        <span className={styles.cap}>{player1Label}</span> is{' '}
-                        {`1--${channelName}` in members ? 'online' : 'offline'}
+                        <span className={styles.cap}>{players[0].name}</span> is{' '}
+                        {`${players[0].name}--${channelName}` in members ? 'online' : 'offline'}
                     </span>
                 </li>
                 <li>
                     <span
                         className={
-                            `2--${channelName}` in members ? styles.active : styles.inactive
+                            `${players[1].name}--${channelName}` in members
+                                ? styles.active
+                                : styles.inactive
                         }>
-                        <span className={styles.cap}>{player2Label}</span>{' '}
-                        {`2--${channelName}` in members ? 'online' : 'offline'}
+                        <span className={styles.cap}>{players[1].name}</span>{' '}
+                        {`${players[1].name}--${channelName}` in members ? 'online' : 'offline'}
                     </span>
                 </li>
             </ol>

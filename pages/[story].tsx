@@ -15,7 +15,8 @@ import dynamic from 'next/dynamic'
 
 import reducers from 'core/reducers'
 import { Game, GameContainer } from 'core/components'
-import { Config, MultiplayerConfig, Toc, TocItem } from 'core/types'
+import { Config, Toc, TocItem } from 'core/types'
+import { getChapter } from 'core/util'
 
 export interface WindriftProps {
     toc: Toc
@@ -66,28 +67,24 @@ export default function Home(props: WindriftProps): JSX.Element {
     const { story } = router.query
     const { toc, configYaml, env } = props
 
-    // If multiplayer was defined at all, set up that config with any defaults
-    let multiConfig: MultiplayerConfig
-    if (configYaml.multiplayer) {
-        multiConfig = new MultiplayerConfig(
-            configYaml.multiplayer.enabled,
-            configYaml.multiplayer.player1Label,
-            configYaml.multiplayer.player2Label,
-            configYaml.multiplayer.channelLabel
-        )
-    }
     const config = new Config(
         story as string,
         configYaml.title,
         configYaml.pagination,
         configYaml.enableUndo,
-        env,
-        multiConfig
+        configYaml.players,
+        env
     )
 
     const persistConfig = {
         key: config.identifier,
         storage: storage
+    }
+
+    // In a single player game, set the visible chapter start
+    if (config.players && config.players.length === 1) {
+        const start = getChapter(toc, config.players[0].start)
+        start.visible = true
     }
 
     const persistedReducers = persistReducer(persistConfig, reducers)

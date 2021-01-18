@@ -9,12 +9,12 @@ type Props = {
 }
 const StartStory: React.FC<Props> = ({ multiplayer, config, children = 'Start a new story' }) => {
     const dispatch = useDispatch()
-
+    const initialPlayer = config.players[0].name
     return (
         <>
             <button
                 onClick={() => {
-                    populateMultiplayer(1, multiplayer, config)
+                    populateMultiplayer(initialPlayer, multiplayer, config)
                     dispatch(initMultiplayer(multiplayer))
                 }}>
                 {children}
