@@ -6,7 +6,7 @@ import { ChoicesType } from 'core/actions/choices'
 import { RootState } from 'core/reducers'
 import {
     initChoice,
-    logAction,
+    logChoice,
     updateInventory,
     pickChoice,
     incrementSection,
@@ -17,6 +17,7 @@ import { gotoChapter, Next } from 'core/actions/navigation'
 
 import { ChapterContext } from './chapter'
 import InlineList from './widgets/inline-list'
+import { ENTRY_TYPES } from 'core/actions/log'
 
 export interface ChoicesProps {
     choices: ChoicesType
@@ -59,11 +60,18 @@ const Choices = ({
         e.preventDefault()
         const target = e.target as HTMLInputElement
         const choice = target.textContent
-        const timestamp = new Date()
 
         dispatch(updateInventory(tag, choice))
         dispatch(pickChoice(tag, choices, index, currentPlayer))
-        dispatch(logAction(tag, choice, timestamp, currentPlayer))
+        dispatch(
+            logChoice({
+                tag,
+                selection: choice,
+                entry: ENTRY_TYPES.Choice,
+                timestamp: new Date(),
+                player: currentPlayer
+            })
+        )
 
         // TODO pull this out
         if (currentPlayer !== null) {

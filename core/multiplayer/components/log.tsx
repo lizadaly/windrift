@@ -1,18 +1,24 @@
-import * as React from 'react'
 import { useSelector } from 'react-redux'
 import { RootState } from 'core/reducers'
 import moment from 'moment'
+import { ENTRY_TYPES, LoggedChoice } from 'core/actions/log'
 
-const Log: React.FC = () => {
+const Log = (): JSX.Element => {
     const log = useSelector((state: RootState) => state.log)
     return (
         <div>
-            {log.reverse().map((entry, i) => (
-                <div key={i}>
-                    {entry.tag} {entry.selection} by {}
-                    {entry.player} on {moment(entry.timestamp).format('MMM Do YYYY, h:mm:ss a')}
-                </div>
-            ))}
+            {log
+                .reverse()
+                .filter((e) => e.entry === ENTRY_TYPES.Choice)
+                .map((e, i) => {
+                    const c = e as LoggedChoice
+                    return (
+                        <div key={i}>
+                            {c.tag} {c.selection} by {}
+                            {c.player} on {moment(c.timestamp).format('MMM Do YYYY, h:mm:ss a')}
+                        </div>
+                    )
+                })}
         </div>
     )
 }

@@ -16,9 +16,11 @@ interface UpdateStateCounterAction {
 export type UpdateStateCounterType = UpdateStateCounterAction
 
 /* Config */
+export type Player = string
+
 export class PlayerConfig {
     readonly start: TocItem['filename']
-    name?: string
+    name?: Player
 }
 
 export class Config {

@@ -11,10 +11,11 @@ import { RootState } from 'core/reducers'
 import { useDispatch, useSelector } from 'react-redux'
 import useChoiceListener from '../hooks/use-choice-listener'
 import { gotoChapter } from 'core/actions/navigation'
+import { Player } from 'core/types'
 
 export interface Players {
-    currentPlayer: string
-    otherPlayer: string
+    currentPlayer: Player
+    otherPlayer: Player
 }
 export const PlayerContext: React.Context<Players> = React.createContext({
     currentPlayer: null,

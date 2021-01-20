@@ -6,6 +6,10 @@ import { RootState } from 'core/reducers'
 import TitleScreen from 'core/multiplayer/components/title-screen'
 import NewGame from './new-game'
 import UI from './ui'
+import { Player } from 'core/types'
+
+export const Raccoon: Player = 'raccoon'
+export const Snake: Player = 'snake'
 
 const Index: React.FC = ({ children }) => {
     const config = useSelector((state: RootState) => state.config)

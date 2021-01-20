@@ -1,12 +1,15 @@
-import { useChannel, useEvent } from '@harelpls/use-pusher'
-import { updateInventory, pickChoice, logAction } from 'core/actions'
-import { Tag } from 'core/types'
 import { useDispatch } from 'react-redux'
+
+import { useChannel, useEvent } from '@harelpls/use-pusher'
+
+import { updateInventory, pickChoice, logChoice } from 'core/actions'
+import { ENTRY_TYPES } from 'core/actions/log'
+import { Player, Tag } from 'core/types'
 
 interface ApiChoice {
     tag: Tag
     choice: string
-    player: string
+    player: Player
     timestamp: string
 }
 
@@ -16,11 +19,18 @@ const useChoiceListener = (channelName: string, currentPlayer: string): void => 
     useEvent(channel, 'choose', ({ tag, choice, player, timestamp }: ApiChoice) => {
         // Dispatch events from other player
         const eventPlayer = player
-        const eventTimestamp = new Date(timestamp)
         if (currentPlayer !== eventPlayer) {
             dispatch(updateInventory(tag, choice))
             dispatch(pickChoice(tag, [[choice]], 0, eventPlayer))
-            dispatch(logAction(tag, choice, eventTimestamp, eventPlayer))
+            dispatch(
+                logChoice({
+                    tag,
+                    selection: choice,
+                    entry: ENTRY_TYPES.Choice,
+                    timestamp: new Date(timestamp),
+                    player: eventPlayer
+                })
+            )
         }
     })
 }
