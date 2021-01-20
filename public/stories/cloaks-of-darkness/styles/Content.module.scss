@@ -1,0 +1,75 @@
+
+@use '/public/styles/colors' with (
+    $cool: rgb(79, 135, 101)
+);
+
+@use '/public/styles/header' with (
+    $background: colors.$cool,
+);
+@use '/public/styles/main';
+@use '/public/styles/sizing';
+
+// Overrides and additions to the default grid
+
+.header {
+
+    nav {
+        // Add an extra column for the share button
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+
+        .player {
+            display: inline-block;
+            font-size: 1rem;
+            justify-self: right;
+            margin-right: 10px;
+        }
+
+        .share {
+            display: inline-block;
+        }
+    }
+}
+
+.main {
+
+    // Widen the right column to show the presence/log list
+    grid-template-columns: sizing.$left-right-width 5fr sizing.$left-right-width * 2;
+    .story {
+        padding-right: sizing.$gutter;
+    }
+    button {
+        display: inline-block;
+        margin-right: sizing.$gutter;
+        background: colors.$button;
+        color: colors.$very-light;
+        border: 0;
+        box-shadow: none;
+        border-radius: 0;
+        font-size: 1rem;
+        text-transform: uppercase;
+        padding: 10px;
+    }
+    input {
+        display: inline-block;
+        margin-right: sizing.$gutter;
+        border: 1px solid colors.$cool;
+        box-shadow: none;
+        border-radius: 0;
+        font-size: 1rem;
+        text-transform: uppercase;
+        padding: 10px;
+    }
+    input[type=submit] {
+
+        background: colors.$cool;
+        color: colors.$contrast;
+        border: 0;
+        box-shadow: none;
+        border-radius: 0;
+        font-size: 1rem;
+        text-transform: uppercase;
+        padding: 10px;
+    }
+
+}
+

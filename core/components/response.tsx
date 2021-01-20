@@ -9,24 +9,20 @@ interface ResponseProps {
     tag: string
     to: ToMap
 }
-const Response = ({ tag, to }: ResponseProps) => {
+const Response = ({ tag, to }: ResponseProps): JSX.Element => {
     // Get the inventory item for this tag
-    let choice = useSelector((state: RootState) => state.inventory.present[tag])
+    const choice = useSelector((state: RootState) => state.inventory.present[tag])
     const choices = useSelector((state: RootState) => state.choices.present[tag])
     if (choice === undefined) {
         return null
     }
-
-    // Todo make this more rationalized
-    choice = choice.replace(/[\W_]+/g, '').toLowerCase()
-
-    const resp = to[choice]
-
+    const words = choice.split(' ')
+    const resp = to[words[words.length - 1].toLowerCase()]
     if (!resp) {
         console.log(`No matching response was found for tag ${tag}`)
         for (const i in choices.choices) {
             const c = choices.choices[i][0]
-            console.log(c.replace(/[\W_]+/g, '').toLowerCase())
+            console.log(c)
         }
         return null
     }

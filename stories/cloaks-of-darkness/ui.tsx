@@ -6,12 +6,12 @@ import { RootState } from 'core/reducers'
 import ShareButton from 'core/multiplayer/components/share-button'
 
 import Presence from 'core/multiplayer/components/presence'
-import Log from 'core/multiplayer/components/presence'
-
-import styles from 'public/stories/tic-tac-toe/styles/Content.module.scss'
+import Log from 'core/multiplayer/components/log'
 import ResetButton from 'core/components/ui/reset-button'
 import { PlayerContext } from 'core/multiplayer/components/multiplayer-init'
 import Grid from 'core/components/ui/grid'
+
+import styles from 'public/stories/cloaks-of-darkness/styles/Content.module.scss'
 
 const Content: React.FC = ({ children }) => {
     const multiplayer = useSelector((state: RootState) => state.multiplayer)

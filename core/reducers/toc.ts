@@ -56,6 +56,7 @@ const toc = (
         case GOTO_CHAPTER:
             newState = cloneDeep(state)
             items = Object.values(newState)
+
             items.filter((i) => i.visible).forEach((i) => (i.visible = false))
 
             item = getChapter(newState, action.filename)

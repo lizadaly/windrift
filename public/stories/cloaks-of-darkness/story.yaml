@@ -9,9 +9,8 @@ chapters:
   - chapter:
     filename: "bar"
     title: "Foyer Bar"
-multiplayer:
-  enable: true
-  player1Label: "raccoon"
-  player2Label: "snake"
-  player1Start: "foyer"
-  player2Start: "cloakroom"
+players:
+  - name: "raccoon"
+    start: "foyer"
+  - name: "snake"
+    start: "cloakroom"
