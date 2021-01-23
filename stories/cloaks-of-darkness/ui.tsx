@@ -12,17 +12,18 @@ import { PlayerContext } from 'core/multiplayer/components/multiplayer-init'
 import Grid from 'core/components/ui/grid'
 
 import styles from 'public/stories/cloaks-of-darkness/styles/Content.module.scss'
+import useCloak, { CloakStatus } from './use-cloak'
 
 const Content: React.FC = ({ children }) => {
     const multiplayer = useSelector((state: RootState) => state.multiplayer)
     const { currentPlayer, otherPlayer } = React.useContext(PlayerContext)
-
+    const cloakStatus = useCloak()
     return (
         <Grid
             styles={styles}
             header={
                 <nav>
-                    <h1>Multiplayer Demo</h1>
+                    <h1>Cloaks of Darkness</h1>
                     {multiplayer.ready && (
                         <>
                             <div className={styles.player}>You are player {currentPlayer} ⟶</div>
@@ -41,6 +42,24 @@ const Content: React.FC = ({ children }) => {
                     <>
                         <Presence />
                         <Log />
+                    </>
+                )
+            }
+            left={
+                currentPlayer === 'raccoon' ? (
+                    <>
+                        <h3>You are a raccoon</h3>
+                        <p>You have very dextrous hands and a lovely coat of fur.</p>
+                    </>
+                ) : (
+                    <>
+                        <h3>You are a corn snake</h3>
+                        <p>You are a fine, healthy snake with lustrous orange mottles.</p>
+                        {cloakStatus === CloakStatus.Worn ? (
+                            <p>You are wearing a very tiny dark cloak.</p>
+                        ) : (
+                            ''
+                        )}
                     </>
                 )
             }>

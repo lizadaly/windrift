@@ -18,6 +18,7 @@ import { gotoChapter, Next } from 'core/actions/navigation'
 import { ChapterContext } from './chapter'
 import InlineList from './widgets/inline-list'
 import { ENTRY_TYPES } from 'core/actions/log'
+import { emitChoice } from 'core/multiplayer/api-client'
 
 export interface ChoicesProps {
     choices: ChoicesType
@@ -60,7 +61,6 @@ const Choices = ({
         e.preventDefault()
         const target = e.target as HTMLInputElement
         const choice = target.textContent
-
         dispatch(updateInventory(tag, choice))
         dispatch(pickChoice(tag, choices, index, currentPlayer))
         dispatch(
@@ -73,19 +73,9 @@ const Choices = ({
             })
         )
 
-        // TODO pull this out
+        // TODO pull this out into a listener hook
         if (currentPlayer !== null) {
-            const choiceBody = {
-                tag,
-                choice,
-                channel: channelName,
-                player: currentPlayer
-            }
-            fetch('/api/choose', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(choiceBody)
-            })
+            emitChoice(tag, choice, channelName, currentPlayer)
         }
 
         if (choices.length === 1) {

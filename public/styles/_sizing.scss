@@ -1,3 +1,3 @@
-$story-margin: 8vh;
-$gutter: $story-margin / 2;
-$left-right-width: $story-margin * 2;
+$story-margin: 8vh !default;
+$gutter: $story-margin / 2 !default;
+$left-right-width: $story-margin * 2 !default;

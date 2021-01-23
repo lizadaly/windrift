@@ -1,4 +1,6 @@
-
+@use '/public/styles/sizing' with (
+    $left-right-width: 20vw
+);
 @use '/public/styles/colors' with (
     $cool: rgb(79, 135, 101)
 );
@@ -7,7 +9,7 @@
     $background: colors.$cool,
 );
 @use '/public/styles/main';
-@use '/public/styles/sizing';
+
 
 // Overrides and additions to the default grid
 
@@ -15,7 +17,7 @@
 
     nav {
         // Add an extra column for the share button
-        grid-template-columns: 2fr 1fr 1fr 1fr;
+        grid-template-columns: 3fr 1fr 1fr 1fr;
 
         .player {
             display: inline-block;
@@ -33,7 +35,7 @@
 .main {
 
     // Widen the right column to show the presence/log list
-    grid-template-columns: sizing.$left-right-width 5fr sizing.$left-right-width * 2;
+    grid-template-columns: sizing.$left-right-width 4fr sizing.$left-right-width;
     .story {
         padding-right: sizing.$gutter;
     }

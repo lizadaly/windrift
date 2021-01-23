@@ -43,6 +43,7 @@ const toc = (
             // Find the item with this filename
             item = getChapter(newState, action.item.filename)
             index = items.indexOf(item)
+
             if (index < items.length - 1) {
                 // Ensure there are more chapters
 

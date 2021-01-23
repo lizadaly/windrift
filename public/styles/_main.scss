@@ -15,17 +15,33 @@
 
     font-family: fonts.$body;
     font-size: 1.2rem;
+    padding-top: sizing.$story-margin;
+
+    h1, h2, h3, h4, h5, h6 {
+        margin-bottom: 1em;
+    }
 
     .left {
         height: 100vh;
         font-size: 1rem;
-        padding: sizing.$story-margin 0 0 sizing.$story-margin;
+        padding: 0 sizing.$story-margin 0 sizing.$story-margin;
+
+        p {
+            margin: 0 0 1rem 0;
+            line-height: 1.2rem;
+        }
     }
 
     .story {
-        padding-top: sizing.$story-margin;
         height: 100vh;
 
+        aside, p {
+            margin: 0 0 1rem 0;
+            line-height: 1.75rem;
+        }
+        aside {
+            margin-top: 1rem;
+        }
         h1, h2, h3, h4, h5, h6 {
             line-height: 3rem;
             color: colors.$warm;
@@ -34,21 +50,23 @@
             font-size: 1.3rem;
             color: complement(colors.$warm);
         }
-        p {
-            margin: 1rem 0;
-            line-height: 1.5rem;
-        }
+
         a {
             color: colors.$cool;
         }
         ul, ol {
             margin-left: 2rem;
         }
+
     }
 
     .right {
         height: 100vh;
         font-size: 1rem;
-        padding: sizing.$story-margin sizing.$story-margin 0 0;
+        padding: 0 sizing.$story-margin 0 0;
+        p {
+            margin: 0 0 1rem 0;
+            line-height: 1.5rem;
+        }
     }
 }

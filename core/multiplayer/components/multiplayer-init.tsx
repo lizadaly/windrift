@@ -7,11 +7,14 @@
 // Make the current and other player available as context.
 
 import * as React from 'react'
-import { RootState } from 'core/reducers'
 import { useDispatch, useSelector } from 'react-redux'
-import useChoiceListener from '../hooks/use-choice-listener'
+
+import { RootState } from 'core/reducers'
 import { gotoChapter } from 'core/actions/navigation'
 import { Player } from 'core/types'
+import useNavEmitter from 'core/multiplayer/hooks/use-nav-emitter'
+import useChoiceListener from 'core/multiplayer/hooks/use-choice-listener'
+import { STATUS_CODES } from 'http'
 
 export interface Players {
     currentPlayer: Player
@@ -23,16 +26,20 @@ export const PlayerContext: React.Context<Players> = React.createContext({
 })
 
 const MultiplayerInit: React.FC = ({ children }) => {
-    const { currentPlayer, channelName } = useSelector((state: RootState) => state.multiplayer)
+    const { currentPlayer } = useSelector((state: RootState) => state.multiplayer)
+    const toc = useSelector((state: RootState) => state.toc.present)
     const { players } = useSelector((state: RootState) => state.config)
-
     const dispatch = useDispatch()
 
     // Display our start chapter on first render only
     React.useEffect(() => {
-        const start = players.filter((p) => p.name === currentPlayer)[0].start
-        dispatch(gotoChapter(start))
-    }, [currentPlayer])
+        const visible = toc ? Object.values(toc).filter((c) => c.visible).length > 0 : false
+        // if there are no visible chapters, use the player default
+        if (!visible) {
+            const start = players.filter((p) => p.name === currentPlayer)[0].start
+            dispatch(gotoChapter(start))
+        }
+    }, [currentPlayer, toc])
 
     const otherPlayer = currentPlayer === players[0].name ? players[1].name : players[0].name
     const PlayersContext: Players = {
@@ -41,7 +48,10 @@ const MultiplayerInit: React.FC = ({ children }) => {
     }
 
     // Listen for events from the other player
-    useChoiceListener(channelName, currentPlayer)
+    useChoiceListener()
+
+    // Emit any chapter switches to the API
+    useNavEmitter()
 
     return (
         <>
