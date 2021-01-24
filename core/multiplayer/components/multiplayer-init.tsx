@@ -14,7 +14,6 @@ import { gotoChapter } from 'core/actions/navigation'
 import { Player } from 'core/types'
 import useNavEmitter from 'core/multiplayer/hooks/use-nav-emitter'
 import useChoiceListener from 'core/multiplayer/hooks/use-choice-listener'
-import { STATUS_CODES } from 'http'
 
 export interface Players {
     currentPlayer: Player

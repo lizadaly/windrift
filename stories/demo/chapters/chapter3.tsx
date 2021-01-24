@@ -2,7 +2,7 @@ import { Next } from 'core/actions/navigation'
 import { C, Section, Chapter } from 'core/components'
 import { DefaultList } from 'core/components/widgets'
 import { PageType } from 'core/types'
-
+import More from 'core/components/more'
 export const Page: PageType = () => (
     <Chapter filename="chapter3">
         <Section>
@@ -12,6 +12,7 @@ export const Page: PageType = () => (
                 <C choices={[['Next section.', null]]} tag="c3-next" widget={DefaultList} />
             </p>
         </Section>
+
         <Section>
             <p>
                 You can force skipping to the next chapter by setting
@@ -26,6 +27,13 @@ export const Page: PageType = () => (
                     next={Next.None}
                 />
             </p>
+            <p>
+                There's a special navigational component, <code>More</code>, for just the previous
+                case of a link with a single item that advances the story.
+            </p>
+            <More text="More..." />
+        </Section>
+        <Section>
             <p>
                 Passing a string as the <code>next</code> parameter will jump the narrative to that
                 chapter's filename. (You can't jump to a section.)

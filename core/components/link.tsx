@@ -6,18 +6,19 @@ for the last item in a List */
 
 interface LinkProps {
     text: string
-    index: number
+    index?: number
     handler: any
 }
 const Link = ({ text, index, handler }: LinkProps): JSX.Element => {
     if (handler) {
         return (
+            // eslint-disable-next-line jsx-a11y/anchor-is-valid
             <a href="#" onClick={() => handler(event, index)}>
                 {text}
             </a>
         )
     }
-    return <span className="selected">{text} </span>
+    return <span className="selected">{text}</span>
 }
 
 export default Link

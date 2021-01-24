@@ -10,6 +10,7 @@
         "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc",
         "export": "next build && next export",
         "vercel": "vercel",
+        "test": "cypress run",
         "cy:open": "cypress open",
         "cy:run": "cypress run"
     },
@@ -38,7 +39,7 @@
         "@types/react": "^16.9.56",
         "@typescript-eslint/eslint-plugin": "^4.7.0",
         "@typescript-eslint/parser": "^4.7.0",
-        "cypress": "^6.2.1",
+        "cypress": "^6.3.0",
         "eslint": "^7.18.0",
         "eslint-config-prettier": "^7.1.0",
         "eslint-plugin-cypress": "^2.11.2",

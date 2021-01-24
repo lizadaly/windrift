@@ -10,7 +10,7 @@ export const Page: PageType = () => (
             <R
                 tag="c3-chapter1"
                 to={{
-                    gotochapter1: (
+                    '1': (
                         <p>
                             <b>You came here via chapter 3.</b> Note that any previous choices are
                             still here.{' '}
