@@ -8,7 +8,7 @@ describe('Full test of the built-in stories', () => {
         cy.contains('Next section').click()
         cy.contains('no-op').click()
         cy.contains('Clicked!')
-        cy.contains('More...').click()
+        cy.contains('Click for more').click()
         cy.contains('chapter 1').click()
         cy.contains('You came here via')
         cy.contains('Go to chapter 4').click()

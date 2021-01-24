@@ -50,7 +50,7 @@ const Choices = ({
     // Get the original picks either from props or from the state
     const initialChoices = newChoices ? newChoices.initialChoices : choices
 
-    // On first render, record the initial choices
+    // On first render, record the initial choices.
     React.useEffect(() => {
         dispatch(initChoice(tag, choices))
     }, [dispatch])

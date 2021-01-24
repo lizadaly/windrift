@@ -16,9 +16,9 @@ export const Page: PageType = () => (
 
         <Section>
             <p>
-                You can force skipping to the next chapter by setting
-                <code>next=Next.Chapter</code>, skipping over any remaining sections, or set{' '}
-                <code>next=Next.None</code> to do nothing.
+                You can force skipping to the next chapter by setting <code>next=Next.Chapter</code>
+                , skipping over any remaining sections, or set <code>next=Next.None</code> to do
+                nothing.
             </p>
             <p>
                 <C
@@ -34,12 +34,8 @@ export const Page: PageType = () => (
                 "More..." but you can customize this with the <code>text</code> prop. It accepts the
                 same <code>next</code> props as <code>Choice</code>.
             </p>
-            <aside>
-                Unlike a <code>Choice</code>, it will not set anything in the inventory, so you
-                can't check <code>Response</code> based on that. Use a single-item
-                <code>Choice</code> in this case.
-            </aside>
-            <More text="More..." />
+
+            <More text="Click for more" />
         </Section>
         <Section>
             <p>

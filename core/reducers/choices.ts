@@ -10,25 +10,24 @@ import {
     ChoiceInitType,
     ChoicesClearType
 } from 'core/actions/choices'
-import { CLEAR_INVENTORY } from 'core/actions/inventory'
 
 export const choices = (
     state: RemainingChoices = {},
     action: ChoicePickType | ChoiceInitType | ChoicesClearType
 ): RemainingChoices => {
     switch (action.type) {
-        case INIT_CHOICE:
+        case INIT_CHOICE: {
             const newState = cloneDeep(state)
             newState[action.tag] = {
                 choices: action.choices,
                 initialChoices: action.choices
             }
             return newState
-
+        }
         case CLEAR_CHOICES:
             return state
 
-        case PICK_CHOICE:
+        case PICK_CHOICE: {
             const choiceState = cloneDeep(state)
 
             // if the choices list is empty, we're deliberately destroying this
@@ -62,7 +61,7 @@ export const choices = (
                 initialChoices: state[action.tag] ? state[action.tag].initialChoices : []
             }
             return choiceState
-
+        }
         default:
             return state
     }
