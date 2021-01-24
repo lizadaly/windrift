@@ -1,5 +1,5 @@
 import { C, R, Section, Chapter } from 'core/components'
-import { DefaultList as D } from 'core/components/widgets'
+import { BaseList as D } from 'core/components/widgets'
 import { PageType } from 'core/types'
 import Only from 'core/multiplayer/components/player-only'
 import useNavListener from 'core/multiplayer/hooks/use-nav-listener'

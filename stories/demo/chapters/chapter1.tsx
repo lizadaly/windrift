@@ -1,6 +1,6 @@
 import { Next } from 'core/actions/navigation'
 import { C, R, Section, Chapter } from 'core/components'
-import { BulletedList, DefaultList } from 'core/components/widgets'
+import { BulletedList, BaseList } from 'core/components/widgets'
 import { PageType } from 'core/types'
 
 export const Page: PageType = () => (
@@ -17,7 +17,7 @@ export const Page: PageType = () => (
                             <C
                                 choices={[['Go to chapter 4', null]]}
                                 tag="c1-chapter4"
-                                widget={DefaultList}
+                                widget={BaseList}
                                 next={'chapter4'}
                             />
                         </p>

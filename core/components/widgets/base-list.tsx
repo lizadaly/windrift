@@ -4,9 +4,9 @@ import React from 'react'
 import { WidgetProps } from '.'
 import Link from '../link'
 
-declare function DefaultListType(props: WidgetProps): JSX.Element
+declare function BaseListType(props: WidgetProps): JSX.Element
 
-const DefaultList: typeof DefaultListType = ({
+const BaseList: typeof BaseListType = ({
     group = null,
     handler = null
 }: WidgetProps): JSX.Element => {
@@ -21,4 +21,4 @@ const DefaultList: typeof DefaultListType = ({
     )
 }
 
-export default DefaultList
+export default BaseList
