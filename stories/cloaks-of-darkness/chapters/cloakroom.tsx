@@ -20,37 +20,48 @@ export const Page: PageType = () => {
                     The walls of this small room were clearly once lined with hooks, though now only{' '}
                     <C choices={[['one hook', null]]} tag="cl-hook" widget={D} sync={false} />{' '}
                     remains.{' '}
-                    {
-                        <R
-                            tag="cl-hook"
-                            to={{
-                                hook: cloak === CloakStatus.Worn && (
-                                    <>
-                                        <Only player={Snake}>
+                    <R
+                        tag="cl-pluck"
+                        to={{
+                            pluck: (
+                                <Only player={Raccoon}>
+                                    <aside>
+                                        You delicately remove the tiny cloak from the snake and hang
+                                        it up.
+                                    </aside>
+                                </Only>
+                            )
+                        }}
+                    />
+                    <R
+                        tag="cl-hook"
+                        to={{
+                            hook: cloak === CloakStatus.Worn && (
+                                <>
+                                    <Only player={Snake}>
+                                        <aside>
+                                            It looks like you could hang your cloak there, if you
+                                            only had hands.
+                                        </aside>
+                                    </Only>
+                                    {both && (
+                                        <Only player={Raccoon}>
                                             <aside>
-                                                It looks like you could hang your cloak there, if
-                                                you only had hands.
+                                                You could{' '}
+                                                <C
+                                                    choices={[['pluck', null]]}
+                                                    tag="cl-pluck"
+                                                    widget={D}
+                                                />{' '}
+                                                the little cloak off the snake and hang it on the
+                                                hook, if you like.
                                             </aside>
                                         </Only>
-                                        {both && (
-                                            <Only player={Raccoon}>
-                                                <aside>
-                                                    You could{' '}
-                                                    <C
-                                                        choices={[['pluck', null]]}
-                                                        tag="cl-pluck"
-                                                        widget={D}
-                                                    />{' '}
-                                                    the little cloak off the snake and hang it on
-                                                    the hook, if you like.
-                                                </aside>
-                                            </Only>
-                                        )}
-                                    </>
-                                )
-                            }}
-                        />
-                    }
+                                    )}
+                                </>
+                            )
+                        }}
+                    />
                     The exit is a door to the{' '}
                     <C choices={[['east', null]]} tag="cl-foyer" widget={D} next="foyer" />.
                 </p>
