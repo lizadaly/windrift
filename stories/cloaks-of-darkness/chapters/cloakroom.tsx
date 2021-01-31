@@ -1,4 +1,4 @@
-import { C, R, Section, Chapter } from 'core/components'
+import { C, R, Section, Chapter, Nav } from 'core/components'
 import { BaseList as D } from 'core/components/widgets'
 import { PageType } from 'core/types'
 import Only from 'core/multiplayer/components/player-only'
@@ -62,8 +62,7 @@ export const Page: PageType = () => {
                             )
                         }}
                     />
-                    The exit is a door to the{' '}
-                    <C choices={[['east', null]]} tag="cl-foyer" widget={D} next="foyer" />.
+                    The exit is a door to the <Nav text="east" next="foyer" />.
                 </p>
                 {cloak == CloakStatus.Hung && (
                     <p>There is a tiny snake-sized cloak hanging on the hook.</p>

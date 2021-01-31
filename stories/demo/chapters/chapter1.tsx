@@ -1,5 +1,5 @@
 import { Next } from 'core/actions/navigation'
-import { C, R, Section, Chapter } from 'core/components'
+import { C, R, Section, Chapter, Nav } from 'core/components'
 import { BulletedList, BaseList } from 'core/components/widgets'
 import { PageType } from 'core/types'
 
@@ -11,16 +11,17 @@ export const Page: PageType = () => (
                 tag="c3-chapter1"
                 to={{
                     '1': (
-                        <p>
-                            <b>You came here via chapter 3.</b> Note that any previous choices are
-                            still here.{' '}
-                            <C
-                                choices={[['Go to chapter 4', null]]}
-                                tag="c1-chapter4"
-                                widget={BaseList}
-                                next={'chapter4'}
-                            />
-                        </p>
+                        <>
+                            <p>
+                                <b>You came here via chapter 3.</b> Note that any previous choices
+                                are still here.
+                            </p>
+                            <p>
+                                If you don't need to remark on the navigation change, you can see
+                                the shorthand <code>Nav</code> component to allow players to switch
+                                between chapters. <Nav text="Go to chapter 4" next="chapter4" />.
+                            </p>
+                        </>
                     )
                 }}
             />

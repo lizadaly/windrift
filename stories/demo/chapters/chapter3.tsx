@@ -1,8 +1,7 @@
 import { Next } from 'core/actions/navigation'
-import { C, Section, Chapter } from 'core/components'
+import { C, Section, Chapter, More } from 'core/components'
 import { BaseList } from 'core/components/widgets'
 import { PageType } from 'core/types'
-import More from 'core/components/more'
 
 export const Page: PageType = () => (
     <Chapter filename="chapter3">

@@ -1,5 +1,4 @@
-import { Next } from 'core/actions/navigation'
-import { C, R, Section, Chapter } from 'core/components'
+import { C, R, Section, Chapter, Nav } from 'core/components'
 import { BaseList as D } from 'core/components/widgets'
 import Only from 'core/multiplayer/components/player-only'
 import useNavListener from 'core/multiplayer/hooks/use-nav-listener'
@@ -26,14 +25,7 @@ export const Page: PageType = () => {
                         You are in a spacious hall, splendidly decorated in red and gold, with
                         glittering chandeliers overhead. The entrance from the street is{' '}
                         <C choices={[['back the way you came', null]]} tag="c1-back" widget={D} />,
-                        and there are doorways east and{' '}
-                        <C
-                            choices={[['west', null]]}
-                            tag="c1-cloakroom"
-                            widget={D}
-                            next="cloakroom"
-                        />
-                        .
+                        and there are doorways east and <Nav text="west" next="cloakroom" />.
                     </p>
                     <R
                         tag="c1-back"

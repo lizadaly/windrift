@@ -23,10 +23,15 @@ import { emitChoice } from 'core/multiplayer/api-client'
 export interface ChoicesProps {
     choices: ChoicesType
     tag: string
+    /** At completion of the choice list, go to the Next section/chapter, go to the named chapter (if a string) or do nothing*/
     next?: Next | string
     widget?: WidgetType
+    /** Arbitrary arguments passed unchanged to the underlying widget */
     extra?: Record<string, unknown>
+    /** Whether to sync this choice in a multiplayer game, @defaultValue true */
     sync?: boolean
+    /** Whether to retain the last choice as a hyperlink, as for navigation. @defaultValue false */
+    persist?: boolean
 }
 
 const Choices = ({
@@ -35,7 +40,8 @@ const Choices = ({
     extra,
     widget = InlineList,
     next = Next.Section,
-    sync = true
+    sync = true,
+    persist = false
 }: ChoicesProps): JSX.Element => {
     const { channelName, currentPlayer } = useSelector((state: RootState) => state.multiplayer)
     const dispatch = useDispatch()
@@ -103,7 +109,7 @@ const Choices = ({
     return (
         <W
             group={group}
-            handler={group.length > 1 ? handler : null}
+            handler={group.length > 1 || persist ? handler : null}
             initialChoices={initialChoices}
             {...extra}
         />

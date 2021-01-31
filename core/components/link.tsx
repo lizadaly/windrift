@@ -1,8 +1,7 @@
-import * as React from 'react'
+/** A Link that the user interacts with to potentially change state. If no handler
+is supplied, then the text is displayed as static HTML.
 
-/* A Link that the user interacts with to potentially change state. If no handler
-is supplied, then the text is displayed as static HTML. This typically occurs
-for the last item in a List */
+This typically occurs for the last item in a Choices list. */
 
 interface LinkProps {
     text: string
