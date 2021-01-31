@@ -21,13 +21,15 @@ const InlineList: typeof InlineListType = ({
     }
     return (
         <>
-            {[...group].map((t, i) => (
-                <span key={i}>
-                    {group.length > 1 && i === group.length - 1 ? conjunction : ''}
-                    <Link handler={handler} text={t} index={i} />
-                    {i < group.length - 1 && group.length > 2 ? separator : ''}
-                </span>
-            ))}
+            {[...group]
+                .filter((c) => c !== null && c !== undefined)
+                .map((t, i) => (
+                    <span key={i}>
+                        {group.length > 1 && i === group.length - 1 ? conjunction : ''}
+                        <Link handler={handler} text={t} index={i} />
+                        {i < group.length - 1 && group.length > 2 ? separator : ''}
+                    </span>
+                ))}
         </>
     )
 }

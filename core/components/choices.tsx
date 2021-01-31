@@ -26,6 +26,7 @@ export interface ChoicesProps {
     next?: Next | string
     widget?: WidgetType
     extra?: Record<string, unknown>
+    sync?: boolean
 }
 
 const Choices = ({
@@ -33,7 +34,8 @@ const Choices = ({
     tag,
     extra,
     widget = InlineList,
-    next = Next.Section
+    next = Next.Section,
+    sync = true
 }: ChoicesProps): JSX.Element => {
     const { channelName, currentPlayer } = useSelector((state: RootState) => state.multiplayer)
     const dispatch = useDispatch()
@@ -74,7 +76,7 @@ const Choices = ({
         )
 
         // TODO pull this out into a listener hook
-        if (currentPlayer !== null) {
+        if (currentPlayer !== null && sync) {
             emitChoice(tag, choice, channelName, currentPlayer)
         }
 

@@ -18,7 +18,8 @@ export const Page: PageType = () => {
                 <h1>Cloakroom</h1>
                 <p>
                     The walls of this small room were clearly once lined with hooks, though now only{' '}
-                    <C choices={[['one hook', null]]} tag="cl-hook" widget={D} /> remains.{' '}
+                    <C choices={[['one hook', null]]} tag="cl-hook" widget={D} sync={false} />{' '}
+                    remains.{' '}
                     {
                         <R
                             tag="cl-hook"

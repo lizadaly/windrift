@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux'
 import { RootState } from 'core/reducers'
 
 import ShareButton from 'core/multiplayer/components/share-button'
+import { C, R } from 'core/components'
 
 import Presence from 'core/multiplayer/components/presence'
 import Log from 'core/multiplayer/components/log'
@@ -13,6 +14,7 @@ import Grid from 'core/components/ui/grid'
 
 import styles from 'public/stories/cloaks-of-darkness/styles/Content.module.scss'
 import useCloak, { CloakStatus } from './use-cloak'
+import { Next } from 'core/actions/navigation'
 
 const Content: React.FC = ({ children }) => {
     const multiplayer = useSelector((state: RootState) => state.multiplayer)
@@ -46,7 +48,8 @@ const Content: React.FC = ({ children }) => {
                 )
             }
             left={
-                currentPlayer === 'raccoon' ? (
+                currentPlayer && // Story must have started
+                (currentPlayer === 'raccoon' ? (
                     <>
                         <h3>You are a raccoon</h3>
                         <p>You have very dextrous hands and a lovely coat of fur.</p>
@@ -56,12 +59,16 @@ const Content: React.FC = ({ children }) => {
                         <h3>You are a corn snake</h3>
                         <p>You are a fine, healthy snake with lustrous orange mottles.</p>
                         {cloakStatus === CloakStatus.Worn ? (
-                            <p>You are wearing a very tiny dark cloak.</p>
+                            <p>
+                                You are wearing a very tiny dark{' '}
+                                <C choices={[['cloak', null]]} tag="cloak-desc" next={Next.None} />.
+                                <R tag="cloak-desc" to={{ cloak: " It's light-absorbing. " }} />
+                            </p>
                         ) : (
                             ''
                         )}
                     </>
-                )
+                ))
             }>
             {children}
         </Grid>
