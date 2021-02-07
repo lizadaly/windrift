@@ -28,7 +28,11 @@ export const Page: PageType = () => (
             <h2>Default widget: inline</h2>
             <p>This will display each choice inline, leaving behind the chosen one.</p>
             Would you like a{' '}
-            <C choices={[['banana', 'orange', 'kiwi']]} extra={{ conjunction: 'or' }} tag="fruit" />
+            <C
+                choices={[['ripe banana', 'bulbous orange', 'fuzzy kiwi']]}
+                extra={{ conjunction: 'or' }}
+                tag="fruit"
+            />
             ?
         </Section>
         <Section>

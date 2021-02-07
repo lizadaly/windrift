@@ -4,6 +4,8 @@ describe('Full test of the built-in stories', () => {
         cy.contains('banana').click()
         cy.contains('elm').click()
         cy.contains('a nice banana')
+        cy.contains('also matches banana')
+
         cy.contains('Next').click()
         cy.contains('Next section').click()
         cy.contains('no-op').click()

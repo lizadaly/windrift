@@ -26,6 +26,19 @@ export const Page: PageType = () => (
                 />
                 .
             </p>
+            <p>You can match by regular expression too:</p>
+            <p>
+                <R
+                    tag="fruit"
+                    to={{
+                        'r?pe ban*': 'This also matches banana',
+                        '*range': 'This also matches orange',
+                        '*iw*': 'This also matches kiwi'
+                    }}
+                />
+                .
+            </p>
+
             <p>
                 Let's move on to navigation...{' '}
                 <C
