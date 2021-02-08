@@ -1,6 +1,11 @@
-import { Next } from 'core/actions/navigation'
+import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter'
+import jsx from 'react-syntax-highlighter/dist/esm/languages/prism/jsx'
+import prism from 'react-syntax-highlighter/dist/esm/styles/prism/material-oceanic'
+
+SyntaxHighlighter.registerLanguage('jsx', jsx)
+
 import { C, R, Section, Chapter, Nav } from 'core/components'
-import { BulletedList, BaseList } from 'core/components/widgets'
+import { BulletedList } from 'core/components/widgets'
 import { PageType } from 'core/types'
 
 export const Page: PageType = () => (
@@ -19,7 +24,13 @@ export const Page: PageType = () => (
                             <p>
                                 If you don't need to remark on the navigation change, you can see
                                 the shorthand <code>Nav</code> component to allow players to switch
-                                between chapters. <Nav text="Go to chapter 4" next="chapter4" />.
+                                between chapters.
+                                <SyntaxHighlighter language="jsx" style={prism}>
+                                    {`<Nav text="Go to chapter 4" next="chapter4" />`}
+                                </SyntaxHighlighter>
+                                <aside>
+                                    <Nav text="Go to chapter 4" next="chapter4" />.
+                                </aside>
                             </p>
                         </>
                     )
@@ -27,13 +38,21 @@ export const Page: PageType = () => (
             />
             <h2>Default widget: inline</h2>
             <p>This will display each choice inline, leaving behind the chosen one.</p>
-            Would you like a{' '}
-            <C
-                choices={[['ripe banana', 'bulbous orange', 'fuzzy kiwi']]}
-                extra={{ conjunction: 'or' }}
-                tag="fruit"
-            />
-            ?
+            <SyntaxHighlighter language="jsx" style={prism}>
+                {` <Choices
+    choices={[['ripe banana', 'bulbous orange', 'fuzzy kiwi']]}
+    extra={{ conjunction: 'or' }}
+    tag="fruit" />`}
+            </SyntaxHighlighter>
+            <aside>
+                Would you like a{' '}
+                <C
+                    choices={[['ripe banana', 'bulbous orange', 'fuzzy kiwi']]}
+                    extra={{ conjunction: 'or' }}
+                    tag="fruit"
+                />
+                ?
+            </aside>
         </Section>
         <Section>
             <h2>Bulleted list widget</h2>
@@ -41,13 +60,16 @@ export const Page: PageType = () => (
                 This will display each item as a bulleted list, like a menu. All items will remain
                 onscreen after the choice.
             </p>
-            <p>What is your favorite kind of tree?</p>
-            <C
-                choices={[['poplar', 'elm', 'baobab']]}
-                tag="tree"
-                widget={BulletedList}
-                next={Next.Chapter}
-            />
+            <SyntaxHighlighter language="jsx" style={prism}>
+                {`<C choices={[['poplar', 'elm', 'baobab']]} tag="tree" widget={BulletedList} />`}
+            </SyntaxHighlighter>
+            <aside>
+                <p>What is your favorite kind of tree?</p>
+                <C choices={[['poplar', 'elm', 'baobab']]} tag="tree" widget={BulletedList} />
+            </aside>
+        </Section>
+        <Section>
+            <Nav text="Next..." next="chapter2" />
         </Section>
     </Chapter>
 )

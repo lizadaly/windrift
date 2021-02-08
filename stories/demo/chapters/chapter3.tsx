@@ -1,6 +1,11 @@
+import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter'
+import jsx from 'react-syntax-highlighter/dist/esm/languages/prism/jsx'
+import prism from 'react-syntax-highlighter/dist/esm/styles/prism/material-oceanic'
+
+SyntaxHighlighter.registerLanguage('jsx', jsx)
+
 import { Next } from 'core/actions/navigation'
 import { C, Section, Chapter, More } from 'core/components'
-import { BaseList } from 'core/components/widgets'
 import { PageType } from 'core/types'
 
 export const Page: PageType = () => (
@@ -9,8 +14,27 @@ export const Page: PageType = () => (
             <h1>Chapter 3: Navigation</h1>
             <p>By default, exhausting the choice list will move to the next section.</p>
             <p>
-                <C choices={[['Next section.', null]]} tag="c3-next" widget={BaseList} />
+                Note: from here on we'll use the <code>C</code> short form for all{' '}
+                <code>Choices</code> components, since that's likely how you'll write them.
             </p>
+            <SyntaxHighlighter language="jsx" style={prism}>
+                {` <C choices={[
+        ['One...', null],
+        ['Two...', null],
+        ['Three.', null]
+    ]}
+    tag="c3-next" />`}
+            </SyntaxHighlighter>
+            <aside>
+                <C
+                    choices={[
+                        ['One...', null],
+                        ['Two...', null],
+                        ['Three.', null]
+                    ]}
+                    tag="c3-next"
+                />
+            </aside>
         </Section>
 
         <Section>
@@ -19,11 +43,15 @@ export const Page: PageType = () => (
                 , skipping over any remaining sections, or set <code>next=Next.None</code> to do
                 nothing.
             </p>
+            <SyntaxHighlighter language="jsx" style={prism}>
+                {` <C choices={[['This is a no-op.', null], ['Clicked!']]}
+    tag="c3-noop"
+    next={Next.None} />`}
+            </SyntaxHighlighter>
             <p>
                 <C
                     choices={[['This is a no-op.', null], ['Clicked!']]}
                     tag="c3-noop"
-                    widget={BaseList}
                     next={Next.None}
                 />
             </p>
@@ -33,24 +61,30 @@ export const Page: PageType = () => (
                 "More..." but you can customize this with the <code>text</code> prop. It accepts the
                 same <code>next</code> props as <code>Choice</code>.
             </p>
-
-            <More text="Click for more" />
+            <SyntaxHighlighter language="jsx" style={prism}>
+                {`<More text="Click for more" />`}
+            </SyntaxHighlighter>
+            <aside>
+                <More text="Click for more" />
+            </aside>
         </Section>
         <Section>
             <p>
                 Passing a string as the <code>next</code> parameter will jump the narrative to that
                 chapter's filename. (You can't jump to a section.)
             </p>
-            <aside>
+            <p>
                 Note that we use a <code>Choice</code> here because we'll print a custom{' '}
                 <code>Response</code> after this jump.
+            </p>
+            <SyntaxHighlighter language="jsx" style={prism}>
+                {` <C choices={[['Go to chapter 1', null]]}
+    tag="c3-chapter1"
+    next={'chapter1'} />`}
+            </SyntaxHighlighter>
+            <aside>
+                <C choices={[['Go to chapter 1', null]]} tag="c3-chapter1" next={'chapter1'} />
             </aside>
-            <C
-                choices={[['Go to chapter 1', null]]}
-                tag="c3-chapter1"
-                widget={BaseList}
-                next={'chapter1'}
-            />
         </Section>
     </Chapter>
 )

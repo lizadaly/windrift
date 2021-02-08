@@ -1,2 +1,28 @@
+@use 'sass:color';
 
 @use '/public/styles/grid';
+@use '/public/styles/colors';
+
+.main {
+    p {
+        font-size: 22px;
+        padding: 1rem 0;
+    }
+
+    aside {
+        font-size: larger;
+        border: 1px solid color.scale(colors.$cool, $lightness: 50%);
+        color: colors.$cool;
+        padding: 2rem;
+
+    }
+    aside::before {
+        content: "Example: ";
+        display: block;
+        color: color.scale(colors.$cool, $lightness: 70%);
+        padding: .25rem;
+        font-size: 20px;
+        text-transform: uppercase;
+        margin-bottom: 1rem;
+    }
+}

@@ -4,7 +4,7 @@
 
 .main {
     display: grid;
-    height: 100vh;
+    min-height: 100vh;
 
     grid-template-columns: sizing.$left-right-width 5fr sizing.$left-right-width;
     grid-template-areas: "left"
