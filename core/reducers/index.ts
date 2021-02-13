@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
 import inventory from './inventory'
-import choices from './choices'
+import choices from './choice'
 import counter from './counter'
 import config from './config'
 import toc from './toc'

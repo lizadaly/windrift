@@ -2,48 +2,48 @@ import undoable, { excludeAction } from 'redux-undo'
 import cloneDeep from 'lodash.clonedeep'
 
 import {
-    PICK_CHOICE,
+    PICK_OPTION,
     INIT_CHOICE,
-    CLEAR_CHOICES,
-    ChoicePickType,
-    RemainingChoices,
+    CLEAR_OPTIONS,
+    OptionPickType,
+    RemainingOptions,
     ChoiceInitType,
-    ChoicesClearType
-} from 'core/actions/choices'
+    OptionsClearType
+} from 'core/actions/choice'
 
 export const choices = (
-    state: RemainingChoices = {},
-    action: ChoicePickType | ChoiceInitType | ChoicesClearType
-): RemainingChoices => {
+    state: RemainingOptions = {},
+    action: OptionPickType | ChoiceInitType | OptionsClearType
+): RemainingOptions => {
     switch (action.type) {
         case INIT_CHOICE: {
             const newState = cloneDeep(state)
             newState[action.tag] = {
-                choices: action.choices,
-                initialChoices: action.choices
+                options: action.options,
+                initialOptions: action.options
             }
             return newState
         }
-        case CLEAR_CHOICES:
+        case CLEAR_OPTIONS:
             return state
 
-        case PICK_CHOICE: {
+        case PICK_OPTION: {
             const choiceState = cloneDeep(state)
 
             // if the choices list is empty, we're deliberately destroying this
             // choice list, so just exit early
 
-            if (action.choices.length === 0) {
+            if (action.options.length === 0) {
                 choiceState[action.tag] = {
-                    choices: [],
-                    initialChoices: state[action.tag].initialChoices
+                    options: [],
+                    initialOptions: state[action.tag].initialOptions
                 }
                 return choiceState
             }
             // toss the first choice out
-            const first = action.choices.slice(0, 1)[0]
+            const first = action.options.slice(0, 1)[0]
 
-            let remainder = action.choices.slice(1, action.choices.length)
+            let remainder = action.options.slice(1, action.options.length)
 
             // If the choice array is now empty, this is the last item, so just populate it
             // with the index
@@ -57,8 +57,8 @@ export const choices = (
                 remainder = [[first[action.index]]]
             }
             choiceState[action.tag] = {
-                choices: remainder,
-                initialChoices: state[action.tag] ? state[action.tag].initialChoices : []
+                options: remainder,
+                initialOptions: state[action.tag] ? state[action.tag].initialOptions : []
             }
             return choiceState
         }
@@ -69,5 +69,5 @@ export const choices = (
 
 export default undoable(choices, {
     filter: excludeAction(INIT_CHOICE),
-    initTypes: [CLEAR_CHOICES]
+    initTypes: [CLEAR_OPTIONS]
 })

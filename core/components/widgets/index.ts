@@ -1,11 +1,11 @@
-import { ChoiceGroup, ChoicesType } from 'core/actions/choices'
+import { OptionGroup, OptionsType } from 'core/actions/choice'
 
 export { default as InlineList } from './inline-list'
 export { default as BulletedList } from './bulleted-list'
 export { default as BaseList } from './base-list'
 
 export interface WidgetProps {
-    group?: ChoiceGroup
-    initialChoices?: ChoicesType
+    group?: OptionGroup
+    initialOptions?: OptionsType
     handler?: React.MouseEventHandler<HTMLAnchorElement>
 }

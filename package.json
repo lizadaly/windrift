@@ -4,8 +4,7 @@
     "private": true,
     "scripts": {
         "build": "next build",
-        "cy:open": "cypress open",
-        "cy:run": "cypress run",
+        "cypress": "cypress open",
         "dev": "next dev",
         "export": "next build && next export",
         "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc",

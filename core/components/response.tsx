@@ -34,8 +34,8 @@ const Response = ({ tag, to }: ResponseProps): JSX.Element => {
                 to
             )}. Tags from the choices were: `
         )
-        for (const i in choiceList.choices) {
-            const c = choiceList.choices[i][0]
+        for (const i in choiceList.options) {
+            const c = choiceList.options[i][0]
             console.log(c)
         }
         console.groupEnd()

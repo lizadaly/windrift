@@ -15,10 +15,10 @@ export const Page: PageType = () => (
             <p>By default, exhausting the choice list will move to the next section.</p>
             <p>
                 Note: from here on we'll use the <code>C</code> short form for all{' '}
-                <code>Choices</code> components, since that's likely how you'll write them.
+                <code>Choice</code> components, since that's likely how you'll write them.
             </p>
             <SyntaxHighlighter language="jsx" style={prism}>
-                {` <C choices={[
+                {` <C options={[
         ['One...', null],
         ['Two...', null],
         ['Three.', null]
@@ -27,7 +27,7 @@ export const Page: PageType = () => (
             </SyntaxHighlighter>
             <aside>
                 <C
-                    choices={[
+                    options={[
                         ['One...', null],
                         ['Two...', null],
                         ['Three.', null]
@@ -44,13 +44,13 @@ export const Page: PageType = () => (
                 nothing.
             </p>
             <SyntaxHighlighter language="jsx" style={prism}>
-                {` <C choices={[['This is a no-op.', null], ['Clicked!']]}
+                {` <C options={[['This is a no-op.', null], ['Clicked!']]}
     tag="c3-noop"
     next={Next.None} />`}
             </SyntaxHighlighter>
             <p>
                 <C
-                    choices={[['This is a no-op.', null], ['Clicked!']]}
+                    options={[['This is a no-op.', null], ['Clicked!']]}
                     tag="c3-noop"
                     next={Next.None}
                 />
@@ -78,12 +78,12 @@ export const Page: PageType = () => (
                 <code>Response</code> after this jump.
             </p>
             <SyntaxHighlighter language="jsx" style={prism}>
-                {` <C choices={[['Go to chapter 1', null]]}
+                {` <C options={[['Go to chapter 1', null]]}
     tag="c3-chapter1"
     next={'chapter1'} />`}
             </SyntaxHighlighter>
             <aside>
-                <C choices={[['Go to chapter 1', null]]} tag="c3-chapter1" next={'chapter1'} />
+                <C options={[['Go to chapter 1', null]]} tag="c3-chapter1" next={'chapter1'} />
             </aside>
         </Section>
     </Chapter>

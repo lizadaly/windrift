@@ -37,17 +37,17 @@ export const Page: PageType = () => (
                 }}
             />
             <h2>Default widget: inline</h2>
-            <p>This will display each choice inline, leaving behind the chosen one.</p>
+            <p>This will display each option inline, leaving behind the chosen one.</p>
             <SyntaxHighlighter language="jsx" style={prism}>
                 {` <Choices
-    choices={[['ripe banana', 'bulbous orange', 'fuzzy kiwi']]}
+    options={[['ripe banana', 'bulbous orange', 'fuzzy kiwi']]}
     extra={{ conjunction: 'or' }}
     tag="fruit" />`}
             </SyntaxHighlighter>
             <aside>
                 Would you like a{' '}
                 <C
-                    choices={[['ripe banana', 'bulbous orange', 'fuzzy kiwi']]}
+                    options={[['ripe banana', 'bulbous orange', 'fuzzy kiwi']]}
                     extra={{ conjunction: 'or' }}
                     tag="fruit"
                 />
@@ -61,11 +61,11 @@ export const Page: PageType = () => (
                 onscreen after the choice.
             </p>
             <SyntaxHighlighter language="jsx" style={prism}>
-                {`<C choices={[['poplar', 'elm', 'baobab']]} tag="tree" widget={BulletedList} />`}
+                {`<C options={[['poplar', 'elm', 'baobab']]} tag="tree" widget={BulletedList} />`}
             </SyntaxHighlighter>
             <aside>
                 <p>What is your favorite kind of tree?</p>
-                <C choices={[['poplar', 'elm', 'baobab']]} tag="tree" widget={BulletedList} />
+                <C options={[['poplar', 'elm', 'baobab']]} tag="tree" widget={BulletedList} />
             </aside>
         </Section>
         <Section>

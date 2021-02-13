@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { useChannel, useEvent } from '@harelpls/use-pusher'
 
-import { updateInventory, pickChoice, logChoice } from 'core/actions'
+import { updateInventory, pickOption, logChoice } from 'core/actions'
 import { ENTRY_TYPES } from 'core/actions/log'
 import { Player, Tag } from 'core/types'
 import { RootState } from 'core/reducers'
@@ -25,7 +25,7 @@ const useChoiceListener = (): void => {
         // Dispatch events from other player
         if (eventPlayer !== currentPlayer) {
             dispatch(updateInventory(tag, choice))
-            dispatch(pickChoice(tag, [[choice]], 0, eventPlayer))
+            dispatch(pickOption(tag, [[choice]], 0, eventPlayer))
             dispatch(
                 logChoice({
                     tag,

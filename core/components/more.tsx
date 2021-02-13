@@ -13,6 +13,6 @@ type Props = {
 }
 const More = ({ next = Next.Section, text = 'More...' }: Props): JSX.Element => {
     const tag = useId(1, 'more-link-')[0]
-    return <Choice choices={[[text, null]]} widget={BaseList} tag={tag} next={next} />
+    return <Choice options={[[text, null]]} widget={BaseList} tag={tag} next={next} />
 }
 export default More

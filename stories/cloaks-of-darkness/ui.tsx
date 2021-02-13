@@ -61,7 +61,7 @@ const Content: React.FC = ({ children }) => {
                         {cloakStatus === CloakStatus.Worn ? (
                             <p>
                                 You are wearing a very tiny dark{' '}
-                                <C choices={[['cloak', null]]} tag="cloak-desc" next={Next.None} />.
+                                <C options={[['cloak', null]]} tag="cloak-desc" next={Next.None} />.
                                 <R tag="cloak-desc" to={{ cloak: " It's light-absorbing. " }} />
                             </p>
                         ) : (

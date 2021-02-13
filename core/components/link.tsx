@@ -1,7 +1,7 @@
 /** A Link that the user interacts with to potentially change state. If no handler
 is supplied, then the text is displayed as static HTML.
 
-This typically occurs for the last item in a Choices list. */
+This typically occurs for the last item in a Choice list. */
 
 interface LinkProps {
     text: string

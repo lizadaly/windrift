@@ -1,7 +1,7 @@
 /**
  * A special case of a Choice that provides navigation between chapters.
  *
- * Use a full Choices component if you want the name of the link to change
+ * Use a full Choice component if you want the name of the link to change
  * after clicking.
  */
 import React from 'react'
@@ -18,7 +18,7 @@ interface Props {
 const Nav = ({ text, next }: Props): JSX.Element => {
     const tag = useId(1, 'nav-link-')[0]
     return (
-        <Choice choices={[[text, null]]} widget={BaseList} tag={tag} next={next} persist={true} />
+        <Choice options={[[text, null]]} widget={BaseList} tag={tag} next={next} persist={true} />
     )
 }
 export default Nav

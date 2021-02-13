@@ -18,7 +18,7 @@ export const Page: PageType = () => {
                 <h1>Cloakroom</h1>
                 <p>
                     The walls of this small room were clearly once lined with hooks, though now only{' '}
-                    <C choices={[['one hook', null]]} tag="cl-hook" widget={D} sync={false} />{' '}
+                    <C options={[['one hook', null]]} tag="cl-hook" widget={D} sync={false} />{' '}
                     remains.{' '}
                     <R
                         tag="cl-pluck"
@@ -49,7 +49,7 @@ export const Page: PageType = () => {
                                             <aside>
                                                 You could{' '}
                                                 <C
-                                                    choices={[['pluck', null]]}
+                                                    options={[['pluck', null]]}
                                                     tag="cl-pluck"
                                                     widget={D}
                                                 />{' '}

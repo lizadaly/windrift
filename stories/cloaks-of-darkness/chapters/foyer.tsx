@@ -24,7 +24,7 @@ export const Page: PageType = () => {
                     <p>
                         You are in a spacious hall, splendidly decorated in red and gold, with
                         glittering chandeliers overhead. The entrance from the street is{' '}
-                        <C choices={[['back the way you came', null]]} tag="c1-back" widget={D} />,
+                        <C options={[['back the way you came', null]]} tag="c1-back" widget={D} />,
                         and there are doorways east and <Nav text="west" next="cloakroom" />.
                     </p>
                     <R

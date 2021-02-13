@@ -2,13 +2,13 @@ import * as React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { TocItem, WidgetType } from 'core/types'
-import { ChoicesType } from 'core/actions/choices'
+import { OptionsType } from 'core/actions/choice'
 import { RootState } from 'core/reducers'
 import {
     initChoice,
     logChoice,
     updateInventory,
-    pickChoice,
+    pickOption,
     incrementSection,
     updateStateCounter,
     showNextChapter
@@ -20,8 +20,8 @@ import InlineList from './widgets/inline-list'
 import { ENTRY_TYPES } from 'core/actions/log'
 import { emitChoice } from 'core/multiplayer/api-client'
 
-export interface ChoicesProps {
-    choices: ChoicesType
+export interface ChoiceProps {
+    options: OptionsType
     tag: string
     /** At completion of the choice list, go to the Next section/chapter, go to the named chapter (if a string) or do nothing*/
     next?: Next | string
@@ -35,46 +35,46 @@ export interface ChoicesProps {
 }
 
 const Choices = ({
-    choices,
+    options,
     tag,
     extra,
     widget = InlineList,
     next = Next.Section,
     sync = true,
     persist = false
-}: ChoicesProps): JSX.Element => {
+}: ChoiceProps): JSX.Element => {
     const { channelName, currentPlayer } = useSelector((state: RootState) => state.multiplayer)
     const dispatch = useDispatch()
     const item: TocItem = React.useContext(ChapterContext)
-    const newChoices = useSelector((state: RootState) => {
+    const newOptions = useSelector((state: RootState) => {
         const c = state.choices.present
         if (c && tag in c) {
             return c[tag]
         }
     })
+
     const identifier = useSelector((state: RootState) => state.config.identifier)
     const counter = useSelector((state: RootState) => state.counter.present)
 
     // Get the original picks either from props or from the state
-    const initialChoices = newChoices ? newChoices.initialChoices : choices
+    const initialOptions = newOptions ? newOptions.initialOptions : options
 
-    // On first render, record the initial choices.
+    // On first render, record the initial options
     React.useEffect(() => {
-        dispatch(initChoice(tag, choices))
+        dispatch(initChoice(tag, options))
     }, [dispatch])
-
-    choices = newChoices && newChoices.choices.length > 0 ? newChoices.choices : choices
+    options = newOptions && newOptions.options.length > 0 ? newOptions.options : options
 
     const handler = (e: React.MouseEvent, index: number): void => {
         e.preventDefault()
         const target = e.target as HTMLInputElement
-        const choice = target.textContent
-        dispatch(updateInventory(tag, choice))
-        dispatch(pickChoice(tag, choices, index, currentPlayer))
+        const option = target.textContent
+        dispatch(updateInventory(tag, option))
+        dispatch(pickOption(tag, options, index, currentPlayer))
         dispatch(
             logChoice({
                 tag,
-                selection: choice,
+                selection: option,
                 entry: ENTRY_TYPES.Choice,
                 timestamp: new Date(),
                 player: currentPlayer
@@ -83,10 +83,10 @@ const Choices = ({
 
         // TODO pull this out into a listener hook
         if (currentPlayer !== null && sync) {
-            emitChoice(tag, choice, channelName, currentPlayer)
+            emitChoice(tag, option, channelName, currentPlayer)
         }
 
-        if (choices.length === 1) {
+        if (options.length === 1) {
             if (next === Next.Section) {
                 dispatch(incrementSection(item))
             } else if (next === Next.Chapter) {
@@ -104,13 +104,13 @@ const Choices = ({
         dispatch(updateStateCounter())
     }
 
-    const group = choices[0]
+    const group = options[0]
     const W = widget
     return (
         <W
             group={group}
             handler={group.length > 1 || persist ? handler : null}
-            initialChoices={initialChoices}
+            initialOptions={initialOptions}
             {...extra}
         />
     )
