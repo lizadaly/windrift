@@ -2,7 +2,7 @@ import * as React from 'react'
 
 import Grid from 'core/components/ui/grid'
 
-import styles from 'public/stories/demo/Index.module.scss'
+import styles from 'public/stories/demo/styles/Index.module.scss'
 
 const Index: React.FC = ({ children }) => {
     return (

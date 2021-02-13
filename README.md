@@ -36,7 +36,7 @@ One feature enabled by the built-in API backend is multiplayer support—
 specifically, using <a href="https://pusher.com/">Pusher</a> for
 WebSocket notifications between multiple users.
 
-# To run
+## To run
 
 ```
 npm run dev
@@ -44,3 +44,11 @@ npm run dev
 
 Other help commands including deployment options as per the
 <a href="https://nextjs.org/">NextJS</a> documentation.
+
+## To start a new story
+
+```
+npm run new <story-id>
+```
+
+The story identifier must be a single string, like "west-of-house" or "colossal-cave."

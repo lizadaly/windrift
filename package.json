@@ -3,16 +3,17 @@
     "version": "2.0.0-alpha",
     "private": true,
     "scripts": {
-        "dev": "next dev",
         "build": "next build",
-        "start": "next build && next start",
-        "lint": "eslint --fix core/*",
-        "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc",
-        "export": "next build && next export",
-        "vercel": "vercel",
-        "test": "cypress run",
         "cy:open": "cypress open",
-        "cy:run": "cypress run"
+        "cy:run": "cypress run",
+        "dev": "next dev",
+        "export": "next build && next export",
+        "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc",
+        "lint": "eslint --fix core/*",
+        "new": "ts-node scripts/create-story $npm_config_first",
+        "start": "next build && next start",
+        "test": "cypress run",
+        "vercel": "vercel"
     },
     "dependencies": {
         "@harelpls/use-pusher": "^7.1.0",
@@ -41,9 +42,11 @@
         "@types/node": "^14.14.6",
         "@types/react": "^16.9.56",
         "@types/react-syntax-highlighter": "^13.5.0",
+        "@types/yargs": "^15.0.13",
         "@typescript-eslint/eslint-plugin": "^4.7.0",
         "@typescript-eslint/parser": "^4.7.0",
         "cypress": "^6.4.0",
+        "es6-template-strings": "^2.0.1",
         "eslint": "^7.18.0",
         "eslint-config-prettier": "^7.1.0",
         "eslint-plugin-cypress": "^2.11.2",
@@ -54,8 +57,10 @@
         "js-yaml": "^3.14.0",
         "prettier": "^2.2.1",
         "sass": "^1.29.0",
+        "ts-node": "^8.9.1",
         "typescript": "^4.0.5",
         "undefined": "^0.1.0",
-        "vercel": "^21.0.1"
+        "vercel": "^21.0.1",
+        "yargs": "^17.0.0-candidate.0"
     }
 }
