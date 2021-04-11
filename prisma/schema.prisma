@@ -1,0 +1,49 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Story {
+
+  id          String    @id @default(uuid())
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+  title       String    @db.VarChar(2000)
+  description String?   @db.Text
+  published   Boolean   @default(true)
+  Chapter     Chapter[]
+  Player      Player[]
+  @@map(name: "stories")
+}
+
+model Chapter {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  title     String   @db.VarChar(2000)
+  filename  String   @unique
+
+  description String? @db.Text
+  story       Story   @relation(fields: [storyId], references: [id])
+  storyId     String  @unique @map("story_id")
+  @@unique([filename, storyId])
+  @@map(name: "chapters")
+}
+
+model Player {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  name      String   @db.VarChar(2000)
+  story     Story    @relation(fields: [storyId], references: [id])
+  storyId   String   @unique @map("story_id")
+
+  @@map(name: "players")
+}
