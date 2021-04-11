@@ -14,12 +14,7 @@ const TitleScreen: React.FC<Props> = ({ ready, setup }) => {
     return (
         <>
             {multiplayer.ready ? (
-                <PusherProvider
-                    clientKey={multiplayer.clientKey}
-                    cluster={multiplayer.cluster}
-                    authEndpoint={multiplayer.authEndpoint}>
-                    <MultiplayerInit>{ready}</MultiplayerInit>
-                </PusherProvider>
+                <MultiplayerInit>{ready}</MultiplayerInit>
             ) : (
                 <>{setup}</>
             )}

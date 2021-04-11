@@ -12,7 +12,7 @@ generator client {
 
 model Story {
 
-  id          String    @id @default(uuid())
+  id          String    @id
   createdAt   DateTime  @default(now()) @map("created_at")
   updatedAt   DateTime  @updatedAt @map("updated_at")
   title       String    @db.VarChar(2000)
@@ -24,15 +24,15 @@ model Story {
 }
 
 model Chapter {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-  title     String   @db.VarChar(2000)
-  filename  String   @unique
+  id          String   @id @default(uuid())
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  title       String   @db.VarChar(2000)
+  filename    String   @db.VarChar(255)
+  description String?  @db.Text
+  story       Story    @relation(fields: [storyId], references: [id])
+  storyId     String   @map("story_id")
 
-  description String? @db.Text
-  story       Story   @relation(fields: [storyId], references: [id])
-  storyId     String  @unique @map("story_id")
   @@unique([filename, storyId])
   @@map(name: "chapters")
 }
@@ -41,9 +41,10 @@ model Player {
   id        String   @id @default(uuid())
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
-  name      String   @db.VarChar(2000)
+  name      String   @db.VarChar(255)
   story     Story    @relation(fields: [storyId], references: [id])
-  storyId   String   @unique @map("story_id")
+  storyId   String   @map("story_id")
 
+  @@unique([name, storyId])
   @@map(name: "players")
 }
