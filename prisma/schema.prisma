@@ -12,15 +12,26 @@ generator client {
 
 model Story {
 
-  id          String    @id
-  createdAt   DateTime  @default(now()) @map("created_at")
-  updatedAt   DateTime  @updatedAt @map("updated_at")
-  title       String    @db.VarChar(2000)
-  description String?   @db.Text
-  published   Boolean   @default(true)
+  id          String     @id
+  createdAt   DateTime   @default(now()) @map("created_at")
+  updatedAt   DateTime   @updatedAt @map("updated_at")
+  title       String     @db.VarChar(2000)
+  description String?    @db.Text
+  published   Boolean    @default(true)
   Chapter     Chapter[]
-  Player      Player[]
+  Instance    Instance[]
   @@map(name: "stories")
+}
+
+model Instance {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  story     Story    @relation(fields: [storyId], references: [id])
+  storyId   String   @map("story_id")
+  Player    Player[]
+
+  @@map(name: "instances")
 }
 
 model Chapter {
@@ -37,14 +48,16 @@ model Chapter {
   @@map(name: "chapters")
 }
 
+// A player is currently playing an Instance of a Story
 model Player {
-  id        String   @id @default(uuid())
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-  name      String   @db.VarChar(255)
-  story     Story    @relation(fields: [storyId], references: [id])
-  storyId   String   @map("story_id")
+  id         String   @id @default(uuid())
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+  name       String   @db.VarChar(255)
+  instance   Instance @relation(fields: [instanceId], references: [id])
+  instanceId String   @map("instance_id")
 
-  @@unique([name, storyId])
+
+  @@unique([name, instanceId])
   @@map(name: "players")
 }

@@ -1,7 +1,7 @@
 import { initMultiplayer, Multiplayer } from 'core/actions/multiplayer'
 import { Config } from 'core/types'
 import { useDispatch } from 'react-redux'
-import { populateMultiplayer } from '..'
+import { populateMultiplayer, createStoryInstance } from '..'
 
 type Props = {
     multiplayer: Multiplayer
@@ -13,8 +13,9 @@ const StartStory: React.FC<Props> = ({ multiplayer, config, children = 'Start a 
     return (
         <>
             <button
-                onClick={() => {
-                    populateMultiplayer(initialPlayer, multiplayer, config)
+                onClick={async () => {
+                    const instance = await createStoryInstance(initialPlayer, multiplayer, config)
+                    populateMultiplayer(initialPlayer, multiplayer, config, instance.id)
                     dispatch(initMultiplayer(multiplayer))
                 }}>
                 {children}

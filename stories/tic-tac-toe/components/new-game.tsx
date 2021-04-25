@@ -17,13 +17,13 @@ const NewGame: React.FC<Props> = ({ multiplayer, config }) => {
 
             <div className={styles.instructions}>
                 <div>
-                    <p>Start a game yourself and share the channel name with a friend:</p>
+                    <p>Start a game yourself and share the code with a friend:</p>
                     <StartStory multiplayer={multiplayer} config={config}>
                         Start a new game of Tic-Tac-Toe
                     </StartStory>
                 </div>
                 <div>
-                    <p>...or get a channel name from a friend and paste it here:</p>
+                    <p>...or get a code from a friend and paste it here:</p>
                     <JoinStory multiplayer={multiplayer} config={config} />
                 </div>
             </div>

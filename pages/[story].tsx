@@ -41,7 +41,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
         initMultiplayerDb(story, configYaml)
     }
 
-
     // TODO decide whether this is needed without pusher
     const env = Object.keys(process.env)
         .filter((key) => key.startsWith('NEXT_PUBLIC'))
@@ -75,39 +74,49 @@ async function initMultiplayerDb(story: string, configYaml: Record<string, any>)
             id: story
         },
         update: {
-            title: configYaml.title,
+            title: configYaml.title
         },
         create: {
             id: story,
-            title: configYaml.title,
-        },
+            title: configYaml.title
+        }
     })
-    Promise.all(configYaml.chapters.map((item: TocItem) => prisma.chapter.upsert({
-          where: {
-              filename_storyId: {filename: item.filename, storyId: story}
-          },
-          update: {
-              title: item.title,
-              filename: item.filename,
-          },
-          create: {
-              filename: item.filename,
-              title: item.title,
-              storyId: story,
-    }})))
 
-    Promise.all(configYaml.players.map((item) => prisma.player.upsert({
-        where: {
-            name_storyId: {name: item.name, storyId: story}
-        },
-        update: {
-            name: item.name,
-        },
-        create: {
-            name: item.name,
-            storyId: story,
-    }})))
+    Promise.all(
+        configYaml.chapters.map((item: TocItem) =>
+            prisma.chapter.upsert({
+                where: {
+                    filename_storyId: { filename: item.filename, storyId: story }
+                },
+                update: {
+                    title: item.title,
+                    filename: item.filename
+                },
+                create: {
+                    filename: item.filename,
+                    title: item.title,
+                    storyId: story
+                }
+            })
+        )
+    )
 
+    // Promise.all(
+    //     configYaml.players.map((item) =>
+    //         prisma.player.upsert({
+    //             where: {
+    //                 name_instanceId: { name: item.name, instanceId: instance.id }
+    //             },
+    //             update: {
+    //                 name: item.name
+    //             },
+    //             create: {
+    //                 name: item.name,
+    //                 instanceId: instance.id
+    //             }
+    //         })
+    //     )
+    // )
 }
 
 export default function Home(props: WindriftProps): JSX.Element {
@@ -129,7 +138,7 @@ export default function Home(props: WindriftProps): JSX.Element {
         storage: storage
     }
 
-    // In a single player game, set the visible chapter start
+    // In a single player game, set the visible chapter as the start
     if (config.players && config.players.length === 1) {
         const start = getChapter(toc, config.players[0].start)
         start.visible = true

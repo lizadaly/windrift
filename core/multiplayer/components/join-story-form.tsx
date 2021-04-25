@@ -17,12 +17,9 @@ const JoinStory: React.FC<Props> = ({ multiplayer, config }) => {
     const dispatch = useDispatch()
 
     const handler = (e: FormEvent) => {
-        if (channel.startsWith('presence-')) {
-            populateMultiplayer(player.name, multiplayer, config, channel)
-            dispatch(initMultiplayer(multiplayer))
-        } else {
-            alert("Story code names start with 'presence-")
-        }
+        populateMultiplayer(player.name, multiplayer, config, channel)
+        dispatch(initMultiplayer(multiplayer))
+
         e.preventDefault()
     }
     return (
