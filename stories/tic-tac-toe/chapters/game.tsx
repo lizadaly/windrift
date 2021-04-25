@@ -7,10 +7,10 @@ import { PageType } from 'core/types'
 import Board from '../components/board'
 
 export const Page: PageType = () => {
-    const { currentPlayer, channelName } = useSelector((state: RootState) => state.multiplayer)
+    const { currentPlayer, instanceId } = useSelector((state: RootState) => state.multiplayer)
     const { players } = useSelector((state: RootState) => state.config)
 
-    const { members } = usePresenceChannel(channelName)
+    const { members } = usePresenceChannel(instanceId)
     const log = useSelector((state: RootState) => state.log)
     let nextPlayer = players[0].name
     if (log.length > 0) {

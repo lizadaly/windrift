@@ -13,7 +13,7 @@ const ShareButton: React.FC<ShareButtonProps> = ({ multiplayer, otherPlayer }) =
         <>
             <button
                 className={styles.clipboard}
-                onClick={() => navigator.clipboard.writeText(multiplayer.channelName)}>
+                onClick={() => navigator.clipboard.writeText(multiplayer.instanceId)}>
                 <span>Share story code with {otherPlayer}</span>
                 <Image src="/images/clipboard.svg" width={25} height={25} alt="Copy to clipboard" />
             </button>

@@ -2,12 +2,12 @@ import { TocItem, Player, Tag } from 'core/types'
 
 export const emitNavChange = (
     chapterName: TocItem['filename'],
-    channelName: string,
+    instanceId: string,
     currentPlayer: Player
 ): void => {
     const navBody = {
         chapterName,
-        channel: channelName,
+        channel: instanceId,
         player: currentPlayer
     }
     fetch('/api/nav', {
@@ -17,11 +17,11 @@ export const emitNavChange = (
     })
 }
 
-export const emitChoice = (tag: Tag, choice: string, channelName: string, player: Player): void => {
+export const emitChoice = (tag: Tag, choice: string, instanceId: string, player: Player): void => {
     const choiceBody = {
         tag,
         choice,
-        channel: channelName,
+        channel: instanceId,
         player
     }
     fetch('/api/choose', {

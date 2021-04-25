@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { useSelector } from 'react-redux'
-import { PusherProvider } from '@harelpls/use-pusher'
 
 import { RootState } from 'core/reducers'
 import MultiplayerInit from 'core/multiplayer/components/multiplayer-init'
@@ -11,7 +10,8 @@ type Props = {
 }
 const TitleScreen: React.FC<Props> = ({ ready, setup }) => {
     const multiplayer = useSelector((state: RootState) => state.multiplayer)
-    return <>{multiplayer.ready ? <MultiplayerInit>{ready}</MultiplayerInit> : <>{setup}</>}</>
+    return <div>hello</div>
+    //return <>{multiplayer.ready ? <MultiplayerInit>{ready}</MultiplayerInit> : <>{setup}</>}</>
 }
 
 export default TitleScreen

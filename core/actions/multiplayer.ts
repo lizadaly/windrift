@@ -2,11 +2,8 @@ export const INIT_MULTIPLAYER = 'INIT_MULTIPLAYER'
 
 /* Multiplayer config */
 export class Multiplayer {
-    clientKey: string
-    cluster: string
-    authEndpoint: string
-    gameUrl: string
-    channelName: string
+    storyUrl: string
+    instanceId: string
     ready: boolean // True when all the params have been initialized
     currentPlayer: string
 }

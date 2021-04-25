@@ -43,7 +43,7 @@ const Choices = ({
     sync = true,
     persist = false
 }: ChoiceProps): JSX.Element => {
-    const { channelName, currentPlayer } = useSelector((state: RootState) => state.multiplayer)
+    const { instanceId, currentPlayer } = useSelector((state: RootState) => state.multiplayer)
     const dispatch = useDispatch()
     const item: TocItem = React.useContext(ChapterContext)
     const newOptions = useSelector((state: RootState) => {
@@ -83,7 +83,7 @@ const Choices = ({
 
         // TODO pull this out into a listener hook
         if (currentPlayer !== null && sync) {
-            emitChoice(tag, option, channelName, currentPlayer)
+            emitChoice(tag, option, instanceId, currentPlayer)
         }
 
         if (options.length === 1) {

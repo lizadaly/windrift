@@ -12,14 +12,17 @@ generator client {
 
 model Story {
 
-  id          String     @id
-  createdAt   DateTime   @default(now()) @map("created_at")
-  updatedAt   DateTime   @updatedAt @map("updated_at")
-  title       String     @db.VarChar(2000)
-  description String?    @db.Text
-  published   Boolean    @default(true)
-  Chapter     Chapter[]
-  Instance    Instance[]
+  id          String   @id
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  title       String?  @db.VarChar(2000)
+  description String?  @db.Text
+  published   Boolean  @default(true)
+  player1Name String?  @db.VarChar(2000)
+  player2Name String?  @db.VarChar(2000)
+
+  Chapter  Chapter[]
+  Instance Instance[]
   @@map(name: "stories")
 }
 

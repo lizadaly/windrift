@@ -15,14 +15,14 @@ interface ApiNav {
 }
 
 const useNavListener = (): ApiNav => {
-    const { currentPlayer, channelName } = useSelector((state: RootState) => state.multiplayer)
+    const { currentPlayer, instanceId } = useSelector((state: RootState) => state.multiplayer)
 
     const [navEvent, updateNavEvent] = useState({
         chapterName: null,
         player: null,
         timestamp: null
     })
-    const channel = useChannel(channelName)
+    const channel = useChannel(instanceId)
 
     useEvent(channel, 'nav', ({ chapterName, player, timestamp }: ApiNav) => {
         const eventPlayer = player

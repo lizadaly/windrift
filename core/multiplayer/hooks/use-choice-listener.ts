@@ -15,10 +15,10 @@ interface ApiChoice {
 }
 
 const useChoiceListener = (): void => {
-    const { currentPlayer, channelName } = useSelector((state: RootState) => state.multiplayer)
+    const { currentPlayer, instanceId } = useSelector((state: RootState) => state.multiplayer)
 
     const dispatch = useDispatch()
-    const channel = useChannel(channelName)
+    const channel = useChannel(instanceId)
 
     useEvent(channel, 'choose', ({ tag, choice, player, timestamp }: ApiChoice) => {
         const eventPlayer = player

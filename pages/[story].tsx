@@ -30,7 +30,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     const story = context.params.story as string
     const configPath = path.join(process.cwd(), `public/stories/${story}/story.yaml`)
     const configYaml = yaml.safeLoad(fs.readFileSync(configPath, 'utf8')) as Record<string, any>
-
+    console.log(configYaml)
     const toc = configYaml.chapters.map((item: TocItem) => ({
         filename: item.filename,
         visible: item.visible || false,
@@ -41,13 +41,10 @@ export const getStaticProps: GetStaticProps = async (context) => {
         initMultiplayerDb(story, configYaml)
     }
 
-    // TODO decide whether this is needed without pusher
-    const env = Object.keys(process.env)
-        .filter((key) => key.startsWith('NEXT_PUBLIC'))
-        .reduce((res: any = {}, key) => {
-            res[key] = process.env[key]
-            return res
-        }, {})
+    const env = Object.keys(process.env).reduce((res: any = {}, key) => {
+        res[key] = process.env[key]
+        return res
+    }, {})
     return {
         props: {
             toc,
@@ -68,17 +65,23 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const StoryContext = React.createContext(undefined)
 
+// Initialize any constant values from this game build into the global
+// database. Per-game instance values are initiated at game start
 async function initMultiplayerDb(story: string, configYaml: Record<string, any>) {
     await prisma.story.upsert({
         where: {
             id: story
         },
         update: {
-            title: configYaml.title
+            title: configYaml.title,
+            player1Name: configYaml.players[0].name,
+            player2Name: configYaml.players[1].name
         },
         create: {
             id: story,
-            title: configYaml.title
+            title: configYaml.title,
+            player1Name: configYaml.players[0].name,
+            player2Name: configYaml.players[1].name
         }
     })
 
@@ -100,23 +103,6 @@ async function initMultiplayerDb(story: string, configYaml: Record<string, any>)
             })
         )
     )
-
-    // Promise.all(
-    //     configYaml.players.map((item) =>
-    //         prisma.player.upsert({
-    //             where: {
-    //                 name_instanceId: { name: item.name, instanceId: instance.id }
-    //             },
-    //             update: {
-    //                 name: item.name
-    //             },
-    //             create: {
-    //                 name: item.name,
-    //                 instanceId: instance.id
-    //             }
-    //         })
-    //     )
-    // )
 }
 
 export default function Home(props: WindriftProps): JSX.Element {
