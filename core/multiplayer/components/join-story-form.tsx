@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { Multiplayer, initMultiplayer } from 'core/actions/multiplayer'
 import { Config } from 'core/types'
-import { RootState } from 'core/reducers'
 import axios from 'axios'
 type Props = {
     multiplayer: Multiplayer

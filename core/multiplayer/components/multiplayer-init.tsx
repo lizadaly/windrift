@@ -4,8 +4,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'core/reducers'
 import { gotoChapter } from 'core/actions/navigation'
 import { Player } from 'core/types'
-import useNavEmitter from 'core/multiplayer/hooks/use-nav-emitter'
-import useChoiceListener from 'core/multiplayer/hooks/use-choice-listener'
 
 export interface Players {
     currentPlayer: Player
@@ -18,6 +16,7 @@ export const PlayerContext: React.Context<Players> = React.createContext({
 
 const MultiplayerInit: React.FC = ({ children }) => {
     const { currentPlayer } = useSelector((state: RootState) => state.multiplayer)
+    console.log(currentPlayer)
     const toc = useSelector((state: RootState) => state.toc.present)
     const { players } = useSelector((state: RootState) => state.config)
     const dispatch = useDispatch()
@@ -39,10 +38,10 @@ const MultiplayerInit: React.FC = ({ children }) => {
     }
 
     // Listen for events from the other player
-    useChoiceListener()
+    //useChoiceListener()
 
     // Emit any chapter switches to the API
-    useNavEmitter()
+    //  useNavEmitter()
 
     return (
         <>

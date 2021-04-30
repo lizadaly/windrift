@@ -7,22 +7,20 @@ import TitleScreen from 'core/multiplayer/components/title-screen'
 
 import UI from './ui'
 import NewGame from './components/new-game'
-import { useEffect } from 'react'
-import axios from 'axios'
 
 const Index: React.FC = ({ children }) => {
     const config = useSelector((state: RootState) => state.config)
     const multiplayer = useSelector((state: RootState) => state.multiplayer)
 
     // Component tree to render for an active story
-    // const ready = <UI>{children}</UI>
+    const ready = <UI>{children}</UI>
 
     // // Render tree for setting up the game
-    // const setup = (
-    //     <UI>
-    //         <NewGame multiplayer={multiplayer} config={config} />
-    //     </UI>
-    // )
+    const setup = (
+        <UI>
+            <NewGame multiplayer={multiplayer} config={config} />
+        </UI>
+    )
 
     return (
         <>
@@ -34,10 +32,8 @@ const Index: React.FC = ({ children }) => {
                     url(https://fonts.googleapis.com/css2?family=EB+Garamond&family=Elsie&display=swap);
                 </style>
             </Head>
-            <UI>
-                <NewGame multiplayer={multiplayer} config={config} />
-            </UI>
-            {/* <TitleScreen ready={ready} setup={setup} /> */}
+            {multiplayer.ready}
+            <TitleScreen ready={ready} setup={setup} />
         </>
     )
 }
