@@ -3,24 +3,30 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { Multiplayer, initMultiplayer } from 'core/actions/multiplayer'
 import { Config } from 'core/types'
-import { populateMultiplayer } from 'core/multiplayer'
 import { RootState } from 'core/reducers'
+import axios from 'axios'
 type Props = {
     multiplayer: Multiplayer
     config: Config
 }
 
 const JoinStory: React.FC<Props> = ({ multiplayer, config }) => {
-    const [channel, setChannel] = useState('')
-    const player = useSelector((state: RootState) => state.config.players[1])
+    const [instanceId, setInstanceId] = useState('')
 
     const dispatch = useDispatch()
 
     const handler = (e: FormEvent) => {
-        populateMultiplayer(player.name, multiplayer, config, channel)
-        dispatch(initMultiplayer(multiplayer))
-
         e.preventDefault()
+
+        axios(`/api/core/story/${config.identifier}/${instanceId}/get`, {
+            method: 'post'
+        }).then((res) => {
+            const { instance, player2 } = res.data
+            multiplayer.instanceId = instance.id
+            multiplayer.currentPlayer = player2.id
+            multiplayer.ready = true
+            dispatch(initMultiplayer(multiplayer))
+        })
     }
     return (
         <>
@@ -29,8 +35,8 @@ const JoinStory: React.FC<Props> = ({ multiplayer, config }) => {
                     <input
                         type="text"
                         placeholder={'Channel name'}
-                        value={channel}
-                        onChange={(e) => setChannel(e.target.value)}
+                        value={instanceId}
+                        onChange={(e) => setInstanceId(e.target.value)}
                     />
                 </label>
                 <input type="submit" value="Submit" />

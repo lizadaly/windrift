@@ -4,7 +4,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 
 const prisma = new PrismaClient()
 
-// TODO make POST
+// TODO enforce POST
 // Generate a new instance of a game, including both players. Return the instance data.
 export default async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
     const storyId = req.query.story as string

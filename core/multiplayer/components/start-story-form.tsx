@@ -13,7 +13,7 @@ const StartStory: React.FC<Props> = ({ multiplayer, config, children = 'Start a 
         <>
             <button
                 onClick={async () => {
-                    axios(`/api/init/${config.identifier}`, {
+                    axios(`/api/core/story/${config.identifier}/init`, {
                         method: 'post'
                     }).then((res) => {
                         const { instance, player1 } = res.data

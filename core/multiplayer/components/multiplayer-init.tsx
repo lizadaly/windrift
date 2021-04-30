@@ -1,11 +1,3 @@
-// Initialize the current player and other player, and set up the
-// event listeners to update the current player's state based on
-// changes received from the other player.
-//
-// This should be called inside of a PusherContext.
-
-// Make the current and other player available as context.
-
 import * as React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
