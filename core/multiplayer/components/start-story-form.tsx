@@ -24,7 +24,8 @@ const StartStory: React.FC<Props> = ({ multiplayer, config, children = 'Start a 
 
                         multiplayer.instanceId = instance.id
                         multiplayer.storyUrl = storyUrl
-                        multiplayer.currentPlayer = player1.name // might want this to be a full object
+                        multiplayer.currentPlayer = player1
+                        multiplayer.otherPlayer = player2
                         multiplayer.ready = true
                         dispatch(initMultiplayer(multiplayer))
                     })

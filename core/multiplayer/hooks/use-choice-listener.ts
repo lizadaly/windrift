@@ -4,8 +4,9 @@ import { useChannel, useEvent } from '@harelpls/use-pusher'
 
 import { updateInventory, pickOption, logChoice } from 'core/actions'
 import { ENTRY_TYPES } from 'core/actions/log'
-import { Player, Tag } from 'core/types'
+import { Tag } from 'core/types'
 import { RootState } from 'core/reducers'
+import { Player } from '@prisma/client'
 
 interface ApiChoice {
     tag: Tag
@@ -32,7 +33,7 @@ const useChoiceListener = (): void => {
                     selection: choice,
                     entry: ENTRY_TYPES.Choice,
                     timestamp: new Date(timestamp),
-                    player: eventPlayer
+                    playerName: eventPlayer
                 })
             )
         }

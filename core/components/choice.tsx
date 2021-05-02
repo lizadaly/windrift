@@ -83,7 +83,7 @@ const Choices = ({
 
         // TODO pull this out into a listener hook
         if (currentPlayer !== null && sync) {
-            emitChoice(tag, option, instanceId, currentPlayer)
+            emitChoice(identifier, tag, option, instanceId, currentPlayer)
         }
 
         if (options.length === 1) {

@@ -1,4 +1,4 @@
-import { TocItem, Player, Tag } from 'core/types'
+import { TocItem, Player, Tag, Config } from 'core/types'
 
 export const emitNavChange = (
     chapterName: TocItem['filename'],
@@ -17,16 +17,22 @@ export const emitNavChange = (
     })
 }
 
-export const emitChoice = (tag: Tag, choice: string, instanceId: string, player: Player): void => {
+export const emitChoice = (
+    identifier: string,
+    tag: Tag,
+    choice: string,
+    instanceId: string,
+    player: Player
+): void => {
     const choiceBody = {
         tag,
         choice,
         channel: instanceId,
         player
     }
-    fetch('/api/choose', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(choiceBody)
-    })
+    // axios('/api/choose', {
+    //     method: 'POST',
+    //     headers: { 'Content-Type': 'application/json' },
+    //     body: JSON.stringify(choiceBody)
+    // })
 }

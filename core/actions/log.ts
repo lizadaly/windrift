@@ -10,7 +10,7 @@ export enum ENTRY_TYPES {
 }
 interface LogEntry {
     timestamp: Date
-    player?: string
+    playerName?: string
     entry: ENTRY_TYPES
 }
 export type LogEntryType = LogEntry

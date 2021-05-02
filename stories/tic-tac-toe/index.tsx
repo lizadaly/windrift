@@ -23,10 +23,12 @@ const Index: React.FC = ({ children }) => {
                 const { instance, player1, player2 } = res.data
                 multiplayer.instanceId = instance.id
                 if (playerId === player1.id) {
-                    multiplayer.currentPlayer = player1.name
+                    multiplayer.currentPlayer = player1
+                    multiplayer.otherPlayer = player2
                 }
                 if (playerId === player2.id) {
-                    multiplayer.currentPlayer = player2.name
+                    multiplayer.currentPlayer = player2
+                    multiplayer.otherPlayer = player1
                 }
                 multiplayer.ready = true
                 dispatch(initMultiplayer(multiplayer))

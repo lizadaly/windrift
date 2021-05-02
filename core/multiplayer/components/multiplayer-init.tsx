@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { RootState } from 'core/reducers'
 import { gotoChapter } from 'core/actions/navigation'
-import { Player } from 'core/types'
+import { Player } from '@prisma/client'
 
 export interface Players {
     currentPlayer: Player
@@ -15,10 +15,9 @@ export const PlayerContext: React.Context<Players> = React.createContext({
 })
 
 const MultiplayerInit: React.FC = ({ children }) => {
-    const { currentPlayer } = useSelector((state: RootState) => state.multiplayer)
-    console.log(currentPlayer)
+    const { currentPlayer, otherPlayer } = useSelector((state: RootState) => state.multiplayer)
     const toc = useSelector((state: RootState) => state.toc.present)
-    const { players } = useSelector((state: RootState) => state.config)
+    const { playerNames } = useSelector((state: RootState) => state.config)
     const dispatch = useDispatch()
 
     // Display our start chapter on first render only
@@ -26,12 +25,11 @@ const MultiplayerInit: React.FC = ({ children }) => {
         const visible = toc ? Object.values(toc).filter((c) => c.visible).length > 0 : false
         // if there are no visible chapters, use the player default
         if (!visible) {
-            const start = players.filter((p) => p.name === currentPlayer)[0].start
+            const start = playerNames.filter((p) => p.name === currentPlayer.name)[0].start
             dispatch(gotoChapter(start))
         }
     }, [currentPlayer, toc])
 
-    const otherPlayer = currentPlayer === players[0].name ? players[1].name : players[0].name
     const PlayersContext: Players = {
         currentPlayer,
         otherPlayer
