@@ -1,22 +1,29 @@
+import { PrismaClient } from '@prisma/client'
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { initPusher } from './util'
 
-// POST a choice to the current channel
-// TODO should this return anything?
-// TODO something something error handling?
+const prisma = new PrismaClient()
 
-export default (req: NextApiRequest, res: NextApiResponse): void => {
+export default async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
+    const instanceId = req.query.instance as string
+
     if (req.method === 'POST') {
-        const pusher = initPusher()
-        const { channel, tag, option, player } = req.body
-        if (!channel) {
-            console.log('No channel name defined')
-            res.status(404)
-        } else {
-            const timestamp = new Date()
-            pusher.trigger(channel, 'choose', { tag, option, player, timestamp }).then(() => {
-                res.status(200).json({})
-            })
-        }
+        const { tag, option, playerId } = req.body
+        await prisma.choice.create({
+            data: {
+                tag,
+                option,
+                player: {
+                    connect: {
+                        id: playerId
+                    }
+                },
+                instance: {
+                    connect: {
+                        id: instanceId
+                    }
+                }
+            }
+        })
+        return res.status(201).json({})
     }
 }

@@ -34,6 +34,7 @@ model Instance {
   storyId   String   @map("story_id")
   Player    Player[]
 
+  Choice Choice[]
   @@map(name: "instances")
 }
 
@@ -61,6 +62,21 @@ model Player {
   instanceId String   @map("instance_id")
 
 
-  @@unique([name, instanceId])
+  Choice Choice[]
+  @@unique(id)
   @@map(name: "players")
+}
+
+// A choice made by a player; these are immutable
+model Choice {
+  id         String   @id @default(uuid())
+  createdAt  DateTime @default(now()) @map("created_at")
+  tag        String   @db.VarChar(2000)
+  option     String   @db.Text
+  instance   Instance @relation(fields: [instanceId], references: [id])
+  instanceId String   @map("instance_id")
+  player     Player   @relation(fields: [playerId], references: [id])
+  playerId   String   @map("player_id")
+
+  @@map(name: "choices")
 }

@@ -1,3 +1,4 @@
+import axios from 'axios'
 import { TocItem, Player, Tag, Config } from 'core/types'
 
 export const emitNavChange = (
@@ -20,19 +21,17 @@ export const emitNavChange = (
 export const emitChoice = (
     identifier: string,
     tag: Tag,
-    choice: string,
+    option: string,
     instanceId: string,
     player: Player
 ): void => {
-    const choiceBody = {
-        tag,
-        choice,
-        channel: instanceId,
-        player
-    }
-    // axios('/api/choose', {
-    //     method: 'POST',
-    //     headers: { 'Content-Type': 'application/json' },
-    //     body: JSON.stringify(choiceBody)
-    // })
+    axios
+        .post(`/api/core/story/${identifier}/${instanceId}/choose`, {
+            tag,
+            option,
+            playerId: player.id
+        })
+        .then(() => {
+            console.log('emitted')
+        })
 }

@@ -77,7 +77,7 @@ const Choices = ({
                 selection: option,
                 entry: ENTRY_TYPES.Choice,
                 timestamp: new Date(),
-                player: currentPlayer
+                playerName: currentPlayer.name
             })
         )
 

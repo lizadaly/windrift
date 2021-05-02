@@ -21,20 +21,16 @@ export default async (req: NextApiRequest, res: NextApiResponse): Promise<void> 
         }
     })
 
-    const player1 = await prisma.player.findUnique({
+    const player1 = await prisma.player.findFirst({
         where: {
-            name_instanceId: {
-                instanceId,
-                name: story.player1Name
-            }
+            instanceId,
+            name: story.player1Name
         }
     })
-    const player2 = await prisma.player.findUnique({
+    const player2 = await prisma.player.findFirst({
         where: {
-            name_instanceId: {
-                instanceId,
-                name: story.player2Name
-            }
+            instanceId,
+            name: story.player2Name
         }
     })
 
