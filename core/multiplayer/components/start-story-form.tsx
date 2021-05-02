@@ -16,11 +16,11 @@ const StartStory: React.FC<Props> = ({ multiplayer, config, children = 'Start a 
                     axios(`/api/core/story/${config.identifier}/init`, {
                         method: 'post'
                     }).then((res) => {
-                        const { instance, player1 } = res.data
+                        const { instance, player1, player2 } = res.data
                         const { protocol, hostname, port, pathname } = window.location
                         const storyUrl = `${protocol}//${hostname}${
                             port ? ':' + port : ''
-                        }${pathname}`
+                        }${pathname}?instance=${instance.id}&playerId=${player2.id}`
 
                         multiplayer.instanceId = instance.id
                         multiplayer.storyUrl = storyUrl

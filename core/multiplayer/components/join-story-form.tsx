@@ -17,9 +17,7 @@ const JoinStory: React.FC<Props> = ({ multiplayer, config }) => {
     const handler = (e: FormEvent) => {
         e.preventDefault()
 
-        axios(`/api/core/story/${config.identifier}/${instanceId}/get`, {
-            method: 'post'
-        }).then((res) => {
+        axios(`/api/core/story/${config.identifier}/${instanceId}/get`, {}).then((res) => {
             const { instance, player2 } = res.data
             multiplayer.instanceId = instance.id
             multiplayer.currentPlayer = player2.id

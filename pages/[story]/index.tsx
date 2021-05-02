@@ -145,7 +145,7 @@ export default function Home(props: WindriftProps): JSX.Element {
     )
     const persistor = persistStore(store)
 
-    const Index = dynamic(() => import(`../stories/${story}/index`))
+    const Index = dynamic(() => import(`../..//stories/${story}/index`))
     return (
         <Provider store={store}>
             <PersistGate persistor={persistor}>
