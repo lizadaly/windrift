@@ -1,24 +1,22 @@
 import { C, R, Section, Chapter, Nav } from 'core/components'
 import { BaseList as D } from 'core/components/widgets'
 import Only from 'core/multiplayer/components/player-only'
-import useNavListener from 'core/multiplayer/hooks/use-nav-listener'
 import { PageType } from 'core/types'
-import { Raccoon, Snake } from '..'
 
 export const Page: PageType = () => {
-    const { player: playerIsVisible, chapterName } = useNavListener()
+    const { player: playerIsVisible, chapterName } = { player: {}, chapterName: '' }
     return (
         <>
             <Chapter filename="foyer">
                 <Section>
-                    <Only player={Raccoon}>
+                    {/* <Only player={player}>
                         <p>
                             Hurrying through the rainswept November night, you're glad to see the
                             bright lights of the Opera House. It's surprising that there aren't more
                             people about but, hey, that's great, since you're a raccoon, and you
                             don't want any trouble...
                         </p>
-                    </Only>
+                    </Only> */}
 
                     <h1>Foyer of the Opera House</h1>
                     <p>

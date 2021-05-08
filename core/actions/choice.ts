@@ -1,3 +1,4 @@
+import { Player } from '@prisma/client'
 import { Tag } from 'core/types'
 
 export const PICK_OPTION = 'PICK_OPTION'
@@ -20,7 +21,7 @@ interface OptionPickAction {
     options: OptionsType
     index: number
     tag: Tag
-    player?: string
+    player?: Player
 }
 export type OptionPickType = OptionPickAction
 
@@ -41,7 +42,7 @@ export const pickOption = (
     tag: Tag,
     options: OptionsType,
     index: number,
-    player?: string
+    player?: Player
 ): OptionPickType => {
     return {
         type: PICK_OPTION,

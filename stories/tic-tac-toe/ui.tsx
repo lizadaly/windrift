@@ -25,7 +25,7 @@ const Content: React.FC = ({ children }) => {
                     <h1>Multiplayer Demo</h1>
                     {multiplayer.ready && (
                         <>
-                            <div className={styles.player}>You are {currentPlayer} ⟶</div>
+                            <div className={styles.player}>You are {currentPlayer.name} ⟶</div>
                             <div className={styles.share}>
                                 <ShareButton multiplayer={multiplayer} otherPlayer={otherPlayer} />
                             </div>
@@ -36,14 +36,8 @@ const Content: React.FC = ({ children }) => {
                     )}
                 </nav>
             }
-            right={
-                multiplayer.ready && (
-                    <>
-                        <Presence />
-                        <Log />
-                    </>
-                )
-            }>
+            right={multiplayer.ready && <>{/* <Presence />
+                        <Log /> */}</>}>
             {children}
         </Grid>
     )

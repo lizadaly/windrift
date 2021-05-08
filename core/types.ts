@@ -16,11 +16,10 @@ interface UpdateStateCounterAction {
 export type UpdateStateCounterType = UpdateStateCounterAction
 
 /* Config */
-export type Player = string
 
 export class PlayerConfig {
     readonly start: TocItem['filename']
-    name?: Player
+    name?: string
 }
 
 export class Config {
@@ -28,7 +27,6 @@ export class Config {
     readonly pagination: string
     readonly title: string
     readonly enableUndo: boolean
-    readonly env: Record<string, unknown>
     readonly players: PlayerConfig[]
 
     constructor(
@@ -36,15 +34,13 @@ export class Config {
         title: string,
         pagination = 'scrolling',
         enableUndo = true,
-        players: PlayerConfig[],
-        env: Record<string, unknown>
+        players: PlayerConfig[]
     ) {
         this.identifier = identifier
         this.title = title
         this.pagination = pagination
         this.enableUndo = enableUndo
         this.players = players
-        this.env = env
     }
 }
 

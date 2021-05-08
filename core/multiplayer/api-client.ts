@@ -1,32 +1,39 @@
-import { TocItem, Player, Tag } from 'core/types'
+import { Player } from '@prisma/client'
+import axios from 'axios'
+import { TocItem, Tag } from 'core/types'
 
 export const emitNavChange = (
+    identifier: string,
     chapterName: TocItem['filename'],
-    channelName: string,
-    currentPlayer: Player
+    instanceId: string,
+    player: Player
 ): void => {
-    const navBody = {
-        chapterName,
-        channel: channelName,
-        player: currentPlayer
-    }
-    fetch('/api/nav', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(navBody)
-    })
+    axios
+        .post(`/api/core/story/${identifier}/${instanceId}/nav`, {
+            chapterName,
+            playerId: player.id
+        })
+        .then(() => {
+            console.log('emitted')
+        })
 }
 
-export const emitChoice = (tag: Tag, choice: string, channelName: string, player: Player): void => {
-    const choiceBody = {
-        tag,
-        choice,
-        channel: channelName,
-        player
-    }
-    fetch('/api/choose', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(choiceBody)
-    })
+export const emitChoice = (
+    id: string,
+    identifier: string,
+    tag: Tag,
+    option: string,
+    instanceId: string,
+    player: Player
+): void => {
+    axios
+        .post(`/api/core/story/${identifier}/${instanceId}/choose`, {
+            id,
+            tag,
+            option,
+            playerId: player.id
+        })
+        .then(() => {
+            console.log('emitted')
+        })
 }

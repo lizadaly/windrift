@@ -1,7 +1,7 @@
+import axios from 'axios'
 import { initMultiplayer, Multiplayer } from 'core/actions/multiplayer'
 import { Config } from 'core/types'
 import { useDispatch } from 'react-redux'
-import { populateMultiplayer } from '..'
 
 type Props = {
     multiplayer: Multiplayer
@@ -9,13 +9,26 @@ type Props = {
 }
 const StartStory: React.FC<Props> = ({ multiplayer, config, children = 'Start a new story' }) => {
     const dispatch = useDispatch()
-    const initialPlayer = config.players[0].name
     return (
         <>
             <button
-                onClick={() => {
-                    populateMultiplayer(initialPlayer, multiplayer, config)
-                    dispatch(initMultiplayer(multiplayer))
+                onClick={async () => {
+                    axios(`/api/core/story/${config.identifier}/init`, {
+                        method: 'post'
+                    }).then((res) => {
+                        const { instance, player1, player2 } = res.data
+                        const { protocol, hostname, port, pathname } = window.location
+                        const storyUrl = `${protocol}//${hostname}${
+                            port ? ':' + port : ''
+                        }${pathname}?instance=${instance.id}&playerId=${player2.id}`
+
+                        multiplayer.instanceId = instance.id
+                        multiplayer.storyUrl = storyUrl
+                        multiplayer.currentPlayer = player1
+                        multiplayer.otherPlayer = player2
+                        multiplayer.ready = true
+                        dispatch(initMultiplayer(multiplayer))
+                    })
                 }}>
                 {children}
             </button>

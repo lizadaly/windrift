@@ -52,3 +52,9 @@ npm run new <story-id>
 ```
 
 The story identifier must be a single string, like "west-of-house" or "colossal-cave."
+
+## To update the database
+
+```
+ dotenv -e .env.local -- npx prisma db push --preview-feature
+```

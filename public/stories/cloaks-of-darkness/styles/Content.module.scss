@@ -36,6 +36,7 @@
 
     // Widen the right column to show the presence/log list
     grid-template-columns: sizing.$left-right-width 4fr sizing.$left-right-width;
+
     .story {
         padding-right: sizing.$gutter;
     }

@@ -9,8 +9,9 @@ export enum ENTRY_TYPES {
     Nav = 'NAV'
 }
 interface LogEntry {
+    id: string
     timestamp: Date
-    player?: string
+    playerName?: string
     entry: ENTRY_TYPES
 }
 export type LogEntryType = LogEntry

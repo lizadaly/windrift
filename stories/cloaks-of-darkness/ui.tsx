@@ -49,7 +49,7 @@ const Content: React.FC = ({ children }) => {
             }
             left={
                 currentPlayer && // Story must have started
-                (currentPlayer === 'raccoon' ? (
+                (currentPlayer.name === 'raccoon' ? (
                     <>
                         <h3>You are a raccoon</h3>
                         <p>You have very dextrous hands and a lovely coat of fur.</p>

@@ -1,7 +1,7 @@
 // Render a block only if the current player matches the player name
+import { Player } from '@prisma/client'
 import React from 'react'
 
-import { Player } from 'core/types'
 import { PlayerContext } from './multiplayer-init'
 
 type Props = {

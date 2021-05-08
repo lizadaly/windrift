@@ -1,0 +1,82 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Story {
+
+  id          String   @id
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  title       String?  @db.VarChar(2000)
+  description String?  @db.Text
+  published   Boolean  @default(true)
+  player1Name String?  @db.VarChar(2000)
+  player2Name String?  @db.VarChar(2000)
+
+  Chapter  Chapter[]
+  Instance Instance[]
+  @@map(name: "stories")
+}
+
+model Instance {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  story     Story    @relation(fields: [storyId], references: [id])
+  storyId   String   @map("story_id")
+  Player    Player[]
+
+  Choice Choice[]
+  @@map(name: "instances")
+}
+
+model Chapter {
+  id          String   @id @default(uuid())
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  title       String   @db.VarChar(2000)
+  filename    String   @db.VarChar(255)
+  description String?  @db.Text
+  story       Story    @relation(fields: [storyId], references: [id])
+  storyId     String   @map("story_id")
+
+  @@unique([filename, storyId])
+  @@map(name: "chapters")
+}
+
+// A player is currently playing an Instance of a Story
+model Player {
+  id         String   @id @default(uuid())
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+  name       String   @db.VarChar(255)
+  instance   Instance @relation(fields: [instanceId], references: [id])
+  instanceId String   @map("instance_id")
+
+
+  Choice Choice[]
+  @@unique(id)
+  @@map(name: "players")
+}
+
+// A choice made by a player; these are immutable
+model Choice {
+  id         String   @id @default(uuid())
+  createdAt  DateTime @default(now()) @map("created_at")
+  tag        String   @db.VarChar(2000)
+  option     String   @db.Text
+  instance   Instance @relation(fields: [instanceId], references: [id])
+  instanceId String   @map("instance_id")
+  player     Player   @relation(fields: [playerId], references: [id])
+  playerId   String   @map("player_id")
+
+  @@map(name: "choices")
+}
