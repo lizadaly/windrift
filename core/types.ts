@@ -27,23 +27,20 @@ export class Config {
     readonly pagination: string
     readonly title: string
     readonly enableUndo: boolean
-    readonly env: Record<string, unknown>
-    readonly playerNames: PlayerConfig[]
+    readonly players: PlayerConfig[]
 
     constructor(
         identifier: string,
         title: string,
         pagination = 'scrolling',
         enableUndo = true,
-        playerNames: PlayerConfig[],
-        env: Record<string, unknown>
+        players: PlayerConfig[]
     ) {
         this.identifier = identifier
         this.title = title
         this.pagination = pagination
         this.enableUndo = enableUndo
-        this.playerNames = playerNames
-        this.env = env
+        this.players = players
     }
 }
 

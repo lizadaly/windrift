@@ -7,9 +7,10 @@ export default async (req: NextApiRequest, res: NextApiResponse): Promise<void> 
     const instanceId = req.query.instance as string
 
     if (req.method === 'POST') {
-        const { tag, option, playerId } = req.body
+        const { id, tag, option, playerId } = req.body
         await prisma.choice.create({
             data: {
+                id,
                 tag,
                 option,
                 player: {

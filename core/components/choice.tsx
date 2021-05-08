@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { v4 as uuidv4 } from 'uuid'
 
 import { TocItem, WidgetType } from 'core/types'
 import { OptionsType } from 'core/actions/choice'
@@ -69,10 +70,12 @@ const Choices = ({
         e.preventDefault()
         const target = e.target as HTMLInputElement
         const option = target.textContent
+        const choiceId = uuidv4()
         dispatch(updateInventory(tag, option))
         dispatch(pickOption(tag, options, index, currentPlayer))
         dispatch(
             logChoice({
+                id: choiceId,
                 tag,
                 selection: option,
                 entry: ENTRY_TYPES.Choice,
@@ -83,7 +86,7 @@ const Choices = ({
 
         // TODO pull this out into a listener hook
         if (currentPlayer !== null && sync) {
-            emitChoice(identifier, tag, option, instanceId, currentPlayer)
+            emitChoice(choiceId, identifier, tag, option, instanceId, currentPlayer)
         }
 
         if (options.length === 1) {

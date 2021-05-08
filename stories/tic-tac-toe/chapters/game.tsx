@@ -13,7 +13,7 @@ export const Page: PageType = () => {
 
     if (log.length > 0) {
         const last = log[log.length - 1]
-        nextPlayer = [currentPlayer, otherPlayer].filter((p) => p.name !== last.player)[0]
+        nextPlayer = [currentPlayer, otherPlayer].filter((p) => p.name !== last.playerName)[0]
     }
     return (
         <Chapter filename="game">

@@ -23,14 +23,12 @@ const prisma = new PrismaClient()
 export interface WindriftProps {
     toc: Toc
     configYaml: Config
-    env: any
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
     const story = context.params.story as string
     const configPath = path.join(process.cwd(), `public/stories/${story}/story.yaml`)
     const configYaml = yaml.safeLoad(fs.readFileSync(configPath, 'utf8')) as Record<string, any>
-    console.log(configYaml)
     const toc = configYaml.chapters.map((item: TocItem) => ({
         filename: item.filename,
         visible: item.visible || false,
@@ -41,15 +39,10 @@ export const getStaticProps: GetStaticProps = async (context) => {
         initMultiplayerDb(story, configYaml)
     }
 
-    const env = Object.keys(process.env).reduce((res: any = {}, key) => {
-        res[key] = process.env[key]
-        return res
-    }, {})
     return {
         props: {
             toc,
-            configYaml,
-            env
+            configYaml
         }
     }
 }
@@ -108,15 +101,14 @@ async function initMultiplayerDb(story: string, configYaml: Record<string, any>)
 export default function Home(props: WindriftProps): JSX.Element {
     const router = useRouter()
     const { story } = router.query
-    const { toc, configYaml, env } = props
+    const { toc, configYaml } = props
 
     const config = new Config(
         story as string,
         configYaml.title,
         configYaml.pagination,
         configYaml.enableUndo,
-        configYaml.playerNames,
-        env
+        configYaml.players
     )
 
     const persistConfig = {
@@ -125,8 +117,8 @@ export default function Home(props: WindriftProps): JSX.Element {
     }
 
     // In a single player game, set the visible chapter as the start
-    if (config.playerNames && config.playerNames.length === 1) {
-        const start = getChapter(toc, config.playerNames[0].start)
+    if (config.players && config.players.length === 1) {
+        const start = getChapter(toc, config.players[0].start)
         start.visible = true
     }
 
