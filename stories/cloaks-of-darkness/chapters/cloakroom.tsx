@@ -2,14 +2,12 @@ import { C, R, Section, Chapter, Nav } from 'core/components'
 import { BaseList as D } from 'core/components/widgets'
 import { PageType } from 'core/types'
 import Only from 'core/multiplayer/components/player-only'
-import useNavListener from 'core/multiplayer/hooks/use-nav-listener'
 
 import useCloak, { CloakStatus } from '../use-cloak'
-import { Raccoon, Snake } from '..'
 
 export const Page: PageType = () => {
     const cloak = useCloak()
-    const { player, chapterName } = useNavListener()
+    const { player, chapterName } = { player: {}, chapterName: '' }
     const both = player && chapterName === 'cloakroom'
 
     return (
@@ -24,12 +22,13 @@ export const Page: PageType = () => {
                         tag="cl-pluck"
                         to={{
                             pluck: (
-                                <Only player={Raccoon}>
-                                    <aside>
-                                        You delicately remove the tiny cloak from the snake and hang
-                                        it up.
-                                    </aside>
-                                </Only>
+                                <></>
+                                // <Only player={Raccoon}>
+                                //     <aside>
+                                //         You delicately remove the tiny cloak from the snake and hang
+                                //         it up.
+                                //     </aside>
+                                // </Only>
                             )
                         }}
                     />
@@ -38,7 +37,7 @@ export const Page: PageType = () => {
                         to={{
                             hook: cloak === CloakStatus.Worn && (
                                 <>
-                                    <Only player={Snake}>
+                                    {/* <Only player={Snake}>
                                         <aside>
                                             It looks like you could hang your cloak there, if you
                                             only had hands.
@@ -57,7 +56,7 @@ export const Page: PageType = () => {
                                                 hook, if you like.
                                             </aside>
                                         </Only>
-                                    )}
+                                    )} */}
                                 </>
                             )
                         }}

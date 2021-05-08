@@ -5,7 +5,7 @@ import { RootState } from 'core/reducers'
 import styles from 'public/styles/multiplayer/Presence.module.scss'
 
 const Presence: React.FC = () => {
-    const players = useSelector((state: RootState) => state.config.playerNames)
+    const players = useSelector((state: RootState) => state.config.players)
     const { instanceId } = useSelector((state: RootState) => state.multiplayer)
     const members = []
 
