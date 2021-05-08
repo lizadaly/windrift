@@ -80,12 +80,12 @@ const Choices = ({
                 selection: option,
                 entry: ENTRY_TYPES.Choice,
                 timestamp: new Date(),
-                playerName: currentPlayer.name
+                playerName: currentPlayer ? currentPlayer.name : ''
             })
         )
 
         // TODO pull this out into a listener hook
-        if (currentPlayer !== null && sync) {
+        if (currentPlayer && sync) {
             emitChoice(choiceId, identifier, tag, option, instanceId, currentPlayer)
         }
 
