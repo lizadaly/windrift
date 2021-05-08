@@ -20,7 +20,7 @@ const JoinStory: React.FC<Props> = ({ multiplayer, config }) => {
         axios(`/api/core/story/${config.identifier}/${instanceId}/get`, {}).then((res) => {
             const { instance, player2 } = res.data
             multiplayer.instanceId = instance.id
-            multiplayer.currentPlayer = player2.id
+            multiplayer.currentPlayer = player2
             multiplayer.ready = true
             dispatch(initMultiplayer(multiplayer))
         })

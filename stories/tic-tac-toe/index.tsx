@@ -16,6 +16,7 @@ const Index: React.FC = ({ children }) => {
     const multiplayer = useSelector((state: RootState) => state.multiplayer)
     const dispatch = useDispatch()
     const router = useRouter()
+
     React.useEffect(() => {
         const { instance, playerId } = router.query
         if (instance && playerId) {

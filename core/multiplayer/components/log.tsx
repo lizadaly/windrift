@@ -15,7 +15,7 @@ const Log = (): JSX.Element => {
                     return (
                         <div key={i}>
                             {c.tag} {c.selection} by {}
-                            {(c.player.name, e)} on{' '}
+                            {(c.playerName.name, e)} on{' '}
                             {moment(c.timestamp).format('MMM Do YYYY, h:mm:ss a')}
                         </div>
                     )

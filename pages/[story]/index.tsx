@@ -115,7 +115,7 @@ export default function Home(props: WindriftProps): JSX.Element {
         configYaml.title,
         configYaml.pagination,
         configYaml.enableUndo,
-        configYaml.players,
+        configYaml.playerNames,
         env
     )
 
@@ -125,8 +125,8 @@ export default function Home(props: WindriftProps): JSX.Element {
     }
 
     // In a single player game, set the visible chapter as the start
-    if (config.players && config.players.length === 1) {
-        const start = getChapter(toc, config.players[0].start)
+    if (config.playerNames && config.playerNames.length === 1) {
+        const start = getChapter(toc, config.playerNames[0].start)
         start.visible = true
     }
 
@@ -145,7 +145,7 @@ export default function Home(props: WindriftProps): JSX.Element {
     )
     const persistor = persistStore(store)
 
-    const Index = dynamic(() => import(`../..//stories/${story}/index`))
+    const Index = dynamic(() => import(`../../stories/${story}/index`))
     return (
         <Provider store={store}>
             <PersistGate persistor={persistor}>
