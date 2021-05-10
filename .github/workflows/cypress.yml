@@ -29,6 +29,8 @@ jobs:
         run: npm install --include=dev
       - name: Prisma init
         run: npm run db
+        env:
+          DATABASE_URL: DATABASE_URL="mysql://test:test@localhost:3306/test"
       # Install NPM dependencies, cache them correctly
       # and run all Cypress tests
       - name: Cypress run
