@@ -30,7 +30,7 @@ jobs:
       - name: Prisma init
         run: npm run db
         env:
-          DATABASE_URL: DATABASE_URL="mysql://test:test@localhost:3306/test"
+          DATABASE_URL: "mysql://test:test@localhost:3306/test"
       # Install NPM dependencies, cache them correctly
       # and run all Cypress tests
       - name: Cypress run
@@ -41,4 +41,4 @@ jobs:
           wait-on: 'http://localhost:3000/demo'
           quiet: true
         env:
-          DATABASE_URL: DATABASE_URL="mysql://test:test@localhost:3306/test"
+          DATABASE_URL: "mysql://test:test@localhost:3306/test"
