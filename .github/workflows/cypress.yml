@@ -39,4 +39,4 @@ jobs:
           wait-on: 'http://localhost:3000/demo'
           quiet: true
         env:
-          DATABASE_URL: "mysql://test:test@localhost:3306/test"
+          DATABASE_URL: "mysql://test:test@mariadb:3306/test"
