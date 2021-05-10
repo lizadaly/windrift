@@ -3,7 +3,7 @@ on: [push]
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
-    container: node:14.16
+    container: cypress/browsers:node14.16.0-chrome89-ff77
     # Service containers to run with `container-job`
     services:
       # Label used to access the service container
