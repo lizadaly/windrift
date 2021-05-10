@@ -32,9 +32,9 @@ devices.
 
 ## Multiplayer support
 
-One feature enabled by the built-in API backend is multiplayer support—
-specifically, using <a href="https://pusher.com/">Pusher</a> for
-WebSocket notifications between multiple users.
+One feature enabled by the built-in API backend is multiplayer support.
+Multiplayer support is in active development and is planned to use a database
+backend.
 
 ## To run
 
