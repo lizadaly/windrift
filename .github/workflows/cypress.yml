@@ -3,7 +3,7 @@ on: [push]
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
-    container: node:10.18-jessie
+    container: node:14.16
     # Service containers to run with `container-job`
     services:
       # Label used to access the service container
