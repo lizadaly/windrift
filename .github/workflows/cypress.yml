@@ -7,21 +7,28 @@ jobs:
     # Service containers to run with `container-job`
     services:
       # Label used to access the service container
-      postgres:
-        # Docker Hub image
-        image: postgres
-        # Provide the password for postgres
+      mariadb:
+        image: mariadb:latest
+        ports:
+          - 3306
         env:
-          POSTGRES_PASSWORD: postgres
-        # Set health checks to wait until postgres has started
+          MYSQL_USER: user
+          MYSQL_PASSWORD: test
+          MYSQL_DATABASE: test
+          MYSQL_ROOT_PASSWORD: test
         options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
+          --health-cmd="mysqladmin ping"
+          --health-interval=5s
+          --health-timeout=2s
+          --health-retries=3
+
     steps:
       - name: Checkout
         uses: actions/checkout@v1
+      - name: Install
+        run: npm install --include=dev
+      - name: Prisma init
+        run: npm run db
       # Install NPM dependencies, cache them correctly
       # and run all Cypress tests
       - name: Cypress run
@@ -32,7 +39,4 @@ jobs:
           wait-on: 'http://localhost:3000/demo'
           quiet: true
         env:
-          # The hostname used to communicate with the PostgreSQL service container
-          POSTGRES_HOST: postgres
-          # The default PostgreSQL port
-          POSTGRES_PORT: 5432
+          DATABASE_URL: DATABASE_URL="mysql://test:test@localhost:3306/test"
