@@ -46,7 +46,7 @@ const Choices = ({
 }: ChoiceProps): JSX.Element => {
     const { instanceId, currentPlayer } = useSelector((state: RootState) => state.multiplayer)
     const dispatch = useDispatch()
-    const item: TocItem = React.useContext(ChapterContext)
+    const { item } = React.useContext(ChapterContext)
     const newOptions = useSelector((state: RootState) => {
         const c = state.choices.present
         if (c && tag in c) {

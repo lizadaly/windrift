@@ -28,7 +28,7 @@ type ResetType = {
     message?: string
 }
 const ResetButton: React.FC<ResetType> = ({ children = 'Reset', message }) => {
-    const persistor = React.useContext(StoryContext)
+    const { persistor } = React.useContext(StoryContext)
 
     return (
         <>

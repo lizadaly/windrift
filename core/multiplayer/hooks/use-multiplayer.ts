@@ -14,9 +14,11 @@ const useMultiplayer = (config: Config): void => {
 
     React.useEffect(() => {
         const { instance, playerId } = router.query
+
         if (instance && playerId) {
             axios(`/api/core/story/${config.identifier}/${instance}/get`, {}).then((res) => {
                 const { instance, player1, player2 } = res.data
+
                 multiplayer.instanceId = instance.id
                 if (playerId === player1.id) {
                     multiplayer.currentPlayer = player1

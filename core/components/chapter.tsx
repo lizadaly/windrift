@@ -4,8 +4,12 @@ import { useSelector, useDispatch } from 'react-redux'
 import { countSections } from 'core/actions/navigation'
 import { getChapter } from 'core/util'
 import { RootState } from 'core/reducers'
+import { TocItem } from 'core/types'
 
-export const ChapterContext = React.createContext(undefined)
+type ContextProps = {
+    item: TocItem
+}
+export const ChapterContext = React.createContext<Partial<ContextProps>>({})
 
 export type ChapterType = {
     filename: string
@@ -30,7 +34,7 @@ const Chapter: React.FC<ChapterType> = ({ children, filename }) => {
         return child
     })
 
-    return <ChapterContext.Provider value={item}>{kids}</ChapterContext.Provider>
+    return <ChapterContext.Provider value={{ item }}>{kids}</ChapterContext.Provider>
 }
 
 export default Chapter

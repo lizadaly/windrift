@@ -4,7 +4,7 @@ import path from 'path'
 import yaml from 'js-yaml'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
-import { persistStore, persistReducer } from 'redux-persist'
+import { persistStore, persistReducer, Persistor } from 'redux-persist'
 import { PersistGate } from 'redux-persist/integration/react'
 import storage from 'redux-persist/lib/storage'
 import { composeWithDevTools } from 'redux-devtools-extension'
@@ -56,7 +56,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
     return { paths, fallback: false }
 }
 
-export const StoryContext = React.createContext(undefined)
+type ContextProps = {
+    persistor: Persistor
+}
+export const StoryContext = React.createContext<Partial<ContextProps>>({})
 
 // Initialize any constant values from this game build into the global
 // database. Per-game instance values are initiated at game start
@@ -142,7 +145,7 @@ export default function Home(props: WindriftProps): JSX.Element {
         <Provider store={store}>
             <PersistGate persistor={persistor}>
                 <GameContainer>
-                    <StoryContext.Provider value={persistor}>
+                    <StoryContext.Provider value={{ persistor }}>
                         <Index>
                             <Game story={story as string} />
                         </Index>
