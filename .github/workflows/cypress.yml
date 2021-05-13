@@ -30,10 +30,6 @@ jobs:
       #     key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}
       # - name: Install
       #   run: npm install --include=dev
-      # - name: Prisma init
-      #   run: npm run db
-      #   env:
-      #     DATABASE_URL: "mysql://test:test@mariadb:3306/test"
       # Install NPM dependencies, cache them correctly
       # and run all Cypress tests
       - name: Cypress run

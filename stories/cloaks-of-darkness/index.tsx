@@ -6,10 +6,12 @@ import { RootState } from 'core/reducers'
 import TitleScreen from 'core/multiplayer/components/title-screen'
 import NewGame from './new-game'
 import UI from './ui'
+import useMultiplayer from 'core/multiplayer/hooks/use-multiplayer'
 
 const Index: React.FC = ({ children }) => {
     const config = useSelector((state: RootState) => state.config)
     const multiplayer = useSelector((state: RootState) => state.multiplayer)
+    useMultiplayer(config)
 
     // Component tree to render for an active story
     const ready = <UI>{children}</UI>

@@ -28,7 +28,9 @@ const Content: React.FC = ({ children }) => {
                     <h1>Cloaks of Darkness</h1>
                     {multiplayer.ready && (
                         <>
-                            <div className={styles.player}>You are player {currentPlayer} ⟶</div>
+                            <div className={styles.player}>
+                                You are player {currentPlayer.name} ⟶
+                            </div>
                             <div className={styles.share}>
                                 <ShareButton multiplayer={multiplayer} otherPlayer={otherPlayer} />
                             </div>
@@ -39,14 +41,8 @@ const Content: React.FC = ({ children }) => {
                     )}
                 </nav>
             }
-            right={
-                multiplayer.ready && (
-                    <>
-                        <Presence />
-                        <Log />
-                    </>
-                )
-            }
+            right={multiplayer.ready && <>{/* <Presence />
+                        <Log /> */}</>}
             left={
                 currentPlayer && // Story must have started
                 (currentPlayer.name === 'raccoon' ? (
