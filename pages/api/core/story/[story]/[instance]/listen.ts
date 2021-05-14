@@ -1,4 +1,4 @@
-// Check whether this is an instance of a new game
+// Listen for changes from the other player
 import { PrismaClient } from '@prisma/client'
 import { NextApiRequest, NextApiResponse } from 'next'
 

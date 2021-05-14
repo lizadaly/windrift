@@ -26,6 +26,7 @@ const MultiplayerInit: React.FC = ({ children }) => {
     const toc = useSelector((state: RootState) => state.toc.present)
     const { players, identifier } = useSelector((state: RootState) => state.config)
     const dispatch = useDispatch()
+
     // Display our start chapter on first render only
     React.useEffect(() => {
         const visible = toc ? Object.values(toc).filter((c) => c.visible).length > 0 : false
@@ -62,9 +63,14 @@ const MultiplayerInit: React.FC = ({ children }) => {
                             playerName: eventPlayer
                         })
                     )
-                    console.log(res.data)
                 })
         })
+        // Send heartbeat
+        axios
+            .post(`/api/core/story/${identifier}/${instanceId}/heartbeat?`, {
+                playerId: currentPlayer.id
+            })
+            .then()
     }, 10000)
 
     const PlayersContext: Players = {

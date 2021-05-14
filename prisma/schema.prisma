@@ -34,7 +34,8 @@ model Instance {
   storyId   String   @map("story_id")
   Player    Player[]
 
-  Choice Choice[]
+  Choice    Choice[]
+  Heartbeat Heartbeat[]
   @@map(name: "instances")
 }
 
@@ -62,7 +63,8 @@ model Player {
   instanceId String   @map("instance_id")
 
 
-  Choice Choice[]
+  Choice    Choice[]
+  Heartbeat Heartbeat[]
   @@unique(id)
   @@map(name: "players")
 }
@@ -79,4 +81,18 @@ model Choice {
   playerId   String   @map("player_id")
 
   @@map(name: "choices")
+}
+
+// A heartbeat from a player; these are upserted
+model Heartbeat {
+  id         String   @id @default(uuid())
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+  player     Player   @relation(fields: [playerId], references: [id])
+  playerId   String   @map("player_id")
+  instance   Instance @relation(fields: [instanceId], references: [id])
+  instanceId String   @map("instance_id")
+
+  @@unique([playerId, instanceId])
+  @@map(name: "heartbeat")
 }

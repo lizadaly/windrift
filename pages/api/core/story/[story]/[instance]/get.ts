@@ -4,8 +4,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 
 const prisma = new PrismaClient()
 
-// TODO make POST
-// Get information about an existing existance of a game
+// Get information about an existing instance of a game
 export default async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
     const storyId = req.query.story as string
     const instanceId = req.query.instance as string
