@@ -9,7 +9,8 @@ export const Page: PageType = () => {
     const { currentPlayer, otherPlayer } = useSelector((state: RootState) => state.multiplayer)
 
     const log = useSelector((state: RootState) => state.log)
-    let nextPlayer = currentPlayer
+    console.log(currentPlayer.name)
+    let nextPlayer = currentPlayer.name === 'player X' ? currentPlayer : otherPlayer
 
     if (log.length > 0) {
         const last = log[log.length - 1]

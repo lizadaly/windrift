@@ -1,6 +1,14 @@
 import { Player } from '@prisma/client'
-import axios from 'axios'
+import axios, { AxiosResponse } from 'axios'
+import { logChoice, pickOption, updateInventory } from 'core/actions'
+import { ENTRY_TYPES, LogEntryType } from 'core/actions/log'
+import { RootState } from 'core/reducers'
 import { TocItem, Tag } from 'core/types'
+import { ChoiceApiResponse } from 'pages/api/core/story/[story]/[instance]/listen'
+import { Dispatch } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+
+const API_PREFIX = '/api/core/story'
 
 export const emitNavChange = (
     identifier: string,
@@ -9,7 +17,7 @@ export const emitNavChange = (
     player: Player
 ): void => {
     axios
-        .post(`/api/core/story/${identifier}/${instanceId}/nav`, {
+        .post(`${API_PREFIX}/${identifier}/${instanceId}/nav`, {
             chapterName,
             playerId: player.id
         })
@@ -27,7 +35,7 @@ export const emitChoice = (
     player: Player
 ): void => {
     axios
-        .post(`/api/core/story/${identifier}/${instanceId}/choose`, {
+        .post(`${API_PREFIX}/${identifier}/${instanceId}/choose`, {
             id,
             tag,
             option,
@@ -36,4 +44,40 @@ export const emitChoice = (
         .then(() => {
             console.log('emitted')
         })
+}
+
+export const pollForChoices = (
+    identifier: string,
+
+    instanceId: string,
+    player: Player,
+    log: LogEntryType[],
+    dispatch: Dispatch<any>
+): void => {
+    axios(`/api/core/story/${identifier}/${instanceId}/listen?playerId=${player.id}`).then(
+        (res: AxiosResponse<ChoiceApiResponse[]>) => {
+            // Get all the existing log IDs
+            const logIds = log.map((l) => l.id)
+            res.data
+                .filter((row) => !logIds.includes(row.id))
+                .forEach((row) => {
+                    const { id, tag, option, createdAt } = row
+
+                    const eventPlayer = row.player
+
+                    dispatch(updateInventory(tag, option))
+                    dispatch(pickOption(tag, [[option]], 0, eventPlayer))
+                    dispatch(
+                        logChoice({
+                            id,
+                            tag,
+                            selection: option,
+                            entry: ENTRY_TYPES.Choice,
+                            timestamp: new Date(createdAt),
+                            playerName: eventPlayer.name
+                        })
+                    )
+                })
+        }
+    )
 }

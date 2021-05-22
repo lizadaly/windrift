@@ -5,8 +5,8 @@ import { RootState } from 'core/reducers'
 import { gotoChapter } from 'core/actions/navigation'
 import { Player } from '@prisma/client'
 import axios from 'axios'
-import { logChoice, pickOption, updateInventory } from 'core/actions'
-import { ENTRY_TYPES } from 'core/actions/log'
+
+import { pollForChoices } from '../api-client'
 
 export interface Players {
     currentPlayer: Player
@@ -38,48 +38,24 @@ const MultiplayerInit: React.FC = ({ children }) => {
     }, [currentPlayer, toc])
 
     // Poll for changes
+    useInterval(
+        async () => pollForChoices(identifier, instanceId, currentPlayer, log, dispatch),
+        30000
+    ) // every 30 seconds
+
+    // Send heartbeat
     useInterval(async () => {
-        axios(
-            `/api/core/story/${identifier}/${instanceId}/listen?playerId=${currentPlayer.id}`
-        ).then((res) => {
-            // Get all the existing log IDs
-            const logIds = log.map((l) => l.id)
-            res.data
-                .filter((row) => !logIds.includes(row.id))
-                .forEach((row) => {
-                    const { id, tag, option, createdAt } = row
-
-                    const eventPlayer = res.data.player
-
-                    dispatch(updateInventory(tag, option))
-                    dispatch(pickOption(tag, [[option]], 0, eventPlayer))
-                    dispatch(
-                        logChoice({
-                            id,
-                            tag,
-                            selection: option,
-                            entry: ENTRY_TYPES.Choice,
-                            timestamp: new Date(createdAt),
-                            playerName: eventPlayer
-                        })
-                    )
-                })
-        })
-        // Send heartbeat
         axios
             .post(`/api/core/story/${identifier}/${instanceId}/heartbeat?`, {
                 playerId: currentPlayer.id
             })
             .then()
-    }, 10000)
+    }, 60000 * 2) // every two minutes
 
     const PlayersContext: Players = {
         currentPlayer,
         otherPlayer
     }
-
-    // Listen for events from the other player
-    //useChoiceListener()
 
     // Emit any chapter switches to the API
     //  useNavEmitter()

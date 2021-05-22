@@ -3,7 +3,10 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 
 const prisma = new PrismaClient()
 
-export default async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
+export default async (
+    req: NextApiRequest,
+    res: NextApiResponse<Record<string, never>>
+): Promise<void> => {
     const instanceId = req.query.instance as string
 
     if (req.method === 'POST') {
@@ -25,6 +28,6 @@ export default async (req: NextApiRequest, res: NextApiResponse): Promise<void> 
                 }
             }
         })
-        return res.status(201).json({})
+        res.status(201).json({})
     }
 }
