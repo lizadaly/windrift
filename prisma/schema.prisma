@@ -36,6 +36,7 @@ model Instance {
 
   Choice    Choice[]
   Heartbeat Heartbeat[]
+  Nav       Nav[]
   @@map(name: "instances")
 }
 
@@ -65,6 +66,7 @@ model Player {
 
   Choice    Choice[]
   Heartbeat Heartbeat[]
+  Nav       Nav[]
   @@unique(id)
   @@map(name: "players")
 }
@@ -81,6 +83,20 @@ model Choice {
   playerId   String   @map("player_id")
 
   @@map(name: "choices")
+}
+
+// A nav change made by a player; these are immutable
+// By definition the last one of these is where the player "is"
+model Nav {
+  id          String   @id @default(uuid())
+  createdAt   DateTime @default(now()) @map("created_at")
+  chapterName String   @db.VarChar(2000)
+  instance    Instance @relation(fields: [instanceId], references: [id])
+  instanceId  String   @map("instance_id")
+  player      Player   @relation(fields: [playerId], references: [id])
+  playerId    String   @map("player_id")
+
+  @@map(name: "nav")
 }
 
 // A heartbeat from a player; these are upserted

@@ -1,9 +1,17 @@
-import { PrismaClient } from '@prisma/client'
+import { Heartbeat, Player, PrismaClient } from '@prisma/client'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 const prisma = new PrismaClient()
 
-export default async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
+export type HeartbeatApiResponse = {
+    heartbeat: Heartbeat
+    player: Player
+}
+
+export default async (
+    req: NextApiRequest,
+    res: NextApiResponse<void | HeartbeatApiResponse>
+): Promise<void> => {
     const instanceId = req.query.instance as string
 
     if (req.method === 'POST') {
@@ -24,6 +32,25 @@ export default async (req: NextApiRequest, res: NextApiResponse): Promise<void> 
                 instanceId
             }
         })
-        return res.status(201).json({})
+        res.status(201)
+    }
+    if (req.method === 'GET') {
+        const playerId = req.query.playerId as string
+
+        const heartbeat = await prisma.heartbeat.findFirst({
+            where: {
+                instanceId,
+                NOT: {
+                    playerId
+                }
+            },
+            orderBy: {
+                createdAt: 'desc'
+            },
+            include: {
+                player: true
+            }
+        })
+        res.status(200).json({ heartbeat, player: heartbeat.player })
     }
 }

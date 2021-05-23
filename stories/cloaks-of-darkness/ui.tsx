@@ -41,8 +41,7 @@ const Content: React.FC = ({ children }) => {
                     )}
                 </nav>
             }
-            right={multiplayer.ready && <>{/* <Presence />
-                        <Log /> */}</>}
+            right={multiplayer.ready && <Presence />}
             left={
                 currentPlayer && // Story must have started
                 (currentPlayer.name === 'raccoon' ? (

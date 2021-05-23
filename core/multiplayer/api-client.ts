@@ -2,11 +2,9 @@ import { Player } from '@prisma/client'
 import axios, { AxiosResponse } from 'axios'
 import { logChoice, pickOption, updateInventory } from 'core/actions'
 import { ENTRY_TYPES, LogEntryType } from 'core/actions/log'
-import { RootState } from 'core/reducers'
 import { TocItem, Tag } from 'core/types'
 import { ChoiceApiResponse } from 'pages/api/core/story/[story]/[instance]/listen'
 import { Dispatch } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 
 const API_PREFIX = '/api/core/story'
 
@@ -34,21 +32,16 @@ export const emitChoice = (
     instanceId: string,
     player: Player
 ): void => {
-    axios
-        .post(`${API_PREFIX}/${identifier}/${instanceId}/choose`, {
-            id,
-            tag,
-            option,
-            playerId: player.id
-        })
-        .then(() => {
-            console.log('emitted')
-        })
+    axios.post(`${API_PREFIX}/${identifier}/${instanceId}/choose`, {
+        id,
+        tag,
+        option,
+        playerId: player.id
+    })
 }
 
 export const pollForChoices = (
     identifier: string,
-
     instanceId: string,
     player: Player,
     log: LogEntryType[],

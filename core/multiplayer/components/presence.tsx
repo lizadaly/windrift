@@ -3,13 +3,26 @@ import { useSelector } from 'react-redux'
 import { RootState } from 'core/reducers'
 
 import styles from 'public/styles/multiplayer/Presence.module.scss'
+import axios, { AxiosResponse } from 'axios'
+import { Heartbeat } from '.prisma/client'
+import { HeartbeatApiResponse } from 'pages/api/core/story/[story]/[instance]/heartbeat'
+import useInterval from '@use-it/interval'
 
 const Presence: React.FC = () => {
-    const players = useSelector((state: RootState) => state.config.players)
-    const { instanceId } = useSelector((state: RootState) => state.multiplayer)
-    const members = []
-
-    if (!instanceId) {
+    const { identifier, players } = useSelector((state: RootState) => state.config)
+    const { instanceId, currentPlayer } = useSelector((state: RootState) => state.multiplayer)
+    const [presence, setPresence] = React.useState<HeartbeatApiResponse | undefined>(undefined)
+    useInterval(async () => {
+        axios
+            .get(
+                `/api/core/story/${identifier}/${instanceId}/heartbeat?playerId=${currentPlayer.id}`
+            )
+            .then((res: AxiosResponse<HeartbeatApiResponse>) => {
+                console.log(res.data)
+                setPresence(res.data)
+            })
+    }, 10000)
+    if (!instanceId || !presence) {
         return null
     }
     return (
@@ -19,24 +32,9 @@ const Presence: React.FC = () => {
             <ol className={styles.userList}>
                 <li>
                     <span
-                        className={
-                            `${players[0].name}--${instanceId}` in members
-                                ? styles.active
-                                : styles.inactive
-                        }>
-                        <span className={styles.cap}>{players[0].name}</span> is{' '}
-                        {`${players[0].name}--${instanceId}` in members ? 'online' : 'offline'}
-                    </span>
-                </li>
-                <li>
-                    <span
-                        className={
-                            `${players[1].name}--${instanceId}` in members
-                                ? styles.active
-                                : styles.inactive
-                        }>
-                        <span className={styles.cap}>{players[1].name}</span>{' '}
-                        {`${players[1].name}--${instanceId}` in members ? 'online' : 'offline'}
+                        className={presence.heartbeat.createdAt ? styles.active : styles.inactive}>
+                        <span className={styles.cap}>{presence.player.name}</span> is{' '}
+                        {/* {'true' === 'true' ? 'online' : 'offline'} */}
                     </span>
                 </li>
             </ol>

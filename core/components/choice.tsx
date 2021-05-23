@@ -19,7 +19,7 @@ import { gotoChapter, Next } from 'core/actions/navigation'
 import { ChapterContext } from './chapter'
 import InlineList from './widgets/inline-list'
 import { ENTRY_TYPES } from 'core/actions/log'
-import { emitChoice } from 'core/multiplayer/api-client'
+import { emitChoice, emitNavChange } from 'core/multiplayer/api-client'
 
 export interface ChoiceProps {
     options: OptionsType

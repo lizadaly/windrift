@@ -22,20 +22,31 @@ const MultiplayerInit: React.FC = ({ children }) => {
         (state: RootState) => state.multiplayer
     )
     const log = useSelector((state: RootState) => state.log)
-
     const toc = useSelector((state: RootState) => state.toc.present)
     const { players, identifier } = useSelector((state: RootState) => state.config)
     const dispatch = useDispatch()
 
-    // Display our start chapter on first render only
+    const [currentChapter, setCurrentChapter] = React.useState(undefined)
+
+    // Display our start chapter on first render only. Since multiple players
+    // may start in different locations, this switches the behavior to check
+    // the per-player start if no global chapter start was provided.
     React.useEffect(() => {
         const visible = toc ? Object.values(toc).filter((c) => c.visible).length > 0 : false
-        // if there are no visible chapters, use the player default
+        // if there are no visible chapters, use the current player default
         if (!visible) {
             const start = players.filter((p) => p.name === currentPlayer.name)[0].start
             dispatch(gotoChapter(start))
         }
-    }, [currentPlayer, toc])
+    }, [])
+
+    React.useEffect(() => {
+        // setCurrentChapter(visibleChapters)
+        const visibleChapters = Object.values(toc)
+            .filter((c) => c.visible)
+            .map((c) => c.filename)
+        console.log('visible: ', visibleChapters)
+    }, [toc])
 
     // Poll for changes
     useInterval(
@@ -56,9 +67,6 @@ const MultiplayerInit: React.FC = ({ children }) => {
         currentPlayer,
         otherPlayer
     }
-
-    // Emit any chapter switches to the API
-    //  useNavEmitter()
 
     return (
         <>

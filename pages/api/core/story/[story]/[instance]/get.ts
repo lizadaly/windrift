@@ -1,40 +1,47 @@
 // Get info about an instance
-import { PrismaClient } from '@prisma/client'
+import { Instance, Player, PrismaClient, Story } from '@prisma/client'
 import { NextApiRequest, NextApiResponse } from 'next'
 
 const prisma = new PrismaClient()
 
+export type StoryApiResponse = {
+    story: Story
+    instance: Instance
+    player1: Player
+    player2: Player
+}
+
 // Get information about an existing instance of a game
-export default async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
-    const storyId = req.query.story as string
+export default async (
+    req: NextApiRequest,
+    res: NextApiResponse<StoryApiResponse>
+): Promise<void> => {
     const instanceId = req.query.instance as string
 
-    const story = await prisma.story.findUnique({
-        where: {
-            id: storyId
-        }
-    })
     const instance = await prisma.instance.findUnique({
         where: {
             id: instanceId
+        },
+        include: {
+            story: true
         }
     })
 
     const player1 = await prisma.player.findFirst({
         where: {
             instanceId,
-            name: story.player1Name
+            name: instance.story.player1Name
         }
     })
     const player2 = await prisma.player.findFirst({
         where: {
             instanceId,
-            name: story.player2Name
+            name: instance.story.player2Name
         }
     })
 
-    return res.status(200).json({
-        story,
+    res.status(200).json({
+        story: instance.story,
         instance,
         player1,
         player2
