@@ -10,16 +10,14 @@ import {
     GotoChapterType,
     GOTO_CHAPTER,
     IncrementSectionType,
-    INCREMENT_SECTION,
-    ShowNextChapterType,
-    SHOW_NEXT_CHAPTER
+    INCREMENT_SECTION
 } from 'core/actions/navigation'
 
 const toc = (
     state: Toc = null,
-    action: IncrementSectionType | CountSectionType | ShowNextChapterType | GotoChapterType
+    action: IncrementSectionType | CountSectionType | GotoChapterType
 ): Toc => {
-    let item: TocItem, newState: Toc, items: TocItem[], index: number
+    let item: TocItem, newState: Toc, items: TocItem[]
 
     switch (action.type) {
         case INCREMENT_SECTION:
@@ -33,25 +31,6 @@ const toc = (
             item = getChapter(newState, action.item.filename)
 
             item.sectionCount = action.count
-            return newState
-
-        case SHOW_NEXT_CHAPTER:
-            // Set the item after this one to visible
-            newState = cloneDeep(state)
-            items = Object.values(newState)
-
-            // Find the item with this filename
-            item = getChapter(newState, action.item.filename)
-            index = items.indexOf(item)
-
-            if (index < items.length - 1) {
-                // Ensure there are more chapters
-
-                // Set all chapters to invisible only in this check
-                items.filter((i) => i.visible).forEach((i) => (i.visible = false))
-
-                items[index + 1].visible = true
-            }
             return newState
 
         case GOTO_CHAPTER:
