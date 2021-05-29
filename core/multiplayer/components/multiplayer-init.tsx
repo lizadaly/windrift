@@ -4,29 +4,34 @@ import useInterval from '@use-it/interval'
 import { RootState } from 'core/reducers'
 import { gotoChapter } from 'core/actions/navigation'
 import { Player } from '@prisma/client'
-import axios from 'axios'
+import axios, { AxiosResponse } from 'axios'
 
 import { pollForChoices } from '../api-client'
+import { HeartbeatApiResponse } from 'pages/api/core/story/[story]/[instance]/heartbeat'
 
 export interface Players {
     currentPlayer: Player
     otherPlayer: Player
+    presence: HeartbeatApiResponse
 }
 export const PlayerContext: React.Context<Players> = React.createContext({
     currentPlayer: null,
-    otherPlayer: null
+    otherPlayer: null,
+    presence: null
 })
 
 const MultiplayerInit: React.FC = ({ children }) => {
     const { currentPlayer, otherPlayer, instanceId } = useSelector(
         (state: RootState) => state.multiplayer
     )
+    const { identifier, players } = useSelector((state: RootState) => state.config)
+
     const log = useSelector((state: RootState) => state.log)
     const toc = useSelector((state: RootState) => state.toc.present)
-    const { players, identifier } = useSelector((state: RootState) => state.config)
-    const dispatch = useDispatch()
 
-    const [currentChapter, setCurrentChapter] = React.useState(undefined)
+    const [presence, setPresence] = React.useState<HeartbeatApiResponse | undefined>(undefined)
+
+    const dispatch = useDispatch()
 
     // Display our start chapter on first render only. Since multiple players
     // may start in different locations, this switches the behavior to check
@@ -48,12 +53,26 @@ const MultiplayerInit: React.FC = ({ children }) => {
         console.log('visible: ', visibleChapters)
     }, [toc])
 
-    // Poll for changes
+    // Poll for choices
     useInterval(
         async () => pollForChoices(identifier, instanceId, currentPlayer, log, dispatch),
         30000
     ) // every 30 seconds
 
+    // Poll for movement
+    useInterval(async () => {
+        axios
+            .get(
+                `/api/core/story/${identifier}/${instanceId}/heartbeat?playerId=${currentPlayer.id}`
+            )
+            .then((res: AxiosResponse<HeartbeatApiResponse>) => {
+                console.log(res.data)
+                setPresence(res.data)
+            })
+            .catch(function (error) {
+                return Promise.reject(error)
+            })
+    }, 10000)
     // Send heartbeat
     useInterval(async () => {
         axios
@@ -65,7 +84,8 @@ const MultiplayerInit: React.FC = ({ children }) => {
 
     const PlayersContext: Players = {
         currentPlayer,
-        otherPlayer
+        otherPlayer,
+        presence
     }
 
     return (

@@ -51,6 +51,10 @@ export default async (
                 player: true
             }
         })
-        res.status(200).json({ heartbeat, player: heartbeat.player })
+        if (heartbeat) {
+            res.status(200).json({ heartbeat, player: heartbeat.player })
+        } else {
+            res.status(404)
+        }
     }
 }

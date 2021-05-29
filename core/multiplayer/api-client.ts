@@ -47,7 +47,7 @@ export const pollForChoices = (
     log: LogEntryType[],
     dispatch: Dispatch<any>
 ): void => {
-    axios(`/api/core/story/${identifier}/${instanceId}/listen?playerId=${player.id}`).then(
+    axios(`${API_PREFIX}/${identifier}/${instanceId}/listen?playerId=${player.id}`).then(
         (res: AxiosResponse<ChoiceApiResponse[]>) => {
             // Get all the existing log IDs
             const logIds = log.map((l) => l.id)
