@@ -1,23 +1,23 @@
-import { Heartbeat, Player } from '@prisma/client'
+import { Presence, Player } from '@prisma/client'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 import prisma from 'pages/api/db'
 
-export type HeartbeatApiResponse = {
-    heartbeat: Heartbeat
+export type PresenceApiResponse = {
+    presence: Presence
     player: Player
 }
 
 export default async (
     req: NextApiRequest,
-    res: NextApiResponse<void | HeartbeatApiResponse>
+    res: NextApiResponse<void | PresenceApiResponse>
 ): Promise<void> => {
     const instanceId = req.query.instance as string
 
     if (req.method === 'POST') {
         const { playerId } = req.body
 
-        await prisma.heartbeat.upsert({
+        await prisma.presence.upsert({
             where: {
                 playerId_instanceId: {
                     playerId,
@@ -37,7 +37,7 @@ export default async (
     if (req.method === 'GET') {
         const playerId = req.query.playerId as string
 
-        const heartbeat = await prisma.heartbeat.findFirst({
+        const presence = await prisma.presence.findFirst({
             where: {
                 instanceId,
                 NOT: {
@@ -52,8 +52,8 @@ export default async (
             }
         })
         res.setHeader('Cache-Control', 's-maxage=10, stale-while-revalidate')
-        if (heartbeat !== null) {
-            res.status(200).json({ heartbeat, player: heartbeat.player })
+        if (presence !== null) {
+            res.status(200).json({ presence, player: presence.player })
         } else {
             res.status(404).end()
         }

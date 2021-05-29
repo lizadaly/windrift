@@ -6,7 +6,7 @@ import { logChoice, pickOption, updateInventory } from 'core/actions'
 import { ENTRY_TYPES, LogEntryType } from 'core/actions/log'
 import { TocItem, Tag } from 'core/types'
 import { ChoiceApiResponse } from 'pages/api/core/story/[story]/[instance]/listen'
-import { HeartbeatApiResponse } from 'pages/api/core/story/[story]/[instance]/heartbeat'
+import { PresenceApiResponse } from 'pages/api/core/story/[story]/[instance]/presence'
 import { initMultiplayer, Multiplayer } from 'core/actions/multiplayer'
 
 const API_PREFIX = '/api/core/story'
@@ -92,9 +92,9 @@ export const emitChoice = (
     })
 }
 
-export const emitHeartbeat = (identifier: string, instanceId: string, player: Player): void => {
+export const emitPresence = (identifier: string, instanceId: string, player: Player): void => {
     axios
-        .post(`${API_PREFIX}/${identifier}/${instanceId}/heartbeat`, {
+        .post(`${API_PREFIX}/${identifier}/${instanceId}/presence`, {
             playerId: player.id
         })
         .then()
@@ -139,11 +139,11 @@ export const pollForPresence = (
     identifier: string,
     instanceId: string,
     player: Player,
-    setPresence: React.Dispatch<React.SetStateAction<HeartbeatApiResponse>>
+    setPresence: React.Dispatch<React.SetStateAction<PresenceApiResponse>>
 ): void => {
     axios
-        .get(`${API_PREFIX}/${identifier}/${instanceId}/heartbeat?playerId=${player.id}`)
-        .then((res: AxiosResponse<HeartbeatApiResponse>) => {
+        .get(`${API_PREFIX}/${identifier}/${instanceId}/presence?playerId=${player.id}`)
+        .then((res: AxiosResponse<PresenceApiResponse>) => {
             setPresence(res.data)
         })
         .catch(function (error) {

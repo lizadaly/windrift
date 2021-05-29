@@ -35,7 +35,7 @@ model Instance {
   Player    Player[]
 
   Choice    Choice[]
-  Heartbeat Heartbeat[]
+  Presence Presence[]
   Nav       Nav[]
   @@map(name: "instances")
 }
@@ -65,7 +65,7 @@ model Player {
 
 
   Choice    Choice[]
-  Heartbeat Heartbeat[]
+  Presence Presence[]
   Nav       Nav[]
   @@unique(id)
   @@map(name: "players")
@@ -99,8 +99,8 @@ model Nav {
   @@map(name: "nav")
 }
 
-// A heartbeat from a player; these are upserted
-model Heartbeat {
+// A presence from a player; these are upserted
+model Presence {
   id         String   @id @default(uuid())
   createdAt  DateTime @default(now()) @map("created_at")
   updatedAt  DateTime @updatedAt @map("updated_at")
@@ -110,5 +110,5 @@ model Heartbeat {
   instanceId String   @map("instance_id")
 
   @@unique([playerId, instanceId])
-  @@map(name: "heartbeat")
+  @@map(name: "presence")
 }
