@@ -75,7 +75,7 @@ export const Page: PageType = () => (
             </aside>
 
             <p>Let's move on to navigation... </p>
-            <C options={[['Next!', null]]} widget={BaseList} tag="c2-next" next={Next.Chapter} />
+            <C options={[['Next!', null]]} widget={BaseList} tag="c2-next" next="chapter3" />
         </Section>
     </Chapter>
 )

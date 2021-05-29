@@ -39,9 +39,8 @@ export const Page: PageType = () => (
 
         <Section>
             <p>
-                You can force skipping to the next chapter by setting <code>next=Next.Chapter</code>
-                , skipping over any remaining sections, or set <code>next=Next.None</code> to do
-                nothing.
+                You can also navigate to a named chapter, skipping over any remaining sections, or
+                set <code>next=Next.None</code> to do nothing.
             </p>
             <SyntaxHighlighter language="jsx" style={prism}>
                 {` <C options={[['This is a no-op.', null], ['Clicked!']]}
@@ -57,9 +56,10 @@ export const Page: PageType = () => (
             </p>
             <p>
                 There's a special navigational component, <code>More</code>, for just the previous
-                case of a link with a single item that advances the story. By default it will print
-                "More..." but you can customize this with the <code>text</code> prop. It accepts the
-                same <code>next</code> props as <code>Choice</code>.
+                case of a link with a single item that advances the story by section or chapter
+                title. By default it will print "More..." but you can customize this with the{' '}
+                <code>text</code> prop. It accepts the same <code>next</code> props as{' '}
+                <code>Choice</code>.
             </p>
             <SyntaxHighlighter language="jsx" style={prism}>
                 {`<More text="Click for more" />`}
@@ -71,7 +71,7 @@ export const Page: PageType = () => (
         <Section>
             <p>
                 Passing a string as the <code>next</code> parameter will jump the narrative to that
-                chapter's filename. (You can't jump to a section.)
+                chapter's filename. (You can't jump to a section, and the chapter must be named.)
             </p>
             <p>
                 Note that we use a <code>Choice</code> here because we'll print a custom{' '}

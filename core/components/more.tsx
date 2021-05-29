@@ -9,7 +9,7 @@ import { useId } from 'react-id-generator'
 
 type Props = {
     text?: string
-    next?: Next
+    next?: Next | string
 }
 const More = ({ next = Next.Section, text = 'More...' }: Props): JSX.Element => {
     const tag = useId(1, 'more-link-')[0]

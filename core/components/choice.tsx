@@ -2,7 +2,7 @@ import * as React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { v4 as uuidv4 } from 'uuid'
 
-import { TocItem, WidgetType } from 'core/types'
+import { WidgetType } from 'core/types'
 import { OptionsType } from 'core/actions/choice'
 import { RootState } from 'core/reducers'
 import {
@@ -11,8 +11,7 @@ import {
     updateInventory,
     pickOption,
     incrementSection,
-    updateStateCounter,
-    showNextChapter
+    updateStateCounter
 } from 'core/actions'
 import { gotoChapter, Next } from 'core/actions/navigation'
 
@@ -92,8 +91,6 @@ const Choices = ({
         if (options.length === 1) {
             if (next === Next.Section) {
                 dispatch(incrementSection(item))
-            } else if (next === Next.Chapter) {
-                dispatch(showNextChapter(item))
             } else if (next === Next.None) {
                 // no-op
             } else if (typeof next === 'string') {
