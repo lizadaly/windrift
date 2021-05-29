@@ -28,6 +28,6 @@ export default async (
                 }
             }
         })
-        res.status(201).json({})
+        res.status(201).end()
     }
 }

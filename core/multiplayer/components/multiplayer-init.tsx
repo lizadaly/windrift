@@ -1,12 +1,11 @@
 import * as React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { Player } from '@prisma/client'
 import useInterval from '@use-it/interval'
+
 import { RootState } from 'core/reducers'
 import { gotoChapter } from 'core/actions/navigation'
-import { Player } from '@prisma/client'
-import axios, { AxiosResponse } from 'axios'
-
-import { pollForChoices } from '../api-client'
+import { emitHeartbeat, pollForChoices, pollForPresence } from 'core/multiplayer/api-client'
 import { HeartbeatApiResponse } from 'pages/api/core/story/[story]/[instance]/heartbeat'
 
 export interface Players {
@@ -56,30 +55,20 @@ const MultiplayerInit: React.FC = ({ children }) => {
     // Poll for choices
     useInterval(
         async () => pollForChoices(identifier, instanceId, currentPlayer, log, dispatch),
-        30000
-    ) // every 30 seconds
+        10000
+    ) // every 10 seconds
 
     // Poll for movement
     useInterval(async () => {
-        axios
-            .get(
-                `/api/core/story/${identifier}/${instanceId}/heartbeat?playerId=${currentPlayer.id}`
-            )
-            .then((res: AxiosResponse<HeartbeatApiResponse>) => {
-                console.log(res.data)
-                setPresence(res.data)
-            })
-            .catch(function (error) {
-                return Promise.reject(error)
-            })
+        const presence = pollForPresence(identifier, instanceId, currentPlayer)
+        if (presence) {
+            setPresence(presence)
+        }
     }, 10000)
+
     // Send heartbeat
     useInterval(async () => {
-        axios
-            .post(`/api/core/story/${identifier}/${instanceId}/heartbeat?`, {
-                playerId: currentPlayer.id
-            })
-            .then()
+        emitHeartbeat(identifier, instanceId, currentPlayer)
     }, 60000 * 2) // every two minutes
 
     const PlayersContext: Players = {
