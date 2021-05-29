@@ -32,7 +32,7 @@ export default async (
                 instanceId
             }
         })
-        res.status(201)
+        res.status(201).end()
     }
     if (req.method === 'GET') {
         const playerId = req.query.playerId as string
@@ -54,7 +54,7 @@ export default async (
         if (heartbeat) {
             res.status(200).json({ heartbeat, player: heartbeat.player })
         } else {
-            res.status(404)
+            res.status(404).end()
         }
     }
 }
