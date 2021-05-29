@@ -1,7 +1,7 @@
-import { Heartbeat, Player, PrismaClient } from '@prisma/client'
+import { Heartbeat, Player } from '@prisma/client'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-const prisma = new PrismaClient()
+import prisma from 'pages/api/db'
 
 export type HeartbeatApiResponse = {
     heartbeat: Heartbeat
