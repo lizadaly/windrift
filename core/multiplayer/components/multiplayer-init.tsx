@@ -60,10 +60,7 @@ const MultiplayerInit: React.FC = ({ children }) => {
 
     // Poll for movement
     useInterval(async () => {
-        const presence = pollForPresence(identifier, instanceId, currentPlayer)
-        if (presence) {
-            setPresence(presence)
-        }
+        pollForPresence(identifier, instanceId, currentPlayer, setPresence)
     }, 10000)
 
     // Send heartbeat

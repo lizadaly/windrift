@@ -138,12 +138,13 @@ export const pollForChoices = (
 export const pollForPresence = (
     identifier: string,
     instanceId: string,
-    player: Player
-): HeartbeatApiResponse | void => {
+    player: Player,
+    setPresence: React.Dispatch<React.SetStateAction<HeartbeatApiResponse>>
+): void => {
     axios
         .get(`${API_PREFIX}/${identifier}/${instanceId}/heartbeat?playerId=${player.id}`)
         .then((res: AxiosResponse<HeartbeatApiResponse>) => {
-            return res.data
+            setPresence(res.data)
         })
         .catch(function (error) {
             console.log(error)

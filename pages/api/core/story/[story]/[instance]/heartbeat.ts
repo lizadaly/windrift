@@ -51,7 +51,8 @@ export default async (
                 player: true
             }
         })
-        if (heartbeat) {
+        res.setHeader('Cache-Control', 's-maxage=10, stale-while-revalidate')
+        if (heartbeat !== null) {
             res.status(200).json({ heartbeat, player: heartbeat.player })
         } else {
             res.status(404).end()
