@@ -5,13 +5,13 @@ import useInterval from '@use-it/interval'
 
 import { RootState } from 'core/reducers'
 import { gotoChapter } from 'core/actions/navigation'
-import { emitHeartbeat, pollForChoices, pollForPresence } from 'core/multiplayer/api-client'
-import { HeartbeatApiResponse } from 'pages/api/core/story/[story]/[instance]/heartbeat'
+import { emitPresence, pollForChoices, pollForPresence } from 'core/multiplayer/api-client'
+import { PresenceApiResponse } from 'pages/api/core/story/[story]/[instance]/presence'
 
 export interface Players {
     currentPlayer: Player
     otherPlayer: Player
-    presence: HeartbeatApiResponse
+    presence: PresenceApiResponse
 }
 export const PlayerContext: React.Context<Players> = React.createContext({
     currentPlayer: null,
@@ -28,7 +28,7 @@ const MultiplayerInit: React.FC = ({ children }) => {
     const log = useSelector((state: RootState) => state.log)
     const toc = useSelector((state: RootState) => state.toc.present)
 
-    const [presence, setPresence] = React.useState<HeartbeatApiResponse | undefined>(undefined)
+    const [presence, setPresence] = React.useState<PresenceApiResponse | undefined>(undefined)
 
     const dispatch = useDispatch()
 
@@ -63,9 +63,9 @@ const MultiplayerInit: React.FC = ({ children }) => {
         pollForPresence(identifier, instanceId, currentPlayer, setPresence)
     }, 10000)
 
-    // Send heartbeat
+    // Send presence
     useInterval(async () => {
-        emitHeartbeat(identifier, instanceId, currentPlayer)
+        emitPresence(identifier, instanceId, currentPlayer)
     }, 60000 * 2) // every two minutes
 
     const PlayersContext: Players = {

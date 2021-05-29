@@ -14,8 +14,7 @@ const Presence: React.FC = () => {
             <h2>Players online</h2>
             <ol className={styles.userList}>
                 <li>
-                    <span
-                        className={presence.heartbeat.createdAt ? styles.active : styles.inactive}>
+                    <span className={presence.presence.createdAt ? styles.active : styles.inactive}>
                         <span className={styles.cap}>{presence.player.name}</span> is{' '}
                         {/* {'true' === 'true' ? 'online' : 'offline'} */}
                     </span>
