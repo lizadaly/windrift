@@ -1,8 +1,8 @@
 // Get info about an instance
-import { Instance, Player, PrismaClient, Story } from '@prisma/client'
+import { Instance, Player, Story } from '@prisma/client'
 import { NextApiRequest, NextApiResponse } from 'next'
 
-const prisma = new PrismaClient()
+import prisma from 'pages/api/db'
 
 export type StoryApiResponse = {
     story: Story

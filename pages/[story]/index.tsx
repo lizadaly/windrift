@@ -35,6 +35,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
         title: item.title,
         bookmark: 0
     }))
+    console.log(configYaml)
     if (configYaml.players && configYaml.players.length > 1) {
         initMultiplayerDb(story, configYaml)
     }

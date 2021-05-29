@@ -1,7 +1,6 @@
-import { PrismaClient } from '@prisma/client'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-const prisma = new PrismaClient()
+import prisma from 'pages/api/db'
 
 export default async (req: NextApiRequest, res: NextApiResponse<void>): Promise<void> => {
     const instanceId = req.query.instance as string

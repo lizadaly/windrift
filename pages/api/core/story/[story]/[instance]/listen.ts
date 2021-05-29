@@ -1,8 +1,8 @@
 // Listen for changes from the other player
-import { Choice, Player, PrismaClient } from '@prisma/client'
+import { Choice, Player } from '@prisma/client'
 import { NextApiRequest, NextApiResponse } from 'next'
 
-const prisma = new PrismaClient()
+import prisma from 'pages/api/db'
 
 export type ChoiceApiResponse = Choice & {
     player: Player
