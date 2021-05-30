@@ -85,7 +85,7 @@ const Choices = ({
 
         // TODO pull this out into a listener hook
         if (currentPlayer && sync) {
-            emitChoice(choiceId, identifier, tag, option, instanceId, currentPlayer)
+            emitChoice(choiceId, tag, option, identifier, instanceId, currentPlayer)
         }
 
         if (options.length === 1) {
@@ -95,6 +95,9 @@ const Choices = ({
                 // no-op
             } else if (typeof next === 'string') {
                 dispatch(gotoChapter(next))
+                if (currentPlayer && sync) {
+                    emitNavChange(identifier, next, instanceId, currentPlayer)
+                }
             }
         }
         const s = {}

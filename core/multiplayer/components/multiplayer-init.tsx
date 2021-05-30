@@ -11,12 +11,12 @@ import { PresenceApiResponse } from 'pages/api/core/story/[story]/[instance]/pre
 export interface Players {
     currentPlayer: Player
     otherPlayer: Player
-    presence: PresenceApiResponse
+    presenceApiResponse: PresenceApiResponse
 }
 export const PlayerContext: React.Context<Players> = React.createContext({
     currentPlayer: null,
     otherPlayer: null,
-    presence: null
+    presenceApiResponse: null
 })
 
 const MultiplayerInit: React.FC = ({ children }) => {
@@ -28,7 +28,9 @@ const MultiplayerInit: React.FC = ({ children }) => {
     const log = useSelector((state: RootState) => state.log)
     const toc = useSelector((state: RootState) => state.toc.present)
 
-    const [presence, setPresence] = React.useState<PresenceApiResponse | undefined>(undefined)
+    const [presenceApiResponse, setPresence] = React.useState<PresenceApiResponse | undefined>(
+        undefined
+    )
 
     const dispatch = useDispatch()
 
@@ -71,7 +73,7 @@ const MultiplayerInit: React.FC = ({ children }) => {
     const PlayersContext: Players = {
         currentPlayer,
         otherPlayer,
-        presence
+        presenceApiResponse: presenceApiResponse
     }
 
     return (
