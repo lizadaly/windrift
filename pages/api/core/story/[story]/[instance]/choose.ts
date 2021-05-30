@@ -28,5 +28,7 @@ export default async (
             }
         })
         res.status(201).end()
+    } else {
+        res.status(405).end()
     }
 }

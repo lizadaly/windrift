@@ -68,7 +68,7 @@ const MultiplayerInit: React.FC = ({ children }) => {
     // Send presence
     useInterval(async () => {
         emitPresence(identifier, instanceId, currentPlayer)
-    }, 60000 * 2) // every two minutes
+    }, 60000)
 
     const PlayersContext: Players = {
         currentPlayer,

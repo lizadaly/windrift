@@ -82,7 +82,7 @@ async function initMultiplayerDb(story: string, configYaml: Record<string, any>)
         }
     })
 
-    Promise.all(
+    await Promise.all(
         configYaml.chapters.map((item: TocItem) =>
             prisma.chapter.upsert({
                 where: {

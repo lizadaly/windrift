@@ -14,17 +14,20 @@ export default async (
 ): Promise<void> => {
     const instanceId = req.query.instance as string
     const playerId = req.query.playerId as string
-
-    const choices = await prisma.choice.findMany({
-        where: {
-            instanceId,
-            NOT: {
-                playerId
+    if (req.method === 'GET') {
+        const choices = await prisma.choice.findMany({
+            where: {
+                instanceId,
+                NOT: {
+                    playerId
+                }
+            },
+            include: {
+                player: true
             }
-        },
-        include: {
-            player: true
-        }
-    })
-    res.status(200).json(choices)
+        })
+        res.status(200).json(choices)
+    } else {
+        res.status(405).end()
+    }
 }
