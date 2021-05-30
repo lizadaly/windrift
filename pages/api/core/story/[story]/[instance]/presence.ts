@@ -1,4 +1,4 @@
-import { Presence, Player } from '@prisma/client'
+import { Presence, Player, Nav } from '@prisma/client'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 import prisma from 'pages/api/db'
@@ -6,6 +6,7 @@ import prisma from 'pages/api/db'
 export type PresenceApiResponse = {
     presence: Presence
     player: Player
+    nav: Nav
 }
 
 export default async (
@@ -51,9 +52,19 @@ export default async (
                 player: true
             }
         })
+        const nav = await prisma.nav.findFirst({
+            where: {
+                player: presence.player
+            },
+            orderBy: {
+                createdAt: 'desc'
+            }
+        })
+        // TODO set this on all get requests?
         res.setHeader('Cache-Control', 's-maxage=10, stale-while-revalidate')
+
         if (presence !== null) {
-            res.status(200).json({ presence, player: presence.player })
+            res.status(200).json({ presence, player: presence.player, nav })
         } else {
             res.status(404).end()
         }
