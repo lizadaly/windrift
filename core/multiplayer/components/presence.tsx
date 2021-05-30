@@ -21,8 +21,9 @@ const Presence: React.FC = () => {
             <ol className={styles.userList}>
                 <li>
                     <span className={presence.presence.createdAt ? styles.active : styles.inactive}>
-                        <span className={styles.cap}>{presence.player.name}</span> is in{' '}
-                        {presence.nav.chapterName}
+                        <span className={styles.cap}>{presence.player.name}</span>
+
+                        {presence.nav ? `is in ${presence.nav.chapterName}` : null}
                         {/* {'true' === 'true' ? 'online' : 'offline'} */}
                     </span>
                 </li>

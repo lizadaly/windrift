@@ -37,6 +37,7 @@ export default async (
     }
     if (req.method === 'GET') {
         const playerId = req.query.playerId as string
+        res.setHeader('Cache-Control', 's-maxage=10, stale-while-revalidate')
 
         const presence = await prisma.presence.findFirst({
             where: {
@@ -52,21 +53,18 @@ export default async (
                 player: true
             }
         })
-        const nav = await prisma.nav.findFirst({
-            where: {
-                player: presence.player
-            },
-            orderBy: {
-                createdAt: 'desc'
-            }
-        })
-        // TODO set this on all get requests?
-        res.setHeader('Cache-Control', 's-maxage=10, stale-while-revalidate')
-
-        if (presence !== null) {
-            res.status(200).json({ presence, player: presence.player, nav })
-        } else {
+        if (presence === null) {
             res.status(404).end()
+        } else {
+            const nav = await prisma.nav.findFirst({
+                where: {
+                    player: presence.player
+                },
+                orderBy: {
+                    createdAt: 'desc'
+                }
+            })
+            res.status(200).json({ presence, player: presence.player, nav })
         }
     }
 }
