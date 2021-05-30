@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 
 import { RootState } from 'core/reducers'
 import TitleScreen from 'core/multiplayer/components/title-screen'
-import NewGame from './new-game'
+import NewStory from './new-story'
 import UI from './ui'
 import useMultiplayer from 'core/multiplayer/hooks/use-multiplayer'
 
@@ -16,10 +16,10 @@ const Index: React.FC = ({ children }) => {
     // Component tree to render for an active story
     const ready = <UI>{children}</UI>
 
-    // Render tree for setting up the game
+    // Render tree for setting up the story
     const setup = (
         <UI>
-            <NewGame multiplayer={multiplayer} config={config} />
+            <NewStory multiplayer={multiplayer} config={config} />
         </UI>
     )
 

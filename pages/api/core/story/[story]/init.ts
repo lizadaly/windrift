@@ -1,10 +1,10 @@
-// Check whether this is an instance of a new game
+// Check whether this is an instance of a new story
 import { PrismaClient } from '@prisma/client'
 import { NextApiRequest, NextApiResponse } from 'next'
 
 const prisma = new PrismaClient()
 
-// Generate a new instance of a game, including both players. Return the instance data.
+// Generate a new instance of a story, including both players. Return the instance data.
 export default async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
     if (req.method === 'POST') {
         const storyId = req.query.story as string

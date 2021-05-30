@@ -11,7 +11,7 @@ export type StoryApiResponse = {
     player2: Player
 }
 
-// Get information about an existing instance of a game
+// Get information about an existing instance of a story
 export default async (
     req: NextApiRequest,
     res: NextApiResponse<StoryApiResponse>

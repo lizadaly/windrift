@@ -2,8 +2,8 @@ import * as React from 'react'
 import { Persistor } from 'redux-persist'
 import { StoryContext } from 'pages/[story]'
 
-/* Reset the game and remove the local storage */
-export const resetGame = (
+/* Reset the story and remove the local storage */
+export const resetStory = (
     userInitiated: boolean,
     persistor: Persistor,
     message = 'Restart story from the beginning?'
@@ -32,7 +32,7 @@ const ResetButton: React.FC<ResetType> = ({ children = 'Reset', message }) => {
 
     return (
         <>
-            <button onClick={() => resetGame(true, persistor, message)}>{children}</button>
+            <button onClick={() => resetStory(true, persistor, message)}>{children}</button>
         </>
     )
 }
