@@ -95,7 +95,9 @@ const Choices = ({
                 // no-op
             } else if (typeof next === 'string') {
                 dispatch(gotoChapter(next))
-                emitNavChange(identifier, next, instanceId, currentPlayer)
+                if (currentPlayer && sync) {
+                    emitNavChange(identifier, next, instanceId, currentPlayer)
+                }
             }
         }
         const s = {}
