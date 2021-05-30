@@ -24,8 +24,12 @@ export const Page: PageType = () => {
     const completitionMessage = `There ${movesLeft === 1 ? 'is' : 'are'} ${movesLeft} move${
         movesLeft === 1 ? '' : 's'
     }  left.`
+
+    // Pick a winner
     let xWinner = false
     let oWinner = false
+    let winner = null
+
     if (movesLeft === 0) {
         const rows = [1, 2, 3]
         const cols = [1, 2, 3]
@@ -43,14 +47,13 @@ export const Page: PageType = () => {
         xWinner = xWinner || playerWins([inventory[`3x1`], inventory[`2x2`], inventory[`1x3`]], 'X')
         oWinner = oWinner || playerWins([inventory[`1x1`], inventory[`2x2`], inventory[`3x3`]], 'O')
         oWinner = oWinner || playerWins([inventory[`3x1`], inventory[`2x2`], inventory[`1x3`]], 'O')
-    }
-    let winner = null
-    if (movesLeft === 0) {
-        winner = 'It was a tie.'
+
         if (xWinner) {
             winner = 'Player X wins.'
         } else if (oWinner) {
             winner = 'Player O wins.'
+        } else {
+            winner = 'It was a tie.'
         }
     }
 
