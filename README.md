@@ -27,7 +27,7 @@ As with Windrift 1, by default Windrift stories are completely
 static HTML + JS single page apps. Because NextJS also allows for easy creation
 of _server_ API endpoints, Windrift 2 can include backend components
 as well. You may want to use a database, perform computationally intensive
-work (perhaps procedural game generation?), or persist game state across
+work (perhaps procedural game generation?), or persist story state across
 devices.
 
 ## Multiplayer support

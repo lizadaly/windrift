@@ -7,7 +7,7 @@ export type Tag = string
 declare function Widget(props: any): JSX.Element
 export type WidgetType = typeof Widget
 
-/* Game counter */
+/* Story counter */
 
 interface UpdateStateCounterAction {
     type: typeof UPDATE_STATE_COUNTER
@@ -53,7 +53,7 @@ export type InitConfigType = InitConfigAction
 /* Completion callbacks */
 export type Callback = () => void
 
-/* TOC and game setup */
+/* TOC and story setup */
 
 export interface TocItem {
     readonly filename: string

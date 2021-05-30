@@ -7,13 +7,13 @@ type Props = {
     multiplayer: Multiplayer
     config: Config
 }
-const NewGame: React.FC<Props> = ({ multiplayer, config }) => {
+const NewStory: React.FC<Props> = ({ multiplayer, config }) => {
     return (
         <div>
             <h1>Start or join Cloaks of Darkness</h1>
             <p>
                 This is a demo multiplayer hypertext story based on the
-                <i>Cloak of Darkness</i> starter interactive fiction game.
+                <i>Cloak of Darkness</i> starter interactive fiction story.
             </p>
             <p>
                 Start the story yourself and share the story with a friend (or other browser
@@ -25,4 +25,4 @@ const NewGame: React.FC<Props> = ({ multiplayer, config }) => {
         </div>
     )
 }
-export default NewGame
+export default NewStory

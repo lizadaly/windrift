@@ -23,15 +23,15 @@ const chapterComponents = (toc: Toc, story: string): Array<ChapterComponent> => 
     })
     return chapters
 }
-interface GameProps {
+interface StoryProps {
     story: string
 }
 
-const Game = ({ story }: GameProps): JSX.Element => {
+const Game = ({ story }: StoryProps): JSX.Element => {
     const toc = useSelector((state: RootState) => state.toc.present)
     const [components] = React.useState(() => chapterComponents(toc, story))
     return (
-        <div className="game">
+        <div className="story">
             {Object.values(toc)
                 .filter((c) => c.visible)
                 .map((chapter) => (

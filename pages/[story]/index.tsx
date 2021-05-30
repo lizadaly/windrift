@@ -14,7 +14,7 @@ import { GetStaticProps, GetStaticPaths } from 'next'
 import dynamic from 'next/dynamic'
 
 import reducers from 'core/reducers'
-import { Game, GameContainer } from 'core/components'
+import { Story, StoryContainer } from 'core/components'
 import { Config, Toc, TocItem } from 'core/types'
 import { getChapter } from 'core/util'
 import { PrismaClient } from '@prisma/client'
@@ -62,8 +62,8 @@ type ContextProps = {
 }
 export const StoryContext = React.createContext<Partial<ContextProps>>({})
 
-// Initialize any constant values from this game build into the global
-// database. Per-game instance values are initiated at game start
+// Initialize any constant values from this story build into the global
+// database. Per-story instance values are initiated at story start
 async function initMultiplayerDb(story: string, configYaml: Record<string, any>) {
     await prisma.story.upsert({
         where: {
@@ -120,7 +120,7 @@ export default function Home(props: WindriftProps): JSX.Element {
         storage: storage
     }
 
-    // In a single player game, set the visible chapter as the start
+    // In a single player story, set the visible chapter as the start
     if (config.players && config.players.length === 1) {
         const start = getChapter(toc, config.players[0].start)
         start.visible = true
@@ -145,13 +145,13 @@ export default function Home(props: WindriftProps): JSX.Element {
     return (
         <Provider store={store}>
             <PersistGate persistor={persistor}>
-                <GameContainer>
+                <StoryContainer>
                     <StoryContext.Provider value={{ persistor }}>
                         <Index>
-                            <Game story={story as string} />
+                            <Story story={story as string} />
                         </Index>
                     </StoryContext.Provider>
-                </GameContainer>
+                </StoryContainer>
             </PersistGate>
         </Provider>
     )

@@ -28,7 +28,7 @@ export interface ChoiceProps {
     widget?: WidgetType
     /** Arbitrary arguments passed unchanged to the underlying widget */
     extra?: Record<string, unknown>
-    /** Whether to sync this choice in a multiplayer game, @defaultValue true */
+    /** Whether to sync this choice in a multiplayer story, @defaultValue true */
     sync?: boolean
     /** Whether to retain the last choice as a hyperlink, as for navigation. @defaultValue false */
     persist?: boolean
