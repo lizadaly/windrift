@@ -24,4 +24,8 @@ describe('Full test of the built-in stories', () => {
         cy.visit('/tic-tac-toe')
         cy.contains('Start a new game')
     })
+    it('Loads the Cloaks of Darkness splash screen', () => {
+        cy.visit('/cloaks-of-darkness')
+        cy.contains('Cloaks of Darkness')
+    })
 })

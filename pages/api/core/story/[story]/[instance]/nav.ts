@@ -23,5 +23,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<void>): Promise<
             }
         })
         res.status(201).end()
+    } else {
+        res.status(405).end()
     }
 }

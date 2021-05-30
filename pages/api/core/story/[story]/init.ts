@@ -31,11 +31,13 @@ export default async (req: NextApiRequest, res: NextApiResponse): Promise<void> 
                 instanceId: instance.id
             }
         })
-        return res.status(201).json({
+        res.status(201).json({
             story,
             instance,
             player1,
             player2
         })
+    } else {
+        res.status(405).end()
     }
 }
