@@ -10,8 +10,8 @@
         "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc",
         "lint": "eslint --fix core/*",
         "new": "ts-node scripts/create-story $npm_config_first",
-        "db": "prisma db push --preview-feature",
-        "start": "prisma db push --preview-feature && next build && next start",
+        "db": "prisma db push",
+        "start": "prisma db push && next build && next start",
         "test": "cypress run",
         "vercel": "vercel"
     },
