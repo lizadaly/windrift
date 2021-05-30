@@ -78,9 +78,9 @@ export const emitNavChange = (
 
 export const emitChoice = (
     id: string,
-    identifier: string,
     tag: Tag,
     option: string,
+    identifier: string,
     instanceId: string,
     player: Player
 ): void => {
