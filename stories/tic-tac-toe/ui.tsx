@@ -36,8 +36,16 @@ const Content: React.FC = ({ children }) => {
                     )}
                 </nav>
             }
-            right={multiplayer.ready && <>{/* <Presence />
-                        <Log /> */}</>}>
+            right={
+                multiplayer.ready && (
+                    <>
+                        {
+                            <Presence />
+                            /*   <Log /> */
+                        }
+                    </>
+                )
+            }>
             {children}
         </Grid>
     )
