@@ -2,7 +2,7 @@
 import { Player } from '@prisma/client'
 import React from 'react'
 
-import { PlayerContext } from './multiplayer-init'
+import { PlayerContext } from 'core/multiplayer/components/multiplayer-init'
 
 type Props = {
     player: Player
