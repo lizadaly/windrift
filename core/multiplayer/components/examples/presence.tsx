@@ -8,7 +8,7 @@ import * as React from 'react'
 
 import styles from 'public/styles/multiplayer/Presence.module.scss'
 
-import { PlayerContext } from './multiplayer-init'
+import { PlayerContext } from 'core/multiplayer/components/multiplayer-init'
 
 const Presence: React.FC = () => {
     const { presenceApiResponse: presence } = React.useContext(PlayerContext)

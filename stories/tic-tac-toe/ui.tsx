@@ -5,8 +5,8 @@ import { RootState } from 'core/reducers'
 
 import ShareButton from 'core/multiplayer/components/share-button'
 
-import Presence from 'core/multiplayer/components/presence'
-import Log from 'core/multiplayer/components/log'
+import Presence from 'core/multiplayer/components/examples/presence'
+import Log from 'core/multiplayer/components/examples/log'
 
 import styles from 'public/stories/tic-tac-toe/styles/Content.module.scss'
 import ResetButton from 'core/components/ui/reset-button'
@@ -39,10 +39,8 @@ const Content: React.FC = ({ children }) => {
             right={
                 multiplayer.ready && (
                     <>
-                        {
-                            <Presence />
-                            /*   <Log /> */
-                        }
+                        <Presence />
+                        <Log />
                     </>
                 )
             }>
