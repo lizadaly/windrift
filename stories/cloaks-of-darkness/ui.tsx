@@ -72,7 +72,7 @@ const Content: React.FC = ({ children }) => {
             {children}
 
             <div>
-                {presence && presence.nav.chapterName === currentChapter.filename
+                {presence && presence.nav && presence.nav.chapterName === currentChapter.filename
                     ? `${v.capitalize(otherPlayer.name)} is here!`
                     : ''}
             </div>
