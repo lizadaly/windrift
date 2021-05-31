@@ -51,24 +51,23 @@ const MultiplayerInit: React.FC = ({ children }) => {
         const visibleChapters = Object.values(toc)
             .filter((c) => c.visible)
             .map((c) => c.filename)
-        console.log('visible: ', visibleChapters)
     }, [toc])
 
     // Poll for choices
     useInterval(
         async () => pollForChoices(identifier, instanceId, currentPlayer, log, dispatch),
-        10000
-    ) // every 10 seconds
+        parseInt(process.env.NEXT_PUBLIC_POLL_CHECK_CHOICES)
+    )
 
     // Poll for movement
     useInterval(async () => {
         pollForPresence(identifier, instanceId, currentPlayer, setPresence)
-    }, 10000)
+    }, parseInt(process.env.NEXT_PUBLIC_POLL_CHECK_PRESENCE))
 
     // Send presence
     useInterval(async () => {
         emitPresence(identifier, instanceId, currentPlayer)
-    }, 60000)
+    }, parseInt(process.env.NEXT_PUBLIC_POLL_EMIT_PRESENCE))
 
     const PlayersContext: Players = {
         currentPlayer,
