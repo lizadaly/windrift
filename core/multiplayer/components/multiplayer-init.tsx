@@ -46,13 +46,6 @@ const MultiplayerInit: React.FC = ({ children }) => {
         }
     }, [])
 
-    React.useEffect(() => {
-        // setCurrentChapter(visibleChapters)
-        const visibleChapters = Object.values(toc)
-            .filter((c) => c.visible)
-            .map((c) => c.filename)
-    }, [toc])
-
     // Poll for choices
     useInterval(
         async () => pollForChoices(identifier, instanceId, currentPlayer, log, dispatch),

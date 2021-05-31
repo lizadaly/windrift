@@ -8,7 +8,7 @@ import * as React from 'react'
 
 import styles from 'public/styles/multiplayer/Presence.module.scss'
 
-import { PlayerContext } from './multiplayer-init'
+import { PlayerContext } from 'core/multiplayer/components/multiplayer-init'
 
 const Presence: React.FC = () => {
     const { presenceApiResponse: presence } = React.useContext(PlayerContext)
@@ -23,8 +23,7 @@ const Presence: React.FC = () => {
                     <span className={presence.presence.createdAt ? styles.active : styles.inactive}>
                         <span className={styles.cap}>{presence.player.name}</span>
 
-                        {presence.nav ? `is in ${presence.nav.chapterName}` : null}
-                        {/* {'true' === 'true' ? 'online' : 'offline'} */}
+                        {presence.nav ? ` is in ${presence.nav.chapterName}` : null}
                     </span>
                 </li>
             </ol>
