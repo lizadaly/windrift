@@ -1,14 +1,17 @@
+import React from 'react'
+
 import { C, R, Section, Chapter, Nav } from 'core/components'
 import { BaseList as D } from 'core/components/widgets'
 import { PageType } from 'core/types'
 import Only from 'core/multiplayer/components/player-only'
 
 import useCloak, { CloakStatus } from '../use-cloak'
+import { PlayerContext } from 'core/multiplayer/components/multiplayer-init'
 
 export const Page: PageType = () => {
     const cloak = useCloak()
-    const { player, chapterName } = { player: {}, chapterName: '' }
-    const both = player && chapterName === 'cloakroom'
+    const { presenceApiResponse: presence } = React.useContext(PlayerContext)
+    const both = presence && presence.nav.chapterName === 'cloakroom'
 
     return (
         <Chapter filename="cloakroom">
@@ -22,13 +25,12 @@ export const Page: PageType = () => {
                         tag="cl-pluck"
                         to={{
                             pluck: (
-                                <></>
-                                // <Only player={Raccoon}>
-                                //     <aside>
-                                //         You delicately remove the tiny cloak from the snake and hang
-                                //         it up.
-                                //     </aside>
-                                // </Only>
+                                <Only playerName="raccoon">
+                                    <aside>
+                                        You delicately remove the tiny cloak from the snake and hang
+                                        it up.
+                                    </aside>
+                                </Only>
                             )
                         }}
                     />
@@ -37,14 +39,14 @@ export const Page: PageType = () => {
                         to={{
                             hook: cloak === CloakStatus.Worn && (
                                 <>
-                                    {/* <Only player={Snake}>
+                                    <Only playerName="snake">
                                         <aside>
                                             It looks like you could hang your cloak there, if you
                                             only had hands.
                                         </aside>
                                     </Only>
                                     {both && (
-                                        <Only player={Raccoon}>
+                                        <Only playerName="raccoon">
                                             <aside>
                                                 You could{' '}
                                                 <C
@@ -56,7 +58,7 @@ export const Page: PageType = () => {
                                                 hook, if you like.
                                             </aside>
                                         </Only>
-                                    )} */}
+                                    )}
                                 </>
                             )
                         }}
