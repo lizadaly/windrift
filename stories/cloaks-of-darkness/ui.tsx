@@ -1,23 +1,28 @@
 import * as React from 'react'
 import { useSelector } from 'react-redux'
+import v from 'voca'
 
 import { RootState } from 'core/reducers'
+import { C, R } from 'core/components'
+import { Next } from 'core/actions/navigation'
+import ResetButton from 'core/components/ui/reset-button'
+import Grid from 'core/components/ui/grid'
 
 import ShareButton from 'core/multiplayer/components/share-button'
-import { C, R } from 'core/components'
-
 import Presence from 'core/multiplayer/components/examples/presence'
-import ResetButton from 'core/components/ui/reset-button'
 import { PlayerContext } from 'core/multiplayer/components/multiplayer-init'
-import Grid from 'core/components/ui/grid'
 
 import styles from 'public/stories/cloaks-of-darkness/styles/Content.module.scss'
 import useCloak, { CloakStatus } from './use-cloak'
-import { Next } from 'core/actions/navigation'
 
 const Content: React.FC = ({ children }) => {
     const multiplayer = useSelector((state: RootState) => state.multiplayer)
-    const { currentPlayer, otherPlayer } = React.useContext(PlayerContext)
+    const toc = useSelector((state: RootState) => state.toc.present)
+    const currentChapter = Object.values(toc).filter((c) => c.visible)[0]
+
+    const { currentPlayer, otherPlayer, presenceApiResponse: presence } = React.useContext(
+        PlayerContext
+    )
     const cloakStatus = useCloak()
     return (
         <Grid
@@ -65,6 +70,12 @@ const Content: React.FC = ({ children }) => {
                 ))
             }>
             {children}
+
+            <div>
+                {presence && presence.nav.chapterName === currentChapter.filename
+                    ? `${v.capitalize(otherPlayer.name)} is here!`
+                    : ''}
+            </div>
         </Grid>
     )
 }
