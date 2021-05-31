@@ -14,7 +14,8 @@ const InlineList: typeof InlineListType = ({
     separator = ', ',
     conjunction = 'and',
     group = null,
-    handler = null
+    handler = null,
+    tag = null
 }: InlineListProps): JSX.Element => {
     if (conjunction.length > 0) {
         conjunction = ` ${conjunction} `
@@ -26,7 +27,7 @@ const InlineList: typeof InlineListType = ({
                 .map((t, i) => (
                     <span key={i}>
                         {group.length > 1 && i === group.length - 1 ? conjunction : ''}
-                        <Link handler={handler} text={t} index={i} />
+                        <Link handler={handler} text={t} index={i} tag={tag} />
                         {i < group.length - 1 && group.length > 2 ? separator : ''}
                     </span>
                 ))}

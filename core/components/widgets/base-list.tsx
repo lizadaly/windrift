@@ -8,13 +8,14 @@ declare function BaseListType(props: WidgetProps): JSX.Element
 
 const BaseList: typeof BaseListType = ({
     group = null,
-    handler = null
+    handler = null,
+    tag = null
 }: WidgetProps): JSX.Element => {
     return (
         <>
             {[...group].map((t, i) => (
                 <span key={i}>
-                    <Link handler={handler} text={t} index={i} />
+                    <Link handler={handler} text={t} index={i} tag={tag} />
                 </span>
             ))}
         </>

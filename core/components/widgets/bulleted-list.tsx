@@ -14,13 +14,14 @@ declare function BulletedListType(props: BulletedListProps): JSX.Element
 const InlineList: typeof BulletedListType = ({
     group = [],
     handler = null,
+    tag = null,
     initialOptions = []
 }: BulletedListProps): JSX.Element => {
     return (
         <ul>
             {[...initialOptions[0]].map((t, i) => (
                 <li key={i}>
-                    <Link handler={handler} text={t} index={i} />
+                    <Link handler={handler} text={t} index={i} tag={tag} />
                     {group.map((g) => {
                         if (initialOptions[0] !== group && g === t) {
                             return 'selected'

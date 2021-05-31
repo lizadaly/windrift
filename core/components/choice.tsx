@@ -109,11 +109,13 @@ const Choices = ({
 
     const group = options[0]
     const W = widget
+    console.log(tag)
     return (
         <W
             group={group}
             handler={group.length > 1 || persist ? handler : null}
             initialOptions={initialOptions}
+            tag={tag}
             {...extra}
         />
     )
