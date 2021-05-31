@@ -20,41 +20,41 @@ export const Page: PageType = () => {
         nextPlayer = [currentPlayer, otherPlayer].filter((p) => p.name !== last.playerName)[0]
     }
     // is the game complete?
-    const movesLeft = 9 - Object.keys(inventory).length
+    let movesLeft = 9 - Object.keys(inventory).length
     const completitionMessage = `There ${movesLeft === 1 ? 'is' : 'are'} ${movesLeft} move${
         movesLeft === 1 ? '' : 's'
     }  left.`
 
-    // Pick a winner
+    // Check for a winner
     let xWinner = false
     let oWinner = false
     let winner = null
 
-    if (movesLeft === 0) {
-        const rows = [1, 2, 3]
-        const cols = [1, 2, 3]
+    const rows = [1, 2, 3]
+    const cols = [1, 2, 3]
 
-        for (const row of rows) {
-            const rowItems: string[] = []
-            for (const col of cols) {
-                rowItems.push(inventory[`${row}x${col}`])
-            }
-            xWinner = xWinner || playerWins(rowItems, 'X')
-            oWinner = oWinner || playerWins(rowItems, 'O')
+    for (const row of rows) {
+        const rowItems: string[] = []
+        for (const col of cols) {
+            rowItems.push(inventory[`${row}x${col}`])
         }
-        // diags
-        xWinner = xWinner || playerWins([inventory[`1x1`], inventory[`2x2`], inventory[`3x3`]], 'X')
-        xWinner = xWinner || playerWins([inventory[`3x1`], inventory[`2x2`], inventory[`1x3`]], 'X')
-        oWinner = oWinner || playerWins([inventory[`1x1`], inventory[`2x2`], inventory[`3x3`]], 'O')
-        oWinner = oWinner || playerWins([inventory[`3x1`], inventory[`2x2`], inventory[`1x3`]], 'O')
+        xWinner = xWinner || playerWins(rowItems, 'X')
+        oWinner = oWinner || playerWins(rowItems, 'O')
+    }
+    // diags
+    xWinner = xWinner || playerWins([inventory[`1x1`], inventory[`2x2`], inventory[`3x3`]], 'X')
+    xWinner = xWinner || playerWins([inventory[`3x1`], inventory[`2x2`], inventory[`1x3`]], 'X')
+    oWinner = oWinner || playerWins([inventory[`1x1`], inventory[`2x2`], inventory[`3x3`]], 'O')
+    oWinner = oWinner || playerWins([inventory[`3x1`], inventory[`2x2`], inventory[`1x3`]], 'O')
 
-        if (xWinner) {
-            winner = 'Player X wins.'
-        } else if (oWinner) {
-            winner = 'Player O wins.'
-        } else {
-            winner = 'It was a tie.'
-        }
+    if (xWinner) {
+        winner = 'Player X wins.'
+        movesLeft = 0
+    } else if (oWinner) {
+        winner = 'Player O wins.'
+        movesLeft = 0
+    } else if (movesLeft === 0) {
+        winner = 'It was a tie.'
     }
 
     const nextMessage =
