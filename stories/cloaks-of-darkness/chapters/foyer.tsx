@@ -1,6 +1,6 @@
 import { C, R, Section, Chapter, Nav } from 'core/components'
 import { BaseList as D } from 'core/components/widgets'
-import Only from 'core/multiplayer/components/player-only'
+import Only from 'core/multiplayer/components/only'
 import { PageType } from 'core/types'
 
 export const Page: PageType = () => {

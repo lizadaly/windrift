@@ -3,7 +3,7 @@ import React from 'react'
 import { C, R, Section, Chapter, Nav } from 'core/components'
 import { BaseList as D } from 'core/components/widgets'
 import { PageType } from 'core/types'
-import Only from 'core/multiplayer/components/player-only'
+import Only from 'core/multiplayer/components/only'
 
 import useCloak, { CloakStatus } from '../use-cloak'
 import { PlayerContext } from 'core/multiplayer/components/multiplayer-init'
