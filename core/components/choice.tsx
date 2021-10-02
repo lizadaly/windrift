@@ -39,10 +39,8 @@ const Choices = ({
     extra,
     widget = InlineList,
     next = Next.Section,
-    sync = true,
     persist = false
 }: ChoiceProps): JSX.Element => {
-    const { instanceId, currentPlayer } = useSelector((state: RootState) => state.multiplayer)
     const dispatch = useDispatch()
     const { item } = React.useContext(ChapterContext)
     const newOptions = useSelector((state: RootState) => {
@@ -70,15 +68,14 @@ const Choices = ({
         const option = target.textContent
         const choiceId = uuidv4()
         dispatch(updateInventory(tag, option))
-        dispatch(pickOption(tag, options, index, currentPlayer))
+        dispatch(pickOption(tag, options, index))
         dispatch(
             logChoice({
                 id: choiceId,
                 tag,
                 selection: option,
                 entry: ENTRY_TYPES.Choice,
-                timestamp: new Date(),
-                playerName: currentPlayer ? currentPlayer.name : ''
+                timestamp: new Date()
             })
         )
 
