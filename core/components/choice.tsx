@@ -18,7 +18,6 @@ import { gotoChapter, Next } from 'core/actions/navigation'
 import { ChapterContext } from './chapter'
 import InlineList from './widgets/inline-list'
 import { ENTRY_TYPES } from 'core/actions/log'
-import { emitChoice, emitNavChange } from 'core/multiplayer/api-client'
 
 export interface ChoiceProps {
     options: OptionsType
@@ -83,11 +82,6 @@ const Choices = ({
             })
         )
 
-        // TODO pull this out into a listener hook
-        if (currentPlayer && sync) {
-            emitChoice(choiceId, tag, option, identifier, instanceId, currentPlayer)
-        }
-
         if (options.length === 1) {
             if (next === Next.Section) {
                 dispatch(incrementSection(item))
@@ -95,9 +89,6 @@ const Choices = ({
                 // no-op
             } else if (typeof next === 'string') {
                 dispatch(gotoChapter(next))
-                if (currentPlayer && sync) {
-                    emitNavChange(identifier, next, instanceId, currentPlayer)
-                }
             }
         }
         const s = {}
