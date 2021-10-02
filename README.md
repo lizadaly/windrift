@@ -1,5 +1,9 @@
 # Windrift v2
 
+This branch is in progress and not ready for use by authors. It's expected to be ready before the end of 2021.
+
+If you're keen on using Windrift right now, please use the v1 branch.
+
 **In progress**
 
 This is a complete rewrite of Windrift, now based on
