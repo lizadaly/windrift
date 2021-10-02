@@ -4,22 +4,6 @@ jobs:
   cypress-run:
     runs-on: ubuntu-latest
     container: cypress/browsers:node14.16.0-chrome89-ff77
-    services:
-      mariadb:
-        image: mariadb:latest
-        ports:
-          - 3306:3306
-        env:
-          MYSQL_USER: test
-          MYSQL_PASSWORD: test
-          MYSQL_DATABASE: test
-          MYSQL_ROOT_PASSWORD: test
-        options: >-
-          --health-cmd="mysqladmin ping"
-          --health-interval=5s
-          --health-timeout=2s
-          --health-retries=3
-
     steps:
       - name: Checkout
         uses: actions/checkout@v1
@@ -39,8 +23,3 @@ jobs:
           # quote the url to be safe against YML parsing surprises
           wait-on: 'http://localhost:3000/demo'
           quiet: true
-        env:
-          DATABASE_URL: "mysql://test:test@mariadb:3306/test"
-          NEXT_PUBLIC_POLL_EMIT_PRESENCE: 3000
-          NEXT_PUBLIC_POLL_CHECK_PRESENCE: 1000
-          NEXT_PUBLIC_POLL_CHECK_CHOICES: 1000
