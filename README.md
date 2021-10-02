@@ -30,12 +30,6 @@ as well. You may want to use a database, perform computationally intensive
 work (perhaps procedural game generation?), or persist story state across
 devices.
 
-## Multiplayer support
-
-One feature enabled by the built-in API backend is multiplayer support.
-Multiplayer support is in active development and is planned to use a database
-backend.
-
 ## To run
 
 ```
@@ -52,9 +46,3 @@ npm run new <story-id>
 ```
 
 The story identifier must be a single string, like "west-of-house" or "colossal-cave."
-
-## To update the database
-
-```
- dotenv -e .env.local -- npx prisma db push --preview-feature
-```

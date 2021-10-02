@@ -1,4 +1,3 @@
-import { Player } from '@prisma/client'
 import { Tag } from 'core/types'
 
 export const PICK_OPTION = 'PICK_OPTION'
@@ -21,7 +20,6 @@ interface OptionPickAction {
     options: OptionsType
     index: number
     tag: Tag
-    player?: Player
 }
 export type OptionPickType = OptionPickAction
 
@@ -38,18 +36,12 @@ interface OptionsClearAction {
 
 export type OptionsClearType = OptionsClearAction
 
-export const pickOption = (
-    tag: Tag,
-    options: OptionsType,
-    index: number,
-    player?: Player
-): OptionPickType => {
+export const pickOption = (tag: Tag, options: OptionsType, index: number): OptionPickType => {
     return {
         type: PICK_OPTION,
         options,
         index,
-        tag,
-        player
+        tag
     }
 }
 

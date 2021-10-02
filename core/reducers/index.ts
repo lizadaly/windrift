@@ -4,7 +4,6 @@ import choices from './choice'
 import counter from './counter'
 import config from './config'
 import toc from './toc'
-import multiplayer from './multiplayer'
 import log from './log'
 
 const rootReducer = combineReducers({
@@ -13,7 +12,6 @@ const rootReducer = combineReducers({
     choices,
     config,
     toc,
-    multiplayer,
     log
 })
 

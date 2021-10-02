@@ -18,7 +18,6 @@ import { gotoChapter, Next } from 'core/actions/navigation'
 import { ChapterContext } from './chapter'
 import InlineList from './widgets/inline-list'
 import { ENTRY_TYPES } from 'core/actions/log'
-import { emitChoice, emitNavChange } from 'core/multiplayer/api-client'
 
 export interface ChoiceProps {
     options: OptionsType
@@ -40,10 +39,8 @@ const Choices = ({
     extra,
     widget = InlineList,
     next = Next.Section,
-    sync = true,
     persist = false
 }: ChoiceProps): JSX.Element => {
-    const { instanceId, currentPlayer } = useSelector((state: RootState) => state.multiplayer)
     const dispatch = useDispatch()
     const { item } = React.useContext(ChapterContext)
     const newOptions = useSelector((state: RootState) => {
@@ -71,22 +68,16 @@ const Choices = ({
         const option = target.textContent
         const choiceId = uuidv4()
         dispatch(updateInventory(tag, option))
-        dispatch(pickOption(tag, options, index, currentPlayer))
+        dispatch(pickOption(tag, options, index))
         dispatch(
             logChoice({
                 id: choiceId,
                 tag,
                 selection: option,
                 entry: ENTRY_TYPES.Choice,
-                timestamp: new Date(),
-                playerName: currentPlayer ? currentPlayer.name : ''
+                timestamp: new Date()
             })
         )
-
-        // TODO pull this out into a listener hook
-        if (currentPlayer && sync) {
-            emitChoice(choiceId, tag, option, identifier, instanceId, currentPlayer)
-        }
 
         if (options.length === 1) {
             if (next === Next.Section) {
@@ -95,9 +86,6 @@ const Choices = ({
                 // no-op
             } else if (typeof next === 'string') {
                 dispatch(gotoChapter(next))
-                if (currentPlayer && sync) {
-                    emitNavChange(identifier, next, instanceId, currentPlayer)
-                }
             }
         }
         const s = {}
