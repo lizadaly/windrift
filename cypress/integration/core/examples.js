@@ -20,12 +20,4 @@ describe('Full test of the built-in stories', () => {
         cy.contains('You came here via')
         cy.get('a').contains('Go to chapter 4').click()
     })
-    it('Loads the tic-tac-toe splash screen', () => {
-        cy.visit('/tic-tac-toe')
-        cy.contains('Start a new game')
-    })
-    it('Loads the Cloaks of Darkness splash screen', () => {
-        cy.visit('/cloaks-of-darkness')
-        cy.contains('Cloaks of Darkness')
-    })
 })
