@@ -1,4 +1,5 @@
 title: A Windrift Demo
+language: en
 chapters:
   - chapter:
     filename: "chapter1"

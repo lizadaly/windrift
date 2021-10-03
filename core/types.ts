@@ -28,19 +28,22 @@ export class Config {
     readonly title: string
     readonly enableUndo: boolean
     readonly players: PlayerConfig[]
+    readonly language: string
 
     constructor(
         identifier: string,
         title: string,
         pagination = 'scrolling',
         enableUndo = true,
-        players: PlayerConfig[]
+        players: PlayerConfig[],
+        language: string
     ) {
         this.identifier = identifier
         this.title = title
         this.pagination = pagination
         this.enableUndo = enableUndo
         this.players = players
+        this.language = language
     }
 }
 
