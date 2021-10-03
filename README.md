@@ -34,6 +34,25 @@ as well. You may want to use a database, perform computationally intensive
 work (perhaps procedural game generation?), or persist story state across
 devices.
 
+## Localization
+
+Each story has a language definition in its configuration. When adding a
+new language to your installation, you'll need to make a one-time
+change to tell NextJS that there's an additional language:
+
+Edit the global config `next.config.js` to include any languages your
+Windrift installation will support:
+
+```
+module.exports = {
+    i18n: {
+        // Add any addition new languages for stories here
+        locales: ['en'],
+        defaultLocale: 'en',
+        localeDetection: false
+    }
+```
+
 ## To run
 
 ```

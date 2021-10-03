@@ -23,10 +23,15 @@ export interface WindriftProps {
     configYaml: Config
 }
 
-export const getStaticProps: GetStaticProps = async (context) => {
-    const story = context.params.story as string
+function getConfigYaml(story: string) {
     const configPath = path.join(process.cwd(), `public/stories/${story}/story.yaml`)
     const configYaml = yaml.safeLoad(fs.readFileSync(configPath, 'utf8')) as Record<string, any>
+    return configYaml
+}
+
+export const getStaticProps: GetStaticProps = async (context) => {
+    const story = context.params.story as string
+    const configYaml = getConfigYaml(story)
     const toc = configYaml.chapters.map((item: TocItem) => ({
         filename: item.filename,
         visible: item.visible || false,
@@ -48,7 +53,16 @@ export const getStaticPaths: GetStaticPaths = async () => {
     const paths = fs
         .readdirSync(storyDirs, { withFileTypes: true })
         .filter((dir) => dir.isDirectory())
-        .map((dir) => `/${dir.name}`)
+        .map((dir) => {
+            const configYaml = getConfigYaml(dir.name)
+            return {
+                params: {
+                    story: dir.name,
+                    locale: configYaml.language
+                }
+            }
+        })
+    console.log(paths)
     return { paths, fallback: false }
 }
 
@@ -61,13 +75,13 @@ export default function Home(props: WindriftProps): JSX.Element {
     const router = useRouter()
     const { story } = router.query
     const { toc, configYaml } = props
-
     const config = new Config(
         story as string,
         configYaml.title,
         configYaml.pagination,
         configYaml.enableUndo,
-        configYaml.players
+        configYaml.players,
+        configYaml.language
     )
 
     const persistConfig = {

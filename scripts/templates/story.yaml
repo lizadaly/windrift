@@ -1,4 +1,5 @@
 title: ${story}
+language: en
 chapters:
   - chapter:
     filename: "chapter1"
