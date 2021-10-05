@@ -1,0 +1,8 @@
+title: stone-harbor
+language: en
+chapters:
+  - chapter:
+    filename: "prologue"
+    title: "Prologue"
+players:
+  - start: "prologue"
