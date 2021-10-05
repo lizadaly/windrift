@@ -1,11 +1,11 @@
-import { C, R, Section, Chapter, Nav } from 'core/components'
+import { C, R, Section, Chapter } from 'core/components'
 import { RootState } from 'core/reducers'
 import { PageType } from 'core/types'
 import { useSelector } from 'react-redux'
 
 export const Page: PageType = () => {
     const inventory = useSelector((state: RootState) => state.inventory.present)
-
+    const clothes = inventory.clothes?.split(' ').slice(-1)[0]
     return (
         <Chapter filename="prologue">
             <Section>
@@ -33,31 +33,27 @@ export const Page: PageType = () => {
                     You look over the customer, who is wearing{' '}
                     <C
                         options={[
+                            ['typical tourist clothes', null],
                             [
-                                'typical tourist clothes',
-                                'a cheap wedding ring', // these 3 should be a list
+                                'a cheap wedding ring',
                                 'a dirty rain jacket',
-                                'a novelty baseball cap',
-                                'an impatient stare'
+                                'a novelty baseball cap'
                             ]
                         ]}
-                        tag="p0_customer_clothes"
+                        last="an impatient stare"
+                        tag="clothes"
                     />
-                    .
+                    {'.'}
                 </p>
             </Section>
 
             <Section>
                 <p>
-                    “There’s a powerful psychic force emanating from your{' '}
-                    {inventory.p0_customer_clothes.split(' ')[2]}
+                    “There’s a powerful psychic force emanating from your {clothes}
                     ,” you say. “May I hold it?” The customer is wide-eyed as he hands it to you.
-                    You close your eyes and rotate the {
-                        inventory.p0_customer_clothes.split(' ')[2]
-                    }{' '}
-                    slowly in your hands. “
+                    You close your eyes and rotate the {clothes} slowly in your hands. “
                     <R
-                        tag="p0_customer_clothes"
+                        tag="clothes"
                         to={{
                             ring: 'There’s someone close to you. Someone you trusted to be with you always. But they’re gone.',
                             jacket: 'Your vacation hasn’t turned out the way you hoped. I’m sensing disappointment, maybe even despair.',
@@ -80,7 +76,7 @@ export const Page: PageType = () => {
                 <p>
                     “Perhaps,” you hedge. “
                     <R
-                        tag="p0_customer_clothes"
+                        tag="clothes"
                         to={{
                             ring: 'Did he approve of your marriage? I sense concern about how it unfolded.',
                             jacket: 'How would he feel about you traveling so far to see me?',
@@ -92,7 +88,7 @@ export const Page: PageType = () => {
                 <p>
                     “He didn’t approve of{' '}
                     <R
-                        tag="p0_customer_clothes"
+                        tag="clothes"
                         to={{
                             ring: 'Janet. Never even gave her the chance,',
                             jacket: 'frivolity and vacations. Never wanted me to have any fun,',
@@ -108,15 +104,11 @@ export const Page: PageType = () => {
                     objection. You study the customer’s{' '}
                     <C
                         options={[
-                            [
-                                'physical appearance',
-                                'unshaven face', // make a list
-                                'calloused hands',
-                                'peeling sunburn',
-                                'physical appearance and pick up some cues'
-                            ]
+                            ['physical appearance', null],
+                            ['unshaven face', 'calloused hands', 'peeling sunburn']
                         ]}
-                        tag="p0_customer_body"
+                        tag="body"
+                        last="physical appearance and pick up some cues"
                     />
                     .
                 </p>
@@ -126,7 +118,7 @@ export const Page: PageType = () => {
                 <p>
                     “
                     <R
-                        tag="p0_customer_body"
+                        tag="body"
                         to={{
                             face: 'He’s worried because you’re not sleeping',
                             hands: 'He’s proud that his son works with his hands',
@@ -148,7 +140,7 @@ export const Page: PageType = () => {
                     past the woman—the police officer—who watches him with a mix of pity and
                     contempt. He’s in such a hurry he doesn’t think to pick up his extra money on
                     the table, and in the distraction of the moment you quietly slide it into your
-                    pocket. His {inventory.p0_customer_clothes} also lies forgotten.
+                    pocket. His {clothes} also lies forgotten.
                 </p>
                 <p>
                     And now you’re alone with that cop. She’s probably here to harass you about
@@ -287,16 +279,15 @@ export const Page: PageType = () => {
                     There’s a bookcase, a cluttered desk containing{' '}
                     <C
                         options={[
+                            ['knicknacks', null],
                             [
-                                'knicknacks',
-                                'a partially-written note', // Should be nested 3
+                                'a partially-written note',
                                 'a photograph',
-                                'an unfilled prescription',
-
-                                'personal effects'
-                            ]
+                                'an unfilled prescription'
+                            ],
+                            ['personal effects', null]
                         ]}
-                        tag="p0_library_things"
+                        tag="library"
                     />
                     , a small lamp, family photographs on the wall. There’s a doorway leading into a
                     brightly lit bedroom, but it’s even fuzzier, less real, than this room.
@@ -306,7 +297,7 @@ export const Page: PageType = () => {
             <Section>
                 <p>
                     <R
-                        tag="p0_library_things"
+                        tag="library"
                         to={{
                             note: `You look down at the unfinished note. It reads: <blockquote>My dearest, I hope you understand
          that I’m doing this based on need, not out of any lack of love for</blockquote> You don’t
