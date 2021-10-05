@@ -1,5 +1,6 @@
 /** A Link that the user interacts with to potentially change state. If no handler
-is supplied, then the text is displayed as static HTML.
+is supplied, then the text is displayed as static HTML. HTML markup embedded in the
+string will be rendered but do not embed React components; they won't work.
 
 This typically occurs for the last item in a Choice list. */
 
