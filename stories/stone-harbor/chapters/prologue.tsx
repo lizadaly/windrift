@@ -156,12 +156,8 @@ export const Page: PageType = () => {
                 <p>
                     “It’s Detective. And I need a psychic,” she says, handing you her{' '}
                     <C
-                        options={[
-                            [
-                                'card',
-                                'card, which you flip over and read: <em>Tamisha Whitby, Criminal Investigations, Cape May County, NJ</em>'
-                            ]
-                        ]}
+                        options={[['card', null]]}
+                        last="card, which you flip over and read: <em>Tamisha Whitby, Criminal Investigations, Cape May County, NJ</em>"
                         tag="p0_nextUnit"
                     />
                     .

@@ -15,12 +15,15 @@ const Link = ({ text, index, handler, tag }: LinkProps): JSX.Element => {
     if (handler) {
         return (
             // eslint-disable-next-line jsx-a11y/anchor-is-valid
-            <a href="#" data-tag={tag} onClick={() => handler(event, index)}>
-                {text}
-            </a>
+            <a
+                href="#"
+                data-tag={tag}
+                onClick={() => handler(event, index)}
+                dangerouslySetInnerHTML={{ __html: text }}
+            />
         )
     }
-    return <span className="selected">{text}</span>
+    return <span className="selected" dangerouslySetInnerHTML={{ __html: text }} />
 }
 
 export default Link
