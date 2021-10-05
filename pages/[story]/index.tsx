@@ -57,9 +57,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
             const configYaml = getConfigYaml(dir.name)
             return {
                 params: {
-                    story: dir.name,
-                    locale: configYaml.language
-                }
+                    story: dir.name
+                },
+                locale: configYaml.language
             }
         })
     console.log(paths)
