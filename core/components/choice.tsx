@@ -97,7 +97,6 @@ const Choices = ({
 
     const group = options[0]
     const W = widget
-    console.log(tag)
     return (
         <W
             group={group}
