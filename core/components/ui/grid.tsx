@@ -18,11 +18,11 @@ const Grid: React.FC<GridProps> = ({ children, head, header, left, right, styles
     return (
         <>
             <Head>
-                <title>{config.title}</title>
+                <title lang={config.language}>{config.title}</title>
                 <meta name="viewport" content="initial-scale=1.0, width=device-width" />
                 {head}
             </Head>
-            <header className={styles.header}>
+            <header className={styles.header} lang={config.language}>
                 {header || (
                     <nav>
                         <h1>{config.title}</h1>
@@ -32,7 +32,7 @@ const Grid: React.FC<GridProps> = ({ children, head, header, left, right, styles
                     </nav>
                 )}
             </header>
-            <main className={styles.main}>
+            <main className={styles.main} lang={config.language}>
                 <nav className={styles.left}>{left}</nav>
                 <article className={styles.story}>{children}</article>
                 <nav className={styles.right}>{right}</nav>

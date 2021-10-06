@@ -54,12 +54,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
         .readdirSync(storyDirs, { withFileTypes: true })
         .filter((dir) => dir.isDirectory())
         .map((dir) => {
-            const configYaml = getConfigYaml(dir.name)
             return {
                 params: {
                     story: dir.name
-                },
-                locale: configYaml.language
+                }
             }
         })
     console.log(paths)

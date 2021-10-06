@@ -36,22 +36,9 @@ devices.
 
 ## Localization
 
-Each story has a language definition in its configuration. When adding a
-new language to your installation, you'll need to make a one-time
-change to tell NextJS that there's an additional language:
-
-Edit the global config `next.config.js` to include any languages your
-Windrift installation will support:
-
-```
-module.exports = {
-    i18n: {
-        // Add any addition new languages for stories here
-        locales: ['en'],
-        defaultLocale: 'en',
-        localeDetection: false
-    }
-```
+Each story has a language definition in its configuration. This is used to populate the
+`lang` attribute on the major HTML tags to assist the browser in providing
+language-specific affordances.
 
 ## To run
 
