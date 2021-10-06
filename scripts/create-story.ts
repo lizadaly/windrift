@@ -18,8 +18,10 @@ const publicDir = `public/stories/${story}`
 const storyDir = `stories/${story}`
 
 if (!fs.existsSync(publicDir)) {
+    console.log(`Creating ${publicDir} for CSS, image, and story config...`)
+
     fs.mkdirSync(`${publicDir}/styles`, { recursive: true })
-    console.log(`Creating ${publicDir} for CSS and story config...`)
+    fs.mkdirSync(`${publicDir}/images`, { recursive: true })
 
     // make yaml
     fs.writeFileSync(
