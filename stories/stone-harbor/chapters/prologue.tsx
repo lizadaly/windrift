@@ -1,7 +1,12 @@
+import { useSelector } from 'react-redux'
+
+import Image from 'next/image'
+
 import { C, R, Section, Chapter } from 'core/components'
 import { RootState } from 'core/reducers'
 import { PageType } from 'core/types'
-import { useSelector } from 'react-redux'
+
+import study from 'public/stories/stone-harbor/images/study.jpg'
 
 export const Page: PageType = () => {
     const inventory = useSelector((state: RootState) => state.inventory.present)
@@ -257,17 +262,21 @@ export const Page: PageType = () => {
             </Section>
 
             <Section>
-                <div className="in-flashback">
-                    <figure className="prologue">
-                        {/* Handle images */}
-                        <figcaption className="visuallyhidden">
-                            A small, cluttered study, with pictures and a wicker chair before a
-                            desk, in sepia tones.
-                        </figcaption>
-                    </figure>
+                <div
+                    style={{
+                        position: 'relative',
+                        minHeight: '50vh',
+                        width: '100%'
+                    }}>
+                    <Image
+                        src={study}
+                        alt="A small, cluttered study, with pictures and a wicker chair before a
+                            desk, in sepia tones."
+                        placeholder="blur"
+                        layout="fill"
+                        objectFit="cover"
+                    />
                 </div>
-            </Section>
-            <Section>
                 <h3>In the study</h3>
                 <p>
                     You look down and see nothing, as if you aren’t there. The color has been washed
