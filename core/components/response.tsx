@@ -21,8 +21,12 @@ const Response = ({ tag, to }: ResponseProps): JSX.Element => {
     // Perform a case-insensitive match against the user's earlier choice pick
     const resp = Object.keys(to).filter((t) => {
         // Assume any plain-string keys are trailing substring queries (e.g. "banana" for "a ripe banana")
-        if (!/\W/g.test(t)) {
-            t = '*' + t
+        //
+        // Use a language-agnostic regexp here; \W is insufficient
+        // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions/Character_Classes
+        // eslint-disable-next-line no-control-regex
+        if (/([\u0000-\u0019\u0021-\uFFFF])+/gu.test(t)) {
+            t = '*' + t + '*'
         }
         return minimatch(choice, t, { nocase: true })
     })
@@ -30,9 +34,9 @@ const Response = ({ tag, to }: ResponseProps): JSX.Element => {
     if (resp.length === 0) {
         console.group(`Unmatched choice list: "${tag}"`)
         console.log(
-            `No matching response was found for tag ${tag} with expressions ${Object.keys(
+            `No matching response was found for tag ${tag} based on to-values ${Object.keys(
                 to
-            )}. Tags from the choices were: `
+            )}. Full text of the option selected was: `
         )
         for (const i in choiceList.options) {
             const c = choiceList.options[i][0]

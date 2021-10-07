@@ -46,7 +46,7 @@ export const Page: PageType = () => {
                         ]}
                         last="um olhar impaciente"
                         extra={{ conjunction: 'e' }}
-                        tag="p0_customer_clothes"
+                        tag="clothes"
                     />
                     .
                 </p>
@@ -57,7 +57,7 @@ export const Page: PageType = () => {
                     nele?” O cliente entrega-to, de olhos arregalados. Fechas os olhos e rodas o{' '}
                     {clothes} lentamente entre as tuas mãos. “
                     <R
-                        tag="p0_customer_clothes"
+                        tag="clothes"
                         to={{
                             anel: 'Há alguém próximo de si. Alguém que você achava que iria ficar consigo para sempre. Mas já não está entre nós.',
                             impermeável:
@@ -81,7 +81,7 @@ export const Page: PageType = () => {
                         ]}
                         tag="p0_customer_names"
                     />
-                    ” ”
+                    ”
                 </p>
             </Section>
             <Section>
@@ -89,7 +89,7 @@ export const Page: PageType = () => {
                 <p>
                     “Talvez,” esquivas-te. “
                     <R
-                        tag="p0_customer_clothes"
+                        tag="clothes"
                         to={{
                             anel: 'Ele aprovou o seu casamento? Sinto preocupação pela forma como tudo se passou.',
                             impermeável:
@@ -102,7 +102,7 @@ export const Page: PageType = () => {
                 <p>
                     “Ele não gostava de{' '}
                     <R
-                        tag="p0_customer_clothes"
+                        tag="clothes"
                         to={{
                             anel: 'a Janet. Nunca lhe deu uma oportunidade,',
                             impermeável:
@@ -133,7 +133,7 @@ export const Page: PageType = () => {
                 <p>
                     “
                     <R
-                        tag={inventory.p0_customer_body}
+                        tag="p0_customer_body"
                         to={{
                             cara: 'Ele está preocupado que não ande a dormir bem',
                             mãos: 'Ele está orgulhoso de o filho trabalhar com as mãos',
@@ -270,10 +270,8 @@ export const Page: PageType = () => {
                 <p>
                     <em>Há algo muito estranho nessa </em>{' '}
                     <C
-                        options={[
-                            ['<b>luva</b>.', null],
-                            ['— <br/><br/><p>Pegas na luva, e tudo muda.</p>', null]
-                        ]}
+                        options={[['<b>luva</b>.', null]]}
+                        last="— <br/><br/><p>Pegas na luva, e tudo muda.</p>"
                         tag="p0_glove2"
                     />
                 </p>
@@ -322,7 +320,7 @@ export const Page: PageType = () => {
             <Section>
                 <p>
                     <R
-                        tag={inventory.p0_library_things}
+                        tag="p0_library_things"
                         to={{
                             mensagem: `Olhas para a mensagem inacabada. Diz: <blockquote>Minha querida, espero que entendas
     que estou a fazer isto por necessidade e não por falta de amor a</blockquote> Não percebes
