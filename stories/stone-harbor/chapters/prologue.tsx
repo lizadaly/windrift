@@ -256,10 +256,8 @@ export const Page: PageType = () => {
                 <p>
                     <em>Something is very strange about that </em>{' '}
                     <C
-                        options={[
-                            ['glove.', null],
-                            ['— You pick up the glove, and everything changes.']
-                        ]}
+                        options={[['glove.', null]]}
+                        last="— You pick up the glove, and everything changes."
                         tag="p0_glove2"
                     />
                 </p>
@@ -288,7 +286,7 @@ export const Page: PageType = () => {
                     There’s a bookcase, a cluttered desk containing{' '}
                     <C
                         options={[
-                            ['knicknacks', null],
+                            ['knickknacks', null],
                             ['a partially-written note', 'a photograph', 'an unfilled prescription']
                         ]}
                         last="personal effects"
@@ -327,7 +325,10 @@ export const Page: PageType = () => {
                     that simple object. The figure tests the door, and satisfied that the bedroom is
                     locked, releases the knob, the{' '}
                     <C
-                        options={[['angry glove', null], ['<b>violently angry glove</b>']]}
+                        options={[
+                            ['angry glove', null],
+                            ['<b>violently angry glove</b>', null]
+                        ]}
                         tag="p0_glove3"
                     />{' '}
                     seeming to boil under the light—
