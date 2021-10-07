@@ -10,3 +10,8 @@
     margin: 0;
     padding: 0;
 }
+
+/* Ensure the last Section element has some bottom margin. */
+.windrift--section:last-child {
+    margin-bottom: 4em;
+}
