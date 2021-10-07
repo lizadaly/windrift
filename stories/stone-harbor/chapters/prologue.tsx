@@ -72,7 +72,15 @@ export const Page: PageType = () => {
                 <p>
                     “I see a name,” you continue. “It begins with an S—” He stares at you blankly.
                     “Or an N?” He perks up. You frown as if in deep concentration. “
-                    <C options={[['Nancy?', 'Nadine?', 'Nicky?']]} tag="p0_customer_names" />”
+                    <C
+                        options={[
+                            ['Nancy?', null],
+                            ['Nadine?', null],
+                            ['Nicky?', null]
+                        ]}
+                        tag="p0_customer_names"
+                    />
+                    ”
                 </p>
             </Section>
 
@@ -235,10 +243,8 @@ export const Page: PageType = () => {
                     “I knew this was a waste of time,” Whitby says. She tosses a{' '}
                     <C
                         options={[
-                            [
-                                'leather glove',
-                                'tense and furious glove' // allow markup?
-                            ]
+                            ['leather glove', null],
+                            ['<b>tense and furious glove</b>', null]
                         ]}
                         tag="p0_glove"
                     />{' '}
@@ -251,10 +257,8 @@ export const Page: PageType = () => {
                     <em>Something is very strange about that </em>{' '}
                     <C
                         options={[
-                            [
-                                'glove.', // should be in markup
-                                '— You pick up the glove, and everything changes.'
-                            ]
+                            ['glove.', null],
+                            ['— You pick up the glove, and everything changes.']
                         ]}
                         tag="p0_glove2"
                     />
@@ -285,13 +289,9 @@ export const Page: PageType = () => {
                     <C
                         options={[
                             ['knicknacks', null],
-                            [
-                                'a partially-written note',
-                                'a photograph',
-                                'an unfilled prescription'
-                            ],
-                            ['personal effects', null]
+                            ['a partially-written note', 'a photograph', 'an unfilled prescription']
                         ]}
+                        last="personal effects"
                         tag="library"
                     />
                     , a small lamp, family photographs on the wall. There’s a doorway leading into a
@@ -326,7 +326,10 @@ export const Page: PageType = () => {
                     desk. It illuminates the gloved hand on the doorknob, and you’re transfixed by
                     that simple object. The figure tests the door, and satisfied that the bedroom is
                     locked, releases the knob, the{' '}
-                    <C options={[['angry glove', 'violently angry glove']]} tag="p0_glove3" />{' '}
+                    <C
+                        options={[['angry glove', null], ['<b>violently angry glove</b>']]}
+                        tag="p0_glove3"
+                    />{' '}
                     seeming to boil under the light—
                 </p>
             </Section>

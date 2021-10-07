@@ -1,7 +1,12 @@
+import { useSelector } from 'react-redux'
+
+import Image from 'next/image'
+
 import { C, R, Section, Chapter } from 'core/components'
 import { RootState } from 'core/reducers'
 import { PageType } from 'core/types'
-import { useSelector } from 'react-redux'
+
+import study from 'public/stories/stone-harbor/images/study.jpg'
 
 export const Page: PageType = () => {
     const inventory = useSelector((state: RootState) => state.inventory.present)
@@ -68,7 +73,15 @@ export const Page: PageType = () => {
                     “Vejo um nome,” continuas. “Começa com um S—” Ele olha-te sem expressão. “Ou
                     será com um N?” O homem anima-se. Franzes a testa, fingindo uma profunda
                     concentração. “
-                    <C options={[['Nancy?', 'Nadine?', 'Nicky?']]} tag="p0_customer_names" />” ”
+                    <C
+                        options={[
+                            ['Nancy?', null],
+                            ['Nadine?', null],
+                            ['Nicky?', null]
+                        ]}
+                        tag="p0_customer_names"
+                    />
+                    ” ”
                 </p>
             </Section>
             <Section>
@@ -162,12 +175,8 @@ export const Page: PageType = () => {
                 <p>
                     “É Inspetora. E preciso de um médium,” diz ela, entregando-te o seu{' '}
                     <C
-                        options={[
-                            [
-                                'cartão',
-                                'cartão, que viras e lês: <em>Tamisha Whitby, Investigações Criminais, Condado de Cape May, NJ</em>'
-                            ]
-                        ]}
+                        options={[['cartão', null]]}
+                        last="cartão, que viras e lês: <em>Tamisha Whitby, Investigações Criminais, Condado de Cape May, NJ</em>"
                         tag="p0_nextUnit"
                     />
                     .
@@ -247,7 +256,13 @@ export const Page: PageType = () => {
                 </p>
                 <p>
                     “Eu sabia que isto ia ser uma perda de tempo,” diz Whitby. Ela lança uma{' '}
-                    <C options={[['luva de pele', '<b>luva tensa e furiosa</b>']]} tag="p0_glove" />{' '}
+                    <C
+                        options={[
+                            ['luva de pele', null],
+                            ['<b>luva tensa e furiosa</b>', null]
+                        ]}
+                        tag="p0_glove"
+                    />{' '}
                     para a mesa. Tome, já fiz o que vinha cá fazer.”
                 </p>
             </Section>
@@ -256,23 +271,30 @@ export const Page: PageType = () => {
                     <em>Há algo muito estranho nessa </em>{' '}
                     <C
                         options={[
-                            ['<b>luva</b>.', '— <br/><br/><p>Pegas na luva, e tudo muda.</p>']
+                            ['<b>luva</b>.', null],
+                            ['— <br/><br/><p>Pegas na luva, e tudo muda.</p>', null]
                         ]}
                         tag="p0_glove2"
                     />
                 </p>
             </Section>
             <Section>
-                <div className="in-flashback">
-                    <figure className="prologue">
-                        <figcaption className="visuallyhidden">
-                            Um escritório pequeno e atafulhado com quadros e uma cadeira de vime em
-                            frente de uma mesa, em tons de sépia.
-                        </figcaption>
-                    </figure>
+                <div
+                    style={{
+                        position: 'relative',
+                        minHeight: '50vh',
+                        width: '100%'
+                    }}>
+                    <Image
+                        src={study}
+                        alt="Um escritório pequeno e atafulhado com quadros e uma cadeira de vime em
+                        frente de uma mesa, em tons de sépia."
+                        placeholder="blur"
+                        layout="fill"
+                        objectFit="cover"
+                    />
                 </div>
-            </Section>
-            <Section>
+
                 <h3>No escritório</h3>
 
                 <p>
@@ -324,7 +346,13 @@ export const Page: PageType = () => {
                     candeeiro na secretária. Ilumina a mão enluvada na maçaneta, um simples objeto
                     que te deixa paralisado. A figura experimenta a porta, e satisfeita que o quarto
                     está trancado, solta a maçaneta. A{' '}
-                    <C options={[['luva zangada', 'luva violentamente zangada']]} tag="p0_glove3" />{' '}
+                    <C
+                        options={[
+                            ['luva zangada', null],
+                            ['luva violentamente zangada', null]
+                        ]}
+                        tag="p0_glove3"
+                    />{' '}
                     parecendo ferver sob a luz—
                 </p>
             </Section>
