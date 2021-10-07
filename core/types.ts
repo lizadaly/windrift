@@ -24,8 +24,8 @@ export class PlayerConfig {
 
 export class Config {
     readonly identifier: string // safe for use in keys
-    readonly pagination: string
     readonly title: string
+    readonly pagination: string
     readonly enableUndo: boolean
     readonly players: PlayerConfig[]
     readonly language: string

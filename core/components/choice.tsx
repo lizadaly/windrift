@@ -27,10 +27,10 @@ export interface ChoiceProps {
     widget?: WidgetType
     /** Arbitrary arguments passed unchanged to the underlying widget */
     extra?: Record<string, unknown>
-    /** Whether to sync this choice in a multiplayer story, @defaultValue true */
-    sync?: boolean
     /** Whether to retain the last choice as a hyperlink, as for navigation. @defaultValue false */
     persist?: boolean
+    /** Text to display last (at completion) instead of the default last-chosen item  */
+    last?: string
 }
 
 const Choices = ({
@@ -39,7 +39,8 @@ const Choices = ({
     extra,
     widget = InlineList,
     next = Next.Section,
-    persist = false
+    persist = false,
+    last = null
 }: ChoiceProps): JSX.Element => {
     const dispatch = useDispatch()
     const { item } = React.useContext(ChapterContext)
@@ -95,9 +96,8 @@ const Choices = ({
         dispatch(updateStateCounter())
     }
 
-    const group = options[0]
+    const group = options[0].length == 1 && last ? [last] : options[0]
     const W = widget
-    console.log(tag)
     return (
         <W
             group={group}

@@ -1,0 +1,33 @@
+@use '/public/styles/colors';
+@use '/public/styles/fonts' with (
+   $body: 'Stix Two Math',
+   $header: 'Raleway'
+);
+
+@use '/public/styles/sizing' with (
+   $story-margin: 25vh
+);
+@use '/public/styles/header' with (
+   $min-height: 1em,
+   $max-height: 1vh,
+   $background: colors.$very-light
+
+);
+
+@use '/public/styles/grid';
+
+
+.main {
+   /* Customizations can go here */
+   background-color: colors.$very-light;
+
+   .story {
+      h1, h2, h3, h4, h5, h6 {
+         line-height: 3rem;
+         color: colors.$very-dark;
+         font-family: fonts.$header;
+         font-weight: normal;
+     }
+   }
+
+}

@@ -3,8 +3,8 @@
 @use 'sizing';
 
 $background: linear-gradient(to right, #0f2027, #203a43, #2c5364) !default;
-$max-height: 100px;
-$min-height: sizing.$story-margin;
+$max-height: 100px !default;
+$min-height: sizing.$story-margin !default;
 
 .header {
     max-height: $max-height;
