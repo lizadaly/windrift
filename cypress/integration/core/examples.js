@@ -20,4 +20,9 @@ describe('Full test of the built-in stories', () => {
         cy.contains('You came here via')
         cy.get('a').contains('Go to chapter 4').click()
     })
+
+    it('Checks that Stone Harbor English works', () => {
+        cy.visit('/stone-harbor')
+        cy.get('a').contains('ring').click()
+    })
 })
