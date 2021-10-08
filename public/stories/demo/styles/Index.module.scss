@@ -5,15 +5,16 @@
 
 .main {
     p {
-        font-size: 22px;
+        font-size: 20px;
         padding: 1rem 0;
     }
-
+    pre {
+        font-size: 15px !important;
+    }
     aside {
-        font-size: larger;
         border: 1px solid color.scale(colors.$cool, $lightness: 50%);
         color: colors.$cool;
-        padding: 2rem;
+        padding: 1rem;
 
     }
     aside::before {
@@ -21,7 +22,6 @@
         display: block;
         color: color.scale(colors.$cool, $lightness: 70%);
         padding: .25rem;
-        font-size: 20px;
         text-transform: uppercase;
         margin-bottom: 1rem;
     }
