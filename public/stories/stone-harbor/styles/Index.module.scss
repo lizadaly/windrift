@@ -1,4 +1,5 @@
 @use '/public/styles/colors';
+
 @use '/public/styles/fonts' with (
    $body: 'Stix Two Math',
    $header: 'Raleway'
@@ -10,8 +11,9 @@
 @use '/public/styles/header' with (
    $min-height: 1em,
    $max-height: 1vh,
-   $background: colors.$very-light
-
+   $background: colors.$very-light,
+   $reset-background: colors.$very-light,
+   $reset-color: colors.$very-dark
 );
 
 @use '/public/styles/grid';
@@ -21,6 +23,9 @@
    /* Customizations can go here */
    background-color: colors.$very-light;
 
+   // More padding than the default grid
+   grid-template-columns: [left] 25vw [center] 1fr [right] 25vw;
+
    .story {
       h1, h2, h3, h4, h5, h6 {
          line-height: 3rem;
@@ -29,4 +34,13 @@
          font-weight: normal;
      }
    }
+   hr {
+      width: 25%;
+      margin: 4rem auto;
+      color: colors.$very-light;
+   }
+   small {
+      text-transform: uppercase;
+  }
+
 }

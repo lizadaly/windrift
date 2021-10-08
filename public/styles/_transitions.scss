@@ -1,0 +1,27 @@
+/* Styles applied by react-transition-group (https://github.com/reactjs/react-transition-group)
+to allow sections to appear with a fade-in transition.
+
+You can change this, though as currently configured these are global to your
+windrift installation.
+
+See core/components/chapter.tsx for implementation details.
+*/
+
+/* Section animations */
+.windrift--section-enter, .windrift--section-appear {
+    opacity: 0.01;
+  }
+
+  .windrift--section-enter.windrift--section-enter-active, .windrift--section-appear.windrift--section-appear-active {
+    opacity: 1;
+    transition: opacity 500ms ease-in;
+  }
+
+  .windrift--section-leave {
+    opacity: 1;
+  }
+
+  .windrift--section-leave.windrift--section-leave-active {
+    opacity: 0.01;
+    transition: opacity 300ms ease-in;
+  }

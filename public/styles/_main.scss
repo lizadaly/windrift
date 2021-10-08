@@ -4,10 +4,7 @@
 
 .main {
     display: grid;
-    grid-template-columns: sizing.$left-right-width 5fr sizing.$left-right-width;
-    grid-template-areas: "left"
-                         "content"
-                         "right";
+    grid-template-columns: [left] 10vw [center] 1fr [right] 10vw;
 
     background: colors.$very-light;
 
@@ -22,7 +19,7 @@
     .left {
         min-height: 100vh;
         font-size: 1rem;
-        padding: 0 sizing.$story-margin 0 sizing.$story-margin;
+        margin: 0 sizing.$story-margin 0 sizing.$story-margin;
 
         p {
             margin: 0 0 1rem 0;
@@ -60,7 +57,7 @@
     .right {
         min-height: 100vh;
         font-size: 1rem;
-        padding: 0 sizing.$story-margin 0 0;
+        margin: 0 sizing.$story-margin 0 0;
         p {
             margin: 0 0 1rem 0;
             line-height: 1.5rem;

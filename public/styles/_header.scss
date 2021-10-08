@@ -5,24 +5,20 @@
 $background: linear-gradient(to right, #0f2027, #203a43, #2c5364) !default;
 $max-height: 100px !default;
 $min-height: sizing.$story-margin !default;
+$reset-background: colors.$button !default;
+$reset-color: colors.$very-light !default;
 
 .header {
     max-height: $max-height;
     min-height: $min-height;
-
+    background: $background;
+    color: colors.$contrast;
     nav {
         display: grid;
-        grid-template-columns: 3fr 1fr;
-        grid-template-rows: sizing.$story-margin;
-        align-items: center;
-
-        background: $background;
-        color: colors.$contrast;
+        grid-template-columns: [left] 10vw [center] 1fr [right] 10vw;
 
         h1 {
             justify-self: left;
-            margin-left: sizing.$left-right-width;
-
             font-family: fonts.$header;
             font-size: 2rem;
         }
@@ -33,9 +29,8 @@ $min-height: sizing.$story-margin !default;
 
             button {
                 display: inline-block;
-                margin-right: sizing.$gutter;
-                background: colors.$button;
-                color: colors.$very-light;
+                background: $reset-background;
+                color: $reset-color;
                 border: 0;
                 box-shadow: none;
                 border-radius: 0;

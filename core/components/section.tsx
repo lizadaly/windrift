@@ -1,9 +1,6 @@
 import * as React from 'react'
 
-type SectionProps = {
-    visible?: boolean // Auto-computed by toc
-}
-const Section: React.FC<SectionProps> = ({ visible = false, children }) => {
-    return visible ? <div className="windrift--section">{children}</div> : null
+const Section: React.FC = ({ children }) => {
+    return <section className="windrift--section">{children}</section>
 }
 export default Section
