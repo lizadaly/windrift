@@ -20,9 +20,11 @@ const Chapter: React.FC<ChapterType> = ({ children, filename }) => {
     const item = useSelector((state: RootState) => getChapter(state.toc.present, filename))
     const dispatch = useDispatch()
 
-    // On first render, record the number of sections
+    // On first render, record the number of sections and scroll to top
     React.useEffect(() => {
         dispatch(countSections(item, React.Children.count(children)))
+
+        document.querySelector('header').scrollIntoView()
     }, [dispatch])
 
     // Display all visible child sections
