@@ -302,9 +302,17 @@ export const Page: PageType = () => {
                     <R
                         tag="library"
                         to={{
-                            note: `You look down at the unfinished note. It reads: <blockquote>My dearest, I hope you understand
-         that I’m doing this based on need, not out of any lack of love for</blockquote> You don’t
-         understand why, but you recognize the handwriting as Alan Healey’s.`,
+                            note: (
+                                <span>
+                                    You look down at the unfinished note. It reads:{' '}
+                                    <blockquote>
+                                        My dearest, I hope you understand that I’m doing this based
+                                        on need, not out of any lack of love for—
+                                    </blockquote>{' '}
+                                    You don’t understand why, but you recognize the handwriting as
+                                    Alan Healey’s.
+                                </span>
+                            ),
                             photograph: `You examine the picture. It’s a formal group photo taken at the beach: an older man, an older woman, an adult
         man and woman who must be siblings, a young girl. You know immediately that the old man is Alan Healey.`,
                             prescription: `You read the prescription. It’s for a medication you’ve never heard of, yet
