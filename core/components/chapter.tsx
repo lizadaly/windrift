@@ -5,6 +5,7 @@ import { countSections } from 'core/actions/navigation'
 import { getChapter } from 'core/util'
 import { RootState } from 'core/reducers'
 import { TocItem } from 'core/types'
+import { CSSTransition, TransitionGroup } from 'react-transition-group'
 
 type ContextProps = {
     item: TocItem
@@ -27,14 +28,26 @@ const Chapter: React.FC<ChapterType> = ({ children, filename }) => {
     // Display all visible child sections
     const kids = React.Children.map(children, (child, index) => {
         if (React.isValidElement(child) && index <= item.bookmark) {
-            return React.cloneElement(child, {
-                visible: true
-            }) // This might have some weird side effects because the components will be new
+            return <CSSTransition {...SectionTransition}>{React.cloneElement(child)}</CSSTransition>
         }
-        return child
+        return null
     })
 
-    return <ChapterContext.Provider value={{ item }}>{kids}</ChapterContext.Provider>
+    return (
+        <ChapterContext.Provider value={{ item }}>
+            <TransitionGroup component={null}>{kids}</TransitionGroup>
+        </ChapterContext.Provider>
+    )
 }
 
+// Wraps the "new section" display in a CSS transformation
+const SectionTransition = {
+    classNames: 'windrift--section',
+    timeout: {
+        appear: 500,
+        enter: 500,
+        exit: 300
+    },
+    ariaLive: 'polite'
+}
 export default Chapter

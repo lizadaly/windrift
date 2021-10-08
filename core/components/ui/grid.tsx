@@ -25,6 +25,7 @@ const Grid: React.FC<GridProps> = ({ children, head, header, left, right, styles
             <header className={styles.header} lang={config.language}>
                 {header || (
                     <nav>
+                        <div></div>
                         <h1>{config.title}</h1>
                         <div className={styles.controls}>
                             <ResetButton />
