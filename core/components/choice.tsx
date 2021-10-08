@@ -60,8 +60,10 @@ const Choices = ({
     // On first render, record the initial options
     React.useEffect(() => {
         dispatch(initChoice(tag, options))
-    }, [dispatch])
-    options = newOptions && newOptions.options.length > 0 ? newOptions.options : options
+    }, [dispatch, options])
+
+    const computedOptions =
+        newOptions && newOptions.options.length > 0 ? newOptions.options : options
 
     const handler = (e: React.MouseEvent, index: number): void => {
         e.preventDefault()
@@ -69,7 +71,7 @@ const Choices = ({
         const option = target.textContent
         const choiceId = uuidv4()
         dispatch(updateInventory(tag, option))
-        dispatch(pickOption(tag, options, index))
+        dispatch(pickOption(tag, computedOptions, index))
         dispatch(
             logChoice({
                 id: choiceId,
@@ -80,7 +82,7 @@ const Choices = ({
             })
         )
 
-        if (options.length === 1) {
+        if (computedOptions.length === 1) {
             if (next === Next.Section) {
                 dispatch(incrementSection(item))
             } else if (next === Next.None) {
@@ -96,7 +98,7 @@ const Choices = ({
         dispatch(updateStateCounter())
     }
 
-    const group = options[0].length == 1 && last ? [last] : options[0]
+    const group = computedOptions[0].length == 1 && last ? [last] : computedOptions[0]
     const W = widget
     return (
         <W
