@@ -5,13 +5,14 @@ import { v4 as uuidv4 } from 'uuid'
 import { WidgetType } from 'core/types'
 import { OptionsType } from 'core/actions/choice'
 import { RootState } from 'core/reducers'
-import { initChoice, logChoice, updateInventory, pickOption, incrementSection } from 'core/actions'
+import { initChoice, logChoice, pickOption, incrementSection } from 'core/actions'
 import { increment } from 'core/reducers/counter'
 import { gotoChapter, Next } from 'core/actions/navigation'
 
 import { ChapterContext } from './chapter'
 import InlineList from './widgets/inline-list'
 import { ENTRY_TYPES } from 'core/actions/log'
+import { update as updateInventory } from 'core/reducers/inventory'
 
 export interface ChoiceProps {
     options: OptionsType
@@ -62,15 +63,15 @@ const Choices = ({
     const handler = (e: React.MouseEvent, index: number): void => {
         e.preventDefault()
         const target = e.target as HTMLInputElement
-        const option = target.textContent
+        const selection = target.textContent
         const choiceId = uuidv4()
-        dispatch(updateInventory(tag, option))
+        dispatch(updateInventory({ tag, selection }))
         dispatch(pickOption(tag, computedOptions, index))
         dispatch(
             logChoice({
                 id: choiceId,
                 tag,
-                selection: option,
+                selection,
                 entry: ENTRY_TYPES.Choice,
                 timestamp: new Date()
             })
