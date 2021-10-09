@@ -120,7 +120,7 @@ const MutableChoice = ({
 
         if (choice.options.length === 0) {
             // We've exhausted the choice list, so display the inventory item instead
-            group = [inventory[tag]]
+            group = last ? [last] : [inventory[tag]]
         }
         if (choice.options.length > 0) {
             group = choice.options[0].length == 1 && last ? [last] : choice.options[0]
