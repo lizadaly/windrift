@@ -11,7 +11,7 @@ import { ChapterContext } from './chapter'
 import InlineList from './widgets/inline-list'
 import { update as updateInventory } from 'core/reducers/inventory'
 import { ENTRY_TYPES, update as logUpdate } from 'core/reducers/log'
-import { init, advance, Options } from 'core/reducers/choice'
+import { init, advance, Options, OptionGroup } from 'core/reducers/choice'
 import { wordFromInventory } from 'core/util'
 import { StoryContext } from 'pages/[story]'
 
@@ -115,12 +115,16 @@ const MutableChoice = ({
 
         dispatch(increment())
     }
-    if (choice.options.length === 0) {
-        // We've exhausted the choice list, so display the inventory item instead
-        return <>{inventory[tag]}</>
-    }
-    if (choice.options.length > 0) {
-        const group = choice.options[0].length == 1 && last ? [last] : choice.options[0]
+    if (choice.options) {
+        let group: OptionGroup = undefined
+
+        if (choice.options.length === 0) {
+            // We've exhausted the choice list, so display the inventory item instead
+            group = [inventory[tag]]
+        }
+        if (choice.options.length > 0) {
+            group = choice.options[0].length == 1 && last ? [last] : choice.options[0]
+        }
         const W = widget
         return (
             <W
