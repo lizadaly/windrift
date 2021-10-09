@@ -1,73 +1,51 @@
-import undoable, { excludeAction } from 'redux-undo'
-import cloneDeep from 'lodash.clonedeep'
+import undoable from 'redux-undo'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { Tag } from 'core/types'
 
-import {
-    PICK_OPTION,
-    INIT_CHOICE,
-    CLEAR_OPTIONS,
-    OptionPickType,
-    RemainingOptions,
-    ChoiceInitType,
-    OptionsClearType
-} from 'core/actions/choice'
+export type Option = string
+export type OptionGroup = Array<Option>
+export type Options = Array<OptionGroup>
 
-export const choices = (
-    state: RemainingOptions = {},
-    action: OptionPickType | ChoiceInitType | OptionsClearType
-): RemainingOptions => {
-    switch (action.type) {
-        case INIT_CHOICE: {
-            const newState = cloneDeep(state)
-            newState[action.tag] = {
-                options: action.options,
-                initialOptions: action.options
-            }
-            return newState
-        }
-        case CLEAR_OPTIONS:
-            return state
+// A Choice is composed of a Tag and Options
+// Options are one or more OptionGroups
+// An OptionGroup is an array of one or more Options
 
-        case PICK_OPTION: {
-            const choiceState = cloneDeep(state)
-
-            // if the choices list is empty, we're deliberately destroying this
-            // choice list, so just exit early
-
-            if (action.options.length === 0) {
-                choiceState[action.tag] = {
-                    options: [],
-                    initialOptions: state[action.tag].initialOptions
-                }
-                return choiceState
-            }
-            // toss the first choice out
-            const first = action.options.slice(0, 1)[0]
-
-            let remainder = action.options.slice(1, action.options.length)
-
-            // If the choice array is now empty, this is the last item, so just populate it
-            // with the index
-            if (remainder.length === 0) {
-                console.log(
-                    `No more items, so assigning the pick of ${action.index} from ${first} as ${
-                        first[action.index]
-                    }`
-                )
-
-                remainder = [[first[action.index]]]
-            }
-            choiceState[action.tag] = {
-                options: remainder,
-                initialOptions: state[action.tag] ? state[action.tag].initialOptions : []
-            }
-            return choiceState
-        }
-        default:
-            return state
+export interface ChoiceState {
+    [tag: Tag]: {
+        readonly initialOptions: Options
+        options: Options
     }
 }
 
-export default undoable(choices, {
-    filter: excludeAction(INIT_CHOICE),
-    initTypes: [CLEAR_OPTIONS]
+interface InitChoicePayload {
+    tag: Tag
+    options: Options
+}
+interface OptionAdvancePayload {
+    tag: Tag
+}
+
+const initialState: ChoiceState = null
+
+export const choicesSlice = createSlice({
+    name: 'choices',
+    initialState,
+    reducers: {
+        init: (state, action: PayloadAction<InitChoicePayload>) => {
+            const { tag, options } = action.payload
+            state[tag] = {
+                options,
+                initialOptions: options
+            }
+        },
+        // Advance to the next option group. If no next group is available, do nothing
+        advance: (state, action: PayloadAction<OptionAdvancePayload>) => {
+            const { tag } = action.payload
+            state[tag].options.shift()
+        }
+    }
 })
+
+export const { init, advance } = choicesSlice.actions
+
+export default undoable(choicesSlice.reducer)

@@ -1,13 +1,9 @@
 import undoable from 'redux-undo'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-import { Toc, TocItem } from 'core/types'
+import { Toc } from 'core/types'
 
 import { getChapter } from 'core/util'
-
-export const INCREMENT_SECTION = 'INCREMENT_SECTION'
-export const COUNT_SECTION = 'COUNT_SECTION'
-export const GOTO_CHAPTER = 'GOTO_CHAPTER'
 
 export enum Next {
     Section = 'SECTION',
@@ -34,7 +30,7 @@ export interface NavState {
 const initialState: NavState = null
 
 export const navSlice = createSlice({
-    name: 'nav',
+    name: 'navigation',
     initialState,
     reducers: {
         incrementSection: (state, action: PayloadAction<IncrementSectionPayload>) => {
@@ -44,7 +40,8 @@ export const navSlice = createSlice({
         },
         setSectionCount: (state, action: PayloadAction<CountSectionPayload>) => {
             const { filename, count } = action.payload
-            state.toc[filename].sectionCount = count
+            const item = getChapter(state.toc, filename)
+            item.sectionCount = count
         },
         gotoChapter: (state, action: PayloadAction<GotoChapterPayload>) => {
             const { filename } = action.payload

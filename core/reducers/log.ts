@@ -8,7 +8,7 @@ export enum ENTRY_TYPES {
 }
 export interface LogEntry {
     id: string
-    timestamp: Date
+    timestamp: string
     entry: ENTRY_TYPES
     playerName?: string
     tag?: Tag
