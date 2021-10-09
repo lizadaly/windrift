@@ -5,14 +5,8 @@ import { v4 as uuidv4 } from 'uuid'
 import { WidgetType } from 'core/types'
 import { OptionsType } from 'core/actions/choice'
 import { RootState } from 'core/reducers'
-import {
-    initChoice,
-    logChoice,
-    updateInventory,
-    pickOption,
-    incrementSection,
-    updateStateCounter
-} from 'core/actions'
+import { initChoice, logChoice, updateInventory, pickOption, incrementSection } from 'core/actions'
+import { increment } from 'core/reducers/counter'
 import { gotoChapter, Next } from 'core/actions/navigation'
 
 import { ChapterContext } from './chapter'
@@ -52,7 +46,7 @@ const Choices = ({
     })
 
     const identifier = useSelector((state: RootState) => state.config.identifier)
-    const counter = useSelector((state: RootState) => state.counter.present)
+    const counter = useSelector((state: RootState) => state.counter.present.value)
 
     // Get the original picks either from props or from the state
     const initialOptions = newOptions ? newOptions.initialOptions : options
@@ -95,7 +89,7 @@ const Choices = ({
         s[identifier] = counter
         window.history.pushState(s, `Turn: ${counter}`, null)
 
-        dispatch(updateStateCounter())
+        dispatch(increment())
     }
 
     const group = computedOptions[0].length == 1 && last ? [last] : computedOptions[0]

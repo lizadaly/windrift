@@ -1,19 +1,10 @@
 export const UPDATE_STATE_COUNTER = 'UPDATE_STATE_COUNTER'
-export const INIT_CONFIG = 'INIT_CONFIG'
 
 export type Tag = string
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 declare function Widget(props: any): JSX.Element
 export type WidgetType = typeof Widget
-
-/* Story counter */
-
-interface UpdateStateCounterAction {
-    type: typeof UPDATE_STATE_COUNTER
-    counter: number
-}
-export type UpdateStateCounterType = UpdateStateCounterAction
 
 /* Config */
 
@@ -46,12 +37,6 @@ export class Config {
         this.language = language
     }
 }
-
-interface InitConfigAction {
-    type: typeof INIT_CONFIG
-    config: Config
-}
-export type InitConfigType = InitConfigAction
 
 /* Completion callbacks */
 export type Callback = () => void

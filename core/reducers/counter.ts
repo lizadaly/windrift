@@ -1,14 +1,20 @@
 import undoable from 'redux-undo'
+import { createSlice } from '@reduxjs/toolkit'
 
-import { UPDATE_STATE_COUNTER, UpdateStateCounterType } from 'core/types'
-
-export const counter = (state = 0, action: UpdateStateCounterType): number => {
-    switch (action.type) {
-        case UPDATE_STATE_COUNTER:
-            return state + 1
-        default:
-            return state
-    }
+export interface CounterState {
+    value: number
 }
 
-export default undoable(counter)
+const initialState: CounterState = { value: 0 }
+
+export const counterSlice = createSlice({
+    name: 'counter',
+    initialState,
+    reducers: {
+        increment: (state) => {
+            state.value += 1
+        }
+    }
+})
+export const { increment } = counterSlice.actions
+export default undoable(counterSlice.reducer)

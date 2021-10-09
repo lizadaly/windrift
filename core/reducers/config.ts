@@ -1,13 +1,16 @@
-import { InitConfigType, Config, INIT_CONFIG } from 'core/types'
+import { Config } from 'core/types'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-const config = (state: Config = null, action: InitConfigType): Config => {
-    switch (action.type) {
-        case INIT_CONFIG: {
-            return action.config
-        }
-        default:
-            return state
+const initialState: Config = null
+
+export const configSlice = createSlice({
+    name: 'config',
+    initialState,
+    reducers: {
+        init: (state, action: PayloadAction<Config>) => action.payload
     }
-}
+})
 
-export default config
+export const { init } = configSlice.actions
+
+export default configSlice.reducer

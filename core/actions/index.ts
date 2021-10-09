@@ -1,6 +1,4 @@
 export { updateInventory } from './inventory'
 export { pickOption, initChoice } from './choice'
-export { updateStateCounter } from './counter'
-export { initConfig } from './config'
 export { incrementSection } from './navigation'
 export { logChoice, logNav } from './log'

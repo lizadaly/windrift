@@ -49,7 +49,7 @@ class GameContainer extends React.Component<GameProps> {
 const mapState = (state: RootState) => ({
     enableUndo: state.config.enableUndo,
     identifier: state.config.identifier,
-    counter: state.counter.present
+    counter: state.counter.present.value
 })
 const mapDispatch = (dispatch) => ({
     jump: (offset: number) => dispatch(ActionCreators.jump(offset))
