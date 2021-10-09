@@ -1,10 +1,9 @@
 import * as React from 'react'
-import { useSelector } from 'react-redux'
 
 import Head from 'next/head'
 
 import ResetButton from './reset-button'
-import { RootState } from 'core/reducers'
+import { StoryContext } from 'pages/[story]'
 
 export type GridProps = {
     head?: React.ReactNode
@@ -14,7 +13,7 @@ export type GridProps = {
     styles?: Record<string, string>
 }
 const Grid: React.FC<GridProps> = ({ children, head, header, left, right, styles }) => {
-    const config = useSelector((state: RootState) => state.config)
+    const { config } = React.useContext(StoryContext)
     return (
         <>
             <Head>

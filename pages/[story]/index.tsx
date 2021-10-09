@@ -2,12 +2,21 @@ import * as React from 'react'
 import fs from 'fs'
 import path from 'path'
 import yaml from 'js-yaml'
-import { createStore } from 'redux'
+import { configureStore } from '@reduxjs/toolkit'
 import { Provider } from 'react-redux'
-import { persistStore, persistReducer, Persistor } from 'redux-persist'
+import {
+    persistStore,
+    persistReducer,
+    Persistor,
+    FLUSH,
+    REHYDRATE,
+    PAUSE,
+    PERSIST,
+    PURGE,
+    REGISTER
+} from 'redux-persist'
 import { PersistGate } from 'redux-persist/integration/react'
 import storage from 'redux-persist/lib/storage'
-import { composeWithDevTools } from 'redux-devtools-extension'
 
 import { useRouter } from 'next/router'
 import { GetStaticProps, GetStaticPaths } from 'next'
@@ -66,6 +75,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 type ContextProps = {
     persistor: Persistor
+    config: Config
 }
 export const StoryContext = React.createContext<Partial<ContextProps>>({})
 
@@ -84,7 +94,8 @@ export default function Home(props: WindriftProps): JSX.Element {
 
     const persistConfig = {
         key: config.identifier,
-        storage: storage
+        storage: storage,
+        blacklist: ['config']
     }
 
     // In a single player story, set the visible chapter as the start
@@ -94,26 +105,36 @@ export default function Home(props: WindriftProps): JSX.Element {
     }
 
     const persistedReducers = persistReducer(persistConfig, reducers)
-    const store = createStore(
-        persistedReducers,
-        {
-            config,
-            toc: {
+
+    const store = configureStore({
+        reducer: persistedReducers,
+        middleware: (getDefaultMiddleware) =>
+            getDefaultMiddleware({
+                serializableCheck: {
+                    ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
+                }
+            }),
+        preloadedState: {
+            navigation: {
                 past: [],
-                present: toc,
+                present: { toc },
+                future: []
+            },
+            choices: {
+                past: [],
+                present: {},
                 future: []
             }
-        },
-        composeWithDevTools()
-    )
+        }
+    })
     const persistor = persistStore(store)
 
     const Index = dynamic(() => import(`../../stories/${story}/index`))
     return (
         <Provider store={store}>
             <PersistGate persistor={persistor}>
-                <StoryContainer>
-                    <StoryContext.Provider value={{ persistor }}>
+                <StoryContainer config={config}>
+                    <StoryContext.Provider value={{ persistor, config }}>
                         <Index>
                             <Story story={story as string} />
                         </Index>

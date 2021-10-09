@@ -1,33 +1,27 @@
 import undoable from 'redux-undo'
-import cloneDeep from 'lodash.clonedeep'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-import {
-    Inventory,
-    UpdateInventoryTypes,
-    UPDATE_INVENTORY,
-    CLEAR_INVENTORY,
-    ClearInventoryTypes
-} from 'core/actions/inventory'
+import { Tag } from 'core/types'
 
-export const inventoryReducer = (
-    state: Inventory = {},
-    action: UpdateInventoryTypes | ClearInventoryTypes
-): Inventory => {
-    switch (action.type) {
-        case CLEAR_INVENTORY:
-            return state
-
-        case UPDATE_INVENTORY: {
-            const invState = cloneDeep(state)
-            if (action.sel === undefined && action.tag in invState) {
-                // no op, leave the current value alone
-            } else {
-                invState[action.tag] = action.sel
-            }
-            return invState
-        }
-        default:
-            return state
-    }
+export type Selection = string
+export interface InventoryState {
+    [tag: Tag]: Selection
 }
-export default undoable(inventoryReducer, { initTypes: [CLEAR_INVENTORY] })
+const initialState = {} as InventoryState
+
+interface UpdateInventoryPayload {
+    tag: Tag
+    selection: Selection
+}
+
+export const inventorySlice = createSlice({
+    name: 'inventory',
+    initialState,
+    reducers: {
+        update: (state, action: PayloadAction<UpdateInventoryPayload>) => {
+            state[action.payload.tag] = action.payload.selection
+        }
+    }
+})
+export const { update } = inventorySlice.actions
+export default undoable(inventorySlice.reducer)

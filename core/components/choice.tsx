@@ -3,24 +3,19 @@ import { useSelector, useDispatch } from 'react-redux'
 import { v4 as uuidv4 } from 'uuid'
 
 import { WidgetType } from 'core/types'
-import { OptionsType } from 'core/actions/choice'
 import { RootState } from 'core/reducers'
-import {
-    initChoice,
-    logChoice,
-    updateInventory,
-    pickOption,
-    incrementSection,
-    updateStateCounter
-} from 'core/actions'
-import { gotoChapter, Next } from 'core/actions/navigation'
+import { increment } from 'core/reducers/counter'
+import { gotoChapter, Next, incrementSection } from 'core/reducers/navigation'
 
 import { ChapterContext } from './chapter'
 import InlineList from './widgets/inline-list'
-import { ENTRY_TYPES } from 'core/actions/log'
+import { update as updateInventory } from 'core/reducers/inventory'
+import { ENTRY_TYPES, update as logUpdate } from 'core/reducers/log'
+import { init, advance, Options, OptionGroup } from 'core/reducers/choice'
+import { wordFromInventory } from 'core/util'
+import { StoryContext } from 'pages/[story]'
 
-export interface ChoiceProps {
-    options: OptionsType
+interface MutableChoiceProps {
     tag: string
     /** At completion of the choice list, go to the Next section/chapter, go to the named chapter (if a string) or do nothing*/
     next?: Next | string
@@ -32,8 +27,11 @@ export interface ChoiceProps {
     /** Text to display last (at completion) instead of the default last-chosen item  */
     last?: string
 }
+export interface ChoiceProps extends MutableChoiceProps {
+    options: Options
+}
 
-const Choices = ({
+const Choice = ({
     options,
     tag,
     extra,
@@ -43,72 +41,103 @@ const Choices = ({
     last = null
 }: ChoiceProps): JSX.Element => {
     const dispatch = useDispatch()
-    const { filename } = React.useContext(ChapterContext)
-    const newOptions = useSelector((state: RootState) => {
-        const c = state.choices.present
-        if (c && tag in c) {
-            return c[tag]
-        }
-    })
-
-    const identifier = useSelector((state: RootState) => state.config.identifier)
-    const counter = useSelector((state: RootState) => state.counter.present)
-
-    // Get the original picks either from props or from the state
-    const initialOptions = newOptions ? newOptions.initialOptions : options
 
     // On first render, record the initial options
     React.useEffect(() => {
-        dispatch(initChoice(tag, options))
-    }, [dispatch, options])
+        dispatch(init({ tag, options }))
+    }, [dispatch])
 
-    const computedOptions =
-        newOptions && newOptions.options.length > 0 ? newOptions.options : options
-
-    const handler = (e: React.MouseEvent, index: number): void => {
-        e.preventDefault()
-        const target = e.target as HTMLInputElement
-        const option = target.textContent
-        const choiceId = uuidv4()
-        dispatch(updateInventory(tag, option))
-        dispatch(pickOption(tag, computedOptions, index))
-        dispatch(
-            logChoice({
-                id: choiceId,
-                tag,
-                selection: option,
-                entry: ENTRY_TYPES.Choice,
-                timestamp: new Date()
-            })
-        )
-
-        if (computedOptions.length === 1) {
-            if (next === Next.Section) {
-                dispatch(incrementSection(filename))
-            } else if (next === Next.None) {
-                // no-op
-            } else if (typeof next === 'string') {
-                dispatch(gotoChapter(next))
-            }
-        }
-        const s = {}
-        s[identifier] = counter
-        window.history.pushState(s, `Turn: ${counter}`, null)
-
-        dispatch(updateStateCounter())
-    }
-
-    const group = computedOptions[0].length == 1 && last ? [last] : computedOptions[0]
-    const W = widget
     return (
-        <W
-            group={group}
-            handler={group.length > 1 || persist ? handler : null}
-            initialOptions={initialOptions}
+        <MutableChoice
             tag={tag}
-            {...extra}
+            extra={extra}
+            widget={widget}
+            next={next}
+            persist={persist}
+            last={last}
         />
     )
 }
 
-export default Choices
+const MutableChoice = ({
+    tag,
+    extra,
+    widget,
+    next,
+    persist,
+    last
+}: MutableChoiceProps): JSX.Element => {
+    const { filename } = React.useContext(ChapterContext)
+    const { config } = React.useContext(StoryContext)
+    const dispatch = useDispatch()
+
+    const choice = useSelector((state: RootState) => {
+        return state.choices.present[tag]
+    })
+
+    const counter = useSelector((state: RootState) => state.counter.present.value)
+    const inventory = useSelector((state: RootState) => state.inventory.present)
+
+    if (choice === undefined || choice.options === undefined) {
+        return null
+    }
+    const handler = (e: React.MouseEvent): void => {
+        e.preventDefault()
+        const target = e.target as HTMLInputElement
+        const selection = target.textContent
+        const choiceId = uuidv4()
+        dispatch(updateInventory({ tag, selection }))
+        dispatch(advance({ tag }))
+        dispatch(
+            logUpdate({
+                entry: {
+                    id: choiceId,
+                    tag,
+                    selection,
+                    entry: ENTRY_TYPES.Choice,
+                    timestamp: new Date().toLocaleDateString()
+                }
+            })
+        )
+
+        if (choice.options.length === 1) {
+            if (next === Next.Section) {
+                dispatch(incrementSection({ filename }))
+            } else if (next === Next.None) {
+                // no-op
+            } else if (typeof next === 'string') {
+                dispatch(gotoChapter({ filename: next }))
+            }
+        }
+        const s = {}
+        s[config.identifier] = counter
+        window.history.pushState(s, `Turn: ${counter}`, null)
+
+        dispatch(increment())
+    }
+    if (choice.options) {
+        let group: OptionGroup = undefined
+
+        if (choice.options.length === 0) {
+            // We've exhausted the choice list, so display the inventory item instead
+            group = last ? [last] : [inventory[tag]]
+        }
+        if (choice.options.length > 0) {
+            group = choice.options[0].length == 1 && last ? [last] : choice.options[0]
+        }
+        const W = widget
+        return (
+            <W
+                group={group}
+                handler={group.length > 1 || persist ? handler : null}
+                tag={tag}
+                initialOptions={choice.initialOptions}
+                {...extra}
+            />
+        )
+    } else {
+        return null
+    }
+}
+
+export default Choice

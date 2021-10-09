@@ -6,31 +6,33 @@ import { connect, ConnectedProps } from 'react-redux'
 import { RootState } from 'core/reducers'
 
 import { Counter } from '../components'
+import { Config } from 'core/types'
 
-interface GameProps extends PropsFromRedux {
+interface StoryProps extends PropsFromRedux {
+    config: Config
     children: React.ReactNode
 }
 
-class GameContainer extends React.Component<GameProps> {
-    constructor(props: GameProps) {
+class StoryContainer extends React.Component<StoryProps> {
+    constructor(props: StoryProps) {
         super(props)
         this.jumpFromHistory = this.jumpFromHistory.bind(this)
-        if (props.enableUndo) {
+        if (props.config.enableUndo) {
             // If we received a browser forward/back, jump to the relevant point in history
             window.addEventListener('popstate', this.jumpFromHistory)
         }
     }
     componentDidMount() {
         // On the first mount, also jump from the history
-        if (this.props.enableUndo) {
+        if (this.props.config.enableUndo) {
             this.jumpFromHistory()
         }
     }
     jumpFromHistory() {
         const browserState = window.history.state
-        const { identifier, counter } = this.props
-        if (identifier in browserState) {
-            const timeOffset = browserState[identifier] - counter
+        const { config, counter } = this.props
+        if (config.identifier in browserState) {
+            const timeOffset = browserState[config.identifier] - counter
             console.log(`jumping from counter ${counter} offset ${timeOffset}`)
             this.props.jump(timeOffset)
         }
@@ -39,7 +41,7 @@ class GameContainer extends React.Component<GameProps> {
     render() {
         return (
             <>
-                <Counter identifier={this.props.identifier} counter={this.props.counter} />
+                <Counter identifier={this.props.config.identifier} counter={this.props.counter} />
                 {this.props.children}
             </>
         )
@@ -47,9 +49,7 @@ class GameContainer extends React.Component<GameProps> {
 }
 
 const mapState = (state: RootState) => ({
-    enableUndo: state.config.enableUndo,
-    identifier: state.config.identifier,
-    counter: state.counter.present
+    counter: state.counter.present.value
 })
 const mapDispatch = (dispatch) => ({
     jump: (offset: number) => dispatch(ActionCreators.jump(offset))
@@ -59,4 +59,4 @@ const connector = connect(mapState, mapDispatch)
 
 type PropsFromRedux = ConnectedProps<typeof connector>
 
-export default connector(GameContainer)
+export default connector(StoryContainer)

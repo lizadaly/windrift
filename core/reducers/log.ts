@@ -1,21 +1,38 @@
-import { LogActionType, LogEntryType, LOG_CHOICE_ACTION, LOG_NAV_ACTION } from 'core/actions/log'
-import cloneDeep from 'lodash.clonedeep'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { Tag, TocItem } from 'core/types'
+import { Selection } from 'core/reducers/inventory'
 
-const log = (state: LogEntryType[] = [], action: LogActionType): LogEntryType[] => {
-    switch (action.type) {
-        case LOG_CHOICE_ACTION: {
-            const log = cloneDeep(state)
-            log.push(action.entry)
-            return log
-        }
-        case LOG_NAV_ACTION: {
-            const log = cloneDeep(state)
-            log.push(action.entry)
-            return log
-        }
-        default:
-            return state
-    }
+export enum ENTRY_TYPES {
+    Choice = 'CHOICE',
+    Nav = 'NAV'
+}
+export interface LogEntry {
+    id: string
+    timestamp: string
+    entry: ENTRY_TYPES
+    playerName?: string
+    tag?: Tag
+    selection?: Selection
+    filename?: TocItem['filename']
 }
 
-export default log
+export interface LogState {
+    log: LogEntry[]
+}
+const initialState: LogState = { log: [] }
+
+interface UpdateLogPayload {
+    entry: LogEntry
+}
+export const logSlice = createSlice({
+    name: 'log',
+    initialState,
+    reducers: {
+        update: (state, action: PayloadAction<UpdateLogPayload>) => {
+            state.log.push(action.payload.entry)
+        }
+    }
+})
+export const { update } = logSlice.actions
+
+export default logSlice.reducer
