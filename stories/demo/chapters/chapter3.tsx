@@ -4,7 +4,7 @@ import prism from 'react-syntax-highlighter/dist/esm/styles/prism/material-ocean
 
 SyntaxHighlighter.registerLanguage('jsx', jsx)
 
-import { Next } from 'core/actions/navigation'
+import { Next } from 'core/reducers/navigation'
 import { C, Section, Chapter, More } from 'core/components'
 import { PageType } from 'core/types'
 

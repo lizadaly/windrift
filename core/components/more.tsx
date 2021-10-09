@@ -1,7 +1,7 @@
 // A single-link list, like a "More..." list. When triggered it cannot
 // be triggered again.
 
-import { Next } from 'core/actions/navigation'
+import { Next } from 'core/reducers/navigation'
 import * as React from 'react'
 import { Choice } from 'core/components'
 import { BaseList } from 'core/components/widgets'

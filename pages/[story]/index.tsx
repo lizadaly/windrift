@@ -2,7 +2,6 @@ import * as React from 'react'
 import fs from 'fs'
 import path from 'path'
 import yaml from 'js-yaml'
-import { createStore } from 'redux'
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
 import { Provider } from 'react-redux'
 import {
@@ -18,7 +17,6 @@ import {
 } from 'redux-persist'
 import { PersistGate } from 'redux-persist/integration/react'
 import storage from 'redux-persist/lib/storage'
-import { composeWithDevTools } from 'redux-devtools-extension'
 
 import { useRouter } from 'next/router'
 import { GetStaticProps, GetStaticPaths } from 'next'
@@ -114,10 +112,10 @@ export default function Home(props: WindriftProps): JSX.Element {
         }),
         preloadedState: {
             config,
-            toc: {
-                past: [],
-                present: toc,
-                future: []
+            navigation: {
+                past: null,
+                present: { toc },
+                future: null
             }
         }
     })

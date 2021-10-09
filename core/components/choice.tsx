@@ -5,9 +5,9 @@ import { v4 as uuidv4 } from 'uuid'
 import { WidgetType } from 'core/types'
 import { OptionsType } from 'core/actions/choice'
 import { RootState } from 'core/reducers'
-import { initChoice, pickOption, incrementSection } from 'core/actions'
+import { initChoice, pickOption } from 'core/actions'
 import { increment } from 'core/reducers/counter'
-import { gotoChapter, Next } from 'core/actions/navigation'
+import { gotoChapter, Next, incrementSection } from 'core/reducers/navigation'
 
 import { ChapterContext } from './chapter'
 import InlineList from './widgets/inline-list'
@@ -80,11 +80,11 @@ const Choices = ({
 
         if (computedOptions.length === 1) {
             if (next === Next.Section) {
-                dispatch(incrementSection(filename))
+                dispatch(incrementSection({ filename }))
             } else if (next === Next.None) {
                 // no-op
             } else if (typeof next === 'string') {
-                dispatch(gotoChapter(next))
+                dispatch(gotoChapter({ filename: next }))
             }
         }
         const s = {}
