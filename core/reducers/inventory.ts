@@ -1,6 +1,7 @@
 import undoable from 'redux-undo'
-import { Tag } from 'core/types'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+
+import { Tag } from 'core/types'
 
 export type Selection = string
 export interface InventoryState {

@@ -1,5 +1,6 @@
-import { Config } from 'core/types'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+
+import { Config } from 'core/types'
 
 const initialState: Config = null
 

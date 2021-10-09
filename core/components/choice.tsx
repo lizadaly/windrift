@@ -5,15 +5,14 @@ import { v4 as uuidv4 } from 'uuid'
 import { WidgetType } from 'core/types'
 import { OptionsType } from 'core/actions/choice'
 import { RootState } from 'core/reducers'
-import { initChoice, logChoice, pickOption, incrementSection } from 'core/actions'
+import { initChoice, pickOption, incrementSection } from 'core/actions'
 import { increment } from 'core/reducers/counter'
 import { gotoChapter, Next } from 'core/actions/navigation'
 
 import { ChapterContext } from './chapter'
 import InlineList from './widgets/inline-list'
-import { ENTRY_TYPES } from 'core/actions/log'
 import { update as updateInventory } from 'core/reducers/inventory'
-
+import { ENTRY_TYPES, update as logUpdate } from 'core/reducers/log'
 export interface ChoiceProps {
     options: OptionsType
     tag: string
@@ -68,12 +67,14 @@ const Choices = ({
         dispatch(updateInventory({ tag, selection }))
         dispatch(pickOption(tag, computedOptions, index))
         dispatch(
-            logChoice({
-                id: choiceId,
-                tag,
-                selection,
-                entry: ENTRY_TYPES.Choice,
-                timestamp: new Date()
+            logUpdate({
+                entry: {
+                    id: choiceId,
+                    tag,
+                    selection,
+                    entry: ENTRY_TYPES.Choice,
+                    timestamp: new Date()
+                }
             })
         )
 
