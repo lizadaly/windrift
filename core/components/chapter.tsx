@@ -4,11 +4,10 @@ import { useSelector, useDispatch } from 'react-redux'
 import { countSections } from 'core/actions/navigation'
 import { getChapter } from 'core/util'
 import { RootState } from 'core/reducers'
-import { TocItem } from 'core/types'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 
 type ContextProps = {
-    item: TocItem
+    filename: string
 }
 export const ChapterContext = React.createContext<Partial<ContextProps>>({})
 
@@ -18,6 +17,8 @@ export type ChapterType = {
 
 const Chapter: React.FC<ChapterType> = ({ children, filename }) => {
     const item = useSelector((state: RootState) => getChapter(state.toc.present, filename))
+    const [thisFilename] = React.useState({ filename })
+
     const dispatch = useDispatch()
 
     // On first render, record the number of sections and scroll to top
@@ -30,13 +31,12 @@ const Chapter: React.FC<ChapterType> = ({ children, filename }) => {
     // Display all visible child sections
     const kids = React.Children.map(children, (child, index) => {
         if (React.isValidElement(child) && index <= item.bookmark) {
-            return <CSSTransition {...SectionTransition}>{React.cloneElement(child)}</CSSTransition>
+            return <CSSTransition {...SectionTransition}>{child}</CSSTransition>
         }
-        return null
     })
 
     return (
-        <ChapterContext.Provider value={{ item }}>
+        <ChapterContext.Provider value={thisFilename}>
             <TransitionGroup component={null}>{kids}</TransitionGroup>
         </ChapterContext.Provider>
     )
