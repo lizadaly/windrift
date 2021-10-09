@@ -43,7 +43,7 @@ const Choices = ({
     last = null
 }: ChoiceProps): JSX.Element => {
     const dispatch = useDispatch()
-    const { item } = React.useContext(ChapterContext)
+    const { filename } = React.useContext(ChapterContext)
     const newOptions = useSelector((state: RootState) => {
         const c = state.choices.present
         if (c && tag in c) {
@@ -84,7 +84,7 @@ const Choices = ({
 
         if (computedOptions.length === 1) {
             if (next === Next.Section) {
-                dispatch(incrementSection(item))
+                dispatch(incrementSection(filename))
             } else if (next === Next.None) {
                 // no-op
             } else if (typeof next === 'string') {

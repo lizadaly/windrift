@@ -1,5 +1,5 @@
 import undoable from 'redux-undo'
-import cloneDeep from 'lodash.clonedeep'
+import { cloneDeep } from 'lodash'
 
 import { Toc, TocItem } from 'core/types'
 
@@ -22,7 +22,7 @@ const toc = (
     switch (action.type) {
         case INCREMENT_SECTION:
             newState = cloneDeep(state)
-            item = getChapter(newState, action.item.filename)
+            item = getChapter(newState, action.filename)
             item.bookmark = Math.min(item.bookmark + 1, item.sectionCount)
             return newState
 

@@ -12,7 +12,7 @@ export enum Next {
 
 interface IncrementSectionAction {
     type: typeof INCREMENT_SECTION
-    item: TocItem
+    filename: string
 }
 export type IncrementSectionType = IncrementSectionAction
 
@@ -33,9 +33,9 @@ export const gotoChapter = (filename: string): GotoChapterType => ({
     type: GOTO_CHAPTER,
     filename
 })
-export const incrementSection = (item: TocItem): IncrementSectionType => ({
+export const incrementSection = (filename: string): IncrementSectionType => ({
     type: INCREMENT_SECTION,
-    item
+    filename
 })
 export const countSections = (item: TocItem, count: number): CountSectionType => ({
     type: COUNT_SECTION,
