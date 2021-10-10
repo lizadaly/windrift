@@ -3,6 +3,7 @@ describe('Full test of the built-in stories', () => {
         cy.visit('/demo')
         cy.get('a').contains('ripe banana').click()
         cy.get('a').contains('elm').click()
+        cy.contains('elm (selected)')
         cy.get('a').contains('Next').click()
 
         cy.contains('a nice banana')

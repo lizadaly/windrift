@@ -3,7 +3,7 @@
 import React from 'react'
 import { WidgetProps } from '.'
 import Link from '../link'
-
+import { isEqual } from 'lodash'
 interface BulletedListProps extends WidgetProps {
     separator: string
     conjunction: string
@@ -23,8 +23,8 @@ const InlineList: typeof BulletedListType = ({
                 <li key={i}>
                     <Link handler={handler} text={t} index={i} tag={tag} />
                     {group.map((g) => {
-                        if (initialOptions[0] !== group && g === t) {
-                            return 'selected'
+                        if (!isEqual(initialOptions[0], group) && g === t) {
+                            return ' (selected)'
                         }
                     })}
                 </li>
