@@ -12,7 +12,6 @@ import InlineList from './widgets/inline-list'
 import { update as updateInventory } from 'core/reducers/inventory'
 import { ENTRY_TYPES, update as logUpdate } from 'core/reducers/log'
 import { init, advance, Options, OptionGroup } from 'core/reducers/choice'
-import { wordFromInventory } from 'core/util'
 import { StoryContext } from 'pages/[story]'
 
 interface MutableChoiceProps {
@@ -41,22 +40,27 @@ const Choice = ({
     last = null
 }: ChoiceProps): JSX.Element => {
     const dispatch = useDispatch()
+    const [initialized, initialize] = React.useState(false)
 
-    // On first render, record the initial options
+    // On first render, record the initial options, then render the choice list
     React.useEffect(() => {
         dispatch(init({ tag, options }))
+        initialize(true)
     }, [dispatch])
 
-    return (
-        <MutableChoice
-            tag={tag}
-            extra={extra}
-            widget={widget}
-            next={next}
-            persist={persist}
-            last={last}
-        />
-    )
+    if (initialized) {
+        return (
+            <MutableChoice
+                tag={tag}
+                extra={extra}
+                widget={widget}
+                next={next}
+                persist={persist}
+                last={last}
+            />
+        )
+    }
+    return null
 }
 
 const MutableChoice = ({
@@ -67,20 +71,18 @@ const MutableChoice = ({
     persist,
     last
 }: MutableChoiceProps): JSX.Element => {
+    const dispatch = useDispatch()
+
     const { filename } = React.useContext(ChapterContext)
     const { config } = React.useContext(StoryContext)
-    const dispatch = useDispatch()
+
+    const counter = useSelector((state: RootState) => state.counter.present.value)
+    const inventory = useSelector((state: RootState) => state.inventory.present)
 
     const choice = useSelector((state: RootState) => {
         return state.choices.present[tag]
     })
 
-    const counter = useSelector((state: RootState) => state.counter.present.value)
-    const inventory = useSelector((state: RootState) => state.inventory.present)
-
-    if (choice === undefined || choice.options === undefined) {
-        return null
-    }
     const handler = (e: React.MouseEvent): void => {
         e.preventDefault()
         const target = e.target as HTMLInputElement
@@ -115,29 +117,27 @@ const MutableChoice = ({
 
         dispatch(increment())
     }
-    if (choice.options) {
-        let group: OptionGroup = undefined
 
-        if (choice.options.length === 0) {
-            // We've exhausted the choice list, so display the inventory item instead
-            group = last ? [last] : [inventory[tag]]
-        }
-        if (choice.options.length > 0) {
-            group = choice.options[0].length == 1 && last ? [last] : choice.options[0]
-        }
-        const W = widget
-        return (
-            <W
-                group={group}
-                handler={group.length > 1 || persist ? handler : null}
-                tag={tag}
-                initialOptions={choice.initialOptions}
-                {...extra}
-            />
-        )
+    let group: OptionGroup = undefined
+
+    if (choice.options.length === 0) {
+        // We've exhausted the choice list. If a `last` prop was defined, display
+        // that. Otherwise display the inventory item.
+        console.log(`choice list exhausted for ${tag}`)
+        group = last ? [last] : [inventory[tag]]
     } else {
-        return null
+        group = choice.options[0]
     }
+    const W = widget
+    return (
+        <W
+            group={group}
+            handler={group.length > 1 || persist ? handler : null}
+            tag={tag}
+            initialOptions={choice.initialOptions}
+            {...extra}
+        />
+    )
 }
 
 export default Choice

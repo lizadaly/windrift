@@ -33,9 +33,11 @@ export const choicesSlice = createSlice({
     reducers: {
         init: (state, action: PayloadAction<InitChoicePayload>) => {
             const { tag, options } = action.payload
-            state[tag] = {
-                options,
-                initialOptions: options
+            if (!(tag in state)) {
+                state[tag] = {
+                    options,
+                    initialOptions: options
+                }
             }
         },
         // Advance to the next option group. If no next group is available, do nothing
