@@ -22,3 +22,5 @@ describe('Full test of the built-in stories', () => {
         cy.get('a').contains('Go to chapter 4').click()
     })
 })
+
+export {}

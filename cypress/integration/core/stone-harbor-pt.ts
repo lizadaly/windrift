@@ -28,3 +28,4 @@ describe('Full test of the Portuguese Stone Harbor demo', () => {
         cy.contains('Healey foi assassinado.')
     })
 })
+export {}

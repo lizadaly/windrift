@@ -11,3 +11,4 @@ describe('Full test of refresh/rehydration features', () => {
         cy.contains('elm (selected)')
     })
 })
+export {}
