@@ -128,16 +128,13 @@ const MutableChoice = ({
     } else {
         group = choice.options[0]
     }
-    const W = widget
-    return (
-        <W
-            group={group}
-            handler={group.length > 1 || persist ? handler : null}
-            tag={tag}
-            initialOptions={choice.initialOptions}
-            {...extra}
-        />
-    )
+    return React.createElement(widget, {
+        group,
+        handler: group.length > 1 || persist ? handler : null,
+        tag,
+        initialOptions: choice.initialOptions,
+        ...extra
+    })
 }
 
 export default Choice
