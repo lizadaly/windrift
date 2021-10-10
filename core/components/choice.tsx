@@ -83,6 +83,12 @@ const MutableChoice = ({
         return state.choices.present[tag]
     })
 
+    // Short-circuit if we got here via forward/back before the state is rehydrated
+    // Ideally this could be prevented!
+    if (!choice) {
+        return null
+    }
+
     const handler = (e: React.MouseEvent): void => {
         e.preventDefault()
         const target = e.target as HTMLInputElement
@@ -123,7 +129,6 @@ const MutableChoice = ({
     if (choice.options.length === 0) {
         // We've exhausted the choice list. If a `last` prop was defined, display
         // that. Otherwise display the inventory item.
-        console.log(`choice list exhausted for ${tag}`)
         group = last ? [last] : [inventory[tag]]
     } else {
         group = choice.options[0]

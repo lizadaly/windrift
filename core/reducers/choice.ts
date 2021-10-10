@@ -1,4 +1,4 @@
-import undoable from 'redux-undo'
+import undoable, { excludeAction } from 'redux-undo'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { Tag } from 'core/types'
 
@@ -50,4 +50,4 @@ export const choicesSlice = createSlice({
 
 export const { init, advance } = choicesSlice.actions
 
-export default undoable(choicesSlice.reducer)
+export default undoable(choicesSlice.reducer, { filter: excludeAction('choices/init') })
