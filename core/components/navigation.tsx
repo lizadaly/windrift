@@ -16,9 +16,7 @@ interface Props {
     next: string
 }
 const Nav = ({ text, next }: Props): JSX.Element => {
-    const tag = useId(1, 'nav-link-')[0]
-    return (
-        <Choice options={[[text, null]]} widget={BaseList} tag={tag} next={next} persist={true} />
-    )
+    const [tag] = useId(1, 'nav-link-')
+    return <Choice options={[text]} widget={BaseList} tag={tag} next={next} persist={true} />
 }
 export default Nav

@@ -1,10 +1,10 @@
 import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter'
-import jsx from 'react-syntax-highlighter/dist/esm/languages/prism/jsx'
+import tsx from 'react-syntax-highlighter/dist/esm/languages/prism/tsx'
 import prism from 'react-syntax-highlighter/dist/esm/styles/prism/material-oceanic'
 
-SyntaxHighlighter.registerLanguage('jsx', jsx)
+SyntaxHighlighter.registerLanguage('tsx', tsx)
 
-import { C, R, Section, Chapter, Nav } from 'core/components'
+import { C, Section, Chapter, Nav } from 'core/components'
 import { BulletedList } from 'core/components/widgets'
 import { PageType } from 'core/types'
 import { Next } from 'core/reducers/navigation'
@@ -23,7 +23,7 @@ export const Page: PageType = () => (
                 simplest type of choice is a single option group from which the user picks:
             </p>
 
-            <SyntaxHighlighter language="jsx" style={prism}>
+            <SyntaxHighlighter language="tsx" style={prism}>
                 {`<Choice options={['ripe banana', 'bulbous orange', 'fuzzy kiwi']} tag="fruit" />`}
             </SyntaxHighlighter>
             <aside>
@@ -43,7 +43,7 @@ export const Page: PageType = () => (
                 can achieve this through the <code>first</code> parameter applied to the
                 <code>Choice</code> component:
             </p>
-            <SyntaxHighlighter language="jsx" style={prism}>
+            <SyntaxHighlighter language="tsx" style={prism}>
                 {`<Choice
     first="fine choices today..."
     options={['orange kale', 'purple cucumbers', 'green pumpkins']}
@@ -100,7 +100,7 @@ export const Page: PageType = () => (
                 or a different widget can be substituted entirely by passing any widget's
                 configuration options as an <code>extra</code> attribute:
             </p>
-            <SyntaxHighlighter language="jsx" style={prism}>
+            <SyntaxHighlighter language="tsx" style={prism}>
                 {`<Choice
     tag="pet"
     options={['an adorable skink', 'a sweet-tempered marmot']}
@@ -128,7 +128,7 @@ export const Page: PageType = () => (
                 Windrift ships with another type of widget with behavior worth noting. This
                 preserves all of the options in a menu-style layout:
             </p>
-            <SyntaxHighlighter language="jsx" style={prism}>
+            <SyntaxHighlighter language="tsx" style={prism}>
                 {`<Choice
     options={['smarmy poplar', 'clever elm', 'big dumb baobab']}
     tag="tree"

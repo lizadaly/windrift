@@ -1,11 +1,11 @@
 import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter'
-import jsx from 'react-syntax-highlighter/dist/esm/languages/prism/jsx'
+import tsx from 'react-syntax-highlighter/dist/esm/languages/prism/tsx'
 import json from 'react-syntax-highlighter/dist/esm/languages/prism/json'
 import bash from 'react-syntax-highlighter/dist/esm/languages/prism/bash'
 
 import prism from 'react-syntax-highlighter/dist/esm/styles/prism/material-oceanic'
 
-SyntaxHighlighter.registerLanguage('jsx', jsx)
+SyntaxHighlighter.registerLanguage('tsx', tsx)
 SyntaxHighlighter.registerLanguage('json', json)
 SyntaxHighlighter.registerLanguage('bash', bash)
 

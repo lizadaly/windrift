@@ -1,8 +1,8 @@
 import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter'
-import jsx from 'react-syntax-highlighter/dist/esm/languages/prism/jsx'
+import tsx from 'react-syntax-highlighter/dist/esm/languages/prism/tsx'
 import prism from 'react-syntax-highlighter/dist/esm/styles/prism/material-oceanic'
 
-SyntaxHighlighter.registerLanguage('jsx', jsx)
+SyntaxHighlighter.registerLanguage('tsx', tsx)
 
 import { Next } from 'core/reducers/navigation'
 import { C, Section, Chapter, More } from 'core/components'
@@ -17,23 +17,11 @@ export const Page: PageType = () => (
                 Note: from here on we'll use the <code>C</code> short form for all{' '}
                 <code>Choice</code> components, since that's likely how you'll write them.
             </p>
-            <SyntaxHighlighter language="jsx" style={prism}>
-                {` <C options={[
-        ['One...', null],
-        ['Two...', null],
-        ['Three.', null]
-    ]}
-    tag="c3-next" />`}
+            <SyntaxHighlighter language="tsx" style={prism}>
+                {`<C options={['One', 'Two', 'Three']} tag="c3-next" />`}
             </SyntaxHighlighter>
             <aside>
-                <C
-                    options={[
-                        ['One...', null],
-                        ['Two...', null],
-                        ['Three.', null]
-                    ]}
-                    tag="c3-next"
-                />
+                <C options={['One', 'Two', 'Three']} tag="c3-next" />
             </aside>
         </Section>
 
@@ -42,17 +30,11 @@ export const Page: PageType = () => (
                 You can also navigate to a named chapter, skipping over any remaining sections, or
                 set <code>next=Next.None</code> to do nothing.
             </p>
-            <SyntaxHighlighter language="jsx" style={prism}>
-                {` <C options={[['This is a no-op.', null], ['Clicked!']]}
-    tag="c3-noop"
-    next={Next.None} />`}
+            <SyntaxHighlighter language="tsx" style={prism}>
+                {`<C options={['This is a no-op.', 'Clicked!']} tag="c3-noop" next={Next.None} />`}
             </SyntaxHighlighter>
             <p>
-                <C
-                    options={[['This is a no-op.', null], ['Clicked!']]}
-                    tag="c3-noop"
-                    next={Next.None}
-                />
+                <C options={['This is a no-op.', 'Clicked!']} tag="c3-noop" next={Next.None} />
             </p>
             <p>
                 There's a special navigational component, <code>More</code>, for just the previous
@@ -61,7 +43,7 @@ export const Page: PageType = () => (
                 <code>text</code> prop. It accepts the same <code>next</code> props as{' '}
                 <code>Choice</code>.
             </p>
-            <SyntaxHighlighter language="jsx" style={prism}>
+            <SyntaxHighlighter language="tsx" style={prism}>
                 {`<More text="Click for more" />`}
             </SyntaxHighlighter>
             <aside>
@@ -77,7 +59,7 @@ export const Page: PageType = () => (
                 Note that we use a <code>Choice</code> here because we'll print a custom{' '}
                 <code>Response</code> after this jump.
             </p>
-            <SyntaxHighlighter language="jsx" style={prism}>
+            <SyntaxHighlighter language="tsx" style={prism}>
                 {` <C options={[['Go to chapter 1', null]]}
     tag="c3-chapter1"
     next={'chapter1'} />`}
