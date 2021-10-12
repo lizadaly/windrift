@@ -6,10 +6,13 @@
 .main {
     p {
         font-size: 20px;
-        padding: 1rem 0;
     }
-    pre {
+    pre, code {
         font-size: 15px !important;
+    }
+    code {
+        background: color.scale(colors.$cool, $lightness: 80%);
+        padding: 3px;
     }
     aside {
         border: 1px solid color.scale(colors.$cool, $lightness: 50%);
@@ -25,4 +28,5 @@
         text-transform: uppercase;
         margin-bottom: 1rem;
     }
+
 }

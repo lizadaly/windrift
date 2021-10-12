@@ -1,8 +1,7 @@
 title: ${story}
 language: en
 chapters:
-  - chapter:
-    filename: "chapter1"
+  - filename: "chapter1"
     title: "Chapter title"
 players:
   - start: "chapter1"

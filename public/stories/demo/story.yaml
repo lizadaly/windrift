@@ -1,8 +1,10 @@
 title: A Windrift Demo
 language: en
 chapters:
-  - filename: "chapter1"
-    title: "Chapter One"
+  - filename: "structure"
+    title: "Story structure"
+  - filename: "choices"
+    title: "Choices"
   - filename: "chapter2"
     title: "Chapter Two"
   - filename: "chapter3"
@@ -10,4 +12,4 @@ chapters:
   - filename: "chapter4"
     title: "Chapter Four"
 players:
-  - start: "chapter1"
+  - start: "structure"
