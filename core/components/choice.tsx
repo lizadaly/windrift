@@ -30,6 +30,8 @@ interface MutableChoiceProps {
 }
 export interface ChoiceProps extends MutableChoiceProps {
     options: OptionGroup
+    /** Default value to populate the inventory without firing the Choice */
+    defaultOption?: Option
 }
 
 const Choice = ({
@@ -40,6 +42,7 @@ const Choice = ({
     next = Next.Section,
     persist = false,
     first = null,
+    defaultOption = null,
     last = null
 }: ChoiceProps): JSX.Element => {
     const dispatch = useDispatch()
@@ -53,6 +56,10 @@ const Choice = ({
         }
 
         dispatch(init({ tag, options: o }))
+
+        if (defaultOption) {
+            dispatch(updateInventory({ tag, selection: defaultOption }))
+        }
         initialize(true)
     }, [dispatch])
 

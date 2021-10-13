@@ -1,72 +1,112 @@
 import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter'
 import tsx from 'react-syntax-highlighter/dist/esm/languages/prism/tsx'
+import typescript from 'react-syntax-highlighter/dist/esm/languages/prism/typescript'
+
 import prism from 'react-syntax-highlighter/dist/esm/styles/prism/material-oceanic'
 
 SyntaxHighlighter.registerLanguage('tsx', tsx)
-
+SyntaxHighlighter.registerLanguage('typescript', typescript)
 import { Next } from 'core/reducers/navigation'
-import { C, Section, Chapter, More } from 'core/components'
+import { C, Section, Chapter, Nav } from 'core/components'
 import { PageType } from 'core/types'
 
 export const Page: PageType = () => (
-    <Chapter filename="chapter3">
+    <Chapter filename="navigation">
         <Section>
-            <h1>Chapter 3: Navigation</h1>
-            <p>By default, exhausting the choice list will move to the next section.</p>
+            <h1>Navigation</h1>
             <p>
-                Note: from here on we'll use the <code>C</code> short form for all{' '}
-                <code>Choice</code> components, since that's likely how you'll write them.
+                By default, exhausting a choice list will reveal the subsequent <code>Section</code>{' '}
+                in the current <code>Chapter</code>.
+            </p>
+            <p>
+                (Note: from here on we'll use the <code>C</code> short form for all{' '}
+                <code>Choice</code> components, since that's likely how you'll write them.)
             </p>
             <SyntaxHighlighter language="tsx" style={prism}>
-                {`<C options={['One', 'Two', 'Three']} tag="c3-next" />`}
+                {`import { C } from 'core/components'
+[...]
+<C options={['Click me', null]}  tag="continue" />`}
             </SyntaxHighlighter>
             <aside>
-                <C options={['One', 'Two', 'Three']} tag="c3-next" />
+                <C options={['Click me', null]} tag="continue" />
             </aside>
         </Section>
 
         <Section>
+            <h3>
+                Using <kbd>next</kbd>
+            </h3>
             <p>
-                You can also navigate to a named chapter, skipping over any remaining sections, or
-                set <code>next=Next.None</code> to do nothing.
+                You can change this behavior by modifying the <code>next</code> parameter passed to
+                a given choice. You can navigate to a named chapter, skipping over any remaining
+                sections, or to do nothing.
             </p>
+            <p>
+                The options are represented by the enum <code>Next</code>:
+            </p>
+
+            <SyntaxHighlighter language="typescript" style={prism}>{`export enum Next {
+    Section = 'SECTION',  // The default
+    Chapter = 'CHAPTER',
+    None = 'NONE'
+}`}</SyntaxHighlighter>
+            <p>Here's how you'd use it:</p>
             <SyntaxHighlighter language="tsx" style={prism}>
-                {`<C options={['This is a no-op.', 'Clicked!']} tag="c3-noop" next={Next.None} />`}
+                {`<C options={['This is a no-op.', null]} last="Clicked!" tag="noop"
+    next={Next.None} />`}
             </SyntaxHighlighter>
+            <aside>
+                <C
+                    options={['This is a no-op.', null]}
+                    last="Clicked!"
+                    tag="noop"
+                    next={Next.None}
+                />
+            </aside>
+            <h3>
+                Navigating without a choice: Using <kbd>Nav</kbd>
+            </h3>
             <p>
-                <C options={['This is a no-op.', 'Clicked!']} tag="c3-noop" next={Next.None} />
-            </p>
-            <p>
-                There's a special navigational component, <code>More</code>, for just the previous
+                There's a special navigational component, <code>Nav</code>, for just the previous
                 case of a link with a single item that advances the story by section or chapter
                 title. By default it will print "More..." but you can customize this with the{' '}
                 <code>text</code> prop. It accepts the same <code>next</code> props as{' '}
-                <code>Choice</code>.
+                <code>Choice</code>, with the default being "go to the next section in the current
+                chapter".
             </p>
             <SyntaxHighlighter language="tsx" style={prism}>
-                {`<More text="Click for more" />`}
+                {`<Nav text="Click for more..." />`}
             </SyntaxHighlighter>
             <aside>
-                <More text="Click for more" />
+                <Nav text="Click for more..." />
             </aside>
         </Section>
         <Section>
+            <h3>Navigating to a specific chapter</h3>
             <p>
-                Passing a string as the <code>next</code> parameter will jump the narrative to that
-                chapter's filename. (You can't jump to a section, and the chapter must be named.)
-            </p>
-            <p>
-                Note that we use a <code>Choice</code> here because we'll print a custom{' '}
-                <code>Response</code> after this jump.
+                Passing a string as the <code>next</code> parameter in either of a{' '}
+                <code>Choice</code> or <code>Nav</code> component will jump the narrative to that
+                chapter's filename. You can't jump to a section, and because chapters are not
+                naturally ordered, its filename must be provided.
             </p>
             <SyntaxHighlighter language="tsx" style={prism}>
-                {` <C options={[['Go to chapter 1', null]]}
-    tag="c3-chapter1"
-    next={'chapter1'} />`}
+                {` <Nav text="Learn about deployment" next="deployment" />`}
             </SyntaxHighlighter>
-            <aside>
-                <C options={[['Go to chapter 1', null]]} tag="c3-chapter1" next={'chapter1'} />
-            </aside>
+
+            <h3>Persisting the hyperlink</h3>
+            <p>
+                Normally clicking on a linked choice or nav component will remove the hyperlink when
+                the user has clicked it, indicating that no more options are available. To have the
+                link behave more like a traditional web hyperlink, pass the parameter{' '}
+                <code>persist</code>
+                and set it to <code>true</code>. This will cause the hyperlink to "persist" after
+                clicking, and is most useful when presenting navigation on a chapter that can be
+                visited more than once. (For linear stories, it will usually have no effect because
+                the reader has moved on, and for section navigation, it would just be confusing as
+                the next section has already been revealed.)
+            </p>
+
+            <Nav text="Learn about deployment" next="deployment" />
         </Section>
     </Chapter>
 )

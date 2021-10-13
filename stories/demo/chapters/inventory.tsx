@@ -12,6 +12,7 @@ import useInventory from 'core/hooks/use-inventory'
 
 export const Page: PageType = () => {
     const fruit = useInventory('fruit')
+    const cravat = useInventory('cravat')
     return (
         <Chapter filename="inventory">
             <Section>
@@ -121,6 +122,30 @@ export const Page: PageType = () => {
                 <p>
                     Because a <code>Response</code> match can be any React node, you can branch from
                     this point as much or as little as you like.
+                </p>
+                <h3>
+                    A note about <kbd>last</kbd> parameters
+                </h3>
+                <p>
+                    Be aware that if you write a <code>Choice</code> including a <code>last</code>{' '}
+                    parameter, the value of <code>last</code> is <em>not</em> stored in the
+                    inventory—the inventory value will be whatever option the user selected from the{' '}
+                    <code>option</code> array. Use <code>last</code> only for narrative effect. A
+                    design principle of Windrift is that it should always be clear to the user that
+                    a option was deliberately selected. (This is one reason why Twine-style{' '}
+                    <a href="https://twinery.org/cookbook/cycling/chapbook/chapbook_cycling.html">
+                        cycling links
+                    </a>{' '}
+                    that never resolve are not directly supported—it's not obvious to the reader
+                    whether the choice is the option-last-clicked or the linked option remaining
+                    on-screen.) An exception to this rule is made for default options, to allow for
+                    the case where a choice may never be presented to a user because they did not
+                    uncover that path.
+                </p>
+                <p>
+                    (Speaking of default options: if you didn't make a selection for the{' '}
+                    <code>defaultOption</code> example in the previous section, you should see
+                    "magenta" here: <code>{cravat}</code> )
                 </p>
                 <Nav text="Learn about navigation..." next="navigation" />
             </Section>

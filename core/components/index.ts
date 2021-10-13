@@ -11,5 +11,5 @@ export { default as Response } from './response'
 
 export { default as C } from './choice'
 export { default as Choice } from './choice'
-export { default as Nav } from './navigation'
-export { default as More } from './more'
+
+export { default as Nav } from './nav'
