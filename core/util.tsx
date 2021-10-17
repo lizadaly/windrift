@@ -1,24 +1,31 @@
 import { Toc, TocItem } from 'core/types'
+import { Selection } from 'core/reducers/inventory'
 
-/* A function that returns the most-significant word from a phrase,
-typically in the inventory list (e.g. "a tired-looking cap"). Nothing
-magic here, just returns the last word, typically the noun, unless `offset`
+const OFFSET_DEFAULT = -1
+
+/* A function that returns the most-significant word from a
+phrase, typically an inventory selection.
+
+Just returns the last word, typically the noun, unless `offset`
 is deliberately set to a value.
 
-If offset is explicitly set to `null` (versus undefined), return the
-entire inventory value unmodified.
 
 If `offset` exceeds the length of the string, the default offset value
 will be used.
+
+If the English-language default value is undesirable, wrap this in a language-specific
+function that overrides the default.
  */
 
-export const wordFromInventory = (inventory: string, offset = -1): string => {
+export const wordFromInventory = (selection: Selection, offset = OFFSET_DEFAULT): Selection => {
     if (offset === null) {
-        return inventory
+        return selection
     }
-    const inv = inventory ? inventory.split(' ') : ''
-    const out = offset === -1 ? inv[inv.length - 1] : inv[offset]
-    return out
+    if (selection) {
+        const words = selection.split(' ')
+        return words.slice(offset)[0]
+    }
+    return null
 }
 
 export const getChapter = (toc: Toc, filename: string): TocItem =>
