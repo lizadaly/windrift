@@ -3,7 +3,7 @@ import * as React from 'react'
 import Head from 'next/head'
 
 import ResetButton from './reset-button'
-import { StoryContext } from 'pages/[story]'
+import { StoryContext } from 'pages/[story]/[[...chapter]]'
 
 export type GridProps = {
     head?: React.ReactNode

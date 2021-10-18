@@ -63,12 +63,16 @@ export const getStaticPaths: GetStaticPaths = async () => {
         .readdirSync(storyDirs, { withFileTypes: true })
         .filter((dir) => dir.isDirectory())
         .map((dir) => {
-            return {
-                params: {
-                    story: dir.name
+            return [
+                {
+                    params: {
+                        story: dir.name,
+                        chapter: null // TODO extend to pre-render all chapter paths
+                    }
                 }
-            }
+            ]
         })
+        .flat()
     console.log(paths)
     return { paths, fallback: false }
 }
@@ -79,9 +83,9 @@ type ContextProps = {
 }
 export const StoryContext = React.createContext<Partial<ContextProps>>({})
 
-export default function Home(props: WindriftProps): JSX.Element {
+export default function Start(props: WindriftProps): JSX.Element {
     const router = useRouter()
-    const { story } = router.query
+    const { story, chapter } = router.query
     const { toc, configYaml } = props
     const config = new Config(
         story as string,
@@ -97,13 +101,15 @@ export default function Home(props: WindriftProps): JSX.Element {
         storage: storage,
         blacklist: ['config']
     }
-
-    // In a single player story, set the visible chapter as the start
-    if (config.players && config.players.length === 1) {
-        const start = getChapter(toc, config.players[0].start)
-        start.visible = true
+    if (chapter) {
+        const chapters = Object.values(toc)
+        chapters.filter((i) => i.visible).forEach((i) => (i.visible = false))
+        getChapter(toc, chapter[0]).visible = true
     }
-
+    // In a single player story, set the visible chapter as the start
+    else if (config.players && config.players.length === 1) {
+        getChapter(toc, config.players[0].start).visible = true
+    }
     const persistedReducers = persistReducer(persistConfig, reducers)
 
     const store = configureStore({

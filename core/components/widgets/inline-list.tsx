@@ -10,9 +10,9 @@ interface InlineListProps extends WidgetProps {
 }
 declare function InlineListType(props: InlineListProps): JSX.Element
 
-const InlineList: typeof InlineListType = ({
+export const InlineList: typeof InlineListType = ({
     separator = ', ',
-    conjunction = 'and',
+    conjunction = 'or',
     group = null,
     handler = null,
     tag = null
@@ -34,5 +34,10 @@ const InlineList: typeof InlineListType = ({
         </>
     )
 }
-
-export default InlineList
+export const InlineListEN: typeof InlineList = ({
+    separator = ', ',
+    conjunction = 'or',
+    group = null,
+    handler = null,
+    tag = null
+}: InlineListProps): JSX.Element => InlineList({ separator, conjunction, group, handler, tag })

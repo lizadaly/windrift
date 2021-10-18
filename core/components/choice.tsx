@@ -8,11 +8,11 @@ import { increment } from 'core/reducers/counter'
 import { gotoChapter, Next, incrementSection } from 'core/reducers/navigation'
 
 import { ChapterContext } from './chapter'
-import InlineList from './widgets/inline-list'
+import { InlineListEN } from './widgets/inline-list'
 import { update as updateInventory } from 'core/reducers/inventory'
 import { ENTRY_TYPES, update as logUpdate } from 'core/reducers/log'
-import { init, advance, Options, OptionGroup } from 'core/reducers/choice'
-import { StoryContext } from 'pages/[story]'
+import { init, advance, Option, Options, OptionGroup } from 'core/reducers/choice'
+import { StoryContext } from 'pages/[story]/[[...chapter]]'
 
 interface MutableChoiceProps {
     tag: string
@@ -23,20 +23,26 @@ interface MutableChoiceProps {
     extra?: Record<string, unknown>
     /** Whether to retain the last choice as a hyperlink, as for navigation. @defaultValue false */
     persist?: boolean
+    /** Text to display first (at start) instead of the options list */
+    first?: Option
     /** Text to display last (at completion) instead of the default last-chosen item  */
-    last?: string
+    last?: Option
 }
 export interface ChoiceProps extends MutableChoiceProps {
-    options: Options
+    options: OptionGroup
+    /** Default value to populate the inventory without firing the Choice */
+    defaultOption?: Option
 }
 
 const Choice = ({
     options,
     tag,
     extra,
-    widget = InlineList,
+    widget = InlineListEN,
     next = Next.Section,
     persist = false,
+    first = null,
+    defaultOption = null,
     last = null
 }: ChoiceProps): JSX.Element => {
     const dispatch = useDispatch()
@@ -44,7 +50,16 @@ const Choice = ({
 
     // On first render, record the initial options, then render the choice list
     React.useEffect(() => {
-        dispatch(init({ tag, options }))
+        let o: Options = [options]
+        if (first) {
+            o = [[first, null], [...options]]
+        }
+
+        dispatch(init({ tag, options: o }))
+
+        if (defaultOption) {
+            dispatch(updateInventory({ tag, selection: defaultOption }))
+        }
         initialize(true)
     }, [dispatch])
 

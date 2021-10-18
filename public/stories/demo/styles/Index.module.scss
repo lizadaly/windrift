@@ -6,23 +6,94 @@
 .main {
     p {
         font-size: 20px;
-        padding: 1rem 0;
     }
-    pre {
+    pre, code {
         font-size: 15px !important;
+    }
+    code {
+        background: color.scale(colors.$cool, $lightness: 80%);
+        padding: 3px;
     }
     aside {
         border: 1px solid color.scale(colors.$cool, $lightness: 50%);
         color: colors.$cool;
         padding: 1rem;
 
+        &::before {
+            content: "Example: ";
+            display: block;
+            color: color.scale(colors.$cool, $lightness: 70%);
+            padding: .25rem;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        &.advanced {
+            background: color.scale(colors.$cool, $lightness: 70%);
+            h1, h2, h3, h4, h5, h6 {
+                color: colors.$cool;
+            }
+            &::before {
+                content: "Advanced technique: ";
+                color: colors.$cool;
+                display: block;
+                padding: .25rem;
+                text-transform: uppercase;
+                margin-bottom: 1rem;
+            }
+        }
+        &.warning {
+            border-color: colors.$warning;
+            color: color.scale(colors.$very-dark, $lightness: 10%);
+            &::before {
+                content: "Warning: ";
+                text-transform: uppercase;
+                color: colors.$warning;
+
+            }
+
+        }
     }
-    aside::before {
-        content: "Example: ";
-        display: block;
-        color: color.scale(colors.$cool, $lightness: 70%);
-        padding: .25rem;
-        text-transform: uppercase;
-        margin-bottom: 1rem;
+    button {
+
+        padding: .5rem;
+        margin: 0;
+        &.warning {
+            background: colors.$warning;
+            color: colors.$very-light;
+        }
+    }
+    .link {
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        text-decoration: underline;
+        display: inline;
+        margin: 0;
+        padding: 0;
+        color: colors.$very-dark;
+    }
+    .current {
+        @extend .link;
+        cursor: inherit;
+        text-decoration: none;
+    }
+    .toc {
+        list-style-type: none;
+
+        ol {
+            margin: 0;
+            padding: 0;
+            display: inline;
+            li {
+              display: inline;
+            }
+            li::after {
+                content: " | ";
+            }
+            li:last-child::after {
+                content: none;
+            }
+        }
     }
 }

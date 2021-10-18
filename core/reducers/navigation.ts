@@ -2,7 +2,6 @@ import undoable from 'redux-undo'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 import { Toc } from 'core/types'
-
 import { getChapter } from 'core/util'
 
 export enum Next {
