@@ -12,7 +12,7 @@ import { InlineListEN } from './widgets/inline-list'
 import { update as updateInventory } from 'core/reducers/inventory'
 import { ENTRY_TYPES, update as logUpdate } from 'core/reducers/log'
 import { init, advance, Option, Options, OptionGroup } from 'core/reducers/choice'
-import { StoryContext } from 'pages/[story]'
+import { StoryContext } from 'pages/[story]/[[...chapter]]'
 
 interface MutableChoiceProps {
     tag: string

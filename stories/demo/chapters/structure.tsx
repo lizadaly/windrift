@@ -9,8 +9,7 @@ SyntaxHighlighter.registerLanguage('tsx', tsx)
 SyntaxHighlighter.registerLanguage('json', json)
 SyntaxHighlighter.registerLanguage('bash', bash)
 
-import { C, R, Section, Chapter, Nav } from 'core/components'
-import { BulletedList } from 'core/components/widgets'
+import { Section, Chapter, Nav } from 'core/components'
 import { PageType } from 'core/types'
 
 export const Page: PageType = () => (
@@ -63,7 +62,7 @@ $ npm run new example-story`}
                     followed by the content itself. Use regular HTML inside each{' '}
                     <code>Section</code> to mark up your story:
                 </p>
-                <SyntaxHighlighter language="jsx" style={prism}>
+                <SyntaxHighlighter language="tsx" style={prism}>
                     {`// example.tsx
 import { Section, Chapter } from 'core/components'
 import { PageType } from 'core/types'
@@ -112,7 +111,7 @@ players:
             <p>
                 Each chapter item in the JSON array is a discrete chapter. The filename of the
                 chapter <em>must</em> match as either <code>filename.tsx</code> (TypeScript) or{' '}
-                <code>filename.jsx</code> (JavaScript). TypeScript is strongly recommended,
+                <code>filename.tsx</code> (JavaScript). TypeScript is strongly recommended,
                 especially when paired with a code editor like VSCode that understands TypeScript
                 natively. This value must also match the contents of the{' '}
                 <code>&lt;Chapter filename="example"&gt;</code> attribute. Although expressed as an

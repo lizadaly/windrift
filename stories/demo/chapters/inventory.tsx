@@ -7,7 +7,7 @@ SyntaxHighlighter.registerLanguage('tsx', tsx)
 
 import styles from 'public/stories/demo/styles/Index.module.scss'
 
-import { C, R, Section, Chapter, Nav } from 'core/components'
+import { R, Section, Chapter, Nav } from 'core/components'
 
 import { PageType } from 'core/types'
 import useInventory from 'core/hooks/use-inventory'
@@ -24,6 +24,13 @@ export const Page: PageType = () => {
         <Chapter filename="inventory">
             <Section>
                 <h2>Inventory and Responses</h2>
+                {fruit ? null : (
+                    <aside className={styles.warning}>
+                        This section expects that you made some selections in the section on{' '}
+                        <Nav text="Choices" next="choices" />. You might want to{' '}
+                        <Nav text="visit" next="choices" /> that first before reading this section.
+                    </aside>
+                )}
                 <p>
                     Whenever a user selects an option from a <code>Choice</code>, the option text is
                     added to a global store called the <code>Inventory</code>. The inventory is a
@@ -177,10 +184,17 @@ wordFromInventory(fruit, -2) // ${wordFromInventory(fruit, -2)}`}
                         example:
                     </p>
                     <button
+                        className={styles.warning}
                         onClick={() => {
                             dispatch(update({ tag: 'set-by-author', selection: 'pumpkin patch' }))
                         }}>
-                        Click me
+                        Set the value
+                    </button>{' '}
+                    <button
+                        onClick={() => {
+                            dispatch(update({ tag: 'set-by-author', selection: null }))
+                        }}>
+                        Unset the value
                     </button>
                     <SyntaxHighlighter language="tsx" style={prism}>
                         {`export const Page: PageType = () => {
@@ -192,7 +206,13 @@ wordFromInventory(fruit, -2) // ${wordFromInventory(fruit, -2)}`}
                     onClick={() => {
                         dispatch(update({ tag: 'set-by-author', selection: 'pumpkin patch' }))
                     }}>
-                    Click me
+                    Set the value
+                </button>
+                <button
+                    onClick={() => {
+                        dispatch(update({ tag: 'set-by-author', selection: null }))
+                    }}>
+                    Unset the value
                 </button>
                 <p>Value set by the story author: {byAuthor}</p>
                 <!-- Current value: ${byAuthor}  -->

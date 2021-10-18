@@ -13,9 +13,9 @@ import { ChapterContext } from './chapter'
 
 interface Props {
     /** The displayed text for the link */
-    text?: string
-    /** The chapter name or section, default */
-    next?: string
+    text: string
+    /** The chapter name or section */
+    next: string
     /** Whether to continue to display the hyperlink or not */
     persist?: boolean
 }
