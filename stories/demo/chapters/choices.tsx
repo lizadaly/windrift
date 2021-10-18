@@ -170,7 +170,7 @@ export const Page: PageType = () => (
                         defaultOption="magenta"
                         tag="cravat"
                     />{' '}
-                    (don't select an item here)
+                    (don't select an item here—we'll revisit this in the next section)
                 </p>
             </aside>
             <h3>Cycling choices</h3>

@@ -69,16 +69,15 @@ export const Page: PageType = () => (
             <p>
                 There's a special navigational component, <code>Nav</code>, for just the previous
                 case of a link with a single item that advances the story by section or chapter
-                title. By default it will print "More..." but you can customize this with the{' '}
-                <code>text</code> prop. It accepts the same <code>next</code> props as{' '}
-                <code>Choice</code>, with the default being "go to the next section in the current
-                chapter".
+                title. Two props are required: <code>text</code>, which will be the text of the
+                link, and <code>next</code>, which accepts the same values as
+                <code>Choice</code>, but there is no provided default.
             </p>
             <SyntaxHighlighter language="tsx" style={prism}>
-                {`<Nav text="Click for more..." />`}
+                {`<Nav text="Click for more..." next={Next.Section} />`}
             </SyntaxHighlighter>
             <aside>
-                <Nav text="Click for more..." />
+                <Nav text="Click for more..." next={Next.Section} />
             </aside>
         </Section>
         <Section>
@@ -92,7 +91,6 @@ export const Page: PageType = () => (
             <SyntaxHighlighter language="tsx" style={prism}>
                 {` <Nav text="Learn about deployment" next="deployment" />`}
             </SyntaxHighlighter>
-
             <h3>Persisting the hyperlink</h3>
             <p>
                 Normally clicking on a linked choice or nav component will remove the hyperlink when
@@ -105,8 +103,7 @@ export const Page: PageType = () => (
                 the reader has moved on, and for section navigation, it would just be confusing as
                 the next section has already been revealed.)
             </p>
-
-            <Nav text="Learn about deployment" next="deployment" />
+            <p>TODO: sample game, deployment, images, CSS</p>
         </Section>
     </Chapter>
 )
