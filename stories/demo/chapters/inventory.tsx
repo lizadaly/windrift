@@ -7,7 +7,7 @@ SyntaxHighlighter.registerLanguage('tsx', tsx)
 
 import styles from 'public/stories/demo/styles/Index.module.scss'
 
-import { R, Section, Chapter, Nav } from 'core/components'
+import { R, Section, Chapter, Nav, When } from 'core/components'
 
 import { PageType } from 'core/types'
 import useInventory from 'core/hooks/use-inventory'
@@ -19,6 +19,7 @@ export const Page: PageType = () => {
     const dispatch = useDispatch()
     const fruit = useInventory('fruit')
     const cravat = useInventory('cravat')
+    const tree = useInventory('tree')
     const byAuthor = useInventory('set-by-author')
     return (
         <Chapter filename="inventory">
@@ -63,6 +64,7 @@ export const Page: PageType = () => {
         </Chapter>
     )`}
                 </SyntaxHighlighter>
+
                 <p>
                     Often selections will contain multiple words, when in the narrative you may want
                     to only pick the noun. In English, this is typically the last word in the
@@ -109,11 +111,11 @@ wordFromInventory(fruit, -2) // ${wordFromInventory(fruit, -2)}`}
                         to={{
                             banana: (
                                 <span>
-                                    You picked <b>a nice</b> banana
+                                    You picked <b>a nice</b> banana.
                                 </span>
                             ),
-                            orange: 'You picked a spherical orange',
-                            kiwi: 'You picked the fuzziest of kiwis'
+                            orange: 'You picked a spherical orange.',
+                            kiwi: 'You picked the fuzziest of kiwis.'
                         }}
                     />
                 </aside>
@@ -139,16 +141,56 @@ wordFromInventory(fruit, -2) // ${wordFromInventory(fruit, -2)}`}
                     <R
                         tag="fruit"
                         to={{
-                            'r?pe ban*': 'This also matches banana',
-                            bulbous: 'This matches "bulbous orange"',
-                            '*iw*': 'This also matches kiwi'
+                            'r?pe ban*': 'This also matches banana.',
+                            bulbous: 'This matches "bulbous orange."',
+                            '*iw*': 'This also matches kiwi.'
                         }}
                     />
-                    .
                 </aside>
                 <p>
                     Because a <code>Response</code> match can be any React node, you can branch from
                     this point as much or as little as you like.
+                </p>
+                <h3>
+                    Conditional text with <kbd>When</kbd>
+                </h3>
+                <p>
+                    Another way to react to inventory changes, or any changes to the Windrift story
+                    state, is to use the <code>When</code> component. It's got a straightforward
+                    signature: when the <code>condition</code> evaluates to <code>true</code>,
+                    display any child contents. If the <em>optional</em> prop <code>otherwise</code>{' '}
+                    is passed, use that node instead.
+                </p>
+                <SyntaxHighlighter language="tsx" style={prism}>
+                    {`export const Page: PageType = () => {
+    const fruit = useInventory('fruit')
+    const tree = useInventory('tree')
+
+    return (<Chapter filename="inventory">
+        <Section>
+            <When
+                condition={fruit || tree}
+                otherwise={<p>You haven't selected either option!</p>}>
+                <p>You selected either a fruit or a tree, or both.
+                (fruit="{fruit}", tree="{tree}")</p>
+            </When>
+        </Section>
+    </Chapter>)`}
+                </SyntaxHighlighter>
+                <aside>
+                    <When
+                        condition={fruit || tree}
+                        otherwise={<p>You haven't selected either option!</p>}>
+                        <p>
+                            You selected either a fruit or a tree, or both. (fruit="
+                            {fruit}", tree="{tree}")
+                        </p>
+                    </When>
+                </aside>
+                <p>
+                    The <code>Response</code> component specifically expects to receive inventory
+                    tag arguments, as this will make up the bulk of your Windrift story, but{' '}
+                    <code>When</code> accepts any expression that can be evaluated for truthiness.
                 </p>
                 <h3>
                     A note about <kbd>last</kbd> parameters

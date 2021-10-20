@@ -12,4 +12,5 @@ export { default as Response } from './response'
 export { default as C } from './choice'
 export { default as Choice } from './choice'
 
-export { default as Nav } from './nav'
+export { default as Nav } from 'core/components/nav'
+export { default as When } from './when'
