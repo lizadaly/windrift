@@ -1,19 +1,12 @@
-import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter'
-import tsx from 'react-syntax-highlighter/dist/esm/languages/prism/tsx'
-
-import prism from 'react-syntax-highlighter/dist/esm/styles/prism/material-oceanic'
-
-SyntaxHighlighter.registerLanguage('tsx', tsx)
-
-import styles from 'public/stories/demo/styles/Index.module.scss'
+import { useDispatch } from 'react-redux'
 
 import { R, Section, Chapter, Nav, When } from 'core/components'
-
 import { PageType } from 'core/types'
 import useInventory from 'core/hooks/use-inventory'
-import { useDispatch } from 'react-redux'
 import { update } from 'core/reducers/inventory'
 import { wordFromInventory } from 'core/util'
+
+import { SyntaxHighlighter, prism, styles } from '..'
 
 export const Page: PageType = () => {
     const dispatch = useDispatch()

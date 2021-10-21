@@ -1,8 +1,4 @@
-import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter'
-import tsx from 'react-syntax-highlighter/dist/esm/languages/prism/tsx'
-import prism from 'react-syntax-highlighter/dist/esm/styles/prism/material-oceanic'
-
-SyntaxHighlighter.registerLanguage('tsx', tsx)
+import { SyntaxHighlighter, prism } from '..'
 
 import { C, Section, Chapter, Nav } from 'core/components'
 import { BulletedList } from 'core/components/widgets'

@@ -9,5 +9,12 @@ chapters:
     title: "Inventory and Responses"
   - filename: "navigation"
     title: "Navigation"
+  - filename: "sample-ascent"
+    title: "Ascent (Sample story)"
+  - filename: "sample-summit"
+    title: "Summit (Sample story)"
+  - filename: "sample-descent"
+    title: "Descent (Sample story)"
+
 players:
   - start: "structure"

@@ -1,16 +1,6 @@
-import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter'
-import tsx from 'react-syntax-highlighter/dist/esm/languages/prism/tsx'
-import json from 'react-syntax-highlighter/dist/esm/languages/prism/json'
-import bash from 'react-syntax-highlighter/dist/esm/languages/prism/bash'
-
-import prism from 'react-syntax-highlighter/dist/esm/styles/prism/material-oceanic'
-
-SyntaxHighlighter.registerLanguage('tsx', tsx)
-SyntaxHighlighter.registerLanguage('json', json)
-SyntaxHighlighter.registerLanguage('bash', bash)
-
 import { Section, Chapter, Nav } from 'core/components'
 import { PageType } from 'core/types'
+import { SyntaxHighlighter, prism } from '..'
 
 export const Page: PageType = () => (
     <Chapter filename="structure">

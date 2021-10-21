@@ -1,14 +1,8 @@
-import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter'
-import tsx from 'react-syntax-highlighter/dist/esm/languages/prism/tsx'
-import typescript from 'react-syntax-highlighter/dist/esm/languages/prism/typescript'
-
-import prism from 'react-syntax-highlighter/dist/esm/styles/prism/material-oceanic'
-
-SyntaxHighlighter.registerLanguage('tsx', tsx)
-SyntaxHighlighter.registerLanguage('typescript', typescript)
 import { Next } from 'core/reducers/navigation'
 import { C, Section, Chapter, Nav } from 'core/components'
 import { PageType } from 'core/types'
+
+import { SyntaxHighlighter, prism } from '..'
 
 export const Page: PageType = () => (
     <Chapter filename="navigation">
@@ -103,7 +97,10 @@ export const Page: PageType = () => (
                 the reader has moved on, and for section navigation, it would just be confusing as
                 the next section has already been revealed.)
             </p>
-            <p>TODO: sample game, deployment, images, CSS</p>
+            <Nav
+                text="Let's work through a fully-realized example story next..."
+                next="sample-ascent"
+            />
         </Section>
     </Chapter>
 )
