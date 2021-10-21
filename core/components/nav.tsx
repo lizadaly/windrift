@@ -5,10 +5,10 @@
  * after clicking.
  */
 import React, { useContext } from 'react'
-import { useId } from 'react-id-generator'
 import { BaseList } from './widgets'
 import { Choice } from 'core/components'
 import { Next } from 'core/reducers/navigation'
+import { Tag } from 'core/types'
 import { ChapterContext } from './chapter'
 
 interface Props {
@@ -18,12 +18,25 @@ interface Props {
     next: string
     /** Whether to continue to display the hyperlink or not */
     persist?: boolean
+    /** Tag to be supplied if the text string is non-unique */
+    tag?: Tag
 }
-const Nav = ({ text = 'More...', next = Next.Section, persist = false }: Props): JSX.Element => {
+const Nav = ({
+    text = 'More...',
+    next = Next.Section,
+    persist = false,
+    tag = undefined
+}: Props): JSX.Element => {
     const { filename } = useContext(ChapterContext)
-    const [tag] = useId(1, `nav-link-${filename}`)
+
     return (
-        <Choice options={[text, null]} widget={BaseList} tag={tag} next={next} persist={persist} />
+        <Choice
+            options={[text, null]}
+            widget={BaseList}
+            tag={tag || `${filename}-${next}-${text.replace(' ', '-').toLowerCase()}`}
+            next={next}
+            persist={persist}
+        />
     )
 }
 export default Nav

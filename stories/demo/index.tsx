@@ -3,11 +3,11 @@ import * as React from 'react'
 import Grid from 'core/components/ui/grid'
 
 import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter'
-import tsx from 'react-syntax-highlighter/dist/esm/languages/prism/tsx'
-import json from 'react-syntax-highlighter/dist/esm/languages/prism/json'
-import bash from 'react-syntax-highlighter/dist/esm/languages/prism/bash'
+import tsx from 'react-syntax-highlighter/dist/cjs/languages/prism/tsx'
+import json from 'react-syntax-highlighter/dist/cjs/languages/prism/json'
+import bash from 'react-syntax-highlighter/dist/cjs/languages/prism/bash'
 
-import prism from 'react-syntax-highlighter/dist/esm/styles/prism/material-oceanic'
+import prism from 'react-syntax-highlighter/dist/cjs/styles/prism/material-oceanic'
 
 SyntaxHighlighter.registerLanguage('tsx', tsx)
 SyntaxHighlighter.registerLanguage('json', json)
@@ -21,10 +21,16 @@ const Index: React.FC = ({ children }) => {
         <Grid
             styles={styles}
             head={
-                <style>
-                    @import
-                    url('https://fonts.googleapis.com/css2?family=EB+Garamond&family=Elsie&display=swap');
-                </style>
+                <>
+                    <link rel="preconnect" href="https://fonts.googleapis.com"></link>
+                    <link
+                        rel="preconnect"
+                        href="https://fonts.gstatic.com"
+                        crossOrigin="crossorigin"></link>
+                    <link
+                        href="https://fonts.googleapis.com/css2?family=Nunito:wght@300&family=EB+Garamond&family=Elsie&display=swap"
+                        rel="stylesheet"></link>
+                </>
             }>
             <TableOfContents />
             {children}

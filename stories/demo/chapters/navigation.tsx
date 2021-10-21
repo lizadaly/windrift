@@ -73,6 +73,14 @@ export const Page: PageType = () => (
             <aside>
                 <Nav text="Click for more..." next={Next.Section} />
             </aside>
+            <p>
+                The <code>Nav</code> component uses <code>Choice</code> under the hood, and so
+                requires a unique <code>tag</code> to correctly persist whether it's been clicked.
+                By default the component will try to generate a unique tag out of the chapter
+                filename, the supplied text, and the value of <code>next</code>, but if you find
+                that it's displaying the wrong text value or otherwise behaving strangely, you can
+                supply a <code>tag</code> prop as well. Make it unique!
+            </p>
         </Section>
         <Section>
             <h3>Navigating to a specific chapter</h3>
@@ -98,7 +106,7 @@ export const Page: PageType = () => (
                 the next section has already been revealed.)
             </p>
             <Nav
-                text="Let's work through a fully-realized example story next..."
+                text="Let's work through a fully-realized example story now..."
                 next="sample-ascent"
             />
         </Section>

@@ -51,7 +51,16 @@
                 color: colors.$warning;
 
             }
+        }
+        &.note {
+            border-color: colors.$cool;
+            color: colors.$cool;
+            &::before {
+                content: "Note: ";
+                text-transform: uppercase;
+                color: colors.$cool;
 
+            }
         }
     }
     button {
@@ -94,6 +103,12 @@
             li:last-child::after {
                 content: none;
             }
+        }
+    }
+    .sample {
+        font-family: Nunito, serif;
+        h1, h2, h3, h4, h5, h6 {
+            color: colors.$very-dark;
         }
     }
 }
