@@ -1,6 +1,6 @@
 import { SyntaxHighlighter, prism } from '..'
 
-import { C, Section, Chapter, Nav } from 'core/components'
+import { Choice, Section, Chapter, Nav } from 'core/components'
 import { BulletedList } from 'core/components/widgets'
 import { PageType } from 'core/types'
 import { Next } from 'core/reducers/navigation'
@@ -24,7 +24,7 @@ export const Page: PageType = () => (
             </SyntaxHighlighter>
             <aside>
                 Would you like a{' '}
-                <C options={['ripe banana', 'bulbous orange', 'fuzzy kiwi']} tag="fruit" />?
+                <Choice options={['ripe banana', 'bulbous orange', 'fuzzy kiwi']} tag="fruit" />?
             </aside>
             <p>
                 By default, selecting an option will record the user's choice, leave the selected
@@ -47,7 +47,7 @@ export const Page: PageType = () => (
             </SyntaxHighlighter>
             <aside>
                 The vegetable vendor is offering you some{' '}
-                <C
+                <Choice
                     first="fine choices today..."
                     options={['orange kale', 'purple cucumbers', 'green pumpkins']}
                     tag="vegetables"
@@ -61,7 +61,7 @@ export const Page: PageType = () => (
             </p>
             <aside>
                 The dessert cart contains{' '}
-                <C
+                <Choice
                     options={['towering birthday cake', 'bumbling soufflé', 'delicate cheesecake']}
                     last="too many delicious things to count"
                     tag="dessert"
@@ -72,7 +72,7 @@ export const Page: PageType = () => (
             <p>Naturally both of these can be applied to the same element:</p>
             <aside>
                 The waiter asks if you'd like to take home{' '}
-                <C
+                <Choice
                     first="the leftovers"
                     options={[
                         'spare appetizers',
@@ -105,7 +105,7 @@ export const Page: PageType = () => (
             <aside>
                 <p>
                     You are greeted by{' '}
-                    <C
+                    <Choice
                         tag="pet"
                         options={['an adorable skink', 'a sweet-tempered marmot']}
                         extra={{ conjunction: 'and' }}
@@ -132,7 +132,7 @@ export const Page: PageType = () => (
             </SyntaxHighlighter>
             <aside>
                 <p>What is your favorite kind of sentient tree?</p>
-                <C
+                <Choice
                     options={['smarmy poplar', 'clever elm', 'big dumb baobab']}
                     tag="tree"
                     widget={BulletedList}
@@ -161,7 +161,7 @@ export const Page: PageType = () => (
             <aside>
                 <p>
                     What kind of cravat would you like to wear?{' '}
-                    <C
+                    <Choice
                         options={['Puce', 'magenta', 'green apple']}
                         defaultOption="magenta"
                         tag="cravat"
@@ -189,7 +189,7 @@ export const Page: PageType = () => (
     last="One..."  />`}
             </SyntaxHighlighter>
             <aside>
-                <C first="Three..." options={['Two...', null]} last="One..." tag="countdown" />
+                <Choice first="Three..." options={['Two...', null]} last="One..." tag="countdown" />
             </aside>
         </Section>
         <Section>

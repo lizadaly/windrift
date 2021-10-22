@@ -1,5 +1,5 @@
 import { capitalize } from 'lodash'
-import { C, Section, Chapter, Nav, When } from 'core/components'
+import { C, R, Section, Chapter, Nav, When } from 'core/components'
 import { BulletedList } from 'core/components/widgets'
 import { PageType } from 'core/types'
 import { Next } from 'core/reducers/navigation'
@@ -37,21 +37,21 @@ export const Page: PageType = () => {
             <Section className={styles.sample}>
                 <p style={{ marginTop: '4rem' }}>
                     It's only early afternoon, but this late in the fall the sun is low in the sky.
-                    Even on level ground, it casts long shadows, dappling through the trees.
+                    It casts long shadows, dappling through the trees, hiding nature's mysteries.
                 </p>
                 <p>
                     {capitalize(companion)} said to call when you're done exploring, and to promise
-                    not to lose track of time. You, in turn, promised you'd stick to observing just
-                    three natural wonders on this short hike up old Townshend Mountain.
+                    not to lose track of time. You, in turn, promised you'd limit yourself to
+                    observing just five natural wonders on this short hike up old Putney Mountain.
                 </p>
                 <Nav text="Start your ascent..." next={Next.Section} />
             </Section>
             <Section className={styles.sample}>
-                <h2>Townshend Mountain Ascent</h2>
+                <h2>Putney Mountain Ascent</h2>
                 <p>
-                    The trailhead is on the north slope, so this path is in deep shadow. Last night
-                    brought high winds, and the path is nestled in a deep layer of leaves, a palette
-                    of gold and deep ruby.
+                    The trailhead begins on the northeast slope and you find yourself in cool shade.
+                    Last night brought high winds, and the path is blanketed in an ankle-deep quilt
+                    of leaves, a rustling mosaic of gold and deep ruby.
                 </p>
                 <p>
                     The path on one side is bordered by{' '}
@@ -61,15 +61,34 @@ export const Page: PageType = () => {
                         extra={{ conjunction: 'and' }}
                     />
                     .
+                    <R
+                        tag="border"
+                        options={{
+                            wall: (
+                                <span>
+                                    {' '}
+                                    It's a vestige, really, a little strip of wall that in the 19th
+                                    century probably demarcated a farm or pasture. It's mortar-less,
+                                    hand-assembled from medium-size lumps of gneiss or shale,
+                                    pleasingly coated with lichen and moss. A{' '}
+                                    <C
+                                        tag="chipmunk"
+                                        options={['bright-eyed chipmunk', null]}
+                                        className={styles.camera}
+                                    />{' '}
+                                    peeks between a gap, watching you.
+                                </span>
+                            ),
+                            maple: <p>It's a tree</p>
+                        }}
+                    />
                 </p>
                 <p>
                     The trail{' '}
-                    <When
-                        condition={border}
-                        otherwise={<Nav text="climbs up" next="sample-summit" />}>
-                        climbs up
+                    <When condition={border} otherwise="climbs up">
+                        <Nav text="climbs up" next="sample-summit" />
                     </When>{' '}
-                    into the golden light of the summit.
+                    into the amber light of the summit.
                 </p>
             </Section>
         </Chapter>

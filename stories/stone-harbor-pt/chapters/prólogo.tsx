@@ -56,7 +56,7 @@ export const Page: PageType = () => {
                     {clothes} lentamente entre as tuas mãos. “
                     <R
                         tag="clothes"
-                        to={{
+                        options={{
                             anel: 'Há alguém próximo de si. Alguém que você achava que iria ficar consigo para sempre. Mas já não está entre nós.',
                             impermeável:
                                 'As suas férias não correram como esperava. Estou a sentir desapontamento, talvez até desespero.',
@@ -86,7 +86,7 @@ export const Page: PageType = () => {
                     “Talvez,” esquivas-te. “
                     <R
                         tag="clothes"
-                        to={{
+                        options={{
                             anel: 'Ele aprovou o seu casamento? Sinto preocupação pela forma como tudo se passou.',
                             impermeável:
                                 'Como se sentiria ele ao saber que fez esta viagem tão longa para me ver?',
@@ -99,7 +99,7 @@ export const Page: PageType = () => {
                     “Ele não gostava de{' '}
                     <R
                         tag="clothes"
-                        to={{
+                        options={{
                             anel: 'a Janet. Nunca lhe deu uma oportunidade,',
                             impermeável:
                                 'frivolidades nem de férias. Nunca quis que eu me divertisse,',
@@ -128,7 +128,7 @@ export const Page: PageType = () => {
                     “
                     <R
                         tag="p0_customer_body"
-                        to={{
+                        options={{
                             cara: 'Ele está preocupado que não ande a dormir bem',
                             mãos: 'Ele está orgulhoso de o filho trabalhar com as mãos',
                             escaldão: 'Ele está contente que esteja a passar tempo ao ar livre'
@@ -311,7 +311,7 @@ export const Page: PageType = () => {
                 <p>
                     <R
                         tag="p0_library_things"
-                        to={{
+                        options={{
                             mensagem: `Olhas para a mensagem inacabada. Diz: <blockquote>Minha querida, espero que entendas
     que estou a fazer isto por necessidade e não por falta de amor a</blockquote> Não percebes
       como, mas reconheces a letra como sendo a de Alan Healey.`,

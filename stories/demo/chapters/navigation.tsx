@@ -13,8 +13,8 @@ export const Page: PageType = () => (
                 in the current <code>Chapter</code>.
             </p>
             <p>
-                (Note: from here on we'll use the <code>C</code> short form for all{' '}
-                <code>Choice</code> components, since that's likely how you'll write them.)
+                (Note: from here on we'll use the <code>C</code> short form for <code>Choice</code>{' '}
+                components, since that's likely how you'll write them.)
             </p>
             <SyntaxHighlighter language="tsx" style={prism}>
                 {`import { C } from 'core/components'

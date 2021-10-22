@@ -27,6 +27,8 @@ interface MutableChoiceProps {
     first?: Option
     /** Text to display last (at completion) instead of the default last-chosen item  */
     last?: Option
+    /** Optional className to be passed through to the outer-most element rendering the Choice */
+    className?: string
 }
 export interface ChoiceProps extends MutableChoiceProps {
     options: OptionGroup
@@ -43,7 +45,8 @@ const Choice = ({
     persist = false,
     first = null,
     defaultOption = null,
-    last = null
+    last = null,
+    className = null
 }: ChoiceProps): JSX.Element => {
     const dispatch = useDispatch()
     const [initialized, initialize] = React.useState(false)
@@ -72,6 +75,7 @@ const Choice = ({
                 next={next}
                 persist={persist}
                 last={last}
+                className={className}
             />
         )
     }
@@ -84,10 +88,10 @@ const MutableChoice = ({
     widget,
     next,
     persist,
-    last
+    last,
+    className
 }: MutableChoiceProps): JSX.Element => {
     const dispatch = useDispatch()
-
     const { filename } = React.useContext(ChapterContext)
     const { config } = React.useContext(StoryContext)
 
@@ -153,6 +157,7 @@ const MutableChoice = ({
         handler: group.length > 1 || persist ? handler : null,
         tag,
         initialOptions: choice.initialOptions,
+        className,
         ...extra
     })
 }

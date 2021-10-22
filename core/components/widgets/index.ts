@@ -10,4 +10,5 @@ export interface WidgetProps {
     initialOptions?: Options
     handler?: React.MouseEventHandler<HTMLAnchorElement>
     tag?: Tag
+    className?: string
 }

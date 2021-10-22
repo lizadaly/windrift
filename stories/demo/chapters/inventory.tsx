@@ -88,7 +88,7 @@ wordFromInventory(fruit, -2) // ${wordFromInventory(fruit, -2)}`}
                 <SyntaxHighlighter language="tsx" style={prism}>
                     {`<Response
     tag="fruit"
-    to={{
+    options={{
         banana: (
             <span>
                 You picked <b>a nice</b> banana
@@ -101,7 +101,7 @@ wordFromInventory(fruit, -2) // ${wordFromInventory(fruit, -2)}`}
                 <aside>
                     <R
                         tag="fruit"
-                        to={{
+                        options={{
                             banana: (
                                 <span>
                                     You picked <b>a nice</b> banana.
@@ -113,8 +113,8 @@ wordFromInventory(fruit, -2) // ${wordFromInventory(fruit, -2)}`}
                     />
                 </aside>
                 <p>
-                    The parameters in the <code>to</code> map should contain substring matches of
-                    the original options. You can match by explicit wildcards too, which will
+                    The parameters in the <code>options</code> map should contain substring matches
+                    of the original options. You can match by explicit wildcards too, which will
                     override the default substring behavior in favor of exactly what you provide.
                     This supports full regular expressions via{' '}
                     <a href="https://www.npmjs.com/package/minimatch">minimatch</a>.
@@ -122,7 +122,7 @@ wordFromInventory(fruit, -2) // ${wordFromInventory(fruit, -2)}`}
                 <SyntaxHighlighter language="tsx" style={prism}>
                     {`<Response
     tag="fruit"
-    to={{
+    options={{
         'r?pe ban*': 'This also matches banana',
         'bulbous': 'This matches "bulbous orange"',
         '*iw*': 'This also matches kiwi'
@@ -133,7 +133,7 @@ wordFromInventory(fruit, -2) // ${wordFromInventory(fruit, -2)}`}
                 <aside>
                     <R
                         tag="fruit"
-                        to={{
+                        options={{
                             'r?pe ban*': 'This also matches banana.',
                             bulbous: 'This matches "bulbous orange."',
                             '*iw*': 'This also matches kiwi.'
