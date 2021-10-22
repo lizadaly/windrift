@@ -106,12 +106,25 @@
         }
     }
     .sample {
+
+        margin: 0 10rem;
         font-family: Nunito, serif;
+
         h1, h2, h3, h4, h5, h6 {
             color: colors.$very-dark;
         }
-        .camera::after {
-            content: " 📸"
+        // Ensure the underline doesn't go beneath the emoji for all findables
+        .findable a::after {
+            display: inline-block;
+            width: 0;
+            margin: 0 1em 0 .25em;
+        }
+        .camera a::after {
+            content: " 📸";
+
+        }
+        .food a::after {
+            content: " 🍄";
         }
     }
 

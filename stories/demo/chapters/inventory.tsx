@@ -10,10 +10,13 @@ import { SyntaxHighlighter, prism, styles } from '..'
 
 export const Page: PageType = () => {
     const dispatch = useDispatch()
-    const fruit = useInventory('fruit')
-    const cravat = useInventory('cravat')
-    const tree = useInventory('tree')
-    const byAuthor = useInventory('set-by-author')
+    const [fruit, cravat, tree, byAuthor] = useInventory([
+        'fruit',
+        'cravat',
+        'tree',
+        'set-by-author'
+    ])
+
     return (
         <Chapter filename="inventory">
             <Section>
@@ -45,10 +48,13 @@ export const Page: PageType = () => {
                 <h3>
                     The <kbd>useInventory</kbd> hook
                 </h3>
-                <p>This hook give you access to the raw value provided by the user:</p>
+                <p>
+                    This hook give you access to the raw value provided by the users for any tag
+                    passed in the array.
+                </p>
                 <SyntaxHighlighter language="tsx" style={prism}>
                     {`export const Page: PageType = () => {
-    const fruit = useInventory('fruit')
+    const [fruit] = useInventory(['fruit'])
     return (
         <Chapter filename="inventory">
             <Section>
@@ -156,8 +162,7 @@ wordFromInventory(fruit, -2) // ${wordFromInventory(fruit, -2)}`}
                 </p>
                 <SyntaxHighlighter language="tsx" style={prism}>
                     {`export const Page: PageType = () => {
-    const fruit = useInventory('fruit')
-    const tree = useInventory('tree')
+    const [fruit, tree ] = useInventory(['fruit', 'tree'])
 
     return (<Chapter filename="inventory">
         <Section>
@@ -233,7 +238,7 @@ wordFromInventory(fruit, -2) // ${wordFromInventory(fruit, -2)}`}
                     </button>
                     <SyntaxHighlighter language="tsx" style={prism}>
                         {`export const Page: PageType = () => {
-    const byAuthor = useInventory('set-by-author')
+    const byAuthor = useInventory(['set-by-author'])
     return (
         <Chapter filename="inventory">
             <Section>

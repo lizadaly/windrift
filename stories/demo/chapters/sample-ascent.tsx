@@ -1,16 +1,27 @@
 import { capitalize } from 'lodash'
+import Image from 'next/image'
 import { C, R, Section, Chapter, Nav, When } from 'core/components'
-import { BulletedList } from 'core/components/widgets'
 import { PageType } from 'core/types'
 import { Next } from 'core/reducers/navigation'
 import useInventory from 'core/hooks/use-inventory'
 
+import ascent from 'public/stories/demo/images/the-trout-pool-whittredge.jpg'
+
 import { styles } from '..'
-import next from 'next'
 
 export const Page: PageType = () => {
-    const companion = useInventory('companion')
-    const border = useInventory('border')
+    const [companion, border, chipmunk, trunk, mushroom] = useInventory([
+        'companion',
+        'border',
+        'chipmunk',
+        'trunk',
+        'mushroom'
+    ])
+
+    // Also collect all possible findable items to check for the win condition
+    const allFindables = ['chipmunk', 'mushroom']
+    const findables = useInventory(allFindables).filter((f) => !!f)
+
     return (
         <Chapter filename="sample-ascent">
             <Section>
@@ -47,9 +58,17 @@ export const Page: PageType = () => {
                 <Nav text="Start your ascent..." next={Next.Section} />
             </Section>
             <Section className={styles.sample}>
+                <br />
+                <br />
+                <Image
+                    src={ascent}
+                    alt="A painting of a forest in autumn with deep trees rendered in orange and gold"
+                    placeholder="blur"
+                    layout="responsive"
+                />
                 <h2>Putney Mountain Ascent</h2>
                 <p>
-                    The trailhead begins on the northeast slope and you find yourself in cool shade.
+                    The trailhead begins on the northeast slope and you find yourself in deep shade.
                     Last night brought high winds, and the path is blanketed in an ankle-deep quilt
                     of leaves, a rustling mosaic of gold and deep ruby.
                 </p>
@@ -58,6 +77,7 @@ export const Page: PageType = () => {
                     <C
                         tag="border"
                         options={['a low rock wall', 'a felled sugar maple']}
+                        last={'a low rock wall and a felled sugar maple'}
                         extra={{ conjunction: 'and' }}
                     />
                     .
@@ -74,12 +94,39 @@ export const Page: PageType = () => {
                                     <C
                                         tag="chipmunk"
                                         options={['bright-eyed chipmunk', null]}
-                                        className={styles.camera}
+                                        className={`${styles.findable} ${styles.camera}`}
                                     />{' '}
                                     peeks between a gap, watching you.
+                                    <When condition={chipmunk}>
+                                        {' '}
+                                        You take a photo of it, catching it between tail twitches.
+                                    </When>
                                 </span>
                             ),
-                            maple: <p>It's a tree</p>
+                            maple: (
+                                <span>
+                                    {' '}
+                                    The tree has been dramatically split three ways down the center
+                                    line of the trunk, folded out like a peeled banana. The{' '}
+                                    <C tag="trunk" options={['inside of the trunk', null]} /> is
+                                    blackened throughout, with a deep hollow.
+                                    <When condition={trunk}>
+                                        {' '}
+                                        Growing along the inside of the hollow is a pristine
+                                        specimen of the edible{' '}
+                                        <C
+                                            tag="mushroom"
+                                            options={['oyster mushroom', null]}
+                                            className={`${styles.findable} ${styles.food}`}
+                                        />
+                                        , at peak freshness.
+                                    </When>
+                                    <When condition={mushroom}>
+                                        {' '}
+                                        You gently scoop it out and bag it.
+                                    </When>
+                                </span>
+                            )
                         }}
                     />
                 </p>
@@ -90,6 +137,18 @@ export const Page: PageType = () => {
                     </When>{' '}
                     into the amber light of the summit.
                 </p>
+
+                <When condition={findables.length}>
+                    <p>
+                        (You've found {findables.length} out of {allFindables.length} possible
+                        natural items.
+                        <When condition={findables.length >= 3}>
+                            {' '}
+                            It's time to meet up with {companion} and head home!
+                        </When>
+                        )
+                    </p>
+                </When>
             </Section>
         </Chapter>
     )
