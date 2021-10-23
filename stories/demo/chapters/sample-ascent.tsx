@@ -11,11 +11,9 @@ import { styles } from '..'
 
 export const allFindables: Option[] = ['chipmunk', 'mushroom']
 
-interface ScoreProps {
-    findables: Option[]
-    companion: Option
-}
-export const Score = ({ findables, companion }: ScoreProps): JSX.Element => {
+export const Score = (): JSX.Element => {
+    const findables = useInventory(allFindables).filter((f) => !!f)
+    const [companion] = useInventory(['companion'])
     return (
         <When condition={findables.length}>
             <section className={`windrift--section ${styles.sample}`}>
@@ -39,9 +37,6 @@ export const Page: PageType = () => {
         'trunk',
         'mushroom'
     ])
-
-    // Also collect all possible findable items to check for the win condition
-    const findables = useInventory(allFindables).filter((f) => !!f)
 
     return (
         <Chapter filename="sample-ascent">
@@ -85,9 +80,11 @@ export const Page: PageType = () => {
 
             <Section className={styles.sample}>
                 <Image
-                    src="/public/stories/demo/images/the-trout-pool-whittredge.jpg"
+                    src="/stories/demo/images/the-trout-pool-whittredge.jpg"
                     loader={({ src }) => src}
                     alt="A painting of a forest in autumn with deep trees rendered in orange and gold"
+                    width="1000"
+                    height="406"
                 />
                 <h2>Putney Mountain Ascent</h2>
                 <p>
@@ -158,10 +155,10 @@ export const Page: PageType = () => {
                     <When condition={border} otherwise="climbs up">
                         <Nav text="climbs up" next="sample-summit" />
                     </When>{' '}
-                    into the amber light of the summit.
+                    into the cool light of the summit.
                 </p>
             </Section>
-            <Score findables={findables} companion={companion} />
+            <Score />
         </Chapter>
     )
 }
