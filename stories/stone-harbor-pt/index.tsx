@@ -11,7 +11,7 @@ const Index: React.FC = ({ children }) => {
             head={
                 <link
                     rel="stylesheet"
-                    href="https://fonts.googleapis.com/css2?family=STIX+Two+Math,Raleway&display=optional"
+                    href="https://fonts.googleapis.com/css2?family=STIX+Two+Math&family=Raleway&display=optional"
                 />
             }>
             {children}
