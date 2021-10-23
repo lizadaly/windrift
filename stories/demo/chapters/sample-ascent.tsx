@@ -1,4 +1,6 @@
 import { capitalize } from 'lodash'
+import Image from 'next/image'
+
 import { C, R, Section, Chapter, Nav, When } from 'core/components'
 import { PageType } from 'core/types'
 import { Next } from 'core/reducers/navigation'
@@ -82,8 +84,9 @@ export const Page: PageType = () => {
             </Section>
 
             <Section className={styles.sample}>
-                <img
+                <Image
                     src="/public/stories/demo/images/the-trout-pool-whittredge.jpg"
+                    loader={({ src }) => src}
                     alt="A painting of a forest in autumn with deep trees rendered in orange and gold"
                 />
                 <h2>Putney Mountain Ascent</h2>
