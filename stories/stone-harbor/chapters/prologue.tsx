@@ -6,8 +6,6 @@ import { C, R, Section, Chapter } from 'core/components'
 import { RootState } from 'core/reducers'
 import { PageType } from 'core/types'
 
-import study from 'public/stories/stone-harbor/images/study.jpg'
-
 export const Page: PageType = () => {
     const inventory = useSelector((state: RootState) => state.inventory.present)
     const clothes = inventory.clothes?.split(' ').slice(-1)[0]
@@ -263,12 +261,13 @@ export const Page: PageType = () => {
                         width: '100%'
                     }}>
                     <Image
-                        src={study}
+                        src="/stories/stone-harbor/images/study.jpg"
+                        loader={({ src }) => src}
                         alt="A small, cluttered study, with pictures and a wicker chair before a
                             desk, in sepia tones."
-                        placeholder="blur"
                         layout="fill"
                         objectFit="cover"
+                        priority={true}
                     />
                 </div>
                 <h3>In the study</h3>

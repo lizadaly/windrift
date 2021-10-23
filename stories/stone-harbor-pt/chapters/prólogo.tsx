@@ -6,8 +6,6 @@ import { C, R, Section, Chapter } from 'core/components'
 import { RootState } from 'core/reducers'
 import { PageType } from 'core/types'
 
-import study from 'public/stories/stone-harbor/images/study.jpg'
-
 export const Page: PageType = () => {
     const inventory = useSelector((state: RootState) => state.inventory.present)
     const clothes = inventory.clothes?.split(' ').slice(-2)[0]
@@ -276,12 +274,13 @@ export const Page: PageType = () => {
                         width: '100%'
                     }}>
                     <Image
-                        src={study}
+                        src="/stories/stone-harbor/images/study.jpg"
+                        loader={({ src }) => src}
                         alt="Um escritório pequeno e atafulhado com quadros e uma cadeira de vime em
                         frente de uma mesa, em tons de sépia."
-                        placeholder="blur"
                         layout="fill"
                         objectFit="cover"
+                        priority={true}
                     />
                 </div>
 
