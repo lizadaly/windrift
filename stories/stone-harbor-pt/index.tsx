@@ -6,7 +6,14 @@ import styles from 'public/stories/stone-harbor/styles/Index.module.scss'
 
 const Index: React.FC = ({ children }) => {
     return (
-        <Grid styles={styles} head={<style></style>}>
+        <Grid
+            styles={styles}
+            head={
+                <link
+                    rel="stylesheet"
+                    href="https://fonts.googleapis.com/css2?family=STIX+Two+Math,Raleway&display=optional"
+                />
+            }>
             {children}
         </Grid>
     )

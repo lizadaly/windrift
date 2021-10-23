@@ -21,16 +21,10 @@ const Index: React.FC = ({ children }) => {
         <Grid
             styles={styles}
             head={
-                <>
-                    <link rel="preconnect" href="https://fonts.googleapis.com"></link>
-                    <link
-                        rel="preconnect"
-                        href="https://fonts.gstatic.com"
-                        crossOrigin="crossorigin"></link>
-                    <link
-                        href="https://fonts.googleapis.com/css2?family=Nunito:wght@300&family=EB+Garamond&family=Elsie&display=swap"
-                        rel="stylesheet"></link>
-                </>
+                <link
+                    href="https://fonts.googleapis.com/css2?family=Nunito:wght@300&family=EB+Garamond&family=Elsie&display=optional"
+                    rel="stylesheet"
+                />
             }>
             <TableOfContents />
             {children}

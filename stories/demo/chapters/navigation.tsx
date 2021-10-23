@@ -2,7 +2,7 @@ import { Next } from 'core/reducers/navigation'
 import { C, Section, Chapter, Nav } from 'core/components'
 import { PageType } from 'core/types'
 
-import { SyntaxHighlighter, prism } from '..'
+import { SyntaxHighlighter, prism, styles } from '..'
 
 export const Page: PageType = () => (
     <Chapter filename="navigation">
@@ -81,6 +81,35 @@ export const Page: PageType = () => (
                 that it's displaying the wrong text value or otherwise behaving strangely, you can
                 supply a <code>tag</code> prop as well. Make it unique!
             </p>
+            <aside className={styles.advanced}>
+                <h3>
+                    Adding content outside of a <code>Section</code>
+                </h3>
+                <p>
+                    In the first chapter on <Nav text="story structure" next="structure" /> you
+                    learned how to add a global, persistent block of content that would appear on
+                    every page in the story. You can also do this within a single or group of
+                    chapters by appending content beneath a <code>Chapter</code> that is not
+                    contained within a <code>Section</code>.
+                </p>
+                <SyntaxHighlighter language="tsx" style={prism}>
+                    {`<Chapter>
+    <Section>
+        This appears first: <Nav text="Next section" next={Next.Section} />
+    </Section>
+    <Section>
+        This appears only after the previous link is clicked.
+    </Section>
+    <div>This content will appear at the bottom of the page regardless of
+    whether the user has reached the second Section.</div>
+</Chapter>`}
+                </SyntaxHighlighter>
+                <p>
+                    Windrift will always display all children of a <code>Chapter</code> in whatever
+                    order you specify, skipping over any <code>Section</code> components that aren't
+                    yet revealed.
+                </p>
+            </aside>
         </Section>
         <Section>
             <h3>Navigating to a specific chapter</h3>

@@ -3,11 +3,34 @@ import Image from 'next/image'
 import { C, R, Section, Chapter, Nav, When } from 'core/components'
 import { PageType } from 'core/types'
 import { Next } from 'core/reducers/navigation'
+import { Option } from 'core/reducers/choice'
 import useInventory from 'core/hooks/use-inventory'
 
 import ascent from 'public/stories/demo/images/the-trout-pool-whittredge.jpg'
 
 import { styles } from '..'
+
+export const allFindables: Option[] = ['chipmunk', 'mushroom']
+
+interface ScoreProps {
+    findables: Option[]
+    companion: Option
+}
+export const Score = ({ findables, companion }: ScoreProps): JSX.Element => {
+    return (
+        <When condition={findables.length}>
+            <section className={`windrift--section ${styles.sample}`}>
+                (You've found {findables.length} out of {allFindables.length} possible natural
+                items.
+                <When condition={findables.length >= 3}>
+                    {' '}
+                    It's time to meet up with {companion} and head home!
+                </When>
+                )
+            </section>
+        </When>
+    )
+}
 
 export const Page: PageType = () => {
     const [companion, border, chipmunk, trunk, mushroom] = useInventory([
@@ -19,7 +42,6 @@ export const Page: PageType = () => {
     ])
 
     // Also collect all possible findable items to check for the win condition
-    const allFindables = ['chipmunk', 'mushroom']
     const findables = useInventory(allFindables).filter((f) => !!f)
 
     return (
@@ -39,7 +61,11 @@ export const Page: PageType = () => {
                     otherwise={
                         <p>
                             Will your companion be{' '}
-                            <C tag="companion" options={['your dad', 'your sister', 'a friend']} />?
+                            <C
+                                tag="companion"
+                                options={['your dad', 'your sister', 'your best friend']}
+                            />
+                            ?
                         </p>
                     }>
                     <p>Your companion will be {companion}.</p>
@@ -57,6 +83,7 @@ export const Page: PageType = () => {
                 </p>
                 <Nav text="Start your ascent..." next={Next.Section} />
             </Section>
+
             <Section className={styles.sample}>
                 <br />
                 <br />
@@ -137,19 +164,8 @@ export const Page: PageType = () => {
                     </When>{' '}
                     into the amber light of the summit.
                 </p>
-
-                <When condition={findables.length}>
-                    <p>
-                        (You've found {findables.length} out of {allFindables.length} possible
-                        natural items.
-                        <When condition={findables.length >= 3}>
-                            {' '}
-                            It's time to meet up with {companion} and head home!
-                        </When>
-                        )
-                    </p>
-                </When>
             </Section>
+            <Score findables={findables} companion={companion} />
         </Chapter>
     )
 }

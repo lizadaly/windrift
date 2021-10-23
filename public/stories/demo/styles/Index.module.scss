@@ -10,6 +10,9 @@
     pre, code {
         font-size: 15px !important;
     }
+    pre + p {
+        padding-top: 1rem;
+    }
     code {
         background: color.scale(colors.$cool, $lightness: 80%);
         padding: 3px;

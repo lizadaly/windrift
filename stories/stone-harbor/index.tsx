@@ -9,10 +9,10 @@ const Index: React.FC = ({ children }) => {
         <Grid
             styles={styles}
             head={
-                <style>
-                    @import
-                    url('https://fonts.googleapis.com/css2?family=STIX+Two+Math,Raleway&display=swap');
-                </style>
+                <link
+                    rel="stylesheet"
+                    href="https://fonts.googleapis.com/css2?family=STIX+Two+Math,Raleway&display=optional"
+                />
             }>
             {children}
         </Grid>
