@@ -1,4 +1,5 @@
 import { useSelector } from 'react-redux'
+import Image from 'next/image'
 
 import { C, R, Section, Chapter } from 'core/components'
 import { RootState } from 'core/reducers'
@@ -258,10 +259,14 @@ export const Page: PageType = () => {
                         minHeight: '50vh',
                         width: '100%'
                     }}>
-                    <img
-                        src="/public/stories/stone-harbor/images/study.jpg"
+                    <Image
+                        src="/stories/stone-harbor/images/study.jpg"
+                        loader={({ src }) => src}
                         alt="A small, cluttered study, with pictures and a wicker chair before a
                             desk, in sepia tones."
+                        layout="fill"
+                        objectFit="cover"
+                        priority={true}
                     />
                 </div>
                 <h3>In the study</h3>

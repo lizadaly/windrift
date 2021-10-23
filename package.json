@@ -37,6 +37,7 @@
         "voca": "^1.4.0"
     },
     "devDependencies": {
+        "@next/eslint-plugin-next": "^11.1.2",
         "@types/js-yaml": "^3.12.5",
         "@types/minimatch": "^3.0.3",
         "@types/node": "^14.14.6",
