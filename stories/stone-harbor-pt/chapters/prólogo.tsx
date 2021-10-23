@@ -1,12 +1,8 @@
 import { useSelector } from 'react-redux'
 
-import Image from 'next/image'
-
 import { C, R, Section, Chapter } from 'core/components'
 import { RootState } from 'core/reducers'
 import { PageType } from 'core/types'
-
-import study from 'public/stories/stone-harbor/images/study.jpg'
 
 export const Page: PageType = () => {
     const inventory = useSelector((state: RootState) => state.inventory.present)
@@ -275,13 +271,10 @@ export const Page: PageType = () => {
                         minHeight: '50vh',
                         width: '100%'
                     }}>
-                    <Image
-                        src={study}
+                    <img
+                        src="/public/stories/stone-harbor/images/study.jpg"
                         alt="Um escritório pequeno e atafulhado com quadros e uma cadeira de vime em
                         frente de uma mesa, em tons de sépia."
-                        placeholder="blur"
-                        layout="fill"
-                        objectFit="cover"
                     />
                 </div>
 

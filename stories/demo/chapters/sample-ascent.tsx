@@ -1,12 +1,9 @@
 import { capitalize } from 'lodash'
-import Image from 'next/image'
 import { C, R, Section, Chapter, Nav, When } from 'core/components'
 import { PageType } from 'core/types'
 import { Next } from 'core/reducers/navigation'
 import { Option } from 'core/reducers/choice'
 import useInventory from 'core/hooks/use-inventory'
-
-import ascent from 'public/stories/demo/images/the-trout-pool-whittredge.jpg'
 
 import { styles } from '..'
 
@@ -85,13 +82,9 @@ export const Page: PageType = () => {
             </Section>
 
             <Section className={styles.sample}>
-                <br />
-                <br />
-                <Image
-                    src={ascent}
+                <img
+                    src="/public/stories/demo/images/the-trout-pool-whittredge.jpg"
                     alt="A painting of a forest in autumn with deep trees rendered in orange and gold"
-                    placeholder="blur"
-                    layout="responsive"
                 />
                 <h2>Putney Mountain Ascent</h2>
                 <p>
