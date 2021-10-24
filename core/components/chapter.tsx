@@ -32,8 +32,16 @@ const Chapter: React.FC<ChapterType> = ({ children, filename }) => {
 
     // Display all visible child sections
     const kids = React.Children.map(children, (child, index) => {
-        if (React.isValidElement(child) && index <= item.bookmark) {
-            return <CSSTransition {...SectionTransition}>{child}</CSSTransition>
+        if (React.isValidElement(child)) {
+            const fc = child.type as React.FunctionComponent
+
+            if (fc.displayName === 'Section') {
+                if (index <= item.bookmark) {
+                    return <CSSTransition {...SectionTransition}>{child}</CSSTransition>
+                }
+            } else {
+                return <>{child}</>
+            }
         }
     })
 

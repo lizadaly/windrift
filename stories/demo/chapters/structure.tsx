@@ -1,16 +1,6 @@
-import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter'
-import tsx from 'react-syntax-highlighter/dist/esm/languages/prism/tsx'
-import json from 'react-syntax-highlighter/dist/esm/languages/prism/json'
-import bash from 'react-syntax-highlighter/dist/esm/languages/prism/bash'
-
-import prism from 'react-syntax-highlighter/dist/esm/styles/prism/material-oceanic'
-
-SyntaxHighlighter.registerLanguage('tsx', tsx)
-SyntaxHighlighter.registerLanguage('json', json)
-SyntaxHighlighter.registerLanguage('bash', bash)
-
 import { Section, Chapter, Nav } from 'core/components'
 import { PageType } from 'core/types'
+import { SyntaxHighlighter, prism, styles } from '..'
 
 export const Page: PageType = () => (
     <Chapter filename="structure">
@@ -73,6 +63,68 @@ export const Page: PageType = () => (
             <p>A very simple Windrift story.</p>
         </Section>
     </Chapter>`}
+                </SyntaxHighlighter>
+            </aside>
+            <h2>
+                The story template: <code>index.tsx</code>
+            </h2>
+            <p>
+                Each story will always contain one file, <code>index.tsx</code>, that contains the
+                "frame" or template for your story. Every chapter in your story will inherit from
+                this template, so this typically contains no narrative content, just layout, CSS,
+                and fonts.
+            </p>
+            <aside>
+                <SyntaxHighlighter language="tsx" style={prism}>
+                    {`// index.tsx
+// Optional layout provided by Windrift
+import Grid from 'core/components/ui/grid'
+
+// Per-story CSS files
+import styles from 'public/stories/<your-story>/styles/Index.module.scss'
+
+const Index: React.FC = ({ children }) => {
+    return (
+        <Grid
+            styles={styles}
+            head={ // Google fonts or other font imports
+                <link rel="stylesheet"
+                      href="https://fonts.googleapis.com/css2?family=STIX+Two+Math,Raleway&display=optional" />
+            }>
+            {children}
+        </Grid>
+    )
+}
+export default Index`}
+                </SyntaxHighlighter>
+                <p>
+                    For simple layouts (or if you're just getting comfortable) you may not need to
+                    customize this at all—the story generator will give you something already
+                    usable. Windrift provides a few default layouts to start with, or you can build
+                    your own from scratch. Consult the{' '}
+                    <a href="https://nextjs.org/docs/">full NextJS documentation</a> for best
+                    practices around building HTML pages in a NextJS context.
+                </p>
+            </aside>
+            <aside className={styles.advanced}>
+                <h2>Global, persistent content</h2>
+                <p>
+                    One thing you might choose to customize in your story template is persistent
+                    navigation, a score counter, or other content blocks that should appear in every
+                    chapter. In the story template, <code>children</code> will always contain the
+                    child nodes from each chapter, but you can add additional components here to
+                    create persistent content either before or after the story content.
+                </p>
+                <p>
+                    In this documentation, a "table of contents" appears at the top of each chapter.
+                    This is represented in <code>stories/demo/index.tsx</code> as:
+                </p>
+                <SyntaxHighlighter language="tsx" style={prism}>
+                    {`<Grid styles={styles} ... >
+    // The table of contents component appears before all the other chapter content
+    <TableOfContents />
+    {children}
+</Grid>`}
                 </SyntaxHighlighter>
             </aside>
             <h2>Story configuration</h2>

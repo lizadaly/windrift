@@ -1,5 +1,4 @@
 import { useSelector } from 'react-redux'
-
 import Image from 'next/image'
 
 import { C, R, Section, Chapter } from 'core/components'
@@ -55,7 +54,7 @@ export const Page: PageType = () => {
                     You close your eyes and rotate the {clothes} slowly in your hands. “
                     <R
                         tag="clothes"
-                        to={{
+                        options={{
                             ring: 'There’s someone close to you. Someone you trusted to be with you always. But they’re gone.',
                             jacket: 'Your vacation hasn’t turned out the way you hoped. I’m sensing disappointment, maybe even despair.',
                             cap: 'You like to have fun, you’re a carefree guy with a sense of humor. But you’re not laughing lately.'
@@ -84,7 +83,7 @@ export const Page: PageType = () => {
                     “Perhaps,” you hedge. “
                     <R
                         tag="clothes"
-                        to={{
+                        options={{
                             ring: 'Did he approve of your marriage? I sense concern about how it unfolded.',
                             jacket: 'How would he feel about you traveling so far to see me?',
                             cap: 'He never laughed enough, did he?'
@@ -96,7 +95,7 @@ export const Page: PageType = () => {
                     “He didn’t approve of{' '}
                     <R
                         tag="clothes"
-                        to={{
+                        options={{
                             ring: 'Janet. Never even gave her the chance,',
                             jacket: 'frivolity and vacations. Never wanted me to have any fun,',
                             cap: '‘frivolity’, as he called it. He never liked it when I joked around,'
@@ -124,7 +123,7 @@ export const Page: PageType = () => {
                     “
                     <R
                         tag="body"
-                        to={{
+                        options={{
                             face: 'He’s worried because you’re not sleeping',
                             hands: 'He’s proud that his son works with his hands',
                             sunburn: 'He’s glad you’ve been spending time outdoors'
@@ -294,7 +293,7 @@ export const Page: PageType = () => {
                 <p>
                     <R
                         tag="library"
-                        to={{
+                        options={{
                             note: (
                                 <span>
                                     You look down at the unfinished note. It reads:{' '}

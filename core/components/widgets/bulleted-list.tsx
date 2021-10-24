@@ -15,12 +15,13 @@ const InlineList: typeof BulletedListType = ({
     group = [],
     handler = null,
     tag = null,
-    initialOptions = []
+    initialOptions = [],
+    className = null
 }: BulletedListProps): JSX.Element => {
     return (
         <ul>
             {[...initialOptions[0]].map((t, i) => (
-                <li key={i}>
+                <li key={i} className={className}>
                     <Link handler={handler} text={t} index={i} tag={tag} />
                     {group.map((g) => {
                         if (!isEqual(initialOptions[0], group) && g === t) {

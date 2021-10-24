@@ -8,7 +8,7 @@ import { RootState } from 'core/reducers'
 
 import styles from 'public/stories/demo/styles/Index.module.scss'
 
-const Nav: React.FC = () => {
+const TableOfContents = (): JSX.Element => {
     const dispatch = useDispatch()
     const chapters = useSelector((state: RootState) => {
         const chapters = state.navigation.present.toc
@@ -42,4 +42,4 @@ const Nav: React.FC = () => {
         </nav>
     )
 }
-export default Nav
+export default TableOfContents

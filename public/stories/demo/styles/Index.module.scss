@@ -10,6 +10,9 @@
     pre, code {
         font-size: 15px !important;
     }
+    pre + p {
+        padding-top: 1rem;
+    }
     code {
         background: color.scale(colors.$cool, $lightness: 80%);
         padding: 3px;
@@ -51,7 +54,16 @@
                 color: colors.$warning;
 
             }
+        }
+        &.note {
+            border-color: colors.$cool;
+            color: colors.$cool;
+            &::before {
+                content: "Note: ";
+                text-transform: uppercase;
+                color: colors.$cool;
 
+            }
         }
     }
     button {
@@ -96,4 +108,37 @@
             }
         }
     }
+    .sample {
+
+        margin: 0 10rem;
+        font-family: Nunito, serif;
+
+        p:first-of-type {
+            padding-top: 2rem;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: colors.$very-dark;
+        }
+        // Ensure the underline doesn't go beneath the emoji for all findables
+        .findable a::after {
+            display: inline-block;
+            width: 0;
+            margin: 0 1em 0 .25em;
+        }
+        .camera a::after {
+            content: " 📸";
+
+        }
+        .food a::after {
+            content: " 🍄";
+        }
+        .magnify a::after {
+            content: " 🔎";
+        }
+
+        img {
+            padding-top: 2rem !important;
+        }
+    }
+
 }

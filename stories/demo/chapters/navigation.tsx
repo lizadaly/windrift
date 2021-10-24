@@ -1,14 +1,8 @@
-import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter'
-import tsx from 'react-syntax-highlighter/dist/esm/languages/prism/tsx'
-import typescript from 'react-syntax-highlighter/dist/esm/languages/prism/typescript'
-
-import prism from 'react-syntax-highlighter/dist/esm/styles/prism/material-oceanic'
-
-SyntaxHighlighter.registerLanguage('tsx', tsx)
-SyntaxHighlighter.registerLanguage('typescript', typescript)
 import { Next } from 'core/reducers/navigation'
 import { C, Section, Chapter, Nav } from 'core/components'
 import { PageType } from 'core/types'
+
+import { SyntaxHighlighter, prism, styles } from '..'
 
 export const Page: PageType = () => (
     <Chapter filename="navigation">
@@ -19,8 +13,8 @@ export const Page: PageType = () => (
                 in the current <code>Chapter</code>.
             </p>
             <p>
-                (Note: from here on we'll use the <code>C</code> short form for all{' '}
-                <code>Choice</code> components, since that's likely how you'll write them.)
+                (Note: from here on we'll use the <code>C</code> short form for <code>Choice</code>{' '}
+                components, since that's likely how you'll write them.)
             </p>
             <SyntaxHighlighter language="tsx" style={prism}>
                 {`import { C } from 'core/components'
@@ -79,6 +73,43 @@ export const Page: PageType = () => (
             <aside>
                 <Nav text="Click for more..." next={Next.Section} />
             </aside>
+            <p>
+                The <code>Nav</code> component uses <code>Choice</code> under the hood, and so
+                requires a unique <code>tag</code> to correctly persist whether it's been clicked.
+                By default the component will try to generate a unique tag out of the chapter
+                filename, the supplied text, and the value of <code>next</code>, but if you find
+                that it's displaying the wrong text value or otherwise behaving strangely, you can
+                supply a <code>tag</code> prop as well. Make it unique!
+            </p>
+            <aside className={styles.advanced}>
+                <h3>
+                    Adding content outside of a <code>Section</code>
+                </h3>
+                <p>
+                    In the first chapter on <Nav text="story structure" next="structure" /> you
+                    learned how to add a global, persistent block of content that would appear on
+                    every page in the story. You can also do this within a single or group of
+                    chapters by appending content beneath a <code>Chapter</code> that is not
+                    contained within a <code>Section</code>.
+                </p>
+                <SyntaxHighlighter language="tsx" style={prism}>
+                    {`<Chapter>
+    <Section>
+        This appears first: <Nav text="Next section" next={Next.Section} />
+    </Section>
+    <Section>
+        This appears only after the previous link is clicked.
+    </Section>
+    <div>This content will appear at the bottom of the page regardless of
+    whether the user has reached the second Section.</div>
+</Chapter>`}
+                </SyntaxHighlighter>
+                <p>
+                    Windrift will always display all children of a <code>Chapter</code> in whatever
+                    order you specify, skipping over any <code>Section</code> components that aren't
+                    yet revealed.
+                </p>
+            </aside>
         </Section>
         <Section>
             <h3>Navigating to a specific chapter</h3>
@@ -103,7 +134,10 @@ export const Page: PageType = () => (
                 the reader has moved on, and for section navigation, it would just be confusing as
                 the next section has already been revealed.)
             </p>
-            <p>TODO: sample game, deployment, images, CSS</p>
+            <Nav
+                text="Let's work through a fully-realized example story now..."
+                next="sample-ascent"
+            />
         </Section>
     </Chapter>
 )

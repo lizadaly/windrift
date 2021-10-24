@@ -14,7 +14,7 @@ html, body {
 }
 
 /* Ensure the last Section element has some bottom margin. */
-.windrift--section:last-child {
+section.windrift--section:last-of-type {
     margin-bottom: 4em;
 }
 

@@ -1,26 +1,22 @@
-import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter'
-import tsx from 'react-syntax-highlighter/dist/esm/languages/prism/tsx'
-
-import prism from 'react-syntax-highlighter/dist/esm/styles/prism/material-oceanic'
-
-SyntaxHighlighter.registerLanguage('tsx', tsx)
-
-import styles from 'public/stories/demo/styles/Index.module.scss'
+import { useDispatch } from 'react-redux'
 
 import { R, Section, Chapter, Nav, When } from 'core/components'
-
 import { PageType } from 'core/types'
 import useInventory from 'core/hooks/use-inventory'
-import { useDispatch } from 'react-redux'
 import { update } from 'core/reducers/inventory'
 import { wordFromInventory } from 'core/util'
 
+import { SyntaxHighlighter, prism, styles } from '..'
+
 export const Page: PageType = () => {
     const dispatch = useDispatch()
-    const fruit = useInventory('fruit')
-    const cravat = useInventory('cravat')
-    const tree = useInventory('tree')
-    const byAuthor = useInventory('set-by-author')
+    const [fruit, cravat, tree, byAuthor] = useInventory([
+        'fruit',
+        'cravat',
+        'tree',
+        'set-by-author'
+    ])
+
     return (
         <Chapter filename="inventory">
             <Section>
@@ -52,10 +48,13 @@ export const Page: PageType = () => {
                 <h3>
                     The <kbd>useInventory</kbd> hook
                 </h3>
-                <p>This hook give you access to the raw value provided by the user:</p>
+                <p>
+                    This hook give you access to the raw value provided by the users for any tag
+                    passed in the array.
+                </p>
                 <SyntaxHighlighter language="tsx" style={prism}>
                     {`export const Page: PageType = () => {
-    const fruit = useInventory('fruit')
+    const [fruit] = useInventory(['fruit'])
     return (
         <Chapter filename="inventory">
             <Section>
@@ -95,7 +94,7 @@ wordFromInventory(fruit, -2) // ${wordFromInventory(fruit, -2)}`}
                 <SyntaxHighlighter language="tsx" style={prism}>
                     {`<Response
     tag="fruit"
-    to={{
+    options={{
         banana: (
             <span>
                 You picked <b>a nice</b> banana
@@ -108,7 +107,7 @@ wordFromInventory(fruit, -2) // ${wordFromInventory(fruit, -2)}`}
                 <aside>
                     <R
                         tag="fruit"
-                        to={{
+                        options={{
                             banana: (
                                 <span>
                                     You picked <b>a nice</b> banana.
@@ -120,8 +119,8 @@ wordFromInventory(fruit, -2) // ${wordFromInventory(fruit, -2)}`}
                     />
                 </aside>
                 <p>
-                    The parameters in the <code>to</code> map should contain substring matches of
-                    the original options. You can match by explicit wildcards too, which will
+                    The parameters in the <code>options</code> map should contain substring matches
+                    of the original options. You can match by explicit wildcards too, which will
                     override the default substring behavior in favor of exactly what you provide.
                     This supports full regular expressions via{' '}
                     <a href="https://www.npmjs.com/package/minimatch">minimatch</a>.
@@ -129,7 +128,7 @@ wordFromInventory(fruit, -2) // ${wordFromInventory(fruit, -2)}`}
                 <SyntaxHighlighter language="tsx" style={prism}>
                     {`<Response
     tag="fruit"
-    to={{
+    options={{
         'r?pe ban*': 'This also matches banana',
         'bulbous': 'This matches "bulbous orange"',
         '*iw*': 'This also matches kiwi'
@@ -140,7 +139,7 @@ wordFromInventory(fruit, -2) // ${wordFromInventory(fruit, -2)}`}
                 <aside>
                     <R
                         tag="fruit"
-                        to={{
+                        options={{
                             'r?pe ban*': 'This also matches banana.',
                             bulbous: 'This matches "bulbous orange."',
                             '*iw*': 'This also matches kiwi.'
@@ -163,8 +162,7 @@ wordFromInventory(fruit, -2) // ${wordFromInventory(fruit, -2)}`}
                 </p>
                 <SyntaxHighlighter language="tsx" style={prism}>
                     {`export const Page: PageType = () => {
-    const fruit = useInventory('fruit')
-    const tree = useInventory('tree')
+    const [fruit, tree ] = useInventory(['fruit', 'tree'])
 
     return (<Chapter filename="inventory">
         <Section>
@@ -234,13 +232,13 @@ wordFromInventory(fruit, -2) // ${wordFromInventory(fruit, -2)}`}
                     </button>{' '}
                     <button
                         onClick={() => {
-                            dispatch(update({ tag: 'set-by-author', selection: null }))
+                            dispatch(update({ tag: 'set-by-author', selection: undefined }))
                         }}>
                         Unset the value
                     </button>
                     <SyntaxHighlighter language="tsx" style={prism}>
                         {`export const Page: PageType = () => {
-    const byAuthor = useInventory('set-by-author')
+    const byAuthor = useInventory(['set-by-author'])
     return (
         <Chapter filename="inventory">
             <Section>
@@ -252,7 +250,7 @@ wordFromInventory(fruit, -2) // ${wordFromInventory(fruit, -2)}`}
                 </button>
                 <button
                     onClick={() => {
-                        dispatch(update({ tag: 'set-by-author', selection: null }))
+                        dispatch(update({ tag: 'set-by-author', selection: undefined }))
                     }}>
                     Unset the value
                 </button>

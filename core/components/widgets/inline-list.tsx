@@ -15,17 +15,19 @@ export const InlineList: typeof InlineListType = ({
     conjunction = 'or',
     group = null,
     handler = null,
-    tag = null
+    tag = null,
+    className = null
 }: InlineListProps): JSX.Element => {
     if (conjunction.length > 0) {
         conjunction = ` ${conjunction} `
     }
+
     return (
         <>
             {[...group]
                 .filter((c) => c !== null && c !== undefined)
                 .map((t, i) => (
-                    <span key={i}>
+                    <span key={i} className={className}>
                         {group.length > 1 && i === group.length - 1 ? conjunction : ''}
                         <Link handler={handler} text={t} index={i} tag={tag} />
                         {i < group.length - 1 && group.length > 2 ? separator : ''}
@@ -39,5 +41,7 @@ export const InlineListEN: typeof InlineList = ({
     conjunction = 'or',
     group = null,
     handler = null,
-    tag = null
-}: InlineListProps): JSX.Element => InlineList({ separator, conjunction, group, handler, tag })
+    tag = null,
+    className = null
+}: InlineListProps): JSX.Element =>
+    InlineList({ separator, conjunction, group, handler, tag, className })
