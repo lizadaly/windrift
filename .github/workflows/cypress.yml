@@ -3,21 +3,14 @@ on: [pull_request]
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
-    container: cypress/browsers:node14.16.0-chrome89-ff77
+    container: cypress/browsers:node14.15.0-chrome89-ff77
     steps:
       - name: Checkout
         uses: actions/checkout@v1
-      # - name: Set up build cache
-      #   uses: actions/cache@v2
-      #   with:
-      #     path: ${{ github.workspace }}/.next/cache
-      #     key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}
-      # - name: Install
-      #   run: npm install --include=dev
       # Install NPM dependencies, cache them correctly
       # and run all Cypress tests
       - name: Cypress run
-        uses: cypress-io/github-action@v2.11.7
+        uses: cypress-io/github-action@v2
         with:
           start: npm run start
           # quote the url to be safe against YML parsing surprises
