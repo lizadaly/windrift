@@ -1,17 +1,19 @@
-import { capitalize } from 'lodash'
 import Image from 'next/image'
 
-import { C, R, Section, Chapter, Nav, When } from 'core/components'
+import { C, Section, Chapter, Nav, When } from 'core/components'
 import { PageType } from 'core/types'
 import useInventory from 'core/hooks/use-inventory'
 
 import { styles } from '..'
-import { Score } from './sample-ascent'
+import { allFindables, Score } from './sample-ascent'
 
 export const Page: PageType = () => {
     const [rock, hawk, snake] = useInventory(['rock', 'hawk', 'snake'])
+    const findables = useInventory(allFindables).filter((f) => !!f)
+
     return (
         <Chapter filename="sample-summit">
+            {' '}
             <Section className={styles.sample}>
                 <p>You emerge from tree cover beneath an overcast sky.</p>
                 <Image
@@ -64,8 +66,11 @@ export const Page: PageType = () => {
                     </When>
                 </p>
                 <p>
-                    The trail <Nav text="continues north" next="sample-descent" /> down into the
-                    valley.
+                    The trail{' '}
+                    <When condition={findables.length >= 3} otherwise="continues north">
+                        <Nav text="continues north" next="sample-descent" />
+                    </When>{' '}
+                    down into the valley.
                 </p>
             </Section>
             <Score />
