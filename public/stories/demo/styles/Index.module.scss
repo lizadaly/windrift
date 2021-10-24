@@ -132,6 +132,10 @@
         .food a::after {
             content: " 🍄";
         }
+        .magnify a::after {
+            content: " 🔎";
+        }
+
         img {
             padding-top: 2rem !important;
         }

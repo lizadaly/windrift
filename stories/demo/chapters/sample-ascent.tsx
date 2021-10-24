@@ -9,7 +9,7 @@ import useInventory from 'core/hooks/use-inventory'
 
 import { styles } from '..'
 
-export const allFindables: Option[] = ['chipmunk', 'mushroom']
+export const allFindables: Option[] = ['chipmunk', 'mushroom', 'snake', 'hawk']
 
 export const Score = (): JSX.Element => {
     const findables = useInventory(allFindables).filter((f) => !!f)

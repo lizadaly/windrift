@@ -9,6 +9,7 @@ import { styles } from '..'
 import { Score } from './sample-ascent'
 
 export const Page: PageType = () => {
+    const [rock, hawk, snake] = useInventory(['rock', 'hawk', 'snake'])
     return (
         <Chapter filename="sample-summit">
             <Section className={styles.sample}>
@@ -28,11 +29,42 @@ export const Page: PageType = () => {
                     autumn-painted trees.
                 </p>
                 <p>
-                    Overhead, a <C tag="hawk" options={['bird of prey', null]} /> is soaring on the
-                    updrafts.
+                    Your <C tag="rock" options={['favorite sitting boulder', null]} /> is here,
+                    where it always remains.
+                    <When condition={rock}>
+                        {' '}
+                        You hop up on it—it's still warm from the day's sun. Peaking through the gap
+                        of a neighboring rock is the head of a harmless young{' '}
+                        <C
+                            tag="snake"
+                            options={['milk snake', null]}
+                            className={`${styles.findable} ${styles.magnify}`}
+                        />
+                        .
+                        <When condition={snake}>
+                            {' '}
+                            The red-and-white mottled snake is unfazed by your careful inspection
+                            and after a moment slowly withdraws into the rock formation.
+                        </When>
+                    </When>{' '}
                 </p>
                 <p>
-                    The trail <Nav text="continues due north" next="sample-descent" /> down into the
+                    Overhead, a{' '}
+                    <C
+                        tag="hawk"
+                        options={['bird of prey', null]}
+                        className={`${styles.findable} ${styles.camera}`}
+                    />{' '}
+                    is soaring on the updrafts.{' '}
+                    <When condition={hawk}>
+                        Peering at it through your telephoto lens, it's easily recognizable as a
+                        red-tailed hawk, the most common aerial predator of the region. You snap a
+                        photo—not likely to be one of your best pictures, but it captures the
+                        moment.{' '}
+                    </When>
+                </p>
+                <p>
+                    The trail <Nav text="continues north" next="sample-descent" /> down into the
                     valley.
                 </p>
             </Section>
