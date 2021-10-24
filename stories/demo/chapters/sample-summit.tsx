@@ -13,7 +13,6 @@ export const Page: PageType = () => {
 
     return (
         <Chapter filename="sample-summit">
-            {' '}
             <Section className={styles.sample}>
                 <p>You emerge from tree cover beneath an overcast sky.</p>
                 <Image

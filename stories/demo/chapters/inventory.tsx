@@ -232,7 +232,7 @@ wordFromInventory(fruit, -2) // ${wordFromInventory(fruit, -2)}`}
                     </button>{' '}
                     <button
                         onClick={() => {
-                            dispatch(update({ tag: 'set-by-author', selection: null }))
+                            dispatch(update({ tag: 'set-by-author', selection: undefined }))
                         }}>
                         Unset the value
                     </button>
@@ -250,7 +250,7 @@ wordFromInventory(fruit, -2) // ${wordFromInventory(fruit, -2)}`}
                 </button>
                 <button
                     onClick={() => {
-                        dispatch(update({ tag: 'set-by-author', selection: null }))
+                        dispatch(update({ tag: 'set-by-author', selection: undefined }))
                     }}>
                     Unset the value
                 </button>

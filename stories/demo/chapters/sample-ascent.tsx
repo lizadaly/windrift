@@ -152,7 +152,7 @@ export const Page: PageType = () => {
                 </p>
                 <p>
                     The trail{' '}
-                    <When condition={border} otherwise="climbs up">
+                    <When condition={mushroom || chipmunk} otherwise="climbs up">
                         <Nav text="climbs up" next="sample-summit" />
                     </When>{' '}
                     into the cool light of the summit.

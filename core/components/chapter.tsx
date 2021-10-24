@@ -35,8 +35,10 @@ const Chapter: React.FC<ChapterType> = ({ children, filename }) => {
         if (React.isValidElement(child)) {
             const fc = child.type as React.FunctionComponent
 
-            if (fc.displayName === 'Section' && index <= item.bookmark) {
-                return <CSSTransition {...SectionTransition}>{child}</CSSTransition>
+            if (fc.displayName === 'Section') {
+                if (index <= item.bookmark) {
+                    return <CSSTransition {...SectionTransition}>{child}</CSSTransition>
+                }
             } else {
                 return <>{child}</>
             }
