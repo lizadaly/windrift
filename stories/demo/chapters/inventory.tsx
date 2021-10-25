@@ -226,13 +226,13 @@ wordFromInventory(fruit, -2) // ${wordFromInventory(fruit, -2)}`}
                     <button
                         className={styles.warning}
                         onClick={() => {
-                            dispatch(update({ tag: 'set-by-author', selection: 'pumpkin patch' }))
+                            dispatch(update({ tag: 'set-by-author', option: 'pumpkin patch' }))
                         }}>
                         Set the value
                     </button>{' '}
                     <button
                         onClick={() => {
-                            dispatch(update({ tag: 'set-by-author', selection: undefined }))
+                            dispatch(update({ tag: 'set-by-author', option: undefined }))
                         }}>
                         Unset the value
                     </button>
@@ -244,13 +244,13 @@ wordFromInventory(fruit, -2) // ${wordFromInventory(fruit, -2)}`}
             <Section>
                 <button
                     onClick={() => {
-                        dispatch(update({ tag: 'set-by-author', selection: 'pumpkin patch' }))
+                        dispatch(update({ tag: 'set-by-author', option: 'pumpkin patch' }))
                     }}>
                     Set the value
                 </button>
                 <button
                     onClick={() => {
-                        dispatch(update({ tag: 'set-by-author', selection: undefined }))
+                        dispatch(update({ tag: 'set-by-author', option: undefined }))
                     }}>
                     Unset the value
                 </button>
