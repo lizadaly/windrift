@@ -33,6 +33,7 @@ const ImageChoice: typeof ImageChoiceType = ({
         <button
             onClick={onClick}
             data-tag={tag}
+            data-option={option}
             className={`windrift--image-choice windrift--image-choice-chooseable-${chooseable} ${className}`}>
             <img src={src} alt={alt} width={width} height={height} />
         </button>

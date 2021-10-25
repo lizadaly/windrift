@@ -87,6 +87,21 @@ describe('Full test of the built-in stories', () => {
 
         // Sample (descent)
         cy.get('img').should('be.visible')
-        cy.contains('set out to meet them').should('exist')
+        cy.get('a').contains('set out to meet them').click()
+
+        // Images
+        cy.get('img[src="/stories/demo/images/example1.jpg"]').should('be.visible')
+        cy.get('img[src="/stories/demo/images/skyscrapers.jpg"]').should('be.visible')
+        cy.get('img[src="/stories/demo/images/camera.jpg"]').should('be.visible')
+        cy.contains("You haven't made a choice yet").should('exist')
+        cy.get('button[data-tag="image"][data-option="camera"]').click()
+        cy.contains("You haven't made a choice yet").should('not.exist')
+        cy.contains('You chose camera').should('exist')
+        cy.contains("You haven't made a final choice yet").should('exist')
+        cy.get('button[data-tag="image-once"][data-option="skyscrapers"]').click()
+        cy.contains('You chose skyscrapers').should('exist')
+        cy.get('button[data-tag="image-once"].windrift--image-choice-chooseable-true').should(
+            'not.exist'
+        )
     })
 })

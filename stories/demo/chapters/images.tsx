@@ -5,14 +5,13 @@ import { PageType } from 'core/types'
 import useInventory from 'core/hooks/use-inventory'
 import ImageChoice from 'core/components/widgets/image-choice'
 import { SyntaxHighlighter, prism, styles } from '..'
-import style from 'react-syntax-highlighter/dist/esm/styles/hljs/a11y-dark'
 
 export const Page: PageType = () => {
     const [image, imageOnce] = useInventory(['image', 'image-once'])
     return (
-        <Chapter filename="multimedia">
+        <Chapter filename="images">
             <Section>
-                <h2>Multimedia</h2>
+                <h2>Images</h2>
                 <p>
                     Because Windrift is based on NextJS and React, in general you'll add elements
                     like images, CSS, and sound or video in a method consistent with those
@@ -119,15 +118,14 @@ export const Page: PageType = () => {
                         visible in the viewport.
                     </p>
                 </aside>
-                <h3>Using images for choices</h3>
+                <h3>Using images as choices</h3>
                 <p>
                     In some stories you may want the reader to make a choice by clicking on an image
                     rather than a word. The Choice widget <code>ImageChoice</code> is provided for
-                    this use case.In addition to enumerating all the possible options for this
-                    choice, you also need to tell the widget which option it represents, as well as
-                    setting all the usual image arguments.
+                    this use case. It takes a number of arguments in its <code>extra</code> block,
+                    including option it represents as well as the usual image properties.
                 </p>
-                <p>Click on the images to see the choice selection being made.</p>
+                <p>Click on the images to see the choice selection being made:</p>
                 <table>
                     <tbody>
                         <tr>
@@ -279,7 +277,7 @@ export const Page: PageType = () => {
                     <em>
                         <When
                             condition={imageOnce}
-                            otherwise="You haven't made a choice yet—click on one of the images above.">
+                            otherwise="You haven't made a final choice yet—click on one of the images above.">
                             You chose {imageOnce}. Note that the images are no long clickable and
                             don't have special behavior on <code>::hover</code>.
                         </When>

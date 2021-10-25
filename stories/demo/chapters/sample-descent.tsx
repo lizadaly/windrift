@@ -30,7 +30,7 @@ export const Page: PageType = () => {
                 <p>
                     You can just make out the shape of {companion} waving at you in the distance.{' '}
                     Satisfied by your short hike today,{' '}
-                    <Nav text="set out to meet them" next="multimedia" />.
+                    <Nav text="set out to meet them" next="images" />.
                 </p>
                 <br />
                 <br />
