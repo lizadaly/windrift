@@ -2,16 +2,15 @@ import undoable from 'redux-undo'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 import { Tag } from 'core/types'
-
-export type Selection = string
+import { Option } from 'core/reducers/choice'
 export interface InventoryState {
-    [tag: Tag]: Selection
+    [tag: Tag]: Option
 }
 const initialState = {} as InventoryState
 
 interface UpdateInventoryPayload {
     tag: Tag
-    selection: Selection
+    option: Option
 }
 
 export const inventorySlice = createSlice({
@@ -19,7 +18,7 @@ export const inventorySlice = createSlice({
     initialState,
     reducers: {
         update: (state, action: PayloadAction<UpdateInventoryPayload>) => {
-            state[action.payload.tag] = action.payload.selection
+            state[action.payload.tag] = action.payload.option
         }
     }
 })

@@ -14,10 +14,12 @@ import { ENTRY_TYPES, update as logUpdate } from 'core/reducers/log'
 import { init, advance, Option, Options, OptionGroup } from 'core/reducers/choice'
 import { StoryContext } from 'pages/[story]/[[...chapter]]'
 
+export type NextType = Next | string
+
 interface MutableChoiceProps {
     tag: string
     /** At completion of the choice list, go to the Next section/chapter, go to the named chapter (if a string) or do nothing*/
-    next?: Next | string
+    next?: NextType
     widget?: WidgetType
     /** Arbitrary arguments passed unchanged to the underlying widget */
     extra?: Record<string, unknown>
@@ -61,7 +63,7 @@ const Choice = ({
         dispatch(init({ tag, options: o }))
 
         if (defaultOption) {
-            dispatch(updateInventory({ tag, selection: defaultOption }))
+            dispatch(updateInventory({ tag, option: defaultOption }))
         }
         initialize(true)
     }, [dispatch])
@@ -108,19 +110,16 @@ const MutableChoice = ({
         return null
     }
 
-    const handler = (e: React.MouseEvent): void => {
-        e.preventDefault()
-        const target = e.target as HTMLInputElement
-        const selection = target.textContent
+    const handler = (option: Option): void => {
         const choiceId = uuidv4()
-        dispatch(updateInventory({ tag, selection }))
+        dispatch(updateInventory({ tag, option }))
         dispatch(advance({ tag }))
         dispatch(
             logUpdate({
                 entry: {
                     id: choiceId,
                     tag,
-                    selection,
+                    option,
                     entry: ENTRY_TYPES.Choice,
                     timestamp: new Date().toLocaleDateString()
                 }
@@ -152,6 +151,7 @@ const MutableChoice = ({
     } else {
         group = choice.options[0]
     }
+
     return React.createElement(widget, {
         group,
         handler: group.length > 1 || persist ? handler : null,

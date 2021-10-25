@@ -29,7 +29,7 @@ export const InlineList: typeof InlineListType = ({
                 .map((t, i) => (
                     <span key={i} className={className}>
                         {group.length > 1 && i === group.length - 1 ? conjunction : ''}
-                        <Link handler={handler} text={t} index={i} tag={tag} />
+                        <Link handler={handler} text={t} tag={tag} />
                         {i < group.length - 1 && group.length > 2 ? separator : ''}
                     </span>
                 ))}

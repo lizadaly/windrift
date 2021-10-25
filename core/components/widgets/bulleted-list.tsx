@@ -22,7 +22,7 @@ const InlineList: typeof BulletedListType = ({
         <ul>
             {[...initialOptions[0]].map((t, i) => (
                 <li key={i} className={className}>
-                    <Link handler={handler} text={t} index={i} tag={tag} />
+                    <Link handler={handler} text={t} tag={tag} />
                     {group.map((g) => {
                         if (!isEqual(initialOptions[0], group) && g === t) {
                             return ' (selected)'

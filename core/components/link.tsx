@@ -12,14 +12,19 @@ interface LinkProps {
     handler: any
     tag?: Tag
 }
-const Link = ({ text, index, handler, tag }: LinkProps): JSX.Element => {
+const Link = ({ text, handler, tag }: LinkProps): JSX.Element => {
     if (handler) {
         return (
             // eslint-disable-next-line jsx-a11y/anchor-is-valid
             <a
                 href="#"
                 data-tag={tag}
-                onClick={() => handler(event, index)}
+                onClick={(e: React.MouseEvent) => {
+                    e.preventDefault()
+                    const target = e.target as HTMLInputElement
+                    const option = target.textContent
+                    handler(option)
+                }}
                 dangerouslySetInnerHTML={{ __html: text }}
             />
         )

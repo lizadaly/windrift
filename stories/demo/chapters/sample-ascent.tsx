@@ -30,9 +30,8 @@ export const Score = (): JSX.Element => {
 }
 
 export const Page: PageType = () => {
-    const [companion, border, chipmunk, trunk, mushroom] = useInventory([
+    const [companion, chipmunk, trunk, mushroom] = useInventory([
         'companion',
-        'border',
         'chipmunk',
         'trunk',
         'mushroom'

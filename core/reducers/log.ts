@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { Tag, TocItem } from 'core/types'
-import { Selection } from 'core/reducers/inventory'
+import { Option } from 'core/reducers/choice'
 
 export enum ENTRY_TYPES {
     Choice = 'CHOICE',
@@ -12,7 +12,7 @@ export interface LogEntry {
     entry: ENTRY_TYPES
     playerName?: string
     tag?: Tag
-    selection?: Selection
+    option?: Option
     filename?: TocItem['filename']
 }
 

@@ -1,11 +1,10 @@
 import Image from 'next/image'
 
-import { C, Section, Chapter, Nav, When } from 'core/components'
+import { Section, Chapter, Nav } from 'core/components'
 import { PageType } from 'core/types'
 import useInventory from 'core/hooks/use-inventory'
 
 import { styles } from '..'
-import { Score } from './sample-ascent'
 
 export const Page: PageType = () => {
     const [companion] = useInventory(['companion'])
@@ -30,7 +29,7 @@ export const Page: PageType = () => {
                 </p>
                 <p>
                     You can just make out the shape of {companion} waving at you in the distance.{' '}
-                    Satified by your short hike today,{' '}
+                    Satisfied by your short hike today,{' '}
                     <Nav text="set out to meet them" next="multimedia" />.
                 </p>
                 <br />

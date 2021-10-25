@@ -16,7 +16,7 @@ const BaseList: typeof BaseListType = ({
         <>
             {[...group].map((t, i) => (
                 <span key={i} className={className}>
-                    <Link handler={handler} text={t} index={i} tag={tag} />
+                    <Link handler={handler} text={t} tag={tag} />
                 </span>
             ))}
         </>
