@@ -1,5 +1,7 @@
 # Windrift v2
 
+![Integration tests](https://github.com/lizadaly/windrift/actions/workflows/cypress.yml/badge.svg)
+
 This branch is in progress and not ready for use by authors. It's expected to be ready before the end of 2021.
 
 If you're keen on using Windrift right now, please use the v1 branch.
