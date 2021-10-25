@@ -2,11 +2,9 @@
 
 ![Integration tests](https://github.com/lizadaly/windrift/actions/workflows/cypress.yml/badge.svg)
 
-This branch is in progress and not ready for use by authors. It's expected to be ready before the end of 2021.
+⚠️ This branch is in progress and not ready for use by authors. It's expected to be ready before the end of 2021. If you're keen on using Windrift right now, please use the v1 branch.
 
-If you're keen on using Windrift right now, please use the v1 branch.
-
-**In progress**
+# Windrift
 
 This is a complete rewrite of Windrift, now based on
 <a href="https://nextjs.org/">NextJS</a> and written in TypeScript.
@@ -27,22 +25,22 @@ callback features and rarely-used props. This stripped-down approach
 means that many of Windrift 2's fundamental components are less than
 half the length of their Windrift 1 counterparts.
 
-## Backend API support
+## Online manual
 
-As with Windrift 1, by default Windrift stories are completely
-static HTML + JS single page apps. Because NextJS also allows for easy creation
-of _server_ API endpoints, Windrift 2 can include backend components
-as well. You may want to use a database, perform computationally intensive
-work (perhaps procedural game generation?), or persist story state across
-devices.
+If you're curious, the official manual is continuously published as features are added: https://windrift.app/demo. This is the best way to quickly get an overview of Windrift v2. Corrections and requests for coverage are gratefully accepted.
 
-## Localization
+## Quick start
 
-Each story has a language definition in its configuration. This is used to populate the
-`lang` attribute on the major HTML tags to assist the browser in providing
-language-specific affordances.
+### To start a new story
 
-## To run
+```
+npm run new <story-id>
+```
+
+The story identifier must be a single string, like "west-of-house" or "colossal-cave."
+
+
+### To run the local development environment
 
 ```
 npm run dev
@@ -50,11 +48,3 @@ npm run dev
 
 Other help commands including deployment options as per the
 <a href="https://nextjs.org/">NextJS</a> documentation.
-
-## To start a new story
-
-```
-npm run new <story-id>
-```
-
-The story identifier must be a single string, like "west-of-house" or "colossal-cave."
