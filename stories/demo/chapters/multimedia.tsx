@@ -1,13 +1,14 @@
 import Image from 'next/image'
 
-import { Section, Chapter, Nav, When } from 'core/components'
+import { Section, Chapter, Nav, When, C } from 'core/components'
 import { PageType } from 'core/types'
 import useInventory from 'core/hooks/use-inventory'
-
+import ImageChoice from 'core/components/widgets/image-choice'
 import { SyntaxHighlighter, prism, styles } from '..'
+import style from 'react-syntax-highlighter/dist/esm/styles/hljs/a11y-dark'
 
 export const Page: PageType = () => {
-    const [image] = useInventory(['image'])
+    const [image, imageOnce] = useInventory(['image', 'image-once'])
     return (
         <Chapter filename="multimedia">
             <Section>
@@ -36,8 +37,12 @@ export const Page: PageType = () => {
                 <p>
                     NextJS provides an <code>Image</code> component with many useful features,
                     though many of them require more advanced deployment techniques. You're free to
-                    either use next/image or the standard HTML image tag—for most authors, the
-                    standard <code>img</code> element will serve you just fine.
+                    either use next/image or the standard HTML image tag—for most authors, the{' '}
+                    <strong>
+                        standard <code>img</code> element will serve you just fine and is
+                        recommended for most users
+                    </strong>
+                    .
                 </p>
                 <p>
                     You are strongly encouraged to provide image height and width manually as this
@@ -45,59 +50,65 @@ export const Page: PageType = () => {
                 </p>
                 <aside>
                     <table>
-                        <tr>
-                            <td>
-                                <img
-                                    src="../stories/demo/images/example1.jpg"
-                                    alt="Ocean waves and rocks"
-                                    width="100"
-                                    height="100"
-                                />
-                            </td>
-                            <td>
-                                <Image
-                                    src="../stories/demo/images/example1.jpg"
-                                    loader={({ src }) => src}
-                                    width="100"
-                                    height="100"
-                                    alt="Ocean waves and rocks"
-                                />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <SyntaxHighlighter language="tsx" style={prism}>
-                                    {`// Standard HTML <img>
-<img src="../stories/demo/images/example1.jpg"
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <img
+                                        src="/stories/demo/images/example1.jpg"
+                                        alt="Ocean waves and rocks"
+                                        width="200"
+                                        height="200"
+                                    />
+                                </td>
+                                <td>
+                                    <Image
+                                        src="/stories/demo/images/example1.jpg"
+                                        width="200"
+                                        height="200"
+                                        alt="Ocean waves and rocks"
+                                        unoptimized={true}
+                                    />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <SyntaxHighlighter language="tsx" style={prism}>
+                                        {`// Standard HTML <img> (recommended)
+<img src="/stories/demo/images/example1.jpg"
     alt="Ocean waves and rocks"
-    width="100" height="100" />
+    width="200" height="200" />
 `}
-                                </SyntaxHighlighter>
-                            </td>
-                            <td>
-                                <SyntaxHighlighter language="tsx" style={prism}>
-                                    {`// import Image from 'next/image'
-<Image src="../stories/demo/images/example1.jpg"
+                                    </SyntaxHighlighter>
+                                </td>
+                                <td>
+                                    <SyntaxHighlighter language="tsx" style={prism}>
+                                        {`// import Image from 'next/image'
+<Image src="/stories/demo/images/example1.jpg"
     alt="Ocean waves and rocks"
-    loader={({ src }) => src} preload={true}
-    width="100" height="100" />`}
-                                </SyntaxHighlighter>
-                            </td>
-                        </tr>
+    preload={true} unoptimized={true}
+    width="200" height="200" />`}
+                                    </SyntaxHighlighter>
+                                </td>
+                            </tr>
+                        </tbody>
                     </table>
                 </aside>
 
                 <aside className={styles.advanced}>
                     <h3>
-                        Preloading and serving alternate image sizes in <kbd>next/image</kbd>
+                        Preloading and image optimization in <kbd>next/image</kbd>
                     </h3>
                     <p>
-                        The <code>loader</code> prop is required and refers to a function that
-                        returns a URL to the image, potentially based on a desired image size and
-                        quality. See the{' '}
-                        <a href="https://nextjs.org/docs/api-reference/next/image#loader">NextJS</a>{' '}
-                        documentation on custom loaders for more details. The example function is
-                        just a no-op that behaves the same as a standard <code>img</code>.
+                        Most authors should use the standard HTML <code>img</code>, but NextJS
+                        provides options for serving up multiple image sizes based on browser sizes.
+                        This functionality is complex and requires special hosting considerations.
+                        For the recommended static export process (see deployment [TODO]), you can
+                        only serve one image size, so use the <code>unoptimized</code> prop here.
+                        See the
+                        <a href="https://nextjs.org/docs/api-reference/next/image#loader">
+                            NextJS
+                        </a>{' '}
+                        documentation for more details.
                     </p>
                     <p>
                         Normally, NextJS will not invoke the <code>Image</code> loader until the
@@ -111,29 +122,77 @@ export const Page: PageType = () => {
                 <h3>Using images for choices</h3>
                 <p>
                     In some stories you may want the reader to make a choice by clicking on an image
-                    rather than a word:
+                    rather than a word. The Choice widget <code>ImageChoice</code> is provided for
+                    this use case.In addition to enumerating all the possible options for this
+                    choice, you also need to tell the widget which option it represents, as well as
+                    setting all the usual image arguments.
                 </p>
+                <p>Click on the images to see the choice selection being made.</p>
                 <table>
-                    <tr>
-                        <td>
-                            <img
-                                src="../stories/demo/images/camera.jpg"
-                                alt="A black manual camera"
-                                width="200"
-                                height="200"
-                            />
-                        </td>
-                        <td>
-                            <img
-                                src="../stories/demo/images/skyscrapers.jpg"
-                                alt="Many tall skyscrapers"
-                                width="200"
-                                height="200"
-                            />
-                        </td>
-                    </tr>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <C
+                                    tag="image"
+                                    options={['camera', 'skyscrapers']}
+                                    widget={ImageChoice}
+                                    extra={{
+                                        src: '/stories/demo/images/camera.jpg',
+                                        alt: 'A black manual camera',
+                                        option: 'camera',
+                                        width: 200,
+                                        height: 200
+                                    }}
+                                    persist={true}
+                                />
+                            </td>
+                            <td>
+                                <C
+                                    tag="image"
+                                    options={['camera', 'skyscrapers']}
+                                    widget={ImageChoice}
+                                    extra={{
+                                        src: '/stories/demo/images/skyscrapers.jpg',
+                                        alt: 'City skyscrapers',
+                                        option: 'skyscrapers',
+                                        width: 200,
+                                        height: 200
+                                    }}
+                                    persist={true}
+                                />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <SyntaxHighlighter language="tsx" style={prism}>{`<C tag="image"
+    options={['camera', 'skyscrapers']}
+    widget={ImageChoice}
+    extra={{
+        src: '/stories/demo/images/camera.jpg',
+        alt: 'A black manual camera',
+        option: 'camera',
+        width: 200,
+        height: 200
+    }}
+    persist={true} />`}</SyntaxHighlighter>
+                            </td>
+                            <td>
+                                <SyntaxHighlighter language="tsx" style={prism}>{`<C tag="image"
+    options={['camera', 'skyscrapers']}
+    widget={ImageChoice}
+    extra={{
+        src: '/stories/demo/images/skyscrapers.jpg',
+        alt: 'City skyscrapers',
+        option: 'skyscrapers',
+        width: 200,
+        height: 200
+    }}
+    persist={true} />`}</SyntaxHighlighter>
+                            </td>
+                        </tr>
+                    </tbody>
                 </table>
-                <p>
+                <aside>
                     <em>
                         <When
                             condition={image}
@@ -141,7 +200,91 @@ export const Page: PageType = () => {
                             You chose {image}.
                         </When>
                     </em>
+                </aside>
+
+                <p>
+                    In the previous example you could keep switching your choice because the widget
+                    respects the <code>persist=true</code> prop. If we set it to <code>false</code>{' '}
+                    we'll only be able to choose once:
                 </p>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <C
+                                    tag="image-once"
+                                    options={['camera', 'skyscrapers']}
+                                    widget={ImageChoice}
+                                    extra={{
+                                        src: '/stories/demo/images/camera.jpg',
+                                        alt: 'A black manual camera',
+                                        option: 'camera',
+                                        width: 200,
+                                        height: 200
+                                    }}
+                                    persist={false}
+                                />
+                            </td>
+                            <td>
+                                <C
+                                    tag="image-once"
+                                    options={['camera', 'skyscrapers']}
+                                    widget={ImageChoice}
+                                    extra={{
+                                        src: '/stories/demo/images/skyscrapers.jpg',
+                                        alt: 'City skyscrapers',
+                                        option: 'skyscrapers',
+                                        width: 200,
+                                        height: 200
+                                    }}
+                                    persist={false}
+                                />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <SyntaxHighlighter
+                                    language="tsx"
+                                    style={prism}>{`<C tag="image-once"
+    options={['camera', 'skyscrapers']}
+    widget={ImageChoice}
+    extra={{
+        src: '/stories/demo/images/camera.jpg',
+        alt: 'A black manual camera',
+        option: 'camera',
+        width: 200,
+        height: 200
+    }}
+    persist={false} />`}</SyntaxHighlighter>
+                            </td>
+                            <td>
+                                <SyntaxHighlighter
+                                    language="tsx"
+                                    style={prism}>{`<C tag="image-once"
+    options={['camera', 'skyscrapers']}
+    widget={ImageChoice}
+    extra={{
+        src: '/stories/demo/images/skyscrapers.jpg',
+        alt: 'City skyscrapers',
+        option: 'skyscrapers',
+        width: 200,
+        height: 200
+    }}
+    persist={false} />`}</SyntaxHighlighter>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <aside>
+                    <em>
+                        <When
+                            condition={imageOnce}
+                            otherwise="You haven't made a choice yet—click on one of the images above.">
+                            You chose {imageOnce}. Note that the images are no long clickable and
+                            don't have special behavior on <code>::hover</code>.
+                        </When>
+                    </em>
+                </aside>
             </Section>
         </Chapter>
     )

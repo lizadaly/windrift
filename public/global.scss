@@ -18,3 +18,22 @@ section.windrift--section:last-of-type {
     margin-bottom: 4em;
 }
 
+.windrift--image-choice {
+    margin: 20px !important;
+    padding: 0 !important;
+    display: inline-block;
+    background: none;
+    box-shadow: none;
+    border-radius: 0;
+    border: 0;
+
+}
+/* If the choice is an image and it's enabled to be chosen, give it a presentation to show it's clickable */
+.windrift--image-choice-chooseable-true {
+    cursor: pointer;
+    transition-duration: 0.1s;
+    transition-timing-function: ease;
+    &:hover {
+        transform: scale(1.1);
+    }
+}

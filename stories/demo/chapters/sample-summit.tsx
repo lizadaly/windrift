@@ -17,7 +17,7 @@ export const Page: PageType = () => {
                 <p>You emerge from tree cover beneath an overcast sky.</p>
                 <Image
                     src="/stories/demo/images/bouquet-valley-richards.jpg"
-                    loader={({ src }) => src}
+                    unoptimized={true}
                     alt="An impressionist painting of a valley with autumn trees"
                     width="806"
                     height="297"

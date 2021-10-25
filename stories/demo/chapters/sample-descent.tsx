@@ -17,7 +17,7 @@ export const Page: PageType = () => {
                 </p>
                 <Image
                     src="/stories/demo/images/an-evening-in-the-woods-whittredge.jpg"
-                    loader={({ src }) => src}
+                    unoptimized={true}
                     alt="A painting of dark wood, with a distant light in the center and a creek in the foreground"
                     width="1000"
                     height="419"
