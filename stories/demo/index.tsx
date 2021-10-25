@@ -22,7 +22,7 @@ const Index: React.FC = ({ children }) => {
             styles={styles}
             head={
                 <link
-                    href="https://fonts.googleapis.com/css2?family=Nunito:wght@300&family=EB+Garamond&family=Elsie&display=optional"
+                    href="https://fonts.googleapis.com/css2?family=Nunito:wght@300&family=EB+Garamond&family=Elsie&display=block"
                     rel="stylesheet"
                 />
             }>

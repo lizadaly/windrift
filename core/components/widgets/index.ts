@@ -8,7 +8,7 @@ export { default as BaseList } from './base-list'
 export interface WidgetProps {
     group?: OptionGroup
     initialOptions?: Options
-    handler?: React.MouseEventHandler<HTMLAnchorElement>
+    handler?: any // TODO type this better
     tag?: Tag
     className?: string
 }

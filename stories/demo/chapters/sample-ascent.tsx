@@ -30,9 +30,8 @@ export const Score = (): JSX.Element => {
 }
 
 export const Page: PageType = () => {
-    const [companion, border, chipmunk, trunk, mushroom] = useInventory([
+    const [companion, chipmunk, trunk, mushroom] = useInventory([
         'companion',
-        'border',
         'chipmunk',
         'trunk',
         'mushroom'
@@ -81,7 +80,7 @@ export const Page: PageType = () => {
             <Section className={styles.sample}>
                 <Image
                     src="/stories/demo/images/the-trout-pool-whittredge.jpg"
-                    loader={({ src }) => src}
+                    unoptimized={true}
                     alt="A painting of a forest in autumn with deep trees rendered in orange and gold"
                     width="1000"
                     height="406"

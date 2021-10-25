@@ -1,5 +1,5 @@
 import { Toc, TocItem } from 'core/types'
-import { Selection } from 'core/reducers/inventory'
+import { Option } from 'core/reducers/choice'
 
 const OFFSET_DEFAULT = -1
 
@@ -17,12 +17,12 @@ If the English-language default value is undesirable, wrap this in a language-sp
 function that overrides the default.
  */
 
-export const wordFromInventory = (selection: Selection, offset = OFFSET_DEFAULT): Selection => {
+export const wordFromInventory = (option: Option, offset = OFFSET_DEFAULT): Option => {
     if (offset === null) {
-        return selection
+        return option
     }
-    if (selection) {
-        const words = selection.split(' ')
+    if (option) {
+        const words = option.split(' ')
         return words.slice(offset)[0]
     }
     return null

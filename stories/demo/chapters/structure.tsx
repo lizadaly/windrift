@@ -166,8 +166,10 @@ players:
                 <code>filename.tsx</code> (JavaScript). TypeScript is strongly recommended,
                 especially when paired with a code editor like VSCode that understands TypeScript
                 natively. This value must also match the contents of the{' '}
-                <code>&lt;Chapter filename="example"&gt;</code> attribute. Although expressed as an
-                array, these chapters have no intrinsic ordering.
+                <code>&lt;Chapter filename="example"&gt;</code> attribute. Because it's an array,
+                chapters have an implicit ordering; Windrift will not make use of this, but you
+                can—see the source code that generates the <code>TableOfContent</code> component in
+                this demo.
             </p>
             <p>
                 The chapter title will appear in the <code>&lt;title&gt;</code> of the HTML page.

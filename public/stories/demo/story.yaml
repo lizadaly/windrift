@@ -15,6 +15,7 @@ chapters:
     title: "Summit (Sample story)"
   - filename: "sample-descent"
     title: "Descent (Sample story)"
-
+  - filename: "images"
+    title: "Images"
 players:
   - start: "structure"
