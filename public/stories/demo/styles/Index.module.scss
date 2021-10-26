@@ -147,4 +147,11 @@
     td {
         text-align: center;
     }
+    .twoUp {
+        display: grid;
+        padding: 2rem 0;
+        column-gap: 2rem;
+        row-gap: 2rem;
+        grid-template-columns: [left] 1fr [right] 1fr;
+    }
 }
