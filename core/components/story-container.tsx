@@ -2,10 +2,9 @@ import * as React from 'react'
 
 import { ActionCreators } from 'redux-undo'
 import { connect, ConnectedProps } from 'react-redux'
-import { RootState } from 'core/reducers'
 
-import { Counter } from '../components'
-import { Config } from 'core/types'
+import { Counter } from 'core/components'
+import { Config, RootState } from 'core/types'
 
 interface StoryProps extends PropsFromRedux {
     config: Config

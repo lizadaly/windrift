@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { Tag, TocItem } from 'core/types'
-import { Option } from 'core/reducers/choice'
+import { Tag, TocItem, Option } from 'core/types'
 
 export enum ENTRY_TYPES {
     Choice = 'CHOICE',

@@ -1,10 +1,10 @@
 import * as React from 'react'
+import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { setSectionCount } from 'core/reducers/navigation'
+import { setSectionCount } from 'core/features/navigation'
 import { getChapter } from 'core/util'
-import { RootState } from 'core/reducers'
-import { CSSTransition, TransitionGroup } from 'react-transition-group'
+import { RootState } from 'core/types'
 
 type ContextProps = {
     filename: string

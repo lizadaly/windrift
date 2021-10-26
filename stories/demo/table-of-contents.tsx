@@ -3,8 +3,8 @@
  */
 import { useDispatch, useSelector } from 'react-redux'
 
-import { gotoChapter } from 'core/reducers/navigation'
-import { RootState } from 'core/reducers'
+import { gotoChapter } from 'core/features/navigation'
+import { RootState } from 'core/types'
 
 import styles from 'public/stories/demo/styles/Index.module.scss'
 

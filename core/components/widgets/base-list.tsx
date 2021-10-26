@@ -1,8 +1,11 @@
-// A default presentation with no styling
+/**
+ * A default widget presentation with no styling
+ */
 
-import React from 'react'
+import * as React from 'react'
+
+import Link from 'core/components/link'
 import { WidgetProps } from '.'
-import Link from '../link'
 
 declare function BaseListType(props: WidgetProps): JSX.Element
 

@@ -2,8 +2,7 @@ import { useSelector } from 'react-redux'
 import Image from 'next/image'
 
 import { C, R, Section, Chapter } from 'core/components'
-import { RootState } from 'core/reducers'
-import { PageType } from 'core/types'
+import { PageType, RootState } from 'core/types'
 
 export const Page: PageType = () => {
     const inventory = useSelector((state: RootState) => state.inventory.present)

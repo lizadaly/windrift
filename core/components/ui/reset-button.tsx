@@ -1,8 +1,9 @@
 import * as React from 'react'
 import { Persistor } from 'redux-persist'
-import { StoryContext } from 'pages/[story]/[[...chapter]]'
-import { Config } from 'core/types'
 import { NextRouter, useRouter } from 'next/router'
+
+import { Config } from 'core/types'
+import { StoryContext } from 'pages/[story]/[[...chapter]]'
 
 /* Reset the story and remove the local storage */
 export const resetStory = (

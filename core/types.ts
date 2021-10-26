@@ -1,4 +1,9 @@
-export const UPDATE_STATE_COUNTER = 'UPDATE_STATE_COUNTER'
+/* Re-export common types */
+
+export type { Option, Options, OptionGroup } from 'core/features/choice'
+export { ENTRY_TYPES } from 'core/features/log'
+export type { RootState } from 'core/features'
+export { Next } from 'core/features/navigation'
 
 export type Tag = string
 

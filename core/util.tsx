@@ -1,5 +1,4 @@
-import { Toc, TocItem } from 'core/types'
-import { Option } from 'core/reducers/choice'
+import { Toc, TocItem, Option } from 'core/types'
 
 const OFFSET_DEFAULT = -1
 

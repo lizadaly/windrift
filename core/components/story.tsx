@@ -1,8 +1,8 @@
 import * as React from 'react'
 import { useSelector } from 'react-redux'
-import { RootState } from 'core/reducers'
 import dynamic from 'next/dynamic'
-import { Toc, TocItem } from 'core/types'
+
+import { Toc, TocItem, RootState } from 'core/types'
 
 interface ChapterComponent {
     component: JSX.Element

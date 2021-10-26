@@ -1,7 +1,7 @@
 import minimatch from 'minimatch'
 
 import { useSelector } from 'react-redux'
-import { RootState } from 'core/reducers'
+import { RootState } from 'core/types'
 
 interface OptionsMap {
     [tag: string]: string | JSX.Element

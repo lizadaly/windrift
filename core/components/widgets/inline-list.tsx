@@ -1,11 +1,21 @@
-// An inline list of items, the default
+/**
+ * An inline list of choice options, the default widget.
+ * @example Will produce: "foo, bar, and baz"
+ *
+ */
+import * as React from 'react'
 
-import React from 'react'
-import { WidgetProps } from '.'
-import Link from '../link'
+import { WidgetProps } from 'core/components/widgets'
+import Link from 'core/components/link'
 
 interface InlineListProps extends WidgetProps {
+    /** The separator between list items
+     * @default ","
+     */
     separator: string
+    /** The conjunction terminating a list of items
+     * @default "or"
+     */
     conjunction: string
 }
 declare function InlineListType(props: InlineListProps): JSX.Element

@@ -1,6 +1,5 @@
-import { Next } from 'core/reducers/navigation'
 import { C, Section, Chapter, Nav } from 'core/components'
-import { PageType } from 'core/types'
+import { PageType, Next } from 'core/types'
 
 import { SyntaxHighlighter, prism, styles } from '..'
 

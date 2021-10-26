@@ -1,8 +1,6 @@
 import { useSelector } from 'react-redux'
 
-import { RootState } from 'core/reducers'
-import { Tag } from 'core/types'
-import { Option } from 'core/reducers/choice'
+import { Tag, RootState, Option } from 'core/types'
 
 const useInventory = (tags: Tag[]): Option[] => {
     return useSelector((state: RootState) => {
