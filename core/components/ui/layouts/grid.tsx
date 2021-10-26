@@ -2,7 +2,7 @@ import * as React from 'react'
 
 import Head from 'next/head'
 
-import ResetButton from '../reset-button'
+import ResetButton from 'core/components/ui/reset-button'
 import { StoryContext } from 'pages/[story]/[[...chapter]]'
 
 export type GridProps = {

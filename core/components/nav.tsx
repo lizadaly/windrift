@@ -5,11 +5,11 @@
  * after clicking.
  */
 import React, { useContext } from 'react'
-import { BaseList } from './widgets'
+
+import { BaseList } from 'core/components/widgets'
 import { Choice } from 'core/components'
-import { Next } from 'core/reducers/navigation'
-import { Tag } from 'core/types'
-import { ChapterContext } from './chapter'
+import { Tag, Next } from 'core/types'
+import { ChapterContext } from 'core/components/chapter'
 
 interface Props {
     /** The displayed text for the link */

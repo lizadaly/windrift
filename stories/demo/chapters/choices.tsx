@@ -2,8 +2,7 @@ import { SyntaxHighlighter, prism } from '..'
 
 import { Choice, Section, Chapter, Nav } from 'core/components'
 import { BulletedList } from 'core/components/widgets'
-import { PageType } from 'core/types'
-import { Next } from 'core/reducers/navigation'
+import { PageType, Next } from 'core/types'
 
 export const Page: PageType = () => (
     <Chapter filename="choices">

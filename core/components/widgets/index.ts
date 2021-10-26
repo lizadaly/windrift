@@ -1,5 +1,4 @@
-import { OptionGroup, Options } from 'core/reducers/choice'
-import { Tag } from 'core/types'
+import { Tag, OptionGroup, Options } from 'core/types'
 
 export { InlineListEN as InlineList } from './inline-list'
 export { default as BulletedList } from './bulleted-list'

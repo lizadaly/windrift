@@ -1,5 +1,5 @@
 // An image as a choice selection
-import { Option } from 'core/reducers/choice'
+import { Option } from 'core/types'
 import { WidgetProps } from '.'
 
 interface ImageChoiceProps extends WidgetProps {

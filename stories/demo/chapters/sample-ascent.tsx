@@ -2,9 +2,7 @@ import { capitalize } from 'lodash'
 import Image from 'next/image'
 
 import { C, R, Section, Chapter, Nav, When } from 'core/components'
-import { PageType } from 'core/types'
-import { Next } from 'core/reducers/navigation'
-import { Option } from 'core/reducers/choice'
+import { PageType, Next, Option } from 'core/types'
 import useInventory from 'core/hooks/use-inventory'
 
 import { styles } from '..'

@@ -1,9 +1,5 @@
-import Image from 'next/image'
-
-import { Section, Chapter, Nav, When, C } from 'core/components'
+import { Section, Chapter, Nav } from 'core/components'
 import { PageType } from 'core/types'
-import useInventory from 'core/hooks/use-inventory'
-import ImageChoice from 'core/components/widgets/image-choice'
 import { SyntaxHighlighter, prism, styles } from '..'
 
 export const Page: PageType = () => {

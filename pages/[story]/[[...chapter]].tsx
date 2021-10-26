@@ -1,3 +1,12 @@
+/**
+ * The entry-point for all story-level requests, e.g.
+ * https://windrift.app/<story-identifier>
+ *
+ * Story authors should not need to modify this file.
+ *
+ * @todo In a future update this will support adding the chapter filename to the URL
+ */
+
 import * as React from 'react'
 import fs from 'fs'
 import path from 'path'
@@ -22,7 +31,7 @@ import { useRouter } from 'next/router'
 import { GetStaticProps, GetStaticPaths } from 'next'
 import dynamic from 'next/dynamic'
 
-import reducers from 'core/reducers'
+import reducers from 'core/features'
 import { Story, StoryContainer } from 'core/components'
 import { Config, Toc, TocItem } from 'core/types'
 import { getChapter } from 'core/util'

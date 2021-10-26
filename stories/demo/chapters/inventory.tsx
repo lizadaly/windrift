@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import { R, Section, Chapter, Nav, When } from 'core/components'
 import { PageType } from 'core/types'
 import useInventory from 'core/hooks/use-inventory'
-import { update } from 'core/reducers/inventory'
+import { update } from 'core/features/inventory'
 import { wordFromInventory } from 'core/util'
 
 import { SyntaxHighlighter, prism, styles } from '..'

@@ -1,14 +1,18 @@
-// A bulleted list presentation where the unpicked items remain in the list
+/**
+ * A bulleted list presentation where the unpicked items remain in the list
+ * @example will produce "<ul><li>Item 1</li><li>Item 2</li></ul>"
+ *
+ * It's recommended to implement your own custom version of this component to match
+ * the desired HTML.
+ */
 
-import React from 'react'
-import { WidgetProps } from '.'
-import Link from '../link'
+import * as React from 'react'
 import { isEqual } from 'lodash'
-interface BulletedListProps extends WidgetProps {
-    separator: string
-    conjunction: string
-}
-declare function BulletedListType(props: BulletedListProps): JSX.Element
+
+import Link from 'core/components/link'
+import { WidgetProps } from '.'
+
+declare function BulletedListType(props: WidgetProps): JSX.Element
 
 // Passing initialChoices means you can leave the existing ones there
 const InlineList: typeof BulletedListType = ({
@@ -17,7 +21,7 @@ const InlineList: typeof BulletedListType = ({
     tag = null,
     initialOptions = [],
     className = null
-}: BulletedListProps): JSX.Element => {
+}: WidgetProps): JSX.Element => {
     return (
         <ul>
             {[...initialOptions[0]].map((t, i) => (
