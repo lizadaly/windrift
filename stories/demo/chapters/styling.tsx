@@ -14,40 +14,44 @@ export const Page: PageType = () => {
                 <p>
                     Windrift stories are primarily composed of text, so attention to detail around
                     the presentation of text (both visually and for screenreaders) is encouraged.
-                    Where possible, defer to general web and accessibility guidelines related to
-                    user experience. This section will highlight some affordances avaialble as part
-                    of Windrift, as well as some best practices that are unique to digitial
-                    narrative.
+                    Where possible, defer to general web and accessibility guidelines on good user
+                    experience. This section will highlight some affordances avaialble as part of
+                    Windrift, as well as some best practices that are unique to digitial narrative.
                 </p>
                 <h3>Layout</h3>
                 <p>
                     As discussed in the section on <Nav text="story structure" next="structure" />,
                     a Windrift story will be contained inside a template called{' '}
-                    <code>index.tsx</code>, provided by the story generator script. By default, this
-                    will generate a template that calls a layout component provided in{' '}
+                    <code>index.tsx</code> that's provided by the story generator script. This
+                    template calls a layout component provided in{' '}
                     <code>core/components/ui/layouts</code>.
                 </p>
 
                 <div className={styles.twoUp}>
-                    <p>
-                        The default layout provided is{' '}
-                        <code>core/components/ui/layouts/grid.tsx</code>, which implements the
-                        default HTML <code>&lt;head&gt;</code>, a top header, and a body area. The
-                        body is composed of a three-column layout with the following HTML structure:
-                    </p>
+                    <div>
+                        <p>
+                            The default layout provided is{' '}
+                            <code>core/components/ui/layouts/grid.tsx</code>, which implements the
+                            HTML <code>&lt;head&gt;</code>, a top <code>&lt;header&gt;</code>, and a{' '}
+                            <code>&lt;main&gt;</code> block.
+                        </p>
+                        <p>
+                            The body is composed of a three-column layout with the following HTML
+                            structure:
+                        </p>
+                    </div>
                     <img
                         src="/stories/demo/images/page-template.svg"
                         alt="Diagram of default page layout"
                     />
                     <div>
                         <p>
-                            When called from the default <code>index.tsx</code> provided by the
-                            story generator, you'll get a rendered layout like this. The left and
-                            right <code>&lt;nav&gt;</code> elements are empty and used only for
-                            right and left gutters.
+                            When called with the default code provided by the story generator,
+                            you'll get a rendered layout like this. The left and right{' '}
+                            <code>&lt;nav&gt;</code> elements are empty and used as gutters.
                         </p>
                         <p>
-                            The top header provides the story title, and a reset button component:{' '}
+                            The top header provides the story title and a reset button:{' '}
                             <code>core/components/ui/reset-button.tsx</code>. You are strongly
                             encouraged to provide a reset button for all stories, but you can
                             customize the text and design as much as needed.
@@ -58,9 +62,17 @@ export const Page: PageType = () => {
                         alt="Diagram of layout populated with page contents"
                     />
                 </div>
+                <aside className={styles.advanced}>
+                    <p>
+                        You don't need to use <code>Grid.tsx</code> if you want to completely change
+                        the layout. A minimal layout is provided if you want to completely customize
+                        the whole thing.
+                    </p>
+                    <SyntaxHighlighter language="tsx" style={prism}>{` `}</SyntaxHighlighter>
+                </aside>
                 <h3>Fonts</h3>
                 <p>
-                    NextJS provides a good basis for{' '}
+                    NextJS provides a good foundation for{' '}
                     <a href="https://nextjs.org/docs/basic-features/font-optimization">
                         font management
                     </a>

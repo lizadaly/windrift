@@ -31,19 +31,19 @@ const Story = ({ story }: StoryProps): JSX.Element => {
     const toc = useSelector((state: RootState) => state.navigation.present.toc)
     const [components] = React.useState(() => chapterComponents(toc, story))
     return (
-        <div className="story">
+        <>
             {Object.values(toc)
                 .filter((c) => c.visible)
                 .map((chapter) => (
-                    <div key={chapter.filename}>
+                    <>
                         {
                             components
                                 .filter((co) => co.item.filename === chapter.filename)
                                 .map((component) => component.component)[0]
                         }
-                    </div>
+                    </>
                 ))}
-        </div>
+        </>
     )
 }
 export default Story
