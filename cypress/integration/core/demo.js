@@ -103,5 +103,7 @@ describe('Full test of the built-in stories', () => {
         cy.get('button[data-tag="image-once"].windrift--image-choice-chooseable-true').should(
             'not.exist'
         )
+        cy.get('a').contains('Explore how to').click()
+        cy.contains('Layout and styling').should('exist')
     })
 })
