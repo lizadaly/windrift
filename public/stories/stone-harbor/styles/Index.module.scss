@@ -26,13 +26,11 @@
    // More padding than the default grid
    grid-template-columns: [left] 25vw [center] 1fr [right] 25vw;
 
-   .story {
-      h1, h2, h3, h4, h5, h6 {
-         line-height: 3rem;
-         color: colors.$very-dark;
-         font-family: fonts.$header;
-         font-weight: normal;
-     }
+    h1, h2, h3, h4, h5, h6 {
+      line-height: 3rem;
+      color: colors.$very-dark;
+      font-family: fonts.$header;
+      font-weight: normal;
    }
    hr {
       width: 25%;
