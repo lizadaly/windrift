@@ -1,9 +1,6 @@
 // An image as a choice selection
-
-import React from 'react'
-import { WidgetProps } from '.'
-import Image from 'next/image'
 import { Option } from 'core/reducers/choice'
+import { WidgetProps } from '.'
 
 interface ImageChoiceProps extends WidgetProps {
     src: string
@@ -13,9 +10,6 @@ interface ImageChoiceProps extends WidgetProps {
     height?: number | string
 }
 declare function ImageChoiceType(props: ImageChoiceProps): JSX.Element
-
-// // Passing initialChoices means you can leave the existing ones there
-// const InlineList: typeof BulletedListType = ({
 
 const ImageChoice: typeof ImageChoiceType = ({
     handler,

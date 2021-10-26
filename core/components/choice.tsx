@@ -18,17 +18,17 @@ export type NextType = Next | string
 
 interface MutableChoiceProps {
     tag: string
-    /** At completion of the choice list, go to the Next section/chapter, go to the named chapter (if a string) or do nothing*/
+    /** At completion of the choice list, go to the Next section/chapter, go to the named chapter (if a string) or do nothing */
     next?: NextType
     widget?: WidgetType
     /** Arbitrary arguments passed unchanged to the underlying widget */
     extra?: Record<string, unknown>
-    /** Whether to retain the last choice as a hyperlink, as for navigation. @defaultValue false */
-    persist?: boolean
     /** Text to display first (at start) instead of the options list */
     first?: Option
     /** Text to display last (at completion) instead of the default last-chosen item  */
     last?: Option
+    /** Whether to retain the last choice as a hyperlink, as for navigation. @defaultValue false */
+    persist?: boolean
     /** Optional className to be passed through to the outer-most element rendering the Choice */
     className?: string
 }
@@ -110,6 +110,7 @@ const MutableChoice = ({
         return null
     }
 
+    // Generic handler that a widget-specific handler will call once the player has made their choice
     const handler = (option: Option): void => {
         const choiceId = uuidv4()
         dispatch(updateInventory({ tag, option }))

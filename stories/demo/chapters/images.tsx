@@ -283,6 +283,12 @@ export const Page: PageType = () => {
                         </When>
                     </em>
                 </aside>
+                <p>
+                    <Nav
+                        text="Explore how to customize your layout, fonts, and story styles..."
+                        next="styling"
+                    />
+                </p>
             </Section>
         </Chapter>
     )

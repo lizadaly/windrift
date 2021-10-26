@@ -1,4 +1,4 @@
-title: A Windrift Demo
+title: The Windrift Manual
 language: en
 chapters:
   - filename: "structure"
@@ -6,7 +6,7 @@ chapters:
   - filename: "choices"
     title: "Choices"
   - filename: "inventory"
-    title: "Inventory and Responses"
+    title: "Inventory and responses"
   - filename: "navigation"
     title: "Navigation"
   - filename: "sample-ascent"
@@ -17,5 +17,7 @@ chapters:
     title: "Descent (Sample story)"
   - filename: "images"
     title: "Images"
+  - filename: "styling"
+    title: "Layout and styling"
 players:
   - start: "structure"

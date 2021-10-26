@@ -8,7 +8,7 @@ export type Options = Array<OptionGroup>
 
 // A Choice is composed of a Tag and Options
 // Options are one or more OptionGroups
-// An OptionGroup is an array of one or more Options
+// An OptionGroup is an array of one or more
 
 export interface ChoiceState {
     [tag: Tag]: {
