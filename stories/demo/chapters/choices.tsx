@@ -15,7 +15,7 @@ export const Page: PageType = () => (
             </p>
             <p>
                 A <code>Choice</code> is composed of one or more <code>Options</code> collected into{' '}
-                <code>OptionGroups</code>. Each choice is given a unique <code>tag</code>. The
+                an <code>OptionGroup</code>. Each choice is given a unique <code>tag</code>. The
                 simplest type of choice is a single option group from which the user picks:
             </p>
 
