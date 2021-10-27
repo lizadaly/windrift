@@ -18,7 +18,9 @@ const Link = ({ text, handler, tag }: LinkProps): JSX.Element => {
             // eslint-disable-next-line jsx-a11y/anchor-is-valid
             <a
                 href="#"
+                tabIndex={0}
                 data-tag={tag}
+                data-option={text}
                 onClick={(e: React.MouseEvent) => {
                     e.preventDefault()
                     const target = e.target as HTMLInputElement
