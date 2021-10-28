@@ -35,13 +35,13 @@ const Story = ({ story }: StoryProps): JSX.Element => {
             {Object.values(toc)
                 .filter((c) => c.visible)
                 .map((chapter) => (
-                    <>
+                    <div key={chapter.filename}>
                         {
                             components
                                 .filter((co) => co.item.filename === chapter.filename)
                                 .map((component) => component.component)[0]
                         }
-                    </>
+                    </div>
                 ))}
         </>
     )

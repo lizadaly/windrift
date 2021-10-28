@@ -2,7 +2,16 @@ import * as React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { v4 as uuidv4 } from 'uuid'
 
-import { WidgetType, RootState, Next, ENTRY_TYPES, Option, Options, OptionGroup } from 'core/types'
+import {
+    WidgetType,
+    RootState,
+    Next,
+    ENTRY_TYPES,
+    Option,
+    Options,
+    OptionGroup,
+    NextType
+} from 'core/types'
 import { increment } from 'core/features/counter'
 import { gotoChapter, incrementSection } from 'core/features/navigation'
 
@@ -10,10 +19,8 @@ import { ChapterContext } from 'core/components/chapter'
 import { InlineListEN } from 'core/components/widgets/inline-list'
 import { update as updateInventory } from 'core/features/inventory'
 import { update as logUpdate } from 'core/features/log'
-import { init, advance } from 'core/features/choice'
+import { init, advance, makeChoice } from 'core/features/choice'
 import { StoryContext } from 'pages/[story]/[[...chapter]]'
-
-export type NextType = Next | string
 
 interface MutableChoiceProps {
     tag: string
@@ -111,35 +118,7 @@ const MutableChoice = ({
 
     // Generic handler that a widget-specific handler will call once the player has made their choice
     const handler = (option: Option): void => {
-        const choiceId = uuidv4()
-        dispatch(updateInventory({ tag, option }))
-        dispatch(advance({ tag }))
-        dispatch(
-            logUpdate({
-                entry: {
-                    id: choiceId,
-                    tag,
-                    option,
-                    entry: ENTRY_TYPES.Choice,
-                    timestamp: new Date().toLocaleDateString()
-                }
-            })
-        )
-
-        if (choice.options.length === 1) {
-            if (next === Next.Section) {
-                dispatch(incrementSection({ filename }))
-            } else if (next === Next.None) {
-                // no-op
-            } else if (typeof next === 'string') {
-                dispatch(gotoChapter({ filename: next }))
-            }
-        }
-        const s = {}
-        s[config.identifier] = counter
-        window.history.pushState(s, `Turn: ${counter}`, null)
-
-        dispatch(increment())
+        dispatch(makeChoice(tag, option, next, filename))
     }
 
     let group: OptionGroup = undefined

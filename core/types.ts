@@ -4,7 +4,7 @@ export type { Option, Options, OptionGroup } from 'core/features/choice'
 export { ENTRY_TYPES } from 'core/features/log'
 export type { RootState } from 'core/features'
 export { Next } from 'core/features/navigation'
-
+export type { NextType } from 'core/features/navigation'
 export type Tag = string
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

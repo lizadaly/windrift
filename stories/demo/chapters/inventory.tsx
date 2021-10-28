@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import { R, Section, Chapter, Nav, When } from 'core/components'
 import { PageType } from 'core/types'
 import useInventory from 'core/hooks/use-inventory'
-import { update } from 'core/features/inventory'
+import { makeChoice } from 'core/features/choice'
 import { wordFromInventory } from 'core/util'
 
 import { SyntaxHighlighter, prism, styles } from '..'
@@ -216,7 +216,7 @@ wordFromInventory(fruit, -2) // ${wordFromInventory(fruit, -2)}`}
                 </p>
 
                 <aside className={styles.advanced}>
-                    <h3>Setting inventory values for the player</h3>
+                    <h3>Making choices for the player</h3>
                     <p>
                         If in response to some event you want to set an inventory value as a side
                         effect, you can dispatch the update function manually. Only do this in a
@@ -226,31 +226,35 @@ wordFromInventory(fruit, -2) // ${wordFromInventory(fruit, -2)}`}
                     <button
                         className={styles.warning}
                         onClick={() => {
-                            dispatch(update({ tag: 'set-by-author', option: 'pumpkin patch' }))
+                            dispatch(makeChoice('set-by-author', 'pumpkin patch'))
                         }}>
                         Set the value
                     </button>{' '}
                     <button
                         onClick={() => {
-                            dispatch(update({ tag: 'set-by-author', option: undefined }))
+                            dispatch(makeChoice('set-by-author', undefined))
                         }}>
                         Unset the value
                     </button>
                     <SyntaxHighlighter language="tsx" style={prism}>
-                        {`export const Page: PageType = () => {
+                        {`import { useDispatch } from 'react-redux'
+import { makeChoice } from 'core/features/choice'
+
+export const Page: PageType = () => {
+    const dispatch = useDispatch()
     const byAuthor = useInventory(['set-by-author'])
     return (
         <Chapter filename="inventory">
             <Section>
                 <button
                     onClick={() => {
-                        dispatch(update({ tag: 'set-by-author', option: 'pumpkin patch' }))
+                        dispatch(makeChoice('set-by-author', 'pumpkin patch')
                     }}>
                     Set the value
                 </button>
                 <button
                     onClick={() => {
-                        dispatch(update({ tag: 'set-by-author', option: undefined }))
+                        dispatch(makeChoice('set-by-author', undefined))
                     }}>
                     Unset the value
                 </button>
