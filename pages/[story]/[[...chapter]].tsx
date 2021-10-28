@@ -127,6 +127,9 @@ export default function Start(props: WindriftProps): JSX.Element {
             getDefaultMiddleware({
                 serializableCheck: {
                     ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
+                },
+                thunk: {
+                    extraArgument: { config }
                 }
             }),
         preloadedState: {

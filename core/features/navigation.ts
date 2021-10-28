@@ -9,6 +9,7 @@ export enum Next {
     Chapter = 'CHAPTER',
     None = 'NONE'
 }
+export type NextType = Next | string
 
 export interface IncrementSectionPayload {
     filename: string
