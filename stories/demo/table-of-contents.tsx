@@ -2,7 +2,7 @@
  *  Feel free to use this as an example for custom navigation of your own.
  */
 import { useSelector } from 'react-redux'
-import { C } from 'core/components'
+import { Nav } from 'core/components'
 
 import { RootState } from 'core/types'
 
@@ -25,10 +25,8 @@ const TableOfContents = (): JSX.Element => {
             <ol>
                 {chapters.map((c) => (
                     <li key={c.filename}>
-                        <C
-                            tag={`toc-${c.filename}`}
-                            options={[c.title, null]}
-                            last={c.title}
+                        <Nav
+                            text={c.title}
                             next={c.filename}
                             persist={currentChapter.filename != c.filename}
                         />

@@ -103,5 +103,5 @@ export const choicesSlice = createSlice({
 export const { init, advance } = choicesSlice.actions
 
 export default undoable(choicesSlice.reducer, {
-    filter: includeAction('choices/advance')
+    groupBy: includeAction('choices/advance')
 })
