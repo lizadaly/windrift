@@ -1,15 +1,14 @@
 /** A compontent to display a navigable table of contents for all chapters in a story.
  *  Feel free to use this as an example for custom navigation of your own.
  */
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
+import { C } from 'core/components'
 
-import { gotoChapter } from 'core/features/navigation'
 import { RootState } from 'core/types'
 
 import styles from 'public/stories/demo/styles/Index.module.scss'
 
 const TableOfContents = (): JSX.Element => {
-    const dispatch = useDispatch()
     const chapters = useSelector((state: RootState) => {
         const chapters = state.navigation.present.toc
         if (chapters) {
@@ -17,6 +16,7 @@ const TableOfContents = (): JSX.Element => {
         }
         return []
     })
+
     const currentChapter = chapters.filter((c) => c.visible)[0]
 
     return (
@@ -25,17 +25,13 @@ const TableOfContents = (): JSX.Element => {
             <ol>
                 {chapters.map((c) => (
                     <li key={c.filename}>
-                        <button
-                            className={
-                                currentChapter.filename === c.filename
-                                    ? styles.current
-                                    : styles.link
-                            }
-                            onClick={() => {
-                                dispatch(gotoChapter({ filename: c.filename }))
-                            }}>
-                            {c.title}
-                        </button>
+                        <C
+                            tag={`toc-${c.filename}`}
+                            options={[c.title, null]}
+                            last={c.title}
+                            next={c.filename}
+                            persist={currentChapter.filename != c.filename}
+                        />
                     </li>
                 ))}
             </ol>

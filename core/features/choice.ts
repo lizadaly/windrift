@@ -1,4 +1,4 @@
-import undoable, { excludeAction, StateWithHistory } from 'redux-undo'
+import undoable, { includeAction } from 'redux-undo'
 import { CombinedState, createSlice, Dispatch, PayloadAction } from '@reduxjs/toolkit'
 import { v4 as uuidv4 } from 'uuid'
 import { InventoryState, update as updateInventory } from 'core/features/inventory'
@@ -102,4 +102,6 @@ export const choicesSlice = createSlice({
 
 export const { init, advance } = choicesSlice.actions
 
-export default undoable(choicesSlice.reducer, { filter: excludeAction('choices/init') })
+export default undoable(choicesSlice.reducer, {
+    filter: includeAction('choices/advance')
+})
