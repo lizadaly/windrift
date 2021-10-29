@@ -1,30 +1,13 @@
 import * as React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { v4 as uuidv4 } from 'uuid'
-import { isEqual } from 'lodash'
+import { useDispatch } from 'react-redux'
 
-import {
-    WidgetType,
-    RootState,
-    Next,
-    ENTRY_TYPES,
-    Option,
-    Options,
-    OptionGroup,
-    NextType
-} from 'core/types'
-import { increment } from 'core/features/counter'
-import { gotoChapter, incrementSection } from 'core/features/navigation'
+import { WidgetType, Next, Option, OptionGroup, NextType } from 'core/types'
 
 import { ChapterContext } from 'core/components/chapter'
 import { InlineListEN } from 'core/components/widgets/inline-list'
-import { update as updateInventory } from 'core/features/inventory'
-import { update as logUpdate } from 'core/features/log'
+
 import { makeChoice, NextPayload } from 'core/features/choice'
-import { StoryContext } from 'pages/[story]/[[...chapter]]'
 import useInventory from 'core/hooks/use-inventory'
-import { R } from '.'
-import { useEffect } from 'hoist-non-react-statics/node_modules/@types/react'
 
 interface ChoiceProps {
     tag: string

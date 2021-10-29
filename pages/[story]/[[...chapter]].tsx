@@ -137,11 +137,6 @@ export default function Start(props: WindriftProps): JSX.Element {
                 past: [],
                 present: { toc },
                 future: []
-            },
-            choices: {
-                past: [],
-                present: {},
-                future: []
             }
         }
     })

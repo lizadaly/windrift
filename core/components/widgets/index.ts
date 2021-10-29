@@ -1,4 +1,4 @@
-import { Tag, OptionGroup, Options } from 'core/types'
+import { Tag, OptionGroup } from 'core/types'
 
 export { InlineListEN as InlineList } from './inline-list'
 export { default as BulletedList } from './bulleted-list'
