@@ -25,11 +25,11 @@ const InlineList: typeof BulletedListType = ({
 }: WidgetProps): JSX.Element => {
     return (
         <ul>
-            {[...initialOptions[0]].map((t, i) => (
+            {[...initialOptions].map((t, i) => (
                 <li key={i} className={className}>
                     <Link handler={handler} text={t} tag={tag} isComplete={isComplete} />
                     {group.map((g) => {
-                        if (!isEqual(initialOptions[0], group) && g === t) {
+                        if (!isEqual(initialOptions, group) && g === t) {
                             return ' (selected)'
                         }
                     })}
