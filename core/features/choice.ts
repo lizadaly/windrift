@@ -34,7 +34,6 @@ export const makeChoice =
                 }
             })
         )
-        console.log('next payload: ', nextPayload)
         // If we've now exhausted the list of possible choices, invoke `next`
         if (nextPayload) {
             const { next, filename } = nextPayload

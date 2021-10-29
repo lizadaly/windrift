@@ -104,14 +104,17 @@ const Choice = ({
                 return defaultOption
         }
     }
-
+    const isResolved = (type: OptionGroupType) => {
+        // A Choice is resolved if the next type is last OR null
+        return !pickNextType(type) || pickNextType(type) == OptionGroupType.last
+    }
     const [group, setGroup] = React.useState<Group>(() => setInitialGroup())
 
     const [isComplete, setIsComplete] = React.useState(!!inventory)
 
     const handler = (picked: Option) => {
         const option = group.type == OptionGroupType.options ? picked : null
-        const nextPayload: NextPayload = pickNextType(group.type) ? null : { next, filename }
+        const nextPayload: NextPayload = isResolved(group.type) ? { next, filename } : null
         dispatch(makeChoice(tag, option, nextPayload))
         setGroup((prevGroup) => {
             const type = pickNextType(prevGroup.type)
@@ -121,9 +124,7 @@ const Choice = ({
                 type
             }
         })
-        if (!pickNextType(group.type)) {
-            setIsComplete(true)
-        }
+        setIsComplete(isResolved(group.type))
     }
     console.log(`rendering ${tag} with current group as ${group.type}`)
 
