@@ -8,30 +8,30 @@ import { Tag } from 'core/types'
 
 interface LinkProps {
     text: string
-    index?: number
     handler: any
     tag?: Tag
+    isComplete: boolean
 }
-const Link = ({ text, handler, tag }: LinkProps): JSX.Element => {
-    if (handler) {
-        return (
-            // eslint-disable-next-line jsx-a11y/anchor-is-valid
-            <a
-                href="#"
-                tabIndex={0}
-                data-tag={tag}
-                data-option={text}
-                onClick={(e: React.MouseEvent) => {
-                    e.preventDefault()
-                    const target = e.target as HTMLInputElement
-                    const option = target.textContent
-                    handler(option)
-                }}
-                dangerouslySetInnerHTML={{ __html: text }}
-            />
-        )
+const Link = ({ text, handler, tag, isComplete }: LinkProps): JSX.Element => {
+    if (isComplete) {
+        return <span dangerouslySetInnerHTML={{ __html: text }}></span>
     }
-    return <span className="selected" dangerouslySetInnerHTML={{ __html: text }} />
+    return (
+        // eslint-disable-next-line jsx-a11y/anchor-is-valid
+        <a
+            href="#"
+            tabIndex={0}
+            data-tag={tag}
+            data-option={text}
+            onClick={(e: React.MouseEvent) => {
+                e.preventDefault()
+                const target = e.target as HTMLInputElement
+                const option = target.textContent
+                handler(option)
+            }}
+            dangerouslySetInnerHTML={{ __html: text }}
+        />
+    )
 }
 
 export default Link

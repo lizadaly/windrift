@@ -13,13 +13,14 @@ const BaseList: typeof BaseListType = ({
     group = null,
     handler = null,
     tag = null,
-    className = null
+    className = null,
+    isComplete = false
 }: WidgetProps): JSX.Element => {
     return (
         <>
             {[...group].map((t, i) => (
                 <span key={i} className={className}>
-                    <Link handler={handler} text={t} tag={tag} />
+                    <Link handler={handler} text={t} tag={tag} isComplete={isComplete} />
                 </span>
             ))}
         </>

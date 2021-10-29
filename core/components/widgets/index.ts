@@ -10,4 +10,5 @@ export interface WidgetProps {
     handler?: any // TODO type this better
     tag?: Tag
     className?: string
+    isComplete: boolean
 }

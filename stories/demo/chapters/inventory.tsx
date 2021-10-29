@@ -10,12 +10,7 @@ import { SyntaxHighlighter, prism, styles } from '..'
 
 export const Page: PageType = () => {
     const dispatch = useDispatch()
-    const [fruit, cravat, tree, byAuthor] = useInventory([
-        'fruit',
-        'cravat',
-        'tree',
-        'set-by-author'
-    ])
+    const [fruit, tree, byAuthor] = useInventory(['fruit', 'tree', 'set-by-author'])
 
     return (
         <Chapter filename="inventory">
@@ -208,11 +203,6 @@ wordFromInventory(fruit, -2) // ${wordFromInventory(fruit, -2)}`}
                     on-screen.) An exception to this rule is made for default options, to allow for
                     the case where a choice may never be presented to a user because they did not
                     uncover that path.
-                </p>
-                <p>
-                    (Speaking of default options: if you didn't make a selection for the{' '}
-                    <code>defaultOption</code> example in the previous section, you should see
-                    "magenta" here: <code>{cravat}</code> )
                 </p>
 
                 <aside className={styles.advanced}>

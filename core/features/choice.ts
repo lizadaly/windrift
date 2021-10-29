@@ -32,13 +32,19 @@ interface OptionAdvancePayload {
 
 const initialState: ChoiceState = null
 
+export interface NextPayload {
+    next: NextType
+    filename: string
+}
 export const makeChoice =
-    (tag: Tag, option: Option, next?: NextType, filename?: string) =>
+    (tag: Tag, option?: Option, nextPayload?: NextPayload) =>
     (dispatch: Dispatch, getState: () => RootState, config: Config): void => {
         const choiceId = uuidv4()
-
-        dispatch(updateInventory({ tag, option }))
-        dispatch(advance({ tag }))
+        const state = getState()
+        const { counter } = state
+        if (option) {
+            dispatch(updateInventory({ tag, option }))
+        }
         dispatch(
             logUpdate({
                 entry: {
@@ -50,22 +56,16 @@ export const makeChoice =
                 }
             })
         )
-        const state = getState()
-        const { counter, choices } = state
-
-        // Guard against uninitialized choices, as when manually dispatched
-        if (tag in choices.present) {
-            const { options } = choices.present[tag]
-
-            // If we've now exhausted the list of possible choices, invoke `next`
-            if (options.length === 0) {
-                if (next === Next.Section) {
-                    dispatch(incrementSection({ filename }))
-                } else if (next === Next.None) {
-                    // no-op
-                } else if (typeof next === 'string') {
-                    dispatch(gotoChapter({ filename: next }))
-                }
+        console.log('next payload: ', nextPayload)
+        // If we've now exhausted the list of possible choices, invoke `next`
+        if (nextPayload) {
+            const { next, filename } = nextPayload
+            if (next === Next.Section) {
+                dispatch(incrementSection({ filename }))
+            } else if (next === Next.None) {
+                // no-op
+            } else if (typeof next === 'string') {
+                dispatch(gotoChapter({ filename: next }))
             }
         }
 

@@ -144,30 +144,7 @@ export const Page: PageType = () => (
                 a guide rather than as-is, since you'll almost certainly want to customize the
                 markup used to indicate the selected option.
             </p>
-            <h3>Default options</h3>
-            <p>
-                It's possible to default a default option that will be populated in the store of
-                choices even if the user makes no deliberate choice. This is most likely to be used
-                for non-critical choices where you don't want to worry about whether the user
-                selected it or not.
-            </p>
-            <SyntaxHighlighter language="tsx" style={prism}>
-                {`<Choice
-    options={['puce', 'magenta', 'green apple']}
-    defaultOption="magenta"
-    tag="cravat" />`}
-            </SyntaxHighlighter>
-            <aside>
-                <p>
-                    What kind of cravat would you like to wear?{' '}
-                    <Choice
-                        options={['Puce', 'magenta', 'green apple']}
-                        defaultOption="magenta"
-                        tag="cravat"
-                    />{' '}
-                    (don't select an item here—we'll revisit this in the next section)
-                </p>
-            </aside>
+
             <h3>Cycling choices</h3>
             <p>
                 One pattern you may want to use is to have text replace itself repeatedly (this user

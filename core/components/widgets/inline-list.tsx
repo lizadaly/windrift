@@ -26,7 +26,8 @@ export const InlineList: typeof InlineListType = ({
     group = null,
     handler = null,
     tag = null,
-    className = null
+    className = null,
+    isComplete = false
 }: InlineListProps): JSX.Element => {
     if (conjunction.length > 0) {
         conjunction = ` ${conjunction} `
@@ -39,7 +40,7 @@ export const InlineList: typeof InlineListType = ({
                 .map((t, i) => (
                     <span key={i} className={className}>
                         {group.length > 1 && i === group.length - 1 ? conjunction : ''}
-                        <Link handler={handler} text={t} tag={tag} />
+                        <Link handler={handler} text={t} tag={tag} isComplete={isComplete} />
                         {i < group.length - 1 && group.length > 2 ? separator : ''}
                     </span>
                 ))}
@@ -52,6 +53,7 @@ export const InlineListEN: typeof InlineList = ({
     group = null,
     handler = null,
     tag = null,
-    className = null
+    className = null,
+    isComplete = false
 }: InlineListProps): JSX.Element =>
-    InlineList({ separator, conjunction, group, handler, tag, className })
+    InlineList({ separator, conjunction, group, handler, tag, className, isComplete })
