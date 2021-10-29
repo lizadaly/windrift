@@ -34,7 +34,8 @@ interface Group {
 enum OptionGroupType {
     first = 'FIRST',
     options = 'OPTIONS',
-    last = 'LAST'
+    last = 'LAST',
+    persist = 'PERSIST'
 }
 const Choice = ({
     options,
@@ -75,13 +76,16 @@ const Choice = ({
                 if (last) {
                     return OptionGroupType.last
                 }
-                return null
+                return persist ? OptionGroupType.persist : null
             }
             case OptionGroupType.last: {
-                return null
+                return persist ? OptionGroupType.persist : null
             }
             default: {
                 // If unset, pick first available
+                if (isComplete && persist) {
+                    return OptionGroupType.persist
+                }
                 if (first) {
                     return OptionGroupType.first
                 }
@@ -100,6 +104,7 @@ const Choice = ({
                 return options
             case OptionGroupType.last:
                 return [last]
+
             default:
                 return defaultOption
         }
@@ -124,7 +129,7 @@ const Choice = ({
                 type
             }
         })
-        setIsComplete(isResolved(group.type))
+        setIsComplete(isResolved(group.type) && !persist)
     }
     console.log(`rendering ${tag} with current group as ${group.type}`)
 

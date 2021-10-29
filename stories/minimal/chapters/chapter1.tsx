@@ -14,6 +14,8 @@ export const Page: PageType = () => (
             last: <C tag="last-only" last="last" options={['option1', 'option2']} />
             <br />
             options: <C tag="options-only" options={['option1', 'option2']} />
+            <br />
+            persist: <C tag="persist" options={['option1', 'option2']} persist={true} />
         </Section>
         <Section>Next section</Section>
     </Chapter>
