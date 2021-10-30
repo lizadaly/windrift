@@ -20,7 +20,8 @@ export const makeChoice =
         const choiceId = uuidv4()
         const state = getState()
         const { counter } = state
-        if (option) {
+        if (option !== null) {
+            // allow explicitly setting undefined
             dispatch(updateInventory({ tag, option }))
         }
         dispatch(

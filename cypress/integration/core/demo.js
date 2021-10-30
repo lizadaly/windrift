@@ -23,7 +23,6 @@ describe('Full test of the built-in stories', () => {
 
         cy.get('a').contains('elm').click()
         cy.contains('elm (selected)')
-        cy.get('a').contains('Puce')
 
         // Cycling links
         cy.get('a').contains('Three').click()
@@ -39,7 +38,6 @@ describe('Full test of the built-in stories', () => {
         // Response maps
         cy.contains('You picked a nice banana')
         cy.contains('This also matches banana')
-        cy.contains('here: magenta')
 
         // When component
         cy.contains('You selected either a fruit or a tree')
