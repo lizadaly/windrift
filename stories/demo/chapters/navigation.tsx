@@ -1,5 +1,6 @@
 import { C, Section, Chapter, Nav } from 'core/components'
 import { PageType, Next } from 'core/types'
+import next from 'next'
 
 import { SyntaxHighlighter, prism, styles } from '..'
 
@@ -133,6 +134,13 @@ export const Page: PageType = () => (
                 the reader has moved on, and for section navigation, it would just be confusing as
                 the next section has already been revealed.)
             </p>
+            <aside>
+                <Nav
+                    text="This will stay hyperlinked when clicked"
+                    persist={true}
+                    next={Next.None}
+                />
+            </aside>
             <Nav
                 text="Let's work through a fully-realized example story now..."
                 next="sample-ascent"

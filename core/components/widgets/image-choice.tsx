@@ -22,13 +22,13 @@ const ImageChoice: typeof ImageChoiceType = ({
     height,
     isComplete
 }: ImageChoiceProps) => {
-    const onClick = !isComplete ? () => handler(option) : null
+    const onClick = isComplete ? null : () => handler(option)
     return (
         <button
             onClick={onClick}
             data-tag={tag}
             data-option={option}
-            className={`windrift--image-choice windrift--image-choice-chooseable-${isComplete} ${className}`}>
+            className={`windrift--image-choice windrift--image-choice-chooseable-${!isComplete} ${className}`}>
             <img src={src} alt={alt} width={width} height={height} />
         </button>
     )
