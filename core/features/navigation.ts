@@ -1,4 +1,4 @@
-import undoable from 'redux-undo'
+import undoable, { excludeAction } from 'redux-undo'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 import { Toc } from 'core/types'
@@ -56,4 +56,4 @@ export const navSlice = createSlice({
 
 export const { incrementSection, setSectionCount, gotoChapter } = navSlice.actions
 
-export default undoable(navSlice.reducer)
+export default undoable(navSlice.reducer, { filter: excludeAction('navigation/setSectionCount') })

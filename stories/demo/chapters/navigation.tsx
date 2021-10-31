@@ -6,7 +6,7 @@ import { SyntaxHighlighter, prism, styles } from '..'
 export const Page: PageType = () => (
     <Chapter filename="navigation">
         <Section>
-            <h1>Navigation</h1>
+            <h2>Navigation</h2>
             <p>
                 By default, exhausting a choice list will reveal the subsequent <code>Section</code>{' '}
                 in the current <code>Chapter</code>.
