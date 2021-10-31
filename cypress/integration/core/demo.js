@@ -25,11 +25,6 @@ describe('Full test of the built-in stories', () => {
         cy.contains('elm (selected)')
         cy.get('a').contains('Puce')
 
-        // Cycling links
-        cy.get('a').contains('Three').click()
-        cy.get('a').contains('Two').click()
-        cy.contains('One...')
-
         // useInventory
         cy.get('a').contains('displaying inventory').click()
         cy.contains('// ripe banana')

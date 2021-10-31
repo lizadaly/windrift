@@ -31,7 +31,7 @@ const Nav = ({
 
     return (
         <Choice
-            options={[text, null]}
+            options={[[text]]}
             widget={BaseList}
             tag={tag || `${filename}-${next}-${text.replace(' ', '-').toLowerCase()}`}
             next={next}

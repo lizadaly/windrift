@@ -12,18 +12,21 @@ export const Page: PageType = () => (
                 Windrift interactivity is primarily composed of user choices—selecting from a menu
                 of options to drive the next beat in the narrative.
             </p>
+
             <p>
-                A <code>Choice</code> is composed of one or more <code>Options</code> collected into{' '}
-                an <code>OptionGroup</code>. Each choice is given a unique <code>tag</code>. The
-                simplest type of choice is a single option group from which the user picks:
+                A user choice is represented using the <code>Choice</code> component. Each choice is
+                given a unique string <code>tag</code>. The menu of options are composed of one or
+                more <code>Option</code> strings collected into an array called an{' '}
+                <code>OptionGroup</code>. The simplest type of choice is an array containing a
+                single option group from which the user picks:
             </p>
 
             <SyntaxHighlighter language="tsx" style={prism}>
-                {`<Choice options={['ripe banana', 'bulbous orange', 'fuzzy kiwi']} tag="fruit" />`}
+                {`<Choice options={[['ripe banana', 'bulbous orange', 'fuzzy kiwi']]} tag="fruit" />`}
             </SyntaxHighlighter>
             <aside>
                 Would you like a{' '}
-                <Choice options={['ripe banana', 'bulbous orange', 'fuzzy kiwi']} tag="fruit" />?
+                <Choice options={[['ripe banana', 'bulbous orange', 'fuzzy kiwi']]} tag="fruit" />?
             </aside>
             <p>
                 By default, selecting an option will record the user's choice, leave the selected
@@ -32,51 +35,75 @@ export const Page: PageType = () => (
             </p>
         </Section>
         <Section>
-            <h3>First/last choices</h3>
+            <h3>Adding multiple option groups</h3>
             <p>
-                A common pattern is to introduce some first text before revealing the options. You
-                can achieve this through the <code>first</code> parameter applied to the
-                <code>Choice</code> component:
+                A common narrative pattern is to introduce some initial text before revealing the
+                actual options. You can achieve this through adding two <code>OptionGroups</code>
+                —the first introduces the choice being presented, and the second group represents
+                the actual user's choice.
             </p>
             <SyntaxHighlighter language="tsx" style={prism}>
-                {`<Choice
-    first="fine choices today..."
-    options={['orange kale', 'purple cucumbers', 'green pumpkins']}
+                {`<Choice options={[
+        ['fine choices today...'],
+        ['orange kale', 'purple cucumbers', 'green pumpkins']
+    ]}
     tag="vegetables" />`}
             </SyntaxHighlighter>
             <aside>
                 The vegetable vendor is offering you some{' '}
                 <Choice
-                    first="fine choices today..."
-                    options={['orange kale', 'purple cucumbers', 'green pumpkins']}
+                    options={[
+                        ['fine choices today...'],
+                        ['orange kale', 'purple cucumbers', 'green pumpkins']
+                    ]}
                     tag="vegetables"
                     next={Next.None}
                 />
                 .
             </aside>
             <p>
-                Similarly, you can apply a <code>last</code> parameter to show some final text after
-                the user's selection was made:
+                There's no limit to the number of option groups arrays you can include—Windrift will
+                keep presenting the next in series until the user has chosen from the final option
+                group available. At this point the choice is marked as <code>resolved</code>.
             </p>
+            <h3>
+                The <kbd>last</kbd> parameter
+            </h3>
+            <p>
+                To override the usual behavior of printing the selected option once a choice is
+                resolved, you can provide a <code>last</code> parameter to show some final text
+                after the user's selection was made:
+            </p>
+            <SyntaxHighlighter language="tsx" style={prism}>
+                {`<Choice options={[
+        ['towering birthday cake', 'bumbling soufflé', 'delicate cheesecake']
+    ]}
+    last="too many delicious things to count"
+    tag="dessert" />`}
+            </SyntaxHighlighter>
             <aside>
                 The dessert cart contains{' '}
                 <Choice
-                    options={['towering birthday cake', 'bumbling soufflé', 'delicate cheesecake']}
+                    options={[
+                        ['towering birthday cake', 'bumbling soufflé', 'delicate cheesecake']
+                    ]}
                     last="too many delicious things to count"
                     tag="dessert"
                     next={Next.None}
                 />
                 .
             </aside>
-            <p>Naturally both of these can be applied to the same element:</p>
+            <p>Naturally both of these approaches can be applied to the same choice:</p>
             <aside>
                 The waiter asks if you'd like to take home{' '}
                 <Choice
-                    first="the leftovers"
                     options={[
-                        'spare appetizers',
-                        'the second Porterhouse steak',
-                        'an entire cheese cart'
+                        ['the leftovers'],
+                        [
+                            'spare appetizers',
+                            'the second Porterhouse steak',
+                            'an entire cheese cart'
+                        ]
                     ]}
                     last="enough food for a week"
                     tag="takehome"
@@ -98,7 +125,7 @@ export const Page: PageType = () => (
             <SyntaxHighlighter language="tsx" style={prism}>
                 {`<Choice
     tag="pet"
-    options={['an adorable skink', 'a sweet-tempered marmot']}
+    options=[[['an adorable skink', 'a sweet-tempered marmot']]}
     extra={{ conjunction: 'and' }} />`}
             </SyntaxHighlighter>
             <aside>
@@ -106,7 +133,7 @@ export const Page: PageType = () => (
                     You are greeted by{' '}
                     <Choice
                         tag="pet"
-                        options={['an adorable skink', 'a sweet-tempered marmot']}
+                        options={[['an adorable skink', 'a sweet-tempered marmot']]}
                         extra={{ conjunction: 'and' }}
                     />
                     .
@@ -125,14 +152,14 @@ export const Page: PageType = () => (
             </p>
             <SyntaxHighlighter language="tsx" style={prism}>
                 {`<Choice
-    options={['smarmy poplar', 'clever elm', 'big dumb baobab']}
+    options={[['smarmy poplar', 'clever elm', 'big dumb baobab']]}
     tag="tree"
     widget={BulletedList} />`}
             </SyntaxHighlighter>
             <aside>
                 <p>What is your favorite kind of sentient tree?</p>
                 <Choice
-                    options={['smarmy poplar', 'clever elm', 'big dumb baobab']}
+                    options={[['smarmy poplar', 'clever elm', 'big dumb baobab']]}
                     tag="tree"
                     widget={BulletedList}
                 />
@@ -153,7 +180,7 @@ export const Page: PageType = () => (
             </p>
             <SyntaxHighlighter language="tsx" style={prism}>
                 {`<Choice
-    options={['puce', 'magenta', 'green apple']}
+    options={[['puce', 'magenta', 'green apple']]}
     defaultOption="magenta"
     tag="cravat" />`}
             </SyntaxHighlighter>
@@ -161,37 +188,14 @@ export const Page: PageType = () => (
                 <p>
                     What kind of cravat would you like to wear?{' '}
                     <Choice
-                        options={['Puce', 'magenta', 'green apple']}
+                        options={[['Puce', 'magenta', 'green apple']]}
                         defaultOption="magenta"
                         tag="cravat"
                     />{' '}
                     (don't select an item here—we'll revisit this in the next section)
                 </p>
             </aside>
-            <h3>Cycling choices</h3>
-            <p>
-                One pattern you may want to use is to have text replace itself repeatedly (this user
-                interface is called "cycling choices" by Twine, though the semantics are different.)
-            </p>
-            <p>
-                Using only a single <code>Choice</code> component, it's possible to present text
-                that can replace itself three times, by combining the <code>first</code> and
-                <code>last</code> parameters with a two-item <code>option</code> array, where the
-                second item is <code>null</code>. Providing an option array with only a single item
-                will cause Windrift to think it's a choice array that has been exhausted, and not
-                display an anchor link.
-            </p>
-            <SyntaxHighlighter language="tsx" style={prism}>
-                {`<Choice tag="countdown"
-    first="Three..."
-    options={['Two...', null]}
-    last="One..."  />`}
-            </SyntaxHighlighter>
-            <aside>
-                <Choice first="Three..." options={['Two...', null]} last="One..." tag="countdown" />
-            </aside>
-        </Section>
-        <Section>
+
             <p>In the next section we'll see how selected or default values can be retrieved.</p>
             <Nav text="Learn about displaying inventory..." next="inventory" />
         </Section>
