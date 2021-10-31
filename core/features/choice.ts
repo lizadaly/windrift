@@ -100,7 +100,7 @@ export const choicesSlice = createSlice({
                     state[tag].index = state[tag].index + 1
                 }
             } else {
-                // If state was uninitialized here, this was just a manual update, so simply
+                // If state was uninitialized here, this was a manual update, so simply
                 // initialize and mark resolved
                 state[tag] = {
                     resolved: true,

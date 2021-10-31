@@ -41,15 +41,15 @@ const Choice = ({
     className = null
 }: ChoiceProps): JSX.Element => {
     const dispatch = useDispatch()
-    const [initialized, initialize] = React.useState(false)
-
+    const choice = useSelector((state: RootState) => {
+        return state.choices.present
+    })
     React.useEffect(() => {
         dispatch(init({ tag, lastIndex: options.length - 1 }))
         dispatch(initInventory({ tag, option: defaultOption }))
-        initialize(true)
     }, [dispatch])
 
-    if (initialized) {
+    if (tag in choice) {
         return (
             <MutableChoice
                 options={options}
