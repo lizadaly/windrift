@@ -30,15 +30,15 @@ export const Page: PageType = () => {
                     autumn-painted trees.
                 </p>
                 <p>
-                    Your <C tag="rock" options={['favorite sitting boulder', null]} /> is here,
-                    where it always remains.
+                    Your <C tag="rock" options={[['favorite sitting boulder']]} /> is here, where it
+                    always remains.
                     <When condition={rock}>
                         {' '}
                         You hop up on it—it's still warm from the day's sun. Peaking through the gap
                         of a neighboring rock is the head of a harmless young{' '}
                         <C
                             tag="snake"
-                            options={['milk snake', null]}
+                            options={[['milk snake']]}
                             className={`${styles.findable} ${styles.magnify}`}
                         />
                         .
@@ -53,7 +53,7 @@ export const Page: PageType = () => {
                     Overhead, a{' '}
                     <C
                         tag="hawk"
-                        options={['bird of prey', null]}
+                        options={[['bird of prey']]}
                         className={`${styles.findable} ${styles.camera}`}
                     />{' '}
                     is soaring on the updrafts.{' '}

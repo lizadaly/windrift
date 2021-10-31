@@ -54,7 +54,7 @@ export const Page: PageType = () => {
                             Will your companion be{' '}
                             <C
                                 tag="companion"
-                                options={['your dad', 'your sister', 'your best friend']}
+                                options={[['your dad', 'your sister', 'your best friend']]}
                             />
                             ?
                         </p>
@@ -93,7 +93,7 @@ export const Page: PageType = () => {
                     The path on one side is bordered by{' '}
                     <C
                         tag="border"
-                        options={['a low rock wall', 'a felled sugar maple']}
+                        options={[['a low rock wall', 'a felled sugar maple']]}
                         last={'a low rock wall and a felled sugar maple'}
                         extra={{ conjunction: 'and' }}
                     />
@@ -110,7 +110,7 @@ export const Page: PageType = () => {
                                     pleasingly coated with lichen and moss. A{' '}
                                     <C
                                         tag="chipmunk"
-                                        options={['bright-eyed chipmunk', null]}
+                                        options={[['bright-eyed chipmunk']]}
                                         className={`${styles.findable} ${styles.camera}`}
                                     />{' '}
                                     peeks between a gap, watching you.
@@ -125,7 +125,7 @@ export const Page: PageType = () => {
                                     {' '}
                                     The tree has been dramatically split three ways down the center
                                     line of the trunk, folded out like a peeled banana. The{' '}
-                                    <C tag="trunk" options={['inside of the trunk', null]} /> is
+                                    <C tag="trunk" options={[['inside of the trunk']]} /> is
                                     blackened throughout, with a deep hollow.
                                     <When condition={trunk}>
                                         {' '}
@@ -133,7 +133,7 @@ export const Page: PageType = () => {
                                         specimen of the edible{' '}
                                         <C
                                             tag="mushroom"
-                                            options={['oyster mushroom', null]}
+                                            options={[['oyster mushroom']]}
                                             className={`${styles.findable} ${styles.food}`}
                                         />
                                         , at peak freshness.

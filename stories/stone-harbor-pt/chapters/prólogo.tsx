@@ -37,8 +37,10 @@ export const Page: PageType = () => {
                 <p>
                     Inspecionas o cliente, que traz{' '}
                     <C
-                        first="roupas típicas de turista"
-                        options={['um anel barato', 'um impermeável sujo', 'um boné de beisebol']}
+                        options={[
+                            ['roupas típicas de turista'],
+                            ['um anel barato', 'um impermeável sujo', 'um boné de beisebol']
+                        ]}
                         last="um olhar impaciente"
                         extra={{ conjunction: 'e' }}
                         tag="clothes"
@@ -68,13 +70,7 @@ export const Page: PageType = () => {
                     “Vejo um nome,” continuas. “Começa com um S—” Ele olha-te sem expressão. “Ou
                     será com um N?” O homem anima-se. Franzes a testa, fingindo uma profunda
                     concentração. “
-                    <C
-                        first="Nancy?"
-                        options={['Nadine?', null]}
-                        last="Nicky?"
-                        tag="p0_customer_names"
-                    />
-                    ”
+                    <C options={[['Nancy?'], ['Nadine?']]} last="Nicky?" tag="p0_customer_names" />”
                 </p>
             </Section>
             <Section>
@@ -111,8 +107,10 @@ export const Page: PageType = () => {
                     “O mundo do Além transforma uma pessoa,” afirmas, contornando a sua objeção.
                     Analisas{' '}
                     <C
-                        first="a sua aparência física"
-                        options={['a cara por barbear', 'as mãos calejadas', 'o escaldão a pelar']}
+                        options={[
+                            ['a sua aparência física'],
+                            ['a cara por barbear', 'as mãos calejadas', 'o escaldão a pelar']
+                        ]}
                         last="a sua aparência física e consegues algumas pistas"
                         tag="p0_customer_body"
                         extra={{ conjunction: 'e' }}
@@ -166,7 +164,7 @@ export const Page: PageType = () => {
                 <p>
                     “É Inspetora. E preciso de um médium,” diz ela, entregando-te o seu{' '}
                     <C
-                        options={['cartão', null]}
+                        options={[['cartão']]}
                         last="cartão, que viras e lês: <em>Tamisha Whitby, Investigações Criminais, Condado de Cape May, NJ</em>"
                         tag="p0_nextUnit"
                     />
@@ -248,7 +246,7 @@ export const Page: PageType = () => {
                 <p>
                     “Eu sabia que isto ia ser uma perda de tempo,” diz Whitby. Ela lança uma{' '}
                     <C
-                        options={['luva de pele', null]}
+                        options={[['luva de pele']]}
                         last="<b>luva tensa e furiosa</b>"
                         tag="p0_glove"
                     />{' '}
@@ -259,7 +257,7 @@ export const Page: PageType = () => {
                 <p>
                     <em>Há algo muito estranho nessa </em>{' '}
                     <C
-                        options={['luva.', null]}
+                        options={[['luva.']]}
                         last="— <br/><br/><p>Pegas na luva, e tudo muda.</p>"
                         tag="p0_glove2"
                     />
@@ -290,11 +288,13 @@ export const Page: PageType = () => {
                     desbotaram todas. Os objetos estão desfocados e indistintos, como numa
                     fotografia antiga. Há uma estante de livros, uma mesa desarrumada com{' '}
                     <C
-                        first="bibelôs"
                         options={[
-                            'uma mensagem inacabada',
-                            'uma fotografia',
-                            'uma receita médica em branco'
+                            ['bibelôs'],
+                            [
+                                'uma mensagem inacabada',
+                                'uma fotografia',
+                                'uma receita médica em branco'
+                            ]
                         ]}
                         last="objetos pessoais"
                         tag="p0_library_things"
@@ -333,7 +333,7 @@ export const Page: PageType = () => {
                     que te deixa paralisado. A figura experimenta a porta, e satisfeita que o quarto
                     está trancado, solta a maçaneta. A{' '}
                     <C
-                        options={['luva zangada', null]}
+                        options={[['luva zangada']]}
                         last="luva violentamente zangada"
                         tag="p0_glove3"
                     />{' '}

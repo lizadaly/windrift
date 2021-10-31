@@ -6,7 +6,7 @@ import { SyntaxHighlighter, prism, styles } from '..'
 export const Page: PageType = () => (
     <Chapter filename="navigation">
         <Section>
-            <h1>Navigation</h1>
+            <h2>Navigation</h2>
             <p>
                 By default, exhausting a choice list will reveal the subsequent <code>Section</code>{' '}
                 in the current <code>Chapter</code>.
@@ -18,10 +18,10 @@ export const Page: PageType = () => (
             <SyntaxHighlighter language="tsx" style={prism}>
                 {`import { C } from 'core/components'
 [...]
-<C options={['Click me', null]}  tag="continue" />`}
+<C options={[['Click me']]} tag="continue" />`}
             </SyntaxHighlighter>
             <aside>
-                <C options={['Click me', null]} tag="continue" />
+                <C options={[['Click me']]} tag="continue" />
             </aside>
         </Section>
 
@@ -45,16 +45,11 @@ export const Page: PageType = () => (
 }`}</SyntaxHighlighter>
             <p>Here's how you'd use it:</p>
             <SyntaxHighlighter language="tsx" style={prism}>
-                {`<C options={['This is a no-op.', null]} last="Clicked!" tag="noop"
+                {`<C options={[['This is a no-op.']]} last="Clicked!" tag="noop"
     next={Next.None} />`}
             </SyntaxHighlighter>
             <aside>
-                <C
-                    options={['This is a no-op.', null]}
-                    last="Clicked!"
-                    tag="noop"
-                    next={Next.None}
-                />
+                <C options={[['This is a no-op.']]} last="Clicked!" tag="noop" next={Next.None} />
             </aside>
             <h3>
                 Navigating without a choice: Using <kbd>Nav</kbd>
@@ -133,6 +128,13 @@ export const Page: PageType = () => (
                 the reader has moved on, and for section navigation, it would just be confusing as
                 the next section has already been revealed.)
             </p>
+            <aside>
+                <Nav
+                    text="This will stay hyperlinked when clicked"
+                    persist={true}
+                    next={Next.None}
+                />
+            </aside>
             <Nav
                 text="Let's work through a fully-realized example story now..."
                 next="sample-ascent"

@@ -132,7 +132,7 @@ export const Page: PageType = () => {
                             <td>
                                 <C
                                     tag="image"
-                                    options={['camera', 'skyscrapers']}
+                                    options={[['camera', 'skyscrapers']]}
                                     widget={ImageChoice}
                                     extra={{
                                         src: '/stories/demo/images/camera.jpg',
@@ -147,7 +147,7 @@ export const Page: PageType = () => {
                             <td>
                                 <C
                                     tag="image"
-                                    options={['camera', 'skyscrapers']}
+                                    options={[['camera', 'skyscrapers']]}
                                     widget={ImageChoice}
                                     extra={{
                                         src: '/stories/demo/images/skyscrapers.jpg',
@@ -211,7 +211,7 @@ export const Page: PageType = () => {
                             <td>
                                 <C
                                     tag="image-once"
-                                    options={['camera', 'skyscrapers']}
+                                    options={[['camera', 'skyscrapers']]}
                                     widget={ImageChoice}
                                     extra={{
                                         src: '/stories/demo/images/camera.jpg',
@@ -226,7 +226,7 @@ export const Page: PageType = () => {
                             <td>
                                 <C
                                     tag="image-once"
-                                    options={['camera', 'skyscrapers']}
+                                    options={[['camera', 'skyscrapers']]}
                                     widget={ImageChoice}
                                     extra={{
                                         src: '/stories/demo/images/skyscrapers.jpg',
@@ -244,7 +244,7 @@ export const Page: PageType = () => {
                                 <SyntaxHighlighter
                                     language="tsx"
                                     style={prism}>{`<C tag="image-once"
-    options={['camera', 'skyscrapers']}
+    options={[['camera', 'skyscrapers']]}
     widget={ImageChoice}
     extra={{
         src: '/stories/demo/images/camera.jpg',
@@ -259,7 +259,7 @@ export const Page: PageType = () => {
                                 <SyntaxHighlighter
                                     language="tsx"
                                     style={prism}>{`<C tag="image-once"
-    options={['camera', 'skyscrapers']}
+    options={[['camera', 'skyscrapers']]}
     widget={ImageChoice}
     extra={{
         src: '/stories/demo/images/skyscrapers.jpg',

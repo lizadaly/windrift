@@ -1,11 +1,11 @@
-import undoable, { excludeAction, StateWithHistory } from 'redux-undo'
-import { CombinedState, createSlice, Dispatch, PayloadAction } from '@reduxjs/toolkit'
+import undoable, { excludeAction } from 'redux-undo'
+import { createSlice, Dispatch, PayloadAction } from '@reduxjs/toolkit'
 import { v4 as uuidv4 } from 'uuid'
-import { InventoryState, update as updateInventory } from 'core/features/inventory'
-import { LogState, update as logUpdate } from 'core/features/log'
+import { update as updateInventory } from 'core/features/inventory'
+import { update as logUpdate } from 'core/features/log'
 import { Tag, ENTRY_TYPES, Next, Config, NextType, RootState } from 'core/types'
-import { gotoChapter, incrementSection, NavState } from 'core/features/navigation'
-import { CounterState, increment } from 'core/features/counter'
+import { gotoChapter, incrementSection } from 'core/features/navigation'
+import { increment } from 'core/features/counter'
 
 export type Option = string
 export type OptionGroup = Array<Option>
@@ -17,14 +17,15 @@ export type Options = Array<OptionGroup>
 
 export interface ChoiceState {
     [tag: Tag]: {
-        readonly initialOptions: Options
-        options: Options
+        index: number
+        lastIndex: number
+        resolved: boolean
     }
 }
 
 interface InitChoicePayload {
     tag: Tag
-    options: Options
+    lastIndex: number
 }
 interface OptionAdvancePayload {
     tag: Tag
@@ -53,19 +54,16 @@ export const makeChoice =
         const state = getState()
         const { counter, choices } = state
 
-        // Guard against uninitialized choices, as when manually dispatched
-        if (tag in choices.present) {
-            const { options } = choices.present[tag]
+        const { resolved } = choices.present[tag]
 
-            // If we've now exhausted the list of possible choices, invoke `next`
-            if (options.length === 0) {
-                if (next === Next.Section) {
-                    dispatch(incrementSection({ filename }))
-                } else if (next === Next.None) {
-                    // no-op
-                } else if (typeof next === 'string') {
-                    dispatch(gotoChapter({ filename: next }))
-                }
+        // If we've now exhausted the list of possible choices, invoke `next`
+        if (resolved) {
+            if (next === Next.Section) {
+                dispatch(incrementSection({ filename }))
+            } else if (next === Next.None) {
+                // no-op
+            } else if (typeof next === 'string') {
+                dispatch(gotoChapter({ filename: next }))
             }
         }
 
@@ -82,19 +80,32 @@ export const choicesSlice = createSlice({
     initialState,
     reducers: {
         init: (state, action: PayloadAction<InitChoicePayload>) => {
-            const { tag, options } = action.payload
-            if (!(tag in state)) {
-                state[tag] = {
-                    options,
-                    initialOptions: options
-                }
+            const { tag, lastIndex } = action.payload
+            state[tag] = {
+                index: tag in state ? state[tag].index : 0,
+                resolved: tag in state ? state[tag].resolved : false,
+                lastIndex
             }
         },
-        // Advance to the next option group. If no next group is available, do nothing
+        // Advance to the next option group if one is available
         advance: (state, action: PayloadAction<OptionAdvancePayload>) => {
             const { tag } = action.payload
+
             if (tag in state) {
-                state[tag].options.shift()
+                if (state[tag].index + 1 > state[tag].lastIndex) {
+                    // This would advance us past the boundary, so mark resolved
+                    state[tag].resolved = true
+                } else {
+                    state[tag].index = state[tag].index + 1
+                }
+            } else {
+                // If state was uninitialized here, this was a manual update, so simply
+                // initialize and mark resolved
+                state[tag] = {
+                    resolved: true,
+                    index: 0,
+                    lastIndex: 0
+                }
             }
         }
     }
@@ -102,4 +113,7 @@ export const choicesSlice = createSlice({
 
 export const { init, advance } = choicesSlice.actions
 
-export default undoable(choicesSlice.reducer, { filter: excludeAction('choices/init') })
+export default undoable(choicesSlice.reducer, {
+    filter: excludeAction('choices/init'),
+    syncFilter: true
+})

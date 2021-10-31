@@ -13,8 +13,7 @@ interface ResponseProps {
 const Response = ({ tag, options }: ResponseProps): JSX.Element => {
     // Get the inventory item for this tag
     const choice = useSelector((state: RootState) => state.inventory.present[tag])
-    const choiceList = useSelector((state: RootState) => state.choices.present[tag])
-    if (choice === undefined) {
+    if (!choice) {
         return null
     }
 
@@ -38,10 +37,7 @@ const Response = ({ tag, options }: ResponseProps): JSX.Element => {
                 options
             )}. Full text of the option selected was: `
         )
-        for (const i in choiceList.options) {
-            const c = choiceList.options[i][0]
-            console.log(c)
-        }
+
         console.groupEnd()
         return null
     }
