@@ -1,12 +1,11 @@
-import undoable, { includeAction } from 'redux-undo'
-import { CombinedState, createSlice, Dispatch, PayloadAction } from '@reduxjs/toolkit'
+import undoable, { excludeAction } from 'redux-undo'
+import { createSlice, Dispatch, PayloadAction } from '@reduxjs/toolkit'
 import { v4 as uuidv4 } from 'uuid'
-import { InventoryState, update as updateInventory } from 'core/features/inventory'
-import { LogState, update as logUpdate } from 'core/features/log'
+import { update as updateInventory } from 'core/features/inventory'
+import { update as logUpdate } from 'core/features/log'
 import { Tag, ENTRY_TYPES, Next, Config, NextType, RootState } from 'core/types'
-import { gotoChapter, incrementSection, NavState } from 'core/features/navigation'
-import { CounterState, increment } from 'core/features/counter'
-import { getTimeMeasureUtils } from '@reduxjs/toolkit/dist/utils'
+import { gotoChapter, incrementSection } from 'core/features/navigation'
+import { increment } from 'core/features/counter'
 
 export type Option = string
 export type OptionGroup = Array<Option>
@@ -115,5 +114,6 @@ export const choicesSlice = createSlice({
 export const { init, advance } = choicesSlice.actions
 
 export default undoable(choicesSlice.reducer, {
-    groupBy: includeAction('choices/advance')
+    filter: excludeAction('choices/init'),
+    syncFilter: true
 })

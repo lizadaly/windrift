@@ -36,4 +36,7 @@ export const inventorySlice = createSlice({
     }
 })
 export const { update, init } = inventorySlice.actions
-export default undoable(inventorySlice.reducer, { filter: excludeAction('inventory/init') })
+export default undoable(inventorySlice.reducer, {
+    filter: excludeAction('inventory/init'),
+    syncFilter: true
+})
