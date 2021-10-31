@@ -1,27 +1,14 @@
 import * as React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
-import {
-    WidgetType,
-    RootState,
-    Next,
-    ENTRY_TYPES,
-    Option,
-    Options,
-    OptionGroup,
-    NextType
-} from 'core/types'
-import { increment } from 'core/features/counter'
-import { gotoChapter, incrementSection } from 'core/features/navigation'
+import { WidgetType, RootState, Next, Option, Options, NextType } from 'core/types'
 
 import { ChapterContext } from 'core/components/chapter'
 import { InlineListEN } from 'core/components/widgets/inline-list'
-import { update as updateInventory } from 'core/features/inventory'
-import { update as logUpdate } from 'core/features/log'
-import { init, advance, makeChoice } from 'core/features/choice'
+
+import { init, makeChoice } from 'core/features/choice'
 import { init as initInventory } from 'core/features/inventory'
 
-import { StoryContext } from 'pages/[story]/[[...chapter]]'
 import useInventory from 'core/hooks/use-inventory'
 
 export interface ChoiceProps {
@@ -91,7 +78,6 @@ const MutableChoice = ({
 }: ChoiceProps): JSX.Element => {
     const dispatch = useDispatch()
     const { filename } = React.useContext(ChapterContext)
-    const { config } = React.useContext(StoryContext)
 
     const choice = useSelector((state: RootState) => {
         return state.choices.present[tag]
@@ -107,7 +93,9 @@ const MutableChoice = ({
     // If a choice is resolved, it will have no handler. If `last` is defined, display that instead of the
     // current option
     if (choice.resolved) {
-        handler = null
+        if (!persist) {
+            handler = null
+        }
         if (last) {
             group = [last]
         } else {
