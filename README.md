@@ -31,6 +31,21 @@ If you're curious, the official manual is continuously published as features are
 
 ## Quick start
 
+### Dependencies
+
+Windrift comes ready to deploy using Vercel, which requires a maximum Node version of 14. To ensure you're using the correct version of Node, use [Node Version Manager](https://github.com/nvm-sh/nvm):
+
+```
+nvm install 14
+nvm use 14
+```
+
+Then:
+
+```
+npm install
+```
+
 ### To start a new story
 
 ```
@@ -38,7 +53,6 @@ npm run new <story-id>
 ```
 
 The story identifier must be a single string, like "west-of-house" or "colossal-cave."
-
 
 ### To run the local development environment
 
