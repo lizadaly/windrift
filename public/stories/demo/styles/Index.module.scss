@@ -10,6 +10,9 @@
     pre, code {
         font-size: 15px !important;
     }
+    kbd {
+        font-size: smaller;
+    }
     pre + p {
         padding-top: 1rem;
     }
@@ -153,5 +156,16 @@
         column-gap: 2rem;
         row-gap: 2rem;
         grid-template-columns: [left] 1fr [right] 1fr;
+    }
+    /* Two styles used as examples */
+    .styleExample {
+        background: green;
+        color: white;
+    }
+    address {
+        background: blue;
+        color: white;
+        display: inline;
+
     }
 }
