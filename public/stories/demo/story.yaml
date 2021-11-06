@@ -19,5 +19,7 @@ chapters:
     title: "Images"
   - filename: "styling"
     title: "Layout and styling"
+  - filename: "testing"
+    title: "Testing stories"
 players:
   - start: "structure"
