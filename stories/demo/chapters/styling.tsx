@@ -251,7 +251,7 @@ const Index: React.FC = ({ children }) => (
                 </p>
                 <SyntaxHighlighter
                     language="css"
-                    style={prism}>{`/* public/stories/your-story/Index.module.scss */
+                    style={prism}>{`/* public/stories/<your-story-id>/Index.module.scss */
 @use '/public/styles/fonts' with (
     $body: 'EB Garamond',
 );
@@ -271,12 +271,121 @@ const Index: React.FC = ({ children }) => (
                 </p>
                 <SyntaxHighlighter
                     language="css"
-                    style={prism}>{`/* public/stories/your-story/Index.module.scss */
+                    style={prism}>{`/* public/stories/<your-story-id>y/Index.module.scss */
 .main {
     h1 {
         font-family: 'EB Garamond';
     }
 }`}</SyntaxHighlighter>
+                <h2>Styling</h2>
+
+                <p>
+                    Windrift ships with <a href="https://sass-lang.com/">Sass</a> (SCSS), an
+                    extension to CSS that allows a richer expression of styles, reusable rules, and
+                    variables. All plain CSS is valid SCSS, so you don't have to use SCSS if you
+                    don't want to. However, there are a few Windrift-specific features to get
+                    oriented on before customizing your story's styles.
+                </p>
+                <h3>Customizing CSS in the most simple way (not recommended)</h3>
+                <p>
+                    Every Windrift installation ships with a <code>public/global.scss</code> file.
+                    This CSS will apply to every story in your installation (including the demo
+                    stories packaged with Windrift). If you aren't planning on hosting more than one
+                    story or are not comfortable with the recommended approach below, adding styles
+                    to <code>global.scss</code> will work like you probably expect and get you
+                    going.
+                </p>
+                <p>
+                    If you choose to modify this file, take care when changing the styles prefixed
+                    with <code>windrift--</code>. These affect behaviors that are core to the
+                    library may have undesired side effects. It will also make it hard to keep up
+                    with new versions of Windrift.
+                </p>
+                <h3>
+                    Using the per-story <kbd>Index.module.scss</kbd> file (recommended!)
+                </h3>
+                <p>
+                    The story generator will give you an SCSS file where you can put per-story CSS.
+                    The file will be in <code>public/stories/styles/Index.module.scss</code>:
+                </p>
+                <SyntaxHighlighter
+                    language="css"
+                    style={prism}>{`/* public/stories/<your-story-id>/Index.module.scss */
+@use '/public/styles/grid';
+@use '/public/styles/colors';
+
+.main {
+    /* Customizations can go here */
+}
+`}</SyntaxHighlighter>
+                <p>
+                    The word "module" in the file indicates this is a CSS Module file, which means
+                    its use is limited to a specific React component. In this case it will be scoped
+                    to your specific story, since it's associated with the <code>index.tsx</code>{' '}
+                    story template.
+                </p>
+                <p>
+                    CSS Modules have one surprising "gotcha", which is that you need to import the
+                    selector name as a variable in your story code. It's easiest to explain by
+                    example:
+                </p>
+                <p>
+                    Since this manual is a Windrift story, it has a <code>Index.module.scss</code>{' '}
+                    to go with it. It includes the following CSS rules:
+                </p>
+                <SyntaxHighlighter
+                    language="css"
+                    style={prism}>{`/* public/stories/demo/Index.module.scss */
+@use '/public/styles/grid';
+@use '/public/styles/colors';
+
+.main {
+    /* ... */
+
+    .styleExample {
+        color: green;
+    }
+    address {
+        color: blue;
+    }
+}
+`}</SyntaxHighlighter>
+                <p>
+                    The first rule here uses a class selector: <code>.styleExample</code>. To
+                    actually use this rule in the current chapter, it must be imported and
+                    referenced as a variable:
+                </p>
+                <SyntaxHighlighter
+                    language="tsx"
+                    style={
+                        prism
+                    }>{`import styles from 'public/stories/demo/styles/Index.module.scss'
+export const Page: PageType = () => {
+    return (
+        <Chapter filename="styling">
+            [...]
+            <span className={styles.styleExample}>should be green</span>.
+            <address>should be blue</address>
+        </Chapter>)}
+                `}</SyntaxHighlighter>
+                <aside>
+                    This text will be wrapped in a <code>styleExample</code> class:{' '}
+                    <span className={styles.styleExample}>should be green</span>.
+                </aside>
+                <p>
+                    Typically multiword CSS class names are hyphen-separated, but because CSS
+                    Modules will refer to them as JavaScript variables, camelCase is required here.
+                    Also note that in React, you must use <code>className</code> rather than
+                    "class".
+                </p>
+                <p>
+                    However, if a CSS rule uses an element selector, you can just use it normally
+                    without a special import:
+                </p>
+                <aside>
+                    This text will be wrapped in an <code>address</code> element:{' '}
+                    <address>should be blue</address>
+                </aside>
             </Section>
         </Chapter>
     )

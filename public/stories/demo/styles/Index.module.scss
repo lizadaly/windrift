@@ -154,4 +154,15 @@
         row-gap: 2rem;
         grid-template-columns: [left] 1fr [right] 1fr;
     }
+    /* Two styles used as examples */
+    .styleExample {
+        background: green;
+        color: white;
+    }
+    address {
+        background: blue;
+        color: white;
+        display: inline;
+
+    }
 }
