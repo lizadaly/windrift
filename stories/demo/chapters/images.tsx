@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react'
+
 import Image from 'next/image'
 
 import { Section, Chapter, Nav, When, C } from 'core/components'
@@ -8,10 +10,26 @@ import { SyntaxHighlighter, prism, styles } from '..'
 
 export const Page: PageType = () => {
     const [image, imageOnce] = useInventory(['image', 'image-once'])
+    const [audio] = useState(
+        new Audio(
+            'https://ia800108.us.archive.org/14/items/78_when-a-woman-loves-a-man_billie-holiday-and-her-orchestra-billie-holiday-buck-clayt_gbia0031202/03%20-%20I%20Can%27t%20Get%20Started%20-%20Billie%20Holiday%20and%20her%20Orchestra.mp3'
+        )
+    )
+    const [playing, setPlaying] = useState(false)
+    useEffect(() => {
+        playing ? audio.play() : audio.pause()
+    }, [playing])
+
+    useEffect(() => {
+        audio.addEventListener('ended', () => setPlaying(false))
+        return () => {
+            audio.removeEventListener('ended', () => setPlaying(false))
+        }
+    }, [])
     return (
         <Chapter filename="images">
             <Section>
-                <h2>Images</h2>
+                <h2>Images and multimedia</h2>
                 <p>
                     Because Windrift is based on NextJS and React, in general you'll add elements
                     like images, CSS, and sound or video in a method consistent with those
@@ -283,6 +301,43 @@ export const Page: PageType = () => {
                         </When>
                     </em>
                 </aside>
+                <h2>Multimedia</h2>
+                <p>
+                    Windrift doesn't have any specific support for audio or video; you can treat
+                    this as a normal React application and follow online tutorials for best
+                    practices. The most common use in hypertext is to add background audio that
+                    plays during a chapter; use a React effect hook for this, but always allow users
+                    to turn off audio too!
+                </p>
+                <button onClick={() => setPlaying(!playing)}>
+                    Click me to {playing ? 'stop' : 'play'} sample audio
+                </button>
+                <SyntaxHighlighter language="tsx" style={prism}>
+                    {`import { useEffect, useState } from 'react'
+export const Page: PageType = () => {
+    const [audio] = useState(
+        new Audio(
+            'https://example.com/audio.mp3'
+        )
+    )
+    const [playing, setPlaying] = useState(false) // Set the default to 'true' to auto-play
+    useEffect(() => {
+        playing ? audio.play() : audio.pause()
+    }, [playing])
+
+    return <Chapter filename="images">
+        <Section>
+            [...]
+            <button onClick={
+                () => setPlaying(!playing)  // On button click, toggle whether the audio is playing
+            }>Click me to {playing ? 'stop' : 'play'} sample audio</button>
+        </Section>
+    </Chapter>}`}
+                </SyntaxHighlighter>
+                <p>
+                    A more complete example including automatically disabling the audio when the
+                    user navigates to a new chapter is in the source of this page.
+                </p>
                 <p>
                     <Nav
                         text="Explore how to customize your layout, fonts, and story styles..."
