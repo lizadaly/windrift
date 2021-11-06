@@ -89,7 +89,7 @@ const Index: React.FC = ({ children }) => {
             styles={styles}
             head={ // Google fonts or other font imports
                 <link rel="stylesheet"
-                      href="https://fonts.googleapis.com/css2?family=STIX+Two+Math,Raleway&display=optional" />
+                      href="https://fonts.googleapis.com/..." />
             }>
             {children}
         </Grid>
