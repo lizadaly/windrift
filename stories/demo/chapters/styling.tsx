@@ -286,27 +286,45 @@ const Index: React.FC = ({ children }) => (
                     don't want to. However, there are a few Windrift-specific features to get
                     oriented on before customizing your story's styles.
                 </p>
-                <h3>Customizing CSS in the most simple way (not recommended)</h3>
+                <h3>Customizing CSS in the most simple way</h3>
                 <p>
-                    Every Windrift installation ships with a <code>public/global.scss</code> file.
-                    This CSS will apply to every story in your installation (including the demo
-                    stories packaged with Windrift). If you aren't planning on hosting more than one
-                    story or are not comfortable with the recommended approach below, adding styles
-                    to <code>global.scss</code> will work like you probably expect and get you
-                    going.
+                    You can add a CSS or SCSS file to the head of your story template in the way you
+                    would for any HTML document. An example is provided in the head of the manual's{' '}
+                    <code>stories/demo/index.tsx</code>:
                 </p>
+                <SyntaxHighlighter language="tsx" style={prism}>
+                    {`<Grid styles={styles}
+    head={
+        <>
+            <link href="https://fonts.googleapis.com/..." rel="stylesheet" />
+            <link rel="stylesheet" href="/stories/demo/styles/traditional.css" />
+            <!-- Contents of traditional.css:
+                .traditional {
+                    color: white;
+                    background: purple;
+                }
+            -->
+        </>
+    }>...</Grid>`}
+                </SyntaxHighlighter>
+                <aside>
+                    This text is styled with a normal CSS class:{' '}
+                    <span className="traditional">this should be purple</span>. (Note that in React,
+                    you must use <code>className</code> rather than "class".)
+                </aside>
                 <p>
-                    If you choose to modify this file, take care when changing the styles prefixed
-                    with <code>windrift--</code>. These affect behaviors that are core to the
-                    library may have undesired side effects. It will also make it hard to keep up
-                    with new versions of Windrift.
+                    While this method is simple and effective, the CSS Modules approach described
+                    next has many advantages, and for any significantly complex story or stories
+                    will provide a lot of benefit.
                 </p>
                 <h3>
-                    Using the per-story <kbd>Index.module.scss</kbd> file (recommended!)
+                    Using the per-story <kbd>Index.module.scss</kbd> file
                 </h3>
                 <p>
-                    The story generator will give you an SCSS file where you can put per-story CSS.
-                    The file will be in <code>public/stories/styles/Index.module.scss</code>:
+                    The story generator will give you an SCSS file where you can put per-story CSS
+                    that will be pre-configured to make use of the included Grid layout and styling.
+                    The file will be in{' '}
+                    <code>public/stories/&lt;your-story-id&gt;/styles/Index.module.scss</code>:
                 </p>
                 <SyntaxHighlighter
                     language="css"
@@ -319,19 +337,30 @@ const Index: React.FC = ({ children }) => (
 }
 `}</SyntaxHighlighter>
                 <p>
-                    The word "module" in the file indicates this is a CSS Module file, which means
-                    its use is limited to a specific React component. In this case it will be scoped
-                    to your specific story, since it's associated with the <code>index.tsx</code>{' '}
-                    story template.
+                    The first two lines import the default Windrift SCSS that matches the{' '}
+                    <code>Grid</code> layout. This will give you a mobile-friendly, modern
+                    presentation using (surprise!){' '}
+                    <a href="https://css-tricks.com/snippets/css/complete-guide-grid/">CSS Grid</a>.
+                    A number of useful variables related to fonts, colors, and margins are exported
+                    that can be used to override default values without having to rigorously specify
+                    new rules. Check out the Stone Harbor CSS for examples that use these variable
+                    overrides.
                 </p>
                 <p>
-                    CSS Modules have one surprising "gotcha", which is that you need to import the
-                    selector name as a variable in your story code. It's easiest to explain by
-                    example:
+                    The word "module" in the file indicates this is a CSS Module, which means its
+                    use is limited to a specific React component. In this case it will be scoped to
+                    your specific story, since it's associated with the <code>index.tsx</code> story
+                    template.
+                </p>
+                <p>
+                    CSS Modules should mostly work like any CSS file, with one surprising
+                    "gotcha"—to use any class identifier you'll need to import the selector name as
+                    a variable in your source code. It's easiest to explain by example.
                 </p>
                 <p>
                     Since this manual is a Windrift story, it has a <code>Index.module.scss</code>{' '}
-                    to go with it. It includes the following CSS rules:
+                    to go with it. That file describes all the styles used in the manual, including
+                    the following SCSS:
                 </p>
                 <SyntaxHighlighter
                     language="css"
@@ -350,6 +379,7 @@ const Index: React.FC = ({ children }) => (
     }
 }
 `}</SyntaxHighlighter>
+
                 <p>
                     The first rule here uses a class selector: <code>.styleExample</code>. To
                     actually use this rule in the current chapter, it must be imported and
@@ -374,8 +404,8 @@ export const Page: PageType = () => {
                 </aside>
                 <p>
                     Typically multiword CSS class names are hyphen-separated, but because CSS
-                    Modules will refer to them as JavaScript variables, camelCase is required here.
-                    Also note that in React, you must use <code>className</code> rather than
+                    Modules will refer to them as JavaScript variables, camelCase is recommended
+                    here. Also note that in React, you must use <code>className</code> rather than
                     "class".
                 </p>
                 <p>
@@ -385,6 +415,21 @@ export const Page: PageType = () => {
                 <aside>
                     This text will be wrapped in an <code>address</code> element:{' '}
                     <address>should be blue</address>
+                </aside>
+                <p>
+                    Though perhaps unfamiliar at first, using CSS Modules prevents a style from one
+                    story from bleeding over into another and has become a recommended best practice
+                    in the React community. You will also get the benefit of hot reloading (changes
+                    to styles will immediately update in your story while you develop) and
+                    compatibility with any future improvements from Windrift core.
+                </p>
+                <aside className={styles.advanced}>
+                    NextJS (and therefore Windrift) support other mechanisms of importing CSS,
+                    including the "CSS in JS" approach. See the{' '}
+                    <a href="https://nextjs.org/docs/basic-features/built-in-css-support">
+                        NextJS documentation on CSS support
+                    </a>{' '}
+                    for a full reference.
                 </aside>
             </Section>
         </Chapter>

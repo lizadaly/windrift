@@ -22,10 +22,13 @@ const Index: React.FC = ({ children }) => {
         <Grid
             styles={styles}
             head={
-                <link
-                    href="https://fonts.googleapis.com/css2?family=Nunito:wght@300&family=EB+Garamond&family=Elsie&display=block"
-                    rel="stylesheet"
-                />
+                <>
+                    <link
+                        href="https://fonts.googleapis.com/css2?family=Nunito:wght@300&family=EB+Garamond&family=Elsie&display=block"
+                        rel="stylesheet"
+                    />
+                    <link rel="stylesheet" href="/stories/demo/styles/traditional.css" />
+                </>
             }>
             <TableOfContents />
             {children}
