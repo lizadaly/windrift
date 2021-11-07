@@ -20,7 +20,7 @@ chapters:
   - filename: "styling"
     title: "Layout and styling"
   - filename: "testing"
-    title: "Testing stories"
+    title: "Testing"
   - filename: "deploying"
     title: "Deploying to the web"
 players:
