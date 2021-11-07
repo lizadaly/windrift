@@ -417,6 +417,13 @@ export const Page: PageType = () => {
                     <address>should be blue</address>
                 </aside>
                 <p>
+                    You're not confined to putting all styles in your single{' '}
+                    <code>Index.module.scss</code> file: for large stylesheets you can break up the
+                    files and import them using SCSS syntax, and if your story includes styles that
+                    only apply to specific chapters or components, use and import CSS modules just
+                    for those components.
+                </p>
+                <p>
                     Though perhaps unfamiliar at first, using CSS Modules prevents a style from one
                     story from bleeding over into another and has become a recommended best practice
                     in the React community. You will also get the benefit of hot reloading (changes

@@ -271,7 +271,7 @@ export const Page: PageType = () => {
                         width: '100%'
                     }}>
                     <Image
-                        src="/stories/stone-harbor/images/study.jpg"
+                        src="../stories/stone-harbor/images/study.jpg"
                         loader={({ src }) => src}
                         alt="Um escritório pequeno e atafulhado com quadros e uma cadeira de vime em
                         frente de uma mesa, em tons de sépia."

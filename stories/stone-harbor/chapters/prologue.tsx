@@ -257,7 +257,7 @@ export const Page: PageType = () => {
                         width: '100%'
                     }}>
                     <Image
-                        src="/stories/stone-harbor/images/study.jpg"
+                        src="../stories/stone-harbor/images/study.jpg"
                         loader={({ src }) => src}
                         alt="A small, cluttered study, with pictures and a wicker chair before a
                             desk, in sepia tones."

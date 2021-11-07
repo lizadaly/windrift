@@ -15,7 +15,7 @@
         "vercel": "vercel"
     },
     "engines": {
-        "node": ">=14"
+        "node": "=14"
     },
     "dependencies": {
         "@reduxjs/toolkit": "^1.6.2",

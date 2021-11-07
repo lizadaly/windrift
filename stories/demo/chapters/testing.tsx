@@ -5,7 +5,7 @@ export const Page: PageType = () => {
     return (
         <Chapter filename="testing">
             <Section>
-                <h2>Testing stories</h2>
+                <h2>Testing</h2>
 
                 <p>
                     Windrift ships with support for the browser testing framework{' '}
@@ -89,6 +89,7 @@ export const Page: PageType = () => {
                     overkill to unit test most Windrift stories—start with functional testing via
                     the browser and see how far that takes you.
                 </p>
+                <Nav text="How to deploy your story to the web..." next="deploying" />
             </Section>
         </Chapter>
     )
