@@ -104,6 +104,6 @@ describe('Full test of the built-in stories', () => {
 
         // Browser testing
         cy.get('a:contains("browser testing")').click()
-        cy.contains('Testing stories').should('exist')
+        cy.contains('Testing').should('exist')
     })
 })
