@@ -431,6 +431,10 @@ export const Page: PageType = () => {
                     </a>{' '}
                     for a full reference.
                 </aside>
+                <Nav
+                    text="Learn about automated browser testing and continuous integration..."
+                    next="testing"
+                />
             </Section>
         </Chapter>
     )
