@@ -21,5 +21,7 @@ chapters:
     title: "Layout and styling"
   - filename: "testing"
     title: "Testing stories"
+  - filename: "deploying"
+    title: "Deploying to the web"
 players:
   - start: "structure"
