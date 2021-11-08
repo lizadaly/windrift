@@ -11,7 +11,7 @@
 @use '/public/styles/header' with (
    $min-height: 1em,
    $max-height: 1vh,
-   $background: colors.$very-light,
+   $background-color: colors.$very-light,
    $reset-background: colors.$very-light,
    $reset-color: colors.$very-dark
 );

@@ -1,6 +1,7 @@
 describe('Full test of refresh/rehydration features', () => {
     it('Checks refresh', () => {
         cy.visit('/demo')
+        cy.get("a:contains('Start learning')").click()
         cy.get('a:contains("about choices")').click()
         cy.get('a:contains("ripe banana")')
         cy.get('a:contains("bulbous orange")').click()

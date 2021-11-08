@@ -1,6 +1,8 @@
 title: The Windrift Manual
 language: en
 chapters:
+  - filename: "introduction"
+    title: "Introduction"
   - filename: "structure"
     title: "Story structure"
   - filename: "choices"
@@ -24,4 +26,4 @@ chapters:
   - filename: "deploying"
     title: "Deploying to the web"
 players:
-  - start: "structure"
+  - start: "introduction"

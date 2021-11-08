@@ -3,6 +3,16 @@
 @use '/public/styles/grid';
 @use '/public/styles/colors';
 
+.header {
+
+    background-image: url(../../../images/windrift-logo.svg);
+    background-repeat: no-repeat;
+    background-position: left;
+    background-size: 75px;
+    background-position-x: 20px;
+    background-position-y: 5px;
+ }
+
 .main {
     p {
         font-size: 20px;

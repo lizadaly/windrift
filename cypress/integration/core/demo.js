@@ -2,6 +2,8 @@ describe('Full test of the built-in stories', () => {
     it('Runs through the demo application', () => {
         // Initial page
         cy.visit('/demo')
+        cy.contains('Introduction').should('exist')
+        cy.get("a:contains('Start learning')").click()
         cy.get("a:contains('about choices')").click()
 
         // Ensure no new sections are unspooled yet
@@ -105,5 +107,7 @@ describe('Full test of the built-in stories', () => {
         // Browser testing
         cy.get('a:contains("browser testing")').click()
         cy.contains('Testing').should('exist')
+        cy.get('a:contains("How to deploy")').click()
+        cy.contains('Deploying your story').should('exist')
     })
 })
