@@ -1,4 +1,4 @@
-import { Section, Chapter, C } from 'core/components'
+import { Section, Chapter } from 'core/components'
 import { PageType } from 'core/types'
 import ResetButton from 'core/components/ui/reset-button'
 
