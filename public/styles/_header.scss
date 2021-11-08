@@ -2,20 +2,20 @@
 @use 'fonts';
 @use 'sizing';
 
-$background: linear-gradient(to right, #0f2027, #203a43, #2c5364) !default;
+$background-color: colors.$very-dark !default;
 $max-height: 100px !default;
 $min-height: sizing.$story-margin !default;
 $reset-background: colors.$button !default;
 $reset-color: colors.$very-light !default;
 
 .header {
-    max-height: $max-height;
     min-height: $min-height;
-    background: $background;
+    background-color: $background-color;
     color: colors.$contrast;
+
     nav {
         display: grid;
-        grid-template-columns: [left] 10vw [center] 1fr [right] 10vw;
+        grid-template-columns: [left] 125px 1fr [right] minmax(5px, 20vh);
 
         h1 {
             justify-self: left;
@@ -36,6 +36,7 @@ $reset-color: colors.$very-light !default;
                 border-radius: 0;
                 min-height: $min-height;
                 min-width: $min-height;
+                max-height: 100px;
                 font-size: 1rem;
                 text-transform: uppercase;
             }

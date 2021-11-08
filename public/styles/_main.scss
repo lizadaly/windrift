@@ -4,8 +4,7 @@
 
 .main {
     display: grid;
-    grid-template-columns: [left] 10vw [center] 1fr [right] 10vw;
-
+    grid-template-columns: [left] minmax(50px, 20vh) minmax(80%, 1fr) [right] minmax(50px, 20vh);
     background: colors.$very-light;
 
     font-family: fonts.$body;
