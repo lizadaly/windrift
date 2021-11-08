@@ -99,6 +99,14 @@ export const Page: PageType = () => (
                     Windrift story with no customizations
                 </li>
             </ul>
+            <p>
+                The table of contents at the top of this page allows you to read the manual in any
+                order, but it's best to follow along linearly, as some examples build on each other.
+            </p>
+            <Nav
+                text="Start learning about the structure of a Windrift story..."
+                next="structure"
+            />
         </Section>
     </Chapter>
 )

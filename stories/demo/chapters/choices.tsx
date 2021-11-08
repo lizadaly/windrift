@@ -197,7 +197,7 @@ export const Page: PageType = () => (
             </aside>
 
             <p>In the next section we'll see how selected or default values can be retrieved.</p>
-            <Nav text="Learn about displaying inventory..." next="inventory" />
+            <Nav text="Learn about displaying inventory..." next="inventory" persist={true} />
         </Section>
     </Chapter>
 )

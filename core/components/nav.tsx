@@ -24,7 +24,7 @@ interface Props {
 const Nav = ({
     text = 'More...',
     next = Next.Section,
-    persist = false,
+    persist = true,
     tag = undefined
 }: Props): JSX.Element => {
     const { filename } = useContext(ChapterContext)
