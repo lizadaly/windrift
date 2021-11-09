@@ -118,7 +118,7 @@ export default Index`}
                 </p>
                 <p>
                     In this documentation, a "table of contents" appears at the top of each chapter.
-                    This is represented in <code>stories/demo/index.tsx</code> as:
+                    This is represented in <code>stories/manual/index.tsx</code> as:
                 </p>
                 <SyntaxHighlighter language="tsx" style={prism}>
                     {`<Grid styles={styles} ... >
@@ -170,7 +170,7 @@ players:
                 <code>&lt;Chapter filename="example"&gt;</code> attribute. Because it's an array,
                 chapters have an implicit ordering; Windrift will not make use of this, but you
                 can—see the source code that generates the <code>TableOfContent</code> component in
-                this demo.
+                this manual.
             </p>
             <p>
                 The chapter title will appear in the <code>&lt;title&gt;</code> of the HTML page.

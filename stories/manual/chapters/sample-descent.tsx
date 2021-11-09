@@ -16,7 +16,7 @@ export const Page: PageType = () => {
                     make quick work of the last section of trail.
                 </p>
                 <Image
-                    src="../stories/demo/images/an-evening-in-the-woods-whittredge.jpg"
+                    src="../stories/manual/images/an-evening-in-the-woods-whittredge.jpg"
                     unoptimized={true}
                     alt="A painting of dark wood, with a distant light in the center and a creek in the foreground"
                     width="1000"

@@ -23,7 +23,7 @@ export type GridProps = {
     /** A style object as imported from a CSS or SCSS file
      *
      * @example
-     * import styles from 'public/stories/demo/styles/Index.module.scss'
+     * import styles from 'public/stories/manual/styles/Index.module.scss'
      */
     styles?: Record<string, string>
 }
@@ -33,7 +33,7 @@ export type GridProps = {
  * Will automatically pull in the {@link Config} from {@link StoryContext} to provide
  * access to story-level details.
  *
- * @see stories/demo/index for an example implementation
+ * @see stories/manual/index for an example implementation
  *
  */
 const Grid: React.FC<GridProps> = ({ children, head, header, left, right, styles }) => {

@@ -8,7 +8,7 @@ import { Nav } from 'core/components'
 
 import { RootState } from 'core/types'
 
-import styles from 'public/stories/demo/styles/Index.module.scss'
+import styles from 'public/stories/manual/styles/Index.module.scss'
 import { StoryContext } from 'pages/[story]/[[...chapter]]'
 
 const TableOfContents = (): JSX.Element => {
