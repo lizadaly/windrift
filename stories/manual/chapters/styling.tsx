@@ -57,7 +57,7 @@ export const Page: PageType = () => {
                         </p>
                     </div>
                     <img
-                        src="/stories/demo/images/page-template.svg"
+                        src="/stories/manual/images/page-template.svg"
                         alt="Diagram of default page layout"
                     />
                 </div>
@@ -87,7 +87,7 @@ export const Page: PageType = () => {
     /** A style object as imported from a CSS or SCSS file
      *
      * @example
-     * import styles from 'public/stories/demo/styles/Index.module.scss'
+     * import styles from 'public/stories/manual/styles/Index.module.scss'
      */
     styles?: Record<string, string>
 }`}
@@ -139,7 +139,7 @@ export default Index`}
                         </p>
                     </div>
                     <img
-                        src="/stories/demo/images/rendered-template.svg"
+                        src="/stories/manual/images/rendered-template.svg"
                         alt="Diagram of layout populated with page contents"
                     />
                     <div>
@@ -161,7 +161,7 @@ export default Index`}
                         </SyntaxHighlighter>
                     </div>
                     <img
-                        src="/stories/demo/images/left.svg"
+                        src="/stories/manual/images/left.svg"
                         alt="Diagram of layout with left nav"
                     />
                 </div>
@@ -171,7 +171,7 @@ export default Index`}
                     at the top of this manual is implemented as a custom component which is
                     prependied before all the chapter content:
                     <SyntaxHighlighter language="tsx" style={prism}>
-                        {`// stories/demo/index.tsx
+                        {`// stories/manual/index.tsx
 import TableOfContents from './table-of-contents'
 
 const Index: React.FC = ({ children }) => (
@@ -215,7 +215,7 @@ const Index: React.FC = ({ children }) => (
                     the header. There should already be a placeholder from the story generator:
                 </p>
                 <SyntaxHighlighter language="tsx" style={prism}>
-                    {`// stories/demo/index.tsx
+                    {`// stories/manual/index.tsx
 <Grid styles={styles}
     head={
         <link
@@ -290,14 +290,14 @@ const Index: React.FC = ({ children }) => (
                 <p>
                     You can add a CSS or SCSS file to the head of your story template in the way you
                     would for any HTML document. An example is provided in the head of the manual's{' '}
-                    <code>stories/demo/index.tsx</code>:
+                    <code>stories/manual/index.tsx</code>:
                 </p>
                 <SyntaxHighlighter language="tsx" style={prism}>
                     {`<Grid styles={styles}
     head={
         <>
             <link href="https://fonts.googleapis.com/..." rel="stylesheet" />
-            <link rel="stylesheet" href="/stories/demo/styles/traditional.css" />
+            <link rel="stylesheet" href="/stories/manual/styles/traditional.css" />
             <!-- Contents of traditional.css:
                 .traditional {
                     color: white;
@@ -364,7 +364,7 @@ const Index: React.FC = ({ children }) => (
                 </p>
                 <SyntaxHighlighter
                     language="css"
-                    style={prism}>{`/* public/stories/demo/Index.module.scss */
+                    style={prism}>{`/* public/stories/manual/Index.module.scss */
 @use '/public/styles/grid';
 @use '/public/styles/colors';
 
@@ -389,7 +389,7 @@ const Index: React.FC = ({ children }) => (
                     language="tsx"
                     style={
                         prism
-                    }>{`import styles from 'public/stories/demo/styles/Index.module.scss'
+                    }>{`import styles from 'public/stories/manual/styles/Index.module.scss'
 export const Page: PageType = () => {
     return (
         <Chapter filename="styling">

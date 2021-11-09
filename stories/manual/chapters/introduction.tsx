@@ -36,7 +36,7 @@ export const Page: PageType = () => (
                 <a href="https://lizadaly.com/">Liza Daly</a>. Harmonia won two{' '}
                 <a href="https://xyzzyawards.org/">XYZZY Awards</a> for Innovation and use of
                 Multimedia. <a href="https://lizadaly.com/projects/the-ballroom/">The Ballroom</a>{' '}
-                (2019) is a short game which demonstrates some of Windrift's principles around
+                (2019) is a short game which manualnstrates some of Windrift's principles around
                 "mutability". Enrique Henestroza Anguiano used Windrift to write{' '}
                 <a href="http://springthing.net/2018/play_online/TheImposter/index.html">
                     The Imposter
@@ -95,7 +95,7 @@ export const Page: PageType = () => (
                 source code (in <code>stories/manual</code> in the Windrift repository), as some
                 inline examples are elided for clarity.
             </p>
-            <p>Windrift is packaged with other demonstration stories:</p>
+            <p>Windrift is packaged with other manualnstration stories:</p>
             <ul>
                 <li>
                     Stone Harbor prologue (<a href="https://windrift.app/stone-harbor">English</a>{' '}
@@ -103,7 +103,7 @@ export const Page: PageType = () => (
                 </li>
                 <li>
                     <a href="https://windrift.app/playground">The Playground</a> (a collection of
-                    short scenes demonstrating some fun things you can do with the framework)
+                    short scenes manualnstrating some fun things you can do with the framework)
                 </li>
                 <li>
                     <a href="https://windrift.app/minimal">Minimal</a> — the simplest possible

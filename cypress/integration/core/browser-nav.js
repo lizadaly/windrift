@@ -1,6 +1,6 @@
 describe('Full test of browser forward/back features', () => {
     it('Checks back', () => {
-        cy.visit('/demo')
+        cy.visit('/manual')
         cy.get("a:contains('Start learning')").click()
         cy.get('a:contains("about choices")').click()
         cy.get('a:contains("ripe banana")').should('exist')

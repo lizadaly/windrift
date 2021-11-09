@@ -77,7 +77,7 @@ export const Page: PageType = () => {
 
             <Section className={styles.sample}>
                 <Image
-                    src="../stories/demo/images/the-trout-pool-whittredge.jpg"
+                    src="../stories/manual/images/the-trout-pool-whittredge.jpg"
                     unoptimized={true}
                     alt="A painting of a forest in autumn with deep trees rendered in orange and gold"
                     width="1000"

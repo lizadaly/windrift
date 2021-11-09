@@ -14,7 +14,7 @@ SyntaxHighlighter.registerLanguage('css', css)
 
 import Grid from 'core/components/ui/layouts/grid'
 
-import styles from 'public/stories/demo/styles/Index.module.scss'
+import styles from 'public/stories/manual/styles/Index.module.scss'
 import TableOfContents from './table-of-contents'
 
 const Index: React.FC = ({ children }) => {
@@ -27,7 +27,7 @@ const Index: React.FC = ({ children }) => {
                         href="https://fonts.googleapis.com/css2?family=Nunito:wght@300&family=EB+Garamond&family=Elsie&display=block"
                         rel="stylesheet"
                     />
-                    <link rel="stylesheet" href="/stories/demo/styles/traditional.css" />
+                    <link rel="stylesheet" href="/stories/manual/styles/traditional.css" />
                 </>
             }>
             <TableOfContents />

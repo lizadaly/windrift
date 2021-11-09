@@ -27,7 +27,7 @@ half the length of their Windrift 1 counterparts.
 
 ## Online manual
 
-If you're curious, the official manual is continuously published as features are added: https://windrift.app/demo. This is the best way to quickly get an overview of Windrift v2. Corrections and requests for coverage are gratefully accepted.
+If you're curious, the official manual is continuously published as features are added: https://windrift.app/manual. This is the best way to quickly get an overview of Windrift v2. Corrections and requests for coverage are gratefully accepted.
 
 ## Quick start
 

@@ -35,7 +35,7 @@ export const Page: PageType = () => {
 Page                              Size     First Load JS
 ┌   /_app                         0 B            69.2 kB
 ├ ● /[story]/[[...chapter]]       59.5 kB         129 kB
-├   ├ /demo
+├   ├ /manual
 ├   ├ /minimal
 ├   ├ /stone-harbor
 ├   └ /stone-harbor-pt
@@ -64,7 +64,7 @@ Export successful. Files written to /Users/liza/github/windrift/out
 
 
 $ ls -F out
-404/             demo/            images/          stone-harbor/    stories/
+404/             manual/            images/          stone-harbor/    stories/
 _next/           global.scss      minimal/         stone-harbor-pt/ styles/
 `}
                 </SyntaxHighlighter>
@@ -108,7 +108,7 @@ _next/           global.scss      minimal/         stone-harbor-pt/ styles/
                     By far the most straightforward hosting mechanism for any NextJS application is
                     to use the hosting site <a href="https://vercel.com">Vercel</a>, which is run by
                     the same company that produces NextJS itself. (This manual is itself hosted on
-                    Vercel at <a href="https://windrift.app/demo">windrift.app</a>.) Hosting with
+                    Vercel at <a href="https://windrift.app/manual">windrift.app</a>.) Hosting with
                     Vercel is free, and provides many other benefits including use of NextJS's
                     server-side features. However, Vercel may not exist forever, so it is always
                     desirable to use purely static exports for longevity and inclusion on sites like

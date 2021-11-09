@@ -74,7 +74,7 @@ export const Page: PageType = () => {
                             <tr>
                                 <td>
                                     <img
-                                        src="../stories/demo/images/example1.jpg"
+                                        src="../stories/manual/images/example1.jpg"
                                         alt="Ocean waves and rocks"
                                         width="200"
                                         height="200"
@@ -82,7 +82,7 @@ export const Page: PageType = () => {
                                 </td>
                                 <td>
                                     <Image
-                                        src="../stories/demo/images/example1.jpg"
+                                        src="../stories/manual/images/example1.jpg"
                                         width="200"
                                         height="200"
                                         alt="Ocean waves and rocks"
@@ -94,7 +94,7 @@ export const Page: PageType = () => {
                                 <td>
                                     <SyntaxHighlighter language="tsx" style={prism}>
                                         {`// Standard HTML <img> (recommended)
-<img src="../stories/demo/images/example1.jpg"
+<img src="../stories/manual/images/example1.jpg"
     alt="Ocean waves and rocks"
     width="200" height="200" />
 `}
@@ -103,7 +103,7 @@ export const Page: PageType = () => {
                                 <td>
                                     <SyntaxHighlighter language="tsx" style={prism}>
                                         {`// import Image from 'next/image'
-<Image src="../stories/demo/images/example1.jpg"
+<Image src="../stories/manual/images/example1.jpg"
     alt="Ocean waves and rocks"
     preload={true} unoptimized={true}
     width="200" height="200" />`}
@@ -156,7 +156,7 @@ export const Page: PageType = () => {
                                     options={[['camera', 'skyscrapers']]}
                                     widget={ImageChoice}
                                     extra={{
-                                        src: '../stories/demo/images/camera.jpg',
+                                        src: '../stories/manual/images/camera.jpg',
                                         alt: 'A black manual camera',
                                         option: 'camera',
                                         width: 200,
@@ -171,7 +171,7 @@ export const Page: PageType = () => {
                                     options={[['camera', 'skyscrapers']]}
                                     widget={ImageChoice}
                                     extra={{
-                                        src: '../stories/demo/images/skyscrapers.jpg',
+                                        src: '../stories/manual/images/skyscrapers.jpg',
                                         alt: 'City skyscrapers',
                                         option: 'skyscrapers',
                                         width: 200,
@@ -187,7 +187,7 @@ export const Page: PageType = () => {
     options={['camera', 'skyscrapers']}
     widget={ImageChoice}
     extra={{
-        src: '../stories/demo/images/camera.jpg',
+        src: '../stories/manual/images/camera.jpg',
         alt: 'A black manual camera',
         option: 'camera',
         width: 200,
@@ -200,7 +200,7 @@ export const Page: PageType = () => {
     options={['camera', 'skyscrapers']}
     widget={ImageChoice}
     extra={{
-        src: '../stories/demo/images/skyscrapers.jpg',
+        src: '../stories/manual/images/skyscrapers.jpg',
         alt: 'City skyscrapers',
         option: 'skyscrapers',
         width: 200,
@@ -235,7 +235,7 @@ export const Page: PageType = () => {
                                     options={[['camera', 'skyscrapers']]}
                                     widget={ImageChoice}
                                     extra={{
-                                        src: '../stories/demo/images/camera.jpg',
+                                        src: '../stories/manual/images/camera.jpg',
                                         alt: 'A black manual camera',
                                         option: 'camera',
                                         width: 200,
@@ -250,7 +250,7 @@ export const Page: PageType = () => {
                                     options={[['camera', 'skyscrapers']]}
                                     widget={ImageChoice}
                                     extra={{
-                                        src: '../stories/demo/images/skyscrapers.jpg',
+                                        src: '../stories/manual/images/skyscrapers.jpg',
                                         alt: 'City skyscrapers',
                                         option: 'skyscrapers',
                                         width: 200,
@@ -268,7 +268,7 @@ export const Page: PageType = () => {
     options={[['camera', 'skyscrapers']]}
     widget={ImageChoice}
     extra={{
-        src: '../stories/demo/images/camera.jpg',
+        src: '../stories/manual/images/camera.jpg',
         alt: 'A black manual camera',
         option: 'camera',
         width: 200,
@@ -283,7 +283,7 @@ export const Page: PageType = () => {
     options={[['camera', 'skyscrapers']]}
     widget={ImageChoice}
     extra={{
-        src: '../stories/demo/images/skyscrapers.jpg',
+        src: '../stories/manual/images/skyscrapers.jpg',
         alt: 'City skyscrapers',
         option: 'skyscrapers',
         width: 200,
