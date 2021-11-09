@@ -3,8 +3,10 @@ language: en
 chapters:
   - filename: "introduction"
     title: "Introduction"
+    toc: true
   - filename: "structure"
     title: "Story structure"
+    toc: true
   - filename: "choices"
     title: "Choices"
   - filename: "inventory"
@@ -12,7 +14,7 @@ chapters:
   - filename: "navigation"
     title: "Navigation"
   - filename: "sample-ascent"
-    title: "Ascent (Sample story)"
+    title: "Sample story"
   - filename: "sample-summit"
     title: "Summit (Sample story)"
   - filename: "sample-descent"
@@ -25,5 +27,8 @@ chapters:
     title: "Testing"
   - filename: "deploying"
     title: "Deploying to the web"
+extra:
+  omitToc: ['sample-summit', 'sample-descent']
+
 players:
   - start: "introduction"

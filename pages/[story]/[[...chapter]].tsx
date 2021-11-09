@@ -99,10 +99,10 @@ export default function Start(props: WindriftProps): JSX.Element {
     const config = new Config(
         story as string,
         configYaml.title,
-        configYaml.pagination,
         configYaml.enableUndo,
         configYaml.players,
-        configYaml.language
+        configYaml.language,
+        configYaml.extra
     )
 
     const persistConfig = {

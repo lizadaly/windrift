@@ -1,5 +1,6 @@
 import { Section, Chapter, Nav } from 'core/components'
 import { PageType } from 'core/types'
+import { string } from 'yargs'
 import { SyntaxHighlighter, prism, styles } from '..'
 
 export const Page: PageType = () => (
@@ -180,7 +181,14 @@ players:
                 forthcoming. This parameter is reserved for further use, but in 2.0.x it is used
                 exclusively to indicate which chapter is the start of the story.
             </p>
-
+            <h3>Extra</h3>
+            <p>
+                <em>Advanced option</em>. You may add an optional <code>extra</code> configuration
+                item to put your own metadata or configuration info. This is typed as a record of
+                strings mapping to any kind of value. See the <code>extra</code> block in the
+                manual's configuration for an example, used in the <code>TableOfContents</code>{' '}
+                component to limit which chapters are displayed in the header.
+            </p>
             <Nav text="Learn about choices next..." next="choices" />
         </Section>
     </Chapter>

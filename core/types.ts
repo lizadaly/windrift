@@ -21,25 +21,25 @@ export class PlayerConfig {
 export class Config {
     readonly identifier: string // safe for use in keys
     readonly title: string
-    readonly pagination: string
     readonly enableUndo: boolean
     readonly players: PlayerConfig[]
     readonly language: string
+    readonly extra?: Record<string, unknown>
 
     constructor(
         identifier: string,
         title: string,
-        pagination = 'scrolling',
         enableUndo = true,
         players: PlayerConfig[],
-        language: string
+        language: string,
+        extra?: Record<string, unknown>
     ) {
         this.identifier = identifier
         this.title = title
-        this.pagination = pagination
         this.enableUndo = enableUndo
         this.players = players
         this.language = language
+        this.extra = extra
     }
 }
 
