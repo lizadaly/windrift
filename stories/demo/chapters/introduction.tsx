@@ -1,5 +1,6 @@
 import { Section, Chapter, Nav } from 'core/components'
 import { PageType } from 'core/types'
+import { styles } from '..'
 
 export const Page: PageType = () => (
     <Chapter filename="introduction">
@@ -72,6 +73,17 @@ export const Page: PageType = () => (
                 time on source code should start with the excellent{' '}
                 <a href="https://twinery.org/">Twine</a>.
             </p>
+            <h3>Relationship to Windrift v1</h3>
+            <p>
+                This is a major second release of the Windrift framework. Internally it is a
+                complete rewrite into TypeScript using the NextJS React framework as a base
+                (replacing the independent windrift-starter repository). For authors, the primary
+                differences are: changes to the names of the major components (<code>List</code> has
+                become <code>Choice</code> and <code>Map</code> has become <code>Response</code>;
+                the addition of the YAML story metadata file; and some simplifications in how
+                chapters are constructed. In most cases an in-progress Windrift 1 story should
+                require only cosmetic changes to port to Windrift 2.
+            </p>
             <h2>About this manual</h2>
             <p>
                 This manual is itself a Windrift story and contains many interactive examples. It
@@ -80,8 +92,8 @@ export const Page: PageType = () => (
             </p>
             <p>
                 Though the manual includes many inline code examples, be sure to look at the actual
-                source code (in <code>stories/manual</code> in the Windrift repository). Some
-                examples are elided for clarity.
+                source code (in <code>stories/manual</code> in the Windrift repository), as some
+                inline examples are elided for clarity.
             </p>
             <p>Windrift is packaged with other demonstration stories:</p>
             <ul>
@@ -102,6 +114,7 @@ export const Page: PageType = () => (
                 The table of contents at the top of this page allows you to read the manual in any
                 order, but it's best to follow along linearly, as some examples build on each other.
             </p>
+
             <Nav
                 text="Start learning about the structure of a Windrift story..."
                 next="structure"
