@@ -16,8 +16,6 @@ describe('Full test of the built-in stories', () => {
 
         cy.get('a:contains("cheesecake")').click()
         cy.contains('too many delicious things')
-        cy.get('a:contains("cheese cart")').click()
-        cy.contains('enough food for a week')
 
         cy.get('a:contains("marmot")').click()
         cy.get('a:contains("marmot")').should('not.exist')
