@@ -24,7 +24,7 @@ chapters:
   - filename: "styling"
     title: "Layout and styling"
   - filename: "testing"
-    title: "Testing"
+    title: "Debugging and testing"
   - filename: "deploying"
     title: "Deploying to the web"
 extra:

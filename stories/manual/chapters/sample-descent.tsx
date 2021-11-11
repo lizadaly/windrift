@@ -30,36 +30,35 @@ export const Page: PageType = () => {
                 <p>
                     You can just make out the shape of {companion} waving at you in the distance.{' '}
                     Satisfied by your short hike today,{' '}
-                    <Nav text="set out to meet them" next="images" />.
+                    <Nav text="set out to meet them" next="images" />. (Exit the sample story here.)
                 </p>
                 <br />
                 <br />
-                <aside className={styles.note}>
-                    <h3>Image credits</h3>
-                    <ul>
-                        <li>
-                            Detail from{' '}
-                            <a href="https://www.metmuseum.org/art/collection/search/13315">
-                                The Trout Pool
-                            </a>{' '}
-                            (1870), Worthington Whittredge
-                        </li>
-                        <li>
-                            Detail from{' '}
-                            <a href="https://www.metmuseum.org/art/collection/search/17574">
-                                Bouquet Valley
-                            </a>{' '}
-                            (1877), William Trost Richards{' '}
-                        </li>
-                        <li>
-                            Detail from{' '}
-                            <a href="https://www.metmuseum.org/art/collection/search/13313">
-                                Evening in the Woods
-                            </a>{' '}
-                            (1876), Worthington Whittredge
-                        </li>
-                    </ul>
-                </aside>
+
+                <h3>Image credits</h3>
+                <ul>
+                    <li>
+                        Detail from{' '}
+                        <a href="https://www.metmuseum.org/art/collection/search/13315">
+                            The Trout Pool
+                        </a>{' '}
+                        (1870), Worthington Whittredge
+                    </li>
+                    <li>
+                        Detail from{' '}
+                        <a href="https://www.metmuseum.org/art/collection/search/17574">
+                            Bouquet Valley
+                        </a>{' '}
+                        (1877), William Trost Richards{' '}
+                    </li>
+                    <li>
+                        Detail from{' '}
+                        <a href="https://www.metmuseum.org/art/collection/search/13313">
+                            Evening in the Woods
+                        </a>{' '}
+                        (1876), Worthington Whittredge
+                    </li>
+                </ul>
             </Section>
         </Chapter>
     )

@@ -1,12 +1,12 @@
-import { Section, Chapter, Nav } from 'core/components'
+import { Section, Chapter } from 'core/components'
 import { PageType } from 'core/types'
-import { SyntaxHighlighter, prism, styles } from '..'
+import { SyntaxHighlighter, prism, styles, FooterNav } from '..'
 
 export const Page: PageType = () => {
     return (
         <Chapter filename="styling">
             <Section>
-                <h2>Layout and styling</h2>
+                <h1>Layout and styling</h1>
                 <p>
                     Windrift stories are primarily composed of text, so attention to detail around
                     the presentation of text—both visually and for screenreaders—is encouraged.
@@ -14,53 +14,50 @@ export const Page: PageType = () => {
                     experience. This section will highlight some affordances available as part of
                     Windrift, as well as some best practices that are unique to digital narrative.
                 </p>
-                <h3>Terminology</h3>
+                <h2>Terminology</h2>
                 <ol>
                     <li>
                         Windrift provides components called <strong>layouts</strong>, found in{' '}
                         <code>core/components/ui/layouts</code>. These are designed to be{' '}
-                        <strong>reusable across many stories</strong> and control the fundamental
-                        structure of the HTML page. .
+                        <strong>reusable across many stories</strong> and control the structure of
+                        the HTML page.
                     </li>
                     <li>
-                        Each individual story then has a <strong>story template</strong>, which is
-                        the <code>index.tsx</code> page created for you when you run the story
+                        Each individual story has a <strong>story template</strong>. This is the{' '}
+                        <code>index.tsx</code> page created for you when you run the story
                         generator. By default this will call the default <strong>layout</strong>.
-                        Every chapter in your story will be rendered inside this page.{' '}
-                        <strong>Each story will have its own story template.</strong>
+                        Every chapter in your story will be rendered inside this page.
                     </li>
                     <li>
                         Finally, within each story, chapter, or section you can control the{' '}
                         <strong>styling</strong> of the text and other media.
                     </li>
                 </ol>
-                <h3>
+                <h2>
                     Layout using the <kbd>Grid</kbd> component
-                </h3>
+                </h2>
                 <p>
-                    As discussed in the section on <Nav text="story structure" next="structure" />,
-                    a Windrift story will be contained inside a template called{' '}
-                    <code>index.tsx</code> that's provided by the story generator script. This
-                    template calls a layout component provided in{' '}
+                    Your story template calls a layout component provided in{' '}
                     <code>core/components/ui/layouts</code>.
                 </p>
-                <div className={styles.twoUp}>
-                    <div>
-                        <p>
-                            The default layout is <code>core/components/ui/layouts/grid.tsx</code>,
-                            which implements the HTML <code>&lt;head&gt;</code>, a top{' '}
-                            <code>&lt;header&gt;</code>, and a <code>&lt;main&gt;</code> block.
-                        </p>
-                        <p>
-                            The main block is composed of a three-column layout with the following
-                            HTML structure:
-                        </p>
-                    </div>
+
+                <p>
+                    The default layout is <code>core/components/ui/layouts/grid.tsx</code>, which
+                    implements the HTML <code>&lt;head&gt;</code>, a top <code>&lt;header&gt;</code>
+                    , and a <code>&lt;main&gt;</code> block.
+                </p>
+                <p>
+                    The main block is composed of a three-column layout with the following HTML
+                    structure:
+                </p>
+                <div style={{ textAlign: 'center' }}>
                     <img
                         src="/stories/manual/images/page-template.svg"
                         alt="Diagram of default page layout"
                     />
                 </div>
+                <br />
+                <br />
                 <p>
                     To understand what's happening here, look at the Grid component in the Windrift
                     source (check the source code itself for the most current version). It accepts
@@ -169,7 +166,7 @@ export default Index`}
                     Similarly, to put a common element in the center pane of any story, add it
                     before or after <code>{`{children}`}</code>. For example, the table of contents
                     at the top of this manual is implemented as a custom component which is
-                    prependied before all the chapter content:
+                    prepended before all the chapter content:
                     <SyntaxHighlighter language="tsx" style={prism}>
                         {`// stories/manual/index.tsx
 import TableOfContents from './table-of-contents'
@@ -192,7 +189,7 @@ const Index: React.FC = ({ children }) => (
                         is designed to match <code>Grid</code>.
                     </p>
                 </aside>
-                <h3>Fonts</h3>
+                <h2>Fonts</h2>
                 <p>
                     NextJS provides a good foundation for{' '}
                     <a href="https://nextjs.org/docs/basic-features/font-optimization">
@@ -209,7 +206,7 @@ const Index: React.FC = ({ children }) => (
                     <li>Import the font in the story template</li>
                     <li>Assign the new font to the desired style</li>
                 </ol>
-                <h4>Step 1: Import the font in your story template</h4>
+                <h3>Step 1: Import the font in your story template</h3>
                 <p>
                     The story template will wrap every page in your story, so put the font import in
                     the header. There should already be a placeholder from the story generator:
@@ -243,7 +240,7 @@ const Index: React.FC = ({ children }) => (
                     Fonts might suggest—NextJS will perform useful optimizations on the{' '}
                     <code>&lt;link&gt;</code> syntax listed above only.
                 </p>
-                <h4>Step 2: Assign the new font as the default, or to a specific element</h4>
+                <h3>Step 2: Assign the new font as the default, or to a specific element</h3>
                 <p>
                     The story generator will give you some basic CSS to work with. This will be
                     discussed in more detail in the next section, but to use your new font as the
@@ -438,7 +435,7 @@ export const Page: PageType = () => {
                     </a>{' '}
                     for a full reference.
                 </aside>
-                <Nav
+                <FooterNav
                     text="Learn about automated browser testing and continuous integration..."
                     next="testing"
                 />

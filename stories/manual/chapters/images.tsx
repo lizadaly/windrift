@@ -6,7 +6,7 @@ import { Section, Chapter, Nav, When, C } from 'core/components'
 import { PageType } from 'core/types'
 import useInventory from 'core/hooks/use-inventory'
 import ImageChoice from 'core/components/widgets/image-choice'
-import { SyntaxHighlighter, prism, styles } from '..'
+import { SyntaxHighlighter, prism, styles, FooterNav } from '..'
 
 export const Page: PageType = () => {
     const [image, imageOnce] = useInventory(['image', 'image-once'])
@@ -32,9 +32,9 @@ export const Page: PageType = () => {
                 <h2>Images and multimedia</h2>
                 <p>
                     Because Windrift is based on NextJS and React, in general you'll add elements
-                    like images, CSS, and sound or video in a method consistent with those
-                    JavaScript frameworks. Some examples and story-specific helpers are provided to
-                    get you started.
+                    like images, CSS, and sound or video using methods consistent with those
+                    frameworks. Some examples and story-specific helpers are provided to get you
+                    started.
                 </p>
                 <h3>Static content hosting (images, downloadable content)</h3>
                 <p>
@@ -122,9 +122,12 @@ export const Page: PageType = () => {
                         Most authors should use the standard HTML <code>img</code>, but NextJS
                         provides options for serving up multiple image sizes based on browser sizes.
                         This functionality is complex and requires special hosting considerations.
-                        For the recommended static export process (see deployment [TODO]), you can
-                        only serve one image size, so use the <code>unoptimized</code> prop here.
-                        See the
+                        For the recommended static export process (see{' '}
+                        <Nav text="deployment" next="deployment" />
+                        ), you can only serve one image size, so use the <code>
+                            unoptimized
+                        </code>{' '}
+                        prop here. See the
                         <a href="https://nextjs.org/docs/api-reference/next/image#loader">
                             NextJS
                         </a>{' '}
@@ -144,7 +147,7 @@ export const Page: PageType = () => {
                     In some stories you may want the reader to make a choice by clicking on an image
                     rather than a word. The Choice widget <code>ImageChoice</code> is provided for
                     this use case. It takes a number of arguments in its <code>extra</code> block,
-                    including option it represents as well as the usual image properties.
+                    including the option it represents, as well as the usual image properties.
                 </p>
                 <p>Click on the images to see the choice selection being made:</p>
                 <table>
@@ -308,9 +311,9 @@ export const Page: PageType = () => {
                 <p>
                     Windrift doesn't have any specific support for audio or video; you can treat
                     this as a normal React application and follow online tutorials for best
-                    practices. The most common use in hypertext is to add background audio that
-                    plays during a chapter; use a React effect hook for this, but always allow users
-                    to turn off audio too!
+                    practices. A common use for audio in hypertext stories is to add background
+                    audio that plays during a chapter; use a React effect hook for this, but always
+                    allow users to turn off audio too!
                 </p>
                 <button onClick={() => setPlaying(!playing)}>
                     Click me to {playing ? 'stop' : 'play'} sample audio
@@ -342,7 +345,7 @@ export const Page: PageType = () => {
                     user navigates to a new chapter is in the source of this page.
                 </p>
                 <p>
-                    <Nav
+                    <FooterNav
                         text="Explore how to customize your layout, fonts, and story styles..."
                         next="styling"
                     />
