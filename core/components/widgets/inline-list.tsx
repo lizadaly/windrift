@@ -55,3 +55,14 @@ export const InlineListEN: typeof InlineList = ({
     className = null
 }: InlineListProps): JSX.Element =>
     InlineList({ separator, conjunction, group, handler, tag, className })
+
+/** Portuguese version of an inline list with an "or" conjunction */
+export const InlineListPT: typeof InlineList = ({
+    separator = ', ',
+    conjunction = 'e',
+    group = null,
+    handler = null,
+    tag = null,
+    className = null
+}: InlineListProps): JSX.Element =>
+    InlineList({ separator, conjunction, group, handler, tag, className })

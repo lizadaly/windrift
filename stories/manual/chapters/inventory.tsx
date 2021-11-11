@@ -6,7 +6,7 @@ import useInventory from 'core/hooks/use-inventory'
 import { makeChoice } from 'core/features/choice'
 import { wordFromInventory } from 'core/util'
 
-import { SyntaxHighlighter, prism, styles } from '..'
+import { SyntaxHighlighter, prism, styles, FooterNav } from '..'
 
 export const Page: PageType = () => {
     const dispatch = useDispatch()
@@ -32,25 +32,31 @@ export const Page: PageType = () => {
                     Whenever a user selects an option from a <code>Choice</code>, the option text is
                     added to a global store called the <code>Inventory</code>. The inventory is a
                     key/value store where the keys are each choice's <code>tag</code> attribute. The
-                    inventory for a key is unpopulated until a user has made a selection.
+                    inventory for a tag is usually unpopulated until the user has selected an
+                    option.
                 </p>
                 <p>
                     Because the inventory is global to the entire story, you can retrieve any
-                    Choice's selection from any chapter. Back in the initial chapter on choices, you
-                    picked a fruit—we'll use this as the example value in this chapter.
+                    Choice's selection from any chapter. Back in the initial{' '}
+                    <Nav text="chapter on choices" next="choices" />, you picked a fruit—we'll use
+                    this as the example value in this chapter.
                 </p>
                 <p>
-                    There are two ways to retrieve the value from the inventory. One is to use the
-                    <code>useInventory</code> React hook to retrieve the raw value selected by the
-                    user. The other is to use the <code>Response</code> component to map specific
-                    inventory selections to responses.
+                    There are two ways to retrieve the value from the inventory. One is to use the{' '}
+                    <code>useInventory</code>{' '}
+                    <a href="https://reactjs.org/docs/hooks-intro.html">React hook</a> to retrieve
+                    the raw value selected by the user. The other is to use the{' '}
+                    <code>Response</code> component to map specific inventory selections to
+                    responses.
                 </p>
                 <h3>
                     The <kbd>useInventory</kbd> hook
                 </h3>
                 <p>
-                    This hook give you access to the raw value provided by the users for any tag
-                    passed in the array.
+                    Given an array of tags, this function returns an array of the current values of
+                    those tags. (Because it's a React hook that listens to the global store, this
+                    value will update automatically whenever the values change, such as when a user
+                    makes a different choice.){' '}
                 </p>
                 <SyntaxHighlighter language="tsx" style={prism}>
                     {`export const Page: PageType = () => {
@@ -65,13 +71,15 @@ export const Page: PageType = () => {
                 </SyntaxHighlighter>
 
                 <p>
-                    Often selections will contain multiple words, when in the narrative you may want
-                    to only pick the noun. In English, this is typically the last word in the
-                    phrase. The utility function <code>wordFromInventory</code>
-                    can safely retrieve a specific substring based on a negative offset from the end
-                    of the string (default to -1). The offset value will apply to every option in
-                    the choice, so if you're planning on using this you'll either want options with
-                    similar structure, or a custom rendering function:
+                    Often the option selected will have as its raw value an entire noun phrase
+                    including descriptive adjectives, when in the narrative you may want to only
+                    show the noun. In English, this is typically the last word in the phrase. The
+                    utility function <code>wordFromInventory</code> can retrieve a specific
+                    substring based on a negative offset from the end of the string (default to -1,
+                    and is safe to use even if the inventory value is undefined). The offset value
+                    will apply to every option in the choice, so if you're planning on using this
+                    you'll either want options with similar structure, or a custom rendering
+                    function:
                 </p>
                 <SyntaxHighlighter language="ts" style={prism}>
                     {`wordFromInventory(fruit) // ${wordFromInventory(fruit)}
@@ -81,10 +89,10 @@ wordFromInventory(fruit, -2) // ${wordFromInventory(fruit, -2)}`}
                     The <kbd>Response</kbd> component
                 </h3>
                 <p>
-                    In most hypertext stories you will want to branch content and even navigation
-                    based on user input. For this, you'll use the <code>Response</code> component.
-                    <code>Choices</code> and <code>Responses</code> will make up the majority of
-                    your branching code in a Windrift story.
+                    In most hypertext stories you will want to branch content based on user input.
+                    For this, you'll use the <code>Response</code> component. <code>Choices</code>{' '}
+                    and <code>Responses</code> will make up the majority of your branching code in a
+                    Windrift story.
                 </p>
                 <p>
                     A <code>Response</code> is composed of a <code>tag</code> that matches the
@@ -162,7 +170,7 @@ wordFromInventory(fruit, -2) // ${wordFromInventory(fruit, -2)}`}
                 </p>
                 <SyntaxHighlighter language="tsx" style={prism}>
                     {`export const Page: PageType = () => {
-    const [fruit, tree ] = useInventory(['fruit', 'tree'])
+    const [fruit, tree] = useInventory(['fruit', 'tree'])
 
     return (<Chapter filename="inventory">
         <Section>
@@ -190,6 +198,16 @@ wordFromInventory(fruit, -2) // ${wordFromInventory(fruit, -2)}`}
                     tag arguments, as this will make up the bulk of your Windrift story, but{' '}
                     <code>When</code> accepts any expression that can be evaluated for truthiness.
                 </p>
+                <aside className={styles.warning}>
+                    <p>
+                        You won't use a <code>Response</code> to literally branch your story by
+                        immediately taking the user to a different <code>Chapter</code> based on
+                        which option they picked. (Windrift considers this a side effect and tries
+                        to minimize these.) There's a way to achieve this effect using a
+                        purpose-built component for changing the current chapter, which we'll cover
+                        in the <Nav text="section on navigation" next="navigation" />.
+                    </p>
+                </aside>
                 <h3>
                     A note about <kbd>last</kbd> parameters
                 </h3>
@@ -265,7 +283,7 @@ export const Page: PageType = () => {
     )`}
                     </SyntaxHighlighter>
                 </aside>
-                <Nav text="Learn about navigation..." next="navigation" />
+                <FooterNav text="Learn about navigation..." next="navigation" />
             </Section>
         </Chapter>
     )

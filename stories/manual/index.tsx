@@ -16,6 +16,8 @@ import Grid from 'core/components/ui/layouts/grid'
 
 import styles from 'public/stories/manual/styles/Index.module.scss'
 import TableOfContents from './table-of-contents'
+import { Nav } from 'core/components'
+import { NavProps } from 'core/components/nav'
 
 const Index: React.FC = ({ children }) => {
     return (
@@ -24,7 +26,7 @@ const Index: React.FC = ({ children }) => {
             head={
                 <>
                     <link
-                        href="https://fonts.googleapis.com/css2?family=Nunito:wght@300&family=EB+Garamond&family=Elsie&display=block"
+                        href="https://fonts.googleapis.com/css2?family=Nunito:wght@300&family=EB+Garamond&family=Elsie&family=Roboto&&family=Roboto+Mono&display=block"
                         rel="stylesheet"
                     />
                     <link rel="stylesheet" href="/stories/manual/styles/traditional.css" />
@@ -35,6 +37,10 @@ const Index: React.FC = ({ children }) => {
         </Grid>
     )
 }
+
+export const FooterNav = ({ text, next }: NavProps): JSX.Element => (
+    <Nav text={text} next={next} className={styles.nav} />
+)
 
 export default Index
 export { json, tsx, bash, prism, styles, SyntaxHighlighter }

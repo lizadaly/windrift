@@ -38,9 +38,11 @@ export const Page: PageType = () => {
     return (
         <Chapter filename="sample-ascent">
             <Section>
+                <h1>Sample story: On Putney Mountain</h1>
                 <aside className={styles.note}>
                     This is a sample story consisting of three chapters. If you'd like to continue
-                    with the manual, skip ahead to images and styling [TODO].
+                    with the manual, skip ahead to the section on{' '}
+                    <Nav text="images" next="images" />.
                 </aside>
                 <p>
                     In this story, you are a young person hiking up a mountain on a beautiful autumn

@@ -1,7 +1,7 @@
-import { C, Section, Chapter, Nav } from 'core/components'
+import { C, Section, Chapter, Nav, R } from 'core/components'
 import { PageType, Next } from 'core/types'
 
-import { SyntaxHighlighter, prism, styles } from '..'
+import { SyntaxHighlighter, prism, styles, FooterNav } from '..'
 
 export const Page: PageType = () => (
     <Chapter filename="navigation">
@@ -52,7 +52,7 @@ export const Page: PageType = () => (
                 <C options={[['This is a no-op.']]} last="Clicked!" tag="noop" next={Next.None} />
             </aside>
             <h3>
-                Navigating without a choice: Using <kbd>Nav</kbd>
+                Directed navigation using the <kbd>Nav</kbd> component
             </h3>
             <p>
                 There's a special navigational component, <code>Nav</code>, for just the previous
@@ -65,7 +65,7 @@ export const Page: PageType = () => (
                 {`<Nav text="Click for more..." next={Next.Section} />`}
             </SyntaxHighlighter>
             <aside>
-                <Nav text="Click for more..." next={Next.Section} />
+                <Nav text="Click for more..." next={Next.Section} persist={false} />
             </aside>
             <p>
                 The <code>Nav</code> component uses <code>Choice</code> under the hood, and so
@@ -75,35 +75,6 @@ export const Page: PageType = () => (
                 that it's displaying the wrong text value or otherwise behaving strangely, you can
                 supply a <code>tag</code> prop as well. Make it unique!
             </p>
-            <aside className={styles.advanced}>
-                <h3>
-                    Adding content outside of a <code>Section</code>
-                </h3>
-                <p>
-                    In the first chapter on <Nav text="story structure" next="structure" /> you
-                    learned how to add a global, persistent block of content that would appear on
-                    every page in the story. You can also do this within a single or group of
-                    chapters by appending content beneath a <code>Chapter</code> that is not
-                    contained within a <code>Section</code>.
-                </p>
-                <SyntaxHighlighter language="tsx" style={prism}>
-                    {`<Chapter>
-    <Section>
-        This appears first: <Nav text="Next section" next={Next.Section} />
-    </Section>
-    <Section>
-        This appears only after the previous link is clicked.
-    </Section>
-    <div>This content will appear at the bottom of the page regardless of
-    whether the user has reached the second Section.</div>
-</Chapter>`}
-                </SyntaxHighlighter>
-                <p>
-                    Windrift will always display all children of a <code>Chapter</code> in whatever
-                    order you specify, skipping over any <code>Section</code> components that aren't
-                    yet revealed.
-                </p>
-            </aside>
         </Section>
         <Section>
             <h3>Navigating to a specific chapter</h3>
@@ -116,26 +87,71 @@ export const Page: PageType = () => (
             <SyntaxHighlighter language="tsx" style={prism}>
                 {` <Nav text="Learn about deployment" next="deployment" />`}
             </SyntaxHighlighter>
-            <h3>Persisting the hyperlink</h3>
+            <h3>Branching the story on a user selection</h3>
             <p>
-                Normally clicking on a linked choice or nav component will remove the hyperlink when
-                the user has clicked it, indicating that no more options are available. To have the
-                link behave more like a traditional web hyperlink, pass the parameter{' '}
-                <code>persist</code>
-                and set it to <code>true</code>. This will cause the hyperlink to "persist" after
-                clicking, and is most useful when presenting navigation on a chapter that can be
-                visited more than once. (For linear stories, it will usually have no effect because
-                the reader has moved on, and for section navigation, it would just be confusing as
-                the next section has already been revealed.)
+                In the <Nav text="section on responses" next="inventory" /> it was noted that it's
+                not possible to use the <code>Response</code> component to immediately branch the
+                user based on the option they chose. This is because <code>Response</code> is
+                designed to display content, not affect story state.
+            </p>
+            <p>
+                However, you can achieve the same effect by leveraging the <code>Nav</code>{' '}
+                component multiple times, since they ultimately just render as hyperlinks the same
+                as a choice:
             </p>
             <aside>
-                <Nav
-                    text="This will stay hyperlinked when clicked"
+                <p>
+                    You're standing the VR version of this manual. It looks very real! You can go{' '}
+                    <Nav text="north" next="choices" tag="north" persist={false} />,{' '}
+                    <Nav text="south" next="inventory" tag="south" persist={false} />,{' '}
+                    <Nav text="east" next="introduction" tag="east" persist={false} />, or{' '}
+                    <Nav text="west" next="styling" tag="west" persist={false} />.{' '}
+                </p>
+            </aside>
+            <aside className={styles.advanced}>
+                <p>
+                    If you want to look up the value the user made in the inventory later, this is a
+                    good reason to define the Nav's <code>tag</code> prop yourself. Note that each
+                    one will have to be unique:
+                </p>
+                <SyntaxHighlighter language="tsx" style={prism}>
+                    {`<p>You're standing the VR version of this manual. It looks very real! You can go
+    <Nav text="north" next="choices"      tag="north" />,
+    <Nav text="south" next="inventory"    tag="south" />,
+    <Nav text="east"  next="introduction" tag="east" />, or
+    <Nav text="west"  next="styling"      tag="west" />.
+</p>`}
+                </SyntaxHighlighter>
+                <p>
+                    Then later in the story you can look these up individually, or perhaps OR them
+                    together if this section is reachable only once.
+                </p>
+            </aside>
+            <h3>Persisting the hyperlink</h3>
+            <p>
+                Normally clicking on a linked choice will remove the hyperlink when the user has
+                clicked it, indicating that no more options are available. To have the link behave
+                more like a traditional web hyperlink, pass the parameter <code>persist</code>
+                and set it to <code>true</code>. This will cause the hyperlink to "persist" after
+                clicking, and is most useful when presenting navigation on a chapter that can be
+                visited more than once.
+            </p>
+            <p>
+                {' '}
+                By default, <code>persist</code> is <code>false</code> for <code>Choice</code>{' '}
+                components but <code>true</code> for <code>Nav</code> components, because of the
+                usual context in which they appear.
+            </p>
+            <aside>
+                <C
+                    options={[['This will stay hyperlinked when clicked']]}
                     persist={true}
                     next={Next.None}
-                />
+                    tag="clicked"
+                />{' '}
+                <R tag="clicked" options={{ this: '(Clicked!)' }} />
             </aside>
-            <Nav
+            <FooterNav
                 text="Let's work through a fully-realized example story now..."
                 next="sample-ascent"
             />
