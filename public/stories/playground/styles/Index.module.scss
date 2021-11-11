@@ -1,3 +1,6 @@
+@use '/public/styles/sizing' with (
+   $story-margin: 25vw
+);
 @use '/public/styles/grid';
 @use '/public/styles/colors';
 
