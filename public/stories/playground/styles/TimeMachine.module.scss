@@ -1,0 +1,67 @@
+@use '/public/styles/colors';
+
+.sign {
+    padding: 30px;
+    width: 300px;
+    margin: 2rem auto;
+    height: 100px;
+    display: block;
+}
+.victorian {
+    font-family: "Smythe", serif;
+    font-size: 30px;
+    text-align: center;
+    background: colors.$very-dark;
+    color: white;
+    border-color: white;
+    border-style: inset;
+}
+.medieval {
+    font-family: "Macondo Swash Caps", serif;
+    background-color: rgb(255, 232, 168);
+    color: rgb(129, 108, 77);
+    font-size: 30px;
+
+    &::first-letter {
+        font-size: 80px;
+        margin: 10px -20px;
+        color: colors.$warning;
+    }
+}
+.bronzeage {
+    font-family: 'Noto Sans Cuneiform', sans-serif;
+    background: lightgray;
+    color: colors.$cool;
+}
+.today {
+    min-height: 220px;
+    width: 248px;
+    margin: 10px auto;
+    padding: 0;
+    background: rgb(74, 134, 212);
+    font-family: sans-serif;
+    font-size: 14px;
+    text-align: center;
+    span {
+        color: white;
+        padding: 5px;
+        display: block;
+    }
+
+}
+.dial {
+    font-family: "Orbitron", sans-serif;
+    background: rgb(85, 52, 52);
+    width: 5em;
+    margin: 2rem auto;
+    text-align: center;
+    font-size: 50px;
+    height: 1.2em;
+    line-height: 1.1em;
+    border-radius: 500px;
+    .numbers {
+        padding-top: .4em;
+        color: rgb(253, 230, 16);
+        text-decoration: none;
+    }
+}

@@ -2,5 +2,20 @@
 @use '/public/styles/colors';
 
 .main {
-   /* Customizations can go here */
+   h1, h2, h3, h4, h5 {
+      color: colors.$very-dark !important;
+   }
+   aside {
+      padding: 1rem;
+      background-color: lightgray;
+   }
+   button {
+      background: none;
+      border: none;
+      font-family: serif;
+      font-size: 1.2rem;
+      margin: 0;
+      padding: 0;
+      text-decoration: underline;
+   }
 }
