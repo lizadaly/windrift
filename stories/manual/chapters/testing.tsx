@@ -1,13 +1,69 @@
 import { Section, Chapter } from 'core/components'
 import { PageType } from 'core/types'
-import { FooterNav } from '..'
+import { FooterNav, styles } from '..'
 
 export const Page: PageType = () => {
     return (
         <Chapter filename="testing">
             <Section>
-                <h2>Testing</h2>
+                <h1>Debugging and testing</h1>
 
+                <h2>Browser debugging tools</h2>
+                <p>
+                    Windrift works well with both the official React Developer Tools and the Redux
+                    DevTools browser plugins, available for both Chrome and Firefox their respective
+                    app stores. The Redux DevTool is especially useful as it allows you to navigate
+                    the inventory.
+                </p>
+                <h3>Debugging state and choices</h3>
+                <p>
+                    Windrift uses a combination of{' '}
+                    <a href="https://github.com/omnidan/redux-undo">redux-undo</a> and{' '}
+                    <a href="https://github.com/rt2zz/redux-persist">redux-persist</a> to provide a
+                    history of current and paste choices, and to persist those to the browser using
+                    local storage.
+                </p>
+                <p>
+                    When using the Redux DevTools to navigate the Redux store, look for your choice
+                    or inventory values in the "present" part of their respective stores. For
+                    example, after selecting the "fuzzy kiwi" option from the section on choices,
+                    you would see a number of Redux reducer actions, including{' '}
+                    <code>inventory/update</code>, which is recording that user choice.
+                </p>
+                <img
+                    src="../stories/manual/images/debug-screenshot-1.png"
+                    alt="Screenshot of the Redux debug screen"
+                    width="500"
+                    height="335"
+                />
+                <img
+                    src="../stories/manual/images/debug-screenshot-2.png"
+                    alt="Screenshot of the Redux debug screen"
+                    width="564"
+                    height="335"
+                />
+                <h3>Hard-resetting a story</h3>
+                <p>
+                    If you've included a reset button component in your story, you should be able to
+                    unset most things in the story to their default state. Under the hood, the reset
+                    button clears the current browser local storage, where redux-persist saves the
+                    current snapshot of the Redux store.
+                </p>
+                <p>
+                    If things have gone <em>really</em> wrong, the application might not even be
+                    able to display the reset button. In that case deleting local storage itself
+                    will absolutely start things over. The location varies by browser but you should
+                    be able to find it in the browser's developer tools, for example in Firefox:
+                </p>
+                <aside>
+                    <p>Select "delete all" from local storage to completely reset your story.</p>
+                    <img
+                        src="../stories/manual/images/reset-local-storage.png"
+                        alt="Screenshot showing deleting the local storage of Firefox"
+                        width="600"
+                    />
+                </aside>
+                <h2>Automated testing</h2>
                 <p>
                     Windrift ships with support for the browser testing framework{' '}
                     <a href="https://www.cypress.io/">Cypress</a>, which it uses paired with this

@@ -5,7 +5,7 @@ export const Page: PageType = () => {
     return (
         <Chapter filename="deploying">
             <Section>
-                <h2>Deploying your story</h2>
+                <h1>Deploying your story</h1>
 
                 <p>
                     NextJS, and therefore Windrift, have two mechanisms of deploying your
@@ -14,7 +14,7 @@ export const Page: PageType = () => {
                     backend and can be deployed on any most site capable of hosting HTML files. This
                     document will focus on static deployment and hosting.
                 </p>
-                <h3>Generating a static build</h3>
+                <h2>Generating a static build</h2>
                 <p>
                     During development using <code>npm run dev</code>, you are running a local Node
                     server that comes packaged with NextJS. To build statically, you'll use a
@@ -103,17 +103,38 @@ _next/           global.scss      minimal/         stone-harbor-pt/ styles/
                     exported story on something like Github Pages, then on itch.io upload an HTML
                     file that contains just an iframe to your hosted story on Github.
                 </p>
+                <h2>Deploying with dynamic content</h2>
+                <p>
+                    One of NextJS's strengths is that it allows React developers to easily mix
+                    server-side dynamic content with static, front-end only content. Though not
+                    covered in this version of the manual, NextJS provides tools for building rich
+                    server-side APIs which can be used to connect to backend databases, talk to
+                    third-party APIs, or procedurally generate content in real time.
+                </p>
+                <p>
+                    Future versions of Windrift will directly support server-side tooling, but
+                    stories that use these features won't be able to use purely static export
+                    processes. Fortunately, NextJS has wide support in the ecosystem, so it should
+                    be straightforward to find documentation on how to deploy a NextJS app on AWS,
+                    Google Cloud, or "serverless" backends like Netlify or Serverless.com.
+                </p>
                 <h3>Hosting with Vercel</h3>
                 <p>
                     By far the most straightforward hosting mechanism for any NextJS application is
                     to use the hosting site <a href="https://vercel.com">Vercel</a>, which is run by
                     the same company that produces NextJS itself. (This manual is itself hosted on
                     Vercel at <a href="https://windrift.app/manual">windrift.app</a>.) Hosting with
-                    Vercel is free, and provides many other benefits including use of NextJS's
-                    server-side features. However, Vercel may not exist forever, so it is always
-                    desirable to use purely static exports for longevity and inclusion on sites like
-                    the <a href="https://www.ifarchive.org/">IF Archive</a>, assuming the story
-                    itself allows for this option.
+                    Vercel is free, well-documented, and provides many other benefits including use
+                    of NextJS's server-side features. However, Vercel may not exist forever, so it
+                    is always desirable to use purely static exports for longevity and inclusion on
+                    sites like the <a href="https://www.ifarchive.org/">IF Archive</a>, assuming the
+                    story itself allows for this option.
+                </p>
+                <p>
+                    <a href="https://vercel.com/docs/concepts/next.js/overview">
+                        Consult the NextJS documentation
+                    </a>{' '}
+                    for the most current instructions on deploying with Vercel.
                 </p>
             </Section>
         </Chapter>

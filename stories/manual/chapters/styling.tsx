@@ -1,4 +1,4 @@
-import { Section, Chapter, Nav } from 'core/components'
+import { Section, Chapter } from 'core/components'
 import { PageType } from 'core/types'
 import { SyntaxHighlighter, prism, styles, FooterNav } from '..'
 
@@ -6,7 +6,7 @@ export const Page: PageType = () => {
     return (
         <Chapter filename="styling">
             <Section>
-                <h2>Layout and styling</h2>
+                <h1>Layout and styling</h1>
                 <p>
                     Windrift stories are primarily composed of text, so attention to detail around
                     the presentation of text—both visually and for screenreaders—is encouraged.
@@ -14,7 +14,7 @@ export const Page: PageType = () => {
                     experience. This section will highlight some affordances available as part of
                     Windrift, as well as some best practices that are unique to digital narrative.
                 </p>
-                <h3>Terminology</h3>
+                <h2>Terminology</h2>
                 <ol>
                     <li>
                         Windrift provides components called <strong>layouts</strong>, found in{' '}
@@ -33,9 +33,9 @@ export const Page: PageType = () => {
                         <strong>styling</strong> of the text and other media.
                     </li>
                 </ol>
-                <h3>
+                <h2>
                     Layout using the <kbd>Grid</kbd> component
-                </h3>
+                </h2>
                 <p>
                     Your story template calls a layout component provided in{' '}
                     <code>core/components/ui/layouts</code>.
@@ -189,7 +189,7 @@ const Index: React.FC = ({ children }) => (
                         is designed to match <code>Grid</code>.
                     </p>
                 </aside>
-                <h3>Fonts</h3>
+                <h2>Fonts</h2>
                 <p>
                     NextJS provides a good foundation for{' '}
                     <a href="https://nextjs.org/docs/basic-features/font-optimization">
@@ -206,7 +206,7 @@ const Index: React.FC = ({ children }) => (
                     <li>Import the font in the story template</li>
                     <li>Assign the new font to the desired style</li>
                 </ol>
-                <h4>Step 1: Import the font in your story template</h4>
+                <h3>Step 1: Import the font in your story template</h3>
                 <p>
                     The story template will wrap every page in your story, so put the font import in
                     the header. There should already be a placeholder from the story generator:
@@ -240,7 +240,7 @@ const Index: React.FC = ({ children }) => (
                     Fonts might suggest—NextJS will perform useful optimizations on the{' '}
                     <code>&lt;link&gt;</code> syntax listed above only.
                 </p>
-                <h4>Step 2: Assign the new font as the default, or to a specific element</h4>
+                <h3>Step 2: Assign the new font as the default, or to a specific element</h3>
                 <p>
                     The story generator will give you some basic CSS to work with. This will be
                     discussed in more detail in the next section, but to use your new font as the

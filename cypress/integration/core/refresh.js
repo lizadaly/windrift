@@ -10,7 +10,6 @@ describe('Full test of refresh/rehydration features', () => {
         cy.get('a:contains("fine choices")').click()
         cy.get('a:contains("orange kale")').click()
         cy.get('a:contains("cheesecake")').click()
-        cy.get('a:contains("the leftovers")').click()
         cy.get('a:contains("cheese cart")').click()
         cy.get('a:contains("marmot")').click()
 
