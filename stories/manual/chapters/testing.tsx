@@ -1,5 +1,6 @@
-import { Section, Chapter, Nav } from 'core/components'
+import { Section, Chapter } from 'core/components'
 import { PageType } from 'core/types'
+import { FooterNav } from '..'
 
 export const Page: PageType = () => {
     return (
@@ -89,7 +90,7 @@ export const Page: PageType = () => {
                     overkill to unit test most Windrift stories—start with functional testing via
                     the browser and see how far that takes you.
                 </p>
-                <Nav text="How to deploy your story to the web..." next="deploying" />
+                <FooterNav text="How to deploy your story to the web..." next="deploying" />
             </Section>
         </Chapter>
     )

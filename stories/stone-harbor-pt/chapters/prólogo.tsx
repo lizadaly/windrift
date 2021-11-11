@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { C, R, Section, Chapter } from 'core/components'
 
 import { PageType, RootState } from 'core/types'
+import { InlineListPT } from 'core/components/widgets/inline-list'
 
 export const Page: PageType = () => {
     const inventory = useSelector((state: RootState) => state.inventory.present)
@@ -42,7 +43,7 @@ export const Page: PageType = () => {
                             ['um anel barato', 'um impermeável sujo', 'um boné de beisebol']
                         ]}
                         last="um olhar impaciente"
-                        extra={{ conjunction: 'e' }}
+                        widget={InlineListPT}
                         tag="clothes"
                     />
                     .
@@ -113,7 +114,7 @@ export const Page: PageType = () => {
                         ]}
                         last="a sua aparência física e consegues algumas pistas"
                         tag="p0_customer_body"
-                        extra={{ conjunction: 'e' }}
+                        widget={InlineListPT}
                     />
                     .
                 </p>
@@ -298,7 +299,7 @@ export const Page: PageType = () => {
                         ]}
                         last="objetos pessoais"
                         tag="p0_library_things"
-                        extra={{ conjunction: 'e' }}
+                        widget={InlineListPT}
                     />
                     , um pequeno candeeiro e fotografias de família na parede. Há uma porta que leva
                     a um quarto bem iluminado, mas que é ainda mais turvo, menos real, do que este

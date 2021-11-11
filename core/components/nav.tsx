@@ -11,7 +11,7 @@ import { Choice } from 'core/components'
 import { Tag, Next } from 'core/types'
 import { ChapterContext } from 'core/components/chapter'
 
-interface Props {
+export interface NavProps {
     /** The displayed text for the link */
     text: string
     /** The chapter name or section */
@@ -20,13 +20,16 @@ interface Props {
     persist?: boolean
     /** Tag to be supplied if the text string is non-unique */
     tag?: Tag
+    /** Class name to based to the widget */
+    className?: string
 }
 const Nav = ({
     text = 'More...',
     next = Next.Section,
     persist = true,
-    tag = undefined
-}: Props): JSX.Element => {
+    tag = undefined,
+    className = undefined
+}: NavProps): JSX.Element => {
     const { filename } = useContext(ChapterContext)
 
     return (
@@ -36,6 +39,7 @@ const Nav = ({
             tag={tag || `${filename}-${next}-${text.replace(' ', '-').toLowerCase()}`}
             next={next}
             persist={persist}
+            className={className}
         />
     )
 }

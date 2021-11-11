@@ -1,11 +1,11 @@
-import { Section, Chapter, Nav } from 'core/components'
+import { Section, Chapter } from 'core/components'
 import { PageType } from 'core/types'
-import { styles } from '..'
+import { FooterNav } from '..'
 
 export const Page: PageType = () => (
     <Chapter filename="introduction">
         <Section>
-            <h2>About Windrift</h2>
+            <h1>About Windrift</h1>
             <p>
                 Windrift is a hypertext story engine designed for writing highly customizable
                 mutable narratives. It is specifically optimized for telling interactive stories
@@ -27,7 +27,7 @@ export const Page: PageType = () => (
                 </li>
             </ul>
             <p>This definition is extremely loose! There is no one kind of interactive fiction.</p>
-            <h3>What is Windrift used for?</h3>
+            <h2>What is Windrift used for?</h2>
             <p>
                 Windrift has been used to write several stories which placed highly in the
                 Interactive Fiction Competition:{' '}
@@ -73,16 +73,47 @@ export const Page: PageType = () => (
                 time on source code should start with the excellent{' '}
                 <a href="https://twinery.org/">Twine</a>.
             </p>
+
+            <h2>Windrift's building blocks</h2>
+            <p>
+                Windrift has always been written using the <a href="https://reactjs.org/">React</a>{' '}
+                JavaScript library, using <a href="https://react-redux.js.org/">React Redux</a> as
+                its mechanism for storing and updating story state. Windrift 2 is built on top of{' '}
+                <a href="https://nextjs.org/">NextJS</a>, a well-designed framework for building
+                React apps.
+            </p>
+            <p>
+                Some exposure to React principles and concepts are necessary to successfully write a
+                Windrift story. If you're new to React, reading through their{' '}
+                <a href="https://reactjs.org/tutorial/tutorial.html">tutorial</a> will be very
+                helpful. At a minimum, you should be familiar with what React components and props
+                are, the syntax used by{' '}
+                <a href="https://reactjs.org/docs/components-and-props.html">function components</a>{' '}
+                specifically, and a little bit about{' '}
+                <a href="https://reactjs.org/docs/hooks-intro.html">Hooks</a>.
+            </p>
+            <p>
+                One of Windrift's design goals is to make as few assumptions about your story as
+                possible. It assumes that authors have chosen this tool because they want to
+                implement a story that might be hard or impossible to do from within a more
+                domain-specific language like Ink. Windrift supplies some foundational pieces, like
+                the ability to store and retrieve the values of hypertext choices, and to provide
+                some design patterns to get you started on more custom work. It's best to think of
+                it as a library of React components that you'll likely use in any kind of hypertext
+                story, but otherwise a Windrift story is fundamentally a React webapp with some
+                hopefully-reasonable default behaviors.
+            </p>
             <h3>Relationship to Windrift v1</h3>
             <p>
                 This is a major second release of the Windrift framework. Internally it is a
-                complete rewrite into TypeScript using the NextJS React framework as a base
-                (replacing the independent windrift-starter repository). For authors, the primary
-                differences are: changes to the names of the major components (<code>List</code> has
-                become <code>Choice</code> and <code>Map</code> has become <code>Response</code>;
-                the addition of the YAML story metadata file; and some simplifications in how
-                chapters are constructed. In most cases an in-progress Windrift 1 story should
-                require only cosmetic changes to port to Windrift 2.
+                complete rewrite into TypeScript using the <a href="https://nextjs.org/">NextJS</a>{' '}
+                React framework as a base (replacing the independent windrift-starter repository).
+                For authors, the primary differences are: changes to the names and arguments of the
+                major components (<code>List</code> has become <code>Choice</code> and{' '}
+                <code>Map</code> has become <code>Response</code>); the addition of the YAML story
+                metadata file; and some simplifications in how chapters are constructed. In most
+                cases an in-progress Windrift 1 story should require only cosmetic changes to port
+                to Windrift 2.
             </p>
             <h2>About this manual</h2>
             <p>
@@ -115,7 +146,7 @@ export const Page: PageType = () => (
                 order, but it's best to follow along linearly, as some examples build on each other.
             </p>
 
-            <Nav
+            <FooterNav
                 text="Start learning about the structure of a Windrift story..."
                 next="structure"
             />

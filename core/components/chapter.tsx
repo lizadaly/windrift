@@ -27,7 +27,7 @@ const Chapter: React.FC<ChapterType> = ({ children, filename }) => {
     React.useEffect(() => {
         dispatch(setSectionCount({ filename, count: React.Children.count(children) }))
 
-        document.querySelector('body').scrollIntoView()
+        document.querySelector('#__next').scrollIntoView()
     }, [dispatch])
 
     // Display all visible child sections

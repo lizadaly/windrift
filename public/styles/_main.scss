@@ -8,13 +8,26 @@
     background: colors.$very-light;
 
     font-family: fonts.$body;
-    font-size: 1.2rem;
     padding-top: sizing.$story-margin;
 
     h1, h2, h3 {
         margin-top: 1.5em;
     }
-
+    h1 {
+        font-size: 2.5rem;
+    }
+    h2 {
+        font-size: 2rem;
+    }
+    h3 {
+        font-size: 1.75rem;
+    }
+    h4 {
+        font-size: 1.5rem;
+    }
+    p {
+        font-size: 1.2rem;
+    }
     .left {
         min-height: 100vh;
         font-size: 1rem;
@@ -40,8 +53,8 @@
             line-height: 1.5rem;
             color: colors.$warm;
         }
-        h2 {
-            color: complement(colors.$warm);
+        h1, h2 {
+            color: colors.$cool;
         }
 
         a {

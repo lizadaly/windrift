@@ -1,24 +1,30 @@
-import { SyntaxHighlighter, prism } from '..'
+import { SyntaxHighlighter, prism, FooterNav } from '..'
 
-import { Choice, Section, Chapter, Nav } from 'core/components'
+import { Choice, Section, Chapter } from 'core/components'
 import { BulletedList } from 'core/components/widgets'
 import { PageType, Next } from 'core/types'
 
 export const Page: PageType = () => (
     <Chapter filename="choices">
         <Section>
-            <h2>Choices</h2>
+            <h1>Making choices</h1>
             <p>
                 Windrift interactivity is primarily composed of user choices—selecting from a menu
-                of options to drive the next beat in the narrative.
+                of options to drive the next beat in the narrative. By default, these are presented
+                as hyperlinks that appear inline in the narrative. You can customize this
+                presentation (for example, to lay out a menu, or use other types of HTML elements as
+                options).
             </p>
 
+            <h2>
+                The <kbd>Choice</kbd> component
+            </h2>
             <p>
                 A user choice is represented using the <code>Choice</code> component. Each choice is
-                given a unique string <code>tag</code>. The menu of options are composed of one or
-                more <code>Option</code> strings collected into an array called an{' '}
-                <code>OptionGroup</code>. The simplest type of choice is an array containing a
-                single option group from which the user picks:
+                given a unique identifier, a string called a <code>tag</code>. The menu of options
+                is composed of one or more <code>Option</code> strings collected into an array
+                called an <code>OptionGroup</code>. The simplest type of choice is an array
+                containing a single option group from which the user picks:
             </p>
 
             <SyntaxHighlighter language="tsx" style={prism}>
@@ -57,7 +63,6 @@ export const Page: PageType = () => (
                         ['orange kale', 'purple cucumbers', 'green pumpkins']
                     ]}
                     tag="vegetables"
-                    next={Next.None}
                 />
                 .
             </aside>
@@ -66,13 +71,16 @@ export const Page: PageType = () => (
                 keep presenting the next in series until the user has chosen from the final option
                 group available. At this point the choice is marked as <code>resolved</code>.
             </p>
+        </Section>
+        <Section>
             <h3>
                 The <kbd>last</kbd> parameter
             </h3>
             <p>
-                To override the usual behavior of printing the selected option once a choice is
-                resolved, you can provide a <code>last</code> parameter to show some final text
-                after the user's selection was made:
+                When an option is picked from the last available option group and the choice is
+                resolved, the usual behavior is to show that option in place of the original choice.
+                To override this, you can provide a <code>last</code> parameter to show some final
+                text after the user's selection was made:
             </p>
             <SyntaxHighlighter language="tsx" style={prism}>
                 {`<Choice options={[
@@ -89,62 +97,55 @@ export const Page: PageType = () => (
                     ]}
                     last="too many delicious things to count"
                     tag="dessert"
-                    next={Next.None}
-                />
-                .
-            </aside>
-            <p>Naturally both of these approaches can be applied to the same choice:</p>
-            <aside>
-                The waiter asks if you'd like to take home{' '}
-                <Choice
-                    options={[
-                        ['the leftovers'],
-                        [
-                            'spare appetizers',
-                            'the second Porterhouse steak',
-                            'an entire cheese cart'
-                        ]
-                    ]}
-                    last="enough food for a week"
-                    tag="takehome"
                 />
                 .
             </aside>
         </Section>
         <Section>
-            <h2>Choice displays: widgets</h2>
+            <h3>Changing the presentation of a choice: Using widgets</h3>
             <p>
-                Display of choices is controlled by another component, called a widget, called by
-                the
-                <code>Choice</code>. By default, Windrift uses a widget called
-                <code>InlineListEN</code>, which displays options in a comma-separated list ending
-                in the conjunction "or". The separator and conjunction can be directly overridden,
-                or a different widget can be substituted entirely by passing any widget's
-                configuration options as an <code>extra</code> attribute:
+                Display of choices is controlled by another component, called a widget. A widget is
+                a display component that accepts (at a minimum) the current array of options to be
+                displayed, the choice tag, and a catch-all <code>extra</code> record of
+                configuration parameters.
+            </p>
+            <p>
+                In most cases, you'll use one of the provided widgets with minimal additional
+                configuration. By default, Windrift uses a widget called <code>InlineListEN</code>,
+                which displays options in a comma-separated list ending in the English conjunction
+                "or". The separator and conjunction can be directly overridden by passing arguments
+                to the <code>extra</code> attribute:
             </p>
             <SyntaxHighlighter language="tsx" style={prism}>
                 {`<Choice
     tag="pet"
-    options=[[['an adorable skink', 'a sweet-tempered marmot']]}
-    extra={{ conjunction: 'and' }} />`}
+    options={[['an adorable skink', 'a sweet-tempered marmot']]}
+    widget={InlineListEN} // The default, but you could pass a different component here
+    extra={{ conjunction: 'and', separator: '... ' }} />`}
             </SyntaxHighlighter>
             <aside>
                 <p>
                     You are greeted by{' '}
                     <Choice
                         tag="pet"
-                        options={[['an adorable skink', 'a sweet-tempered marmot']]}
-                        extra={{ conjunction: 'and' }}
+                        options={[
+                            ['an adorable skink', 'a benevolent panda', 'a sweet-tempered marmot']
+                        ]}
+                        extra={{ conjunction: 'and', separator: '... ' }}
+                        next={Next.None}
                     />
                     .
                 </p>
             </aside>
             <p>
-                See the source code for <code>InlineListEN</code> for an example of how to make a
-                language-specific widget to avoid having to specify the conjunction each time, or to
-                use a language-specific separator besides comma (or even to override Windrift's
-                opinionated use of the Oxford comma!)
+                See the source code for <code>InlineListEN</code> and <code>InlineListPT</code> for
+                examples of how to make language-specific widgets to avoid having to specify the
+                conjunction each time, or to use a language-specific separator besides comma. Both
+                of these in turn call a language-agnostic widget called <code>InlineList</code>,
+                which you could override to (for example) change Windrift's opinionated use of the
+                Oxford comma.
             </p>
+
             <h3>Bulleted list widget</h3>
             <p>
                 Windrift ships with another type of widget with behavior worth noting. This
@@ -167,13 +168,13 @@ export const Page: PageType = () => (
             <p>
                 This widget takes an additional parameter internally, called{' '}
                 <code>initialOptions</code>, which is used to continue to display the possible
-                choices even after a user has selected one. You're expected to use this code more as
+                choices even after a user has selected one. You're expected to use this component as
                 a guide rather than as-is, since you'll almost certainly want to customize the
                 markup used to indicate the selected option.
             </p>
             <h3>Default options</h3>
             <p>
-                It's possible to default a default option that will be populated in the store of
+                It's possible to specify a default option that will be populated in the store of
                 choices even if the user makes no deliberate choice. This is most likely to be used
                 for non-critical choices where you don't want to worry about whether the user
                 selected it or not.
@@ -197,7 +198,7 @@ export const Page: PageType = () => (
             </aside>
 
             <p>In the next section we'll see how selected or default values can be retrieved.</p>
-            <Nav text="Learn about displaying inventory..." next="inventory" persist={true} />
+            <FooterNav text="Learn about displaying inventory..." next="inventory" persist={true} />
         </Section>
     </Chapter>
 )

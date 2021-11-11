@@ -1,6 +1,6 @@
-import { Section, Chapter, Nav } from 'core/components'
+import { Section, Chapter } from 'core/components'
 import { PageType } from 'core/types'
-import { SyntaxHighlighter, prism, styles } from '..'
+import { SyntaxHighlighter, prism, FooterNav } from '..'
 export const Page: PageType = () => {
     return (
         <Chapter filename="deploying">

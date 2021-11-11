@@ -1,6 +1,6 @@
 import { Section, Chapter, Nav } from 'core/components'
 import { PageType } from 'core/types'
-import { SyntaxHighlighter, prism, styles } from '..'
+import { SyntaxHighlighter, prism, styles, FooterNav } from '..'
 
 export const Page: PageType = () => {
     return (
@@ -19,15 +19,14 @@ export const Page: PageType = () => {
                     <li>
                         Windrift provides components called <strong>layouts</strong>, found in{' '}
                         <code>core/components/ui/layouts</code>. These are designed to be{' '}
-                        <strong>reusable across many stories</strong> and control the fundamental
-                        structure of the HTML page. .
+                        <strong>reusable across many stories</strong> and control the structure of
+                        the HTML page.
                     </li>
                     <li>
-                        Each individual story then has a <strong>story template</strong>, which is
-                        the <code>index.tsx</code> page created for you when you run the story
+                        Each individual story has a <strong>story template</strong>. This is the{' '}
+                        <code>index.tsx</code> page created for you when you run the story
                         generator. By default this will call the default <strong>layout</strong>.
-                        Every chapter in your story will be rendered inside this page.{' '}
-                        <strong>Each story will have its own story template.</strong>
+                        Every chapter in your story will be rendered inside this page.
                     </li>
                     <li>
                         Finally, within each story, chapter, or section you can control the{' '}
@@ -38,29 +37,27 @@ export const Page: PageType = () => {
                     Layout using the <kbd>Grid</kbd> component
                 </h3>
                 <p>
-                    As discussed in the section on <Nav text="story structure" next="structure" />,
-                    a Windrift story will be contained inside a template called{' '}
-                    <code>index.tsx</code> that's provided by the story generator script. This
-                    template calls a layout component provided in{' '}
+                    Your story template calls a layout component provided in{' '}
                     <code>core/components/ui/layouts</code>.
                 </p>
-                <div className={styles.twoUp}>
-                    <div>
-                        <p>
-                            The default layout is <code>core/components/ui/layouts/grid.tsx</code>,
-                            which implements the HTML <code>&lt;head&gt;</code>, a top{' '}
-                            <code>&lt;header&gt;</code>, and a <code>&lt;main&gt;</code> block.
-                        </p>
-                        <p>
-                            The main block is composed of a three-column layout with the following
-                            HTML structure:
-                        </p>
-                    </div>
+
+                <p>
+                    The default layout is <code>core/components/ui/layouts/grid.tsx</code>, which
+                    implements the HTML <code>&lt;head&gt;</code>, a top <code>&lt;header&gt;</code>
+                    , and a <code>&lt;main&gt;</code> block.
+                </p>
+                <p>
+                    The main block is composed of a three-column layout with the following HTML
+                    structure:
+                </p>
+                <div style={{ textAlign: 'center' }}>
                     <img
                         src="/stories/manual/images/page-template.svg"
                         alt="Diagram of default page layout"
                     />
                 </div>
+                <br />
+                <br />
                 <p>
                     To understand what's happening here, look at the Grid component in the Windrift
                     source (check the source code itself for the most current version). It accepts
@@ -169,7 +166,7 @@ export default Index`}
                     Similarly, to put a common element in the center pane of any story, add it
                     before or after <code>{`{children}`}</code>. For example, the table of contents
                     at the top of this manual is implemented as a custom component which is
-                    prependied before all the chapter content:
+                    prepended before all the chapter content:
                     <SyntaxHighlighter language="tsx" style={prism}>
                         {`// stories/manual/index.tsx
 import TableOfContents from './table-of-contents'
@@ -438,7 +435,7 @@ export const Page: PageType = () => {
                     </a>{' '}
                     for a full reference.
                 </aside>
-                <Nav
+                <FooterNav
                     text="Learn about automated browser testing and continuous integration..."
                     next="testing"
                 />
