@@ -1,20 +1,23 @@
 @use '/public/styles/colors';
 
 .sign {
-    padding: 30px;
     width: 300px;
-    margin: 2rem auto;
-    height: 100px;
-    display: block;
+    height: 200px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 110px;
+    margin-left: auto;
+    margin-right: auto;
 }
 .victorian {
     font-family: "Smythe", serif;
-    font-size: 30px;
+    font-size: 27px;
     text-align: center;
     background: colors.$very-dark;
     color: white;
-    border-color: white;
-    border-style: inset;
+    padding-top: 100px;
+
 }
 .medieval {
     font-family: "Macondo Swash Caps", serif;

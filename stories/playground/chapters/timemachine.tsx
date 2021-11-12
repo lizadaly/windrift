@@ -54,14 +54,16 @@ export const Page: PageType = () => {
                         </div>
                     }>
                     <p>
-                        "I say, unhand me you foul creature!" you exclaim, but he does not, and
-                        you're forced into the time machine. He slams the heavy circular door shut,
-                        and spins the locking mechanism as if he imprisons assistants all the time,
-                        which you imagine is quite possible.
+                        "I say, unhand me you foul creature!" you exclaim, but your mad scientist
+                        does not unhand you, and you're forced bodily into the time machine. He
+                        slams the heavy door shut, and spins the locking mechanism with a certain
+                        amount of flair, as if he imprisons assistants all the time. You imagine
+                        this is quite possible.
                     </p>
+
                     <p>
-                        Through the single porthole you can see a distorted fish-eye view of the
-                        laboratory. He must have already left the room, as the{' '}
+                        Through the single ornate porthole you can just about make out the closed
+                        door to the laboratory. He must have already left the room, as the{' '}
                         <C tag="door" options={[['lab door']]} />{' '}
                         <R
                             tag="era"
@@ -72,57 +74,76 @@ export const Page: PageType = () => {
                                 '2021': 'with its glowing display'
                             }}
                         />{' '}
-                        is open but he's nowhere in sight.
+                        is shut and he's nowhere in sight.
+                    </p>
+                    <p>
+                        The sign reads:
                         <R
                             tag="door"
                             options={{
                                 'lab door': (
                                     <>
                                         {' '}
-                                        The sign reads:{' '}
-                                        <R
-                                            tag="era"
-                                            options={{
-                                                '1882': (
-                                                    <span
-                                                        className={`${timemachine.sign} ${timemachine.victorian}`}>
-                                                        ⟿ <br />
-                                                        Quiet! Brilliant advancements in mankind in
-                                                        progress
-                                                        <br /> ⬳
-                                                    </span>
-                                                ),
-                                                '1236': (
-                                                    <span
-                                                        className={`${timemachine.sign} ${timemachine.medieval}`}>
-                                                        Forsooth I beseech thee for thou hath
-                                                        interrupteth Alchemy 🜩
-                                                    </span>
-                                                ),
-                                                '-2500': (
-                                                    <span
-                                                        className={`${timemachine.sign} ${timemachine.bronzeage}`}>
-                                                        𒀭𒆗𒀳𒀭𒁇𒀀𒈾𒀭𒀜𒋾𒀀𒇉𒈦 𒄘𒃼𒀭𒅎𒀭𒀀𒇉𒀀𒌑𒋛𒀪 𒀉𒁍𒁕𒀜𒋫𒀀𒈝𒀊𒁍𒀸
-                                                        𒇻𒈾𒀫𒀀𒈾𒆪𒀠𒁍𒌝𒀀𒇉𒌓𒄒
-                                                    </span>
-                                                ),
-                                                '2021': (
-                                                    <span
-                                                        className={`${timemachine.sign} ${timemachine.today}`}>
-                                                        <span>
-                                                            Select all squares with{' '}
-                                                            <strong>traffic lights</strong>
+                                        <div
+                                            style={{
+                                                position: 'relative',
+                                                width: '700px',
+                                                height: '650px'
+                                                //backgroundColor: '#2c2c2c'
+                                            }}>
+                                            <R
+                                                tag="era"
+                                                options={{
+                                                    '1882': (
+                                                        <span
+                                                            className={`${timemachine.sign} ${timemachine.victorian}`}>
+                                                            ⟿ <br />
+                                                            Quiet! Brilliant <br />
+                                                            scientific advancements <br /> in
+                                                            progress!
+                                                            <br /> ⬳
                                                         </span>
+                                                    ),
+                                                    '1236': (
+                                                        <span
+                                                            className={`${timemachine.sign} ${timemachine.medieval}`}>
+                                                            Forsooth I beseech thee for thou hath
+                                                            interrupteth Alchemy 🜩
+                                                        </span>
+                                                    ),
+                                                    '-2500': (
+                                                        <span
+                                                            className={`${timemachine.sign} ${timemachine.bronzeage}`}>
+                                                            𒀭𒆗𒀳𒀭𒁇𒀀𒈾𒀭𒀜𒋾𒀀𒇉𒈦 𒄘𒃼𒀭𒅎𒀭𒀀𒇉𒀀𒌑𒋛𒀪 𒀉𒁍𒁕𒀜𒋫𒀀𒈝𒀊𒁍𒀸
+                                                            𒇻𒈾𒀫𒀀𒈾𒆪𒀠𒁍𒌝𒀀𒇉𒌓𒄒
+                                                        </span>
+                                                    ),
+                                                    '2021': (
+                                                        <span
+                                                            className={`${timemachine.sign} ${timemachine.today}`}>
+                                                            <span>
+                                                                Select all squares with{' '}
+                                                                <strong>traffic lights</strong>
+                                                            </span>
 
-                                                        <img
-                                                            src="../stories/playground/images/captcha.jpg"
-                                                            alt="a fake captcha"
-                                                            width="250"
-                                                        />
-                                                    </span>
-                                                )
-                                            }}
-                                        />
+                                                            <img
+                                                                src="../stories/playground/images/captcha.jpg"
+                                                                alt="a fake captcha"
+                                                                width="250"
+                                                            />
+                                                        </span>
+                                                    )
+                                                }}
+                                            />
+                                            <img
+                                                src="../stories/playground/images/porthole.png"
+                                                alt="A Victorian frame in gold leaf"
+                                                width="700"
+                                                style={{
+                                                    position: 'absolute'
+                                                }}
+                                            />
+                                        </div>
                                     </>
                                 )
                             }}

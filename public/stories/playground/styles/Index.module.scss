@@ -12,7 +12,7 @@
 
    padding: 0;
    // Use a mostly two-column grid
-   grid-template-columns: 20px minmax(600px, 3fr) 1fr;
+   grid-template-columns: 0 minmax(800px, 3fr) 1fr;
 
    .right {
       font-family: "Roboto Condensed", sans-serif;
@@ -53,7 +53,7 @@
       }
    }
    .story {
-      padding: 10vh 12vw;
+      padding: 10vh 50px;
 
       p, button {
          font-family: "Roboto Slab", serif;
