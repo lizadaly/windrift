@@ -20,22 +20,8 @@ export const Page: PageType = () => {
         return null
     }
     return (
-        <Chapter filename="chapter1">
+        <Chapter filename="timemachine">
             <Section>
-                <aside>
-                    <h1>Mutable content</h1>
-                    <p>
-                        One of Windrift's key concepts is that it should support "mutable" content,
-                        or content that can shift, sometimes dramatically, in response to user
-                        input.
-                    </p>
-                    <p>
-                        A story that demonstrates this is{' '}
-                        <a href="https://lizadaly.com/projects/the-ballroom/">The Ballroom</a>{' '}
-                        (2019), which was developed using an earlier version of the library but this
-                        sample demonstrates a similar concept.
-                    </p>
-                </aside>
                 <When
                     condition={era !== '99999'}
                     otherwise={
