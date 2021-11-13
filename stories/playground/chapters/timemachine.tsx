@@ -76,92 +76,111 @@ export const Page: PageType = () => {
                         />{' '}
                         is shut and he's nowhere in sight.
                     </p>
-                    <p>
-                        The sign reads:
-                        <R
-                            tag="door"
-                            options={{
-                                'lab door': (
-                                    <>
-                                        {' '}
-                                        <div
-                                            style={{
-                                                position: 'relative',
-                                                width: '700px',
-                                                height: '650px'
-                                                //backgroundColor: '#2c2c2c'
-                                            }}>
-                                            <R
-                                                tag="era"
-                                                options={{
-                                                    '1882': (
-                                                        <span
-                                                            className={`${timemachine.sign} ${timemachine.victorian}`}>
-                                                            ⟿ <br />
-                                                            Quiet! Brilliant <br />
-                                                            scientific advancements <br /> in
-                                                            progress!
-                                                            <br /> ⬳
-                                                        </span>
-                                                    ),
-                                                    '1236': (
-                                                        <span
-                                                            className={`${timemachine.sign} ${timemachine.medieval}`}>
-                                                            Forsooth I beseech thee for thou hath
-                                                            interrupteth Alchemy 🜩
-                                                        </span>
-                                                    ),
-                                                    '-2500': (
-                                                        <span
-                                                            className={`${timemachine.sign} ${timemachine.bronzeage}`}>
-                                                            𒀭𒆗𒀳𒀭𒁇𒀀𒈾𒀭𒀜𒋾𒀀𒇉𒈦 𒄘𒃼𒀭𒅎𒀭𒀀𒇉𒀀𒌑𒋛𒀪 𒀉𒁍𒁕𒀜𒋫𒀀𒈝𒀊𒁍𒀸
-                                                            𒇻𒈾𒀫𒀀𒈾𒆪𒀠𒁍𒌝𒀀𒇉𒌓𒄒
-                                                        </span>
-                                                    ),
-                                                    '2021': (
-                                                        <span
-                                                            className={`${timemachine.sign} ${timemachine.today}`}>
-                                                            <span>
-                                                                Select all squares with{' '}
-                                                                <strong>traffic lights</strong>
-                                                            </span>
 
-                                                            <img
-                                                                src="../stories/playground/images/captcha.jpg"
-                                                                alt="a fake captcha"
-                                                                width="250"
-                                                            />
+                    <R
+                        tag="door"
+                        options={{
+                            'lab door': (
+                                <>
+                                    <p>The sign reads:</p>
+                                    <div
+                                        style={{
+                                            position: 'relative',
+                                            width: '700px',
+                                            height: '650px'
+                                        }}>
+                                        <R
+                                            tag="era"
+                                            options={{
+                                                '1882': (
+                                                    <span
+                                                        className={`${timemachine.sign} ${timemachine.victorian}`}>
+                                                        ⟿ <br />
+                                                        Quiet! Brilliant <br />
+                                                        scientific advancements <br /> in progress!
+                                                        <br /> ⬳
+                                                    </span>
+                                                ),
+                                                '1236': (
+                                                    <span
+                                                        className={`${timemachine.sign} ${timemachine.medieval}`}>
+                                                        Forsooth I beseech thee for thou hath
+                                                        interrupteth Alchemy 🜩
+                                                    </span>
+                                                ),
+                                                '-2500': (
+                                                    <span
+                                                        className={`${timemachine.sign} ${timemachine.bronzeage}`}>
+                                                        𒀭𒆗𒀳𒀭𒁇𒀀𒈾𒀭𒀜𒋾𒀀𒇉𒈦 𒄘𒃼𒀭𒅎𒀭𒀀𒇉𒀀𒌑𒋛𒀪 𒀉𒁍𒁕𒀜𒋫𒀀𒈝𒀊𒁍𒀸
+                                                        𒇻𒈾𒀫𒀀𒈾𒆪𒀠𒁍𒌝𒀀𒇉𒌓𒄒
+                                                    </span>
+                                                ),
+                                                '2021': (
+                                                    <span
+                                                        className={`${timemachine.sign} ${timemachine.today}`}>
+                                                        <span>
+                                                            Select all squares with{' '}
+                                                            <strong>traffic lights</strong>
                                                         </span>
-                                                    )
-                                                }}
-                                            />
-                                            <img
-                                                src="../stories/playground/images/porthole.png"
-                                                alt="A Victorian frame in gold leaf"
-                                                width="700"
-                                                style={{
-                                                    position: 'absolute'
-                                                }}
-                                            />
-                                        </div>
-                                    </>
-                                )
-                            }}
-                        />
-                    </p>
+
+                                                        <img
+                                                            src="../stories/playground/images/captcha.jpg"
+                                                            alt="a fake captcha"
+                                                            width="250"
+                                                        />
+                                                    </span>
+                                                )
+                                            }}
+                                        />
+                                        <img
+                                            src="../stories/playground/images/porthole.png"
+                                            alt="A Victorian frame in gold leaf"
+                                            width="700"
+                                            style={{
+                                                position: 'absolute',
+                                                display: 'block',
+                                                margin: 'auto',
+                                                left: 0,
+                                                right: 0
+                                            }}
+                                        />
+                                    </div>
+                                </>
+                            )
+                        }}
+                    />
                 </When>
                 <When condition={!escape}>
-                    <p>Inside the time machine you can see a large dial, which currently reads:</p>
-                    <div className={timemachine.dial}>
-                        <Motion
-                            defaultStyle={{ x: parseInt(era) }}
-                            style={{ x: spring(parseInt(era)) }}>
-                            {(value) => (
-                                <div className={timemachine.dial}>
-                                    <span className={timemachine.numbers}>{parseInt(value.x)}</span>
-                                </div>
-                            )}
-                        </Motion>
+                    <p>
+                        Inside the time machine you can see a large readout, which currently
+                        displays:
+                    </p>
+                    <div style={{ position: 'relative', height: '300px' }}>
+                        <div className={timemachine.dial}>
+                            <Motion
+                                defaultStyle={{ x: parseInt(era) }}
+                                style={{ x: spring(parseInt(era)) }}>
+                                {(value) => (
+                                    <div className={timemachine.dial}>
+                                        <span className={timemachine.numbers}>
+                                            {parseInt(value.x)}
+                                        </span>
+                                    </div>
+                                )}
+                            </Motion>
+                        </div>
+                        <img
+                            src="../stories/playground/images/readout.png"
+                            alt="Another Victorian frame in gold leaf"
+                            width="400"
+                            style={{
+                                position: 'absolute',
+                                display: 'block',
+                                margin: 'auto',
+                                left: 0,
+                                right: 0
+                            }}
+                        />
                     </div>
                 </When>
             </Section>

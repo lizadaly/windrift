@@ -6,7 +6,7 @@
     position: absolute;
     left: 0;
     right: 0;
-    top: 110px;
+    top: 150px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -16,7 +16,7 @@
     text-align: center;
     background: colors.$very-dark;
     color: white;
-    padding-top: 100px;
+    padding-top: 60px;
 
 }
 .medieval {
@@ -53,13 +53,17 @@
 
 }
 .dial {
+    position: absolute;
     font-family: "Orbitron", sans-serif;
-    background: rgb(85, 52, 52);
+    background: colors.$very-dark;
     width: 5em;
     margin: 2rem auto;
+    left: 0;
+    right: 0;
+    top: 20px;
     text-align: center;
     font-size: 50px;
-    height: 1.2em;
+    height: 100px;
     line-height: 1.1em;
     border-radius: 500px;
     .numbers {
