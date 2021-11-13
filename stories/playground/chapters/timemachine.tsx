@@ -106,7 +106,7 @@ export const Page: PageType = () => {
                                                         <span
                                                             className={`${timemachine.sign} ${timemachine.medieval}`}>
                                                             <img
-                                                                src="../stories/playground/images/rabbit.png"
+                                                                src="../stories/playground/images/rabbit.webp"
                                                                 alt="A medieval rabbit riding a snail"
                                                                 style={{
                                                                     float: 'right',
@@ -134,7 +134,7 @@ export const Page: PageType = () => {
                                                     <span
                                                         className={`${timemachine.sign} ${timemachine.bronzeage}`}>
                                                         <img
-                                                            src="../stories/playground/images/babylonian.png"
+                                                            src="../stories/playground/images/babylonian.webp"
                                                             alt="A Babylonian warrior carving"
                                                             width="200"
                                                             style={{
@@ -170,7 +170,7 @@ export const Page: PageType = () => {
                                             }}
                                         />
                                         <img
-                                            src="../stories/playground/images/porthole.png"
+                                            src="../stories/playground/images/porthole.webp"
                                             alt="A Victorian frame in gold leaf"
                                             width="700"
                                             style={{
@@ -210,7 +210,7 @@ export const Page: PageType = () => {
                             </Motion>
                         </div>
                         <img
-                            src="../stories/playground/images/readout.png"
+                            src="../stories/playground/images/readout.webp"
                             alt="Another Victorian frame in gold leaf"
                             width="400"
                             style={{
