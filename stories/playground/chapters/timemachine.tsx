@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Motion, spring } from '@korbav/react-motion'
+import { Motion, spring, presets } from '@korbav/react-motion'
 import { useDispatch } from 'react-redux'
 
 import { C, R, Section, Chapter, Nav, When } from 'core/components'
@@ -102,31 +102,68 @@ export const Page: PageType = () => {
                                                     </span>
                                                 ),
                                                 '1236': (
-                                                    <span
-                                                        className={`${timemachine.sign} ${timemachine.medieval}`}>
-                                                        Forsooth I beseech thee for thou hath
-                                                        interrupteth Alchemy 🜩
-                                                    </span>
+                                                    <>
+                                                        <span
+                                                            className={`${timemachine.sign} ${timemachine.medieval}`}>
+                                                            <img
+                                                                src="../stories/playground/images/rabbit.png"
+                                                                alt="A medieval rabbit riding a snail"
+                                                                style={{
+                                                                    float: 'right',
+                                                                    display: 'inline-block',
+                                                                    paddingRight: '20px',
+                                                                    shapeOutside:
+                                                                        'ellipse(30px 80px)'
+                                                                }}
+                                                            />
+                                                            <span
+                                                                style={{
+                                                                    paddingLeft: '60px',
+                                                                    display: 'inline-block'
+                                                                }}>
+                                                                Prithee <br />
+                                                                silence thyself <br />
+                                                                A Great
+                                                                <br /> Alchemist <br />
+                                                                is at Work
+                                                            </span>
+                                                        </span>
+                                                    </>
                                                 ),
                                                 '-2500': (
                                                     <span
                                                         className={`${timemachine.sign} ${timemachine.bronzeage}`}>
-                                                        𒀭𒆗𒀳𒀭𒁇𒀀𒈾𒀭𒀜𒋾𒀀𒇉𒈦 𒄘𒃼𒀭𒅎𒀭𒀀𒇉𒀀𒌑𒋛𒀪 𒀉𒁍𒁕𒀜𒋫𒀀𒈝𒀊𒁍𒀸
-                                                        𒇻𒈾𒀫𒀀𒈾𒆪𒀠𒁍𒌝𒀀𒇉𒌓𒄒
+                                                        <img
+                                                            src="../stories/playground/images/babylonian.png"
+                                                            alt="A Babylonian warrior carving"
+                                                            width="200"
+                                                            style={{
+                                                                position: 'absolute',
+                                                                display: 'block',
+                                                                margin: 'auto',
+                                                                right: 0,
+                                                                left: '50px',
+                                                                top: '94px'
+                                                            }}
+                                                        />
+                                                        <span>
+                                                            𒇷𒉺𒀀𒄑𒍣𒄿𒁕 𒋼𒉺𒄯𒂊𒊒𒌓𒀲𒆳 𒃷𒊩𒈗𒊏𒀸𒉿𒀀𒋻𒀀𒊏𒀸𒉺 𒊏𒍑𒃾𒅖𒁄𒋾𒌅𒌋𒉌𒅖
+                                                            𒌅𒊻𒍣𒅖𒀜𒉺 𒀭𒆪𒍑𒅈𒈠𒌋𒉿𒀭𒍝𒁍
+                                                        </span>
                                                     </span>
                                                 ),
                                                 '2021': (
                                                     <span
                                                         className={`${timemachine.sign} ${timemachine.today}`}>
                                                         <span>
-                                                            Select all squares with{' '}
-                                                            <strong>traffic lights</strong>
+                                                            Select all squares <br />
+                                                            with <strong>traffic lights</strong>
                                                         </span>
 
                                                         <img
                                                             src="../stories/playground/images/captcha.jpg"
                                                             alt="a fake captcha"
-                                                            width="250"
+                                                            width="220"
                                                         />
                                                     </span>
                                                 )
@@ -159,10 +196,13 @@ export const Page: PageType = () => {
                         <div className={timemachine.dial}>
                             <Motion
                                 defaultStyle={{ x: parseInt(era) }}
-                                style={{ x: spring(parseInt(era)) }}>
+                                style={{ x: spring(parseInt(era), presets.wobbly) }}>
                                 {(value) => (
                                     <div className={timemachine.dial}>
-                                        <span className={timemachine.numbers}>
+                                        <span
+                                            className={`${timemachine.numbers} ${
+                                                era === '99999' ? timemachine.future : ''
+                                            }`}>
                                             {parseInt(value.x)}
                                         </span>
                                     </div>

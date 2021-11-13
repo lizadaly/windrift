@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 @use '/public/styles/colors';
 
 .sign {
@@ -9,39 +11,41 @@
     top: 150px;
     margin-left: auto;
     margin-right: auto;
+    text-align: center;
+    padding-top: 60px;
+
 }
 .victorian {
     font-family: "Smythe", serif;
     font-size: 27px;
-    text-align: center;
     background: colors.$very-dark;
     color: white;
-    padding-top: 60px;
 
 }
 .medieval {
     font-family: "Macondo Swash Caps", serif;
-    background-color: rgb(255, 232, 168);
-    color: rgb(129, 108, 77);
-    font-size: 30px;
+    background-image: url('/stories/playground/images/paper.png');
+    background-position: cover;
+    color: colors.$warning;
+    font-size: 22px;
+    text-align: left;
 
-    &::first-letter {
-        font-size: 80px;
-        margin: 10px -20px;
-        color: colors.$warning;
-    }
 }
 .bronzeage {
     font-family: 'Noto Sans Cuneiform', sans-serif;
-    background: lightgray;
-    color: colors.$cool;
+    color: color.scale(colors.$cool, $lightness: 50%);
+    background: colors.$cool;
+    font-size: 30px;
+    line-height: 30px;
+    padding-top: 0px;
+    height: 260px;
+    text-decoration: underline;
 }
 .today {
-    min-height: 220px;
-    width: 248px;
-    margin: 10px auto;
-    padding: 0;
-    background: rgb(74, 134, 212);
+
+    height: 250px;
+    padding: 20px 0 0 0;
+    background: rgb(88,	132,	206);
     font-family: sans-serif;
     font-size: 14px;
     text-align: center;
@@ -71,4 +75,14 @@
         color: rgb(253, 230, 16);
         text-decoration: none;
     }
+    .future {
+        color: colors.$warning;
+        animation: blinker .75s linear infinite;
+    }
 }
+
+@keyframes blinker {
+    50% {
+      opacity: .25;
+    }
+  }
