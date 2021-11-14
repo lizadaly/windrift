@@ -4,11 +4,12 @@
 
 .main {
     display: grid;
-    grid-template-columns: [left] minmax(50px, 20vh) minmax(80%, 1fr) [right] minmax(50px, 20vh);
+    grid-template-columns: [left] minmax(50px, sizing.$story-margin)  minmax(600px, 1fr) [right] minmax(50px, sizing.$story-margin);
     background: colors.$very-light;
 
     font-family: fonts.$body;
-    padding-top: sizing.$story-margin;
+    padding-top: 2rem;
+    font-size: 1.2rem;
 
     h1, h2, h3 {
         margin-top: 1.5em;
@@ -31,8 +32,6 @@
     .left {
         min-height: 100vh;
         font-size: 1rem;
-        margin: 0 sizing.$story-margin 0 sizing.$story-margin;
-
         p {
             margin: 0 0 1rem 0;
             line-height: 1.2rem;

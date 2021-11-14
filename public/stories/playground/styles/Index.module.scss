@@ -1,0 +1,92 @@
+@use 'sass:color';
+@use '/public/styles/sizing' with (
+   $story-margin: 25vw
+);
+@use '/public/styles/grid';
+@use '/public/styles/colors';
+
+.header {
+   display: none;
+}
+.main {
+
+   padding: 0;
+   // Use a mostly two-column grid
+   grid-template-columns: 0 minmax(800px, 3fr) 1fr;
+
+   .right {
+      font-family: "Roboto Condensed", sans-serif;
+      background: colors.$very-dark;
+      height: 100%;
+      margin: 0;
+      padding: 0 4ch;
+      align-self: start;
+      color: colors.$very-light;
+
+      a {
+         color: colors.$very-light;
+      }
+      h4 {
+         font-size: 15px;
+         color: color.scale(colors.$warm, $lightness: 50%);
+         font-weight: normal;
+         text-align: center;
+
+      }
+      p {
+         font-size: 15px;
+         line-height: 1.6rem;
+      }
+      button {
+         margin: 1rem auto;
+         display: block;
+         background: colors.$warning;
+         color: colors.$very-light;
+         border: 0;
+         box-shadow: none;
+         border-radius: 0;
+         width: 60px;
+         height: 60px;
+         font-size: 16px;
+         text-transform: uppercase;
+
+      }
+   }
+   .story {
+      padding: 10vh 50px;
+
+      p, button, a {
+         font-family: "Roboto Slab", serif;
+      }
+      p {
+         line-height: 2rem;
+      }
+      h1, h2, h3, h4, h5 {
+         color: colors.$very-dark ;
+      }
+      button {
+         background: none;
+         border: none;
+         font-size: 1.2rem;
+         margin: 0;
+         padding: 0;
+         text-decoration: underline;
+         cursor: pointer;
+      }
+
+      figure {
+         margin: 0;
+
+      caption {
+         display: block;
+         font-family: "Roboto Condensed", sans-serif;
+         line-height: 1.6rem;
+         padding-top: 1rem;
+         font-size: 18px;
+         }
+      }
+   }
+
+
+
+}

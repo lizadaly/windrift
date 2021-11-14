@@ -1,0 +1,7 @@
+title: The Playground
+language: en
+chapters:
+  - filename: "timemachine"
+    title: "Trapped in the Time Machine"
+players:
+  - start: "timemachine"

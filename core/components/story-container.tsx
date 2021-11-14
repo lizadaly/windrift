@@ -38,10 +38,10 @@ class StoryContainer extends React.Component<StoryProps> {
 
     render() {
         return (
-            <>
+            <div id="container">
                 <Counter identifier={this.props.config.identifier} counter={this.props.counter} />
                 {this.props.children}
-            </>
+            </div>
         )
     }
 }
