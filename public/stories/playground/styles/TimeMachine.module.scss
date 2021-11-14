@@ -2,22 +2,20 @@
 
 @use '/public/styles/colors';
 
-.sign {
-    width: 300px;
-    height: 200px;
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 150px;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-    padding-top: 60px;
+$text: 1fr;
+$images: 700px;
+
+.title {
+    font-family: "Macondo Swash Caps", serif;
+    line-height: 1.2em !important;
+    margin:0 0 1rem 0 !important;
 
 }
+
+
 .victorian {
     font-family: "Smythe", serif;
-    font-size: 27px;
+    font-size: 25px;
     background: colors.$very-dark;
     color: white;
 
@@ -25,11 +23,20 @@
 .medieval {
     font-family: "Macondo Swash Caps", serif;
     background-image: url('/stories/playground/images/paper.webp');
-    background-position: cover;
     color: colors.$warning;
     font-size: 22px;
     text-align: left;
 
+    img {
+        float: right;
+        display: block;
+        padding-right: 20px;
+        shape-outside: ellipse(30px 80px);
+    }
+    span {
+        padding-left: 60px;
+        display: inline-block;
+    }
 }
 .bronzeage {
     font-family: 'Noto Sans Cuneiform', sans-serif;
@@ -40,6 +47,15 @@
     padding-top: 0px;
     height: 260px;
     text-decoration: underline;
+
+    img {
+        position: absolute;
+        display: block;
+        right: 0;
+        margin: auto;
+        left: 50px;
+        top: 95px;
+    }
 }
 .today {
 
@@ -54,32 +70,84 @@
         padding: 5px;
         display: block;
     }
+}
+
+
+.innergrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: minmax(350px, 1fr);
+    .readout {
+        grid-column: 1 / 4;
+    }
+
+
+    .dialFrame {
+        grid-column: 4 / 7;
+        align-self: center;
+        justify-self: left;
+        position: relative;
+        height: 300px;
+
+        img {
+            position: absolute;
+            display: block;
+
+        }
+        .dial {
+            position: absolute;
+            font-family: "Orbitron", sans-serif;
+            background: colors.$very-dark;
+            width: 5em;
+            left: 37px;
+            top: 50px;
+            text-align: center;
+            font-size: 50px;
+            height: 100px;
+            line-height: 1.1em;
+            border-radius: 200px;
+            .numbers {
+                padding-top: .4em;
+                color: rgb(253, 230, 16);
+                text-decoration: none;
+            }
+            .future {
+                color: colors.$warning;
+                animation: blinker .75s linear infinite;
+            }
+        }
+    }
+
+    .portholeRegion {
+        grid-column:  1/8;
+
+        .floatedcontainer {
+            shape-outside: polygon(60% 0, 110% 50%, 50% 100%, 0 50%);
+            width: 550px;
+            position: relative;
+            float: left;
+        }
+        .sign {
+            width: 250px;
+            height: 200px;
+            position: absolute;
+            top: 70px;
+            left: 150px;
+            text-align: center;
+            padding-top: 60px;
+            border-radius: 500px;
+
+        }
+        .portholeFrame {
+            shape-outside: polygon(60% 0, 110% 50%, 50% 100%, 0 50%);
+            position: relative;
+
+        }
+    }
+
 
 }
-.dial {
-    position: absolute;
-    font-family: "Orbitron", sans-serif;
-    background: colors.$very-dark;
-    width: 5em;
-    margin: 2rem auto;
-    left: 0;
-    right: 0;
-    top: 20px;
-    text-align: center;
-    font-size: 50px;
-    height: 100px;
-    line-height: 1.1em;
-    border-radius: 500px;
-    .numbers {
-        padding-top: .4em;
-        color: rgb(253, 230, 16);
-        text-decoration: none;
-    }
-    .future {
-        color: colors.$warning;
-        animation: blinker .75s linear infinite;
-    }
-}
+
 
 @keyframes blinker {
     50% {
