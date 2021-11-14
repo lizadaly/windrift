@@ -27,7 +27,7 @@ export const Page: PageType = () => {
                     do not unhand you, and you‘re forced bodily into the time machine. They slam the
                     heavy door shut, and spin the locking mechanism with a certain amount of flair.
                     Their cheering is muffled but audible, and then you hear the sound of receding
-                    footsteps, and then silence.
+                    footsteps followed by silence.
                 </p>
                 <p>
                     <C tag="start" options={[['You’ve been...']]} last="" next={Next.Section} />
@@ -84,16 +84,31 @@ export const Page: PageType = () => {
                             <Motion
                                 defaultStyle={{ x: parseInt(era) }}
                                 style={{ x: spring(parseInt(era), presets.wobbly) }}>
-                                {(value) => (
-                                    <div className={timemachine.dial}>
-                                        <span
-                                            className={`${timemachine.numbers} ${
-                                                era === '99999' ? timemachine.future : ''
-                                            }`}>
-                                            {parseInt(value.x)}
-                                        </span>
-                                    </div>
-                                )}
+                                {(value) => {
+                                    if (value.x.toString() !== era) {
+                                        document
+                                            .querySelectorAll(`.${timemachine.sign}`)
+                                            .forEach((el) => {
+                                                el.classList.add(timemachine.static)
+                                            })
+                                    } else {
+                                        document
+                                            .querySelectorAll(`.${timemachine.static}`)
+                                            .forEach((el) => {
+                                                el.classList.remove(timemachine.static)
+                                            })
+                                    }
+                                    return (
+                                        <div className={timemachine.dial}>
+                                            <span
+                                                className={`${timemachine.numbers} ${
+                                                    era === '99999' ? timemachine.future : ''
+                                                }`}>
+                                                {parseInt(value.x)}
+                                            </span>
+                                        </div>
+                                    )
+                                }}
                             </Motion>
                         </div>
                         <img
@@ -235,8 +250,8 @@ export const Page: PageType = () => {
                                                 </p>
                                                 <p>
                                                     The porthole is glowing with a strange inner
-                                                    light, and it seems you've been given some kind
-                                                    of incomprehensible puzzle to solve. You paw
+                                                    light, and it seems you've been given an
+                                                    incomprehensible puzzle to solve. You paw
                                                     fruitlessly at the glass. Acrid smoke is leaking
                                                     around the edges of the door, but it still holds
                                                     firm.
@@ -261,8 +276,8 @@ export const Page: PageType = () => {
             <Section>
                 <p>
                     The entire edifice has ceased shaking. Smoke rises from every crack and gap in
-                    the bronze panels of the machine around you. The glass surrounding the porthole
-                    has completely shattered, and the porthole lies{' '}
+                    the scorched panels of the machine around you. The tempered glass within the
+                    porthole has completely shattered, and thus the porthole is{' '}
                     <C tag="escape" options={[['gaping open']]} />.
                 </p>
             </Section>
@@ -273,14 +288,14 @@ export const Page: PageType = () => {
                         gaping: (
                             <p>
                                 You clamber through the remnants of the window, picking off glass
-                                shards and millennia of dust. The laboratory is completely gone, and
-                                you find yourself on an empty and quiet plain at night. The Milky
-                                Way glows brighter above you than you've ever seen before, and the
+                                shards and millennia of dust. The laboratory is long gone, and you
+                                find yourself on an empty and quiet plain at night. The Milky Way
+                                glows brighter above you than you've ever seen before, and the
                                 constellations are unfamiliar. Streaks of blue and pink light
-                                crisscross the night sky, but you are alone among the trees and
-                                grass on the earth. You glance behind you, at the ruin of your grand
-                                machine, and begin to walk towards whatever this strange far future
-                                holds.
+                                criss-cross the night sky, traveling with purpose. You are alone
+                                among the trees and grass here. You glance behind you, at the ruin
+                                of your grand machine, and begin to walk towards whatever this
+                                strange far future holds.
                             </p>
                         )
                     }}

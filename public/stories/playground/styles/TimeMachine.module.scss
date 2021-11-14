@@ -150,10 +150,17 @@ $images: 700px;
             border-radius: 500px;
 
         }
+
         .portholeFrame {
             shape-outside: polygon(60% 0, 110% 50%, 50% 100%, 0 50%);
             position: relative;
 
+        }
+        .static {
+            background-image: url('/stories/playground/images/static.gif');
+            * {
+                display: none;
+            }
         }
     }
 
@@ -165,4 +172,4 @@ $images: 700px;
     50% {
       opacity: .25;
     }
-  }
+}
