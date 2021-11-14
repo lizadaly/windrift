@@ -8,7 +8,7 @@ $images: 700px;
 .title {
     font-family: "Macondo Swash Caps", serif;
     line-height: 1.2em !important;
-    margin:0 0 1rem 0 !important;
+    margin: 0 0 1rem 0 !important;
 
 }
 
@@ -18,24 +18,31 @@ $images: 700px;
     font-size: 25px;
     background: colors.$very-dark;
     color: white;
+    margin-top: 4px;
 
 }
 .medieval {
     font-family: "Macondo Swash Caps", serif;
     background-image: url('/stories/playground/images/paper.webp');
     color: colors.$warning;
-    font-size: 22px;
-    text-align: left;
-
+    font-size: 20px;
+    position: relative;
     img {
-        float: right;
         display: block;
-        padding-right: 20px;
         shape-outside: ellipse(30px 80px);
+        position: absolute;
+        right: 30px;
+        bottom: 0;
+
     }
     span {
-        padding-left: 60px;
-        display: inline-block;
+        display: block;
+        position: absolute;
+        left: 50px;
+        top: 90px;
+        text-align: left;
+
+
     }
 }
 .bronzeage {
@@ -74,11 +81,16 @@ $images: 700px;
 
 
 .innergrid {
+    padding-top: 2rem;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: minmax(350px, 1fr);
     .readout {
         grid-column: 1 / 4;
+        button {
+            text-align: left;
+            display: inline;
+        }
     }
 
 

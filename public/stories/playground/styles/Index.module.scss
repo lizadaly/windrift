@@ -55,7 +55,7 @@
    .story {
       padding: 10vh 50px;
 
-      p, button {
+      p, button, a {
          font-family: "Roboto Slab", serif;
       }
       p {
@@ -72,6 +72,18 @@
          padding: 0;
          text-decoration: underline;
          cursor: pointer;
+      }
+
+      figure {
+         margin: 0;
+
+      caption {
+         display: block;
+         font-family: "Roboto Condensed", sans-serif;
+         line-height: 1.6rem;
+         padding-top: 1rem;
+         font-size: 18px;
+         }
       }
    }
 

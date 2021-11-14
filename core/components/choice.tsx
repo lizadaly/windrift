@@ -96,7 +96,7 @@ const MutableChoice = ({
         if (!persist) {
             handler = null
         }
-        if (last) {
+        if (last !== undefined && last !== null) {
             group = [last]
         } else {
             group = [inventory]
