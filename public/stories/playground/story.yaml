@@ -3,5 +3,7 @@ language: en
 chapters:
   - filename: "timemachine"
     title: "Trapped in the Time Machine"
+  - filename: "house-of-dust"
+    title: "The House of Dust"
 players:
   - start: "timemachine"
