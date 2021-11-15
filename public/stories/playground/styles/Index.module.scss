@@ -1,6 +1,7 @@
 @use 'sass:color';
 @use '/public/styles/sizing' with (
-   $story-margin: 25vw
+   $story-margin: 25vw,
+   $font-size-default: 20px
 );
 @use '/public/styles/grid';
 @use '/public/styles/colors';
@@ -12,12 +13,28 @@
 
    padding: 0;
    // Use a mostly two-column grid
-   grid-template-columns: 0 minmax(800px, 3fr) 1fr;
+   grid-template-columns: 0 100%;
+   grid-template-areas:
+      "left center"
+      "sidebar sidebar";
+
+   @media screen and (min-width: sizing.$big-viewport) {
+      grid-template-columns: 0 minmax(800px, 3fr) minmax(30ch, 1fr);
+      grid-template-areas:
+         "left center sidebar";
+   }
 
    .right {
+      grid-area: sidebar;
       font-family: "Roboto Condensed", sans-serif;
       background: colors.$very-dark;
-      height: 100%;
+      min-height: auto;
+      font-size: 15px;
+      line-height: 1.6rem;
+
+      @media screen and (min-width: sizing.$big-viewport) {
+         height: 100%;
+      }
       margin: 0;
       padding: 0 4ch;
       align-self: start;
@@ -33,10 +50,8 @@
          text-align: center;
 
       }
-      p {
-         font-size: 15px;
-         line-height: 1.6rem;
-      }
+
+
       button {
          margin: 1rem auto;
          display: block;
@@ -51,12 +66,19 @@
          text-transform: uppercase;
 
       }
+      ul {
+         margin: 0;
+         padding: 0;
+         line-height: 1.2em;
+
+      }
       li {
-         margin-bottom: 1em;
+         margin: 0 0 .5em 0;
          list-style: none;
       }
    }
    .story {
+      grid-area: center;
       padding: 10vh 50px;
 
       p, button, a {
@@ -90,7 +112,4 @@
          }
       }
    }
-
-
-
 }

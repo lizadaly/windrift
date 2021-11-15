@@ -1,6 +1,7 @@
 @use 'sass:color';
 
 @use '/public/styles/colors';
+@use '/public/styles/sizing';
 
 $text: 1fr;
 $images: 700px;
@@ -83,10 +84,18 @@ $images: 700px;
 .innergrid {
     padding-top: 2rem;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: minmax(350px, 1fr);
+
+    grid-template-columns: 1fr;
+
+    @media screen and (min-width: sizing.$big-viewport) {
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+        grid-template-rows: minmax(350px, 1fr);
+    }
+
     .readout {
-        grid-column: 1 / 4;
+        @media screen and (min-width: sizing.$big-viewport) {
+            grid-column: 1 / 4;
+        }
         button {
             text-align: left;
             display: inline;
@@ -95,16 +104,20 @@ $images: 700px;
 
 
     .dialFrame {
-        grid-column: 4 / 7;
         align-self: center;
-        justify-self: left;
+        margin-left: -65px;
+        @media screen and (min-width: sizing.$big-viewport) {
+            grid-column: 4 / 7;
+            justify-self: left;
+            margin-left: 0;
+        }
+
         position: relative;
         height: 300px;
 
         img {
             position: absolute;
             display: block;
-
         }
         .dial {
             position: absolute;
@@ -131,13 +144,20 @@ $images: 700px;
     }
 
     .portholeRegion {
-        grid-column:  1/8;
+        overflow: hidden;
 
+        @media screen and (min-width: sizing.$big-viewport) {
+            grid-column:  1/8;
+        }
         .floatedcontainer {
             shape-outside: polygon(60% 0, 110% 50%, 50% 100%, 0 50%);
             width: 550px;
             position: relative;
-            float: left;
+            margin-left: -135px;
+            @media screen and (min-width: sizing.$big-viewport) {
+                float: left;
+                margin-left: 0px;
+            }
         }
         .sign {
             width: 250px;
