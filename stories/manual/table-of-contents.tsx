@@ -28,7 +28,7 @@ const TableOfContents = (): JSX.Element => {
 
     return (
         <nav className={styles.toc}>
-            <p>Table of Contents:</p>
+            <span>In this manual:</span>{' '}
             <ol>
                 {chapters
                     .filter((c) => !omitToc.includes(c.filename))

@@ -7,7 +7,8 @@
 
 // Change the default grid to favor a wider main viewport
 @use '/public/styles/sizing' with (
-    $story-margin: 100px
+    $story-margin: 100px,
+    $font-size-default: 20px
 );
 @use '/public/styles/grid';
 @use '/public/styles/colors';
@@ -28,18 +29,21 @@
     h1, h2, h3, h4, h5 {
         font-family: "Roboto", sans-serif;
         font-weight: 300;
+        color: colors.$warm;
+
     }
-    p, li {
-        font-size: 20px;
+
+    h4 {
+        margin: .5em 0;
     }
+
     section ol {
         margin-left: 0 !important;
         padding-left: 0 !important;
         list-style-position: inside;
-        li {
-            padding-bottom: 1rem;
-        }
+
     }
+
     pre, code {
         font-size: 15px !important;
         font-family: "Roboto Mono";
@@ -139,16 +143,16 @@
         text-decoration: none;
     }
     .toc {
-        list-style-type: decimal;
         background: color.scale(colors.$cool, $lightness: 90%);
         padding: 10px;
-        p {
-            font-size: inherit;
-        }
+        color: colors.$cool;
+        font-size: 15px;
+
         ol {
             margin: 0;
             padding: 0;
             display: inline;
+
             li {
               display: inline;
             }

@@ -1,5 +1,15 @@
 @use 'sass:math';
 
+// A margin used to pad between major layout elements
 $story-margin: 25vw !default;
+
+// A gutter used to provide spacing between elements
 $gutter: math.div($story-margin, 2) !default;
+
+// A general "this is a big viewport" number; below this tend to
+// be mobile devices
 $big-viewport: 800px !default;
+
+// You will probably want to override the size based on your specific
+// font and viewport size, but this gives you a relative baseline
+$font-size-default: 1rem !default;
