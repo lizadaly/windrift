@@ -4,6 +4,21 @@ interface SidebarProps {
     filename: string
 }
 
+const Demos = (): JSX.Element => {
+    return (
+        <>
+            <h4>Menu</h4>
+            <ul>
+                <li>
+                    <Nav text="Trapped in your time machine!" next="timemachine" />
+                </li>
+                <li>
+                    <Nav text="The House of Dust" next="house-of-dust" />
+                </li>
+            </ul>
+        </>
+    )
+}
 const Sidebar = ({ filename }: SidebarProps): JSX.Element => {
     switch (filename) {
         case 'timemachine':
@@ -29,18 +44,42 @@ const Sidebar = ({ filename }: SidebarProps): JSX.Element => {
                         narrative at each time step. Both the text content and the imagery are
                         responsive to the world state.
                     </p>
-                    <h4>Demos</h4>
-                    <ul>
-                        <li>
-                            <Nav text="Trapped in your time machine!" next="timemachine" />
-                        </li>
-                        <li>
-                            <Nav text="A House of Dust" next="house-of-dust" />
-                        </li>
-                    </ul>
+                    <Demos />
                 </aside>
             )
+        case 'house-of-dust':
+            return (
+                <aside>
+                    <h4>The House of Dust</h4>
+                    <p>
+                        Windrift can be used as a generative text engine by virtue of its ability to
+                        render text either in response to user input or, in this case, a simple
+                        interval timer.
+                    </p>
 
+                    <p>
+                        This adaptation of{' '}
+                        <a href="https://www.centerforthehumanities.org/james-gallery/exhibitions/house-of-dust">
+                            Alison Knowles‘ classic 1967 computer-generated poem
+                        </a>{' '}
+                        of the same name generates text on a timer and lays each successive poem out
+                        in a grid. The source code for the original does not exist; this word list
+                        was sourced from adaptations by{' '}
+                        <a href="https://nickm.com/memslam/a_house_of_dust.html">Nick Montfort</a>{' '}
+                        and <a href="http://zachwhalen.net/pg/dust/">Zach Whalen</a> and an original
+                        transcript from the{' '}
+                        <a href="https://zkm.de/en/artwork/house-of-dust">
+                            Center for Art and Media Karlsruhle
+                        </a>
+                        .
+                    </p>
+                    <p>
+                        A different implementation of <em>The House of Dust</em> was included with
+                        Windrift 1.
+                    </p>
+                    <Demos />
+                </aside>
+            )
         default:
             return null
     }

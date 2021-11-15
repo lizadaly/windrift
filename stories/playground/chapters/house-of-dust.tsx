@@ -1,119 +1,145 @@
 import * as React from 'react'
-import { Motion, spring, presets } from '@korbav/react-motion'
-import { useDispatch } from 'react-redux'
 
-import { C, R, Section, Chapter, When } from 'core/components'
-import { Next, PageType } from 'core/types'
-
-import { makeChoice } from 'core/features/choice'
-import useInventory from 'core/hooks/use-inventory'
-import { useEffect } from 'hoist-non-react-statics/node_modules/@types/react'
+import { Chapter } from 'core/components'
+import { PageType } from 'core/types'
 
 import houseofdust from 'public/stories/playground/styles/HouseOfDust.module.scss'
 import transitions from 'public/stories/playground/styles/Stanza.module.scss'
 
-import { CSSTransition, TransitionGroup } from 'react-transition-group'
-import { SectionTransition } from 'core/components/chapter'
+import { CSSTransition } from 'react-transition-group'
 
 const materials = [
-    'A house of leaves',
-    'A house of plastic',
-    'A house of steel',
-    'A house of brick',
-    'A house of sand',
-    'A house of discarded clothing',
-    'A house of weeds',
-    'A house of wood',
-    'A house of roots',
-    'A house of paper',
-    'A house of broken dishes',
-    'A house of mud',
-    'A house of glass',
-    'A house of dust'
+    'brick',
+    'broken dishes',
+    'discarded clothing',
+    'dust',
+    'glass',
+    'leaves',
+    'mud',
+    'paper',
+    'plastic',
+    'plastic',
+    'roots',
+    'sand',
+    'steel',
+    'stone',
+    'straw',
+    'tin',
+    'weeds',
+    'wood'
 ]
 
 const locations = [
-    'on an island',
-    'in a deserted church',
+    'among high mountains',
     'among other houses',
-    'by a river',
-    'in heavy jungle undergrowth',
-    'underwater',
+    'among other houses',
     'among small hills',
-    'in a place with both heavy rain and bright sun',
-    'on the sea',
-    'in a desert',
+    'by a river',
     'in a cold, windy climate',
-    'in southern France',
+    'in a depopulated area',
+    'in a desert',
+    'in a deserted church',
+    'in a green, mossy terrain',
+    'in a hot climate',
+    'in a place with both heavy rain and bright sun',
+    'in an overpopulated area',
+    'in dense woods',
+    'in heavy jungle undergrowth',
     'in Michigan',
-    'in dense woods'
+    'in southern France',
+    'inside a mountain',
+    'on an island',
+    'on the sea',
+    'underwater'
 ]
 
-const lighting = [
-    'using natural light',
-    'using all available lighting',
-    'using electricity',
-    'using candles'
-]
+const lighting = ['natural light', 'candles', 'all available lighting', 'electricity']
 
 const inhabited = [
-    'inhabited by all races of men represented wearing predominantly red clothing',
-    'inhabited by people who sleep almost all the time',
-    'inhabited by fishermen and families',
-    'inhabited by various birds and fish',
-    'inhabited by French- and German-speaking people',
-    'inhabited by lovers',
-    'inhabited by people who sleep very little',
-    'inhabited by collectors of all types',
-    'inhabited by people who enjoy eating together',
-    'inhabited by vegetarians',
-    'inhabited by friends',
-    'inhabited by little girls'
+    'children and old people',
+    'collectors of all types',
+    'fishermen and families',
+    'French- and German-speaking people',
+    'friends and enemies',
+    'friends',
+    'horses and birds',
+    'little boys',
+    'lovers',
+    'people from many walks of life',
+    'people who eat a great deal',
+    'people who sleep almost all the time',
+    'speaking many languages wearing little or no clothing',
+    'various birds and fish',
+    'vegetarians',
+    'women wearing all colors'
 ]
 
 const rand = (items: string[]) => {
     return items[randFromLen(items)]
 }
 
+const palettes = [
+    'palette1',
+    'palette2',
+    'palette3',
+    'palette4',
+    'palette5',
+    'palette6',
+    'palette7',
+    'palette8',
+    'palette9',
+    'palette10',
+    // Favor the light background ones
+    'palette7',
+    'palette7',
+    'palette7',
+    'palette7',
+    'palette7',
+    'palette8',
+    'palette8',
+    'palette8',
+    'palette8',
+    'palette8'
+]
+
 const stanza = () => (
     <>
-        <span>{rand(materials)}</span>
+        <span>A house of {rand(materials)}</span>
         <span>{rand(locations)}</span>
-        <span>{rand(lighting)}</span>
-        <span>{rand(inhabited)}</span>
+        <span>using {rand(lighting)}</span>
+        <span>inhabited by {rand(inhabited)}</span>
     </>
 )
 
 const randFromLen = (items) => Math.floor(Math.random() * items.length)
 
 export const Page: PageType = () => {
+    const startPalette = 'palette7'
+
     const [stanzas, setStanza] = React.useState([
-        <CSSTransition
-            in={true}
-            appear={true}
-            timeout={600}
-            classNames={{ ...transitions }}
-            key={-1}>
-            <p>{stanza()}</p>
-        </CSSTransition>
+        <p className={houseofdust[startPalette]} key={-1}>
+            {stanza()}
+        </p>
     ])
     const [running, setRunning] = React.useState(true)
     const [counter, setCounter] = React.useState(0)
-    console.log(transitions)
+
+    // Never repeat a palette (except deliberately duplicated palettes)
+    const [lastPalette, setLastPalette] = React.useState(startPalette)
+
     React.useEffect(() => {
         const interval = setInterval(() => {
             setCounter(counter + 1)
-
+            let palette = rand(palettes)
+            while (palette === lastPalette) {
+                palette = rand(palettes)
+            }
+            setLastPalette(palette)
             if (running) {
                 setStanza([
-                    <CSSTransition
-                        in={true}
-                        appear={true}
-                        timeout={600}
-                        classNames={{ ...transitions }}
-                        key={counter}>
-                        <p>{stanza()}</p>
-                    </CSSTransition>,
+                    <p key={counter} className={houseofdust[palette]}>
+                        {stanza()}
+                    </p>,
                     ...stanzas
                 ])
             }
@@ -127,9 +153,22 @@ export const Page: PageType = () => {
             <div className={houseofdust.section}>
                 <button onClick={() => setRunning(!running)}>{running ? 'Stop' : 'Start'} </button>
                 <div className={houseofdust.layout}>
-                    {stanzas.map((stanza) => (
-                        <>{stanza}</>
-                    ))}
+                    {stanzas.map((s, index) => {
+                        if (index === 0) {
+                            return (
+                                <CSSTransition
+                                    in={true}
+                                    appear={true}
+                                    timeout={1000}
+                                    classNames={{ ...transitions }}
+                                    key={s.key}>
+                                    {s}
+                                </CSSTransition>
+                            )
+                        } else {
+                            return s
+                        }
+                    })}
                 </div>
             </div>
         </Chapter>
