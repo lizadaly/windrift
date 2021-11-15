@@ -16,3 +16,10 @@
 
     }
 }
+
+.appear {
+    opacity: 0;
+}
+.appearActive {
+    transition: opacity .3 linear;
+}

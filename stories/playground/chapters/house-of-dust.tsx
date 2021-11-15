@@ -10,6 +10,8 @@ import useInventory from 'core/hooks/use-inventory'
 import { useEffect } from 'hoist-non-react-statics/node_modules/@types/react'
 
 import houseofdust from 'public/stories/playground/styles/HouseOfDust.module.scss'
+import transitions from 'public/stories/playground/styles/Stanza.module.scss'
+
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import { SectionTransition } from 'core/components/chapter'
 
@@ -85,20 +87,33 @@ const stanza = () => (
 const randFromLen = (items) => Math.floor(Math.random() * items.length)
 
 export const Page: PageType = () => {
-    const [stanzas, setStanza] = React.useState([<p key="initial">{stanza()}</p>])
+    const [stanzas, setStanza] = React.useState([
+        <CSSTransition
+            in={true}
+            appear={true}
+            timeout={600}
+            classNames={{ ...transitions }}
+            key={-1}>
+            <p>{stanza()}</p>
+        </CSSTransition>
+    ])
     const [running, setRunning] = React.useState(true)
-    const stanzaBlock = React.useRef(null)
-
-    let counter = 0
+    const [counter, setCounter] = React.useState(0)
+    console.log(transitions)
     React.useEffect(() => {
         const interval = setInterval(() => {
-            counter += 1
+            setCounter(counter + 1)
 
             if (running) {
                 setStanza([
-                    <p key={counter} className={houseofdust.added} ref={stanzaBlock}>
-                        {stanza()}
-                    </p>,
+                    <CSSTransition
+                        in={true}
+                        appear={true}
+                        timeout={600}
+                        classNames={{ ...transitions }}
+                        key={counter}>
+                        <p>{stanza()}</p>
+                    </CSSTransition>,
                     ...stanzas
                 ])
             }
@@ -109,14 +124,14 @@ export const Page: PageType = () => {
     })
     return (
         <Chapter filename="house-of-dust">
-            <Section className={houseofdust.section}>
+            <div className={houseofdust.section}>
                 <button onClick={() => setRunning(!running)}>{running ? 'Stop' : 'Start'} </button>
                 <div className={houseofdust.layout}>
                     {stanzas.map((stanza) => (
                         <>{stanza}</>
                     ))}
                 </div>
-            </Section>
+            </div>
         </Chapter>
     )
 }
