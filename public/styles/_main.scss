@@ -4,7 +4,7 @@
 
 .main {
     display: grid;
-    grid-template-columns: [left] minmax(50px, sizing.$story-margin)  minmax(600px, 1fr) [right] minmax(50px, sizing.$story-margin);
+    grid-template-columns: minmax(2vw, sizing.$story-margin) minmax(300px, 1fr) minmax(2vw, sizing.$story-margin);
     background: colors.$very-light;
 
     font-family: fonts.$body;
@@ -34,7 +34,7 @@
         font-size: 1rem;
         p {
             margin: 0 0 1rem 0;
-            line-height: 1.2rem;
+            line-height: 1.2em;
         }
     }
 
@@ -43,13 +43,13 @@
 
         aside, p {
             margin: 0 0 1rem 0;
-            line-height: 1.75rem;
+            line-height: 1.75em;
         }
         aside {
             margin-top: 1rem;
         }
         h1, h2, h3, h4, h5, h6 {
-            line-height: 1.5rem;
+            line-height: 1.2em;
             color: colors.$warm;
         }
         h1, h2 {
@@ -59,9 +59,7 @@
         a {
             color: colors.$cool;
         }
-        ul, ol {
-            margin-left: 2rem;
-        }
+
 
     }
 

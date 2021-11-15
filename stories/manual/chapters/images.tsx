@@ -69,49 +69,24 @@ export const Page: PageType = () => {
                     will allow the browser to lay out your text prior to the image fully loading.
                 </p>
                 <aside>
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <img
-                                        src="../stories/manual/images/example1.jpg"
-                                        alt="Ocean waves and rocks"
-                                        width="200"
-                                        height="200"
-                                    />
-                                </td>
-                                <td>
-                                    <Image
-                                        src="../stories/manual/images/example1.jpg"
-                                        width="200"
-                                        height="200"
-                                        alt="Ocean waves and rocks"
-                                        unoptimized={true}
-                                    />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <SyntaxHighlighter language="tsx" style={prism}>
-                                        {`// Standard HTML <img> (recommended)
+                    <div className={styles.imagebox}>
+                        <img
+                            src="../stories/manual/images/example1.jpg"
+                            alt="Ocean waves and rocks"
+                            width="200"
+                            height="200"
+                        />
+                        <div className={styles.imageexample}>
+                            <SyntaxHighlighter language="tsx" style={prism}>
+                                {`// Standard HTML <img> (recommended)
 <img src="../stories/manual/images/example1.jpg"
     alt="Ocean waves and rocks"
-    width="200" height="200" />
+    width="200"
+    height="200" />
 `}
-                                    </SyntaxHighlighter>
-                                </td>
-                                <td>
-                                    <SyntaxHighlighter language="tsx" style={prism}>
-                                        {`// import Image from 'next/image'
-<Image src="../stories/manual/images/example1.jpg"
-    alt="Ocean waves and rocks"
-    preload={true} unoptimized={true}
-    width="200" height="200" />`}
-                                    </SyntaxHighlighter>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                            </SyntaxHighlighter>
+                        </div>
+                    </div>
                 </aside>
 
                 <aside className={styles.advanced}>
@@ -120,26 +95,13 @@ export const Page: PageType = () => {
                     </h3>
                     <p>
                         Most authors should use the standard HTML <code>img</code>, but NextJS
-                        provides options for serving up multiple image sizes based on browser sizes.
-                        This functionality is complex and requires special hosting considerations.
-                        For the recommended static export process (see{' '}
-                        <Nav text="deployment" next="deployment" />
-                        ), you can only serve one image size, so use the <code>
-                            unoptimized
-                        </code>{' '}
-                        prop here. See the
+                        provides options for serving up multiple image sizes based on browser sizes
+                        and for preloading images. This functionality is complex, hard to style, and
+                        requires special hosting considerations. See the
                         <a href="https://nextjs.org/docs/api-reference/next/image#loader">
                             NextJS
                         </a>{' '}
                         documentation for more details.
-                    </p>
-                    <p>
-                        Normally, NextJS will not invoke the <code>Image</code> loader until the
-                        image is on-screen. For very large, image-intensive stories this might be
-                        desirable. For most interactive fiction, it's best to load all content up
-                        front; this ensures a smooth reading experience. Setting{' '}
-                        <code>preload</code> to true will load the image prior to it becoming
-                        visible in the viewport.
                     </p>
                 </aside>
                 <h3>Using images as choices</h3>
@@ -150,43 +112,23 @@ export const Page: PageType = () => {
                     including the option it represents, as well as the usual image properties.
                 </p>
                 <p>Click on the images to see the choice selection being made:</p>
-                <table>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <C
-                                    tag="image"
-                                    options={[['camera', 'skyscrapers']]}
-                                    widget={ImageChoice}
-                                    extra={{
-                                        src: '../stories/manual/images/camera.jpg',
-                                        alt: 'A black manual camera',
-                                        option: 'camera',
-                                        width: 200,
-                                        height: 200
-                                    }}
-                                    persist={true}
-                                />
-                            </td>
-                            <td>
-                                <C
-                                    tag="image"
-                                    options={[['camera', 'skyscrapers']]}
-                                    widget={ImageChoice}
-                                    extra={{
-                                        src: '../stories/manual/images/skyscrapers.jpg',
-                                        alt: 'City skyscrapers',
-                                        option: 'skyscrapers',
-                                        width: 200,
-                                        height: 200
-                                    }}
-                                    persist={true}
-                                />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <SyntaxHighlighter language="tsx" style={prism}>{`<C tag="image"
+                <aside>
+                    <div className={styles.imagebox}>
+                        <C
+                            tag="image"
+                            options={[['camera', 'skyscrapers']]}
+                            widget={ImageChoice}
+                            extra={{
+                                src: '../stories/manual/images/camera.jpg',
+                                alt: 'A black manual camera',
+                                option: 'camera',
+                                width: 200,
+                                height: 200
+                            }}
+                            persist={true}
+                        />
+                        <div className={styles.imageexample}>
+                            <SyntaxHighlighter language="tsx" style={prism}>{`<C tag="image"
     options={['camera', 'skyscrapers']}
     widget={ImageChoice}
     extra={{
@@ -197,9 +139,22 @@ export const Page: PageType = () => {
         height: 200
     }}
     persist={true} />`}</SyntaxHighlighter>
-                            </td>
-                            <td>
-                                <SyntaxHighlighter language="tsx" style={prism}>{`<C tag="image"
+                        </div>
+                        <C
+                            tag="image"
+                            options={[['camera', 'skyscrapers']]}
+                            widget={ImageChoice}
+                            extra={{
+                                src: '../stories/manual/images/skyscrapers.jpg',
+                                alt: 'City skyscrapers',
+                                option: 'skyscrapers',
+                                width: 200,
+                                height: 200
+                            }}
+                            persist={true}
+                        />
+                        <div className={styles.imageexample}>
+                            <SyntaxHighlighter language="tsx" style={prism}>{`<C tag="image"
     options={['camera', 'skyscrapers']}
     widget={ImageChoice}
     extra={{
@@ -210,11 +165,9 @@ export const Page: PageType = () => {
         height: 200
     }}
     persist={true} />`}</SyntaxHighlighter>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <aside>
+                        </div>
+                    </div>
+                    <h4>Selection:</h4>
                     <em>
                         <When
                             condition={image}
@@ -229,45 +182,23 @@ export const Page: PageType = () => {
                     respects the <code>persist=true</code> prop. If we set it to <code>false</code>{' '}
                     we'll only be able to choose once:
                 </p>
-                <table>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <C
-                                    tag="image-once"
-                                    options={[['camera', 'skyscrapers']]}
-                                    widget={ImageChoice}
-                                    extra={{
-                                        src: '../stories/manual/images/camera.jpg',
-                                        alt: 'A black manual camera',
-                                        option: 'camera',
-                                        width: 200,
-                                        height: 200
-                                    }}
-                                    persist={false}
-                                />
-                            </td>
-                            <td>
-                                <C
-                                    tag="image-once"
-                                    options={[['camera', 'skyscrapers']]}
-                                    widget={ImageChoice}
-                                    extra={{
-                                        src: '../stories/manual/images/skyscrapers.jpg',
-                                        alt: 'City skyscrapers',
-                                        option: 'skyscrapers',
-                                        width: 200,
-                                        height: 200
-                                    }}
-                                    persist={false}
-                                />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <SyntaxHighlighter
-                                    language="tsx"
-                                    style={prism}>{`<C tag="image-once"
+                <aside>
+                    <div className={styles.imagebox}>
+                        <C
+                            tag="image-once"
+                            options={[['camera', 'skyscrapers']]}
+                            widget={ImageChoice}
+                            extra={{
+                                src: '../stories/manual/images/camera.jpg',
+                                alt: 'A black manual camera',
+                                option: 'camera',
+                                width: 200,
+                                height: 200
+                            }}
+                            persist={false}
+                        />
+                        <div className={styles.imageexample}>
+                            <SyntaxHighlighter language="tsx" style={prism}>{`<C tag="image-once"
     options={[['camera', 'skyscrapers']]}
     widget={ImageChoice}
     extra={{
@@ -278,11 +209,22 @@ export const Page: PageType = () => {
         height: 200
     }}
     persist={false} />`}</SyntaxHighlighter>
-                            </td>
-                            <td>
-                                <SyntaxHighlighter
-                                    language="tsx"
-                                    style={prism}>{`<C tag="image-once"
+                        </div>
+                        <C
+                            tag="image-once"
+                            options={[['camera', 'skyscrapers']]}
+                            widget={ImageChoice}
+                            extra={{
+                                src: '../stories/manual/images/skyscrapers.jpg',
+                                alt: 'City skyscrapers',
+                                option: 'skyscrapers',
+                                width: 200,
+                                height: 200
+                            }}
+                            persist={false}
+                        />
+                        <div className={styles.imageexample}>
+                            <SyntaxHighlighter language="tsx" style={prism}>{`<C tag="image-once"
     options={[['camera', 'skyscrapers']]}
     widget={ImageChoice}
     extra={{
@@ -293,11 +235,10 @@ export const Page: PageType = () => {
         height: 200
     }}
     persist={false} />`}</SyntaxHighlighter>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <aside>
+                        </div>
+                    </div>
+                    <h4>Selection:</h4>
+
                     <em>
                         <When
                             condition={imageOnce}

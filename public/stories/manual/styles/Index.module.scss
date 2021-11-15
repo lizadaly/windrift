@@ -4,8 +4,16 @@
    $body: 'EB Garamond',
    $header: 'Elsie'
 );
+
+// Change the default grid to favor a wider main viewport
+@use '/public/styles/sizing' with (
+    $story-margin: 100px
+);
 @use '/public/styles/grid';
 @use '/public/styles/colors';
+
+// Define a reasonable viewport to consdier "big" for media queries
+$big-viewport: 800px;
 
 .header {
 
@@ -18,6 +26,7 @@
  }
 
 .main {
+
     h1, h2, h3, h4, h5 {
         font-family: "Roboto", sans-serif;
         font-weight: 300;
@@ -39,7 +48,8 @@
     }
 
     kbd {
-        font-size: smaller;
+        font-size: 27px;
+        font-family: "Roboto Mono";
     }
     pre + p {
         padding-top: 1rem;
@@ -49,14 +59,19 @@
         padding: 4px;
     }
     aside {
-        border: 1px solid color.scale(colors.$cool, $lightness: 50%);
         color: colors.$cool;
-        padding: 1rem;
+        background: color.scale(colors.$cool, $lightness: 90%);
+        padding: 1rem 5px;
+
+        @media screen and (min-width: $big-viewport) {
+            border: 1px solid color.scale(colors.$cool, $lightness: 50%);
+            padding: 1rem;
+        }
         font-size: 20px;
         &::before {
             content: "Example: ";
             display: block;
-            color: color.scale(colors.$cool, $lightness: 70%);
+            color: color.scale(colors.$cool, $lightness: 50%);
             padding: .25rem;
             text-transform: uppercase;
             margin-bottom: 1rem;
@@ -81,7 +96,6 @@
             }
         }
         &.warning {
-            border-color: colors.$warning;
             color: color.scale(colors.$very-dark, $lightness: 10%);
             &::before {
                 content: "Warning: ";
@@ -150,7 +164,9 @@
     }
     .sample {
 
-        margin: 0 10rem;
+        @media screen and (min-width: $big-viewport) {
+            margin: 0 10rem;
+        }
         font-family: Nunito, serif;
 
         p:first-of-type {
@@ -180,15 +196,40 @@
             padding-top: 2rem !important;
         }
     }
-    table {
+    .imagebox {
 
-        margin: auto;
+        overflow-x: scroll;
+        display: grid;
+        grid-gap: 20px;
+        grid-template-columns: 100%;
+
+        @media screen and (min-width: $big-viewport) {
+            grid-template-columns: 200px 1fr;
+        }
+
+        img, button {
+            justify-self: center;
+            align-self: start;
+            padding: 0;
+            margin: 0 !important;
+            width: 200px;
+            min-height: 200px;
+            display: block;
+        }
+
+
+        .imageexample {
+            align-self: start;
+            height: 100%;
+            background: rgb(38, 50, 56) none repeat scroll 0% 0%;
+            pre {
+                margin: 0 !important;
+            }
+        }
     }
-    td {
-        text-align: center;
-    }
+
     .twoUp {
-        @media screen and (min-width: 800px) {
+        @media screen and (min-width: $big-viewport) {
             display: grid;
             padding: 2rem 0;
             column-gap: 2rem;
@@ -230,5 +271,12 @@
         width: 0;
         margin: 0 12px 0 .25em;
 
+    }
+    img[src$=".svg"] {
+        width: 100%;
+    }
+    img {
+        max-width: 100%;
+        height: auto;
     }
 }
