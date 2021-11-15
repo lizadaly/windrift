@@ -12,12 +12,26 @@
 
    padding: 0;
    // Use a mostly two-column grid
-   grid-template-columns: 0 minmax(800px, 3fr) 1fr;
+   grid-template-columns: 0 100%;
+   grid-template-areas:
+      "left center"
+      "sidebar sidebar";
+
+   @media screen and (min-width: sizing.$big-viewport) {
+      grid-template-columns: 0 minmax(800px, 3fr) minmax(30ch, 1fr);
+      grid-template-areas:
+         "left center sidebar";
+   }
 
    .right {
+      grid-area: sidebar;
       font-family: "Roboto Condensed", sans-serif;
       background: colors.$very-dark;
-      height: 100%;
+      min-height: auto;
+
+      @media screen and (min-width: sizing.$big-viewport) {
+         height: 100%;
+      }
       margin: 0;
       padding: 0 4ch;
       align-self: start;
@@ -51,12 +65,17 @@
          text-transform: uppercase;
 
       }
+      ul {
+         margin: 0;
+         padding: 0;
+      }
       li {
-         margin-bottom: 1em;
+         margin: 0 0 1em 0;
          list-style: none;
       }
    }
    .story {
+      grid-area: center;
       padding: 10vh 50px;
 
       p, button, a {

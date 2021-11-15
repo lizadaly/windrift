@@ -12,8 +12,6 @@
 @use '/public/styles/grid';
 @use '/public/styles/colors';
 
-// Define a reasonable viewport to consdier "big" for media queries
-$big-viewport: 800px;
 
 .header {
 
@@ -63,7 +61,7 @@ $big-viewport: 800px;
         background: color.scale(colors.$cool, $lightness: 90%);
         padding: 1rem 5px;
 
-        @media screen and (min-width: $big-viewport) {
+        @media screen and (min-width: sizing.$big-viewport) {
             border: 1px solid color.scale(colors.$cool, $lightness: 50%);
             padding: 1rem;
         }
@@ -164,7 +162,7 @@ $big-viewport: 800px;
     }
     .sample {
 
-        @media screen and (min-width: $big-viewport) {
+        @media screen and (min-width: sizing.$big-viewport) {
             margin: 0 10rem;
         }
         font-family: Nunito, serif;
@@ -203,7 +201,7 @@ $big-viewport: 800px;
         grid-gap: 20px;
         grid-template-columns: 100%;
 
-        @media screen and (min-width: $big-viewport) {
+        @media screen and (min-width: sizing.$big-viewport) {
             grid-template-columns: 200px 1fr;
         }
 
@@ -229,7 +227,7 @@ $big-viewport: 800px;
     }
 
     .twoUp {
-        @media screen and (min-width: $big-viewport) {
+        @media screen and (min-width: sizing.$big-viewport) {
             display: grid;
             padding: 2rem 0;
             column-gap: 2rem;
