@@ -1,0 +1,18 @@
+
+.section {
+    margin-top: -5vh;
+
+
+    .layout {
+
+        padding-top: 5vh;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px,1fr));
+        grid-gap: 10px;
+        span {
+            line-height: 1.4em;
+            display: block;
+        }
+
+    }
+}

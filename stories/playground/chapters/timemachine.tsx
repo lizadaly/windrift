@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Motion, spring, presets } from '@korbav/react-motion'
 import { useDispatch } from 'react-redux'
 
-import { C, R, Section, Chapter, When, Nav } from 'core/components'
+import { C, R, Section, Chapter, When } from 'core/components'
 import { Next, PageType } from 'core/types'
 
 import { makeChoice } from 'core/features/choice'
@@ -65,7 +65,7 @@ export const Page: PageType = () => {
                                                 tag="era"
                                                 options={{
                                                     '1882': 'an enticing lever.',
-                                                    '1236': "the time machine's lever.",
+                                                    '1236': 'the time machine’s lever.',
                                                     '-2500': 'the worn lever.',
                                                     '2021': 'the wobbling lever.'
                                                 }}

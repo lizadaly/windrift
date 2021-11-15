@@ -1,3 +1,5 @@
+import { Nav } from 'core/components'
+
 interface SidebarProps {
     filename: string
 }
@@ -27,6 +29,15 @@ const Sidebar = ({ filename }: SidebarProps): JSX.Element => {
                         narrative at each time step. Both the text content and the imagery are
                         responsive to the world state.
                     </p>
+                    <h4>Demos</h4>
+                    <ul>
+                        <li>
+                            <Nav text="Trapped in your time machine!" next="timemachine" />
+                        </li>
+                        <li>
+                            <Nav text="A House of Dust" next="house-of-dust" />
+                        </li>
+                    </ul>
                 </aside>
             )
 
