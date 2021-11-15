@@ -78,29 +78,7 @@ const rand = (items: string[]) => {
     return items[randFromLen(items)]
 }
 
-const palettes = [
-    'palette1',
-    'palette2',
-    'palette3',
-    'palette4',
-    'palette5',
-    'palette6',
-    'palette7',
-    'palette8',
-    'palette9',
-    'palette10',
-    // Favor the light background ones
-    'palette7',
-    'palette7',
-    'palette7',
-    'palette7',
-    'palette7',
-    'palette8',
-    'palette8',
-    'palette8',
-    'palette8',
-    'palette8'
-]
+const palettes = ['paletteLight', 'paletteDark']
 
 const stanza = () => (
     <>
@@ -114,7 +92,7 @@ const stanza = () => (
 const randFromLen = (items) => Math.floor(Math.random() * items.length)
 
 export const Page: PageType = () => {
-    const startPalette = 'palette7'
+    const startPalette = 'paletteLight'
 
     const [stanzas, setStanza] = React.useState([
         <p className={houseofdust[startPalette]} key={-1}>

@@ -1,6 +1,7 @@
 @use 'sass:color';
 @use '/public/styles/sizing' with (
-   $story-margin: 25vw
+   $story-margin: 25vw,
+   $font-size-default: 20px
 );
 @use '/public/styles/grid';
 @use '/public/styles/colors';
@@ -28,6 +29,8 @@
       font-family: "Roboto Condensed", sans-serif;
       background: colors.$very-dark;
       min-height: auto;
+      font-size: 15px;
+      line-height: 1.6rem;
 
       @media screen and (min-width: sizing.$big-viewport) {
          height: 100%;
@@ -47,10 +50,8 @@
          text-align: center;
 
       }
-      p {
-         font-size: 15px;
-         line-height: 1.6rem;
-      }
+
+
       button {
          margin: 1rem auto;
          display: block;
@@ -68,9 +69,11 @@
       ul {
          margin: 0;
          padding: 0;
+         line-height: 1.2em;
+
       }
       li {
-         margin: 0 0 1em 0;
+         margin: 0 0 .5em 0;
          list-style: none;
       }
    }
@@ -109,7 +112,4 @@
          }
       }
    }
-
-
-
 }

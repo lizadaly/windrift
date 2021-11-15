@@ -8,7 +8,7 @@
 
     p {
         margin: 0 !important;
-        padding: 1em;
+        padding: .5em;
         font-size: 15px;
         hyphens: auto;
     }
@@ -30,37 +30,14 @@
         }
 
     }
-    .palette1 {
-        color: colors.$warm;
+    .paletteDark {
+        color: colors.$very-light;
+        background: colors.$very-dark;
     }
-    .palette2 {
-        color: colors.$cool;
-    }
-    .palette3 {
-        color: colors.$warning;
-
-    }
-    .palette4 {
-        color: colors.$warning;
-
-    }
-    .palette5 {
-        color: color.scale(colors.$very-dark, $lightness: -50%);
-    }
-    .palette6 {
-        color: color.scale(colors.$cool, $lightness: 50%);
-    }
-    .palette7 {
+    .paletteLight {
+        background: colors.$very-light;
         color: colors.$very-dark;
     }
-    .palette8 {
-        color: colors.$very-dark;
-    }
-    .palette9 {
-        color: colors.$cool;
-    }
-    .palette10 {
-        color: color.scale(colors.$very-dark, $lightness: -50%);
-    }
+
 }
 
