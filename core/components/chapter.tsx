@@ -18,9 +18,9 @@ export interface ChapterType {
 /**
  * Render a chapter containing some number of child nodes, usually Sections.
  * @param filename The filename of this chapter
- * @param sectionWrapper Wrapper for any Section nodes found in the chapter; defaults to
+ * @param sectionWrapper Wrapper for any Section nodes found in the chapter. Can be <></> for no wrapping.
  * @param showOnlyCurrentSection Whether to show all sections up to the current (the default) or to only show the current
- * @returns
+ * @returns the chapter
  */
 const Chapter: React.FC<ChapterType> = ({ children, filename, showOnlyCurrentSection = false }) => {
     const [thisFilename] = React.useState({ filename })
@@ -59,7 +59,7 @@ const Chapter: React.FC<ChapterType> = ({ children, filename, showOnlyCurrentSec
  * @returns
  */
 
-const renderChapterContent = (
+export const renderChapterContent = (
     children: React.ReactNode,
     item: TocItem,
     showOnlyCurrentSection: boolean,

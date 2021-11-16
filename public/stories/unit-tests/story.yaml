@@ -1,0 +1,12 @@
+title: unit-tests
+language: en
+chapters:
+  - filename: "leading-trailing-content"
+    title: "Display content outside of Section nodes"
+  - filename: 'alt-wrapper-tag'
+    title: "Wrap Sections in a different tag than the default"
+  - filename: 'no-wrapper-tag'
+    title: "Wrap Sections in nothing"
+
+players:
+  - start: "leading-trailing-content"
