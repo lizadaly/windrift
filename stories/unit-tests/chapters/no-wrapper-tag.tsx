@@ -5,7 +5,7 @@
 import * as React from 'react'
 
 import { Section } from 'core/components'
-import { ChapterContext, renderChapterContent } from 'core/components/chapter'
+import { ChapterContext, renderChapterContent, useChapterSetup } from 'core/components/chapter'
 import { PageType, RootState } from 'core/types'
 import { useDispatch, useSelector } from 'react-redux'
 import { getChapter } from 'core/util'
@@ -18,14 +18,7 @@ const AltWrapper: React.FC = ({ children }) => {
 const filename = 'no-wrapper-tag'
 
 const AltChapter: React.FC = ({ children }) => {
-    const dispatch = useDispatch()
-    const item = useSelector((state: RootState) =>
-        getChapter(state.navigation.present.toc, filename)
-    )
-    // On first render, record the number of sections and scroll to top
-    React.useEffect(() => {
-        dispatch(setSectionCount({ filename, count: React.Children.count(children) }))
-    }, [dispatch])
+    const item = useChapterSetup(filename, children)
 
     return (
         <ChapterContext.Provider value={{ filename }}>

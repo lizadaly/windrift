@@ -11,6 +11,27 @@ type ContextProps = {
 }
 export const ChapterContext = React.createContext<Partial<ContextProps>>({})
 
+export interface ChapterSetup {
+    item: TocItem
+}
+/**
+ * Initialize a chapter and dispatch initial events.
+ * @return the TocItem for this chapter
+ */
+export const useChapterSetup = (filename: string, children: React.ReactNode): TocItem => {
+    const item = useSelector((state: RootState) =>
+        getChapter(state.navigation.present.toc, filename)
+    )
+
+    const dispatch = useDispatch()
+
+    // On first render, record the number of sections and scroll to top
+    React.useEffect(() => {
+        dispatch(setSectionCount({ filename, count: React.Children.count(children) }))
+        document.querySelector('body').scrollIntoView()
+    }, [dispatch])
+    return item
+}
 export interface ChapterType {
     filename: string
     showOnlyCurrentSection?: boolean
@@ -24,17 +45,8 @@ export interface ChapterType {
  */
 const Chapter: React.FC<ChapterType> = ({ children, filename, showOnlyCurrentSection = false }) => {
     const [thisFilename] = React.useState({ filename })
-    const item = useSelector((state: RootState) =>
-        getChapter(state.navigation.present.toc, filename)
-    )
 
-    const dispatch = useDispatch()
-
-    // On first render, record the number of sections and scroll to top
-    React.useEffect(() => {
-        dispatch(setSectionCount({ filename, count: React.Children.count(children) }))
-        document.querySelector('body').scrollIntoView()
-    }, [dispatch])
+    const item = useChapterSetup(filename, children)
 
     return (
         <ChapterContext.Provider value={thisFilename}>
