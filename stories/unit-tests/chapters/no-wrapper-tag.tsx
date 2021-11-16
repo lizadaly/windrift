@@ -6,10 +6,7 @@ import * as React from 'react'
 
 import { Section } from 'core/components'
 import { ChapterContext, renderChapterContent, useChapterSetup } from 'core/components/chapter'
-import { PageType, RootState } from 'core/types'
-import { useDispatch, useSelector } from 'react-redux'
-import { getChapter } from 'core/util'
-import { setSectionCount } from 'core/features/navigation'
+import { PageType } from 'core/types'
 
 const AltWrapper: React.FC = ({ children }) => {
     return <>{children}</>

@@ -11,39 +11,48 @@ import useInventory from 'core/hooks/use-inventory'
 import { styles } from 'stories/manual'
 
 import { InlineList, InlineListProps } from 'core/components/widgets/inline-list'
+import { ChapterContext, renderChapterContent, useChapterSetup } from 'core/components/chapter'
 
-// maybe something something have the widget render the html?
-const CardWidget: typeof InlineList = ({ group, handler, tag, className }: InlineListProps) => {
-    const hideHandler = () => {}
-    return InlineList({ group, handler, tag, className, separator: ',', conjunction: 'or' })
-}
+const filename = 'game-of-cards'
 
 const Stage: React.FC = ({ children }) => {
     return <div className={cards.stage}>{children}</div>
 }
 const Card: React.FC = ({ children }) => {
-    let clsname = 'in'
+    const clsname = 'in'
 
-    React.useEffect(() => {
-        return () => {
-            console.log('Exiting')
-            window.setTimeout(() => {
-                clsname = 'out'
-            }, 5000)
-        }
-    })
     return <div className={`${cards.card} ${clsname}`}>{children}</div>
 }
 
+interface CardWrapperProps {
+    index: number
+    sections: number
+}
+const CardWrapper: React.FC = ({ children }) => {
+    return <>{children}</>
+}
+
+const CardChapter: React.FC = ({ children }) => {
+    const item = useChapterSetup(filename, children)
+
+    return (
+        <ChapterContext.Provider value={{ filename }}>
+            {renderChapterContent(children, item, false, {
+                component: CardWrapper,
+                props: {}
+            })}
+        </ChapterContext.Provider>
+    )
+}
 export const Page: PageType = () => {
     return (
         <div className={cards.container}>
-            <Chapter filename="game-of-cards" showOnlyCurrentSection={true}>
+            <CardChapter>
                 <Section>
                     <Stage>
                         <Card>
                             <h2>Card 1</h2>
-                            <C options={[['click']]} tag="card1" widget={CardWidget} />
+                            <C options={[['click']]} tag="card1" />
                         </Card>
                         <Motion
                             defaultStyle={{ x: -5000 }}
@@ -72,7 +81,7 @@ export const Page: PageType = () => {
                         </Card>
                     </Stage>
                 </Section>
-            </Chapter>
+            </CardChapter>
         </div>
     )
 }
