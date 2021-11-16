@@ -5,5 +5,7 @@ chapters:
     title: "Trapped in the Time Machine"
   - filename: "house-of-dust"
     title: "The House of Dust"
+  - filename: "game-of-cards"
+    title: "A Game of Cards"
 players:
   - start: "timemachine"

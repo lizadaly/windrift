@@ -1,0 +1,63 @@
+@use 'sass:color';
+
+@use '/public/styles/colors';
+
+$container-height: 400px;
+
+.container {
+    position: relative;
+    height: $container-height;
+    width: 700px;
+    background: colors.$very-dark;
+
+}
+.stage {
+    position: relative;
+    height: $container-height;
+    bottom: 0;
+    width: 80%;
+    margin: auto;
+    left: 0;
+    right: 0;
+    background: color.scale(colors.$very-dark, $lightness: 25%);
+
+
+}
+.card {
+
+    background: colors.$very-light;
+    position: absolute;
+    bottom: 0;
+    height: 200px;
+    width: 80%;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+
+    transition: all 500ms ease-out;
+
+    &.entering {
+
+    }
+    &.exiting {
+        bottom: -200px;
+    }
+}
+
+.object {
+    position: absolute;
+    bottom: 0;
+}
+.tree {
+    background: green;
+    color: white;
+    height: 100px;
+    width: 50px;
+}
+.left {
+    left: 0;
+    transform: translate(-5000px, 0);
+}
+.right {
+    right: 0;
+}
