@@ -4,48 +4,69 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import { setSectionCount } from 'core/features/navigation'
 import { getChapter } from 'core/util'
-import { RootState } from 'core/types'
+import { RootState, TocItem } from 'core/types'
 
 type ContextProps = {
     filename: string
 }
 export const ChapterContext = React.createContext<Partial<ContextProps>>({})
 
-export type ChapterType = {
+export interface ChapterType {
     filename: string
-    useDefaultTransitions?: boolean
     showOnlyCurrentSection?: boolean
 }
 /**
  * Render a chapter containing some number of child nodes, usually Sections.
  * @param filename The filename of this chapter
- * @param wrappingComponent Replace the CSS Transition wrapper with another node, or null to disable
+ * @param sectionWrapper Wrapper for any Section nodes found in the chapter; defaults to
  * @param showOnlyCurrentSection Whether to show all sections up to the current (the default) or to only show the current
  * @returns
  */
-const Chapter: React.FC<ChapterType> = ({
-    children,
-    filename,
-    useDefaultTransitions = true,
-    showOnlyCurrentSection = false
-}) => {
+const Chapter: React.FC<ChapterType> = ({ children, filename, showOnlyCurrentSection = false }) => {
+    const [thisFilename] = React.useState({ filename })
     const item = useSelector((state: RootState) =>
         getChapter(state.navigation.present.toc, filename)
     )
-    const [thisFilename] = React.useState({ filename })
 
     const dispatch = useDispatch()
 
     // On first render, record the number of sections and scroll to top
     React.useEffect(() => {
         dispatch(setSectionCount({ filename, count: React.Children.count(children) }))
-
         document.querySelector('body').scrollIntoView()
     }, [dispatch])
 
+    return (
+        <ChapterContext.Provider value={thisFilename}>
+            <TransitionGroup component={null}>
+                {renderChapterContent(children, item, showOnlyCurrentSection, {
+                    component: CSSTransition,
+                    props: SectionTransition
+                })}
+            </TransitionGroup>
+        </ChapterContext.Provider>
+    )
+}
+
+/**
+ * Return currently-visible chapter content containing any number of child nodes, usually Sections. Sections are checked
+ * for visibility and wrapped in a wrapper node, which could be null (</>).
+ * @param children The child nodes of the chapter
+ * @param item The TOC item represented by this chapter
+ * @param showOnlyCurrentSection Whether to show all sections up to the current (the default) or to only show the current
+ * @param sectionWrapper Wrapper for any Section nodes found in the chapter; defaults to </>
+
+ * @returns
+ */
+
+const renderChapterContent = (
+    children: React.ReactNode,
+    item: TocItem,
+    showOnlyCurrentSection: boolean,
+    sectionWrapper = { component: null, props: {} }
+): React.ReactNode[] => {
     // Display all visible child nodes, only checking Sections for bookmark counts
     let index = -1
-
     const kids = React.Children.map(children, (child) => {
         if (React.isValidElement(child)) {
             const fc = child.type as React.FunctionComponent
@@ -55,27 +76,17 @@ const Chapter: React.FC<ChapterType> = ({
                 const condition = showOnlyCurrentSection
                     ? index === item.bookmark
                     : index <= item.bookmark
+
                 if (condition) {
-                    return useDefaultTransitions ? (
-                        <CSSTransition {...SectionTransition}>{child}</CSSTransition>
-                    ) : (
-                        child
-                    )
+                    const Wrapper = sectionWrapper.component
+                    return <Wrapper {...sectionWrapper.props}>{child}</Wrapper>
                 }
             } else {
                 return <>{child}</>
             }
         }
     })
-    return (
-        <ChapterContext.Provider value={thisFilename}>
-            {useDefaultTransitions ? (
-                <TransitionGroup component={null}>{kids}</TransitionGroup>
-            ) : (
-                kids
-            )}
-        </ChapterContext.Provider>
-    )
+    return kids
 }
 
 // Wraps the "new section" display in a CSS transformation if useDefaultTransitions is enabled

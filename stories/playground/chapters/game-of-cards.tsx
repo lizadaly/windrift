@@ -38,10 +38,7 @@ const Card: React.FC = ({ children }) => {
 export const Page: PageType = () => {
     return (
         <div className={cards.container}>
-            <Chapter
-                filename="game-of-cards"
-                useDefaultTransitions={false}
-                showOnlyCurrentSection={true}>
+            <Chapter filename="game-of-cards" showOnlyCurrentSection={true}>
                 <Section>
                     <Stage>
                         <Card>
