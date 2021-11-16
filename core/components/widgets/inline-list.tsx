@@ -8,7 +8,7 @@ import * as React from 'react'
 import { WidgetProps } from 'core/components/widgets'
 import Link from 'core/components/link'
 
-interface InlineListProps extends WidgetProps {
+export interface InlineListProps extends WidgetProps {
     /** The separator between list items
      * @default ","
      */

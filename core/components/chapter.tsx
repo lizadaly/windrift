@@ -13,9 +13,22 @@ export const ChapterContext = React.createContext<Partial<ContextProps>>({})
 
 export type ChapterType = {
     filename: string
+    useDefaultTransitions?: boolean
+    showOnlyCurrentSection?: boolean
 }
-
-const Chapter: React.FC<ChapterType> = ({ children, filename }) => {
+/**
+ * Render a chapter containing some number of child nodes, usually Sections.
+ * @param filename The filename of this chapter
+ * @param wrappingComponent Replace the CSS Transition wrapper with another node, or null to disable
+ * @param showOnlyCurrentSection Whether to show all sections up to the current (the default) or to only show the current
+ * @returns
+ */
+const Chapter: React.FC<ChapterType> = ({
+    children,
+    filename,
+    useDefaultTransitions = true,
+    showOnlyCurrentSection = false
+}) => {
     const item = useSelector((state: RootState) =>
         getChapter(state.navigation.present.toc, filename)
     )
@@ -30,7 +43,7 @@ const Chapter: React.FC<ChapterType> = ({ children, filename }) => {
         document.querySelector('body').scrollIntoView()
     }, [dispatch])
 
-    // Display all visible child sections, only checking Sections for bookmark counts
+    // Display all visible child nodes, only checking Sections for bookmark counts
     let index = -1
 
     const kids = React.Children.map(children, (child) => {
@@ -39,23 +52,33 @@ const Chapter: React.FC<ChapterType> = ({ children, filename }) => {
 
             if (fc.displayName === 'Section') {
                 index += 1
-                if (index <= item.bookmark) {
-                    return <CSSTransition {...SectionTransition}>{child}</CSSTransition>
+                const condition = showOnlyCurrentSection
+                    ? index === item.bookmark
+                    : index <= item.bookmark
+                if (condition) {
+                    return useDefaultTransitions ? (
+                        <CSSTransition {...SectionTransition}>{child}</CSSTransition>
+                    ) : (
+                        child
+                    )
                 }
             } else {
                 return <>{child}</>
             }
         }
     })
-
     return (
         <ChapterContext.Provider value={thisFilename}>
-            <TransitionGroup component={null}>{kids}</TransitionGroup>
+            {useDefaultTransitions ? (
+                <TransitionGroup component={null}>{kids}</TransitionGroup>
+            ) : (
+                kids
+            )}
         </ChapterContext.Provider>
     )
 }
 
-// Wraps the "new section" display in a CSS transformation
+// Wraps the "new section" display in a CSS transformation if useDefaultTransitions is enabled
 const SectionTransition = {
     classNames: 'windrift--section',
     timeout: {
