@@ -49,14 +49,16 @@ $container-height: 400px;
     bottom: 0;
 }
 .tree {
-    background: green;
+    background-image:url('/stories/playground/images/tree.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: bottom;
     color: white;
-    height: 100px;
-    width: 50px;
+    height: 400px;
+    width: 200px;
 }
 .left {
     left: 0;
-    transform: translate(-5000px, 0);
 }
 .right {
     right: 0;

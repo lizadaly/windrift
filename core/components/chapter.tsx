@@ -18,7 +18,7 @@ export interface ChapterSetup {
  * Initialize a chapter and dispatch initial events.
  * @return the TocItem for this chapter
  */
-export const useChapterSetup = (filename: string, children: React.ReactNode): TocItem => {
+export const useChapterSetup = (filename: string, count: number): TocItem => {
     const item = useSelector((state: RootState) =>
         getChapter(state.navigation.present.toc, filename)
     )
@@ -27,7 +27,7 @@ export const useChapterSetup = (filename: string, children: React.ReactNode): To
 
     // On first render, record the number of sections and scroll to top
     React.useEffect(() => {
-        dispatch(setSectionCount({ filename, count: React.Children.count(children) }))
+        dispatch(setSectionCount({ filename, count }))
         document.querySelector('body').scrollIntoView()
     }, [dispatch])
     return item
@@ -46,7 +46,7 @@ export interface ChapterType {
 const Chapter: React.FC<ChapterType> = ({ children, filename, showOnlyCurrentSection = false }) => {
     const [thisFilename] = React.useState({ filename })
 
-    const item = useChapterSetup(filename, children)
+    const item = useChapterSetup(filename, React.Children.count(children))
 
     return (
         <ChapterContext.Provider value={thisFilename}>
