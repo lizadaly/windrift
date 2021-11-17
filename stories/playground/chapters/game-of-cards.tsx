@@ -13,12 +13,6 @@ import useChapter from 'core/hooks/use-chapter'
 const filename = 'game-of-cards'
 const scenes = 999
 
-const Card: React.FC = ({ children }) => {
-    const { show } = React.useContext(SceneContext)
-
-    return show && <div className={cards.card}>{children}</div>
-}
-
 const Stage: React.FC = ({ children }) => {
     return <div className={cards.stage}>{children}</div>
 }
@@ -57,6 +51,31 @@ const Scenery = ({ items, sceneConfig = config.stiff }: SceneryProps): JSX.Eleme
         </Transition>
     )
 }
+interface CardProps {
+    className?: string
+}
+const Card: React.FC<CardProps> = ({ children, className = '' }) => {
+    const { show } = React.useContext(SceneContext)
+    return (
+        <Transition
+            items={show}
+            from={{ translateY: `200px` }}
+            enter={{
+                translateY: '0px'
+            }}
+            leave={{ translateY: `200px` }}
+            delay={200}>
+            {(styles, item) =>
+                item && (
+                    <animated.div style={styles} className={`${cards.card} ${className}`}>
+                        {children}
+                    </animated.div>
+                )
+            }
+        </Transition>
+    )
+}
+
 export const SceneContext = React.createContext<Partial<SceneContextProps>>({})
 interface SceneProps {
     turn: number
@@ -78,7 +97,7 @@ export const Page: PageType = () => {
             <ChapterContext.Provider value={{ filename }}>
                 <Stage>
                     <Scene turn={0}>
-                        <Card>
+                        <Card className={cards.card1}>
                             <h2>Card 1</h2>
                             <C options={[['Go to next scene']]} tag="scene1" persist={true} />
                         </Card>
@@ -91,7 +110,7 @@ export const Page: PageType = () => {
                     </Scene>
 
                     <Scene turn={1}>
-                        <Card>
+                        <Card className={cards.card2}>
                             <h2>Card 2</h2>
                             <p>Has some other text.</p>
                             <C options={[['click']]} tag="card2" />

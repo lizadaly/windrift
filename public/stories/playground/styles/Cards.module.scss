@@ -33,11 +33,13 @@ $container-height: 400px;
     margin: 0 auto;
     left: 0;
     right: 0;
+    text-align: center;
 }
 
 .object {
     position: absolute;
-    bottom: 0;
+    bottom: 0px;
+    z-index: 99;
 }
 .tree {
     background-image:url('/stories/playground/images/tree.svg');
@@ -47,11 +49,20 @@ $container-height: 400px;
     color: white;
     height: 400px;
     width: 200px;
+    bottom: -10px;
 }
 .left {
-    left: 0;
+    left: -40px;
+
 }
 .right {
-    right: 0;
+    right: -20px;
 
+}
+.card1 {
+    background: color.scale(colors.$very-light, $lightness: -25%);
+    z-index: 2;
+}
+.card2 {
+    z-index: 1;
 }
