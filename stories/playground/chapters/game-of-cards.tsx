@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { Transition, useSpring, animated, SpringConfig, config } from '@react-spring/web'
+import { Transition, useTransition, animated, SpringConfig, config, to } from '@react-spring/web'
 
 import { C } from 'core/components'
 import { PageType } from 'core/types'
@@ -56,23 +56,22 @@ interface CardProps {
 }
 const Card: React.FC<CardProps> = ({ children, className = '' }) => {
     const { show } = React.useContext(SceneContext)
-    return (
-        <Transition
-            items={show}
-            from={{ translateY: `200px` }}
-            enter={{
-                translateY: '0px'
-            }}
-            leave={{ translateY: `200px` }}
-            delay={200}>
-            {(styles, item) =>
-                item && (
-                    <animated.div style={styles} className={`${cards.card} ${className}`}>
-                        {children}
-                    </animated.div>
-                )
-            }
-        </Transition>
+    const transitions = useTransition(show, {
+        from: { xyz: [0, 200, -100] },
+        enter: { xyz: [0, 0, 0] },
+        leave: { xyz: [0, 200, 0] }
+    })
+    return transitions(
+        (styles, item) =>
+            item && (
+                <animated.div
+                    style={{
+                        transform: styles.xyz.to((x, y, z) => `translate3d(${x}px, ${y}px, ${z}px)`)
+                    }}
+                    className={`${cards.card} ${className}`}>
+                    {children}
+                </animated.div>
+            )
     )
 }
 

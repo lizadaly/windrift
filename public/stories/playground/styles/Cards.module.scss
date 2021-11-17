@@ -21,10 +21,9 @@ $container-height: 400px;
     right: 0;
     background: color.scale(colors.$very-dark, $lightness: 25%);
     overflow: hidden;
-
+    perspective: 100px;
 }
 .card {
-
     background: colors.$very-light;
     position: absolute;
     bottom: 0;
@@ -62,6 +61,7 @@ $container-height: 400px;
 .card1 {
     background: color.scale(colors.$very-light, $lightness: -25%);
     z-index: 2;
+
 }
 .card2 {
     z-index: 1;
