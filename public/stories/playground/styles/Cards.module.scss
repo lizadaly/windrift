@@ -20,7 +20,7 @@ $container-height: 400px;
     left: 0;
     right: 0;
     background: color.scale(colors.$very-dark, $lightness: 25%);
-
+    overflow: hidden;
 
 }
 .card {
@@ -33,15 +33,6 @@ $container-height: 400px;
     margin: 0 auto;
     left: 0;
     right: 0;
-
-    transition: all 500ms ease-out;
-
-    &.entering {
-
-    }
-    &.exiting {
-        bottom: -200px;
-    }
 }
 
 .object {
@@ -62,4 +53,5 @@ $container-height: 400px;
 }
 .right {
     right: 0;
+
 }

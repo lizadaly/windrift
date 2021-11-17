@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { Transition, useSpring, animated, to } from '@react-spring/web'
+import { Transition, useSpring, animated, SpringConfig, config } from '@react-spring/web'
 
 import { C } from 'core/components'
 import { PageType } from 'core/types'
@@ -32,8 +32,9 @@ interface Item {
 }
 interface SceneryProps {
     items: Item[]
+    sceneConfig?: SpringConfig
 }
-const Scenery = ({ items }: SceneryProps): JSX.Element => {
+const Scenery = ({ items, sceneConfig = config.stiff }: SceneryProps): JSX.Element => {
     const { show } = React.useContext(SceneContext)
     const showables = show ? items : []
     return (
@@ -44,7 +45,8 @@ const Scenery = ({ items }: SceneryProps): JSX.Element => {
                 translateX: '0px'
             }}
             leave={(item) => [{ translateX: `${item.x}px` }]}
-            delay={200}>
+            delay={200}
+            config={sceneConfig}>
             {(styles, item) =>
                 item && (
                     <animated.div
@@ -82,8 +84,8 @@ export const Page: PageType = () => {
                         </Card>
                         <Scenery
                             items={[
-                                { cls: ['left', 'tree', 'object'], x: -2000, y: 0 },
-                                { cls: ['right', 'tree', 'object'], x: 2000, y: 0 }
+                                { cls: ['left', 'tree', 'object'], x: -200, y: 0 },
+                                { cls: ['right', 'tree', 'object'], x: 500, y: 0 }
                             ]}
                         />
                     </Scene>
