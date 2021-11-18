@@ -23,6 +23,15 @@ $container-height: 400px;
     overflow: hidden;
     perspective: 100px;
 }
+.scene {
+
+
+    &.beach {
+        background: lightblue;
+        width: 100%;
+        height: 100%;
+    }
+}
 .card {
     background: colors.$very-light;
     position: absolute;
@@ -33,23 +42,37 @@ $container-height: 400px;
     left: 0;
     right: 0;
     text-align: center;
+    border: 2px solid colors.$very-dark;
 }
 
 .object {
     position: absolute;
     bottom: 0px;
     z-index: 99;
-}
-.tree {
-    background-image:url('/stories/playground/images/tree.svg');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: bottom;
-    color: white;
     height: 400px;
+}
+.palm1 {
+    background-image: url('/stories/playground/images/palm-tree.png');
+
+    color: white;
     width: 200px;
     bottom: -10px;
 }
+.crab1 {
+    background-image: url('/stories/playground/images/hermit-crab1.png');
+    width: 100px;
+    bottom: -10px;
+    left: 130px;
+}
+.sand {
+    background-color: tan;
+    height: 50px;
+    width: 100%;
+}
+
 .left {
     left: -40px;
 
@@ -58,8 +81,8 @@ $container-height: 400px;
     right: -20px;
 
 }
+
 .card1 {
-    background: color.scale(colors.$very-light, $lightness: -25%);
     z-index: 2;
 
 }
