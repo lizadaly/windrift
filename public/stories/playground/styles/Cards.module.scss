@@ -2,12 +2,13 @@
 
 @use '/public/styles/colors';
 
-$container-height: 400px;
+$container-height: 500px;
+$container-width: 700px;
 
 .container {
     position: relative;
     height: $container-height;
-    width: 700px;
+    width: $container-width;
     background: colors.$very-dark;
 
 }
@@ -15,7 +16,7 @@ $container-height: 400px;
     position: relative;
     height: $container-height;
     bottom: 0;
-    width: 80%;
+    width: 100%;
     margin: auto;
     left: 0;
     right: 0;
@@ -24,8 +25,6 @@ $container-height: 400px;
     perspective: 100px;
 }
 .scene {
-
-
     &.beach {
         background: lightblue;
         width: 100%;
@@ -36,7 +35,7 @@ $container-height: 400px;
     background: colors.$very-light;
     position: absolute;
     bottom: 0;
-    height: 200px;
+    height: $container-height / 1.5;
     width: 80%;
     margin: 0 auto;
     left: 0;
@@ -52,24 +51,47 @@ $container-height: 400px;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: bottom;
-    height: 400px;
+    height: 100%;
 }
-.palm1 {
+.palm1, .palm2 {
     background-image: url('/stories/playground/images/palm-tree.png');
-
-    color: white;
     width: 200px;
-    bottom: -10px;
+    bottom: $container-height / 8;
 }
 .crab1 {
     background-image: url('/stories/playground/images/hermit-crab1.png');
     width: 100px;
-    bottom: -10px;
-    left: 130px;
+    bottom: $container-height / 12;
+    left: 10%;
+}
+.crab2 {
+    background-image: url('/stories/playground/images/hermit-crab2.png');
+    width: 100px;
+    bottom: $container-height / 30;
+    left: 30%;
+}
+.gull {
+    background-image: url('/stories/playground/images/gull.png');
+    width: 100px;
+    bottom: $container-height - ($container-height / 5);
+    right: $container-width / 5;
+}
+.lighthouse {
+    background-image: url('/stories/playground/images/lighthouse.png');
+    width: 50px;
+    bottom: $container-height / 3.5;
+    right: 10px;
+}
+.sea {
+    background-color: darkblue;
+    width: 100%;
+    height: $container-height * 2;
+    z-index: 5;
+    top: $container-height / 1.5;
 }
 .sand {
     background-color: tan;
-    height: 50px;
+    height: $container-height / 5;
     width: 100%;
 }
 
@@ -83,7 +105,7 @@ $container-height: 400px;
 }
 
 .card1 {
-    z-index: 2;
+    z-index: 10;
 
 }
 .card2 {

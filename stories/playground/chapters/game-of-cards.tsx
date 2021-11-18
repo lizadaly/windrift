@@ -28,8 +28,13 @@ interface Item {
 interface SceneryProps {
     items: Item[]
     sceneConfig?: SpringConfig
+    className?: string // Class applied to all objects in the scene
 }
-const Scenery = ({ items, sceneConfig = config.stiff }: SceneryProps): JSX.Element => {
+const Scenery = ({
+    items,
+    sceneConfig = config.stiff,
+    className = ''
+}: SceneryProps): JSX.Element => {
     const { show } = React.useContext(SceneContext)
     const showables = show ? items : []
     const transitions = useTransition(showables, {
@@ -46,7 +51,9 @@ const Scenery = ({ items, sceneConfig = config.stiff }: SceneryProps): JSX.Eleme
                     style={{
                         transform: to([x, y, z], (x, y, z) => `translate3d(${x}px, ${y}px, ${z}px)`)
                     }}
-                    className={item.cls.map((c) => `${cards[c]}`).join(' ')}></animated.div>
+                    className={item.cls
+                        .map((c) => `${className} ${cards[c]}`)
+                        .join(' ')}></animated.div>
             )
     )
 }
@@ -96,6 +103,24 @@ export const Page: PageType = () => {
             <ChapterContext.Provider value={{ filename }}>
                 <Stage>
                     <Scene turn={0} className={cards.beach}>
+                        {/* Sea */}
+                        <Scenery
+                            sceneConfig={config.stiff}
+                            className={cards.object}
+                            items={[
+                                { cls: ['sea'], x: 0, y: -100, z: 0 },
+                                { cls: ['lighthouse'], x: 200, y: 0, z: 0 }
+                            ]}
+                        />{' '}
+                        {/* Sea */}
+                        <Scenery
+                            sceneConfig={config.stiff}
+                            className={cards.object}
+                            items={[
+                                { cls: ['sea'], x: 0, y: -100, z: 0 },
+                                { cls: ['lighthouse'], x: 200, y: 0, z: 0 }
+                            ]}
+                        />
                         <Card className={cards.card1}>
                             <h2>Talk to the animals!</h2>
                             <p>
@@ -104,16 +129,24 @@ export const Page: PageType = () => {
                             </p>
                             {/* <C options={[['Go to next scene']]} tag="scene1" persist={true} /> */}
                         </Card>
+                        {/* Beach items */}
                         <Scenery
+                            className={cards.object}
                             items={[
-                                { cls: ['sand', 'bottom', 'object'], x: 0, y: 100, z: 0 },
-                                { cls: ['palm1', 'left', 'object'], x: -200, y: 0, z: 0 },
-                                { cls: ['palm1', 'right', 'object'], x: 500, y: 0, z: 0 }
+                                { cls: ['sand'], x: 0, y: 100, z: 0 },
+                                { cls: ['palm1', 'left'], x: -200, y: 0, z: 0 },
+                                { cls: ['palm2', 'right'], x: 500, y: 0, z: 0 }
                             ]}
                         />
+                        {/* Foreground */}
                         <Scenery
+                            className={cards.object}
                             sceneConfig={config.molasses}
-                            items={[{ cls: ['crab1', 'object'], x: -900, y: 0, z: 0 }]}
+                            items={[
+                                { cls: ['crab1'], x: -200, y: 0, z: 0 },
+                                { cls: ['crab2'], x: -1000, y: 0, z: 0 },
+                                { cls: ['gull'], x: 0, y: -100, z: 0 }
+                            ]}
                         />
                     </Scene>
 

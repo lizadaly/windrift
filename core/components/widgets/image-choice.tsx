@@ -1,4 +1,20 @@
-// An image as a choice selection
+/**
+ *  An image as a choice selection
+* @example
+<C
+                            tag="image"
+                            options={[['camera', 'skyscrapers']]}
+                            widget={ImageChoice}
+                            extra={{
+                                src: '../stories/manual/images/camera.jpg',
+                                alt: 'A black manual camera',
+                                option: 'camera',
+                                width: 200,
+                                height: 200
+                            }}
+                            persist={true}
+                        />
+ *  */
 import { Option } from 'core/types'
 import { WidgetProps } from '.'
 
