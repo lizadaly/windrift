@@ -42,6 +42,9 @@ $container-width: 700px;
     right: 0;
     text-align: center;
     border: 2px solid colors.$very-dark;
+    & > p {
+        margin: 1em 4em !important;
+    }
 }
 
 .object {
@@ -52,26 +55,34 @@ $container-width: 700px;
     background-repeat: no-repeat;
     background-position: bottom;
     height: 100%;
+    button {
+        margin: 0 !important;
+        padding: 0 !important;
+        img {
+            max-width: 100%;
+        }
+    }
+    &.chooseable {
+        height: auto;
+    }
 }
 .palm1, .palm2 {
     background-image: url('/stories/playground/images/palm-tree.png');
     width: 200px;
+
     bottom: $container-height / 8;
 }
 .crab1 {
-    background-image: url('/stories/playground/images/hermit-crab1.png');
     width: 100px;
     bottom: $container-height / 12;
     left: 10%;
 }
 .crab2 {
-    background-image: url('/stories/playground/images/hermit-crab2.png');
     width: 100px;
     bottom: $container-height / 30;
     left: 30%;
 }
 .gull {
-    background-image: url('/stories/playground/images/gull.png');
     width: 100px;
     bottom: $container-height - ($container-height / 5);
     right: $container-width / 5;
@@ -110,4 +121,14 @@ $container-width: 700px;
 }
 .card2 {
     z-index: 1;
+}
+.responses {
+    font-size: 15px;
+    display: grid;
+    margin: 0 2em;
+    grid-template-columns: 1fr 1fr 1fr;
+    p {
+        line-height: 16px !important;
+        text-align: left;
+    }
 }
