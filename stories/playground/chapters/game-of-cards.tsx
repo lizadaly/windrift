@@ -233,12 +233,79 @@ export const Page: PageType = () => {
                         />
                     </Scene>
 
-                    <Scene turn={1} className={cards.ocean}>
+                    <Scene turn={1} className={cards.underwater}>
+                        <Scenery
+                            sceneConfig={config.gentle}
+                            className={cards.object}
+                            items={[
+                                { cls: ['ocean'], x: 0, y: 1000, z: 0 },
+                                { cls: ['sand'], x: 0, y: 100, z: 0 }
+                            ]}
+                        />
                         <Card className={cards.card2}>
-                            <h2>Card 2</h2>
                             <p>Has some other text.</p>
                             <C options={[['click']]} tag="card2" />
                         </Card>
+                        <Scenery
+                            sceneConfig={config.slow}
+                            className={cards.object}
+                            items={[
+                                { cls: ['shell1'], x: -1000, y: 0, z: 0 },
+                                { cls: ['shell2'], x: 2000, y: 0, z: 0 }
+                            ]}
+                        />
+                        <Scenery
+                            sceneConfig={config.molasses}
+                            className={cards.object}
+                            items={[
+                                {
+                                    cls: ['hammerhead'],
+                                    c: {
+                                        alt: 'A hammerhead shark',
+                                        tag: 'hammerhead'
+                                    },
+                                    x: -3000,
+                                    y: 0,
+                                    z: 0
+                                },
+                                {
+                                    cls: ['crab1'],
+                                    c: {
+                                        alt: 'A hermit crab',
+                                        tag: 'crab1'
+                                    },
+                                    x: -200,
+                                    y: 0,
+                                    z: 0
+                                }
+                            ]}
+                        />
+                        <Scenery
+                            sceneConfig={{ tension: 180, friction: 6 }}
+                            className={cards.object}
+                            items={[
+                                {
+                                    cls: ['squid'],
+                                    c: {
+                                        alt: 'A squid',
+                                        tag: 'squid'
+                                    },
+                                    x: 0,
+                                    y: -300,
+                                    z: 0
+                                },
+                                {
+                                    cls: ['seahorse'],
+                                    c: {
+                                        alt: 'A seahorse',
+                                        tag: 'seahorse'
+                                    },
+                                    x: 0,
+                                    y: -500,
+                                    z: 0
+                                }
+                            ]}
+                        />
                     </Scene>
                 </Stage>
             </ChapterContext.Provider>
