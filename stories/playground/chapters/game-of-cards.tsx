@@ -243,8 +243,45 @@ export const Page: PageType = () => {
                             ]}
                         />
                         <Card className={cards.card2}>
-                            <p>Has some other text.</p>
-                            <C options={[['click']]} tag="card2" />
+                            <p>
+                                Now you’re deep under the sea.
+                                <br /> It sure is crowded here.
+                            </p>
+                            <div className={cards.responses}>
+                                <div>
+                                    <R
+                                        tag="crab1"
+                                        options={{
+                                            '*': <p>"Did you miss me?" asks the hermit crab.</p>
+                                        }}
+                                    />
+                                </div>
+                                <div>
+                                    <R
+                                        tag="squid"
+                                        options={{
+                                            '*': <p>"SQUID GOES GLUG-GLUG."</p>
+                                        }}
+                                    />
+                                </div>
+                                <div>
+                                    <R
+                                        tag="seahorse"
+                                        options={{
+                                            '*': <p>"Howdy," bobs the seahorse.</p>
+                                        }}
+                                    />
+                                </div>
+
+                                <div>
+                                    <R
+                                        tag="hammerhead"
+                                        options={{
+                                            '*': <p>"I'm shy," admits the hammerhead.</p>
+                                        }}
+                                    />
+                                </div>
+                            </div>
                         </Card>
                         <Scenery
                             sceneConfig={config.slow}

@@ -60,15 +60,22 @@ $sky-color: rgb(171, 219, 249);
         }
     }
     &.card2 {
-        z-index: 5;
+        z-index: 6;
         height: 100%;
         background-image:  url('/stories/playground/images/branch-holding-card.png');
         background-size: contain;
         background-repeat: no-repeat;
         background-position: bottom;
+        width: 450px;
         & > p {
-            margin: 20% 4em 0 4em !important;
+            width: 380px;
+            margin: $container-height * .25 0 1em 65px;
         }
+        .responses {
+            margin: 0 5px 0 80px;
+            grid-template-columns: 1fr 1fr;
+        }
+
         & > * {
             transform: rotate(-3deg);
         }
@@ -159,8 +166,8 @@ $sky-color: rgb(171, 219, 249);
     .hammerhead {
         width: 500px;
         bottom:  $container-height - ($container-height / 1.5);
-        right: $container-width / 1.5;
-
+        left: $container-width - ($container-width * .75);
+        z-index: 5;
     }
     .shell1 {
         width: $container-width * .25;
