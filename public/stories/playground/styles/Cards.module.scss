@@ -81,6 +81,7 @@ $sky-color: rgb(171, 219, 249);
         }
         & > span {
             display: inline-block;
+            margin-left: 3em;
         }
 
     }
@@ -115,7 +116,18 @@ $sky-color: rgb(171, 219, 249);
     .crab2 {
         width: 100px;
         bottom: $container-height / 30;
-        left: 30%;
+        left: 20%;
+
+        .rest {
+            animation: drift-right 350s linear 1;
+            &:hover {
+                border: 1px solid white;
+            }
+            img {
+                animation: wiggle 1s linear infinite;
+            }
+
+        }
     }
 
     .gull {
@@ -142,7 +154,13 @@ $sky-color: rgb(171, 219, 249);
 .crab1 {
     width: 100px;
     bottom: $container-height / 12;
-    left: 10%;
+    left: 5%;
+    .rest {
+        animation: drift-right 200s linear 1;
+        img {
+            animation: wiggle .75s linear infinite;
+        }
+    }
 }
 /* Scene 2 */
 .underwater {
@@ -157,17 +175,30 @@ $sky-color: rgb(171, 219, 249);
     .squid {
         width: 150px;
         bottom: $container-height - ($container-height / 2);
+        .rest {
+            img {
+                animation: bob 3s ease-in-out infinite;
+            }
+        }
     }
     .seahorse {
         width: 100px;
         bottom: $container-height - ($container-height / 3);
         right: $container-width / 10;
+        .rest {
+            img {
+                animation: bob 2s ease-in-out infinite;
+            }
+        }
     }
     .hammerhead {
-        width: 500px;
+        width: $container-width;
         bottom:  $container-height - ($container-height / 1.5);
-        left: $container-width - ($container-width * .75);
+        left: -$container-width;
         z-index: 5;
+        .rest {
+            animation: drift-right 300s linear 1;
+        }
     }
     .shell1 {
         width: $container-width * .25;
@@ -209,5 +240,53 @@ $sky-color: rgb(171, 219, 249);
     p {
         line-height: 16px !important;
         text-align: left;
+    }
+}
+@keyframes wiggle {
+    from {
+        transform: rotate(0deg);
+
+    }
+    25% {
+        transform: rotate(-2deg);
+
+    }
+    75% {
+        transform: rotate(2deg);
+
+    }
+    to {
+        transform: rotate(0);
+
+    }
+}
+@keyframes bob {
+    from {
+        transform: translate3d(0, 0, 0);
+
+    }
+    50% {
+        transform: translate3d(0, 2%, 0);
+
+    }
+    to {
+        transform: translate3d(0, 0, 0);
+
+    }
+}
+@keyframes drift-right {
+    from {
+        transform: translate3d(0px, 0px, 0px);
+    }
+    to {
+        transform: translate3d(1000px, 0px, 0px);
+    }
+}
+@keyframes drift-left {
+    from {
+        transform: translate3d(0px, 0px, 0px);
+    }
+    to {
+        transform: translate3d(-1000px, 0px, 0px);
     }
 }

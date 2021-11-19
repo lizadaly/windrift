@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { Transition, useTransition, animated, SpringConfig, config, to } from '@react-spring/web'
+import { useSpringRef, useTransition, animated, SpringConfig, config, to } from '@react-spring/web'
 
 import { C, R, When } from 'core/components'
 import { Next, Option, PageType, Tag } from 'core/types'
@@ -25,6 +25,7 @@ type SceneContextProps = {
 interface Chooseable {
     tag: Tag
     alt: string
+    fn?: string
 }
 interface Item {
     cls: string[]
@@ -44,13 +45,16 @@ const Scenery = ({
     className = ''
 }: SceneryProps): JSX.Element => {
     const { show } = React.useContext(SceneContext)
+    const [done, setDone] = React.useState(false)
+
     const showables = show ? items : []
     const transitions = useTransition(showables, {
         from: ({ x, y, z }) => ({ x, y, z }),
         enter: { x: 0, y: 0, z: 0 },
         leave: ({ x, y, z }) => ({ x, y, z }),
         delay: 200,
-        config: sceneConfig
+        config: sceneConfig,
+        onRest: () => setDone(true)
     })
     return transitions(
         ({ x, y, z }: Item, item) =>
@@ -68,12 +72,13 @@ const Scenery = ({
                             options={[[item.c.tag as Option]]}
                             widget={ImageChoice}
                             extra={{
-                                src: `/stories/playground/images/${item.c.tag}.png`,
+                                src: `/stories/playground/images/${item.c.fn || item.c.tag}.png`,
                                 alt: item.c.alt,
                                 option: item.c.tag as Option
                             }}
-                            persist={true}
+                            persist={false}
                             next={Next.None}
+                            className={done ? cards.rest : ''} // Apply a 'rest' class, if it is defined, on animation completion
                         />
                     )}
                 </animated.div>
@@ -207,7 +212,8 @@ export const Page: PageType = () => {
                                     cls: ['crab2'],
                                     c: {
                                         alt: 'A hermit crab',
-                                        tag: 'crab2'
+                                        tag: 'crab2',
+                                        rest: true
                                     },
                                     x: -1000,
                                     y: 0,
@@ -250,7 +256,7 @@ export const Page: PageType = () => {
                             <div className={cards.responses}>
                                 <div>
                                     <R
-                                        tag="crab1"
+                                        tag="crab1b"
                                         options={{
                                             '*': <p>"Did you miss me?" asks the hermit crab.</p>
                                         }}
@@ -282,6 +288,18 @@ export const Page: PageType = () => {
                                     />
                                 </div>
                             </div>
+                            <MultiResponse
+                                tags={['crab1b', 'hammerhead', 'seahorse', 'squid']}
+                                options={{
+                                    '*': (
+                                        <C
+                                            options={[['Time to rise and shine!']]}
+                                            tag="scene2"
+                                            persist={true}
+                                        />
+                                    )
+                                }}
+                            />
                         </Card>
                         <Scenery
                             sceneConfig={config.slow}
@@ -309,7 +327,8 @@ export const Page: PageType = () => {
                                     cls: ['crab1'],
                                     c: {
                                         alt: 'A hermit crab',
-                                        tag: 'crab1'
+                                        tag: 'crab1b',
+                                        fn: 'crab1'
                                     },
                                     x: -200,
                                     y: 0,
