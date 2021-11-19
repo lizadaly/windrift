@@ -95,6 +95,7 @@ $sky-color: rgb(171, 219, 249);
     background-repeat: no-repeat;
     background-position: bottom;
     height: 100%;
+    pointer-events: none;
     button {
         margin: 0 !important;
         padding: 0 !important;
@@ -119,10 +120,8 @@ $sky-color: rgb(171, 219, 249);
         left: 20%;
 
         .rest {
-            animation: drift-right 350s linear 1;
-            &:hover {
-                border: 1px solid white;
-            }
+            animation: drift-right 350s linear infinite alternate;
+
             img {
                 animation: wiggle 1s linear infinite;
             }
@@ -131,15 +130,22 @@ $sky-color: rgb(171, 219, 249);
     }
 
     .gull {
-        width: 100px;
+        width: $container-width * .25;
         bottom: $container-height - ($container-height / 5);
         right: $container-width / 5;
+        .rest {
+            animation: drift-left 100s linear infinite alternate;
+            img {
+                animation: wiggle 3s linear infinite;
+            }
+        }
     }
     .lighthouse {
         background-image: url('/stories/playground/images/lighthouse.png');
-        width: 50px;
+        width: $container-width * .1;
         bottom: $container-height / 3.5;
         right: 10px;
+        z-index: 5;
     }
     .sea {
         background: $ocean-color;
@@ -156,7 +162,7 @@ $sky-color: rgb(171, 219, 249);
     bottom: $container-height / 12;
     left: 5%;
     .rest {
-        animation: drift-right 200s linear 1;
+        animation: drift-right 200s linear infinite alternate;
         img {
             animation: wiggle .75s linear infinite;
         }
@@ -197,7 +203,7 @@ $sky-color: rgb(171, 219, 249);
         left: -$container-width;
         z-index: 5;
         .rest {
-            animation: drift-right 300s linear 1;
+            animation: drift-right 300s linear infinite alternate;
         }
     }
     .shell1 {
@@ -279,7 +285,7 @@ $sky-color: rgb(171, 219, 249);
         transform: translate3d(0px, 0px, 0px);
     }
     to {
-        transform: translate3d(1000px, 0px, 0px);
+        transform: translate3d($container-width, 0px, 0px);
     }
 }
 @keyframes drift-left {
@@ -287,6 +293,6 @@ $sky-color: rgb(171, 219, 249);
         transform: translate3d(0px, 0px, 0px);
     }
     to {
-        transform: translate3d(-1000px, 0px, 0px);
+        transform: translate3d(-$container-width, 0px, 0px);
     }
 }
