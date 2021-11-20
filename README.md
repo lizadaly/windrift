@@ -2,7 +2,7 @@
 
 ![Integration tests](https://github.com/lizadaly/windrift/actions/workflows/cypress.yml/badge.svg)
 
-⚠️ This branch is in progress and not ready for use by authors. It's expected to be ready before the end of 2021. If you're keen on using Windrift right now, please use the v1 branch.
+⚠️ This branch is in progress and not fully ready for a production release, though it's expected to be released before the end of 2021. If you're keen on using Windrift right now, documentation on 2.0 is nearly complete and in the process of getting reviewed. If you're adventurous and/or experienced with JavaScript, I'd welcome input and bug reports on the v2 branch. The v1 branch is no longer receiving updates.
 
 # Windrift
 
@@ -60,5 +60,5 @@ The story identifier must be a single string, like "west-of-house" or "colossal-
 npm run dev
 ```
 
-Other help commands including deployment options as per the
+Other help commands including deployment options as per the <a href="https://windrift.app/manual">Windrift manual</a> and 
 <a href="https://nextjs.org/">NextJS</a> documentation.
