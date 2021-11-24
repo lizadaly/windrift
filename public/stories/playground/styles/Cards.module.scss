@@ -301,8 +301,9 @@ $sky-color: rgb(171, 219, 249);
 }
 .sand {
     background-color: $sand-color;
-    height: $container-height / 5;
+    height: $container-height;
     width: 100%;
+    bottom: -($container-height * .8);
 }
 
 .left {

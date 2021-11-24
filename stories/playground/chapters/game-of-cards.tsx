@@ -91,9 +91,9 @@ interface CardProps {
 const Card: React.FC<CardProps> = ({ children, className = '' }) => {
     const { show } = React.useContext(SceneContext)
     const transitions = useTransition(show, {
-        from: { xyz: [0, 200, -100] },
+        from: { xyz: [0, 2000, -100] },
         enter: { xyz: [0, 0, 0] },
-        leave: { xyz: [0, 200, 0] }
+        leave: { xyz: [0, 2000, 0] }
     })
     return transitions(
         ({ xyz }, item) =>
@@ -334,7 +334,7 @@ export const Page: PageType = () => {
                                         tag: 'crab1b',
                                         fn: 'crab1'
                                     },
-                                    x: -200,
+                                    x: -500,
                                     y: 0,
                                     z: 0
                                 }
