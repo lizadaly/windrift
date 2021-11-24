@@ -29,15 +29,41 @@ $sky-color: rgb(171, 219, 249);
     perspective: 100px;
 }
 .scene {
+    background-color: $sky-color;
+    position: absolute;
     &.beach {
-        background: $sky-color;
         width: 100%;
         height: 100%;
+        .active {
+            z-index: 1;
+        }
     }
     &.underwater {
         width: 100%;
         height: 100%;
+        .active {
+            z-index: 2;
+        }
     }
+    &.sky {
+        width: 100%;
+        height: 100%;
+        .active {
+            z-index: 3;
+        }
+    }
+    &.space {
+        width: 100%;
+        height: 100%;
+        &.active {
+
+            background: colors.$very-dark url('/stories/playground/images/comet.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            z-index: 4;
+        }
+    }
+
 }
 .card {
     position: absolute;
@@ -83,8 +109,23 @@ $sky-color: rgb(171, 219, 249);
             display: inline-block;
             margin-left: 3em;
         }
-
     }
+    &.card3 {
+        z-index: 10;
+        background: colors.$very-light;
+        width: $container-width * .5;
+        height: $container-height;
+        background-image:  url('/stories/playground/images/balloon-holding-card.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: bottom;
+        & > p {
+            width: $container-width * .5;
+            margin: $container-height * .25 50px 0 10px;
+            text-align: center;
+        }
+    }
+
 }
 
 .object {
@@ -143,7 +184,7 @@ $sky-color: rgb(171, 219, 249);
     .lighthouse {
         background-image: url('/stories/playground/images/lighthouse.png');
         width: $container-width * .1;
-        bottom: $container-height / 3.5;
+        bottom: $container-height / 4;
         right: 10px;
         z-index: 5;
     }
@@ -172,7 +213,6 @@ $sky-color: rgb(171, 219, 249);
 .underwater {
     .ocean {
         background: linear-gradient(color.scale($ocean-color, $lightness: 50%) 1%, $ocean-color 30%, $ocean-color, );
-
         width: 100%;
         height: $container-height;
         z-index: 5;
@@ -220,6 +260,44 @@ $sky-color: rgb(171, 219, 249);
         bottom: 40px;
     }
 
+}
+/* Scene 3 */
+
+.sky {
+    .globe-sky {
+        width: 2000px;
+        background-color: $ocean-color;
+
+        height: 2000px;
+        border-radius: 50%;
+        bottom: -1900px;
+        left: -500px;
+    }
+    .lighthouse {
+        background-image: url('/stories/playground/images/lighthouse.png');
+        width: 50px;
+        bottom: 60px;
+        right: 20px;
+    }
+}
+.space {
+    .globe-sky {
+        width: 200px;
+        background: $ocean-color;
+
+        height: 200px;
+        border-radius: 50%;
+        bottom: $container-height * .25 - 100px;
+        left: $container-width / 2 - (100px)
+
+    }
+    .lighthouse {
+        height: 100px;
+        width: 50px;
+        bottom: $container-height * .25;
+        left: $container-width / 2 + (50px);
+        background-image: url('/stories/playground/images/lighthouse.png');
+    }
 }
 .sand {
     background-color: $sand-color;

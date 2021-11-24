@@ -119,7 +119,12 @@ const Scene: React.FC<SceneProps> = ({ children, turn, className }) => {
 
     return (
         <SceneContext.Provider value={{ show: item.bookmark === turn }}>
-            <div className={`${className} ${cards.scene}`}>{children}</div>
+            <div
+                className={`${className} ${cards.scene} ${
+                    item.bookmark === turn ? cards.active : null
+                }`}>
+                {children}
+            </div>
         </SceneContext.Provider>
     )
 }
@@ -212,8 +217,7 @@ export const Page: PageType = () => {
                                     cls: ['crab2'],
                                     c: {
                                         alt: 'A hermit crab',
-                                        tag: 'crab2',
-                                        rest: true
+                                        tag: 'crab2'
                                     },
                                     x: -1000,
                                     y: 0,
@@ -359,6 +363,50 @@ export const Page: PageType = () => {
                                     x: 0,
                                     y: -500,
                                     z: 0
+                                }
+                            ]}
+                        />
+                    </Scene>
+                    <Scene turn={2} className={cards.sky}>
+                        <Scenery
+                            sceneConfig={{ tension: 100, friction: 30 }}
+                            className={cards.object}
+                            items={[
+                                {
+                                    cls: ['globe-sky'],
+                                    x: 0,
+                                    y: 300,
+                                    z: -100
+                                },
+                                {
+                                    cls: ['lighthouse'],
+                                    x: 0,
+                                    y: 300,
+                                    z: -100
+                                }
+                            ]}
+                        />
+                        <Card className={cards.card3}>
+                            <p>Up in the clouds, that's better.</p>
+                            <C options={[['Time to go...']]} tag="scene3" persist={true} />
+                        </Card>
+                    </Scene>
+                    <Scene turn={3} className={cards.space}>
+                        <Scenery
+                            sceneConfig={{ tension: 100, friction: 30 }}
+                            className={cards.object}
+                            items={[
+                                {
+                                    cls: ['globe-sky'],
+                                    x: 0,
+                                    y: 300,
+                                    z: -100
+                                },
+                                {
+                                    cls: ['lighthouse'],
+                                    x: 0,
+                                    y: 300,
+                                    z: -100
                                 }
                             ]}
                         />
