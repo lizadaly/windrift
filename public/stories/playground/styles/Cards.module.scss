@@ -123,6 +123,10 @@ $sky-color: rgb(171, 219, 249);
             margin: $container-height * .25 50px 0 10px;
             text-align: center;
         }
+        .responses {
+            margin: ($container-height * .25) 5px 0 50px;
+            grid-template-columns: 1fr 1fr;
+        }
     }
 
 }
@@ -130,7 +134,7 @@ $sky-color: rgb(171, 219, 249);
 .object {
     position: absolute;
     bottom: 0px;
-    z-index: 99;
+    z-index: 90;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: bottom;
@@ -317,6 +321,15 @@ $sky-color: rgb(171, 219, 249);
         bottom: 15px;
         left: $container-width * .5 + (20px);
         background-image: url('/stories/playground/images/lighthouse.png');
+    }
+    h2 {
+        color: colors.$very-light !important;
+        text-align: center;
+        margin: $container-height * .5 0 0 0;
+        z-index: 90;
+        width: 100%;
+        font-size: 200px;
+        position: absolute;
     }
 
 }

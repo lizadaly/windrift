@@ -165,7 +165,12 @@ export const Page: PageType = () => {
                                     <R
                                         tag="crab1"
                                         options={{
-                                            '*': <Animal>"Hello!," says the hermit crab.</Animal>
+                                            '*': (
+                                                <Animal>
+                                                    "I can live to be 40 years old," says the
+                                                    blue-shelled hermit crab.
+                                                </Animal>
+                                            )
                                         }}
                                     />
                                 </div>
@@ -175,7 +180,8 @@ export const Page: PageType = () => {
                                         options={{
                                             '*': (
                                                 <Animal>
-                                                    "Salutations," says the hermit crab.
+                                                    "Outside of my shell I'm quite soft," murmurs
+                                                    the yellow-shelled hermit crab.
                                                 </Animal>
                                             )
                                         }}
@@ -302,7 +308,11 @@ export const Page: PageType = () => {
                                     <R
                                         tag="seahorse"
                                         options={{
-                                            '*': <Animal>"Howdy," bobs the seahorse.</Animal>
+                                            '*': (
+                                                <Animal>
+                                                    "I'm the slowest fish in the world."
+                                                </Animal>
+                                            )
                                         }}
                                     />
                                 </div>
@@ -411,8 +421,45 @@ export const Page: PageType = () => {
                             ]}
                         />
                         <Card className={cards.card3}>
-                            <p>Up in the clouds, that's better.</p>
-                            <C options={[['Time to go...']]} tag="scene3" persist={true} />
+                            <div className={cards.responses}>
+                                <div>
+                                    <R
+                                        tag="galbula-leptura"
+                                        options={{
+                                            '*': (
+                                                <Animal>
+                                                    "I don't usually fly this high," says the
+                                                    jacamar.
+                                                </Animal>
+                                            )
+                                        }}
+                                    />
+                                </div>
+                                <div>
+                                    <R
+                                        tag="loxia-curvirostra"
+                                        options={{
+                                            '*': (
+                                                <Animal>
+                                                    "Not sure I'm to scale," murmurs the crossbill.
+                                                </Animal>
+                                            )
+                                        }}
+                                    />
+                                </div>
+                            </div>
+                            <MultiResponse
+                                tags={['galbula-leptura', 'loxia-curvirostra']}
+                                options={{
+                                    '*': (
+                                        <C
+                                            options={[['Higher skill...']]}
+                                            tag="scene2"
+                                            persist={true}
+                                        />
+                                    )
+                                }}
+                            />{' '}
                         </Card>
                         <Scenery
                             className={cards.object}
@@ -452,6 +499,7 @@ export const Page: PageType = () => {
                                 }
                             ]}
                         />
+                        <h2>Fin.</h2>
 
                         <Scenery
                             sceneConfig={{ tension: 100, friction: 30 }}
