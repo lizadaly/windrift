@@ -56,7 +56,10 @@ $sky-color: rgb(171, 219, 249);
         width: 100%;
         height: 100%;
         &.active {
-            background: colors.$very-dark;
+
+            background: colors.$very-dark url('/stories/playground/images/comet.png');
+            background-size: cover;
+            background-repeat: no-repeat;
             z-index: 4;
         }
     }
@@ -381,12 +384,10 @@ $sky-color: rgb(171, 219, 249);
 }
 
 .arc {
-    animation: arc1 10s linear infinite;
+    animation: arc1 5s linear infinite;
     width: 80%;
     height: 80%;
-    position: absolute;
-    left: 0;
-    bottom: 0;
+    margin: auto;
     div {
         background-size: cover;
         background-repeat: no-repeat;
@@ -399,14 +400,4 @@ $sky-color: rgb(171, 219, 249);
         background-image: url('/stories/playground/images/crab1.png');
 
     }
-}
-.clouds {
-    background-image:  url('/stories/playground/images/comet.png');
-    background-size: cover;
-    background-repeat: no-repeat;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
 }

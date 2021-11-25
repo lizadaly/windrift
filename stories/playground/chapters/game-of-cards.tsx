@@ -393,10 +393,6 @@ export const Page: PageType = () => {
                         </Card>
                     </Scene>
                     <Scene turn={3} className={cards.space}>
-                        <div className={`${cards.arc}`}>
-                            <div className={`${cards.crab}`}></div>
-                            <div className={`${cards.seahorse}`}></div>
-                        </div>
                         <Scenery
                             sceneConfig={{ tension: 100, friction: 30 }}
                             className={cards.object}
