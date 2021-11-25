@@ -1,4 +1,5 @@
 @use 'sass:color';
+@use 'sass:math';
 
 @use '/public/styles/colors';
 
@@ -80,7 +81,7 @@ $sky-color: rgb(171, 219, 249);
         background: colors.$very-light;
         width: 80%;
         border: 2px solid colors.$very-dark;
-        height: $container-height / 1.5;
+        height: math.div($container-height, 1.5);
         & > p {
             margin: 1em 4em !important;
         }
@@ -151,12 +152,12 @@ $sky-color: rgb(171, 219, 249);
     .palm1, .palm2 {
         background-image: url('/stories/playground/images/palm-tree.png');
         width: 200px;
-        bottom: $container-height / 8;
+        bottom: math.div($container-height, 8);
     }
 
     .crab2 {
         width: 100px;
-        bottom: $container-height / 30;
+        bottom: math.div($container-height, 30);
         left: 20%;
 
         .rest {
@@ -171,8 +172,8 @@ $sky-color: rgb(171, 219, 249);
 
     .gull {
         width: $container-width * .25;
-        bottom: $container-height - ($container-height / 5);
-        right: $container-width / 5;
+        bottom: $container-height - (math.div($container-height, 5));
+        right: math.div($container-width, 5);
         .rest {
             animation: drift-left 100s linear infinite alternate;
             img {
@@ -183,7 +184,7 @@ $sky-color: rgb(171, 219, 249);
     .lighthouse {
         background-image: url('/stories/playground/images/lighthouse.png');
         width: $container-width * .1;
-        bottom: $container-height / 4;
+        bottom: math.div($container-height, 4);
         right: 10px;
         z-index: 5;
     }
@@ -193,13 +194,13 @@ $sky-color: rgb(171, 219, 249);
         width: 100%;
         height: $container-height * 2;
         z-index: 5;
-        top: $container-height / 1.5;
+        top: math.div($container-height, 1.5);
     }
 }
 
 .crab1 {
     width: 100px;
-    bottom: $container-height / 12;
+    bottom: math.div($container-height, 12);
     left: 5%;
     .rest {
         animation: drift-right 200s linear infinite alternate;
@@ -219,7 +220,7 @@ $sky-color: rgb(171, 219, 249);
     }
     .squid {
         width: 150px;
-        bottom: $container-height - ($container-height / 2);
+        bottom: $container-height - ($container-height * .5);
         .rest {
             img {
                 animation: bob 3s ease-in-out infinite;
@@ -228,8 +229,8 @@ $sky-color: rgb(171, 219, 249);
     }
     .seahorse {
         width: 100px;
-        bottom: $container-height - ($container-height / 3);
-        right: $container-width / 10;
+        bottom: $container-height - ($container-height * .33);
+        right: $container-width * .1;
         .rest {
             img {
                 animation: bob 2s ease-in-out infinite;
@@ -238,7 +239,7 @@ $sky-color: rgb(171, 219, 249);
     }
     .hammerhead {
         width: $container-width;
-        bottom:  $container-height - ($container-height / 1.5);
+        bottom:  $container-height - (math.div($container-height, 1.5));
         left: -$container-width;
         z-index: 5;
         .rest {
@@ -248,13 +249,13 @@ $sky-color: rgb(171, 219, 249);
     .shell1 {
         width: $container-width * .25;
         transform: rotate(-30deg);
-        left: $container-width / 4;
+        left: $container-width * .25;
         background-image: url('/stories/playground/images/shell1.png');
         bottom: 20px;
     }
     .shell2 {
         width: 50px;
-        right: $container-width / 10;
+        right: $container-width * .1;
         background-image: url('/stories/playground/images/shell2.png');
         bottom: 40px;
     }
@@ -287,14 +288,14 @@ $sky-color: rgb(171, 219, 249);
         height: 200px;
         border-radius: 50%;
         bottom: -150px;
-        left: $container-width / 2 - (100px)
+        left: $container-width * .5 - (100px)
 
     }
     .lighthouse {
         height: 50px;
         width: 50px;
         bottom: 15px;
-        left: $container-width / 2 + (20px);
+        left: $container-width * .5 + (20px);
         background-image: url('/stories/playground/images/lighthouse.png');
     }
 }
