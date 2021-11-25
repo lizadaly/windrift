@@ -58,9 +58,8 @@ $sky-color: rgb(171, 219, 249);
         height: 100%;
         &.active {
 
-            background: colors.$very-dark url('/stories/playground/images/comet.png');
-            background-size: cover;
-            background-repeat: no-repeat;
+            background: colors.$very-dark;
+
             z-index: 4;
         }
     }
@@ -279,6 +278,27 @@ $sky-color: rgb(171, 219, 249);
         bottom: 60px;
         right: 20px;
     }
+    .galbula-leptura {
+        width: $container-width * .2;
+        bottom: $container-height * .6;
+        left: math.div($container-width, 5);
+        .rest {
+            animation: drift-right 100s linear infinite alternate;
+            img {
+                animation: wiggle 3s linear infinite;
+            }
+        }
+    }
+    .loxia-curvirostra {
+        width: 120px;
+        bottom: 120px;
+        right: -10px;
+        .rest {
+            img {
+                animation: wiggle 3s linear infinite;
+            }
+        }
+    }
 }
 .space {
     .globe-sky {
@@ -298,6 +318,7 @@ $sky-color: rgb(171, 219, 249);
         left: $container-width * .5 + (20px);
         background-image: url('/stories/playground/images/lighthouse.png');
     }
+
 }
 .sand {
     background-color: $sand-color;
@@ -384,22 +405,19 @@ $sky-color: rgb(171, 219, 249);
     100%{ transform: rotate(0deg);  }
 }
 
-.arc {
-    animation: arc1 5s linear infinite;
-    width: 80%;
-    height: 80%;
+
+.galaxy-sky {
+    background-image: url('/stories/playground/images/galaxy.jpg');
+    animation: arc1 1000s linear infinite;
+    width: 300%;
+    height: 300%;
     margin: auto;
-    div {
-        background-size: cover;
-        background-repeat: no-repeat;
-        width: 100px;
-        height: 50px;
-        animation: arc2 100s linear infinite;
-
-    }
-    .crab {
-        background-image: url('/stories/playground/images/crab1.png');
-
-    }
+    left: -1000px;
 }
 
+.comet {
+    background-image: url('/stories/playground/images/comet.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+}

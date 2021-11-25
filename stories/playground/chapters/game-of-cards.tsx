@@ -414,8 +414,45 @@ export const Page: PageType = () => {
                             <p>Up in the clouds, that's better.</p>
                             <C options={[['Time to go...']]} tag="scene3" persist={true} />
                         </Card>
+                        <Scenery
+                            className={cards.object}
+                            items={[
+                                {
+                                    cls: ['galbula-leptura'],
+                                    x: -1000,
+                                    y: 0,
+                                    z: 0,
+                                    c: {
+                                        alt: 'Galbula Lapture',
+                                        tag: 'galbula-leptura'
+                                    }
+                                },
+                                {
+                                    cls: ['loxia-curvirostra'],
+                                    x: 0,
+                                    y: 0,
+                                    z: 0,
+                                    c: {
+                                        alt: 'Loxia curvirostra',
+                                        tag: 'loxia-curvirostra'
+                                    }
+                                }
+                            ]}
+                        />
                     </Scene>
                     <Scene turn={3} className={cards.space}>
+                        <Scenery
+                            className={cards.object}
+                            items={[
+                                {
+                                    cls: ['galaxy-sky'],
+                                    x: 0,
+                                    y: 0,
+                                    z: 0
+                                }
+                            ]}
+                        />
+
                         <Scenery
                             sceneConfig={{ tension: 100, friction: 30 }}
                             className={cards.object}
@@ -430,6 +467,12 @@ export const Page: PageType = () => {
                                     cls: ['lighthouse'],
                                     x: 0,
                                     y: 300,
+                                    z: -100
+                                },
+                                {
+                                    cls: ['comet'],
+                                    x: 0,
+                                    y: -1000,
                                     z: -100
                                 }
                             ]}
