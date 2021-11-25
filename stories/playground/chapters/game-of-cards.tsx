@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { useSpringRef, useTransition, animated, SpringConfig, config, to } from '@react-spring/web'
+import { Transition, useTransition, animated, SpringConfig, config, to } from '@react-spring/web'
 
 import { C, R, When } from 'core/components'
 import { Next, Option, PageType, Tag } from 'core/types'
@@ -16,6 +16,19 @@ import { MultiResponse } from 'core/components/response'
 const filename = 'game-of-cards'
 const scenes = 999
 
+const Animal: React.FC = ({ children }) => {
+    return (
+        <Transition
+            items={children}
+            from={{ opacity: 0 }}
+            enter={{ opacity: 1 }}
+            leave={{ opacity: 0 }}
+            delay={200}
+            config={config.molasses}>
+            {(styles, item) => item && <animated.p style={styles}>{item}</animated.p>}
+        </Transition>
+    )
+}
 const Stage: React.FC = ({ children }) => {
     return <div className={cards.stage}>{children}</div>
 }
@@ -151,14 +164,20 @@ export const Page: PageType = () => {
                                 <div>
                                     <R
                                         tag="crab1"
-                                        options={{ '*': <p>"Hello!," says the hermit crab.</p> }}
+                                        options={{
+                                            '*': <Animal>"Hello!," says the hermit crab.</Animal>
+                                        }}
                                     />
                                 </div>
                                 <div>
                                     <R
                                         tag="crab2"
                                         options={{
-                                            '*': <p>"Salutations," says the hermit crab.</p>
+                                            '*': (
+                                                <Animal>
+                                                    "Salutations," says the hermit crab.
+                                                </Animal>
+                                            )
                                         }}
                                     />
                                 </div>
@@ -167,10 +186,10 @@ export const Page: PageType = () => {
                                         tag="gull"
                                         options={{
                                             '*': (
-                                                <p>
+                                                <Animal>
                                                     "There's no ethical consumption under
                                                     capitalism," says the gull.
-                                                </p>
+                                                </Animal>
                                             )
                                         }}
                                     />
@@ -263,7 +282,11 @@ export const Page: PageType = () => {
                                     <R
                                         tag="crab1b"
                                         options={{
-                                            '*': <p>"Did you miss me?" asks the hermit crab.</p>
+                                            '*': (
+                                                <Animal>
+                                                    "Did you miss me?" asks the hermit crab.
+                                                </Animal>
+                                            )
                                         }}
                                     />
                                 </div>
@@ -271,7 +294,7 @@ export const Page: PageType = () => {
                                     <R
                                         tag="squid"
                                         options={{
-                                            '*': <p>"SQUID GOES GLUG-GLUG."</p>
+                                            '*': <Animal>"SQUID GOES GLUG-GLUG."</Animal>
                                         }}
                                     />
                                 </div>
@@ -279,7 +302,7 @@ export const Page: PageType = () => {
                                     <R
                                         tag="seahorse"
                                         options={{
-                                            '*': <p>"Howdy," bobs the seahorse.</p>
+                                            '*': <Animal>"Howdy," bobs the seahorse.</Animal>
                                         }}
                                     />
                                 </div>
@@ -288,7 +311,7 @@ export const Page: PageType = () => {
                                     <R
                                         tag="hammerhead"
                                         options={{
-                                            '*': <p>"I'm shy," admits the hammerhead.</p>
+                                            '*': <Animal>"I'm shy," admits the hammerhead.</Animal>
                                         }}
                                     />
                                 </div>
@@ -411,7 +434,6 @@ export const Page: PageType = () => {
                                 }
                             ]}
                         />
-                        <div className={cards.clouds}></div>
                     </Scene>
                 </Stage>
             </ChapterContext.Provider>
