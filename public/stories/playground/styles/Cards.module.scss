@@ -57,7 +57,7 @@ $sky-color: rgb(171, 219, 249);
         height: 100%;
         &.active {
 
-            background: colors.$very-dark url('/stories/playground/images/comet.jpg');
+            background: colors.$very-dark url('/stories/playground/images/comet.png');
             background-size: cover;
             background-repeat: no-repeat;
             z-index: 4;
@@ -112,7 +112,6 @@ $sky-color: rgb(171, 219, 249);
     }
     &.card3 {
         z-index: 10;
-        background: colors.$very-light;
         width: $container-width * .5;
         height: $container-height;
         background-image:  url('/stories/playground/images/balloon-holding-card.png');
@@ -287,15 +286,15 @@ $sky-color: rgb(171, 219, 249);
 
         height: 200px;
         border-radius: 50%;
-        bottom: $container-height * .25 - 100px;
+        bottom: -150px;
         left: $container-width / 2 - (100px)
 
     }
     .lighthouse {
-        height: 100px;
+        height: 50px;
         width: 50px;
-        bottom: $container-height * .25;
-        left: $container-width / 2 + (50px);
+        bottom: 15px;
+        left: $container-width / 2 + (20px);
         background-image: url('/stories/playground/images/lighthouse.png');
     }
 }

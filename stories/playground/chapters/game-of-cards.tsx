@@ -192,6 +192,7 @@ export const Page: PageType = () => {
                         {/* Beach items */}
                         <Scenery
                             className={cards.object}
+                            sceneConfig={config.gentle}
                             items={[
                                 { cls: ['sand'], x: 0, y: 100, z: 0 },
                                 { cls: ['palm1', 'left'], x: -200, y: 0, z: 0 },
