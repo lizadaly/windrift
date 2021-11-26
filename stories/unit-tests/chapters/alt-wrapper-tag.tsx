@@ -21,7 +21,7 @@ const AltWrapper: React.FC<AltWrapperProps> = ({ children, id }) => {
 const filename = 'alt-wrapper-tag'
 
 const AltChapter: React.FC = ({ children }) => {
-    const item = useChapterSetup(filename, children)
+    const item = useChapterSetup(filename, React.Children.count(children))
 
     return (
         <ChapterContext.Provider value={{ filename }}>

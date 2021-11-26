@@ -5,6 +5,8 @@ export { ENTRY_TYPES } from 'core/features/log'
 export type { RootState } from 'core/features'
 export { Next } from 'core/features/navigation'
 export type { NextType } from 'core/features/navigation'
+export type { CounterState } from 'core/features/counter'
+
 export type Tag = string
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

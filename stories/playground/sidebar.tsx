@@ -83,6 +83,34 @@ const Sidebar = ({ filename }: SidebarProps): JSX.Element => {
                     <Demos />
                 </aside>
             )
+        case 'game-of-cards':
+            return (
+                <aside>
+                    <h4>A Game of Cards</h4>
+                    <p>
+                        Interactive fiction can take the form of digital comics or visual novels,
+                        and the web platform is ideally suited to this. This silly story
+                        demonstrates one way of adapting Windrift to visual storytelling:
+                    </p>
+                    <p>
+                        - Enter/leave animations managed through a custom component. No{' '}
+                        <code>Chapter</code> or <code>Section</code> components are used here;
+                        instead a custom <code>Scene</code> component is created that watches for
+                        changes to the Windrift section counter.
+                    </p>
+                    <p>
+                        - <a href="https://react-spring.io/">react-spring</a>, bundled with
+                        Windrift, renders the animations.
+                    </p>
+                    <p>
+                        {' '}
+                        - Extensive use of <code>ImageChoice</code> rather than text-based choice
+                        links to register clicking on NPCs.
+                    </p>
+                    <Demos />
+                </aside>
+            )
+
         default:
             return null
     }

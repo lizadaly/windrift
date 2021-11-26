@@ -1,5 +1,6 @@
 import * as React from 'react'
-import { Motion, spring, presets } from '@korbav/react-motion'
+import { Spring, animated } from '@react-spring/web'
+
 import { useDispatch } from 'react-redux'
 
 import { C, R, Section, Chapter, When } from 'core/components'
@@ -81,35 +82,37 @@ export const Page: PageType = () => {
 
                     <div className={timemachine.dialFrame}>
                         <div className={timemachine.dial}>
-                            <Motion
-                                defaultStyle={{ x: parseInt(era) }}
-                                style={{ x: spring(parseInt(era), presets.wobbly) }}>
-                                {(value) => {
-                                    if (value.x.toString() !== era) {
-                                        document
-                                            .querySelectorAll(`.${timemachine.sign}`)
-                                            .forEach((el) => {
-                                                el.classList.add(timemachine.static)
-                                            })
-                                    } else {
-                                        document
-                                            .querySelectorAll(`.${timemachine.static}`)
-                                            .forEach((el) => {
-                                                el.classList.remove(timemachine.static)
-                                            })
-                                    }
+                            <Spring
+                                to={{ counter: parseInt(era) }}
+                                onChange={() =>
+                                    document
+                                        .querySelectorAll(`.${timemachine.sign}`)
+                                        .forEach((el) => {
+                                            el.classList.add(timemachine.static)
+                                        })
+                                }
+                                onRest={() =>
+                                    document
+                                        .querySelectorAll(`.${timemachine.static}`)
+                                        .forEach((el) => {
+                                            el.classList.remove(timemachine.static)
+                                        })
+                                }>
+                                {(styles) => {
                                     return (
                                         <div className={timemachine.dial}>
                                             <span
                                                 className={`${timemachine.numbers} ${
                                                     era === '99999' ? timemachine.future : ''
                                                 }`}>
-                                                {parseInt(value.x)}
+                                                <animated.span>
+                                                    {styles.counter.to((n) => n.toFixed(0))}
+                                                </animated.span>
                                             </span>
                                         </div>
                                     )
                                 }}
-                            </Motion>
+                            </Spring>
                         </div>
                         <img
                             src="../stories/playground/images/readout.webp"
