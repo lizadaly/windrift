@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react'
 
-import Image from 'next/image'
-
 import { Section, Chapter, Nav, When, C } from 'core/components'
 import { PageType } from 'core/types'
 import useInventory from 'core/hooks/use-inventory'
