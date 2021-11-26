@@ -85,7 +85,7 @@ const Scenery = ({
                             options={[[item.c.tag as Option]]}
                             widget={ImageChoice}
                             extra={{
-                                src: `/stories/playground/images/${item.c.fn || item.c.tag}.png`,
+                                src: `/stories/playground/images/${item.c.fn || item.c.tag}.webp`,
                                 alt: item.c.alt,
                                 option: item.c.tag as Option
                             }}
