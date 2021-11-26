@@ -27,6 +27,8 @@ chapters:
     title: "Debugging and testing"
   - filename: "deploying"
     title: "Deploying to the web"
+  - filename: "next"
+    title: "Next steps and further resources"
 extra:
   omitToc: ['sample-summit', 'sample-descent']
 

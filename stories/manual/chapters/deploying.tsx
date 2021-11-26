@@ -136,6 +136,7 @@ _next/           global.scss      minimal/         stone-harbor-pt/ styles/
                     </a>{' '}
                     for the most current instructions on deploying with Vercel.
                 </p>
+                <FooterNav text="Next steps and further resources..." next="next" />
             </Section>
         </Chapter>
     )

@@ -28,6 +28,25 @@ $ npm run new example-story`}
                 The generator script will create your story folders, CSS files, and example chapter
                 and story configuration script, described below.
             </p>
+            <h2>Running the development server</h2>
+            <p>
+                Once you've created a new story, run the bundled NextJS development server to start
+                up the local Windrift install, running all the included sample stories (including
+                this manual):
+            </p>
+            <SyntaxHighlighter language="bash" style={prism}>
+                {`$ npm run dev`}
+            </SyntaxHighlighter>
+            <p>
+                This will run a local dev server as <code>http://localhost:3000/</code>. NextJS
+                comes bundled with hot reloading and other features to make development less
+                painful. It's recommended that you also install the React and Redux Dev Toolkits for
+                your web browser. Consult the{' '}
+                <a href="https://nextjs.org/docs/api-reference/cli#development">
+                    NextJS dev documentation
+                </a>{' '}
+                for additional instructions and customization options.
+            </p>
             <h2>Story structure</h2>
             <p>
                 A Windrift story is composed of a series of <code>Chapter</code> components
