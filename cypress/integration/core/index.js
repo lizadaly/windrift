@@ -1,6 +1,6 @@
 describe('Check the main index page', () => {
     it('There should be an active default index page that lists the installed stories', () => {
         cy.visit('/')
-        cy.get("a:contains('stone-harbor')").click()
+        cy.get("a:contains('stone-harbor-pt')").click()
     })
 })
