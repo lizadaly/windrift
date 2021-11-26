@@ -499,7 +499,9 @@ export const Page: PageType = () => {
                                 }
                             ]}
                         />
-                        <h2>Fin.</h2>
+                        <Card className={cards.card4}>
+                            <h2>Fin.</h2>
+                        </Card>
 
                         <Scenery
                             sceneConfig={{ tension: 100, friction: 30 }}

@@ -88,7 +88,7 @@ $sky-color: rgb(171, 219, 249);
     &.card2 {
         z-index: 6;
         height: 100%;
-        background-image:  url('/stories/playground/images/branch-holding-card.png');
+        background-image:  url('/stories/playground/images/branch-holding-card.webp');
         background-size: contain;
         background-repeat: no-repeat;
         background-position: bottom;
@@ -114,7 +114,7 @@ $sky-color: rgb(171, 219, 249);
         z-index: 10;
         width: $container-width * .5;
         height: $container-height;
-        background-image:  url('/stories/playground/images/balloon-holding-card.png');
+        background-image:  url('/stories/playground/images/balloon-holding-card.webp');
         background-size: contain;
         background-repeat: no-repeat;
         background-position: bottom;
@@ -127,6 +127,12 @@ $sky-color: rgb(171, 219, 249);
             margin: ($container-height * .25) 5px 0 50px;
             grid-template-columns: 1fr 1fr;
         }
+    }
+    &.card4 {
+        z-index: 90;
+        width: $container-width * .5;
+        height: $container-height;
+
     }
 
 }
@@ -153,7 +159,7 @@ $sky-color: rgb(171, 219, 249);
 }
 .beach {
     .palm1, .palm2 {
-        background-image: url('/stories/playground/images/palm-tree.png');
+        background-image: url('/stories/playground/images/palm-tree.webp');
         width: 200px;
         bottom: math.div($container-height, 8);
     }
@@ -185,7 +191,7 @@ $sky-color: rgb(171, 219, 249);
         }
     }
     .lighthouse {
-        background-image: url('/stories/playground/images/lighthouse.png');
+        background-image: url('/stories/playground/images/lighthouse.webp');
         width: $container-width * .1;
         bottom: math.div($container-height, 4);
         right: 10px;
@@ -253,13 +259,13 @@ $sky-color: rgb(171, 219, 249);
         width: $container-width * .25;
         transform: rotate(-30deg);
         left: $container-width * .25;
-        background-image: url('/stories/playground/images/shell1.png');
+        background-image: url('/stories/playground/images/shell1.webp');
         bottom: 20px;
     }
     .shell2 {
         width: 50px;
         right: $container-width * .1;
-        background-image: url('/stories/playground/images/shell2.png');
+        background-image: url('/stories/playground/images/shell2.webp');
         bottom: 40px;
     }
 
@@ -277,7 +283,7 @@ $sky-color: rgb(171, 219, 249);
         left: -500px;
     }
     .lighthouse {
-        background-image: url('/stories/playground/images/lighthouse.png');
+        background-image: url('/stories/playground/images/lighthouse.webp');
         width: 50px;
         bottom: 60px;
         right: 20px;
@@ -320,7 +326,7 @@ $sky-color: rgb(171, 219, 249);
         width: 50px;
         bottom: 15px;
         left: $container-width * .5 + (20px);
-        background-image: url('/stories/playground/images/lighthouse.png');
+        background-image: url('/stories/playground/images/lighthouse.webp');
     }
     h2 {
         color: colors.$very-light !important;
@@ -429,7 +435,7 @@ $sky-color: rgb(171, 219, 249);
 }
 
 .comet {
-    background-image: url('/stories/playground/images/comet.png');
+    background-image: url('/stories/playground/images/comet.webp');
     background-size: cover;
     background-repeat: no-repeat;
     width: 100%;
