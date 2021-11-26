@@ -106,5 +106,8 @@ describe('Full test of the built-in stories', () => {
         cy.contains('Testing').should('exist')
         cy.get('a:contains("How to deploy")').click()
         cy.contains('Deploying your story').should('exist')
+
+        cy.get('a:contains("Next steps")').click()
+        cy.contains('Next steps').should('exist')
     })
 })
