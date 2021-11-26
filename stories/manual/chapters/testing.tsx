@@ -1,6 +1,6 @@
 import { Section, Chapter } from 'core/components'
 import { PageType } from 'core/types'
-import { FooterNav, styles } from '..'
+import { FooterNav } from '..'
 
 export const Page: PageType = () => {
     return (
