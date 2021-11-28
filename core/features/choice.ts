@@ -6,6 +6,7 @@ import { update as logUpdate } from 'core/features/log'
 import { Tag, ENTRY_TYPES, Next, Config, NextType, RootState } from 'core/types'
 import { gotoChapter, incrementSection } from 'core/features/navigation'
 import { increment } from 'core/features/counter'
+import { NextRouter } from 'next/router'
 
 export type Option = string
 export type OptionGroup = Array<Option>
@@ -34,7 +35,7 @@ interface OptionAdvancePayload {
 const initialState: ChoiceState = null
 
 export const makeChoice =
-    (tag: Tag, option: Option, next?: NextType, filename?: string) =>
+    (tag: Tag, option: Option, next?: NextType, filename?: string, router?: NextRouter) =>
     (dispatch: Dispatch, getState: () => RootState, config: Config): void => {
         const choiceId = uuidv4()
 
@@ -63,7 +64,12 @@ export const makeChoice =
             } else if (next === Next.None) {
                 // no-op
             } else if (typeof next === 'string') {
-                dispatch(gotoChapter({ filename: next }))
+                // Check whether the URL included a chapter; this will only
+                if (router?.query.chapter) {
+                    router.push(`/${router.query.story}/${next}`)
+                } else {
+                    dispatch(gotoChapter({ filename: next }))
+                }
             }
         }
 

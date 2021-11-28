@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-
+import { useRouter } from 'next/router'
 import { WidgetType, RootState, Next, Option, Options, NextType } from 'core/types'
 
 import { ChapterContext } from 'core/components/chapter'
@@ -77,6 +77,7 @@ const MutableChoice = ({
     className
 }: ChoiceProps): JSX.Element => {
     const dispatch = useDispatch()
+    const router = useRouter()
     const { filename } = React.useContext(ChapterContext)
 
     const choice = useSelector((state: RootState) => {
@@ -86,7 +87,7 @@ const MutableChoice = ({
 
     // Generic handler that a widget-specific handler will call once the player has made their choice
     let handler = (option: Option): void => {
-        dispatch(makeChoice(tag, option, next, filename))
+        dispatch(makeChoice(tag, option, next, filename, router))
     }
     let group = options[choice.index]
 

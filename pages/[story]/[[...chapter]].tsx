@@ -72,14 +72,25 @@ export const getStaticPaths: GetStaticPaths = async () => {
         .readdirSync(storyDirs, { withFileTypes: true })
         .filter((dir) => dir.isDirectory())
         .map((dir) => {
-            return [
+            const yaml = getConfigYaml(dir.name)
+            const pths = [
                 {
                     params: {
                         story: dir.name,
-                        chapter: null // TODO extend to pre-render all chapter paths
+                        chapter: null
                     }
                 }
             ]
+            return pths.concat(
+                yaml.chapters
+                    .map((item: TocItem) => ({
+                        params: {
+                            story: dir.name,
+                            chapter: [item.filename]
+                        }
+                    }))
+                    .flat()
+            )
         })
         .flat()
     console.log(paths)
