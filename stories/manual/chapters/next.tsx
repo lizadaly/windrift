@@ -27,7 +27,7 @@ export const Page: PageType = () => {
                     <li>
                         Check out the stories and code in the{' '}
                         <a href="https://playground.windrift.app/">Windrift Playground</a> (
-                        <a href="https://github.com/lizadaly/windrift-playground">source code</a>,
+                        <a href="https://github.com/lizadaly/windrift-playground">source code</a>),
                         which contains sample stories that stretch the boundaries of what a "normal"
                         hypertext story can be.
                     </li>
