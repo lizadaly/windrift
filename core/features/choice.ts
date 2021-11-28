@@ -34,7 +34,7 @@ interface OptionAdvancePayload {
 const initialState: ChoiceState = null
 
 export const makeChoice =
-    (tag: Tag, option: Option, next?: NextType, filename?: string) =>
+    (tag: Tag, option: Option, next?: NextType, filename?: string, eventPlayer?: Player) =>
     (dispatch: Dispatch, getState: () => RootState, config: Config): void => {
         const choiceId = uuidv4()
 

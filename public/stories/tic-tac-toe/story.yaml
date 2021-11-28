@@ -1,0 +1,11 @@
+title: Multiplayer Demo
+chapters:
+  - chapter:
+    filename: "game"
+    title: "Tic-Tac-Toe"
+enableUndo: false
+players:
+  - start: "game"
+    name: "player X"
+  - start: "game"
+    name: "player O"

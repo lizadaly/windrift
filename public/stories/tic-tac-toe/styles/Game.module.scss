@@ -1,0 +1,37 @@
+$cell: 100px;
+$border: 2px;
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(3, $cell);
+    box-sizing: border-box;
+    grid-gap: $border;
+    grid-auto-rows: $cell;
+    grid-template-rows: $cell;
+    justify-items: center;
+    align-items: stretch;
+
+    .col {
+        height: $cell;
+        width: $cell;
+        box-shadow: 0 0 0 $border gray;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: $cell;
+        a {
+            opacity: .5;
+            text-decoration: none;
+        }
+        span {
+            display: block;
+            justify-self: center;
+            align-self: center;
+
+        }
+        .selected {
+            display: none;
+        }
+    }
+}
+
