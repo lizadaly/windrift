@@ -56,8 +56,8 @@ function Index({ paths }: StoryProps): JSX.Element {
                     <h2>Getting started with Windrift</h2>
                     <p>
                         Familiarize yourself with the{' '}
-                        <a href="windrift.app/manual">online manual</a>! A copy of this manual as an
-                        active Windrift story is installed as part of this repository.
+                        <a href="https://windrift.app/manual">online manual</a>! A copy of this
+                        manual as an active Windrift story is installed as part of this repository.
                     </p>
                     <h3>In this local repository</h3>
                     <p>
