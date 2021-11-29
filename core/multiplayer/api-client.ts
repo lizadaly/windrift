@@ -15,12 +15,12 @@ const API_PREFIX = '/api/core/story'
 export const getStoryInstance = (
     identifier: string,
     instanceId: string,
-    multiplayer: Multiplayer,
     playerId: string,
     dispatch: Dispatch<any>
 ): void => {
     axios(`${API_PREFIX}/${identifier}/${instanceId}/get`, {}).then((res) => {
         const { instance, player1, player2 } = res.data
+        const multiplayer = new Multiplayer()
         if (playerId === player1.id) {
             multiplayer.currentPlayer = player1
             multiplayer.otherPlayer = player2
@@ -37,11 +37,7 @@ export const getStoryInstance = (
 }
 
 // Called by player 1 to create the instance
-export const createStoryInstance = (
-    identifier: string,
-    multiplayer: Multiplayer,
-    dispatch: Dispatch<any>
-): void => {
+export const createStoryInstance = (identifier: string, dispatch: Dispatch<any>): void => {
     axios(`${API_PREFIX}/${identifier}/init`, {
         method: 'post'
     }).then((res) => {
@@ -51,6 +47,7 @@ export const createStoryInstance = (
             instance.id
         }&playerId=${player2.id}`
 
+        const multiplayer = new Multiplayer()
         multiplayer.instanceId = instance.id
         multiplayer.storyUrl = storyUrl
         multiplayer.currentPlayer = player1
