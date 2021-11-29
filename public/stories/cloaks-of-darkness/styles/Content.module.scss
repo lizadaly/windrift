@@ -1,15 +1,14 @@
-@use '/public/styles/sizing' with (
-    $left-right-width: 20vw
-);
+@use '/public/styles/sizing';
 @use '/public/styles/colors' with (
     $cool: rgb(79, 135, 101)
 );
 
 @use '/public/styles/header' with (
-    $background: colors.$cool,
+    $background-color: colors.$cool,
 );
 @use '/public/styles/main';
 
+$left-right-width: 100px;
 
 // Overrides and additions to the default grid
 
@@ -35,7 +34,7 @@
 .main {
 
     // Widen the right column to show the presence/log list
-    grid-template-columns: sizing.$left-right-width 4fr sizing.$left-right-width;
+    grid-template-columns: $left-right-width 4fr $left-right-width;
 
     .story {
         padding-right: sizing.$gutter;

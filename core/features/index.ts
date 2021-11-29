@@ -4,13 +4,15 @@ import choices from './choice'
 import counter from './counter'
 import navigation from './navigation'
 import log from './log'
+import multiplayer from './multiplayer'
 
 const rootReducer = combineReducers({
     inventory,
     counter,
     choices,
     navigation,
-    log
+    log,
+    multiplayer
 })
 
 export type RootState = ReturnType<typeof rootReducer>

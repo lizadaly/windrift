@@ -23,7 +23,7 @@ export const Page: PageType = () => {
                     remains.{' '}
                     <R
                         tag="cl-pluck"
-                        to={{
+                        options={{
                             pluck: (
                                 <Only playerName="raccoon">
                                     <aside>
@@ -36,7 +36,7 @@ export const Page: PageType = () => {
                     />
                     <R
                         tag="cl-hook"
-                        to={{
+                        options={{
                             hook: cloak === CloakStatus.Worn && (
                                 <>
                                     <Only playerName="snake">

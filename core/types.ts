@@ -43,6 +43,9 @@ export class Config {
         this.language = language
         this.extra = extra
     }
+    get isMultiplayer(): boolean {
+        return this.players.length > 1
+    }
 }
 
 /* Completion callbacks */

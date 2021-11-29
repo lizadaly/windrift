@@ -6,10 +6,11 @@ import { WidgetType, RootState, Next, Option, Options, NextType } from 'core/typ
 import { ChapterContext } from 'core/components/chapter'
 import { InlineListEN } from 'core/components/widgets/inline-list'
 
-import { init, makeChoice } from 'core/features/choice'
+import { init, makeChoice, MultiplayerChoicePayload } from 'core/features/choice'
 import { init as initInventory } from 'core/features/inventory'
 
 import useInventory from 'core/hooks/use-inventory'
+import { StoryContext } from 'pages/[story]/[[...chapter]]'
 
 export interface ChoiceProps {
     tag: string
@@ -27,6 +28,8 @@ export interface ChoiceProps {
     persist?: boolean
     /** Optional className to be passed through to the outer-most element rendering the Choice */
     className?: string
+    /** For Multiplayer only, has no effect in single-player: whether to sync this choice to the remote player */
+    sync?: boolean
 }
 
 const Choice = ({
@@ -38,7 +41,8 @@ const Choice = ({
     persist = false,
     last = null,
     defaultOption = null,
-    className = null
+    className = null,
+    sync = true
 }: ChoiceProps): JSX.Element => {
     const dispatch = useDispatch()
     const choice = useSelector((state: RootState) => {
@@ -60,6 +64,7 @@ const Choice = ({
                 persist={persist}
                 last={last}
                 className={className}
+                sync={sync}
             />
         )
     }
@@ -74,19 +79,34 @@ const MutableChoice = ({
     next,
     persist,
     last,
-    className
+    className,
+    sync
 }: ChoiceProps): JSX.Element => {
     const dispatch = useDispatch()
     const { filename } = React.useContext(ChapterContext)
+    const { config } = React.useContext(StoryContext)
 
     const choice = useSelector((state: RootState) => {
         return state.choices.present[tag]
     })
+    const { currentPlayer, instanceId } = useSelector((state: RootState) => {
+        return state.multiplayer?.multiplayer
+    })
     const [inventory] = useInventory([tag])
+
+    const multiplayerPayload: MultiplayerChoicePayload = currentPlayer
+        ? {
+              eventPlayer: currentPlayer,
+              currentPlayer,
+              identifier: config.identifier,
+              instanceId,
+              sync
+          }
+        : null
 
     // Generic handler that a widget-specific handler will call once the player has made their choice
     let handler = (option: Option): void => {
-        dispatch(makeChoice(tag, option, next, filename))
+        dispatch(makeChoice(tag, option, next, filename, multiplayerPayload))
     }
     let group = options[choice.index]
 

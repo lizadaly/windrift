@@ -1,0 +1,11 @@
+
+.userList {
+    list-style-type: none;
+
+    .active::before {
+        content: "✅ ";
+    }
+    .inactive::before {
+        content: "❌ ";
+    }
+}

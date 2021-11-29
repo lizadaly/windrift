@@ -2,11 +2,11 @@ import * as React from 'react'
 import { useSelector } from 'react-redux'
 import v from 'voca'
 
-import { RootState } from 'core/reducers'
+import { RootState, Next } from 'core/types'
 import { C, R } from 'core/components'
-import { Next } from 'core/actions/navigation'
+
 import ResetButton from 'core/components/ui/reset-button'
-import Grid from 'core/components/ui/grid'
+import Grid from 'core/components/ui/layouts/grid'
 
 import ShareButton from 'core/multiplayer/components/share-button'
 import Presence from 'core/multiplayer/components/examples/presence'
@@ -16,13 +16,15 @@ import styles from 'public/stories/cloaks-of-darkness/styles/Content.module.scss
 import useCloak, { CloakStatus } from './use-cloak'
 
 const Content: React.FC = ({ children }) => {
-    const multiplayer = useSelector((state: RootState) => state.multiplayer)
-    const toc = useSelector((state: RootState) => state.toc.present)
+    const { multiplayer } = useSelector((state: RootState) => state.multiplayer)
+    const { toc } = useSelector((state: RootState) => state.navigation.present)
     const currentChapter = Object.values(toc).filter((c) => c.visible)[0]
 
-    const { currentPlayer, otherPlayer, presenceApiResponse: presence } = React.useContext(
-        PlayerContext
-    )
+    const {
+        currentPlayer,
+        otherPlayer,
+        presenceApiResponse: presence
+    } = React.useContext(PlayerContext)
     const cloakStatus = useCloak()
     return (
         <Grid
@@ -61,7 +63,10 @@ const Content: React.FC = ({ children }) => {
                             <p>
                                 You are wearing a very tiny dark{' '}
                                 <C options={[['cloak', null]]} tag="cloak-desc" next={Next.None} />.
-                                <R tag="cloak-desc" to={{ cloak: " It's light-absorbing. " }} />
+                                <R
+                                    tag="cloak-desc"
+                                    options={{ cloak: " It's light-absorbing. " }}
+                                />
                             </p>
                         ) : (
                             ''

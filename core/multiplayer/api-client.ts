@@ -2,12 +2,12 @@ import { Dispatch } from 'react'
 
 import { Player } from '@prisma/client'
 import axios, { AxiosResponse } from 'axios'
-import { logChoice, pickOption, updateInventory } from 'core/actions'
-import { ENTRY_TYPES, LogEntry, log } from 'core/features/log'
+import { LogEntry } from 'core/features/log'
 import { TocItem, Tag } from 'core/types'
 import { ChoiceApiResponse } from 'pages/api/core/story/[story]/[instance]/listen'
 import { PresenceApiResponse } from 'pages/api/core/story/[story]/[instance]/presence'
-import { initMultiplayer, Multiplayer } from 'core/actions/multiplayer'
+import { init, Multiplayer } from 'core/features/multiplayer'
+import { makeChoice } from 'core/features/choice'
 
 const API_PREFIX = '/api/core/story'
 
@@ -32,7 +32,7 @@ export const getStoryInstance = (
         multiplayer.instanceId = instance.id
         multiplayer.currentPlayer = player2
         multiplayer.ready = true
-        dispatch(initMultiplayer(multiplayer))
+        dispatch(init({ multiplayer }))
     })
 }
 
@@ -56,7 +56,7 @@ export const createStoryInstance = (
         multiplayer.currentPlayer = player1
         multiplayer.otherPlayer = player2
         multiplayer.ready = true
-        dispatch(initMultiplayer(multiplayer))
+        dispatch(init({ multiplayer }))
     })
 }
 
@@ -115,12 +115,20 @@ export const pollForChoices = (
             res.data
                 .filter((row) => !logIds.includes(row.id))
                 .forEach((row) => {
-                    const { id, tag, option, createdAt } = row
+                    const { id, tag, option, next, chapterName } = row
 
                     const eventPlayer = row.player
 
-                    //dispatch(makeChoice(tag, option, next, filename))
-                    dispatch(makeChoice(tag, option, null, null, eventPlayer))
+                    dispatch(
+                        makeChoice(tag, option, next, chapterName, {
+                            eventPlayer,
+                            currentPlayer: player,
+                            identifier,
+                            instanceId,
+                            sync: false,
+                            choiceId: id
+                        })
+                    )
                 })
         })
 }

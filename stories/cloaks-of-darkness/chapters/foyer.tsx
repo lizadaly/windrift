@@ -31,7 +31,7 @@ export const Page: PageType = () => {
                     </p>
                     <R
                         tag="c1-back"
-                        to={{
+                        options={{
                             came: (
                                 <p>
                                     You've only just arrived, and besides, the weather outside seems

@@ -1,15 +1,32 @@
-import { InitMultiplayerType, INIT_MULTIPLAYER, Multiplayer } from 'core/actions/multiplayer'
+import { Player } from '@prisma/client'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-const multiplayer = (
-    state: Multiplayer = new Multiplayer(),
-    action: InitMultiplayerType
-): Multiplayer => {
-    switch (action.type) {
-        case INIT_MULTIPLAYER: {
-            return { ...action.multiplayer }
-        }
-        default:
-            return state
-    }
+/* Multiplayer config */
+export class Multiplayer {
+    storyUrl: string
+    instanceId: string
+    ready: boolean // True when all the params have been initialized
+    currentPlayer: Player
+    otherPlayer: Player
 }
-export default multiplayer
+
+export interface MultiplayerPayload {
+    multiplayer: Multiplayer
+}
+export interface MultiplayerState {
+    multiplayer: Multiplayer
+}
+const initialState: MultiplayerState = { multiplayer: new Multiplayer() }
+
+export const multiplayerSlice = createSlice({
+    name: 'multiplayer',
+    initialState,
+    reducers: {
+        init: (state, action: PayloadAction<MultiplayerPayload>) => {
+            state.multiplayer = { ...action.payload.multiplayer }
+        }
+    }
+})
+export const { init } = multiplayerSlice.actions
+
+export default multiplayerSlice.reducer

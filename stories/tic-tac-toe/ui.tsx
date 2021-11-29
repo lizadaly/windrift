@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { useSelector } from 'react-redux'
 
-import { RootState } from 'core/reducers'
+import { RootState } from 'core/types'
 
 import ShareButton from 'core/multiplayer/components/share-button'
 
@@ -11,10 +11,10 @@ import Log from 'core/multiplayer/components/examples/log'
 import styles from 'public/stories/tic-tac-toe/styles/Content.module.scss'
 import ResetButton from 'core/components/ui/reset-button'
 import { PlayerContext } from 'core/multiplayer/components/multiplayer-init'
-import Grid from 'core/components/ui/grid'
+import Grid from 'core/components/ui/layouts/grid'
 
 const Content: React.FC = ({ children }) => {
-    const multiplayer = useSelector((state: RootState) => state.multiplayer)
+    const { multiplayer } = useSelector((state: RootState) => state.multiplayer)
     const { currentPlayer, otherPlayer } = React.useContext(PlayerContext)
 
     return (

@@ -6,6 +6,8 @@ import { update as logUpdate } from 'core/features/log'
 import { Tag, ENTRY_TYPES, Next, Config, NextType, RootState } from 'core/types'
 import { gotoChapter, incrementSection } from 'core/features/navigation'
 import { increment } from 'core/features/counter'
+import { Player } from '@prisma/client'
+import { emitChoice } from 'core/multiplayer/api-client'
 
 export type Option = string
 export type OptionGroup = Array<Option>
@@ -33,10 +35,25 @@ interface OptionAdvancePayload {
 
 const initialState: ChoiceState = null
 
+export interface MultiplayerChoicePayload {
+    eventPlayer: Player
+    currentPlayer: Player
+    identifier: string
+    instanceId: string
+    sync: boolean
+    choiceId?: string
+}
 export const makeChoice =
-    (tag: Tag, option: Option, next?: NextType, filename?: string, eventPlayer?: Player) =>
+    (
+        tag: Tag,
+        option: Option,
+        next?: NextType,
+        filename?: string,
+        multiplayer?: MultiplayerChoicePayload
+    ) =>
     (dispatch: Dispatch, getState: () => RootState, config: Config): void => {
-        const choiceId = uuidv4()
+        const { eventPlayer, currentPlayer, sync, instanceId, identifier } = multiplayer
+        const choiceId = multiplayer?.choiceId || uuidv4()
 
         dispatch(updateInventory({ tag, option }))
         dispatch(advance({ tag }))
@@ -47,7 +64,8 @@ export const makeChoice =
                     tag,
                     option,
                     entry: ENTRY_TYPES.Choice,
-                    timestamp: new Date().toLocaleDateString()
+                    timestamp: new Date().toLocaleDateString(),
+                    playerName: eventPlayer?.name
                 }
             })
         )
@@ -64,6 +82,9 @@ export const makeChoice =
                 // no-op
             } else if (typeof next === 'string') {
                 dispatch(gotoChapter({ filename: next }))
+                if (eventPlayer !== currentPlayer && sync) {
+                    emitChoice(choiceId, tag, option, identifier, instanceId, currentPlayer)
+                }
             }
         }
 

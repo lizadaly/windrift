@@ -2,14 +2,15 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 
-import { Config } from 'core/types'
-import { RootState } from 'core/reducers'
+import { RootState } from 'core/types'
 import { getStoryInstance } from 'core/multiplayer/api-client'
+import { StoryContext } from 'pages/[story]/[[...chapter]]'
 
-const useMultiplayer = (config: Config): void => {
+const useMultiplayer = (): void => {
     const dispatch = useDispatch()
+    const { config } = React.useContext(StoryContext)
     const router = useRouter()
-    const multiplayer = useSelector((state: RootState) => state.multiplayer)
+    const { multiplayer } = useSelector((state: RootState) => state.multiplayer)
 
     React.useEffect(() => {
         const { instance, playerId } = router.query

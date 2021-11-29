@@ -35,6 +35,10 @@ import reducers from 'core/features'
 import { Story, StoryContainer } from 'core/components'
 import { Config, Toc, TocItem } from 'core/types'
 import { getChapter } from 'core/util'
+import { PrismaClient } from '@prisma/client'
+import { PlayerContext } from 'core/multiplayer/components/multiplayer-init'
+
+const prisma = new PrismaClient()
 
 export interface WindriftProps {
     toc: Toc
@@ -47,6 +51,45 @@ function getConfigYaml(story: string) {
     return configYaml
 }
 
+// Initialize any constant values from this story build into the global
+// database. Per-story instance values are initiated at story start
+async function initMultiplayerDb(story: string, configYaml: Record<string, any>) {
+    await prisma.story.upsert({
+        where: {
+            id: story
+        },
+        update: {
+            title: configYaml.title,
+            player1Name: configYaml.players[0].name,
+            player2Name: configYaml.players[1].name
+        },
+        create: {
+            id: story,
+            title: configYaml.title,
+            player1Name: configYaml.players[0].name,
+            player2Name: configYaml.players[1].name
+        }
+    })
+
+    await Promise.all(
+        configYaml.chapters.map((item: TocItem) =>
+            prisma.chapter.upsert({
+                where: {
+                    filename_storyId: { filename: item.filename, storyId: story }
+                },
+                update: {
+                    title: item.title,
+                    filename: item.filename
+                },
+                create: {
+                    filename: item.filename,
+                    title: item.title,
+                    storyId: story
+                }
+            })
+        )
+    )
+}
 export const getStaticProps: GetStaticProps = async (context) => {
     const story = context.params.story as string
     const configYaml = getConfigYaml(story)
@@ -57,7 +100,9 @@ export const getStaticProps: GetStaticProps = async (context) => {
         bookmark: 0
     }))
     console.log(configYaml)
-
+    if (configYaml.players && configYaml.players.length > 1) {
+        initMultiplayerDb(story, configYaml)
+    }
     return {
         props: {
             toc,

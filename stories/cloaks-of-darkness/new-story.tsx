@@ -1,13 +1,13 @@
-import { Config } from 'core/types'
-import { Multiplayer } from 'core/actions/multiplayer'
+import * as React from 'react'
+
+import { Multiplayer } from 'core/features/multiplayer'
 
 import StartStory from 'core/multiplayer/components/start-story-form'
 
 type Props = {
     multiplayer: Multiplayer
-    config: Config
 }
-const NewStory: React.FC<Props> = ({ multiplayer, config }) => {
+const NewStory: React.FC<Props> = ({ multiplayer }) => {
     return (
         <div>
             <h1>Start or join Cloaks of Darkness</h1>
@@ -19,9 +19,7 @@ const NewStory: React.FC<Props> = ({ multiplayer, config }) => {
                 Start the story yourself and share the story with a friend (or other browser
                 window):
             </p>
-            <StartStory multiplayer={multiplayer} config={config}>
-                Start a new Cloaks of Darkness
-            </StartStory>
+            <StartStory multiplayer={multiplayer}>Start a new Cloaks of Darkness</StartStory>
         </div>
     )
 }

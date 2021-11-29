@@ -3,12 +3,12 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 
-import { RootState } from 'core/reducers'
+import { RootState } from 'core/types'
 import { PlayerContext } from './multiplayer-init'
 
 export const Both: React.FC = ({ children }) => {
     const { presenceApiResponse: presence } = React.useContext(PlayerContext)
-    const toc = useSelector((state: RootState) => state.toc.present)
+    const { toc } = useSelector((state: RootState) => state.navigation.present)
     if (toc && presence) {
         const otherPlayerLocation = presence.nav.chapterName
         const thisPlayerLocation = Object.values(toc).filter((c) => c.visible)[0].filename

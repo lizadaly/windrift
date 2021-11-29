@@ -3,10 +3,16 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Player } from '@prisma/client'
 import useInterval from '@use-it/interval'
 
-import { RootState } from 'core/reducers'
-import { gotoChapter } from 'core/actions/navigation'
-import { emitNavChange, emitPresence, pollForChoices, pollForPresence } from 'core/multiplayer/api-client'
+import { RootState } from 'core/types'
+import { gotoChapter } from 'core/features/navigation'
+import {
+    emitNavChange,
+    emitPresence,
+    pollForChoices,
+    pollForPresence
+} from 'core/multiplayer/api-client'
 import { PresenceApiResponse } from 'pages/api/core/story/[story]/[instance]/presence'
+import { StoryContext } from 'pages/[story]/[[...chapter]]'
 
 export interface Players {
     currentPlayer: Player
@@ -21,12 +27,12 @@ export const PlayerContext: React.Context<Players> = React.createContext({
 
 const MultiplayerInit: React.FC = ({ children }) => {
     const { currentPlayer, otherPlayer, instanceId } = useSelector(
-        (state: RootState) => state.multiplayer
+        (state: RootState) => state.multiplayer.multiplayer
     )
-    const { identifier, players } = useSelector((state: RootState) => state.config)
+    const { identifier, players } = React.useContext(StoryContext).config
 
-    const log = useSelector((state: RootState) => state.log)
-    const toc = useSelector((state: RootState) => state.toc.present)
+    const { log } = useSelector((state: RootState) => state.log)
+    const { toc } = useSelector((state: RootState) => state.navigation.present)
 
     const [presenceApiResponse, setPresence] = React.useState<PresenceApiResponse | undefined>(
         undefined
@@ -42,7 +48,7 @@ const MultiplayerInit: React.FC = ({ children }) => {
         // if there are no visible chapters, use the current player default
         if (!visible) {
             const start = players.filter((p) => p.name === currentPlayer.name)[0].start
-            dispatch(gotoChapter(start))
+            dispatch(gotoChapter({ filename: start }))
             emitNavChange(identifier, start, instanceId, currentPlayer)
             emitPresence(identifier, instanceId, currentPlayer)
         }

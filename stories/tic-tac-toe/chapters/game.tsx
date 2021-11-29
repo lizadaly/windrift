@@ -1,4 +1,4 @@
-import { RootState } from 'core/reducers'
+import { RootState } from 'core/types'
 import { useSelector } from 'react-redux'
 
 import { Section, Chapter } from 'core/components'
@@ -8,10 +8,12 @@ import Board from '../components/board'
 const playerWins = (arr: string[], player: string) => arr.every((val) => val === player)
 
 export const Page: PageType = () => {
-    const { currentPlayer, otherPlayer } = useSelector((state: RootState) => state.multiplayer)
+    const { currentPlayer, otherPlayer } = useSelector(
+        (state: RootState) => state.multiplayer.multiplayer
+    )
     const inventory = useSelector((state: RootState) => state.inventory.present)
 
-    const log = useSelector((state: RootState) => state.log)
+    const { log } = useSelector((state: RootState) => state.log)
 
     let nextPlayer = currentPlayer.name === 'player X' ? currentPlayer : otherPlayer
 

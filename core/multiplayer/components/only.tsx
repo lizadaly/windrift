@@ -6,7 +6,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 
-import { RootState } from 'core/reducers'
+import { RootState } from 'core/types'
 import { PlayerContext } from 'core/multiplayer/components/multiplayer-init'
 
 type Props = {
@@ -16,7 +16,7 @@ type Props = {
 const Only: React.FC<Props> = ({ playerName, children, alone = false }) => {
     const { currentPlayer } = React.useContext(PlayerContext)
     const { presenceApiResponse: presence } = React.useContext(PlayerContext)
-    const toc = useSelector((state: RootState) => state.toc.present)
+    const { toc } = useSelector((state: RootState) => state.navigation.present)
 
     if (toc && presence && alone) {
         const otherPlayerLocation = presence.nav.chapterName

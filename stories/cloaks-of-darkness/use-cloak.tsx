@@ -1,5 +1,5 @@
-import { updateInventory } from 'core/actions'
-import { RootState } from 'core/reducers'
+import { update } from 'core/features/inventory'
+import { RootState } from 'core/types'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -16,11 +16,11 @@ const useCloak = (): CloakStatus => {
     const dispatch = useDispatch()
     useEffect(() => {
         if (!(CLOAK_STATUS in inv)) {
-            dispatch(updateInventory(CLOAK_STATUS, CloakStatus.Worn))
+            dispatch(update({ tag: CLOAK_STATUS, option: CloakStatus.Worn }))
         }
         // Condition under which the status changes to hung:
         if ('cl-pluck' in inv && inv['cl-pluck'] === 'pluck') {
-            dispatch(updateInventory(CLOAK_STATUS, CloakStatus.Hung))
+            dispatch(update({ tag: CLOAK_STATUS, option: CloakStatus.Hung }))
         }
     }, [dispatch])
     return (inv[CLOAK_STATUS] as CloakStatus) || null
