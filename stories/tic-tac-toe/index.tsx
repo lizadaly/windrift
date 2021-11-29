@@ -14,8 +14,6 @@ import { StoryContext } from 'pages/[story]/[[...chapter]]'
 const Index: React.FC = ({ children }) => {
     const { config } = React.useContext(StoryContext)
 
-    const { multiplayer } = useSelector((state: RootState) => state.multiplayer)
-
     useMultiplayer()
 
     // Component tree to render for an active story
@@ -24,7 +22,7 @@ const Index: React.FC = ({ children }) => {
     // // Render tree for setting up the game
     const setup = (
         <UI>
-            <NewGame multiplayer={multiplayer} />
+            <NewGame />
         </UI>
     )
 

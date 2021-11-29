@@ -2,7 +2,7 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 import { useRouter } from 'next/router'
 
-import { getStoryInstance } from 'core/multiplayer/api-client'
+import { emitPresence, getStoryInstance } from 'core/multiplayer/api-client'
 import { StoryContext } from 'pages/[story]/[[...chapter]]'
 
 const useMultiplayer = (): void => {
@@ -15,6 +15,8 @@ const useMultiplayer = (): void => {
 
         if (instance && playerId) {
             getStoryInstance(config.identifier, instance as string, playerId as string, dispatch)
+            // Trigger a presence POST
+            emitPresence(config.identifier, instance as string, playerId as string)
         }
     }, [dispatch])
 }

@@ -54,7 +54,7 @@ const MultiplayerInit: React.FC = ({ children }) => {
             const start = players.filter((p) => p.name === currentPlayer.name)[0].start
             dispatch(gotoChapter({ filename: start }))
             emitNavChange(identifier, start, instanceId, currentPlayer)
-            emitPresence(identifier, instanceId, currentPlayer)
+            emitPresence(identifier, instanceId, currentPlayer.id)
         }
     }, [])
 
@@ -71,7 +71,7 @@ const MultiplayerInit: React.FC = ({ children }) => {
 
     // Send presence
     useInterval(async () => {
-        emitPresence(identifier, instanceId, currentPlayer)
+        emitPresence(identifier, instanceId, currentPlayer.id)
     }, NEXT_PUBLIC_POLL_EMIT_PRESENCE)
 
     const PlayersContext: Players = {

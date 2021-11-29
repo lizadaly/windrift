@@ -64,7 +64,7 @@ export const makeChoice =
                     tag,
                     option,
                     entry: ENTRY_TYPES.Choice,
-                    timestamp: new Date().toLocaleDateString(),
+                    timestamp: new Date().toUTCString(),
                     playerName: eventPlayer?.name
                 }
             })
@@ -82,9 +82,18 @@ export const makeChoice =
                 // no-op
             } else if (typeof next === 'string') {
                 dispatch(gotoChapter({ filename: next }))
-                if (eventPlayer !== currentPlayer && sync) {
-                    emitChoice(choiceId, tag, option, identifier, instanceId, currentPlayer)
-                }
+            }
+            if (eventPlayer === currentPlayer && sync) {
+                emitChoice(
+                    choiceId,
+                    tag,
+                    option,
+                    next,
+                    filename,
+                    identifier,
+                    instanceId,
+                    currentPlayer
+                )
             }
         }
 

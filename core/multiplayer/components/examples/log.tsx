@@ -10,11 +10,12 @@ import { ENTRY_TYPES, LogEntry } from 'core/features/log'
 
 const Log = (): JSX.Element => {
     const { log } = useSelector((state: RootState) => state.log)
+    const copy = log.slice()
     return (
         <div>
             <br />
             <h3>Event log</h3>
-            {log
+            {copy
                 .reverse()
                 .filter((e) => e.entry === ENTRY_TYPES.Choice)
                 .map((e, i) => {

@@ -20,19 +20,31 @@ export const getStoryInstance = (
 ): void => {
     axios(`${API_PREFIX}/${identifier}/${instanceId}/get`, {}).then((res) => {
         const { instance, player1, player2 } = res.data
-        const multiplayer = new Multiplayer()
+        let currentPlayer: Player, otherPlayer: Player
+        const { protocol, hostname, port, pathname } = window.location
+        const storyUrl = `${protocol}//${hostname}${port ? ':' + port : ''}${pathname}?instance=${
+            instance.id
+        }`
         if (playerId === player1.id) {
-            multiplayer.currentPlayer = player1
-            multiplayer.otherPlayer = player2
+            currentPlayer = player1
+            otherPlayer = player2
         }
         if (playerId === player2.id) {
-            multiplayer.currentPlayer = player2
-            multiplayer.otherPlayer = player1
+            currentPlayer = player2
+            otherPlayer = player1
         }
-        multiplayer.instanceId = instance.id
-        multiplayer.currentPlayer = player2
-        multiplayer.ready = true
-        dispatch(init({ multiplayer }))
+
+        dispatch(
+            init({
+                multiplayer: {
+                    storyUrl,
+                    currentPlayer,
+                    otherPlayer,
+                    instanceId: instance.id,
+                    ready: true
+                }
+            })
+        )
     })
 }
 
@@ -47,13 +59,17 @@ export const createStoryInstance = (identifier: string, dispatch: Dispatch<any>)
             instance.id
         }&playerId=${player2.id}`
 
-        const multiplayer = new Multiplayer()
-        multiplayer.instanceId = instance.id
-        multiplayer.storyUrl = storyUrl
-        multiplayer.currentPlayer = player1
-        multiplayer.otherPlayer = player2
-        multiplayer.ready = true
-        dispatch(init({ multiplayer }))
+        dispatch(
+            init({
+                multiplayer: {
+                    storyUrl,
+                    currentPlayer: player1,
+                    otherPlayer: player2,
+                    instanceId: instance.id,
+                    ready: true
+                }
+            })
+        )
     })
 }
 
@@ -77,6 +93,8 @@ export const emitChoice = (
     id: string,
     tag: Tag,
     option: string,
+    next: string,
+    chapterName: string,
     identifier: string,
     instanceId: string,
     player: Player
@@ -85,14 +103,16 @@ export const emitChoice = (
         id,
         tag,
         option,
-        playerId: player.id
+        playerId: player.id,
+        next,
+        chapterName
     })
 }
 
-export const emitPresence = (identifier: string, instanceId: string, player: Player): void => {
+export const emitPresence = (identifier: string, instanceId: string, playerId: string): void => {
     axios
         .post(`${API_PREFIX}/${identifier}/${instanceId}/presence`, {
-            playerId: player.id
+            playerId
         })
         .then()
 }

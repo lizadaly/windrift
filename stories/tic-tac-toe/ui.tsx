@@ -23,7 +23,7 @@ const Content: React.FC = ({ children }) => {
             header={
                 <nav>
                     <h1>Multiplayer Demo</h1>
-                    {multiplayer.ready && (
+                    {multiplayer?.ready && (
                         <>
                             <div className={styles.player}>You are {currentPlayer.name} ⟶</div>
                             <div className={styles.share}>
@@ -37,7 +37,7 @@ const Content: React.FC = ({ children }) => {
                 </nav>
             }
             right={
-                multiplayer.ready && (
+                multiplayer?.ready && (
                     <>
                         <Presence />
                         <Log />

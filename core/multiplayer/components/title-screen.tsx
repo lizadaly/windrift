@@ -10,7 +10,7 @@ type Props = {
 }
 const TitleScreen: React.FC<Props> = ({ ready, setup }) => {
     const { multiplayer } = useSelector((state: RootState) => state.multiplayer)
-    return <>{multiplayer.ready ? <MultiplayerInit>{ready}</MultiplayerInit> : <>{setup}</>}</>
+    return <>{multiplayer?.ready ? <MultiplayerInit>{ready}</MultiplayerInit> : <>{setup}</>}</>
 }
 
 export default TitleScreen

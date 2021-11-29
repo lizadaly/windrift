@@ -32,7 +32,7 @@ const Content: React.FC = ({ children }) => {
             header={
                 <nav>
                     <h1>Cloaks of Darkness</h1>
-                    {multiplayer.ready && (
+                    {multiplayer?.ready && (
                         <>
                             <div className={styles.player}>
                                 You are player {currentPlayer.name} ⟶
@@ -47,7 +47,7 @@ const Content: React.FC = ({ children }) => {
                     )}
                 </nav>
             }
-            right={multiplayer.ready && <Presence />}
+            right={multiplayer?.ready && <Presence />}
             left={
                 currentPlayer && // Story must have started
                 (currentPlayer.name === 'raccoon' ? (

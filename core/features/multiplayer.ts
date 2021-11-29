@@ -2,7 +2,7 @@ import { Player } from '@prisma/client'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 /* Multiplayer config */
-export class Multiplayer {
+export interface Multiplayer {
     storyUrl: string
     instanceId: string
     ready: boolean // True when all the params have been initialized
@@ -16,7 +16,7 @@ export interface MultiplayerPayload {
 export interface MultiplayerState {
     multiplayer: Multiplayer
 }
-const initialState: MultiplayerState = { multiplayer: new Multiplayer() }
+const initialState: MultiplayerState = { multiplayer: null }
 
 export const multiplayerSlice = createSlice({
     name: 'multiplayer',
