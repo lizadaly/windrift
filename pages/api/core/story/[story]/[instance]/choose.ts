@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-import prisma from 'pages/api/db'
+import prisma from 'core/multiplayer/db'
 
 export default async (
     req: NextApiRequest,
@@ -9,12 +9,14 @@ export default async (
     const instanceId = req.query.instance as string
 
     if (req.method === 'POST') {
-        const { id, tag, option, playerId } = req.body
+        const { id, tag, option, playerId, next, chapterName } = req.body
         await prisma.choice.create({
             data: {
                 id,
                 tag,
                 option,
+                next,
+                chapterName,
                 player: {
                     connect: {
                         id: playerId

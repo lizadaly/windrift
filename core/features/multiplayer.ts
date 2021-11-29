@@ -23,7 +23,7 @@ export const multiplayerSlice = createSlice({
     initialState,
     reducers: {
         init: (state, action: PayloadAction<MultiplayerPayload>) => {
-            state.multiplayer = { ...action.payload.multiplayer }
+            return action.payload
         }
     }
 })

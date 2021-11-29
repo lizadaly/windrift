@@ -35,10 +35,8 @@ import reducers from 'core/features'
 import { Story, StoryContainer } from 'core/components'
 import { Config, Toc, TocItem } from 'core/types'
 import { getChapter } from 'core/util'
-import { PrismaClient } from '@prisma/client'
-import { PlayerContext } from 'core/multiplayer/components/multiplayer-init'
 
-const prisma = new PrismaClient()
+import prisma from 'core/multiplayer/db'
 
 export interface WindriftProps {
     toc: Toc

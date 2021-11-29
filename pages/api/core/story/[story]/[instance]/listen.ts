@@ -2,7 +2,7 @@
 import { Choice, Player } from '@prisma/client'
 import { NextApiRequest, NextApiResponse } from 'next'
 
-import prisma from 'pages/api/db'
+import prisma from 'core/multiplayer/db'
 
 export type ChoiceApiResponse = Choice & {
     player: Player

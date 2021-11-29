@@ -1,7 +1,7 @@
 import { Presence, Player, Nav } from '@prisma/client'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-import prisma from 'pages/api/db'
+import prisma from 'core/multiplayer/db'
 
 export type PresenceApiResponse = {
     presence: Presence

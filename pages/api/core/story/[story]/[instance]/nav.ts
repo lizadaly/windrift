@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-import prisma from 'pages/api/db'
+import prisma from 'core/multiplayer/db'
 
 export default async (req: NextApiRequest, res: NextApiResponse<void>): Promise<void> => {
     const instanceId = req.query.instance as string

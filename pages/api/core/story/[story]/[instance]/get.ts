@@ -2,7 +2,7 @@
 import { Instance, Player, Story } from '@prisma/client'
 import { NextApiRequest, NextApiResponse } from 'next'
 
-import prisma from 'pages/api/db'
+import prisma from 'core/multiplayer/db'
 
 export type StoryApiResponse = {
     story: Story

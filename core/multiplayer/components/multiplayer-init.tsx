@@ -25,6 +25,10 @@ export const PlayerContext: React.Context<Players> = React.createContext({
     presenceApiResponse: null
 })
 
+const NEXT_PUBLIC_POLL_EMIT_PRESENCE = 30000
+const NEXT_PUBLIC_POLL_CHECK_PRESENCE = 10000
+const NEXT_PUBLIC_POLL_CHECK_CHOICES = 10000
+
 const MultiplayerInit: React.FC = ({ children }) => {
     const { currentPlayer, otherPlayer, instanceId } = useSelector(
         (state: RootState) => state.multiplayer.multiplayer
@@ -57,18 +61,18 @@ const MultiplayerInit: React.FC = ({ children }) => {
     // Poll for choices
     useInterval(
         async () => pollForChoices(identifier, instanceId, currentPlayer, log, dispatch),
-        parseInt(process.env.NEXT_PUBLIC_POLL_CHECK_CHOICES)
+        NEXT_PUBLIC_POLL_CHECK_CHOICES
     )
 
     // Poll for movement
     useInterval(async () => {
         pollForPresence(identifier, instanceId, currentPlayer, setPresence)
-    }, parseInt(process.env.NEXT_PUBLIC_POLL_CHECK_PRESENCE))
+    }, NEXT_PUBLIC_POLL_CHECK_PRESENCE)
 
     // Send presence
     useInterval(async () => {
         emitPresence(identifier, instanceId, currentPlayer)
-    }, parseInt(process.env.NEXT_PUBLIC_POLL_EMIT_PRESENCE))
+    }, NEXT_PUBLIC_POLL_EMIT_PRESENCE)
 
     const PlayersContext: Players = {
         currentPlayer,
