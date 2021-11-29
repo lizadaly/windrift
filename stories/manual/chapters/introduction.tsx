@@ -12,9 +12,9 @@ export const Page: PageType = () => (
                 with the following characteristics:
             </p>
             <ul>
-                <li>A hypertext story primarily experienced on the web.</li>
+                <li>Hypertext stories primarily experienced on the web.</li>
                 <li>
-                    A story that emphasizes long-form narrative, mood, and the primacy of the text
+                    Stories that emphasize long-form narrative, mood, and the primacy of the text
                     itself.
                 </li>
                 <li>
@@ -22,8 +22,8 @@ export const Page: PageType = () => (
                     input, but not necessarily based on branching plotlines.
                 </li>
                 <li>
-                    Stories that have unique, bespoke user interface components, or by authors who
-                    want absolute control over the layout and presentation of their stories.
+                    Stories that have unique, bespoke user interface components, or are written
+                    by authors who want absolute control over the layout and presentation of their stories.
                 </li>
             </ul>
             <p>This definition is extremely loose! There is no one kind of interactive fiction.</p>
@@ -31,12 +31,12 @@ export const Page: PageType = () => (
             <p>
                 Windrift has been used to write several stories which placed highly in the
                 Interactive Fiction Competition:{' '}
-                <a href="https://stoneharborgame.com/">Stone Harbor</a> (2016),{' '}
-                <a href="https://lizadaly.com/pages/harmonia/">Harmonia</a> (2017) both by{' '}
+                <a href="https://stoneharborgame.com/">Stone Harbor</a> (2016) and
+                <a href="https://lizadaly.com/pages/harmonia/">Harmonia</a> (2017), both by{' '}
                 <a href="https://lizadaly.com/">Liza Daly</a>. Harmonia won two{' '}
-                <a href="https://xyzzyawards.org/">XYZZY Awards</a> for Innovation and use of
+                <a href="https://xyzzyawards.org/">XYZZY Awards</a> for Innovation and Use of
                 Multimedia. <a href="https://lizadaly.com/projects/the-ballroom/">The Ballroom</a>{' '}
-                (2019) is a short game which demonstrates some of Windrift's principles around
+                (2019) is a short game that demonstrates some of Windrift's principles of
                 "mutability". Enrique Henestroza Anguiano used Windrift to write{' '}
                 <a href="http://springthing.net/2018/play_online/TheImposter/index.html">
                     The Imposter
@@ -95,9 +95,9 @@ export const Page: PageType = () => (
             <p>
                 One of Windrift's design goals is to make as few assumptions about your story as
                 possible. It assumes that authors have chosen this tool because they want to
-                implement a story that might be hard or impossible to do from within a more
+                implement a story that might be hard or impossible to create using a more
                 domain-specific language like Ink. Windrift supplies some foundational pieces, like
-                the ability to store and retrieve the values of hypertext choices, and to provide
+                the ability to store and retrieve the values of hypertext choices, and provides
                 some design patterns to get you started on more custom work. It's best to think of
                 it as a library of React components that you'll likely use in any kind of hypertext
                 story, but otherwise a Windrift story is fundamentally a React webapp with some
