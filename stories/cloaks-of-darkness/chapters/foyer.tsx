@@ -22,7 +22,7 @@ export const Page: PageType = () => {
                         You are in a spacious hall, splendidly decorated in red and gold, with
                         glittering chandeliers overhead. The entrance from the street is{' '}
                         <C
-                            options={[['back the way you came', null]]}
+                            options={[['back the way you came']]}
                             tag="c1-back"
                             widget={D}
                             sync={false}

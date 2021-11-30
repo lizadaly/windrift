@@ -8,6 +8,7 @@ import { Tag, RootState, Option } from 'core/types'
  * @returns the list of selected options, which may be undefined
  */
 const useInventory = (tags: Tag[]): Option[] => {
+    console.log('Running use inventory for ', tags)
     return useSelector((state: RootState) => {
         const inv = state.inventory.present
         const results: Option[] = []

@@ -19,8 +19,7 @@ export const Page: PageType = () => {
                 <h1>Cloakroom</h1>
                 <p>
                     The walls of this small room were clearly once lined with hooks, though now only{' '}
-                    <C options={[['one hook', null]]} tag="cl-hook" widget={D} sync={false} />{' '}
-                    remains.{' '}
+                    <C options={[['one hook']]} tag="cl-hook" widget={D} sync={false} /> remains.{' '}
                     <R
                         tag="cl-hook"
                         options={{
@@ -36,11 +35,7 @@ export const Page: PageType = () => {
                                         <Only playerName="raccoon">
                                             <aside>
                                                 You could{' '}
-                                                <C
-                                                    options={[['pluck', null]]}
-                                                    tag="cl-pluck"
-                                                    widget={D}
-                                                />{' '}
+                                                <C options={[['pluck']]} tag="pluck" widget={D} />{' '}
                                                 the little cloak off the snake and hang it on the
                                                 hook, if you like.
                                             </aside>
