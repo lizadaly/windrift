@@ -22,13 +22,18 @@ export interface NavProps {
     tag?: Tag
     /** Class name to based to the widget */
     className?: string
+    /** For Multiplayer only, has no effect in single-player: whether to sync this choice to the remote player.
+     * Player location is always available via the presence response, but this allows responding to location changes instantly.
+     * You will probably want to set a specific tag in this case. */
+    sync?: boolean
 }
 const Nav = ({
     text = 'More...',
     next = Next.Section,
     persist = true,
     tag = undefined,
-    className = undefined
+    className = undefined,
+    sync = false
 }: NavProps): JSX.Element => {
     const { filename } = useContext(ChapterContext)
 
@@ -40,6 +45,7 @@ const Nav = ({
             next={next}
             persist={persist}
             className={className}
+            sync={sync}
         />
     )
 }

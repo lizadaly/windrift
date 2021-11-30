@@ -1,4 +1,4 @@
-import { update } from 'core/features/inventory'
+import { update, init } from 'core/features/inventory'
 import useInventory from 'core/hooks/use-inventory'
 
 import { useEffect } from 'react'
@@ -11,16 +11,17 @@ export enum CloakStatus {
 }
 
 const useCloak = (): CloakStatus => {
-    const [cloak, pluck] = useInventory(['cloak-status', 'pluck'])
-    console.log(`Running use cloak with ${cloak}, ${pluck}`)
+    const [cloak, pluck] = useInventory(['cloak', 'pluck'])
     const dispatch = useDispatch()
+
     useEffect(() => {
-        if (cloak) {
-            dispatch(update({ tag: 'cloak', option: CloakStatus.Worn }))
-        }
+        dispatch(init({ tag: 'cloak', option: CloakStatus.Worn }))
+    }, [])
+
+    useEffect(() => {
         // Condition under which the status changes to hung:
         if (pluck === 'pluck') {
-            dispatch(update({ tag: 'cloak-status', option: CloakStatus.Hung }))
+            dispatch(update({ tag: 'cloak', option: CloakStatus.Hung }))
         }
     }, [cloak, pluck])
     return (cloak as CloakStatus) || null

@@ -26,19 +26,15 @@ export const Page: PageType = () => {
                             hook: cloak === CloakStatus.Worn && (
                                 <>
                                     <Only playerName="snake">
-                                        <aside>
-                                            It looks like you could hang your cloak there, if you
-                                            only had hands.
-                                        </aside>
+                                        It looks like you could hang your cloak there, if you only
+                                        had hands.
                                     </Only>
                                     {both && (
                                         <Only playerName="raccoon">
-                                            <aside>
-                                                You could{' '}
-                                                <C options={[['pluck']]} tag="pluck" widget={D} />{' '}
-                                                the little cloak off the snake and hang it on the
-                                                hook, if you like.
-                                            </aside>
+                                            You could{' '}
+                                            <C options={[['pluck']]} tag="pluck" widget={D} /> the
+                                            little cloak off the snake and hang it on the hook, if
+                                            you like.
                                         </Only>
                                     )}
                                 </>

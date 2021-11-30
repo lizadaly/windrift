@@ -4,10 +4,9 @@
 // <Both> component and use this to limit to per-player text.
 
 import React from 'react'
-import { useSelector } from 'react-redux'
 
-import { RootState } from 'core/types'
 import { PlayerContext } from 'core/multiplayer/components/multiplayer-init'
+import useChapter from 'core/hooks/use-chapter'
 
 type Props = {
     playerName: string
@@ -16,11 +15,10 @@ type Props = {
 const Only: React.FC<Props> = ({ playerName, children, alone = false }) => {
     const { currentPlayer } = React.useContext(PlayerContext)
     const { presenceApiResponse: presence } = React.useContext(PlayerContext)
-    const { toc } = useSelector((state: RootState) => state.navigation.present)
+    const thisPlayerLocation = useChapter().filename
 
-    if (toc && presence && alone) {
+    if (presence && alone) {
         const otherPlayerLocation = presence.nav.chapterName
-        const thisPlayerLocation = Object.values(toc).filter((c) => c.visible)[0].filename
         if (thisPlayerLocation === otherPlayerLocation) {
             return null
         }

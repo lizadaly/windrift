@@ -1,13 +1,10 @@
 title: Cloaks of Darkness
 chapters:
-  - chapter:
-    filename: "foyer"
+  - filename: "foyer"
     title: "Foyer of the Opera House"
-  - chapter:
-    filename: "cloakroom"
+  - filename: "cloakroom"
     title: "Cloakroom"
-  - chapter:
-    filename: "bar"
+  - filename: "bar"
     title: "Foyer Bar"
 players:
   - name: "raccoon"

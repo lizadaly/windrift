@@ -6,7 +6,7 @@ import { LogEntry } from 'core/features/log'
 import { TocItem, Tag } from 'core/types'
 import { ChoiceApiResponse } from 'pages/api/core/story/[story]/[instance]/listen'
 import { PresenceApiResponse } from 'pages/api/core/story/[story]/[instance]/presence'
-import { init, Multiplayer } from 'core/features/multiplayer'
+import { init } from 'core/features/multiplayer'
 import { makeChoice } from 'core/features/choice'
 
 const API_PREFIX = '/api/core/story'
@@ -18,7 +18,7 @@ export const getStoryInstance = (
     playerId: string,
     dispatch: Dispatch<any>
 ): void => {
-    axios(`${API_PREFIX}/${identifier}/${instanceId}/get`, {}).then((res) => {
+    axios(`${API_PREFIX}/${identifier}/${instanceId}/get/`, {}).then((res) => {
         const { instance, player1, player2 } = res.data
         let currentPlayer: Player, otherPlayer: Player
         const { protocol, hostname, port, pathname } = window.location
@@ -50,7 +50,7 @@ export const getStoryInstance = (
 
 // Called by player 1 to create the instance
 export const createStoryInstance = (identifier: string, dispatch: Dispatch<any>): void => {
-    axios(`${API_PREFIX}/${identifier}/init`, {
+    axios(`${API_PREFIX}/${identifier}/init/`, {
         method: 'post'
     }).then((res) => {
         const { instance, player1, player2 } = res.data
@@ -80,7 +80,7 @@ export const emitNavChange = (
     player: Player
 ): void => {
     axios
-        .post(`${API_PREFIX}/${identifier}/${instanceId}/nav`, {
+        .post(`${API_PREFIX}/${identifier}/${instanceId}/nav/`, {
             chapterName,
             playerId: player.id
         })
@@ -99,7 +99,7 @@ export const emitChoice = (
     instanceId: string,
     player: Player
 ): void => {
-    axios.post(`${API_PREFIX}/${identifier}/${instanceId}/choose`, {
+    axios.post(`${API_PREFIX}/${identifier}/${instanceId}/choose/`, {
         id,
         tag,
         option,
@@ -111,7 +111,7 @@ export const emitChoice = (
 
 export const emitPresence = (identifier: string, instanceId: string, playerId: string): void => {
     axios
-        .post(`${API_PREFIX}/${identifier}/${instanceId}/presence`, {
+        .post(`${API_PREFIX}/${identifier}/${instanceId}/presence/`, {
             playerId
         })
         .then()
@@ -125,7 +125,7 @@ export const pollForChoices = (
     dispatch: Dispatch<any>
 ): void => {
     axios
-        .get(`${API_PREFIX}/${identifier}/${instanceId}/listen?playerId=${player.id}`)
+        .get(`${API_PREFIX}/${identifier}/${instanceId}/listen/?playerId=${player.id}`)
         .then((res: AxiosResponse<ChoiceApiResponse[]>) => {
             // Get all the existing log IDs
             const logIds = log.map((l) => l.id)
@@ -157,7 +157,7 @@ export const pollForPresence = (
     setPresence: React.Dispatch<React.SetStateAction<PresenceApiResponse>>
 ): void => {
     axios
-        .get(`${API_PREFIX}/${identifier}/${instanceId}/presence?playerId=${player.id}`)
+        .get(`${API_PREFIX}/${identifier}/${instanceId}/presence/?playerId=${player.id}`)
         .then((res: AxiosResponse<PresenceApiResponse>) => {
             setPresence(res.data)
         })
