@@ -93,7 +93,7 @@ export const emitChoice = (
     id: string,
     tag: Tag,
     option: string,
-    next: string,
+    next: string | null,
     chapterName: string,
     identifier: string,
     instanceId: string,

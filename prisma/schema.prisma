@@ -78,7 +78,7 @@ model Choice {
   createdAt   DateTime @default(now()) @map("created_at")
   tag         String   @db.VarChar(2000)
   option      String   @db.Text
-  next        String   @db.VarChar(2000)
+  next        String?  @db.VarChar(2000)
   chapterName String   @db.VarChar(2000)
   instance    Instance @relation(fields: [instanceId], references: [id])
   instanceId  String   @map("instance_id")

@@ -41,6 +41,7 @@ export interface MultiplayerChoicePayload {
     identifier: string
     instanceId: string
     sync: boolean
+    syncNext: boolean
     choiceId?: string
 }
 export const makeChoice =
@@ -52,7 +53,7 @@ export const makeChoice =
         multiplayer?: MultiplayerChoicePayload
     ) =>
     (dispatch: Dispatch, getState: () => RootState, config: Config): void => {
-        const { eventPlayer, currentPlayer, sync, instanceId, identifier } = multiplayer
+        const { eventPlayer, currentPlayer, sync, instanceId, identifier, syncNext } = multiplayer
         const choiceId = multiplayer?.choiceId || uuidv4()
 
         dispatch(updateInventory({ tag, option }))
@@ -89,7 +90,7 @@ export const makeChoice =
                     choiceId,
                     tag,
                     option,
-                    next,
+                    syncNext ? next : null,
                     filename,
                     identifier,
                     instanceId,
