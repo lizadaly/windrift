@@ -8,8 +8,8 @@ export const Page: PageType = () => (
             <h1>About Windrift</h1>
             <p>
                 Windrift is a hypertext story engine designed for writing highly customizable
-                mutable narratives. It is specifically optimized for telling interactive stories
-                with the following characteristics:
+                mutable narratives. It is specifically optimized for telling the following
+                kinds of interactive stories:
             </p>
             <ul>
                 <li>Hypertext stories primarily experienced on the web.</li>
@@ -31,7 +31,7 @@ export const Page: PageType = () => (
             <p>
                 Windrift has been used to write several stories which placed highly in the
                 Interactive Fiction Competition:{' '}
-                <a href="https://stoneharborgame.com/">Stone Harbor</a> (2016) and
+                <a href="https://stoneharborgame.com/">Stone Harbor</a> (2016) and{' '}
                 <a href="https://lizadaly.com/pages/harmonia/">Harmonia</a> (2017), both by{' '}
                 <a href="https://lizadaly.com/">Liza Daly</a>. Harmonia won two{' '}
                 <a href="https://xyzzyawards.org/">XYZZY Awards</a> for Innovation and Use of
