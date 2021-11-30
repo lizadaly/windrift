@@ -89,17 +89,17 @@ const MutableChoice = ({
     const choice = useSelector((state: RootState) => {
         return state.choices.present[tag]
     })
-    const { currentPlayer, instanceId } = useSelector((state: RootState) => {
+    const multiplayer = useSelector((state: RootState) => {
         return state.multiplayer?.multiplayer
     })
     const [inventory] = useInventory([tag])
 
-    const multiplayerPayload: MultiplayerChoicePayload = currentPlayer
+    const multiplayerPayload: MultiplayerChoicePayload = multiplayer?.currentPlayer
         ? {
-              eventPlayer: currentPlayer,
-              currentPlayer,
+              eventPlayer: multiplayer.currentPlayer,
+              currentPlayer: multiplayer.currentPlayer,
               identifier: config.identifier,
-              instanceId,
+              instanceId: multiplayer.instanceId,
               sync
           }
         : null
