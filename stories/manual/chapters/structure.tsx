@@ -169,7 +169,7 @@ players:
                 natively. This value must also match the contents of the{' '}
                 <code>&lt;Chapter filename="example"&gt;</code> attribute. Because the chapter list is
                 an array, chapters have an implicit ordering; Windrift will not make use of this,
-                but you can—see the source code that generates the <code>TableOfContents</code>
+                but you can—see the source code that generates the <code>TableOfContents</code>{' '}
                 component in this manual.
             </p>
             <p>
