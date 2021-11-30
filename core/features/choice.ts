@@ -7,7 +7,7 @@ import { Tag, ENTRY_TYPES, Next, Config, NextType, RootState } from 'core/types'
 import { gotoChapter, incrementSection } from 'core/features/navigation'
 import { increment } from 'core/features/counter'
 import { Player } from '@prisma/client'
-import { emitChoice } from 'core/multiplayer/api-client'
+import { emitChoice, emitNavChange } from 'core/multiplayer/api-client'
 
 export type Option = string
 export type OptionGroup = Array<Option>
@@ -82,6 +82,7 @@ export const makeChoice =
                 // no-op
             } else if (typeof next === 'string') {
                 dispatch(gotoChapter({ filename: next }))
+                emitNavChange(identifier, next, instanceId, currentPlayer)
             }
             if (eventPlayer === currentPlayer && sync) {
                 emitChoice(

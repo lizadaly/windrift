@@ -22,19 +22,6 @@ export const Page: PageType = () => {
                     <C options={[['one hook', null]]} tag="cl-hook" widget={D} sync={false} />{' '}
                     remains.{' '}
                     <R
-                        tag="cl-pluck"
-                        options={{
-                            pluck: (
-                                <Only playerName="raccoon">
-                                    <aside>
-                                        You delicately remove the tiny cloak from the snake and hang
-                                        it up.
-                                    </aside>
-                                </Only>
-                            )
-                        }}
-                    />
-                    <R
                         tag="cl-hook"
                         options={{
                             hook: cloak === CloakStatus.Worn && (
@@ -65,6 +52,19 @@ export const Page: PageType = () => {
                     />
                     The exit is a door to the <Nav text="east" next="foyer" />.
                 </p>
+                <R
+                    tag="cl-pluck"
+                    options={{
+                        pluck: (
+                            <Only playerName="raccoon">
+                                <p>
+                                    You delicately remove the tiny cloak from the snake and hang it
+                                    up.
+                                </p>
+                            </Only>
+                        )
+                    }}
+                />
                 {cloak == CloakStatus.Hung && (
                     <p>There is a tiny snake-sized cloak hanging on the hook.</p>
                 )}

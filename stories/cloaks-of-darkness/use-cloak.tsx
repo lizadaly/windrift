@@ -11,7 +11,6 @@ export enum CloakStatus {
 }
 
 const useCloak = (): CloakStatus => {
-    //const [worn, isWorn] = useState(true) // The cloak is worn by the snake by default
     const inv = useSelector((state: RootState) => state.inventory.present)
     const dispatch = useDispatch()
     useEffect(() => {
