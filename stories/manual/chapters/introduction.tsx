@@ -22,8 +22,9 @@ export const Page: PageType = () => (
                     input, but not necessarily based on branching plotlines.
                 </li>
                 <li>
-                    Stories that have unique, bespoke user interface components, or are written
-                    by authors who want absolute control over the layout and presentation of their stories.
+                    Stories that have unique, bespoke user interface components, or are written by
+                    authors who want absolute control over the layout and presentation of their
+                    stories.
                 </li>
             </ul>
             <p>This definition is extremely loose! There is no one kind of interactive fiction.</p>
@@ -97,10 +98,10 @@ export const Page: PageType = () => (
                 possible. It assumes that authors have chosen this tool because they want to
                 implement a story that might be hard or impossible to create using a more
                 domain-specific language like Ink. Windrift supplies some foundational pieces, like
-                the ability to store and retrieve the values of hypertext choices, and provides
-                some design patterns to get you started on more custom work. It's best to think of
-                it as a library of React components that you'll likely use in any kind of hypertext
-                story, but otherwise a Windrift story is fundamentally a React webapp with some
+                the ability to store and retrieve the values of hypertext choices, and provides some
+                design patterns to get you started on more custom work. It's best to think of it as
+                a library of React components that you'll likely use in any kind of hypertext story,
+                but otherwise a Windrift story is fundamentally a React webapp with some
                 hopefully-reasonable default behaviors.
             </p>
             <h3>Relationship to Windrift v1</h3>
@@ -131,10 +132,6 @@ export const Page: PageType = () => (
                 <li>
                     Stone Harbor prologue (<a href="https://windrift.app/stone-harbor">English</a>{' '}
                     and <a href="https://windrift.app/stone-harbor-pt">Portuguese</a>)
-                </li>
-                <li>
-                    <a href="https://windrift.app/playground">The Playground</a> (a collection of
-                    short scenes demonstrating some fun things you can do with the framework)
                 </li>
                 <li>
                     <a href="https://windrift.app/minimal">Minimal</a> — the simplest possible
