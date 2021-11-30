@@ -66,7 +66,7 @@ $ npm run new example-story`}
             </p>
             <aside>
                 <p>
-                    Each chapter in a Windrift story will consist of an import of the{' '}
+                    Each chapter in a Windrift story consists of an import of the{' '}
                     <code>Page</code>, <code>Chapter</code> and <code>Section</code> components,
                     followed by the signature for the <code>Page</code> function component, followed
                     by the content itself. Use regular HTML inside each <code>Section</code> to mark
@@ -89,9 +89,9 @@ export const Page: PageType = () => (
                 The story template: <kbd>index.tsx</kbd>
             </h3>
             <p>
-                Each story will always contain one file, <code>index.tsx</code>, that contains the
+                Each story always contains one file, <code>index.tsx</code>, that contains the
                 "frame" or template for your story. Every chapter in your story will inherit from
-                this template, so this typically contains no narrative content, just layout, CSS,
+                this template, so it typically contains no narrative content, just layout, CSS,
                 and fonts.
             </p>
             <aside>
@@ -156,7 +156,7 @@ players:
             <h4>Language</h4>
             <p>
                 Used to annotate the HTML of the major elements on the page. Browsers and search
-                engines will use this information to assist in providing users with a good
+                engines can use this information to improve users'
                 experience. Windrift is generally language-agnostic and does not use this
                 information otherwise.
             </p>
@@ -164,13 +164,13 @@ players:
             <p>
                 Each chapter item in the JSON array is a discrete chapter. The filename of the
                 chapter <em>must</em> match as either <code>filename.tsx</code> (TypeScript) or{' '}
-                <code>filename.tsx</code> (JavaScript). TypeScript is strongly recommended,
+                <code>filename.jsx</code> (JavaScript). TypeScript is strongly recommended,
                 especially when paired with a code editor like VSCode that understands TypeScript
                 natively. This value must also match the contents of the{' '}
-                <code>&lt;Chapter filename="example"&gt;</code> attribute. Because it's an array,
-                chapters have an implicit ordering; Windrift will not make use of this, but you
-                can—see the source code that generates the <code>TableOfContent</code> component in
-                this manual.
+                <code>&lt;Chapter filename="example"&gt;</code> attribute. Because the chapter list is
+                an array, chapters have an implicit ordering; Windrift will not make use of this,
+                but you can—see the source code that generates the <code>TableOfContents</code>
+                component in this manual.
             </p>
             <p>
                 The chapter title will appear in the <code>&lt;title&gt;</code> of the HTML page.
@@ -184,7 +184,7 @@ players:
             <h4>Extra</h4>
             <p>
                 <em>Advanced option</em>: You may add an optional <code>extra</code> configuration
-                item to put your own metadata or configuration info. This is typed as a record of
+                item to add your own metadata or configuration info. This is typed as a record of
                 strings mapping to any kind of value. See below for an example that makes use of the{' '}
                 <code>extra</code> block.
             </p>
@@ -214,7 +214,7 @@ players:
                 </SyntaxHighlighter>
                 <p>
                     This table of contents component uses the <code>extra</code> block in the
-                    manual's YAML file to check on which sections should be displayed in the table
+                    manual's YAML file to determine which sections should be displayed in the table
                     of contents, as there are more discrete <code>Chapter</code> components than
                     show up in the TOC.
                 </p>
@@ -231,10 +231,10 @@ players:
                     Persistent content within a <code>Chapter</code>
                 </h3>
                 <p>
-                    You can have content display in a chapter regardless of any current user
+                    You can display content in a chapter regardless of any current user
                     behavior by including it outside any <code>Section</code> components. (You'll
                     learn more about the <code>Nav</code> component in a subsequent section, but for
-                    now just understand it would reveal the subsequent section normally.)
+                    now just understand that it would reveal the subsequent section normally.)
                 </p>
                 <SyntaxHighlighter language="tsx" style={prism}>
                     {`<Chapter>
