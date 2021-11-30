@@ -143,6 +143,7 @@ export const pollForChoices = (
                             identifier,
                             instanceId,
                             sync: false,
+                            syncNext: false,
                             choiceId: id
                         })
                     )
