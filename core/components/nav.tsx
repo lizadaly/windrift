@@ -36,7 +36,7 @@ const Nav = ({
         <Choice
             options={[[text]]}
             widget={BaseList}
-            tag={tag || `${filename}-${next}-${text.replace(' ', '-').toLowerCase()}`}
+            tag={tag || `${filename || 'story'}-${next}-${text.replaceAll(' ', '-').toLowerCase()}`}
             next={next}
             persist={persist}
             className={className}

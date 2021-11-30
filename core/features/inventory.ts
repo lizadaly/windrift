@@ -31,7 +31,9 @@ export const inventorySlice = createSlice({
         },
         update: (state, action: PayloadAction<UpdateInventoryPayload>) => {
             const { tag, option } = action.payload
-            state[tag] = option
+            if (state[tag] !== option) {
+                state[tag] = option
+            }
         }
     }
 })
