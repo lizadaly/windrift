@@ -17,7 +17,6 @@ const makeInventorySelector = () =>
         },
         {
             memoizeOptions: {
-                equalityCheck: (a, b) => a === b,
                 resultEqualityCheck: shallowEqual
             }
         }
@@ -26,6 +25,7 @@ const useInventoryItem = (tag: Tag): Option => {
     const selectInventoryItem = React.useMemo(makeInventorySelector, [])
     return useSelector((state: RootState) => selectInventoryItem(state, tag))
 }
+
 /**
  * Retrieve the values of the requested tags, as an array of options
  * @param tags the array of tags to pull values
