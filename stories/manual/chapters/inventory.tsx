@@ -36,8 +36,8 @@ export const Page: PageType = () => {
                     option.
                 </p>
                 <p>
-                    Because the inventory is global to the entire story, you can retrieve any
-                    Choice's selection from any chapter. Back in the initial{' '}
+                    Because the inventory is global to the entire story, you can retrieve any{' '}
+                    <code>Choice</code>'s selection from any chapter. Back in the initial{' '}
                     <Nav text="chapter on choices" next="choices" />, you picked a fruit—we'll use
                     this as the example value in this chapter.
                 </p>
@@ -53,7 +53,7 @@ export const Page: PageType = () => {
                     The <kbd>useInventory</kbd> hook
                 </h3>
                 <p>
-                    Given an array of tags, this function returns an array of the current values of
+                    Given an array of tags, <code>useInventory</code> returns an array of the current values of
                     those tags. (Because it's a React hook that listens to the global store, this
                     value will update automatically whenever the values change, such as when a user
                     makes a different choice.){' '}
@@ -74,10 +74,10 @@ export const Page: PageType = () => {
                     Often the option selected will have as its raw value an entire noun phrase
                     including descriptive adjectives, when in the narrative you may want to only
                     show the noun. In English, this is typically the last word in the phrase. The
-                    utility function <code>wordFromInventory</code> can retrieve a specific
-                    substring based on a negative offset from the end of the string (default to -1,
-                    and is safe to use even if the inventory value is undefined). The offset value
-                    will apply to every option in the choice, so if you're planning on using this
+                    utility function <code>wordFromInventory</code> retrieves a specific
+                    substring based on a negative offset from the end of the string (defaulting to -1),
+                    and is safe to use even if the inventory value is undefined. The offset value
+                    applies to every option in the choice, so if you're planning on using this
                     you'll either want options with similar structure, or a custom rendering
                     function:
                 </p>
@@ -200,7 +200,7 @@ wordFromInventory(fruit, -2) // ${wordFromInventory(fruit, -2)}`}
                 </p>
                 <aside className={styles.warning}>
                     <p>
-                        You won't use a <code>Response</code> to literally branch your story by
+                        Don't use a <code>Response</code> to literally branch your story by
                         immediately taking the user to a different <code>Chapter</code> based on
                         which option they picked. (Windrift considers this a side effect and tries
                         to minimize these.) There's a way to achieve this effect using a
@@ -212,7 +212,7 @@ wordFromInventory(fruit, -2) // ${wordFromInventory(fruit, -2)}`}
                     A note about <kbd>last</kbd> parameters
                 </h3>
                 <p>
-                    Be aware that if you write a <code>Choice</code> including a <code>last</code>{' '}
+                    Be aware that if you write a <code>Choice</code> that includes a <code>last</code>{' '}
                     parameter, the value of <code>last</code> is <em>not</em> stored in the
                     inventory—the inventory value will be whatever option the user selected from the{' '}
                     <code>option</code> array. Use <code>last</code> only for narrative effect. A
