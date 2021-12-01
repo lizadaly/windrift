@@ -44,9 +44,9 @@ export const Page: PageType = () => (
             <h3>Adding multiple option groups</h3>
             <p>
                 A common narrative pattern is to introduce some initial text before revealing the
-                actual options. You can achieve this through adding two <code>OptionGroups</code>
+                actual options. You can achieve this by adding two <code>OptionGroups</code>
                 —the first introduces the choice being presented, and the second group represents
-                the actual user's choice.
+                the actual choice for the user.
             </p>
             <SyntaxHighlighter language="tsx" style={prism}>
                 {`<Choice options={[
@@ -68,7 +68,7 @@ export const Page: PageType = () => (
             </aside>
             <p>
                 There's no limit to the number of option groups arrays you can include—Windrift will
-                keep presenting the next in series until the user has chosen from the final option
+                keep presenting the next in the series until the user has chosen from the final option
                 group available. At this point the choice is marked as <code>resolved</code>.
             </p>
         </Section>
