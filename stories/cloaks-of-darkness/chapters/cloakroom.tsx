@@ -7,6 +7,7 @@ import Only from 'core/multiplayer/components/only'
 
 import useCloak, { CloakStatus } from '../use-cloak'
 import { PlayerContext } from 'core/multiplayer/components/multiplayer-init'
+import Watch from 'core/multiplayer/components/watch'
 
 export const Page: PageType = () => {
     const cloak = useCloak()
@@ -59,6 +60,18 @@ export const Page: PageType = () => {
                 {cloak == CloakStatus.Hung && (
                     <p>There is a tiny snake-sized cloak hanging on the hook.</p>
                 )}
+                <Watch
+                    enter={
+                        <>
+                            <p>The {presence?.player.name} enters!</p>
+                        </>
+                    }
+                    exit={
+                        <>
+                            <p>The {presence?.player.name} leaves!</p>
+                        </>
+                    }
+                />
             </Section>
         </Chapter>
     )

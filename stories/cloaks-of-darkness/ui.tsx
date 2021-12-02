@@ -14,6 +14,7 @@ import { PlayerContext } from 'core/multiplayer/components/multiplayer-init'
 
 import styles from 'public/stories/cloaks-of-darkness/styles/Content.module.scss'
 import useCloak, { CloakStatus } from './use-cloak'
+import Watch from 'core/multiplayer/components/watch'
 
 const Content: React.FC = ({ children }) => {
     const { multiplayer } = useSelector((state: RootState) => state.multiplayer)
@@ -75,12 +76,6 @@ const Content: React.FC = ({ children }) => {
                 ))
             }>
             {children}
-
-            <div>
-                {presence && presence.nav && presence.nav.chapterName === currentChapter.filename
-                    ? `${v.capitalize(otherPlayer.name)} is here!`
-                    : ''}
-            </div>
         </Grid>
     )
 }

@@ -1,20 +1,24 @@
-// Display text only if both players are present
-// Combine with this nested Only elements to show distinct text per user
-import React from 'react'
-import { useSelector } from 'react-redux'
+import * as React from 'react'
 
-import { RootState } from 'core/types'
-import { PlayerContext } from './multiplayer-init'
+import useChapter from 'core/hooks/use-chapter'
+import { PlayerContext } from 'core/multiplayer/components/multiplayer-init'
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import Only from 'core/multiplayer/components/only'
+
+/**
+ * Display text only if both players are present.
+ * Combine with this nested @see {Only} elements to show distinct text per player.
+ *
+ * @param children content to be shown only if both players are present
+ * @returns content to be shown only if both players are present
+ */
 export const Both: React.FC = ({ children }) => {
-    const { presenceApiResponse: presence } = React.useContext(PlayerContext)
-    const { toc } = useSelector((state: RootState) => state.navigation.present)
-    if (toc && presence) {
-        const otherPlayerLocation = presence.nav.chapterName
-        const thisPlayerLocation = Object.values(toc).filter((c) => c.visible)[0].filename
-        if (thisPlayerLocation === otherPlayerLocation) {
-            return <>{children}</>
-        }
+    const otherPlayerLocation = React.useContext(PlayerContext)?.presenceApiResponse?.nav?.chapterName
+    const thisPlayerLocation = useChapter()?.filename
+
+    if (thisPlayerLocation === otherPlayerLocation) {
+        return <>{children}</>
     }
     return null
 }
