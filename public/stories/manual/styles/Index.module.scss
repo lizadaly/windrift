@@ -56,7 +56,7 @@
     pre + p {
         padding-top: 1rem;
     }
-    code {
+    p > code, li > code {
         background: color.scale(colors.$cool, $lightness: 85%);
         padding: 4px;
     }
