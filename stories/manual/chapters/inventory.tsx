@@ -53,10 +53,10 @@ export const Page: PageType = () => {
                     The <kbd>useInventory</kbd> hook
                 </h3>
                 <p>
-                    Given an array of tags, <code>useInventory</code> returns an array of the current values of
-                    those tags. (Because it's a React hook that listens to the global store, this
-                    value will update automatically whenever the values change, such as when a user
-                    makes a different choice.){' '}
+                    Given an array of tags, <code>useInventory</code> returns an array of the
+                    current values of those tags. (Because it's a React hook that listens to the
+                    global store, this value will update automatically whenever the values change,
+                    such as when a user makes a different choice.){' '}
                 </p>
                 <SyntaxHighlighter language="tsx" style={prism}>
                     {`export const Page: PageType = () => {
@@ -74,12 +74,11 @@ export const Page: PageType = () => {
                     Often the option selected will have as its raw value an entire noun phrase
                     including descriptive adjectives, when in the narrative you may want to only
                     show the noun. In English, this is typically the last word in the phrase. The
-                    utility function <code>wordFromInventory</code> retrieves a specific
-                    substring based on a negative offset from the end of the string (defaulting to -1),
-                    and is safe to use even if the inventory value is undefined. The offset value
-                    applies to every option in the choice, so if you're planning on using this
-                    you'll either want options with similar structure, or a custom rendering
-                    function:
+                    utility function <code>wordFromInventory</code> retrieves a specific substring
+                    based on a negative offset from the end of the string (defaulting to -1), and is
+                    safe to use even if the inventory value is undefined. The offset value applies
+                    to every option in the choice, so if you're planning on using this you'll either
+                    want options with similar structure, or a custom rendering function:
                 </p>
                 <SyntaxHighlighter language="ts" style={prism}>
                     {`wordFromInventory(fruit) // ${wordFromInventory(fruit)}
@@ -212,12 +211,13 @@ wordFromInventory(fruit, -2) // ${wordFromInventory(fruit, -2)}`}
                     A note about <kbd>last</kbd> parameters
                 </h3>
                 <p>
-                    Be aware that if you write a <code>Choice</code> that includes a <code>last</code>{' '}
-                    parameter, the value of <code>last</code> is <em>not</em> stored in the
-                    inventory—the inventory value will be whatever option the user selected from the{' '}
-                    <code>option</code> array. Use <code>last</code> only for narrative effect. A
-                    design principle of Windrift is that it should always be clear to the user that
-                    a option was deliberately selected. (This is one reason why Twine-style{' '}
+                    Be aware that if you write a <code>Choice</code> that includes a{' '}
+                    <code>last</code> parameter, the value of <code>last</code> is <em>not</em>{' '}
+                    stored in the inventory—the inventory value will be whatever option the user
+                    selected from the <code>option</code> array. Use <code>last</code> only for
+                    narrative effect. A design principle of Windrift is that it should always be
+                    clear to the user that a option was deliberately selected. (This is one reason
+                    why Twine-style{' '}
                     <a href="https://twinery.org/cookbook/cycling/chapbook/chapbook_cycling.html">
                         cycling links
                     </a>{' '}

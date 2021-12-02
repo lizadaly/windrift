@@ -8,8 +8,8 @@ export const Page: PageType = () => (
             <h1>About Windrift</h1>
             <p>
                 Windrift is a hypertext story engine designed for writing highly customizable
-                mutable narratives. It is specifically optimized for telling the following
-                kinds of interactive stories:
+                mutable narratives. It is specifically optimized for telling the following kinds of
+                interactive stories:
             </p>
             <ul>
                 <li>Hypertext stories primarily experienced on the web.</li>
