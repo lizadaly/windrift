@@ -22,7 +22,7 @@ chapters:
   - filename: "images"
     title: "Images"
   - filename: "styling"
-    title: "Layout and styling"
+    title: "Layout, styling, and animation"
   - filename: "testing"
     title: "Debugging and testing"
   - filename: "deploying"

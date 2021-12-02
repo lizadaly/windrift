@@ -101,7 +101,7 @@ export const renderChapterContent = (
     return kids
 }
 
-// Wraps the "new section" display in a CSS transformation if useDefaultTransitions is enabled
+// Wraps the "new section" display in a CSS transformation
 const SectionTransition = {
     classNames: 'windrift--section',
     timeout: {
