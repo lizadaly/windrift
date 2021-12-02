@@ -32,6 +32,16 @@ function Index({ paths }: StoryProps): JSX.Element {
                     href="https://fonts.googleapis.com/css2?family=Nunito:wght@300&family=EB+Garamond&family=Elsie&family=Roboto&&family=Roboto+Mono&display=block"
                     rel="stylesheet"
                 />
+
+                <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png" />
+                <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png" />
+                <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png" />
+                <link rel="manifest" href="/images/site.webmanifest" />
+                <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5" />
+                <link rel="shortcut icon" href="/images/favicon.ico" />
+                <meta name="msapplication-TileColor" content="#2b5797" />
+                <meta name="msapplication-config" content="/images/browserconfig.xml" />
+                <meta name="theme-color" content="#ffffff" />
             </Head>
             <header className={styles.header}>
                 <nav>

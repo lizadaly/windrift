@@ -68,8 +68,8 @@ export const Page: PageType = () => (
             </aside>
             <p>
                 There's no limit to the number of option groups arrays you can include—Windrift will
-                keep presenting the next in the series until the user has chosen from the final option
-                group available. At this point the choice is marked as <code>resolved</code>.
+                keep presenting the next in the series until the user has chosen from the final
+                option group available. At this point the choice is marked as <code>resolved</code>.
             </p>
         </Section>
         <Section>
