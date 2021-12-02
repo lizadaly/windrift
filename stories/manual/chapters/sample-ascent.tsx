@@ -72,7 +72,7 @@ export const Page: PageType = () => {
                 <p>
                     {capitalize(companion)} said to call when you're done exploring, and to promise
                     not to lose track of time. You, in turn, promised you'd limit yourself to
-                    observing just five natural wonders on this short hike up old Putney Mountain.
+                    observing just three natural wonders on this short hike up old Putney Mountain.
                 </p>
                 <Nav text="Start your ascent..." next={Next.Section} />
             </Section>
