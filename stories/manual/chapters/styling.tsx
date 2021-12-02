@@ -1,12 +1,14 @@
-import { Section, Chapter } from 'core/components'
+import { Section, Chapter, C, R } from 'core/components'
 import { PageType } from 'core/types'
+import FadeIn from 'core/components/ui/fadein'
 import { SyntaxHighlighter, prism, styles, FooterNav } from '..'
+import { BulletedList } from 'core/components/widgets'
 
 export const Page: PageType = () => {
     return (
         <Chapter filename="styling">
             <Section>
-                <h1>Layout and styling</h1>
+                <h1>Layout, styling, and animation</h1>
                 <p>
                     Windrift stories are primarily composed of text, so attention to detail around
                     the presentation of text—both visually and for screenreaders—is encouraged.
@@ -435,6 +437,85 @@ export const Page: PageType = () => {
                     </a>{' '}
                     for a full reference.
                 </aside>
+                <h2>Animation</h2>
+
+                <p>
+                    Windrift comes bundled with two methods for animating or transitioning elements:{' '}
+                    <a href="https://reactcommunity.org/react-transition-group/">
+                        react-transition-group
+                    </a>{' '}
+                    and <a href="https://react-spring.io/">react-spring</a>. React Transition Group
+                    applies and removes CSS classes when React elements enter or leave the DOM and
+                    is good for animations that don't require complex timings or dependency chains.
+                    React Spring is a powerful library that uses spring physics to animate value
+                    changes and apply them to any value, including position, opacity, or scale.
+                </p>
+                <p>
+                    React Transition Group is used in the core library for the default fade-in
+                    animation for new Sections.
+                </p>
+                <p>
+                    The timings for the section fade-in are controlled in{' '}
+                    <code>public/styles/_transitions.scss</code>. You can override these transition
+                    classes with different values in your story's CSS, but note you'll need to use
+                    "traditional" CSS (not CSS Modules) as those classes are defined outside the
+                    scope of your specific story.
+                </p>
+                <h3>
+                    Using <kbd>FadeIn</kbd>
+                </h3>
+                <p>
+                    By default, new sections fade in but <code>Response</code> simply appear. A{' '}
+                    <code>FadeIn</code> UI component is provided if you want to change this
+                    behavior:
+                </p>
+                <SyntaxHighlighter
+                    language="tsx"
+                    style={prism}>{`// import FadeIn from 'core/components/ui/fadein'
+
+ <R tag="animation"
+    options={{
+        fade: <FadeIn>I will fade in.</FadeIn>,
+        appear: <p>I will just appear.</p>
+    }} />`}</SyntaxHighlighter>
+                <aside>
+                    <p>
+                        Select how you want the response to be displayed:{' '}
+                        <C
+                            tag="animation"
+                            options={[['fade', 'appear']]}
+                            persist={true}
+                            widget={BulletedList}
+                        />
+                    </p>
+                    <p>
+                        <R
+                            tag="animation"
+                            options={{
+                                fade: <FadeIn>I will fade in.</FadeIn>,
+                                appear: <p>I will just appear.</p>
+                            }}
+                        />
+                    </p>
+                </aside>
+                <p>
+                    In text-heavy stories, use animation sparingly. It's recommended that you make
+                    the durations quick and use short delays. Animations that are novel at first
+                    tend to fatigue readers over time.
+                </p>
+                <p>
+                    The <code>FadeIn</code> component takes only one option, which is the element
+                    that wraps the faded component and defaults to <code>span</code>.{' '}
+                    <code>FadeIn</code> is just a convenient pass-through to React Spring so
+                    customize it by creating your own version.
+                </p>
+                <p>
+                    Animating in React and tying the animation events to Windrift choice/inventory
+                    responses is beyond the scope of this document, but there are several examples
+                    of such animations in the{' '}
+                    <a href="https://playground.windrift.app">Windrift Playground</a> (
+                    <a href="https://github.com/lizadaly/windrift-playground">source</a>).
+                </p>
                 <FooterNav
                     text="Learn about automated browser testing and continuous integration..."
                     next="testing"
