@@ -99,7 +99,7 @@ describe('Full test of the built-in stories', () => {
         )
         cy.get('a:contains("Explore how to")').click()
 
-        cy.contains('Layout and styling').should('exist')
+        cy.contains('Layout, animation, and styling').should('exist')
 
         // Browser testing
         cy.get('a:contains("browser testing")').click()
