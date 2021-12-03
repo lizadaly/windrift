@@ -74,7 +74,7 @@ export const Page: PageType = () => {
                     Often the option selected will have as its raw value an entire noun phrase
                     including descriptive adjectives, when in the narrative you may want to only
                     show the noun. In English, this is typically the last word in the phrase. The
-                    utility function <code>wordFromInventory</code> retrieves a specific substring
+                    utility function <code>wordFromInventory</code> retrieves a specific word
                     based on a negative offset from the end of the string (defaulting to -1), and is
                     safe to use even if the inventory value is undefined. The offset value applies
                     to every option in the choice, so if you're planning on using this you'll either
@@ -96,7 +96,7 @@ wordFromInventory(fruit, -2) // ${wordFromInventory(fruit, -2)}`}
                 <p>
                     A <code>Response</code> is composed of a <code>tag</code> that matches the
                     original <code>Choice</code>, and a map of keywords to strings or additional
-                    React elements:
+                    React elements, called <code>options</code>:
                 </p>
                 <SyntaxHighlighter language="tsx" style={prism}>
                     {`<Response
@@ -129,7 +129,7 @@ wordFromInventory(fruit, -2) // ${wordFromInventory(fruit, -2)}`}
                     The parameters in the <code>options</code> map should contain substring matches
                     of the original options. You can match by explicit wildcards too, which will
                     override the default substring behavior in favor of exactly what you provide.
-                    This supports full regular expressions via{' '}
+                    This matching mechanism supports full regular expressions via{' '}
                     <a href="https://www.npmjs.com/package/minimatch">minimatch</a>.
                 </p>
                 <SyntaxHighlighter language="tsx" style={prism}>
@@ -164,7 +164,7 @@ wordFromInventory(fruit, -2) // ${wordFromInventory(fruit, -2)}`}
                     Another way to react to inventory changes, or any changes to the Windrift story
                     state, is to use the <code>When</code> component. It's got a straightforward
                     signature: when the <code>condition</code> evaluates to <code>true</code>,
-                    display any child contents. If the <em>optional</em> prop <code>otherwise</code>{' '}
+                    display any child contents; otherwise, if the <em>optional</em> prop <code>otherwise</code>{' '}
                     is passed, use that node instead.
                 </p>
                 <SyntaxHighlighter language="tsx" style={prism}>
