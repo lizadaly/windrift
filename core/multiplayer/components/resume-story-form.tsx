@@ -37,7 +37,7 @@ const ResumeStory: React.FC = ({ children = 'Resume an existing story' }) => {
                     if (resp.status === 200 && resp.storyUrl) {
                         location.replace(resp.storyUrl)
                     } else if (resp.status === 404) {
-                        alert("That location ID wasn't found.")
+                        alert("That instance ID wasn't found.")
                     } else {
                         alert('An unexpected error occurred.')
                     }
