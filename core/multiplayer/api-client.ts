@@ -56,22 +56,37 @@ export const getStoryInstance = (
     })
 }
 
-export const resumeStoryInstance = (
+export interface ResumeResponse {
+    storyUrl?: string
+    status?: number
+}
+export const resumeStoryInstance = async (
     identifier: string,
     instanceId: string,
     player: 'player1' | 'player2'
-): void => {
-    axios(`${API_PREFIX}/${identifier}/${instanceId}/get/`, {}).then((res) => {
-        const { instance, player1, player2 } = res.data
-        let currentPlayer: Player
-        if (player === 'player1') {
-            currentPlayer = player1
-        } else {
-            currentPlayer = player2
-        }
-        const storyUrl = getStoryUrl(instance.id) + `&playerId=${currentPlayer.id}`
-        location.replace(storyUrl)
-    })
+): Promise<ResumeResponse> => {
+    let resp: ResumeResponse
+
+    await axios(`${API_PREFIX}/${identifier}/${instanceId}/get/`, {})
+        .then((res) => {
+            const { instance, player1, player2 } = res.data
+            let currentPlayer: Player
+            if (player === 'player1') {
+                currentPlayer = player1
+            } else {
+                currentPlayer = player2
+            }
+            resp = {
+                storyUrl: getStoryUrl(instance.id) + `&playerId=${currentPlayer.id}`,
+                status: 200
+            }
+        })
+        .catch((error) => {
+            resp = {
+                status: error.response?.status
+            }
+        })
+    return resp
 }
 
 // Called by player 1 to create the instance

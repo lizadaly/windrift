@@ -29,11 +29,18 @@ const ResumeStory: React.FC = ({ children = 'Resume an existing story' }) => {
                             persistor.persist()
                         })
                     })
-                    resumeStoryInstance(
+                    const resp = await resumeStoryInstance(
                         config.identifier,
                         instanceId.current.value,
                         isPlayer1 || isPlayer2
                     )
+                    if (resp.status === 200 && resp.storyUrl) {
+                        location.replace(resp.storyUrl)
+                    } else if (resp.status === 404) {
+                        alert("That location ID wasn't found.")
+                    } else {
+                        alert('An unexpected error occurred.')
+                    }
                 }}>
                 <h3>{children}</h3>
                 <input

@@ -27,6 +27,11 @@ export default async (
         }
     })
 
+    if (!instance) {
+        res.status(404).end()
+        return
+    }
+
     const player1 = await prisma.player.findFirst({
         where: {
             instanceId,
