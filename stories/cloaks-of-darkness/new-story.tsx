@@ -1,6 +1,7 @@
 import * as React from 'react'
 
 import StartStory from 'core/multiplayer/components/start-story-form'
+import ResumeStory from 'core/multiplayer/components/resume-story-form'
 
 const NewStory: React.FC = () => {
     return (
@@ -15,6 +16,7 @@ const NewStory: React.FC = () => {
                 window):
             </p>
             <StartStory>Start a new Cloaks of Darkness</StartStory>
+            <ResumeStory>Resume an existing Cloaks of Darkness</ResumeStory>
         </div>
     )
 }
