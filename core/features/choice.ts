@@ -53,7 +53,6 @@ export const makeChoice =
         multiplayer?: MultiplayerChoicePayload
     ) =>
     (dispatch: Dispatch, getState: () => RootState, config: Config): void => {
-        const { eventPlayer, currentPlayer, sync, instanceId, identifier, syncNext } = multiplayer
         const choiceId = multiplayer?.choiceId || uuidv4()
 
         dispatch(updateInventory({ tag, option }))
@@ -66,7 +65,7 @@ export const makeChoice =
                     option,
                     entry: ENTRY_TYPES.Choice,
                     timestamp: new Date().toUTCString(),
-                    playerName: eventPlayer?.name
+                    playerName: multiplayer?.eventPlayer?.name
                 }
             })
         )
@@ -83,18 +82,29 @@ export const makeChoice =
                 // no-op
             } else if (typeof next === 'string') {
                 dispatch(gotoChapter({ filename: next }))
-                emitNavChange(identifier, next, instanceId, currentPlayer)
+                if (multiplayer) {
+                    emitNavChange(
+                        multiplayer.identifier,
+                        next,
+                        multiplayer.instanceId,
+                        multiplayer.currentPlayer
+                    )
+                }
             }
-            if (eventPlayer === currentPlayer && sync) {
+            if (
+                multiplayer &&
+                multiplayer.eventPlayer === multiplayer.currentPlayer &&
+                multiplayer.sync
+            ) {
                 emitChoice(
                     choiceId,
                     tag,
                     option,
-                    syncNext ? next : null,
+                    multiplayer.syncNext ? next : null,
                     filename,
-                    identifier,
-                    instanceId,
-                    currentPlayer
+                    multiplayer.identifier,
+                    multiplayer.instanceId,
+                    multiplayer.currentPlayer
                 )
             }
         }
