@@ -11,6 +11,11 @@ import { makeChoice } from 'core/features/choice'
 
 const API_PREFIX = '/api/core/story'
 
+const getStoryUrl = (instanceId: string) => {
+    const { protocol, hostname, port, pathname } = window.location
+    return `${protocol}//${hostname}${port ? ':' + port : ''}${pathname}?instance=${instanceId}`
+}
+
 // Called by player 2 to retrieve info about the instance of the story they're joining
 export const getStoryInstance = (
     identifier: string,
@@ -21,17 +26,20 @@ export const getStoryInstance = (
     axios(`${API_PREFIX}/${identifier}/${instanceId}/get/`, {}).then((res) => {
         const { instance, player1, player2 } = res.data
         let currentPlayer: Player, otherPlayer: Player
-        const { protocol, hostname, port, pathname } = window.location
-        const storyUrl = `${protocol}//${hostname}${port ? ':' + port : ''}${pathname}?instance=${
-            instance.id
-        }`
+
+        const storyUrl = getStoryUrl(instance.id)
+
         if (playerId === player1.id) {
             currentPlayer = player1
             otherPlayer = player2
-        }
-        if (playerId === player2.id) {
+        } else if (playerId === player2.id) {
             currentPlayer = player2
             otherPlayer = player1
+        } else {
+            console.error(
+                `Did not get a matching playerId for instance ${instance.id}; got ${playerId}`
+            )
+            return
         }
 
         dispatch(
@@ -48,16 +56,31 @@ export const getStoryInstance = (
     })
 }
 
+export const resumeStoryInstance = (
+    identifier: string,
+    instanceId: string,
+    player: 'player1' | 'player2'
+): void => {
+    axios(`${API_PREFIX}/${identifier}/${instanceId}/get/`, {}).then((res) => {
+        const { instance, player1, player2 } = res.data
+        let currentPlayer: Player
+        if (player === 'player1') {
+            currentPlayer = player1
+        } else {
+            currentPlayer = player2
+        }
+        const storyUrl = getStoryUrl(instance.id) + `&playerId=${currentPlayer.id}`
+        location.replace(storyUrl)
+    })
+}
+
 // Called by player 1 to create the instance
 export const createStoryInstance = (identifier: string, dispatch: Dispatch<any>): void => {
     axios(`${API_PREFIX}/${identifier}/init/`, {
         method: 'post'
     }).then((res) => {
         const { instance, player1, player2 } = res.data
-        const { protocol, hostname, port, pathname } = window.location
-        const storyUrl = `${protocol}//${hostname}${port ? ':' + port : ''}${pathname}?instance=${
-            instance.id
-        }&playerId=${player2.id}`
+        const storyUrl = getStoryUrl(instance.id) + `&playerId=${player2.id}`
 
         dispatch(
             init({
