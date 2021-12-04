@@ -8,7 +8,7 @@ export const Page: PageType = () => (
         <Section>
             <h2>Navigation</h2>
             <p>
-                By default, exhausting a choice list will reveal the subsequent <code>Section</code>{' '}
+                By default, exhausting a choice list (getting to its <code>resolved</code> state) will reveal the subsequent <code>Section</code>{' '}
                 in the current <code>Chapter</code>.
             </p>
             <p>
@@ -30,17 +30,17 @@ export const Page: PageType = () => (
                 Using <kbd>next</kbd>
             </h3>
             <p>
-                You can change this behavior by modifying the <code>next</code> parameter passed to
-                a given choice. You can navigate to a named chapter, skipping over any remaining
-                sections, or to do nothing.
+                You can change this behavior by modifying the <code>next</code> parameter of
+                a given choice. You can navigate to a named chapter (skipping over any remaining
+                sections) or do nothing.
             </p>
             <p>
-                The options are represented by the enum <code>Next</code>:
+                The <code>next</code> parameter can be the name of a chapter to jump to,
+                or a value of the <code>Next</code> enum:
             </p>
 
             <SyntaxHighlighter language="typescript" style={prism}>{`export enum Next {
     Section = 'SECTION',  // The default
-    Chapter = 'CHAPTER',
     None = 'NONE'
 }`}</SyntaxHighlighter>
             <p>Here's how you'd use it:</p>
@@ -55,9 +55,9 @@ export const Page: PageType = () => (
                 Directed navigation using the <kbd>Nav</kbd> component
             </h3>
             <p>
-                There's a special navigational component, <code>Nav</code>, for just the previous
-                case of a link with a single item that advances the story by section or chapter
-                title. Two props are required: <code>text</code>, which will be the text of the
+                There's a special navigational component, <code>Nav</code>, for the common special
+                case illustrated above, where a link with a single item advances the story by section or chapter
+                title. Two props are required: <code>text</code>, which is the text of the
                 link, and <code>next</code>, which accepts the same values as
                 <code>Choice</code>, but there is no provided default.
             </p>
@@ -79,10 +79,10 @@ export const Page: PageType = () => (
         <Section>
             <h3>Navigating to a specific chapter</h3>
             <p>
-                Passing a string as the <code>next</code> parameter in either of a{' '}
+                Using a string as the <code>next</code> parameter in either of a{' '}
                 <code>Choice</code> or <code>Nav</code> component will jump the narrative to that
                 chapter's filename. You can't jump to a section, and because chapters are not
-                naturally ordered, its filename must be provided.
+                naturally ordered, the chapter filename must be provided.
             </p>
             <SyntaxHighlighter language="tsx" style={prism}>
                 {` <Nav text="Learn about deployment" next="deployment" />`}
@@ -96,12 +96,12 @@ export const Page: PageType = () => (
             </p>
             <p>
                 However, you can achieve the same effect by leveraging the <code>Nav</code>{' '}
-                component multiple times, since they ultimately just render as hyperlinks the same
-                as a choice:
+                component multiple times, since they ultimately just render as hyperlinks, just
+                like choices do:
             </p>
             <aside>
                 <p>
-                    You're standing the VR version of this manual. It looks very real! You can go{' '}
+                    You're standing in the VR version of this manual. It looks very real! You can go{' '}
                     <Nav text="north" next="choices" tag="north" persist={false} />,{' '}
                     <Nav text="south" next="inventory" tag="south" persist={false} />,{' '}
                     <Nav text="east" next="introduction" tag="east" persist={false} />, or{' '}
@@ -115,7 +115,7 @@ export const Page: PageType = () => (
                     one will have to be unique:
                 </p>
                 <SyntaxHighlighter language="tsx" style={prism}>
-                    {`<p>You're standing the VR version of this manual. It looks very real! You can go
+                    {`<p>You're standing in the VR version of this manual. It looks very real! You can go
     <Nav text="north" next="choices"      tag="north" />,
     <Nav text="south" next="inventory"    tag="south" />,
     <Nav text="east"  next="introduction" tag="east" />, or
@@ -129,9 +129,9 @@ export const Page: PageType = () => (
             </aside>
             <h3>Persisting the hyperlink</h3>
             <p>
-                Normally clicking on a linked choice will remove the hyperlink when the user has
-                clicked it, indicating that no more options are available. To have the link behave
-                more like a traditional web hyperlink, pass the parameter <code>persist</code>
+                Normally, clicking on a linked choice will remove the hyperlink,
+                indicating that no more options are available. To have the link behave
+                more like a traditional web hyperlink, pass the prop <code>persist</code>
                 and set it to <code>true</code>. This will cause the hyperlink to "persist" after
                 clicking, and is most useful when presenting navigation on a chapter that can be
                 visited more than once.
