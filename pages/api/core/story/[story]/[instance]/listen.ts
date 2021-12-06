@@ -18,6 +18,7 @@ export default async (
         const choices = await prisma.choice.findMany({
             where: {
                 instanceId,
+                synced: true,
                 NOT: {
                     playerId
                 }

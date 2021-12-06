@@ -91,11 +91,7 @@ export const makeChoice =
                     )
                 }
             }
-            if (
-                multiplayer &&
-                multiplayer.eventPlayer === multiplayer.currentPlayer &&
-                multiplayer.sync
-            ) {
+            if (multiplayer && multiplayer.eventPlayer === multiplayer.currentPlayer) {
                 emitChoice(
                     choiceId,
                     tag,
@@ -104,7 +100,8 @@ export const makeChoice =
                     filename,
                     multiplayer.identifier,
                     multiplayer.instanceId,
-                    multiplayer.currentPlayer
+                    multiplayer.currentPlayer,
+                    multiplayer.sync
                 )
             }
         }

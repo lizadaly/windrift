@@ -53,25 +53,42 @@ export const getStoryInstance = (
                 }
             })
         )
+        // Now immediately get any missed events, including our own
+        getAllChoices(identifier, instance.id, currentPlayer, dispatch)
     })
 }
 
-export const resumeStoryInstance = (
+export interface ResumeResponse {
+    storyUrl?: string
+    status?: number
+}
+export const resumeStoryInstance = async (
     identifier: string,
     instanceId: string,
     player: 'player1' | 'player2'
-): void => {
-    axios(`${API_PREFIX}/${identifier}/${instanceId}/get/`, {}).then((res) => {
-        const { instance, player1, player2 } = res.data
-        let currentPlayer: Player
-        if (player === 'player1') {
-            currentPlayer = player1
-        } else {
-            currentPlayer = player2
-        }
-        const storyUrl = getStoryUrl(instance.id) + `&playerId=${currentPlayer.id}`
-        location.replace(storyUrl)
-    })
+): Promise<ResumeResponse> => {
+    let resp: ResumeResponse
+
+    await axios(`${API_PREFIX}/${identifier}/${instanceId}/get/`, {})
+        .then((res) => {
+            const { instance, player1, player2 } = res.data
+            let currentPlayer: Player
+            if (player === 'player1') {
+                currentPlayer = player1
+            } else {
+                currentPlayer = player2
+            }
+            resp = {
+                storyUrl: getStoryUrl(instance.id) + `&playerId=${currentPlayer.id}`,
+                status: 200
+            }
+        })
+        .catch((error) => {
+            resp = {
+                status: error.response?.status
+            }
+        })
+    return resp
 }
 
 // Called by player 1 to create the instance
@@ -121,15 +138,18 @@ export const emitChoice = (
     chapterName: string,
     identifier: string,
     instanceId: string,
-    player: Player
+    player: Player,
+    synced: boolean
 ): void => {
+    console.log('syncing: ', synced)
     axios.post(`${API_PREFIX}/${identifier}/${instanceId}/choose/`, {
         id,
         tag,
         option,
         playerId: player.id,
         next,
-        chapterName
+        chapterName,
+        synced
     })
 }
 
@@ -153,13 +173,17 @@ export const pollForChoices = (
         .then((res: AxiosResponse<ChoiceApiResponse[]>) => {
             // Get all the existing log IDs
             const logIds = log.map((l) => l.id)
+            console.group(`Already have these log ids: `)
+            console.log(logIds)
+            console.groupEnd()
+
+            console.group('Replaying log ids: ')
             res.data
                 .filter((row) => !logIds.includes(row.id))
                 .forEach((row) => {
                     const { id, tag, option, next, chapterName } = row
-
                     const eventPlayer = row.player
-
+                    console.log(id, tag, option, eventPlayer)
                     dispatch(
                         makeChoice(tag, option, next, chapterName, {
                             eventPlayer,
@@ -172,6 +196,41 @@ export const pollForChoices = (
                         })
                     )
                 })
+            console.groupEnd()
+        })
+}
+export const getAllChoices = (
+    identifier: string,
+    instanceId: string,
+    player: Player,
+    dispatch: Dispatch<any>
+): void => {
+    axios
+        .get(`${API_PREFIX}/${identifier}/${instanceId}/listen/`)
+        .then((res: AxiosResponse<ChoiceApiResponse[]>) => {
+            // Get all the existing log IDs
+
+            console.group('Replaying log ids: ')
+            res.data.forEach((row) => {
+                const { id, tag, option, next, chapterName, synced } = row
+                const eventPlayer = row.player
+                console.log(id, tag, option, eventPlayer, synced)
+                if (eventPlayer === player || synced) {
+                    console.log('Event was made by this player or is synced; dispatching')
+                    dispatch(
+                        makeChoice(tag, option, next, chapterName, {
+                            eventPlayer,
+                            currentPlayer: player,
+                            identifier,
+                            instanceId,
+                            sync: false,
+                            syncNext: false,
+                            choiceId: id
+                        })
+                    )
+                }
+            })
+            console.groupEnd()
         })
 }
 
