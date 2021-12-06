@@ -9,22 +9,38 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Config, RootState, Toc } from 'core/types'
 import { emitNavChange, emitPresence, pollForPresence } from '../api-client'
 import { Player } from '.prisma/client'
+import { Multiplayer } from 'core/features/multiplayer'
+import { PresenceApiResponse } from 'pages/api/core/story/[story]/[instance]/presence'
 
 /**
  * Display debugging info and allow for specific events to be triggered via the API.
  */
-export const Debug = (): JSX.Element => {
+const Debug = (): JSX.Element => {
     const context = React.useContext(PlayerContext).presenceApiResponse
-    const dispatch = useDispatch()
     const multiplayer = useSelector((state: RootState) => state.multiplayer.multiplayer)
-    const thisPlayerLocation = useChapter()?.filename
     const { config } = React.useContext(StoryContext)
-    const otherPlayerIsActive = !!context
-
-    const start = config.players.filter((p) => p.name == multiplayer.otherPlayer.name)[0].start
+    console.log('Debug')
     return (
         <div className={debug.content}>
             <h3>Debug toolbar</h3>
+            <LocationSwitcher config={config} multiplayer={multiplayer} context={context} />
+        </div>
+    )
+}
+
+interface LocationSwitcherProps {
+    config: Config
+    multiplayer: Multiplayer
+    context: PresenceApiResponse
+}
+
+const LocationSwitcher = ({ config, multiplayer, context }: LocationSwitcherProps): JSX.Element => {
+    const otherPlayerIsActive = !!context
+    const thisPlayerLocation = useChapter()?.filename
+    const start = config.players.filter((p) => p.name == multiplayer.otherPlayer.name)[0].start
+
+    return (
+        <div className={debug.location}>
             {multiplayer.otherPlayer.name} location:{' '}
             {otherPlayerIsActive ? (
                 <>
@@ -51,7 +67,6 @@ export const Debug = (): JSX.Element => {
         </div>
     )
 }
-
 interface RelocateButtonProps {
     identifier: string
     instanceId: string
@@ -101,31 +116,31 @@ const MoveButton = ({ identifier, instanceId, otherPlayer, location }: MoveButto
         </button>
     )
 }
-const DebugContainer = (): JSX.Element => {
+const DebugToolbar = (): JSX.Element => {
     const [isOpen, setOpen] = React.useState(true)
     const multiplayer = useSelector((state: RootState) => state.multiplayer.multiplayer)
-
     return (
-        process.env.NODE_ENV === 'development' &&
-        multiplayer && (
-            <div className={`${debug.toolbar} ${isOpen ? debug.open : debug.closed}`}>
-                {isOpen ? (
-                    <>
-                        <Debug />
-                        <button className={debug.toggle} onClick={() => setOpen(false)}>
-                            Close
-                        </button>
-                    </>
-                ) : (
-                    <>
-                        <button className={debug.toggle} onClick={() => setOpen(true)}>
-                            Show debug info
-                        </button>
-                    </>
-                )}
-            </div>
-        )
+        <>
+            {process.env.NODE_ENV === 'development' && multiplayer && (
+                <div className={`${debug.toolbar} ${isOpen ? debug.open : debug.closed}`}>
+                    {isOpen ? (
+                        <>
+                            <Debug />
+                            <button className={debug.toggle} onClick={() => setOpen(false)}>
+                                Close
+                            </button>
+                        </>
+                    ) : (
+                        <>
+                            <button className={debug.toggle} onClick={() => setOpen(true)}>
+                                Show debug info
+                            </button>
+                        </>
+                    )}
+                </div>
+            )}
+        </>
     )
 }
 
-export default DebugContainer
+export default DebugToolbar

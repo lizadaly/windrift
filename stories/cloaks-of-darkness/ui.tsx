@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { useSelector } from 'react-redux'
-import v from 'voca'
 
 import { RootState, Next } from 'core/types'
 import { C, R } from 'core/components'
@@ -14,8 +13,7 @@ import { PlayerContext } from 'core/multiplayer/components/multiplayer-init'
 
 import styles from 'public/stories/cloaks-of-darkness/styles/Content.module.scss'
 import useCloak, { CloakStatus } from './use-cloak'
-import Watch from 'core/multiplayer/components/watch'
-import Debug from 'core/multiplayer/components/debug'
+import DebugToolbar from 'core/multiplayer/components/debug'
 
 const Content: React.FC = ({ children }) => {
     const { multiplayer } = useSelector((state: RootState) => state.multiplayer)
@@ -27,6 +25,7 @@ const Content: React.FC = ({ children }) => {
         otherPlayer,
         presenceApiResponse: presence
     } = React.useContext(PlayerContext)
+
     const cloakStatus = useCloak()
     return (
         <Grid
@@ -77,7 +76,7 @@ const Content: React.FC = ({ children }) => {
                 ))
             }>
             {children}
-            <Debug />
+            <DebugToolbar />
         </Grid>
     )
 }
