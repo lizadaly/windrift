@@ -14,7 +14,8 @@ import Only from 'core/multiplayer/components/only'
  * @returns content to be shown only if both players are present
  */
 export const Both: React.FC = ({ children }) => {
-    const otherPlayerLocation = React.useContext(PlayerContext)?.presenceApiResponse?.nav?.chapterName
+    const otherPlayerLocation =
+        React.useContext(PlayerContext)?.presenceApiResponse?.nav?.chapterName
     const thisPlayerLocation = useChapter()?.filename
 
     if (thisPlayerLocation === otherPlayerLocation) {

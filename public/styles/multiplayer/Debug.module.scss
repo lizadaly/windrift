@@ -11,6 +11,13 @@
     border-top: 5px solid colors.$cool;
     font-size: small;
     font-family: sans-serif;
+
+    /* Reset button styles */
+    button {
+        margin: 0;
+        padding: 0;
+    }
+
     &.open {
         height: 20vh;
     }
@@ -24,6 +31,7 @@
             background: colors.$cool;
             text-transform: none;
             padding: 5px;
+            margin-left: 5px;
         }
     }
     .toggle {
