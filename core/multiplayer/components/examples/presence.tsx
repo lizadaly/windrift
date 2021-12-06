@@ -17,7 +17,7 @@ const Presence: React.FC = () => {
     }
     return (
         <>
-            <h2>Players online</h2>
+            <h2>Player info</h2>
             <ol className={styles.userList}>
                 <li>
                     <span className={presence.presence.createdAt ? styles.active : styles.inactive}>

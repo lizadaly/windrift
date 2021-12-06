@@ -9,7 +9,7 @@ export type PresenceApiResponse = {
     nav: Nav
 }
 
-export default async (
+const presence = async (
     req: NextApiRequest,
     res: NextApiResponse<void | PresenceApiResponse>
 ): Promise<void> => {
@@ -68,3 +68,5 @@ export default async (
         }
     }
 }
+
+export default presence

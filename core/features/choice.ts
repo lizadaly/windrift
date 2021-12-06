@@ -87,7 +87,7 @@ export const makeChoice =
                         multiplayer.identifier,
                         next,
                         multiplayer.instanceId,
-                        multiplayer.currentPlayer
+                        multiplayer.currentPlayer.id
                     )
                 }
             }

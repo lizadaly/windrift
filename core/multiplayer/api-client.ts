@@ -8,10 +8,11 @@ import { ChoiceApiResponse } from 'pages/api/core/story/[story]/[instance]/liste
 import { PresenceApiResponse } from 'pages/api/core/story/[story]/[instance]/presence'
 import { init } from 'core/features/multiplayer'
 import { makeChoice } from 'core/features/choice'
+import { gotoChapter } from 'core/features/navigation'
 
 const API_PREFIX = '/api/core/story'
 
-const getStoryUrl = (instanceId: string) => {
+export const getStoryUrl = (instanceId: string): string => {
     const { protocol, hostname, port, pathname } = window.location
     return `${protocol}//${hostname}${port ? ':' + port : ''}${pathname}?instance=${instanceId}`
 }
@@ -24,17 +25,19 @@ export const getStoryInstance = (
     dispatch: Dispatch<any>
 ): void => {
     axios(`${API_PREFIX}/${identifier}/${instanceId}/get/`, {}).then((res) => {
-        const { instance, player1, player2 } = res.data
-        let currentPlayer: Player, otherPlayer: Player
+        const { instance, player1, player2, nav1, nav2 } = res.data
+        let currentPlayer: Player, otherPlayer: Player, start: string
 
         const storyUrl = getStoryUrl(instance.id)
 
         if (playerId === player1.id) {
             currentPlayer = player1
             otherPlayer = player2
+            start = nav1.chapterName
         } else if (playerId === player2.id) {
             currentPlayer = player2
             otherPlayer = player1
+            start = nav2.chapterName
         } else {
             console.error(
                 `Did not get a matching playerId for instance ${instance.id}; got ${playerId}`
@@ -54,7 +57,10 @@ export const getStoryInstance = (
             })
         )
         // Now immediately get any missed events, including our own
-        getAllChoices(identifier, instance.id, currentPlayer, dispatch)
+        getAllChoices(identifier, instance.id, currentPlayer, dispatch, () => {
+            console.log('Dispatching gotchapter to ', start)
+            dispatch(gotoChapter({ filename: start }))
+        })
     })
 }
 
@@ -117,15 +123,16 @@ export const emitNavChange = (
     identifier: string,
     chapterName: TocItem['filename'],
     instanceId: string,
-    player: Player
+    playerId: string
 ): void => {
     axios
         .post(`${API_PREFIX}/${identifier}/${instanceId}/nav/`, {
             chapterName,
-            playerId: player.id
+            playerId: playerId
         })
         .then(() => {
-            console.log('emitted')
+            emitPresence(identifier, instanceId, playerId)
+            console.log(`Posted nav change event for player ${playerId}`)
         })
 }
 
@@ -202,7 +209,8 @@ export const getAllChoices = (
     identifier: string,
     instanceId: string,
     player: Player,
-    dispatch: Dispatch<any>
+    dispatch: Dispatch<any>,
+    callback?: any
 ): void => {
     axios
         .get(`${API_PREFIX}/${identifier}/${instanceId}/listen/`)
@@ -230,17 +238,20 @@ export const getAllChoices = (
                 }
             })
             console.groupEnd()
+            if (callback) {
+                callback()
+            }
         })
 }
 
 export const pollForPresence = (
     identifier: string,
     instanceId: string,
-    player: Player,
+    playerId: string,
     setPresence: React.Dispatch<React.SetStateAction<PresenceApiResponse>>
 ): void => {
     axios
-        .get(`${API_PREFIX}/${identifier}/${instanceId}/presence/?playerId=${player.id}`)
+        .get(`${API_PREFIX}/${identifier}/${instanceId}/presence/?playerId=${playerId}`)
         .then((res: AxiosResponse<PresenceApiResponse>) => {
             setPresence(res.data)
         })

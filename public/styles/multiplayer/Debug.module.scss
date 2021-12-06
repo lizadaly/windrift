@@ -1,0 +1,46 @@
+@use '../colors';
+
+.toolbar {
+    position: fixed;
+    bottom: 0;
+    color: colors.$very-light;
+    width: 100%;
+    left: 0;
+    right: 0;
+    background: colors.$very-dark;
+    border-top: 5px solid colors.$cool;
+    font-size: small;
+    font-family: sans-serif;
+
+    /* Reset button styles */
+    button {
+        margin: 0;
+        padding: 0;
+    }
+
+    &.open {
+        height: 20vh;
+    }
+    &.closed {
+        height: 50px;
+    }
+    .content {
+        padding: 1em;
+
+        button {
+            background: colors.$cool;
+            text-transform: none;
+            padding: 5px;
+            margin-left: 5px;
+        }
+    }
+    .toggle {
+        font-size: small;
+        position: absolute;
+        right: 0;
+        display: block;
+        top: 0;
+        margin: 0;
+        padding: 10px;
+    }
+}
