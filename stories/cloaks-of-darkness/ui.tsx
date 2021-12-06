@@ -15,6 +15,7 @@ import { PlayerContext } from 'core/multiplayer/components/multiplayer-init'
 import styles from 'public/stories/cloaks-of-darkness/styles/Content.module.scss'
 import useCloak, { CloakStatus } from './use-cloak'
 import Watch from 'core/multiplayer/components/watch'
+import Debug from 'core/multiplayer/components/debug'
 
 const Content: React.FC = ({ children }) => {
     const { multiplayer } = useSelector((state: RootState) => state.multiplayer)
@@ -76,6 +77,7 @@ const Content: React.FC = ({ children }) => {
                 ))
             }>
             {children}
+            <Debug />
         </Grid>
     )
 }

@@ -100,15 +100,16 @@ export const emitNavChange = (
     identifier: string,
     chapterName: TocItem['filename'],
     instanceId: string,
-    player: Player
+    playerId: string
 ): void => {
     axios
         .post(`${API_PREFIX}/${identifier}/${instanceId}/nav/`, {
             chapterName,
-            playerId: player.id
+            playerId: playerId
         })
         .then(() => {
-            console.log('emitted')
+            emitPresence(identifier, instanceId, playerId)
+            console.log(`Posted nav change event for player ${playerId}`)
         })
 }
 
@@ -177,11 +178,11 @@ export const pollForChoices = (
 export const pollForPresence = (
     identifier: string,
     instanceId: string,
-    player: Player,
+    playerId: string,
     setPresence: React.Dispatch<React.SetStateAction<PresenceApiResponse>>
 ): void => {
     axios
-        .get(`${API_PREFIX}/${identifier}/${instanceId}/presence/?playerId=${player.id}`)
+        .get(`${API_PREFIX}/${identifier}/${instanceId}/presence/?playerId=${playerId}`)
         .then((res: AxiosResponse<PresenceApiResponse>) => {
             setPresence(res.data)
         })
