@@ -8,7 +8,8 @@ export const Page: PageType = () => (
         <Section>
             <h2>Navigation</h2>
             <p>
-                By default, exhausting a choice list will reveal the subsequent <code>Section</code>{' '}
+                By default, exhausting a choice list and entering its <code>resolved</code> state
+                reveals the subsequent <code>Section</code>{' '}
                 in the current <code>Chapter</code>.
             </p>
             <p>
@@ -32,7 +33,7 @@ export const Page: PageType = () => (
             <p>
                 You can change this behavior by modifying the <code>next</code> parameter passed to
                 a given choice. You can navigate to a named chapter, skipping over any remaining
-                sections, or to do nothing.
+                sections, or do nothing.
             </p>
             <p>
                 The options are represented by the enum <code>Next</code>:
