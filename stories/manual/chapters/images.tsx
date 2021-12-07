@@ -55,7 +55,7 @@ export const Page: PageType = () => {
                 <p>
                     NextJS provides an <code>Image</code> component with many useful features,
                     though many of them require more advanced deployment techniques. You're free to
-                    either use next/image or the standard HTML image tag—for most authors, the{' '}
+                    use either <code>next/image</code> or the standard HTML image tag—for most authors, the{' '}
                     <strong>
                         standard <code>img</code> element will serve you just fine and is
                         recommended for most users
@@ -105,7 +105,7 @@ export const Page: PageType = () => {
                 <h3>Using images as choices</h3>
                 <p>
                     In some stories you may want the reader to make a choice by clicking on an image
-                    rather than a word. The Choice widget <code>ImageChoice</code> is provided for
+                    rather than a word. The <code>Choice</code> widget <code>ImageChoice</code> is provided for
                     this use case. It takes a number of arguments in its <code>extra</code> block,
                     including the option it represents, as well as the usual image properties.
                 </p>
@@ -249,7 +249,7 @@ export const Page: PageType = () => {
                 <h2>Multimedia</h2>
                 <p>
                     Windrift doesn't have any specific support for audio or video; you can treat
-                    this as a normal React application and follow online tutorials for best
+                    your code as a normal React application and follow online tutorials for best
                     practices. A common use for audio in hypertext stories is to add background
                     audio that plays during a chapter; use a React effect hook for this, but always
                     allow users to turn off audio too!
@@ -280,8 +280,8 @@ export const Page: PageType = () => {
     </Chapter>}`}
                 </SyntaxHighlighter>
                 <p>
-                    A more complete example including automatically disabling the audio when the
-                    user navigates to a new chapter is in the source of this page.
+                    A more complete example, including automatically disabling the audio when the
+                    user navigates to a new chapter, is in the source of this page.
                 </p>
                 <p>
                     <FooterNav
