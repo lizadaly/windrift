@@ -10,10 +10,10 @@ export const Page: PageType = () => {
             <Section>
                 <h1>Layout, styling, and animation</h1>
                 <p>
-                    Windrift stories are primarily composed of text, so attention to detail around
+                    Windrift stories are primarily composed of text, so attention to detail regarding
                     the presentation of text—both visually and for screenreaders—is encouraged.
                     Where possible, defer to general web and accessibility guidelines on good user
-                    experience. This section will highlight some affordances available as part of
+                    experience. This section highlights some affordances available as part of
                     Windrift, as well as some best practices that are unique to digital narrative.
                 </p>
                 <h2>Terminology</h2>
@@ -27,7 +27,7 @@ export const Page: PageType = () => {
                     <li>
                         Each individual story has a <strong>story template</strong>. This is the{' '}
                         <code>index.tsx</code> page created for you when you run the story
-                        generator. By default this will call the default <strong>layout</strong>.
+                        generator. By default this will use the default <strong>layout</strong>.
                         Every chapter in your story will be rendered inside this page.
                     </li>
                     <li>
@@ -98,9 +98,9 @@ export const Page: PageType = () => {
                 </p>
                 <h3>Your story template</h3>
                 <p>
-                    When you run <code>npm run start &lt;your-story-id&gt;</code>, Windrift will
-                    generate a file <code>stories/&lt;your-story-id&gt;/index.tsx</code>. By default
-                    it will look like this:
+                    When you run <code>npm run start &lt;your-story-id&gt;</code>, Windrift
+                    generates a file <code>stories/&lt;your-story-id&gt;/index.tsx</code>. By default
+                    it looks like this:
                 </p>
                 <SyntaxHighlighter language="tsx" style={prism}>
                     {`import * as React from 'react'
@@ -119,7 +119,7 @@ const Index: React.FC = ({ children }) => {
 export default Index`}
                 </SyntaxHighlighter>
                 <p>
-                    As you can see does pass along your story's styles and an empty placeholder for
+                    As you can see, it passes along your story's styles and an empty placeholder for
                     content in the HTML <code>&lt;head&gt;</code>—these are the two areas you're
                     likely to customize.
                 </p>
@@ -197,7 +197,7 @@ const Index: React.FC = ({ children }) => (
                     <a href="https://nextjs.org/docs/basic-features/font-optimization">
                         font management
                     </a>
-                    , and most authors can follow the defaults provided in the Windrft sample
+                    , and most authors can follow the defaults provided in the Windrift sample
                     stories. You're encouraged to use{' '}
                     <a href="https://fonts.google.com/">Google Fonts</a>, which load quickly and
                     reliably, offer a huge range of character sets, and are optimized for screen
@@ -210,7 +210,7 @@ const Index: React.FC = ({ children }) => (
                 </ol>
                 <h3>Step 1: Import the font in your story template</h3>
                 <p>
-                    The story template will wrap every page in your story, so put the font import in
+                    The story template wraps every page in your story, so put the font import in
                     the header. There should already be a placeholder from the story generator:
                 </p>
                 <SyntaxHighlighter language="tsx" style={prism}>
@@ -313,8 +313,8 @@ const Index: React.FC = ({ children }) => (
                 </aside>
                 <p>
                     While this method is simple and effective, the CSS Modules approach described
-                    next has many advantages, and for any significantly complex story or stories
-                    will provide a lot of benefit.
+                    next has many advantages, and will provide a lot of benefit for any
+                    significantly complex story or stories.
                 </p>
                 <h3>
                     Using the per-story <kbd>Index.module.scss</kbd> file
@@ -346,7 +346,7 @@ const Index: React.FC = ({ children }) => (
                     overrides.
                 </p>
                 <p>
-                    The word "module" in the file indicates this is a CSS Module, which means its
+                    The word "module" in the file indicates that this is a CSS Module, which means its
                     use is limited to a specific React component. In this case it will be scoped to
                     your specific story, since it's associated with the <code>index.tsx</code> story
                     template.
@@ -402,7 +402,7 @@ export const Page: PageType = () => {
                     <span className={styles.styleExample}>should be green</span>.
                 </aside>
                 <p>
-                    Typically multiword CSS class names are hyphen-separated, but because CSS
+                    Typically, multiword CSS class names are hyphen-separated, but because CSS
                     Modules will refer to them as JavaScript variables, camelCase is recommended
                     here. Also note that in React, you must use <code>className</code> rather than
                     "class".
@@ -417,13 +417,13 @@ export const Page: PageType = () => {
                 </aside>
                 <p>
                     You're not confined to putting all styles in your single{' '}
-                    <code>Index.module.scss</code> file: for large stylesheets you can break up the
+                    <code>Index.module.scss</code> file; for large stylesheets you can break up the
                     files and import them using SCSS syntax, and if your story includes styles that
                     only apply to specific chapters or components, use and import CSS modules just
                     for those components.
                 </p>
                 <p>
-                    Though perhaps unfamiliar at first, using CSS Modules prevents a style from one
+                    Though the technique may be unfamiliar at first, using CSS Modules prevents a style from one
                     story from bleeding over into another and has become a recommended best practice
                     in the React community. You will also get the benefit of hot reloading (changes
                     to styles will immediately update in your story while you develop) and
@@ -457,15 +457,15 @@ export const Page: PageType = () => {
                 <p>
                     The timings for the section fade-in are controlled in{' '}
                     <code>public/styles/_transitions.scss</code>. You can override these transition
-                    classes with different values in your story's CSS, but note you'll need to use
-                    "traditional" CSS (not CSS Modules) as those classes are defined outside the
+                    classes with different values in your story's CSS, but note that you'll need to use
+                    "traditional" CSS (not CSS Modules), as those classes are defined outside the
                     scope of your specific story.
                 </p>
                 <h3>
                     Using <kbd>FadeIn</kbd>
                 </h3>
                 <p>
-                    By default, new sections fade in but <code>Response</code> simply appear. A{' '}
+                    By default, new sections fade in but <code>Response</code>s simply appear. A{' '}
                     <code>FadeIn</code> UI component is provided if you want to change this
                     behavior:
                 </p>
@@ -506,7 +506,7 @@ export const Page: PageType = () => {
                 <p>
                     The <code>FadeIn</code> component takes only one option, which is the element
                     that wraps the faded component and defaults to <code>span</code>.{' '}
-                    <code>FadeIn</code> is just a convenient pass-through to React Spring so
+                    <code>FadeIn</code> is just a convenient pass-through to React Spring, so
                     customize it by creating your own version.
                 </p>
                 <p>
