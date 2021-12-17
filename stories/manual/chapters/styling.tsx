@@ -10,11 +10,12 @@ export const Page: PageType = () => {
             <Section>
                 <h1>Layout, styling, and animation</h1>
                 <p>
-                    Windrift stories are primarily composed of text, so attention to detail regarding
-                    the presentation of text—both visually and for screenreaders—is encouraged.
-                    Where possible, defer to general web and accessibility guidelines on good user
-                    experience. This section highlights some affordances available as part of
-                    Windrift, as well as some best practices that are unique to digital narrative.
+                    Windrift stories are primarily composed of text, so attention to detail
+                    regarding the presentation of text—both visually and for screenreaders—is
+                    encouraged. Where possible, defer to general web and accessibility guidelines on
+                    good user experience. This section highlights some affordances available as part
+                    of Windrift, as well as some best practices that are unique to digital
+                    narrative.
                 </p>
                 <h2>Terminology</h2>
                 <ol>
@@ -99,8 +100,8 @@ export const Page: PageType = () => {
                 <h3>Your story template</h3>
                 <p>
                     When you run <code>npm run start &lt;your-story-id&gt;</code>, Windrift
-                    generates a file <code>stories/&lt;your-story-id&gt;/index.tsx</code>. By default
-                    it looks like this:
+                    generates a file <code>stories/&lt;your-story-id&gt;/index.tsx</code>. By
+                    default it looks like this:
                 </p>
                 <SyntaxHighlighter language="tsx" style={prism}>
                     {`import * as React from 'react'
@@ -210,8 +211,8 @@ const Index: React.FC = ({ children }) => (
                 </ol>
                 <h3>Step 1: Import the font in your story template</h3>
                 <p>
-                    The story template wraps every page in your story, so put the font import in
-                    the header. There should already be a placeholder from the story generator:
+                    The story template wraps every page in your story, so put the font import in the
+                    header. There should already be a placeholder from the story generator:
                 </p>
                 <SyntaxHighlighter language="tsx" style={prism}>
                     {`// stories/manual/index.tsx
@@ -346,10 +347,10 @@ const Index: React.FC = ({ children }) => (
                     overrides.
                 </p>
                 <p>
-                    The word "module" in the file indicates that this is a CSS Module, which means its
-                    use is limited to a specific React component. In this case it will be scoped to
-                    your specific story, since it's associated with the <code>index.tsx</code> story
-                    template.
+                    The word "module" in the file indicates that this is a CSS Module, which means
+                    its use is limited to a specific React component. In this case it will be scoped
+                    to your specific story, since it's associated with the <code>index.tsx</code>{' '}
+                    story template.
                 </p>
                 <p>
                     CSS Modules should mostly work like any CSS file, with one surprising
@@ -423,11 +424,11 @@ export const Page: PageType = () => {
                     for those components.
                 </p>
                 <p>
-                    Though the technique may be unfamiliar at first, using CSS Modules prevents a style from one
-                    story from bleeding over into another and has become a recommended best practice
-                    in the React community. You will also get the benefit of hot reloading (changes
-                    to styles will immediately update in your story while you develop) and
-                    compatibility with any future improvements from Windrift core.
+                    Though the technique may be unfamiliar at first, using CSS Modules prevents a
+                    style from one story from bleeding over into another and has become a
+                    recommended best practice in the React community. You will also get the benefit
+                    of hot reloading (changes to styles will immediately update in your story while
+                    you develop) and compatibility with any future improvements from Windrift core.
                 </p>
                 <aside className={styles.advanced}>
                     NextJS (and therefore Windrift) support other mechanisms of importing CSS,
@@ -457,9 +458,9 @@ export const Page: PageType = () => {
                 <p>
                     The timings for the section fade-in are controlled in{' '}
                     <code>public/styles/_transitions.scss</code>. You can override these transition
-                    classes with different values in your story's CSS, but note that you'll need to use
-                    "traditional" CSS (not CSS Modules), as those classes are defined outside the
-                    scope of your specific story.
+                    classes with different values in your story's CSS, but note that you'll need to
+                    use "traditional" CSS (not CSS Modules), as those classes are defined outside
+                    the scope of your specific story.
                 </p>
                 <h3>
                     Using <kbd>FadeIn</kbd>

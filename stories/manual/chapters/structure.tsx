@@ -25,8 +25,8 @@ $ npm run new example-story`}
                 The story identifier <em>must</em> be unique within your Windrift installation.
             </p>
             <p>
-                The generator script will create your story folders, CSS files, and example chapter
-                and story configuration script, described below.
+                The generator script will create your story folders, CSS files, an example chapter,
+                and the story configuration file, described below.
             </p>
             <h2>Running the development server</h2>
             <p>
@@ -46,6 +46,11 @@ $ npm run new example-story`}
                     NextJS dev documentation
                 </a>{' '}
                 for additional instructions and customization options.
+            </p>
+            <p>
+                The story you just generated will be available as{' '}
+                <code>http://localhost:3000/example-story</code> (or whatever you picked as an
+                identifier).
             </p>
             <h2>Story structure</h2>
             <p>
@@ -148,15 +153,18 @@ players:
             <h3>Configuration metadata</h3>
             <h4>Title</h4>
             <p>
-                The story's title. This generally will not appear in the story itself, but is
-                reserved for future use to generate an index of stories available in a given
-                Windrift installation.
+                The story's title. This will appear in the HTML <code>&lt;title&gt;</code> of the
+                page.
             </p>
             <h4>Language</h4>
             <p>
-                Used to annotate the HTML of the major elements on the page. Browsers and search
-                engines can use this information to improve users' experience. Windrift is generally
-                language-agnostic and does not use this information otherwise.
+                Used to annotate the HTML of the major elements on the page with the language in
+                which the story is authored.{' '}
+                <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang">
+                    Browsers
+                </a>{' '}
+                and search engines can use this information to improve users' experience. Windrift
+                is generally language-agnostic and does not use this information otherwise.
             </p>
             <h4>Chapters</h4>
             <p>
@@ -217,7 +225,7 @@ players:
                 <p>
                     Persistent content can also go in the right or left margin of the page if you're
                     using the built-in <code>Grid</code> component. See the{' '}
-                    <Nav text="section on styling" next="styling" /> for more on customzing where
+                    <Nav text="section on styling" next="styling" /> for more on customizing where
                     content flows on the page.
                 </p>
             </aside>
