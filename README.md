@@ -18,20 +18,20 @@ The [official manual](https://windrift.app/manual) is continuously published as 
 
 ## Example stories
 
-Stories demonstrating use of Windrift 2 from the basic to the advanced are available as part of the [official manual](https://windrift.app/manual) , as well as in the [Windrift Playground](https://playground.windrift.app/).
+Stories demonstrating use of Windrift 2 from the basic to the advanced are available as part of the [official manual](https://windrift.app/manual) , as well as in the [Windrift Playground](https://playground.windrift.app/). Source code is available for alll example stories.
 
 ## Quick start
 
 ### Dependencies
 
-Windrift comes ready to deploy using Vercel, which requires a maximum Node version of 14. To ensure you're using the correct version of Node, use [Node Version Manager](https://github.com/nvm-sh/nvm):
+Windrift comes ready to deploy using Vercel, which requires a maximum Node version of 14. To ensure you're using a fully-compatible version of Node, use [Node Version Manager](https://github.com/nvm-sh/nvm). Follow its installation process for your platform and then run:
 
 ```
 nvm install 14
 nvm use 14
 ```
 
-Then:
+Then to install Windrift:
 
 ```
 npm install
@@ -43,7 +43,7 @@ npm install
 npm run new <story-id>
 ```
 
-The story identifier must be a single string, like "west-of-house" or "colossal-cave."
+The story identifier must be a single string, like "west-of-house" or "colossal-cave." See the [manual](https://windrift.app/manual) for details.
 
 ### To run the local development environment
 
@@ -51,16 +51,15 @@ The story identifier must be a single string, like "west-of-house" or "colossal-
 npm run dev
 ```
 
-Other help commands including deployment options as per the <a href="https://windrift.app/manual">Windrift manual</a> and
-<a href="https://nextjs.org/">NextJS</a> documentation.
+Other commands, including deployment options, are described in the <a href="https://windrift.app/manual">Windrift manual</a>.
 
 ## About version 2
 
-This is a complete rewrite of Windrift, now based on NextJS and written in TypeScript.
+This is a complete rewrite of Windrift, now based on [NextJS](https://nextjs.org/) and written in [TypeScript](https://www.typescriptlang.org/).
 
-Windrift no longer separates the core library from the web framework, which was previously available as the windrift-starter repo. Keeping windrift-starter and windrift core separate made for a confusing installation and update process, and neither was useful without the other.
+Windrift no longer separates the core library from the web framework, which was previously available as the `windrift-starter` repo. Keeping windrift-starter and windrift core separate made for a confusing installation and update process, and neither was useful without the other.
 
-Windrift 2 unifies them into a single NextJS application, capable of hosting multiple stories. Authors can take advantage of any affordances offered by NextJS, including the free deployment options via vercel.com.
+Windrift 2 unifies them into a single NextJS application, capable of hosting multiple stories. Authors can take advantage of any affordances offered by NextJS, including the free deployment options via [Vercel](https://vercel.com).
 
 Because the core Windrift code is bundled with each story repository, authors can fully modify or alter any fundamental behavior of the library.
 
