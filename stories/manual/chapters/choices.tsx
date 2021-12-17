@@ -119,7 +119,7 @@ export const Page: PageType = () => (
             <SyntaxHighlighter language="tsx" style={prism}>
                 {`<Choice
     tag="pet"
-    options={[['an adorable skink', 'a sweet-tempered marmot']]}
+    options={[['an adorable skink', 'a benevolent panda', 'a sweet-tempered marmot']]}
     widget={InlineListEN} // The default, but you could pass a different component here
     extra={{ conjunction: 'and', separator: '... ' }} />`}
             </SyntaxHighlighter>
