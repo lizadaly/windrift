@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 @use '/public/styles/sizing';
 @use '/public/styles/colors' with (
     $cool: rgb(79, 135, 101)
@@ -8,7 +10,7 @@
 );
 @use '/public/styles/main';
 
-$left-right-width: 100px;
+$left-right-width: 1fr;
 
 // Overrides and additions to the default grid
 
@@ -34,10 +36,10 @@ $left-right-width: 100px;
 .main {
 
     // Widen the right column to show the presence/log list
-    grid-template-columns: $left-right-width 4fr $left-right-width;
+    grid-template-columns: $left-right-width 3fr $left-right-width;
 
     .story {
-        padding-right: sizing.$gutter;
+        padding: 0 math.div(sizing.$gutter, 4) 0 math.div(sizing.$gutter, 4);
     }
     button {
         display: inline-block;
@@ -75,3 +77,6 @@ $left-right-width: 100px;
 
 }
 
+.left {
+    padding: 0 0 0 math.div(sizing.$gutter, 4);
+}

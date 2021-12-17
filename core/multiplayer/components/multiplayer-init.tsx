@@ -53,7 +53,7 @@ const MultiplayerInit: React.FC = ({ children }) => {
         if (!visible) {
             const start = players.filter((p) => p.name === currentPlayer.name)[0].start
             dispatch(gotoChapter({ filename: start }))
-            emitNavChange(identifier, start, instanceId, currentPlayer)
+            emitNavChange(identifier, start, instanceId, currentPlayer.id)
             emitPresence(identifier, instanceId, currentPlayer.id)
         }
     }, [])
@@ -66,7 +66,7 @@ const MultiplayerInit: React.FC = ({ children }) => {
 
     // Poll for movement
     useInterval(async () => {
-        pollForPresence(identifier, instanceId, currentPlayer, setPresence)
+        pollForPresence(identifier, instanceId, currentPlayer.id, setPresence)
     }, NEXT_PUBLIC_POLL_CHECK_PRESENCE)
 
     // Send presence

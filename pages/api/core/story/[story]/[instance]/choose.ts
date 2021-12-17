@@ -9,7 +9,7 @@ export default async (
     const instanceId = req.query.instance as string
 
     if (req.method === 'POST') {
-        const { id, tag, option, playerId, next, chapterName } = req.body
+        const { id, tag, option, playerId, next, chapterName, synced } = req.body
         await prisma.choice.create({
             data: {
                 id,
@@ -17,6 +17,7 @@ export default async (
                 option,
                 next,
                 chapterName,
+                synced,
                 player: {
                     connect: {
                         id: playerId
