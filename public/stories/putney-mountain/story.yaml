@@ -1,0 +1,11 @@
+title: On Putney Mountain
+language: en
+chapters:
+  - filename: "ascent"
+    title: "Ascent"
+  - filename: "summit"
+    title: "Summit"
+  - filename: "descent"
+    title: "Descent"
+players:
+  - start: "ascent"

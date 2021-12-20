@@ -4,15 +4,15 @@ import { C, Section, Chapter, Nav, When } from 'core/components'
 import { PageType } from 'core/types'
 import useInventory from 'core/hooks/use-inventory'
 
-import { styles } from '..'
-import { allFindables, Score } from './sample-ascent'
+import styles from 'public/stories/putney-mountain/styles/Index.module.scss'
+import { allFindables, Score } from './ascent'
 
 export const Page: PageType = () => {
     const [rock, hawk, snake] = useInventory(['rock', 'hawk', 'snake'])
     const findables = useInventory(allFindables).filter((f) => !!f)
 
     return (
-        <Chapter filename="sample-summit">
+        <Chapter filename="summit">
             <Section className={styles.sample}>
                 <p>You emerge from tree cover beneath an overcast sky.</p>
                 <Image
@@ -67,7 +67,7 @@ export const Page: PageType = () => {
                 <p>
                     The trail{' '}
                     <When condition={findables.length >= 3} otherwise="continues north">
-                        <Nav text="continues north" next="sample-descent" />
+                        <Nav text="continues north" next="descent" />
                     </When>{' '}
                     down into the valley.
                 </p>

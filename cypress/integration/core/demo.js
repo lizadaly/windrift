@@ -54,6 +54,7 @@ describe('Full test of the built-in stories', () => {
         cy.get('a:contains("example story")').click()
 
         // Sample (ascent)
+        cy.get('a:contains("sample story")').click()
         cy.get('a:contains("your best friend")').click()
         cy.contains('Your companion will be your best friend.')
         cy.get('a:contains("Start your ascent")').click()
@@ -81,8 +82,8 @@ describe('Full test of the built-in stories', () => {
 
         // Sample (descent)
         cy.get('img').should('be.visible')
-        cy.get('a:contains("set out to meet them")').click()
-
+        cy.get('a:contains("Return to the manual")').click()
+        cy.get('a:contains("continue with the next section")').click()
         // Images
         cy.get('img[src="../stories/manual/images/example1.jpg"]').should('be.visible')
         cy.get('img[src="../stories/manual/images/skyscrapers.jpg"]').should('be.visible')

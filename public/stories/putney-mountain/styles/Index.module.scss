@@ -1,0 +1,43 @@
+@use '/public/styles/sizing' with (
+    $story-margin: 100px,
+    $font-size-default: 20px
+);
+@use '/public/styles/grid';
+@use '/public/styles/colors';
+
+.main {
+   .sample {
+
+      @media screen and (min-width: sizing.$big-viewport) {
+          margin: 0 10rem;
+      }
+      font-family: Nunito, serif;
+
+      p:first-of-type {
+          padding-top: 2rem;
+      }
+      h1, h2, h3, h4, h5, h6 {
+          color: colors.$very-dark;
+      }
+      // Ensure the underline doesn't go beneath the emoji for all findables
+      .findable a::after {
+          display: inline-block;
+          width: 0;
+          margin: 0 1em 0 .25em;
+      }
+      .camera a::after {
+          content: " 📸";
+
+      }
+      .food a::after {
+          content: " 🍄";
+      }
+      .magnify a::after {
+          content: " 🔎";
+      }
+
+      img {
+          padding-top: 2rem !important;
+      }
+  }
+}
