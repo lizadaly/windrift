@@ -15,10 +15,6 @@ chapters:
     title: "Navigation"
   - filename: "sample-ascent"
     title: "Sample story"
-  - filename: "sample-summit"
-    title: "Summit (Sample story)"
-  - filename: "sample-descent"
-    title: "Descent (Sample story)"
   - filename: "images"
     title: "Images"
   - filename: "styling"
@@ -30,7 +26,7 @@ chapters:
   - filename: "next"
     title: "Next steps and further resources"
 extra:
-  omitToc: ['sample-summit', 'sample-descent']
+  omitToc: []
 
 players:
   - start: "introduction"
