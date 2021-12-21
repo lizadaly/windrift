@@ -17,7 +17,7 @@ import {
     resumeStoryInstance
 } from '../api-client'
 import { Player } from '.prisma/client'
-import { Multiplayer } from 'core/features/multiplayer'
+import { Multiplayer } from 'core/multiplayer/features/multiplayer'
 import { PresenceApiResponse } from 'pages/api/core/story/[story]/[instance]/presence'
 import { Persistor } from 'redux-persist'
 
@@ -145,7 +145,7 @@ const MoveButton = ({ identifier, instanceId, player, location }: MoveButtonProp
         <button
             onClick={() => {
                 console.log(`Will post ${identifier} ${instanceId} ${player.name} to ${location}`)
-                emitNavChange(identifier, location, instanceId, player.id)
+                emitNavChange(identifier, location, instanceId, player.id, null)
                 setPosting(true)
             }}>
             {posting ? 'posting...' : location}

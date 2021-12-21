@@ -95,6 +95,7 @@ model Nav {
   id          String   @id @default(uuid())
   createdAt   DateTime @default(now()) @map("created_at")
   chapterName String   @db.VarChar(2000)
+  from        String?  @db.VarChar(2000)
   instance    Instance @relation(fields: [instanceId], references: [id])
   instanceId  String   @map("instance_id")
   player      Player   @relation(fields: [playerId], references: [id])

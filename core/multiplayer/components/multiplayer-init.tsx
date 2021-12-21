@@ -5,10 +5,12 @@ import useInterval from '@use-it/interval'
 
 import { RootState } from 'core/types'
 import { gotoChapter } from 'core/features/navigation'
+import { add, NavEntry } from 'core/multiplayer/features/navigation'
 import {
     emitNavChange,
     emitPresence,
     pollForChoices,
+    pollForNav,
     pollForPresence
 } from 'core/multiplayer/api-client'
 import { PresenceApiResponse } from 'pages/api/core/story/[story]/[instance]/presence'
@@ -28,6 +30,7 @@ export const PlayerContext: React.Context<Players> = React.createContext({
 const NEXT_PUBLIC_POLL_EMIT_PRESENCE = 30000
 const NEXT_PUBLIC_POLL_CHECK_PRESENCE = 10000
 const NEXT_PUBLIC_POLL_CHECK_CHOICES = 10000
+const NEXT_PUBLIC_POLL_CHECK_NAV = 10000
 
 const MultiplayerInit: React.FC = ({ children }) => {
     const { currentPlayer, otherPlayer, instanceId } = useSelector(
@@ -37,10 +40,12 @@ const MultiplayerInit: React.FC = ({ children }) => {
 
     const { log } = useSelector((state: RootState) => state.log)
     const { toc } = useSelector((state: RootState) => state.navigation.present)
+    const navEntries = useSelector((state: RootState) => state.multiplayerNav)
 
     const [presenceApiResponse, setPresence] = React.useState<PresenceApiResponse | undefined>(
         undefined
     )
+    const [navEntry, setNavEvent] = React.useState<NavEntry>()
 
     const dispatch = useDispatch()
 
@@ -53,10 +58,16 @@ const MultiplayerInit: React.FC = ({ children }) => {
         if (!visible) {
             const start = players.filter((p) => p.name === currentPlayer.name)[0].start
             dispatch(gotoChapter({ filename: start }))
-            emitNavChange(identifier, start, instanceId, currentPlayer.id)
+            emitNavChange(identifier, start, instanceId, currentPlayer.id, null)
             emitPresence(identifier, instanceId, currentPlayer.id)
         }
     }, [])
+
+    React.useEffect(() => {
+        if (navEntry) {
+            dispatch(add({ entry: navEntry }))
+        }
+    }, [navEntry])
 
     // Poll for choices
     useInterval(
@@ -64,10 +75,15 @@ const MultiplayerInit: React.FC = ({ children }) => {
         NEXT_PUBLIC_POLL_CHECK_CHOICES
     )
 
-    // Poll for movement
+    // // Poll for presence
+    // useInterval(async () => {
+    //     pollForPresence(identifier, instanceId, currentPlayer.id, setPresence)
+    // }, NEXT_PUBLIC_POLL_CHECK_PRESENCE)
+
+    // Poll for nav changes
     useInterval(async () => {
-        pollForPresence(identifier, instanceId, currentPlayer.id, setPresence)
-    }, NEXT_PUBLIC_POLL_CHECK_PRESENCE)
+        pollForNav(identifier, instanceId, navEntries, setNavEvent)
+    }, NEXT_PUBLIC_POLL_CHECK_NAV)
 
     // Send presence
     useInterval(async () => {

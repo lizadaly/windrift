@@ -11,9 +11,8 @@ import Watch from 'core/multiplayer/components/watch'
 
 export const Page: PageType = () => {
     const cloak = useCloak()
-    const { presenceApiResponse: presence } = React.useContext(PlayerContext)
-    const both = presence && presence.nav.chapterName === 'cloakroom'
-
+    const { otherPlayer, currentPlayer } = React.useContext(PlayerContext)
+    const both = false // FIXME
     return (
         <Chapter filename="cloakroom">
             <Section>
@@ -63,12 +62,12 @@ export const Page: PageType = () => {
                 <Watch
                     enter={
                         <>
-                            <p>The {presence?.player.name} enters!</p>
+                            <p>The {otherPlayer.name} enters!</p>
                         </>
                     }
                     exit={
                         <>
-                            <p>The {presence?.player.name} leaves!</p>
+                            <p>The {otherPlayer.name} leaves!</p>
                         </>
                     }
                 />

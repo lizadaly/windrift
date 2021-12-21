@@ -85,9 +85,10 @@ export const makeChoice =
                 if (multiplayer) {
                     emitNavChange(
                         multiplayer.identifier,
-                        next,
+                        next, // Where they're going
                         multiplayer.instanceId,
-                        multiplayer.currentPlayer.id
+                        multiplayer.currentPlayer.id,
+                        filename // Where they're at
                     )
                 }
             }

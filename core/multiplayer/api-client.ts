@@ -6,9 +6,11 @@ import { LogEntry } from 'core/features/log'
 import { TocItem, Tag } from 'core/types'
 import { ChoiceApiResponse } from 'pages/api/core/story/[story]/[instance]/listen'
 import { PresenceApiResponse } from 'pages/api/core/story/[story]/[instance]/presence'
-import { init } from 'core/features/multiplayer'
+import { init } from 'core/multiplayer/features/multiplayer'
 import { makeChoice } from 'core/features/choice'
 import { gotoChapter } from 'core/features/navigation'
+import { NavEntry } from 'core/multiplayer/features/navigation'
+import { NavApiResponse } from 'pages/api/core/story/[story]/[instance]/nav'
 
 const API_PREFIX = '/api/core/story'
 
@@ -37,7 +39,7 @@ export const getStoryInstance = (
         } else if (playerId === player2.id) {
             currentPlayer = player2
             otherPlayer = player1
-            start = nav2.chapterName
+            start = nav2?.chapterName
         } else {
             console.error(
                 `Did not get a matching playerId for instance ${instance.id}; got ${playerId}`
@@ -58,8 +60,11 @@ export const getStoryInstance = (
         )
         // Now immediately get any missed events, including our own
         getAllChoices(identifier, instance.id, currentPlayer, dispatch, () => {
-            console.log('Dispatching gotchapter to ', start)
-            dispatch(gotoChapter({ filename: start }))
+            if (start) {
+                // Dispatch a start location if we got one from the API; otherwise this will fall back to the player default
+                console.log('Dispatching gotchapter to ', start)
+                dispatch(gotoChapter({ filename: start }))
+            }
         })
     })
 }
@@ -123,12 +128,14 @@ export const emitNavChange = (
     identifier: string,
     chapterName: TocItem['filename'],
     instanceId: string,
-    playerId: string
+    playerId: string,
+    from?: string
 ): void => {
     axios
         .post(`${API_PREFIX}/${identifier}/${instanceId}/nav/`, {
             chapterName,
-            playerId: playerId
+            playerId: playerId,
+            from
         })
         .then(() => {
             emitPresence(identifier, instanceId, playerId)
@@ -147,7 +154,6 @@ export const emitChoice = (
     player: Player,
     synced: boolean
 ): void => {
-    console.log('syncing: ', synced)
     axios.post(`${API_PREFIX}/${identifier}/${instanceId}/choose/`, {
         id,
         tag,
@@ -179,9 +185,9 @@ export const pollForChoices = (
         .then((res: AxiosResponse<ChoiceApiResponse[]>) => {
             // Get all the existing log IDs
             const logIds = log.map((l) => l.id)
-            console.group(`Already have these log ids: `)
-            console.log(logIds)
-            console.groupEnd()
+            // console.group(`Already have these log ids: `)
+            // console.log(logIds)
+            // console.groupEnd()
 
             console.group('Replaying log ids: ')
             res.data
@@ -221,9 +227,7 @@ export const getAllChoices = (
             res.data.forEach((row) => {
                 const { id, tag, option, next, chapterName, synced } = row
                 const eventPlayer = row.player
-                console.log(id, tag, option, eventPlayer, synced)
                 if (eventPlayer === player || synced) {
-                    console.log('Event was made by this player or is synced; dispatching')
                     dispatch(
                         makeChoice(tag, option, next, chapterName, {
                             eventPlayer,
@@ -256,6 +260,35 @@ export const pollForPresence = (
             setPresence(res.data)
         })
         .catch(function (error) {
-            console.log(error)
+            console.error(error)
+        })
+}
+
+/**
+ * Poll for navigation events that were routed through the API
+ * @param identifier
+ * @param instanceId
+ * @param playerId
+ * @param navEntries
+ * @param setPresence
+ */
+export const pollForNav = (
+    identifier: string,
+    instanceId: string,
+    navEntries: NavEntry[],
+    setNavEvent: React.Dispatch<React.SetStateAction<NavEntry>>
+): void => {
+    axios
+        .get(`${API_PREFIX}/${identifier}/${instanceId}/nav`)
+        .then((res: AxiosResponse<NavApiResponse>) => {
+            const navIds = navEntries.map((e) => e.id)
+            const data = res.data.filter((row) => !navIds.includes(row.id))
+
+            if (data.length > 0) {
+                setNavEvent(data[0]) // FIXME Not reliable; may skip updates
+            }
+        })
+        .catch(function (error) {
+            console.error(error)
         })
 }

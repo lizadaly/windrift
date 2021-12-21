@@ -1,3 +1,5 @@
+/** TODO consider moving this to context because it almost never changes */
+
 import { Player } from '@prisma/client'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 

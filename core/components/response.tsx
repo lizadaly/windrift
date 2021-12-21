@@ -23,7 +23,7 @@ const Response = ({ tag, options }: ResponseProps): JSX.Element => {
 
     if (resp.length === 0) {
         console.group(`Unmatched choice list: "${tag}"`)
-        console.log(
+        console.error(
             `No matching response was found for tag ${tag} based on option-values ${Object.keys(
                 options
             )}`
