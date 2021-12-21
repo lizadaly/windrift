@@ -4,12 +4,12 @@ import { Section, Chapter, Nav } from 'core/components'
 import { PageType } from 'core/types'
 import useInventory from 'core/hooks/use-inventory'
 
-import { styles } from '..'
+import styles from 'public/stories/putney-mountain/styles/Index.module.scss'
 
 export const Page: PageType = () => {
     const [companion] = useInventory(['companion'])
     return (
-        <Chapter filename="sample-descent">
+        <Chapter filename="descent">
             <Section className={styles.sample}>
                 <p>
                     The descent into the valley is steeper than the ascent (fortunately!) so you
@@ -29,8 +29,10 @@ export const Page: PageType = () => {
                 </p>
                 <p>
                     You can just make out the shape of {companion} waving at you in the distance.{' '}
-                    Satisfied by your short hike today,{' '}
-                    <Nav text="set out to meet them" next="images" />. (Exit the sample story here.)
+                    Satisfied by your short hike today, you join them.
+                </p>
+                <p>
+                    <a href="../manual">Return to the manual</a>.
                 </p>
                 <br />
                 <br />

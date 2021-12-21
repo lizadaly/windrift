@@ -42,8 +42,8 @@ export const Page: PageType = () => {
                     this as the example value in this chapter.
                 </p>
                 <p>
-                    There are two ways to retrieve the value from the inventory. One is to use the{' '}
-                    <code>useInventory</code>{' '}
+                    There are two common ways to retrieve the value from the inventory. One is to
+                    use the <code>useInventory</code>{' '}
                     <a href="https://reactjs.org/docs/hooks-intro.html">React hook</a> to retrieve
                     the raw value selected by the user. The other is to use the{' '}
                     <code>Response</code> component to map specific inventory selections to
@@ -74,10 +74,10 @@ export const Page: PageType = () => {
                     Often the option selected will have as its raw value an entire noun phrase
                     including descriptive adjectives, when in the narrative you may want to only
                     show the noun. In English, this is typically the last word in the phrase. The
-                    utility function <code>wordFromInventory</code> retrieves a specific word
-                    based on a negative offset from the end of the string (defaulting to -1), and is
-                    safe to use even if the inventory value is undefined. The offset value applies
-                    to every option in the choice, so if you're planning on using this you'll either
+                    utility function <code>wordFromInventory</code> retrieves a specific word based
+                    on a negative offset from the end of the string (defaulting to -1), and is safe
+                    to use even if the inventory value is undefined. The offset value applies to
+                    every option in the choice, so if you're planning on using this you'll either
                     want options with similar structure, or a custom rendering function:
                 </p>
                 <SyntaxHighlighter language="ts" style={prism}>
@@ -164,8 +164,8 @@ wordFromInventory(fruit, -2) // ${wordFromInventory(fruit, -2)}`}
                     Another way to react to inventory changes, or any changes to the Windrift story
                     state, is to use the <code>When</code> component. It's got a straightforward
                     signature: when the <code>condition</code> evaluates to <code>true</code>,
-                    display any child contents; otherwise, if the <em>optional</em> prop <code>otherwise</code>{' '}
-                    is passed, use that node instead.
+                    display any child contents; otherwise, if the <em>optional</em> prop{' '}
+                    <code>otherwise</code> is passed, use that node instead.
                 </p>
                 <SyntaxHighlighter language="tsx" style={prism}>
                     {`export const Page: PageType = () => {

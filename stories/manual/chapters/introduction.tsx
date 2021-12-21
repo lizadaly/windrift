@@ -139,6 +139,16 @@ export const Page: PageType = () => (
                 </li>
             </ul>
             <p>
+                A related repository called the{' '}
+                <a href="https://playground.windrift.app/">Windrift Playground</a> contains{' '}
+                <a href="https://github.com/lizadaly/windrift-playground">source code</a>
+                for stories that are a bit further afield than the ones in this repository. These
+                demonstrate how to extend Windrift's capabilities to produce digital poetry, visual
+                novels, or stories that might otherwise be difficult to produce with domain-specific
+                interactive fiction tools.
+            </p>
+            <h3>Get started</h3>
+            <p>
                 The table of contents at the top of this page allows you to read the manual in any
                 order, but it's best to follow along linearly, as some examples build on each other.
             </p>

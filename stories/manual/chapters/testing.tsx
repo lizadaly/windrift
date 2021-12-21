@@ -50,10 +50,11 @@ export const Page: PageType = () => {
                     current snapshot of the Redux store.
                 </p>
                 <p>
-                    If things have gone <em>really</em> wrong, the application might not even be
-                    able to display the reset button. In that case deleting local storage itself
-                    will absolutely start things over. The location varies by browser but you should
-                    be able to find it in the browser's developer tools, for example in Firefox:
+                    If things have gone <em>really</em> wrong, though, the application might not
+                    even be able to display the reset button. In that case deleting local storage
+                    itself will absolutely start things over. The location varies by browser but you
+                    should be able to find it in the browser's developer tools, for example in
+                    Firefox:
                 </p>
                 <aside>
                     <p>Select "delete all" from local storage to completely reset your story.</p>

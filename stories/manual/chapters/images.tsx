@@ -55,7 +55,8 @@ export const Page: PageType = () => {
                 <p>
                     NextJS provides an <code>Image</code> component with many useful features,
                     though many of them require more advanced deployment techniques. You're free to
-                    use either <code>next/image</code> or the standard HTML image tag—for most authors, the{' '}
+                    use either <code>next/image</code> or the standard HTML image tag—for most
+                    authors, the{' '}
                     <strong>
                         standard <code>img</code> element will serve you just fine and is
                         recommended for most users
@@ -94,20 +95,19 @@ export const Page: PageType = () => {
                     <p>
                         Most authors should use the standard HTML <code>img</code>, but NextJS
                         provides options for serving up multiple image sizes based on browser sizes
-                        and for preloading images. This functionality is complex, hard to style, and
-                        requires special hosting considerations. See the
-                        <a href="https://nextjs.org/docs/api-reference/next/image#loader">
-                            NextJS
-                        </a>{' '}
+                        and for preloading images. This functionality is complex and requires
+                        special hosting considerations. See the{' '}
+                        <a href="https://nextjs.org/docs/api-reference/next/image#loader">NextJS</a>{' '}
                         documentation for more details.
                     </p>
                 </aside>
                 <h3>Using images as choices</h3>
                 <p>
                     In some stories you may want the reader to make a choice by clicking on an image
-                    rather than a word. The <code>Choice</code> widget <code>ImageChoice</code> is provided for
-                    this use case. It takes a number of arguments in its <code>extra</code> block,
-                    including the option it represents, as well as the usual image properties.
+                    rather than a word. The <code>Choice</code> widget <code>ImageChoice</code> is
+                    provided for this use case. It takes a number of arguments in its{' '}
+                    <code>extra</code> block, including the option it represents, as well as the
+                    usual image properties.
                 </p>
                 <p>Click on the images to see the choice selection being made:</p>
                 <aside>
