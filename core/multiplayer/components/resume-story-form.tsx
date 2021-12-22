@@ -1,7 +1,8 @@
 import * as React from 'react'
 
-import { resumeStoryInstance } from '../api-client'
+import { resumeStoryInstance } from 'core/multiplayer/api-client'
 import { StoryContext } from 'pages/[story]/[[...chapter]]'
+
 import styles from 'public/styles/multiplayer/ResumeStory.module.scss'
 
 const ResumeStory: React.FC = ({ children = 'Resume an existing story' }) => {

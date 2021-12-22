@@ -1,10 +1,6 @@
 import * as React from 'react'
 
-import useChapter from 'core/hooks/use-chapter'
-import { PlayerContext } from 'core/multiplayer/components/multiplayer-init'
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import Only from 'core/multiplayer/components/only'
+import useLocation from '../hooks/use-location'
 
 /**
  * Display text only if both players are present.
@@ -12,13 +8,13 @@ import Only from 'core/multiplayer/components/only'
  *
  * @param children content to be shown only if both players are present
  * @returns content to be shown only if both players are present
+ *
+ * @see {Only}
  */
 export const Both: React.FC = ({ children }) => {
-    const otherPlayerLocation =
-        React.useContext(PlayerContext)?.presenceApiResponse?.nav?.chapterName
-    const thisPlayerLocation = useChapter()?.filename
+    const { current, other } = useLocation()
 
-    if (thisPlayerLocation === otherPlayerLocation) {
+    if (current.to === other.to) {
         return <>{children}</>
     }
     return null

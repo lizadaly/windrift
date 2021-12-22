@@ -8,11 +8,12 @@ import Only from 'core/multiplayer/components/only'
 import useCloak, { CloakStatus } from '../use-cloak'
 import { PlayerContext } from 'core/multiplayer/components/multiplayer-init'
 import Watch from 'core/multiplayer/components/watch'
+import Both from 'core/multiplayer/components/both'
 
 export const Page: PageType = () => {
     const cloak = useCloak()
-    const { otherPlayer, currentPlayer } = React.useContext(PlayerContext)
-    const both = false // FIXME
+    const { otherPlayer } = React.useContext(PlayerContext)
+
     return (
         <Chapter filename="cloakroom">
             <Section>
@@ -29,14 +30,14 @@ export const Page: PageType = () => {
                                         It looks like you could hang your cloak there, if you only
                                         had hands.
                                     </Only>
-                                    {both && (
+                                    <Both>
                                         <Only playerName="raccoon">
                                             You could{' '}
                                             <C options={[['pluck']]} tag="pluck" widget={D} /> the
                                             little cloak off the snake and hang it on the hook, if
                                             you like.
                                         </Only>
-                                    )}
+                                    </Both>
                                 </>
                             )
                         }}

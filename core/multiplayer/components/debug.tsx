@@ -1,25 +1,19 @@
 import * as React from 'react'
+import { Persistor } from 'redux-persist'
+import { useSelector } from 'react-redux'
 
-import useChapter from 'core/hooks/use-chapter'
+import { Player } from '@prisma/client'
+
+import { Config, RootState } from 'core/types'
 import { PlayerContext } from 'core/multiplayer/components/multiplayer-init'
-import { v4 as uuidv4 } from 'uuid'
-
-import debug from 'public/styles/multiplayer/Debug.module.scss'
 import { StoryContext } from 'pages/[story]/[[...chapter]]'
-import { useDispatch, useSelector } from 'react-redux'
-import { Config, RootState, Toc } from 'core/types'
-import {
-    emitChoice,
-    emitNavChange,
-    emitPresence,
-    getStoryUrl,
-    pollForPresence,
-    resumeStoryInstance
-} from '../api-client'
-import { Player } from '.prisma/client'
+import { emitNavChange, getStoryUrl } from 'core/multiplayer/api-client'
+
 import { Multiplayer } from 'core/multiplayer/features/multiplayer'
 import { PresenceApiResponse } from 'pages/api/core/story/[story]/[instance]/presence'
-import { Persistor } from 'redux-persist'
+import useLocation from '../hooks/use-location'
+
+import debug from 'public/styles/multiplayer/Debug.module.scss'
 
 /**
  * Display debugging info and allow for specific events to be triggered via the API.
@@ -42,7 +36,7 @@ interface UserSwitcherProps {
     persistor: Persistor
 }
 
-const UserSwitcher = ({ config, multiplayer, persistor }: UserSwitcherProps): JSX.Element => {
+const UserSwitcher = ({ multiplayer, persistor }: UserSwitcherProps): JSX.Element => {
     return (
         <div>
             Switch user to{' '}
@@ -74,7 +68,7 @@ interface LocationSwitcherProps {
 
 const LocationSwitcher = ({ config, multiplayer, context }: LocationSwitcherProps): JSX.Element => {
     const otherPlayerIsActive = !!context
-    const thisPlayerLocation = useChapter()?.filename
+    const { other } = useLocation()
     const start = config.players.filter((p) => p.name == multiplayer.otherPlayer.name)[0].start
 
     return (
@@ -82,7 +76,7 @@ const LocationSwitcher = ({ config, multiplayer, context }: LocationSwitcherProp
             {multiplayer.otherPlayer.name} location:{' '}
             {otherPlayerIsActive ? (
                 <>
-                    {context.nav?.chapterName}
+                    {other.to}
                     <div>
                         <RelocateButton
                             identifier={config.identifier}

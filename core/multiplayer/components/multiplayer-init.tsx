@@ -75,10 +75,10 @@ const MultiplayerInit: React.FC = ({ children }) => {
         NEXT_PUBLIC_POLL_CHECK_CHOICES
     )
 
-    // // Poll for presence
-    // useInterval(async () => {
-    //     pollForPresence(identifier, instanceId, currentPlayer.id, setPresence)
-    // }, NEXT_PUBLIC_POLL_CHECK_PRESENCE)
+    // Poll for presence
+    useInterval(async () => {
+        pollForPresence(identifier, instanceId, currentPlayer.id, setPresence)
+    }, NEXT_PUBLIC_POLL_CHECK_PRESENCE)
 
     // Poll for nav changes
     useInterval(async () => {

@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 import { useDispatch } from 'react-redux'
-import { createStoryInstance } from '../api-client'
+import { createStoryInstance } from 'core/multiplayer/api-client'
 import { StoryContext } from 'pages/[story]/[[...chapter]]'
 
 const StartStory: React.FC = ({ children = 'Start a new story' }) => {

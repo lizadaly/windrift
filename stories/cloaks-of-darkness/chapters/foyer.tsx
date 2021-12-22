@@ -55,7 +55,7 @@ export const Page: PageType = () => {
                                 </Only>
                                 <Only playerName="snake">
                                     It's a nice cozy hole with room to spare. You could easily{' '}
-                                    <Nav next="bar" text="slither through" tag="bar" sync={true} />.
+                                    <Nav next="bar" text="slither through" tag="bar" />.
                                 </Only>
                             </em>
                         )

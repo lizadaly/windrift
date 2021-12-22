@@ -1,8 +1,8 @@
 import Image from 'next/image'
 
-import { Multiplayer } from 'core/features/multiplayer'
 import styles from 'public/styles/multiplayer/ShareButton.module.scss'
 import { Player } from '@prisma/client'
+import { Multiplayer } from 'core/multiplayer/features/multiplayer'
 
 type ShareButtonProps = {
     multiplayer: Multiplayer

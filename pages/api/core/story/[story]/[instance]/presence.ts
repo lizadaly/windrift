@@ -1,4 +1,4 @@
-import { Presence, Player, Nav } from '@prisma/client'
+import { Presence, Player } from '@prisma/client'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 import prisma from 'core/multiplayer/db'
@@ -6,7 +6,6 @@ import prisma from 'core/multiplayer/db'
 export type PresenceApiResponse = {
     presence: Presence
     player: Player
-    nav: Nav
 }
 
 const presence = async (
@@ -56,15 +55,7 @@ const presence = async (
         if (presence === null) {
             res.status(404).end()
         } else {
-            const nav = await prisma.nav.findFirst({
-                where: {
-                    player: presence.player
-                },
-                orderBy: {
-                    createdAt: 'desc'
-                }
-            })
-            res.status(200).json({ presence, player: presence.player, nav })
+            res.status(200).json({ presence, player: presence.player })
         }
     }
 }
