@@ -64,13 +64,14 @@ interface LocationSwitcherProps {
 
 const LocationSwitcher = ({ config, multiplayer }: LocationSwitcherProps): JSX.Element => {
     const otherPlayerIsActive = useSelector((state: RootState) => state.presence)
+
     const { other } = useLocation()
     const start = config.players.filter((p) => p.name == multiplayer.otherPlayer.name)[0].start
 
     return (
         <div className={debug.location}>
             {multiplayer.otherPlayer.name} location:{' '}
-            {otherPlayerIsActive ? (
+            {otherPlayerIsActive && other ? (
                 <>
                     {other.to}
                     <div>

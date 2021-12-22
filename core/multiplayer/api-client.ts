@@ -1,13 +1,11 @@
 import { Dispatch } from 'react'
 
-import { Player } from '@prisma/client'
+import { Player, Presence } from '@prisma/client'
 import axios, { AxiosResponse } from 'axios'
 import { LogEntry } from 'core/features/log'
-import { TocItem, Tag } from 'core/types'
+import { TocItem, Tag, Option, Next } from 'core/types'
 import { ChoiceApiResponse } from 'pages/api/core/story/[story]/[instance]/listen'
-import { PresenceApiResponse } from 'pages/api/core/story/[story]/[instance]/presence'
 import { makeChoice } from 'core/features/choice'
-import { gotoChapter } from 'core/features/navigation'
 import { NavEntry } from 'core/multiplayer/features/navigation'
 import { NavApiResponse } from 'pages/api/core/story/[story]/[instance]/nav'
 import { Multiplayer } from './components/multiplayer'
@@ -20,55 +18,41 @@ export const getStoryUrl = (instanceId: string): string => {
     return `${protocol}//${hostname}${port ? ':' + port : ''}${pathname}?instance=${instanceId}`
 }
 
-// Called by player 2 to retrieve info about the instance of the story they're joining
-export const getStoryInstance = (
+export const getStoryInstance = async (
     identifier: string,
     instanceId: string,
-    playerId: string,
-    dispatch: Dispatch<any>
-): void => {
-    axios(`${API_PREFIX}/${identifier}/${instanceId}/get/`, {}).then((res) => {
-        const { instance, player1, player2, nav1, nav2 } = res.data
-        let currentPlayer: Player, otherPlayer: Player, start: string
+    playerId: string
+): Promise<Multiplayer> => {
+    const res = await axios(`${API_PREFIX}/${identifier}/${instanceId}/get/`, {})
+    const { instance, player1, player2 } = res.data
+    let currentPlayer: Player, otherPlayer: Player
 
-        const storyUrl = getStoryUrl(instance.id)
+    const storyUrl = getStoryUrl(instance.id)
 
-        if (playerId === player1.id) {
-            currentPlayer = player1
-            otherPlayer = player2
-            start = nav1.chapterName
-        } else if (playerId === player2.id) {
-            currentPlayer = player2
-            otherPlayer = player1
-            start = nav2?.chapterName
-        } else {
-            console.error(
-                `Did not get a matching playerId for instance ${instance.id}; got ${playerId}`
-            )
-            return
-        }
-
-        dispatch(
-            init({
-                multiplayer: {
-                    storyUrl,
-                    currentPlayer,
-                    otherPlayer,
-                    instanceId: instance.id,
-                    ready: true
-                }
-            })
-        )
-        // Now immediately get any missed events, including our own
-        getAllChoices(identifier, instance.id, currentPlayer, dispatch, () => {
-            if (start) {
-                // Dispatch a start location if we got one from the API; otherwise this will fall back to the player default
-                console.log('Dispatching gotchapter to ', start)
-                dispatch(gotoChapter({ filename: start }))
-            }
-        })
-    })
+    if (playerId === player1.id) {
+        currentPlayer = player1
+        otherPlayer = player2
+    } else if (playerId === player2.id) {
+        currentPlayer = player2
+        otherPlayer = player1
+    }
+    return {
+        storyUrl,
+        instanceId,
+        currentPlayer,
+        otherPlayer,
+        ready: true
+    }
 }
+
+// // Now immediately get any missed events, including our own
+// getAllChoices(identifier, instance.id, currentPlayer, dispatch, () => {
+//     if (start) {
+//         // Dispatch a start location if we got one from the API; otherwise this will fall back to the player default
+//         console.log('Dispatching gotchapter to ', start)
+//         dispatch(gotoChapter({ filename: start }))
+//     }
+// })
 
 export interface ResumeResponse {
     storyUrl?: string
@@ -109,7 +93,7 @@ export const createStoryInstance = async (identifier: string): Promise<Multiplay
         method: 'post'
     })
     const { instance, player1, player2 } = res.data
-    const storyUrl = getStoryUrl(instance.id) + `&playerId=${player2.id}`
+    const storyUrl = getStoryUrl(instance.id)
     return {
         storyUrl,
         currentPlayer: player1,
@@ -168,43 +152,45 @@ export const emitPresence = (identifier: string, instanceId: string, playerId: s
         .then()
 }
 
-export const pollForChoices = (
+interface PolledChoice {
+    id: string
+    tag: Tag
+    option: Option
+    next: string
+    chapterName: string
+    eventPlayer: Player
+}
+export const pollForChoices = async (
     identifier: string,
     instanceId: string,
     player: Player,
-    log: LogEntry[],
-    dispatch: Dispatch<any>
-): void => {
-    axios
-        .get(`${API_PREFIX}/${identifier}/${instanceId}/listen/?playerId=${player.id}`)
-        .then((res: AxiosResponse<ChoiceApiResponse[]>) => {
-            // Get all the existing log IDs
-            const logIds = log.map((l) => l.id)
-            // console.group(`Already have these log ids: `)
-            // console.log(logIds)
-            // console.groupEnd()
+    log: LogEntry[]
+): Promise<PolledChoice[]> => {
+    const res: AxiosResponse<ChoiceApiResponse[]> = await axios.get(
+        `${API_PREFIX}/${identifier}/${instanceId}/listen/?playerId=${player.id}`
+    )
 
-            console.group('Replaying log ids: ')
-            res.data
-                .filter((row) => !logIds.includes(row.id))
-                .forEach((row) => {
-                    const { id, tag, option, next, chapterName } = row
-                    const eventPlayer = row.player
-                    console.log(id, tag, option, eventPlayer)
-                    dispatch(
-                        makeChoice(tag, option, next, chapterName, {
-                            eventPlayer,
-                            currentPlayer: player,
-                            identifier,
-                            instanceId,
-                            sync: false,
-                            syncNext: false,
-                            choiceId: id
-                        })
-                    )
-                })
-            console.groupEnd()
+    // Get all the existing log IDs
+    const logIds = log.map((l) => l.id)
+    // console.group(`Already have these log ids: `)
+    // console.log(logIds)
+    // console.groupEnd()
+    //console.group('Replaying log ids: ')
+    const choices: PolledChoice[] = res.data
+        .filter((row) => !logIds.includes(row.id))
+        .map((row) => {
+            const { id, tag, option, next, chapterName } = row
+            const eventPlayer = row.player
+            return {
+                id,
+                tag,
+                option,
+                next,
+                chapterName,
+                eventPlayer
+            }
         })
+    return choices
 }
 export const getAllChoices = (
     identifier: string,
@@ -251,6 +237,7 @@ export const pollForPresence = async (
     const res = await axios.get(
         `${API_PREFIX}/${identifier}/${instanceId}/presence/?playerId=${playerId}`
     )
+
     return res.data
 }
 
@@ -262,23 +249,17 @@ export const pollForPresence = async (
  * @param navEntries
  * @param setPresence
  */
-export const pollForNav = (
+export const pollForNav = async (
     identifier: string,
     instanceId: string,
-    navEntries: NavEntry[],
-    setNavEvent: React.Dispatch<React.SetStateAction<NavEntry>>
-): void => {
-    axios
-        .get(`${API_PREFIX}/${identifier}/${instanceId}/nav`)
-        .then((res: AxiosResponse<NavApiResponse>) => {
-            const navIds = navEntries.map((e) => e.id)
-            const data = res.data.filter((row) => !navIds.includes(row.id))
+    navEntries: NavEntry[]
+): Promise<NavEntry> => {
+    const res = await axios.get(`${API_PREFIX}/${identifier}/${instanceId}/nav`)
 
-            if (data.length > 0) {
-                setNavEvent(data[0]) // FIXME Not reliable; may skip updates
-            }
-        })
-        .catch(function (error) {
-            console.error(error)
-        })
+    const navIds = navEntries.map((e) => e.id)
+    const data = res.data.filter((row) => !navIds.includes(row.id))
+
+    if (data.length > 0) {
+        return data[0] // FIXME Not reliable; may skip updates
+    }
 }

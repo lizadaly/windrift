@@ -22,7 +22,9 @@ export const navEntrySlice = createSlice({
     initialState,
     reducers: {
         add: (state, action: PayloadAction<NavEntryPayload>) => {
-            state.push(action.payload.entry)
+            if (action.payload.entry) {
+                state.push(action.payload.entry)
+            }
         }
     }
 })

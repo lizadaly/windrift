@@ -3,7 +3,6 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 /* Multiplayer config */
 export interface Instance {
     instanceId: string
-    playerName: string
     playerId: string
 }
 

@@ -26,10 +26,10 @@ const Presence: React.FC = () => {
             <h2>Player info</h2>
             <ol className={styles.userList}>
                 <li>
-                    <span className={presence.createdAt ? styles.active : styles.inactive}>
+                    <span className={presence.timestamp ? styles.active : styles.inactive}>
                         <span className={styles.cap}>{presence.playerName}</span>
 
-                        {other.playerName ? ` is in ${other.to}` : null}
+                        {presence.playerName ? ` is in ${other?.to}` : null}
                     </span>
                 </li>
             </ol>

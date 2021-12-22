@@ -4,11 +4,9 @@
  */
 
 import * as React from 'react'
-import { Player } from '@prisma/client'
 import { StoryContext } from 'pages/[story]/[[...chapter]]'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'core/types'
-import { PresenceApiResponse } from 'pages/api/core/story/[story]/[instance]/presence'
 import { add, NavEntry } from '../features/navigation'
 import { gotoChapter } from 'core/features/navigation'
 import {
@@ -20,8 +18,9 @@ import {
 } from '../api-client'
 import useInterval from '@use-it/interval'
 import { MultiplayerContext } from './multiplayer'
-import { Presence, set } from '../features/presence'
+import { set } from '../features/presence'
 import { init } from '../features/instance'
+import { makeChoice } from 'core/features/choice'
 
 const NEXT_PUBLIC_POLL_EMIT_PRESENCE = 30000
 const NEXT_PUBLIC_POLL_CHECK_PRESENCE = 10000
@@ -33,11 +32,7 @@ const Ready: React.FC = ({ children }): JSX.Element => {
 
     const { identifier, players } = React.useContext(StoryContext).config
 
-    const { log } = useSelector((state: RootState) => state.log)
     const { toc } = useSelector((state: RootState) => state.navigation.present)
-    const navEntries = useSelector((state: RootState) => state.multiplayerNav)
-
-    const [navEntry, setNavEvent] = React.useState<NavEntry>()
 
     const dispatch = useDispatch()
 
@@ -51,7 +46,6 @@ const Ready: React.FC = ({ children }): JSX.Element => {
                 init({
                     instance: {
                         instanceId: multiplayer.instanceId,
-                        playerName: multiplayer.currentPlayer.name,
                         playerId: multiplayer.currentPlayer.id
                     }
                 })
@@ -74,12 +68,6 @@ const Ready: React.FC = ({ children }): JSX.Element => {
         }
     }, [multiplayer])
 
-    React.useEffect(() => {
-        if (navEntry) {
-            dispatch(add({ entry: navEntry }))
-        }
-    }, [navEntry])
-
     return (
         <>
             {multiplayer.ready && <Polls />}
@@ -96,19 +84,33 @@ const Polls = (): JSX.Element => {
     const { log } = useSelector((state: RootState) => state.log)
     const navEntries = useSelector((state: RootState) => state.multiplayerNav)
 
-    const [navEntry, setNavEvent] = React.useState<NavEntry>()
     const dispatch = useDispatch()
 
     // Poll for choices
     useInterval(
-        async () =>
-            pollForChoices(
+        async () => {
+            const choices = await pollForChoices(
                 identifier,
                 multiplayer.instanceId,
                 multiplayer.currentPlayer,
-                log,
-                dispatch
-            ),
+                log
+            )
+            choices.forEach((choice) => {
+                const { id, tag, option, next, chapterName, eventPlayer } = choice
+                dispatch(
+                    makeChoice(tag, option, next, chapterName, {
+                        eventPlayer,
+                        currentPlayer: multiplayer.currentPlayer,
+                        identifier,
+                        instanceId: multiplayer.instanceId,
+                        sync: false,
+                        syncNext: false,
+                        choiceId: id
+                    })
+                )
+            })
+        },
+
         NEXT_PUBLIC_POLL_CHECK_CHOICES
     )
 
@@ -119,12 +121,17 @@ const Polls = (): JSX.Element => {
             multiplayer.instanceId,
             multiplayer.otherPlayer.id
         )
-        dispatch(set({ presence }))
+        dispatch(
+            set({
+                presence
+            })
+        )
     }, NEXT_PUBLIC_POLL_CHECK_PRESENCE)
 
     // Poll for nav changes
     useInterval(async () => {
-        pollForNav(identifier, multiplayer.instanceId, navEntries, setNavEvent)
+        const entry = await pollForNav(identifier, multiplayer.instanceId, navEntries)
+        dispatch(add({ entry }))
     }, NEXT_PUBLIC_POLL_CHECK_NAV)
 
     // Send presence

@@ -15,7 +15,7 @@ import DebugToolbar from 'core/multiplayer/components/debug'
 import { MultiplayerContext } from 'core/multiplayer/components/multiplayer'
 
 const Content: React.FC = ({ children }) => {
-    const { ready, currentPlayer, otherPlayer } = React.useContext(MultiplayerContext).multiplayer
+    const { ready, currentPlayer } = React.useContext(MultiplayerContext).multiplayer
 
     const cloakStatus = useCloak()
     return (
@@ -29,9 +29,7 @@ const Content: React.FC = ({ children }) => {
                             <div className={styles.player}>
                                 You are player {currentPlayer.name} ⟶
                             </div>
-                            <div className={styles.share}>
-                                {/* <ShareButton otherPlayer={otherPlayer} /> */}
-                            </div>
+                            <div className={styles.share}>{<ShareButton />}</div>
                             <div className={styles.controls}>
                                 <ResetButton />
                             </div>
