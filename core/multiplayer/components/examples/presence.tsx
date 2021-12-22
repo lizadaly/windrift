@@ -1,9 +1,10 @@
 import * as React from 'react'
 
-import { PlayerContext } from 'core/multiplayer/components/multiplayer-init'
 import useLocation from 'core/multiplayer/hooks/use-location'
 
 import styles from 'public/styles/multiplayer/Presence.module.scss'
+import { RootState } from 'core/types'
+import { useSelector } from 'react-redux'
 
 /**
  *
@@ -14,7 +15,7 @@ import styles from 'public/styles/multiplayer/Presence.module.scss'
 
  */
 const Presence: React.FC = () => {
-    const { presenceApiResponse: presence } = React.useContext(PlayerContext)
+    const presence = useSelector((state: RootState) => state.presence)
     const { other } = useLocation()
 
     if (!presence) {
@@ -25,8 +26,8 @@ const Presence: React.FC = () => {
             <h2>Player info</h2>
             <ol className={styles.userList}>
                 <li>
-                    <span className={presence.presence.createdAt ? styles.active : styles.inactive}>
-                        <span className={styles.cap}>{presence.player.name}</span>
+                    <span className={presence.createdAt ? styles.active : styles.inactive}>
+                        <span className={styles.cap}>{presence.playerName}</span>
 
                         {other.playerName ? ` is in ${other.to}` : null}
                     </span>

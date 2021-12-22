@@ -6,11 +6,12 @@ import { LogEntry } from 'core/features/log'
 import { TocItem, Tag } from 'core/types'
 import { ChoiceApiResponse } from 'pages/api/core/story/[story]/[instance]/listen'
 import { PresenceApiResponse } from 'pages/api/core/story/[story]/[instance]/presence'
-import { init } from 'core/multiplayer/features/multiplayer'
 import { makeChoice } from 'core/features/choice'
 import { gotoChapter } from 'core/features/navigation'
 import { NavEntry } from 'core/multiplayer/features/navigation'
 import { NavApiResponse } from 'pages/api/core/story/[story]/[instance]/nav'
+import { Multiplayer } from './components/multiplayer'
+import { PresenceState } from './features/presence'
 
 const API_PREFIX = '/api/core/story'
 
@@ -103,25 +104,19 @@ export const resumeStoryInstance = async (
 }
 
 // Called by player 1 to create the instance
-export const createStoryInstance = (identifier: string, dispatch: Dispatch<any>): void => {
-    axios(`${API_PREFIX}/${identifier}/init/`, {
+export const createStoryInstance = async (identifier: string): Promise<Multiplayer> => {
+    const res = await axios(`${API_PREFIX}/${identifier}/init/`, {
         method: 'post'
-    }).then((res) => {
-        const { instance, player1, player2 } = res.data
-        const storyUrl = getStoryUrl(instance.id) + `&playerId=${player2.id}`
-
-        dispatch(
-            init({
-                multiplayer: {
-                    storyUrl,
-                    currentPlayer: player1,
-                    otherPlayer: player2,
-                    instanceId: instance.id,
-                    ready: true
-                }
-            })
-        )
     })
+    const { instance, player1, player2 } = res.data
+    const storyUrl = getStoryUrl(instance.id) + `&playerId=${player2.id}`
+    return {
+        storyUrl,
+        currentPlayer: player1,
+        otherPlayer: player2,
+        instanceId: instance.id,
+        ready: true
+    }
 }
 
 export const emitNavChange = (
@@ -248,20 +243,15 @@ export const getAllChoices = (
         })
 }
 
-export const pollForPresence = (
+export const pollForPresence = async (
     identifier: string,
     instanceId: string,
-    playerId: string,
-    setPresence: React.Dispatch<React.SetStateAction<PresenceApiResponse>>
-): void => {
-    axios
-        .get(`${API_PREFIX}/${identifier}/${instanceId}/presence/?playerId=${playerId}`)
-        .then((res: AxiosResponse<PresenceApiResponse>) => {
-            setPresence(res.data)
-        })
-        .catch(function (error) {
-            console.error(error)
-        })
+    playerId: string
+): Promise<PresenceState> => {
+    const res = await axios.get(
+        `${API_PREFIX}/${identifier}/${instanceId}/presence/?playerId=${playerId}`
+    )
+    return res.data
 }
 
 /**

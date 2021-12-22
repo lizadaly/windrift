@@ -41,9 +41,7 @@ const presence = async (
         const presence = await prisma.presence.findFirst({
             where: {
                 instanceId,
-                NOT: {
-                    playerId
-                }
+                playerId
             },
             orderBy: {
                 createdAt: 'desc'

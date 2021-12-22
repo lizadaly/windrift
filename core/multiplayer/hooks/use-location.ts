@@ -2,8 +2,8 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 
 import { RootState } from 'core/types'
-import { PlayerContext } from '../components/multiplayer-init'
 import { NavEntry } from '../features/navigation'
+import { MultiplayerContext } from '../components/multiplayer'
 
 /**
  * Get the current NavEntry for each player
@@ -16,7 +16,8 @@ export interface Locations {
 }
 
 const useLocation = (): Locations => {
-    const { otherPlayer, currentPlayer } = React.useContext(PlayerContext)
+    const { otherPlayer, currentPlayer } = React.useContext(MultiplayerContext).multiplayer
+
     const navEntries = [...useSelector((state: RootState) => state.multiplayerNav)].reverse()
     const otherEntries = navEntries.filter((n) => n.playerName === otherPlayer.name)
     const currentEntries = navEntries.filter((n) => n.playerName === currentPlayer.name)

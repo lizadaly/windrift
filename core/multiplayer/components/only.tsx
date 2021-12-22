@@ -20,8 +20,7 @@ type Props = {
  */
 const Only: React.FC<Props> = ({ playerName, children, alone = false }) => {
     const { current, other } = useLocation()
-
-    if (current.playerName == playerName) {
+    if (current && current.playerName == playerName) {
         if (alone) {
             if (current.to !== other.to) {
                 return <>{children}</>

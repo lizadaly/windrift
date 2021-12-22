@@ -1,7 +1,6 @@
 import * as React from 'react'
-import { useSelector } from 'react-redux'
 
-import { RootState, Next } from 'core/types'
+import { Next } from 'core/types'
 import { C, R } from 'core/components'
 
 import ResetButton from 'core/components/ui/reset-button'
@@ -9,22 +8,14 @@ import Grid from 'core/components/ui/layouts/grid'
 
 import ShareButton from 'core/multiplayer/components/share-button'
 import Presence from 'core/multiplayer/components/examples/presence'
-import { PlayerContext } from 'core/multiplayer/components/multiplayer-init'
 
 import styles from 'public/stories/cloaks-of-darkness/styles/Content.module.scss'
 import useCloak, { CloakStatus } from './use-cloak'
 import DebugToolbar from 'core/multiplayer/components/debug'
+import { MultiplayerContext } from 'core/multiplayer/components/multiplayer'
 
 const Content: React.FC = ({ children }) => {
-    const { multiplayer } = useSelector((state: RootState) => state.multiplayer)
-    const { toc } = useSelector((state: RootState) => state.navigation.present)
-    const currentChapter = Object.values(toc).filter((c) => c.visible)[0]
-
-    const {
-        currentPlayer,
-        otherPlayer,
-        presenceApiResponse: presence
-    } = React.useContext(PlayerContext)
+    const { ready, currentPlayer, otherPlayer } = React.useContext(MultiplayerContext).multiplayer
 
     const cloakStatus = useCloak()
     return (
@@ -33,13 +24,13 @@ const Content: React.FC = ({ children }) => {
             header={
                 <nav>
                     <h1>Cloaks of Darkness</h1>
-                    {multiplayer?.ready && (
+                    {ready && (
                         <>
                             <div className={styles.player}>
                                 You are player {currentPlayer.name} ⟶
                             </div>
                             <div className={styles.share}>
-                                <ShareButton multiplayer={multiplayer} otherPlayer={otherPlayer} />
+                                {/* <ShareButton otherPlayer={otherPlayer} /> */}
                             </div>
                             <div className={styles.controls}>
                                 <ResetButton />
@@ -48,7 +39,7 @@ const Content: React.FC = ({ children }) => {
                     )}
                 </nav>
             }
-            right={multiplayer?.ready && <Presence />}
+            right={ready && <Presence />}
             left={
                 currentPlayer && // Story must have started
                 (currentPlayer.name === 'raccoon' ? (

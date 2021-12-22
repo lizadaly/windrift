@@ -5,26 +5,23 @@ import { useSelector } from 'react-redux'
 import { Player } from '@prisma/client'
 
 import { Config, RootState } from 'core/types'
-import { PlayerContext } from 'core/multiplayer/components/multiplayer-init'
 import { StoryContext } from 'pages/[story]/[[...chapter]]'
 import { emitNavChange, getStoryUrl } from 'core/multiplayer/api-client'
 
-import { Multiplayer } from 'core/multiplayer/features/multiplayer'
-import { PresenceApiResponse } from 'pages/api/core/story/[story]/[instance]/presence'
 import useLocation from '../hooks/use-location'
 
 import debug from 'public/styles/multiplayer/Debug.module.scss'
+import { MultiplayerContext, Multiplayer } from './multiplayer'
 
 /**
  * Display debugging info and allow for specific events to be triggered via the API.
  */
 const Debug = (): JSX.Element => {
-    const context = React.useContext(PlayerContext).presenceApiResponse
-    const multiplayer = useSelector((state: RootState) => state.multiplayer.multiplayer)
+    const { multiplayer } = React.useContext(MultiplayerContext)
     const { config, persistor } = React.useContext(StoryContext)
     return (
         <div className={debug.content}>
-            <LocationSwitcher config={config} multiplayer={multiplayer} context={context} />
+            <LocationSwitcher config={config} multiplayer={multiplayer} />
             <UserSwitcher config={config} multiplayer={multiplayer} persistor={persistor} />
         </div>
     )
@@ -63,11 +60,10 @@ const UserSwitcher = ({ multiplayer, persistor }: UserSwitcherProps): JSX.Elemen
 interface LocationSwitcherProps {
     config: Config
     multiplayer: Multiplayer
-    context: PresenceApiResponse
 }
 
-const LocationSwitcher = ({ config, multiplayer, context }: LocationSwitcherProps): JSX.Element => {
-    const otherPlayerIsActive = !!context
+const LocationSwitcher = ({ config, multiplayer }: LocationSwitcherProps): JSX.Element => {
+    const otherPlayerIsActive = useSelector((state: RootState) => state.presence)
     const { other } = useLocation()
     const start = config.players.filter((p) => p.name == multiplayer.otherPlayer.name)[0].start
 
@@ -148,10 +144,10 @@ const MoveButton = ({ identifier, instanceId, player, location }: MoveButtonProp
 }
 const DebugToolbar = (): JSX.Element => {
     const [isOpen, setOpen] = React.useState(true)
-    const multiplayer = useSelector((state: RootState) => state.multiplayer.multiplayer)
+    const { multiplayer } = React.useContext(MultiplayerContext)
     return (
         <>
-            {process.env.NODE_ENV === 'development' && multiplayer && (
+            {process.env.NODE_ENV === 'development' && multiplayer.ready && (
                 <div className={`${debug.toolbar} ${isOpen ? debug.open : debug.closed}`}>
                     {isOpen ? (
                         <>
