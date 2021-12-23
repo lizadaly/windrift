@@ -1,9 +1,8 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
 
-import { RootState } from 'core/types'
-import { NavEntry } from '../features/navigation'
 import { MultiplayerContext } from '../components/multiplayer'
+import { useNavPoll } from '../api-client'
+import { Nav } from '@prisma/client'
 
 /**
  * Get the current NavEntry for each player
@@ -11,19 +10,23 @@ import { MultiplayerContext } from '../components/multiplayer'
  */
 
 export interface Locations {
-    current: NavEntry
-    other: NavEntry
+    current: Nav
+    other: Nav
 }
 
 const useLocation = (): Locations => {
-    const { otherPlayer, currentPlayer } = React.useContext(MultiplayerContext).multiplayer
+    const { otherPlayer, currentPlayer, identifier, instanceId } =
+        React.useContext(MultiplayerContext).multiplayer
 
-    const navEntries = [...useSelector((state: RootState) => state.multiplayerNav)].reverse()
-    const otherEntries = navEntries.filter((n) => n.playerName === otherPlayer.name)
-    const currentEntries = navEntries.filter((n) => n.playerName === currentPlayer.name)
+    let currentLocation: Nav, otherPlayerLocation: Nav
 
-    const otherPlayerLocation = otherEntries.length > 0 ? otherEntries[0] : null
-    const currentLocation = currentEntries.length > 0 ? currentEntries[0] : null
+    const { navEntries } = useNavPoll(identifier, instanceId)
+    if (navEntries) {
+        const otherEntries = navEntries.filter((n) => n.playerId === otherPlayer.id)
+        const currentEntries = navEntries.filter((n) => n.playerId === currentPlayer.id)
+        otherPlayerLocation = otherEntries.length > 0 ? otherEntries[0] : undefined
+        currentLocation = currentEntries.length > 0 ? currentEntries[0] : undefined
+    }
     return {
         current: currentLocation,
         other: otherPlayerLocation

@@ -2,16 +2,14 @@ import { Dispatch } from 'react'
 import useSWR from 'swr'
 import useSWRImmutable from 'swr/immutable'
 
-import { Player, Presence } from '@prisma/client'
+import { Nav, Player, Presence } from '@prisma/client'
 import axios, { AxiosResponse } from 'axios'
 import { LogEntry } from 'core/features/log'
 import { TocItem, Tag, Option, Next } from 'core/types'
 import { ChoiceApiResponse } from 'pages/api/core/story/[story]/[instance]/listen'
 import { makeChoice } from 'core/features/choice'
-import { NavEntry } from 'core/multiplayer/features/navigation'
 import { NavApiResponse } from 'pages/api/core/story/[story]/[instance]/nav'
 import { Multiplayer } from './components/multiplayer'
-import { PresenceState } from './features/presence'
 import { StoryApiResponse } from 'pages/api/core/story/[story]/[instance]/get'
 import { PresenceApiResponse } from 'pages/api/core/story/[story]/[instance]/presence'
 
@@ -117,6 +115,7 @@ export const createStoryInstance = async (identifier: string): Promise<Multiplay
     const { instance, player1, player2 } = res.data
     const storyUrl = getStoryUrl(instance.id)
     return {
+        identifier: instance.identifier,
         storyUrl,
         currentPlayer: player1,
         otherPlayer: player2,
@@ -253,7 +252,7 @@ interface SWRResponse {
     isError: boolean
 }
 interface PresencePollResponse extends SWRResponse {
-    presence: PresenceState
+    presence: Presence
 }
 export const usePresencePoll = (
     identifier: string,
@@ -281,32 +280,18 @@ export const usePresencePoll = (
  * @param setPresence
  */
 interface NavPollResponse {
-    navEntry: NavEntry
+    navEntries: Nav[]
     isLoading: boolean
     isError: boolean
 }
-export const useNavPoll = (
-    identifier: string,
-    instanceId: string,
-    navEntries: NavEntry[]
-): NavPollResponse => {
+export const useNavPoll = (identifier: string, instanceId: string): NavPollResponse => {
     const { data, error } = useSWR<NavApiResponse>(
         `${API_PREFIX}/${identifier}/${instanceId}/nav/`,
         fetcher,
         { refreshInterval: 10000 }
     )
-    let navEntry = null
-
-    if (data) {
-        const navIds = navEntries.map((e) => e.id)
-        const entries = data.filter((row) => !navIds.includes(row.id))
-
-        if (entries.length > 0) {
-            navEntry = entries[0] // FIXME Not reliable; may skip updates
-        }
-    }
     return {
-        navEntry,
+        navEntries: data,
         isLoading: !data && !error,
         isError: error
     }

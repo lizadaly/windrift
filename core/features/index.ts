@@ -5,7 +5,6 @@ import counter from './counter'
 import navigation from './navigation'
 import log from './log'
 
-import multiplayerNav from '../multiplayer/features/navigation'
 import instance from '../multiplayer/features/instance'
 
 const rootReducer = combineReducers({
@@ -14,7 +13,6 @@ const rootReducer = combineReducers({
     choices,
     navigation,
     log,
-    multiplayerNav,
     instance
 })
 

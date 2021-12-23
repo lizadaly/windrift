@@ -2,16 +2,12 @@ import { Presence } from '@prisma/client'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 import prisma from 'core/multiplayer/db'
-import { PresenceState } from 'core/multiplayer/features/presence'
 
-export interface PresenceApiResponse {
-    id: string
-    timestamp: string
-    playerName: string
-}
+export type PresenceApiResponse = Presence
+
 const presence = async (
     req: NextApiRequest,
-    res: NextApiResponse<void | PresenceState>
+    res: NextApiResponse<void | Presence>
 ): Promise<void | PresenceApiResponse> => {
     const instanceId = req.query.instance as string
 
@@ -54,11 +50,7 @@ const presence = async (
         if (presence === null) {
             res.status(200).end() // FIXME use better handling
         } else {
-            res.status(200).json({
-                id: presence.id,
-                timestamp: presence.createdAt.toUTCString(),
-                playerName: presence.player.name
-            })
+            res.status(200).json(presence)
         }
     }
 }

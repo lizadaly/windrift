@@ -6,7 +6,7 @@ import { Player } from '@prisma/client'
 
 import { Config, RootState } from 'core/types'
 import { StoryContext } from 'pages/[story]/[[...chapter]]'
-import { emitNavChange, getStoryUrl } from 'core/multiplayer/api-client'
+import { emitNavChange, getStoryUrl, usePresencePoll } from 'core/multiplayer/api-client'
 
 import useLocation from '../hooks/use-location'
 
@@ -63,7 +63,11 @@ interface LocationSwitcherProps {
 }
 
 const LocationSwitcher = ({ config, multiplayer }: LocationSwitcherProps): JSX.Element => {
-    const otherPlayerIsActive = useSelector((state: RootState) => state.presence)
+    const otherPlayerIsActive = usePresencePoll(
+        multiplayer.identifier,
+        multiplayer.instanceId,
+        multiplayer.otherPlayer.id
+    )
 
     const { other } = useLocation()
     const start = config.players.filter((p) => p.name == multiplayer.otherPlayer.name)[0].start
@@ -73,7 +77,7 @@ const LocationSwitcher = ({ config, multiplayer }: LocationSwitcherProps): JSX.E
             {multiplayer.otherPlayer.name} location:{' '}
             {otherPlayerIsActive && other ? (
                 <>
-                    {other.to}
+                    {other.chapterName}
                     <div>
                         <RelocateButton
                             identifier={config.identifier}

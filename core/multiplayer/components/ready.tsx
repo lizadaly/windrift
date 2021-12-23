@@ -7,15 +7,8 @@ import * as React from 'react'
 import { StoryContext } from 'pages/[story]/[[...chapter]]'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'core/types'
-import { add, NavEntry } from '../features/navigation'
 import { gotoChapter } from 'core/features/navigation'
-import {
-    emitNavChange,
-    emitPresence,
-    pollForChoices,
-    useNavPoll,
-    usePresencePoll
-} from '../api-client'
+import { emitNavChange, emitPresence, pollForChoices } from '../api-client'
 import useInterval from '@use-it/interval'
 import { MultiplayerContext } from './multiplayer'
 import { init } from '../features/instance'
@@ -79,17 +72,8 @@ const Polls = (): JSX.Element => {
     const { identifier } = React.useContext(StoryContext).config
 
     const { log } = useSelector((state: RootState) => state.log)
-    const navEntries = useSelector((state: RootState) => state.multiplayerNav)
 
     const dispatch = useDispatch()
-
-    const { navEntry } = useNavPoll(identifier, multiplayer.instanceId, navEntries)
-
-    React.useEffect(() => {
-        if (navEntry) {
-            dispatch(add({ entry: navEntry }))
-        }
-    }, [navEntry])
 
     // Poll for choices
     useInterval(

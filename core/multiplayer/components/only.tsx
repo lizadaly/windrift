@@ -1,6 +1,8 @@
 import React from 'react'
 
 import useLocation from '../hooks/use-location'
+import { playerFromName } from '../utils'
+import { MultiplayerContext } from './multiplayer'
 
 type Props = {
     playerName: string
@@ -20,9 +22,11 @@ type Props = {
  */
 const Only: React.FC<Props> = ({ playerName, children, alone = false }) => {
     const { current, other } = useLocation()
-    if (current && current.playerName == playerName) {
+    const player = playerFromName(playerName)
+
+    if (current && current.playerId == player.id) {
         if (alone) {
-            if (current.to !== other.to) {
+            if (current.chapterName !== other.chapterName) {
                 return <>{children}</>
             }
         }
