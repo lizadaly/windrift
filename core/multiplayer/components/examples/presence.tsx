@@ -1,9 +1,11 @@
 import * as React from 'react'
 
-import { PlayerContext } from 'core/multiplayer/components/multiplayer-init'
 import useLocation from 'core/multiplayer/hooks/use-location'
 
 import styles from 'public/styles/multiplayer/Presence.module.scss'
+
+import { MultiplayerContext } from '../multiplayer'
+import { usePresencePoll } from 'core/multiplayer/api-client'
 
 /**
  *
@@ -14,21 +16,25 @@ import styles from 'public/styles/multiplayer/Presence.module.scss'
 
  */
 const Presence: React.FC = () => {
-    const { presenceApiResponse: presence } = React.useContext(PlayerContext)
+    const { otherPlayer, instanceId, identifier } = React.useContext(MultiplayerContext).multiplayer
+    const { presence, isLoading, isError } = usePresencePoll(identifier, instanceId, otherPlayer.id)
     const { other } = useLocation()
 
-    if (!presence) {
-        return null
+    if (isLoading) {
+        return <p>Retrieving other player status...</p>
+    }
+    if (isError) {
+        return <p>There was an error retrieving other player status.</p>
     }
     return (
         <>
             <h2>Player info</h2>
             <ol className={styles.userList}>
                 <li>
-                    <span className={presence.presence.createdAt ? styles.active : styles.inactive}>
-                        <span className={styles.cap}>{presence.player.name}</span>
+                    <span className={presence.createdAt ? styles.active : styles.inactive}>
+                        <span className={styles.cap}>{otherPlayer.name}</span>
 
-                        {other.playerName ? ` is in ${other.to}` : null}
+                        {other ? ` is in ${other?.chapterName}` : null}
                     </span>
                 </li>
             </ol>

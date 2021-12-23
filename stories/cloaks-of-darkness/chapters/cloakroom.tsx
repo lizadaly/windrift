@@ -6,13 +6,13 @@ import { PageType } from 'core/types'
 import Only from 'core/multiplayer/components/only'
 
 import useCloak, { CloakStatus } from '../use-cloak'
-import { PlayerContext } from 'core/multiplayer/components/multiplayer-init'
 import Watch from 'core/multiplayer/components/watch'
 import Both from 'core/multiplayer/components/both'
+import { MultiplayerContext } from 'core/multiplayer/components/multiplayer'
 
 export const Page: PageType = () => {
     const cloak = useCloak()
-    const { otherPlayer } = React.useContext(PlayerContext)
+    const { otherPlayer } = React.useContext(MultiplayerContext).multiplayer
 
     return (
         <Chapter filename="cloakroom">

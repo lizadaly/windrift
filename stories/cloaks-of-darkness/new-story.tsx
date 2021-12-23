@@ -2,9 +2,18 @@ import * as React from 'react'
 
 import StartStory from 'core/multiplayer/components/start-story-form'
 import ResumeStory from 'core/multiplayer/components/resume-story-form'
+import { MultiplayerContext } from 'core/multiplayer/components/multiplayer'
 
-const NewStory: React.FC = () => {
-    return (
+/**
+ * If the multiplayer story has not been initialized, start the "new story" process now.
+ *
+ * Otherwise, pass through to the current active chapter (as `children`).
+ */
+const NewStory: React.FC = ({ children }) => {
+    const { ready } = React.useContext(MultiplayerContext).multiplayer
+    return ready ? (
+        <>{children}</>
+    ) : (
         <div>
             <h1>Start or join Cloaks of Darkness</h1>
             <p>
