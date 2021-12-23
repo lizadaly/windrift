@@ -1,4 +1,5 @@
 import { Dispatch } from 'react'
+import useSWR from 'swr'
 
 import { Player, Presence } from '@prisma/client'
 import axios, { AxiosResponse } from 'axios'
@@ -10,6 +11,7 @@ import { NavEntry } from 'core/multiplayer/features/navigation'
 import { NavApiResponse } from 'pages/api/core/story/[story]/[instance]/nav'
 import { Multiplayer } from './components/multiplayer'
 import { PresenceState } from './features/presence'
+import { StoryApiResponse } from 'pages/api/core/story/[story]/[instance]/get'
 
 const API_PREFIX = '/api/core/story'
 
@@ -17,31 +19,49 @@ export const getStoryUrl = (instanceId: string): string => {
     const { protocol, hostname, port, pathname } = window.location
     return `${protocol}//${hostname}${port ? ':' + port : ''}${pathname}?instance=${instanceId}`
 }
+const fetcher = (url: string) => axios.get(url).then((res) => res.data)
 
-export const getStoryInstance = async (
+interface MultiplayerResponse {
+    multiplayer: Multiplayer
+    isLoading: boolean
+    isError: boolean
+}
+export const useMultiplayer = (
     identifier: string,
     instanceId: string,
     playerId: string
-): Promise<Multiplayer> => {
-    const res = await axios(`${API_PREFIX}/${identifier}/${instanceId}/get/`, {})
-    const { instance, player1, player2 } = res.data
-    let currentPlayer: Player, otherPlayer: Player
+): MultiplayerResponse => {
+    const { data, error } = useSWR<StoryApiResponse>(
+        `${API_PREFIX}/${identifier}/${instanceId}/get/`,
+        fetcher
+    )
+    let multiplayer = null
 
-    const storyUrl = getStoryUrl(instance.id)
+    if (data) {
+        const { instance, player1, player2 } = data
+        let currentPlayer: Player, otherPlayer: Player
 
-    if (playerId === player1.id) {
-        currentPlayer = player1
-        otherPlayer = player2
-    } else if (playerId === player2.id) {
-        currentPlayer = player2
-        otherPlayer = player1
+        const storyUrl = getStoryUrl(instance.id)
+
+        if (playerId === player1.id) {
+            currentPlayer = player1
+            otherPlayer = player2
+        } else if (playerId === player2.id) {
+            currentPlayer = player2
+            otherPlayer = player1
+        }
+        multiplayer = {
+            storyUrl,
+            instanceId,
+            currentPlayer,
+            otherPlayer,
+            ready: true
+        }
     }
     return {
-        storyUrl,
-        instanceId,
-        currentPlayer,
-        otherPlayer,
-        ready: true
+        multiplayer,
+        isLoading: !data && !error,
+        isError: error
     }
 }
 

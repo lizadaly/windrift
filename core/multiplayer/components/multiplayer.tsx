@@ -10,9 +10,10 @@ import { Player } from '@prisma/client'
 import Ready from 'core/multiplayer/components/ready'
 import { RootState } from 'core/types'
 import { useSelector } from 'react-redux'
-import { emitPresence, getStoryInstance } from '../api-client'
+import { emitPresence, useMultiplayer } from '../api-client'
 import { StoryContext } from 'pages/[story]/[[...chapter]]'
 import { useRouter } from 'next/router'
+import { Instance } from '../features/instance'
 
 export interface Multiplayer {
     storyUrl: string
@@ -42,28 +43,7 @@ const Multiplayer: React.FC = ({ children }) => {
         ready: false
     })
     const { instance } = useSelector((state: RootState) => state.instance)
-    const { identifier } = React.useContext(StoryContext).config
     const router = useRouter()
-
-    const hydrate = async (instanceId: string, playerId: string) => {
-        setMultiplayer(await getStoryInstance(identifier, instanceId, playerId))
-        emitPresence(identifier, instanceId, playerId)
-    }
-
-    /** Rehydrate the game from the local store */
-    React.useEffect(() => {
-        if (instance && !multiplayer.ready) {
-            hydrate(instance.instanceId, instance.playerId)
-        }
-    }, [instance])
-
-    /** Instantiate the game from an inbound link from the other player */
-    React.useEffect(() => {
-        const { instance, playerId } = router.query
-        if (instance && playerId) {
-            hydrate(instance as string, playerId as string)
-        }
-    }, [router.query])
 
     return (
         <MultiplayerContext.Provider
@@ -71,9 +51,55 @@ const Multiplayer: React.FC = ({ children }) => {
                 multiplayer,
                 setMultiplayer
             }}>
+            {!multiplayer.ready && instance && <Rehydrate instance={instance} />}
+            {!multiplayer.ready && router.query.instance && router.query.playerId && (
+                <FromRouter
+                    instanceId={router.query.instance as string}
+                    playerId={router.query.playerId as string}
+                />
+            )}
             <Ready>{children}</Ready>
         </MultiplayerContext.Provider>
     )
 }
 
+/** Try rehydrating from the Redux store if not initialized */
+interface RehydrateProps {
+    instance: Instance
+}
+const Rehydrate = ({ instance }: RehydrateProps) => {
+    const { setMultiplayer } = React.useContext(MultiplayerContext)
+    const { identifier } = React.useContext(StoryContext).config
+    const { multiplayer } = useMultiplayer(identifier, instance.instanceId, instance.playerId)
+
+    React.useEffect(() => {
+        if (multiplayer) {
+            console.log('Restarting story instance from Redux store')
+            setMultiplayer(multiplayer)
+            emitPresence(identifier, instance.instanceId, instance.playerId)
+        }
+    }, [multiplayer])
+    return null
+}
+
+/** Try starting it from URL query parameters if we got a player id and instance id */
+interface FromRouterProps {
+    instanceId: string
+    playerId: string
+}
+const FromRouter = ({ instanceId, playerId }: FromRouterProps) => {
+    const { setMultiplayer } = React.useContext(MultiplayerContext)
+    const { identifier } = React.useContext(StoryContext).config
+    const { multiplayer } = useMultiplayer(identifier, instanceId, playerId)
+
+    React.useEffect(() => {
+        if (multiplayer) {
+            console.log('Starting story instance from URL props')
+            setMultiplayer(multiplayer)
+            emitPresence(identifier, instanceId, playerId)
+        }
+    }, [multiplayer])
+
+    return null
+}
 export default Multiplayer

@@ -44,6 +44,7 @@
         "redux-devtools-extension": "^2.13.8",
         "redux-persist": "^6.0.0",
         "redux-undo": "^1.0.1",
+        "swr": "^1.1.1",
         "uuid": "^8.3.1",
         "voca": "^1.4.0"
     },
