@@ -13,8 +13,7 @@ import useLocation from '../hooks/use-location'
  */
 export const Both: React.FC = ({ children }) => {
     const { current, other } = useLocation()
-
-    if (current.to === other.to) {
+    if (current && other && current.chapterName === other.chapterName) {
         return <>{children}</>
     }
     return null

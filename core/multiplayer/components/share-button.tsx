@@ -1,20 +1,19 @@
+import * as React from 'react'
+
 import Image from 'next/image'
 
 import styles from 'public/styles/multiplayer/ShareButton.module.scss'
-import { Player } from '@prisma/client'
-import { Multiplayer } from 'core/multiplayer/features/multiplayer'
+import { MultiplayerContext } from 'core/multiplayer/components/multiplayer'
 
-type ShareButtonProps = {
-    multiplayer: Multiplayer
-    otherPlayer: Player
-}
-
-const ShareButton: React.FC<ShareButtonProps> = ({ multiplayer, otherPlayer }) => {
+const ShareButton = (): JSX.Element => {
+    const { storyUrl, otherPlayer } = React.useContext(MultiplayerContext).multiplayer
     return (
         <>
             <button
                 className={styles.clipboard}
-                onClick={() => navigator.clipboard.writeText(multiplayer.storyUrl)}>
+                onClick={() =>
+                    navigator.clipboard.writeText(storyUrl + `&playerId=${otherPlayer.id}`)
+                }>
                 <span>Share story URL with {otherPlayer.name}</span>
                 <Image src="/images/clipboard.svg" width={25} height={25} alt="Copy to clipboard" />
             </button>

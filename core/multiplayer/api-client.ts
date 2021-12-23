@@ -1,16 +1,14 @@
-import { Dispatch } from 'react'
+import useSWR from 'swr'
+import useSWRImmutable from 'swr/immutable'
 
-import { Player } from '@prisma/client'
-import axios, { AxiosResponse } from 'axios'
-import { LogEntry } from 'core/features/log'
+import { Nav, Player, Presence } from '@prisma/client'
+import axios from 'axios'
 import { TocItem, Tag } from 'core/types'
 import { ChoiceApiResponse } from 'pages/api/core/story/[story]/[instance]/listen'
-import { PresenceApiResponse } from 'pages/api/core/story/[story]/[instance]/presence'
-import { init } from 'core/multiplayer/features/multiplayer'
-import { makeChoice } from 'core/features/choice'
-import { gotoChapter } from 'core/features/navigation'
-import { NavEntry } from 'core/multiplayer/features/navigation'
 import { NavApiResponse } from 'pages/api/core/story/[story]/[instance]/nav'
+import { Multiplayer } from './components/multiplayer'
+import { StoryApiResponse } from 'pages/api/core/story/[story]/[instance]/get'
+import { PresenceApiResponse } from 'pages/api/core/story/[story]/[instance]/presence'
 
 const API_PREFIX = '/api/core/story'
 
@@ -18,56 +16,61 @@ export const getStoryUrl = (instanceId: string): string => {
     const { protocol, hostname, port, pathname } = window.location
     return `${protocol}//${hostname}${port ? ':' + port : ''}${pathname}?instance=${instanceId}`
 }
+const fetcher = (url: string) => axios.get(url).then((res) => res.data)
 
-// Called by player 2 to retrieve info about the instance of the story they're joining
-export const getStoryInstance = (
+interface MultiplayerResponse {
+    multiplayer: Multiplayer
+    isLoading: boolean
+    isError: boolean
+}
+export const useMultiplayer = (
     identifier: string,
     instanceId: string,
-    playerId: string,
-    dispatch: Dispatch<any>
-): void => {
-    axios(`${API_PREFIX}/${identifier}/${instanceId}/get/`, {}).then((res) => {
-        const { instance, player1, player2, nav1, nav2 } = res.data
-        let currentPlayer: Player, otherPlayer: Player, start: string
+    playerId: string
+): MultiplayerResponse => {
+    const { data, error } = useSWRImmutable<StoryApiResponse>(
+        `${API_PREFIX}/${identifier}/${instanceId}/get/`,
+        fetcher
+    )
+    let multiplayer = null
+
+    if (data) {
+        const { instance, player1, player2 } = data
+        let currentPlayer: Player, otherPlayer: Player
 
         const storyUrl = getStoryUrl(instance.id)
 
         if (playerId === player1.id) {
             currentPlayer = player1
             otherPlayer = player2
-            start = nav1.chapterName
         } else if (playerId === player2.id) {
             currentPlayer = player2
             otherPlayer = player1
-            start = nav2?.chapterName
-        } else {
-            console.error(
-                `Did not get a matching playerId for instance ${instance.id}; got ${playerId}`
-            )
-            return
         }
-
-        dispatch(
-            init({
-                multiplayer: {
-                    storyUrl,
-                    currentPlayer,
-                    otherPlayer,
-                    instanceId: instance.id,
-                    ready: true
-                }
-            })
-        )
-        // Now immediately get any missed events, including our own
-        getAllChoices(identifier, instance.id, currentPlayer, dispatch, () => {
-            if (start) {
-                // Dispatch a start location if we got one from the API; otherwise this will fall back to the player default
-                console.log('Dispatching gotchapter to ', start)
-                dispatch(gotoChapter({ filename: start }))
-            }
-        })
-    })
+        multiplayer = {
+            identifier,
+            storyUrl,
+            instanceId,
+            currentPlayer,
+            otherPlayer,
+            ready: true
+        }
+    }
+    return {
+        multiplayer,
+        isLoading: !data && !error,
+        isError: error
+    }
 }
+
+// // Now immediately get any missed events, including our own
+// getAllChoices(identifier, instance.id, currentPlayer, dispatch, () => {
+//     if (start) {
+//         // Dispatch a start location if we got one from the API; otherwise this will fall back to the player default
+//         console.log('Dispatching gotchapter to ', start)
+//         dispatch(gotoChapter({ filename: start }))
+//     }
+// })
 
 export interface ResumeResponse {
     storyUrl?: string
@@ -103,25 +106,20 @@ export const resumeStoryInstance = async (
 }
 
 // Called by player 1 to create the instance
-export const createStoryInstance = (identifier: string, dispatch: Dispatch<any>): void => {
-    axios(`${API_PREFIX}/${identifier}/init/`, {
+export const createStoryInstance = async (identifier: string): Promise<Multiplayer> => {
+    const res = await axios(`${API_PREFIX}/${identifier}/init/`, {
         method: 'post'
-    }).then((res) => {
-        const { instance, player1, player2 } = res.data
-        const storyUrl = getStoryUrl(instance.id) + `&playerId=${player2.id}`
-
-        dispatch(
-            init({
-                multiplayer: {
-                    storyUrl,
-                    currentPlayer: player1,
-                    otherPlayer: player2,
-                    instanceId: instance.id,
-                    ready: true
-                }
-            })
-        )
     })
+    const { instance, player1, player2 } = res.data
+    const storyUrl = getStoryUrl(instance.id)
+    return {
+        identifier: instance.identifier,
+        storyUrl,
+        currentPlayer: player1,
+        otherPlayer: player2,
+        instanceId: instance.id,
+        ready: true
+    }
 }
 
 export const emitNavChange = (
@@ -173,95 +171,28 @@ export const emitPresence = (identifier: string, instanceId: string, playerId: s
         .then()
 }
 
-export const pollForChoices = (
-    identifier: string,
-    instanceId: string,
-    player: Player,
-    log: LogEntry[],
-    dispatch: Dispatch<any>
-): void => {
-    axios
-        .get(`${API_PREFIX}/${identifier}/${instanceId}/listen/?playerId=${player.id}`)
-        .then((res: AxiosResponse<ChoiceApiResponse[]>) => {
-            // Get all the existing log IDs
-            const logIds = log.map((l) => l.id)
-            // console.group(`Already have these log ids: `)
-            // console.log(logIds)
-            // console.groupEnd()
-
-            console.group('Replaying log ids: ')
-            res.data
-                .filter((row) => !logIds.includes(row.id))
-                .forEach((row) => {
-                    const { id, tag, option, next, chapterName } = row
-                    const eventPlayer = row.player
-                    console.log(id, tag, option, eventPlayer)
-                    dispatch(
-                        makeChoice(tag, option, next, chapterName, {
-                            eventPlayer,
-                            currentPlayer: player,
-                            identifier,
-                            instanceId,
-                            sync: false,
-                            syncNext: false,
-                            choiceId: id
-                        })
-                    )
-                })
-            console.groupEnd()
-        })
+interface SWRResponse {
+    isLoading: boolean
+    isError: boolean
 }
-export const getAllChoices = (
-    identifier: string,
-    instanceId: string,
-    player: Player,
-    dispatch: Dispatch<any>,
-    callback?: any
-): void => {
-    axios
-        .get(`${API_PREFIX}/${identifier}/${instanceId}/listen/`)
-        .then((res: AxiosResponse<ChoiceApiResponse[]>) => {
-            // Get all the existing log IDs
-
-            console.group('Replaying log ids: ')
-            res.data.forEach((row) => {
-                const { id, tag, option, next, chapterName, synced } = row
-                const eventPlayer = row.player
-                if (eventPlayer === player || synced) {
-                    dispatch(
-                        makeChoice(tag, option, next, chapterName, {
-                            eventPlayer,
-                            currentPlayer: player,
-                            identifier,
-                            instanceId,
-                            sync: false,
-                            syncNext: false,
-                            choiceId: id
-                        })
-                    )
-                }
-            })
-            console.groupEnd()
-            if (callback) {
-                callback()
-            }
-        })
+interface PresencePollResponse extends SWRResponse {
+    presence: Presence
 }
-
-export const pollForPresence = (
+export const usePresencePoll = (
     identifier: string,
     instanceId: string,
-    playerId: string,
-    setPresence: React.Dispatch<React.SetStateAction<PresenceApiResponse>>
-): void => {
-    axios
-        .get(`${API_PREFIX}/${identifier}/${instanceId}/presence/?playerId=${playerId}`)
-        .then((res: AxiosResponse<PresenceApiResponse>) => {
-            setPresence(res.data)
-        })
-        .catch(function (error) {
-            console.error(error)
-        })
+    playerId: string
+): PresencePollResponse => {
+    const { data, error } = useSWR<PresenceApiResponse>(
+        `${API_PREFIX}/${identifier}/${instanceId}/presence/?playerId=${playerId}`,
+        fetcher,
+        { refreshInterval: 10000 }
+    )
+    return {
+        presence: data,
+        isLoading: !data && !error,
+        isError: error
+    }
 }
 
 /**
@@ -272,23 +203,43 @@ export const pollForPresence = (
  * @param navEntries
  * @param setPresence
  */
-export const pollForNav = (
+interface NavPollResponse {
+    navEntries: Nav[]
+    isLoading: boolean
+    isError: boolean
+}
+export const useNavPoll = (identifier: string, instanceId: string): NavPollResponse => {
+    const { data, error } = useSWR<NavApiResponse>(
+        `${API_PREFIX}/${identifier}/${instanceId}/nav/`,
+        fetcher,
+        { refreshInterval: 10000 }
+    )
+    return {
+        navEntries: data,
+        isLoading: !data && !error,
+        isError: error
+    }
+}
+interface ChoicePollResponse {
+    choices: ChoiceApiResponse[]
+    isLoading: boolean
+    isError: boolean
+}
+
+export const useChoicePoll = (
     identifier: string,
     instanceId: string,
-    navEntries: NavEntry[],
-    setNavEvent: React.Dispatch<React.SetStateAction<NavEntry>>
-): void => {
-    axios
-        .get(`${API_PREFIX}/${identifier}/${instanceId}/nav`)
-        .then((res: AxiosResponse<NavApiResponse>) => {
-            const navIds = navEntries.map((e) => e.id)
-            const data = res.data.filter((row) => !navIds.includes(row.id))
+    player?: Player,
+    options?: { refreshInterval: 10000 }
+): ChoicePollResponse => {
+    const url =
+        `${API_PREFIX}/${identifier}/${instanceId}/listen/` +
+        (player ? `?playerId=${player.id}` : '')
 
-            if (data.length > 0) {
-                setNavEvent(data[0]) // FIXME Not reliable; may skip updates
-            }
-        })
-        .catch(function (error) {
-            console.error(error)
-        })
+    const { data, error } = useSWR<ChoiceApiResponse[]>(url, fetcher, options)
+    return {
+        choices: data || [],
+        isError: error,
+        isLoading: !error && !data
+    }
 }

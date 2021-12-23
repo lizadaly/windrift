@@ -4,13 +4,14 @@ import { useSelector } from 'react-redux'
 import { Section, Chapter } from 'core/components'
 import { PageType } from 'core/types'
 import Board from '../components/board'
+import { MultiplayerContext } from 'core/multiplayer/components/multiplayer'
+import React from 'react'
 
 const playerWins = (arr: string[], player: string) => arr.every((val) => val === player)
 
 export const Page: PageType = () => {
-    const { currentPlayer, otherPlayer } = useSelector(
-        (state: RootState) => state.multiplayer.multiplayer
-    )
+    const { currentPlayer, otherPlayer } = React.useContext(MultiplayerContext).multiplayer
+
     const inventory = useSelector((state: RootState) => state.inventory.present)
 
     const { log } = useSelector((state: RootState) => state.log)

@@ -11,6 +11,7 @@ import { init as initInventory } from 'core/features/inventory'
 
 import useInventory from 'core/hooks/use-inventory'
 import { StoryContext } from 'pages/[story]/[[...chapter]]'
+import { MultiplayerContext } from 'core/multiplayer/components/multiplayer'
 
 export interface ChoiceProps {
     tag: string
@@ -94,9 +95,7 @@ const MutableChoice = ({
     const choice = useSelector((state: RootState) => {
         return state.choices.present[tag]
     })
-    const multiplayer = useSelector((state: RootState) => {
-        return state.multiplayer?.multiplayer
-    })
+    const { multiplayer } = React.useContext(MultiplayerContext)
     const [inventory] = useInventory([tag])
 
     const multiplayerPayload: MultiplayerChoicePayload = multiplayer?.currentPlayer

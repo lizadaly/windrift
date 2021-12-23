@@ -2,7 +2,6 @@ import * as React from 'react'
 
 import useChapter from 'core/hooks/use-chapter'
 
-import moment from 'moment'
 import useLocation from '../hooks/use-location'
 
 interface Props {
@@ -39,18 +38,21 @@ export const Watch = ({ enter, exit }: Props): JSX.Element => {
         // If there's any location data at all...
         if (current && other) {
             // and the players have recently been in the same room...
-            if (other.to === current.to && current.to === thisPlayerLocation) {
+            if (
+                other.chapterName === current.chapterName &&
+                current.chapterName === thisPlayerLocation
+            ) {
                 // and the other player arrived after me...
-                if (moment(other.timestamp) > moment(current.timestamp)) {
+                if (other.createdAt > current.createdAt) {
                     // Then the other player "entered" and did not leave
                     setEntered(true)
                     setExited(false)
                 }
             }
             // if the other player's event was _from_ this location
-            if (other.from === current.to && current.to === thisPlayerLocation) {
+            if (other.from === current.chapterName && current.chapterName === thisPlayerLocation) {
                 // and the other player left after me...
-                if (moment(other.timestamp) > moment(current.timestamp)) {
+                if (other.createdAt > current.createdAt) {
                     setExited(true)
                     setEntered(false)
                 }

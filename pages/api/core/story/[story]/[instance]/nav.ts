@@ -1,9 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 import prisma from 'core/multiplayer/db'
-import { NavEntry } from 'core/multiplayer/features/navigation'
+import { Nav } from '@prisma/client'
 
-export type NavApiResponse = NavEntry[]
+export type NavApiResponse = Nav[]
 
 export default async (
     req: NextApiRequest,
@@ -35,24 +35,11 @@ export default async (
             where: {
                 instanceId
             },
-            include: {
-                player: true
-            },
             orderBy: {
                 createdAt: 'desc'
             }
         })
-        // Clean this up for consumption
-        const navs: NavEntry[] = events.map((e) => {
-            return {
-                id: e.id,
-                timestamp: e.createdAt.toUTCString(),
-                playerName: e.player.name,
-                to: e.chapterName,
-                from: e.from
-            }
-        })
-        res.status(200).json(navs)
+        res.status(200).json(events)
     } else {
         res.status(405).end()
     }

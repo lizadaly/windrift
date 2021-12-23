@@ -1,17 +1,14 @@
-import { Presence, Player } from '@prisma/client'
+import { Presence } from '@prisma/client'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 import prisma from 'core/multiplayer/db'
 
-export type PresenceApiResponse = {
-    presence: Presence
-    player: Player
-}
+export type PresenceApiResponse = Presence
 
 const presence = async (
     req: NextApiRequest,
-    res: NextApiResponse<void | PresenceApiResponse>
-): Promise<void> => {
+    res: NextApiResponse<void | Presence>
+): Promise<void | PresenceApiResponse> => {
     const instanceId = req.query.instance as string
 
     if (req.method === 'POST') {
@@ -41,9 +38,7 @@ const presence = async (
         const presence = await prisma.presence.findFirst({
             where: {
                 instanceId,
-                NOT: {
-                    playerId
-                }
+                playerId
             },
             orderBy: {
                 createdAt: 'desc'
@@ -53,9 +48,9 @@ const presence = async (
             }
         })
         if (presence === null) {
-            res.status(404).end()
+            res.status(200).end() // FIXME use better handling
         } else {
-            res.status(200).json({ presence, player: presence.player })
+            res.status(200).json(presence)
         }
     }
 }
