@@ -1,5 +1,6 @@
 import { Dispatch } from 'react'
 import useSWR from 'swr'
+import useSWRImmutable from 'swr/immutable'
 
 import { Player, Presence } from '@prisma/client'
 import axios, { AxiosResponse } from 'axios'
@@ -31,7 +32,7 @@ export const useMultiplayer = (
     instanceId: string,
     playerId: string
 ): MultiplayerResponse => {
-    const { data, error } = useSWR<StoryApiResponse>(
+    const { data, error } = useSWRImmutable<StoryApiResponse>(
         `${API_PREFIX}/${identifier}/${instanceId}/get/`,
         fetcher
     )
