@@ -16,6 +16,7 @@ import { useRouter } from 'next/router'
 import { Instance } from '../features/instance'
 
 export interface Multiplayer {
+    identifier: string
     storyUrl: string
     instanceId: string
     ready: boolean // True when all the params have been initialized
@@ -35,7 +36,10 @@ export const MultiplayerContext: MultiplayerSetter = React.createContext({
 })
 
 const Multiplayer: React.FC = ({ children }) => {
+    const { identifier } = React.useContext(StoryContext).config
+
     const [multiplayer, setMultiplayer] = React.useState<Multiplayer>({
+        identifier,
         storyUrl: null,
         instanceId: null,
         currentPlayer: null,

@@ -3,8 +3,9 @@ import * as React from 'react'
 import useLocation from 'core/multiplayer/hooks/use-location'
 
 import styles from 'public/styles/multiplayer/Presence.module.scss'
-import { RootState } from 'core/types'
-import { useSelector } from 'react-redux'
+
+import { MultiplayerContext } from '../multiplayer'
+import { usePresencePoll } from 'core/multiplayer/api-client'
 
 /**
  *
@@ -15,11 +16,15 @@ import { useSelector } from 'react-redux'
 
  */
 const Presence: React.FC = () => {
-    const presence = useSelector((state: RootState) => state.presence)
+    const { otherPlayer, instanceId, identifier } = React.useContext(MultiplayerContext).multiplayer
+    const { presence, isLoading, isError } = usePresencePoll(identifier, instanceId, otherPlayer.id)
     const { other } = useLocation()
 
-    if (!presence) {
-        return null
+    if (isLoading) {
+        return <p>Retrieving other player status...</p>
+    }
+    if (isError) {
+        return <p>There was an error retrieving other player status.</p>
     }
     return (
         <>
@@ -29,7 +34,7 @@ const Presence: React.FC = () => {
                     <span className={presence.timestamp ? styles.active : styles.inactive}>
                         <span className={styles.cap}>{presence.playerName}</span>
 
-                        {presence.playerName ? ` is in ${other?.to}` : null}
+                        {other ? ` is in ${other?.to}` : null}
                     </span>
                 </li>
             </ol>

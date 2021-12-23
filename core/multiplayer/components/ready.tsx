@@ -13,19 +13,16 @@ import {
     emitNavChange,
     emitPresence,
     pollForChoices,
-    pollForNav,
-    pollForPresence
+    useNavPoll,
+    usePresencePoll
 } from '../api-client'
 import useInterval from '@use-it/interval'
 import { MultiplayerContext } from './multiplayer'
-import { set } from '../features/presence'
 import { init } from '../features/instance'
 import { makeChoice } from 'core/features/choice'
 
 const NEXT_PUBLIC_POLL_EMIT_PRESENCE = 30000
-const NEXT_PUBLIC_POLL_CHECK_PRESENCE = 10000
 const NEXT_PUBLIC_POLL_CHECK_CHOICES = 10000
-const NEXT_PUBLIC_POLL_CHECK_NAV = 10000
 
 const Ready: React.FC = ({ children }): JSX.Element => {
     const { multiplayer } = React.useContext(MultiplayerContext)
@@ -86,6 +83,14 @@ const Polls = (): JSX.Element => {
 
     const dispatch = useDispatch()
 
+    const { navEntry } = useNavPoll(identifier, multiplayer.instanceId, navEntries)
+
+    React.useEffect(() => {
+        if (navEntry) {
+            dispatch(add({ entry: navEntry }))
+        }
+    }, [navEntry])
+
     // Poll for choices
     useInterval(
         async () => {
@@ -113,26 +118,6 @@ const Polls = (): JSX.Element => {
 
         NEXT_PUBLIC_POLL_CHECK_CHOICES
     )
-
-    // Poll for the other player's presence
-    useInterval(async () => {
-        const presence = await pollForPresence(
-            identifier,
-            multiplayer.instanceId,
-            multiplayer.otherPlayer.id
-        )
-        dispatch(
-            set({
-                presence
-            })
-        )
-    }, NEXT_PUBLIC_POLL_CHECK_PRESENCE)
-
-    // Poll for nav changes
-    useInterval(async () => {
-        const entry = await pollForNav(identifier, multiplayer.instanceId, navEntries)
-        dispatch(add({ entry }))
-    }, NEXT_PUBLIC_POLL_CHECK_NAV)
 
     // Send presence
     useInterval(async () => {

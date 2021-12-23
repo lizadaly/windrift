@@ -4,10 +4,15 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import prisma from 'core/multiplayer/db'
 import { PresenceState } from 'core/multiplayer/features/presence'
 
+export interface PresenceApiResponse {
+    id: string
+    timestamp: string
+    playerName: string
+}
 const presence = async (
     req: NextApiRequest,
     res: NextApiResponse<void | PresenceState>
-): Promise<void> => {
+): Promise<void | PresenceApiResponse> => {
     const instanceId = req.query.instance as string
 
     if (req.method === 'POST') {

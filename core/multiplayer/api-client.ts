@@ -13,6 +13,7 @@ import { NavApiResponse } from 'pages/api/core/story/[story]/[instance]/nav'
 import { Multiplayer } from './components/multiplayer'
 import { PresenceState } from './features/presence'
 import { StoryApiResponse } from 'pages/api/core/story/[story]/[instance]/get'
+import { PresenceApiResponse } from 'pages/api/core/story/[story]/[instance]/presence'
 
 const API_PREFIX = '/api/core/story'
 
@@ -166,11 +167,9 @@ export const emitChoice = (
 }
 
 export const emitPresence = (identifier: string, instanceId: string, playerId: string): void => {
-    axios
-        .post(`${API_PREFIX}/${identifier}/${instanceId}/presence/`, {
-            playerId
-        })
-        .then()
+    axios.post(`${API_PREFIX}/${identifier}/${instanceId}/presence/`, {
+        playerId
+    })
 }
 
 interface PolledChoice {
@@ -249,17 +248,28 @@ export const getAllChoices = (
             }
         })
 }
-
-export const pollForPresence = async (
+interface SWRResponse {
+    isLoading: boolean
+    isError: boolean
+}
+interface PresencePollResponse extends SWRResponse {
+    presence: PresenceState
+}
+export const usePresencePoll = (
     identifier: string,
     instanceId: string,
     playerId: string
-): Promise<PresenceState> => {
-    const res = await axios.get(
-        `${API_PREFIX}/${identifier}/${instanceId}/presence/?playerId=${playerId}`
+): PresencePollResponse => {
+    const { data, error } = useSWR<PresenceApiResponse>(
+        `${API_PREFIX}/${identifier}/${instanceId}/presence/?playerId=${playerId}`,
+        fetcher,
+        { refreshInterval: 10000 }
     )
-
-    return res.data
+    return {
+        presence: data,
+        isLoading: !data && !error,
+        isError: error
+    }
 }
 
 /**
@@ -270,17 +280,34 @@ export const pollForPresence = async (
  * @param navEntries
  * @param setPresence
  */
-export const pollForNav = async (
+interface NavPollResponse {
+    navEntry: NavEntry
+    isLoading: boolean
+    isError: boolean
+}
+export const useNavPoll = (
     identifier: string,
     instanceId: string,
     navEntries: NavEntry[]
-): Promise<NavEntry> => {
-    const res = await axios.get(`${API_PREFIX}/${identifier}/${instanceId}/nav`)
+): NavPollResponse => {
+    const { data, error } = useSWR<NavApiResponse>(
+        `${API_PREFIX}/${identifier}/${instanceId}/nav/`,
+        fetcher,
+        { refreshInterval: 10000 }
+    )
+    let navEntry = null
 
-    const navIds = navEntries.map((e) => e.id)
-    const data = res.data.filter((row) => !navIds.includes(row.id))
+    if (data) {
+        const navIds = navEntries.map((e) => e.id)
+        const entries = data.filter((row) => !navIds.includes(row.id))
 
-    if (data.length > 0) {
-        return data[0] // FIXME Not reliable; may skip updates
+        if (entries.length > 0) {
+            navEntry = entries[0] // FIXME Not reliable; may skip updates
+        }
+    }
+    return {
+        navEntry,
+        isLoading: !data && !error,
+        isError: error
     }
 }
