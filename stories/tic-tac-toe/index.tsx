@@ -5,7 +5,6 @@ import NewStory from './components/new-game'
 import UI from './ui'
 import { StoryContext } from 'pages/[story]/[[...chapter]]'
 import Multiplayer from 'core/multiplayer/components/multiplayer'
-import Ready from 'core/multiplayer/components/ready'
 
 const Index: React.FC = ({ children }) => {
     const { config } = React.useContext(StoryContext)

@@ -1,7 +1,4 @@
 import * as React from 'react'
-import { useSelector } from 'react-redux'
-
-import { RootState } from 'core/types'
 
 import ShareButton from 'core/multiplayer/components/share-button'
 
@@ -15,7 +12,7 @@ import { MultiplayerContext } from 'core/multiplayer/components/multiplayer'
 
 const Content: React.FC = ({ children }) => {
     const multiplayer = React.useContext(MultiplayerContext).multiplayer
-    const { currentPlayer, otherPlayer, ready } = multiplayer
+    const { currentPlayer, ready } = multiplayer
 
     return (
         <Grid
@@ -27,7 +24,7 @@ const Content: React.FC = ({ children }) => {
                         <>
                             <div className={styles.player}>You are {currentPlayer.name} ⟶</div>
                             <div className={styles.share}>
-                                <ShareButton multiplayer={multiplayer} otherPlayer={otherPlayer} />
+                                <ShareButton />
                             </div>
                             <div className={styles.controls}>
                                 <ResetButton />
