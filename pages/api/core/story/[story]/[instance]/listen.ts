@@ -19,9 +19,7 @@ export default async (
             where: {
                 instanceId,
                 synced: true,
-                NOT: {
-                    playerId
-                }
+                playerId
             },
             include: {
                 player: true

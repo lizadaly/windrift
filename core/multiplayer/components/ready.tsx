@@ -8,14 +8,13 @@ import { StoryContext } from 'pages/[story]/[[...chapter]]'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'core/types'
 import { gotoChapter } from 'core/features/navigation'
-import { emitNavChange, emitPresence, pollForChoices } from '../api-client'
+import { emitNavChange, emitPresence, useChoicePoll } from '../api-client'
 import useInterval from '@use-it/interval'
 import { MultiplayerContext } from './multiplayer'
 import { init } from '../features/instance'
 import { makeChoice } from 'core/features/choice'
 
 const NEXT_PUBLIC_POLL_EMIT_PRESENCE = 30000
-const NEXT_PUBLIC_POLL_CHECK_CHOICES = 10000
 
 const Ready: React.FC = ({ children }): JSX.Element => {
     const { multiplayer } = React.useContext(MultiplayerContext)
@@ -68,29 +67,28 @@ const Ready: React.FC = ({ children }): JSX.Element => {
 
 const Polls = (): JSX.Element => {
     const { multiplayer } = React.useContext(MultiplayerContext)
-
-    const { identifier } = React.useContext(StoryContext).config
-
     const { log } = useSelector((state: RootState) => state.log)
 
     const dispatch = useDispatch()
 
+    const { choices } = useChoicePoll(
+        multiplayer.identifier,
+        multiplayer.instanceId,
+        multiplayer.otherPlayer
+    )
+
     // Poll for choices
-    useInterval(
-        async () => {
-            const choices = await pollForChoices(
-                identifier,
-                multiplayer.instanceId,
-                multiplayer.currentPlayer,
-                log
-            )
-            choices.forEach((choice) => {
-                const { id, tag, option, next, chapterName, eventPlayer } = choice
+    React.useEffect(() => {
+        const logIds = log.map((l) => l.id)
+        choices
+            .filter((row) => !logIds.includes(row.id))
+            .forEach((row) => {
+                const { id, tag, option, next, chapterName, player } = row
                 dispatch(
                     makeChoice(tag, option, next, chapterName, {
-                        eventPlayer,
+                        eventPlayer: player,
                         currentPlayer: multiplayer.currentPlayer,
-                        identifier,
+                        identifier: multiplayer.identifier,
                         instanceId: multiplayer.instanceId,
                         sync: false,
                         syncNext: false,
@@ -98,14 +96,11 @@ const Polls = (): JSX.Element => {
                     })
                 )
             })
-        },
-
-        NEXT_PUBLIC_POLL_CHECK_CHOICES
-    )
+    }, [choices])
 
     // Send presence
     useInterval(async () => {
-        emitPresence(identifier, multiplayer.instanceId, multiplayer.currentPlayer.id)
+        emitPresence(multiplayer.identifier, multiplayer.instanceId, multiplayer.currentPlayer.id)
     }, NEXT_PUBLIC_POLL_EMIT_PRESENCE)
 
     return null

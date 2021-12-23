@@ -37,7 +37,6 @@ export const MultiplayerContext: MultiplayerSetter = React.createContext({
 
 const Multiplayer: React.FC = ({ children }) => {
     const { identifier } = React.useContext(StoryContext).config
-
     const [multiplayer, setMultiplayer] = React.useState<Multiplayer>({
         identifier,
         storyUrl: null,

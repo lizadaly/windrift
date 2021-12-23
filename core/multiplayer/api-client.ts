@@ -1,13 +1,10 @@
-import { Dispatch } from 'react'
 import useSWR from 'swr'
 import useSWRImmutable from 'swr/immutable'
 
 import { Nav, Player, Presence } from '@prisma/client'
-import axios, { AxiosResponse } from 'axios'
-import { LogEntry } from 'core/features/log'
-import { TocItem, Tag, Option, Next } from 'core/types'
+import axios from 'axios'
+import { TocItem, Tag } from 'core/types'
 import { ChoiceApiResponse } from 'pages/api/core/story/[story]/[instance]/listen'
-import { makeChoice } from 'core/features/choice'
 import { NavApiResponse } from 'pages/api/core/story/[story]/[instance]/nav'
 import { Multiplayer } from './components/multiplayer'
 import { StoryApiResponse } from 'pages/api/core/story/[story]/[instance]/get'
@@ -51,6 +48,7 @@ export const useMultiplayer = (
             otherPlayer = player1
         }
         multiplayer = {
+            identifier,
             storyUrl,
             instanceId,
             currentPlayer,
@@ -166,87 +164,13 @@ export const emitChoice = (
 }
 
 export const emitPresence = (identifier: string, instanceId: string, playerId: string): void => {
-    axios.post(`${API_PREFIX}/${identifier}/${instanceId}/presence/`, {
-        playerId
-    })
-}
-
-interface PolledChoice {
-    id: string
-    tag: Tag
-    option: Option
-    next: string
-    chapterName: string
-    eventPlayer: Player
-}
-export const pollForChoices = async (
-    identifier: string,
-    instanceId: string,
-    player: Player,
-    log: LogEntry[]
-): Promise<PolledChoice[]> => {
-    const res: AxiosResponse<ChoiceApiResponse[]> = await axios.get(
-        `${API_PREFIX}/${identifier}/${instanceId}/listen/?playerId=${player.id}`
-    )
-
-    // Get all the existing log IDs
-    const logIds = log.map((l) => l.id)
-    // console.group(`Already have these log ids: `)
-    // console.log(logIds)
-    // console.groupEnd()
-    //console.group('Replaying log ids: ')
-    const choices: PolledChoice[] = res.data
-        .filter((row) => !logIds.includes(row.id))
-        .map((row) => {
-            const { id, tag, option, next, chapterName } = row
-            const eventPlayer = row.player
-            return {
-                id,
-                tag,
-                option,
-                next,
-                chapterName,
-                eventPlayer
-            }
-        })
-    return choices
-}
-export const getAllChoices = (
-    identifier: string,
-    instanceId: string,
-    player: Player,
-    dispatch: Dispatch<any>,
-    callback?: any
-): void => {
     axios
-        .get(`${API_PREFIX}/${identifier}/${instanceId}/listen/`)
-        .then((res: AxiosResponse<ChoiceApiResponse[]>) => {
-            // Get all the existing log IDs
-
-            console.group('Replaying log ids: ')
-            res.data.forEach((row) => {
-                const { id, tag, option, next, chapterName, synced } = row
-                const eventPlayer = row.player
-                if (eventPlayer === player || synced) {
-                    dispatch(
-                        makeChoice(tag, option, next, chapterName, {
-                            eventPlayer,
-                            currentPlayer: player,
-                            identifier,
-                            instanceId,
-                            sync: false,
-                            syncNext: false,
-                            choiceId: id
-                        })
-                    )
-                }
-            })
-            console.groupEnd()
-            if (callback) {
-                callback()
-            }
+        .post(`${API_PREFIX}/${identifier}/${instanceId}/presence/`, {
+            playerId
         })
+        .then()
 }
+
 interface SWRResponse {
     isLoading: boolean
     isError: boolean
@@ -294,5 +218,28 @@ export const useNavPoll = (identifier: string, instanceId: string): NavPollRespo
         navEntries: data,
         isLoading: !data && !error,
         isError: error
+    }
+}
+interface ChoicePollResponse {
+    choices: ChoiceApiResponse[]
+    isLoading: boolean
+    isError: boolean
+}
+
+export const useChoicePoll = (
+    identifier: string,
+    instanceId: string,
+    player?: Player,
+    options?: { refreshInterval: 10000 }
+): ChoicePollResponse => {
+    const url =
+        `${API_PREFIX}/${identifier}/${instanceId}/listen/` +
+        (player ? `?playerId=${player.id}` : '')
+
+    const { data, error } = useSWR<ChoiceApiResponse[]>(url, fetcher, options)
+    return {
+        choices: data || [],
+        isError: error,
+        isLoading: !error && !data
     }
 }
