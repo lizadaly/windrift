@@ -10,6 +10,7 @@ import Watch from 'core/multiplayer/components/watch'
 import Both from 'core/multiplayer/components/both'
 import { MultiplayerContext } from 'core/multiplayer/components/multiplayer'
 import Timer from 'core/multiplayer/components/timer'
+import { DateTime, Duration } from 'luxon'
 
 export const Page: PageType = () => {
     const cloak = useCloak()
@@ -73,7 +74,17 @@ export const Page: PageType = () => {
                             <p>The {otherPlayer.name} leaves!</p>
                         </>
                     }
+                    here={
+                        <>
+                            <p>The {otherPlayer.name} is here!</p>
+                        </>
+                    }
                 />
+                <Timer
+                    every={Duration.fromObject({ seconds: 10 })}
+                    duration={Duration.fromObject({ seconds: 2 })}>
+                    hello!
+                </Timer>
             </Section>
         </Chapter>
     )
