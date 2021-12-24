@@ -186,7 +186,7 @@ export const usePresencePoll = (
     const { data, error } = useSWR<PresenceApiResponse>(
         `${API_PREFIX}/${identifier}/${instanceId}/presence/?playerId=${playerId}`,
         fetcher,
-        { refreshInterval: 10000 }
+        { refreshInterval: 100000 }
     )
     return {
         presence: data,

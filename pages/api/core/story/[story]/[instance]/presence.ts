@@ -33,7 +33,6 @@ const presence = async (
     }
     if (req.method === 'GET') {
         const playerId = req.query.playerId as string
-        res.setHeader('Cache-Control', 's-maxage=10, stale-while-revalidate')
 
         const presence = await prisma.presence.findFirst({
             where: {

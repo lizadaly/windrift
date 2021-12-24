@@ -1,4 +1,5 @@
 import * as React from 'react'
+import moment from 'moment'
 
 import useLocation from 'core/multiplayer/hooks/use-location'
 
@@ -6,6 +7,8 @@ import styles from 'public/styles/multiplayer/Presence.module.scss'
 
 import { MultiplayerContext } from '../multiplayer'
 import { usePresencePoll } from 'core/multiplayer/api-client'
+
+const RECENCY_WINDOW = moment().subtract(15, 'minutes')
 
 /**
  *
@@ -26,15 +29,17 @@ const Presence: React.FC = () => {
     if (isError) {
         return <p>There was an error retrieving other player status.</p>
     }
+    const isActive = moment(presence.updatedAt) >= RECENCY_WINDOW
+
     return (
         <>
             <h2>Player info</h2>
             <ol className={styles.userList}>
                 <li>
-                    <span className={presence.createdAt ? styles.active : styles.inactive}>
+                    <span className={isActive ? styles.active : styles.inactive}>
                         <span className={styles.cap}>{otherPlayer.name}</span>
-
-                        {other ? ` is in ${other?.chapterName}` : null}
+                        {!isActive && ` (last active ${moment(presence.updatedAt).fromNow()})`}
+                        {other ? ` ${isActive ? 'is' : 'was'} in ${other?.chapterName}` : null}
                     </span>
                 </li>
             </ol>
