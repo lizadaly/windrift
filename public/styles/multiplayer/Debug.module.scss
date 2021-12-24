@@ -12,6 +12,8 @@
     font-size: small;
     font-family: sans-serif;
 
+
+
     /* Reset button styles */
     button {
         margin: 0;
@@ -26,7 +28,14 @@
     }
     .content {
         padding: 1em;
+        grid-template-columns: 1fr 2fr;
+        display: grid;
 
+        .log {
+            overflow-y: scroll;
+            height: auto;
+            font-size: 12px;
+        }
         button {
             background: colors.$cool;
             text-transform: none;

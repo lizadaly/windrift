@@ -63,8 +63,8 @@ export const makeChoice =
                     id: choiceId,
                     tag,
                     option,
-                    entry: ENTRY_TYPES.Choice,
-                    timestamp: new Date().toUTCString(),
+                    entry: next && typeof next === 'string' ? ENTRY_TYPES.Nav : ENTRY_TYPES.Choice,
+                    timestamp: new Date().toISOString(),
                     playerName: multiplayer?.eventPlayer?.name
                 }
             })

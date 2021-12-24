@@ -12,6 +12,7 @@ import useLocation from '../hooks/use-location'
 
 import debug from 'public/styles/multiplayer/Debug.module.scss'
 import { MultiplayerContext, Multiplayer } from './multiplayer'
+import Log from './examples/log'
 
 /**
  * Display debugging info and allow for specific events to be triggered via the API.
@@ -21,8 +22,13 @@ const Debug = (): JSX.Element => {
     const { config, persistor } = React.useContext(StoryContext)
     return (
         <div className={debug.content}>
-            <LocationSwitcher config={config} multiplayer={multiplayer} />
-            <UserSwitcher config={config} multiplayer={multiplayer} persistor={persistor} />
+            <div>
+                <LocationSwitcher config={config} multiplayer={multiplayer} />
+                <UserSwitcher config={config} multiplayer={multiplayer} persistor={persistor} />
+            </div>
+            <div className={debug.log}>
+                <Log />
+            </div>
         </div>
     )
 }
@@ -157,6 +163,7 @@ const DebugToolbar = (): JSX.Element => {
                     {isOpen ? (
                         <>
                             <Debug />
+
                             <button className={debug.toggle} onClick={() => setOpen(false)}>
                                 Close
                             </button>
