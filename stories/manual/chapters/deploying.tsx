@@ -8,10 +8,10 @@ export const Page: PageType = () => {
                 <h1>Deploying your story</h1>
 
                 <p>
-                    NextJS, and therefore Windrift, have two mechanisms of deploying your
+                    NextJS, and therefore Windrift, has two mechanisms of deploying your
                     application: a purely "static" generation mechanism, and one that requires use
                     of a backend server. Most Windrift stories are static only, meaning they need no
-                    backend and can be deployed on any most site capable of hosting HTML files. This
+                    backend and can be deployed on any site capable of hosting HTML files. This
                     document will focus on static deployment and hosting.
                 </p>
                 <h2>Generating a static build</h2>
@@ -106,7 +106,7 @@ _next/           global.scss      minimal/         stone-harbor-pt/ styles/
                 <h2>Deploying with dynamic content</h2>
                 <p>
                     One of NextJS's strengths is that it allows React developers to easily mix
-                    server-side dynamic content with static, front-end only content. Though not
+                    server-side dynamic content with static, front-end-only content. Though not
                     covered in this version of the manual, NextJS provides tools for building rich
                     server-side APIs which can be used to connect to backend databases, talk to
                     third-party APIs, or procedurally generate content in real time.
