@@ -12,17 +12,22 @@ interface TimerProps {
     every: Duration
     duration?: Duration
 }
+export const TimerContext = React.createContext(0)
+
 const Timer: React.FC<TimerProps> = ({ children, every, duration }) => {
     const [content, setContent] = React.useState(null)
+    const [tick, setTick] = React.useState(0)
+
     useInterval(() => {
         setContent(children)
+        setTick(tick + 1)
     }, every.as('milliseconds'))
     return (
-        <>
+        <TimerContext.Provider value={tick}>
             <Timeout duration={duration} setter={setContent}>
                 {content}
             </Timeout>
-        </>
+        </TimerContext.Provider>
     )
 }
 interface TimeoutProps {
