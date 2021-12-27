@@ -3,6 +3,8 @@
  *
  * Use a full Choice component if you want the name of the link to change
  * after clicking.
+ *
+ * In Multiplayer, nav events are always implicitly synced via the nav api.
  */
 import React, { useContext } from 'react'
 

@@ -6,6 +6,8 @@ import { update as logUpdate } from 'core/features/log'
 import { Tag, ENTRY_TYPES, Next, Config, NextType, RootState } from 'core/types'
 import { gotoChapter, incrementSection } from 'core/features/navigation'
 import { increment } from 'core/features/counter'
+import { Player } from '@prisma/client'
+import { emitChoice, emitNavChange } from 'core/multiplayer/api-client'
 
 export type Option = string
 export type OptionGroup = Array<Option>
@@ -33,10 +35,25 @@ interface OptionAdvancePayload {
 
 const initialState: ChoiceState = null
 
+export interface MultiplayerChoicePayload {
+    eventPlayer: Player
+    currentPlayer: Player
+    identifier: string
+    instanceId: string
+    sync: boolean
+    syncNext: boolean
+    choiceId?: string
+}
 export const makeChoice =
-    (tag: Tag, option: Option, next?: NextType, filename?: string) =>
+    (
+        tag: Tag,
+        option: Option,
+        next?: NextType,
+        filename?: string,
+        multiplayer?: MultiplayerChoicePayload
+    ) =>
     (dispatch: Dispatch, getState: () => RootState, config: Config): void => {
-        const choiceId = uuidv4()
+        const choiceId = multiplayer?.choiceId || uuidv4()
 
         dispatch(updateInventory({ tag, option }))
         dispatch(advance({ tag }))
@@ -47,7 +64,8 @@ export const makeChoice =
                     tag,
                     option,
                     entry: ENTRY_TYPES.Choice,
-                    timestamp: new Date().toLocaleDateString()
+                    timestamp: new Date().toUTCString(),
+                    playerName: multiplayer?.eventPlayer?.name
                 }
             })
         )
@@ -64,6 +82,28 @@ export const makeChoice =
                 // no-op
             } else if (typeof next === 'string') {
                 dispatch(gotoChapter({ filename: next }))
+                if (multiplayer) {
+                    emitNavChange(
+                        multiplayer.identifier,
+                        next, // Where they're going
+                        multiplayer.instanceId,
+                        multiplayer.currentPlayer.id,
+                        filename // Where they're at
+                    )
+                }
+            }
+            if (multiplayer && multiplayer.eventPlayer === multiplayer.currentPlayer) {
+                emitChoice(
+                    choiceId,
+                    tag,
+                    option,
+                    multiplayer.syncNext ? next : null,
+                    filename,
+                    multiplayer.identifier,
+                    multiplayer.instanceId,
+                    multiplayer.currentPlayer,
+                    multiplayer.sync
+                )
             }
         }
 

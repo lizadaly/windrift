@@ -64,3 +64,28 @@ Windrift 2 unifies them into a single NextJS application, capable of hosting mul
 Because the core Windrift code is bundled with each story repository, authors can fully modify or alter any fundamental behavior of the library.
 
 The [v1 branch](https://github.com/lizadaly/windrift/tree/v1) is no longer receiving updates.
+
+## About multiplayer
+
+Multiplayer support requires use of an external Postgres database, the [Prisma database client](https://www.prisma.io/), and a hosting environment that can support a Node backend. The simplest configuration is using Vercel and a third-party accessible database configured with [PgBouncer](https://www.pgbouncer.org/). See the [Vercel documentation on databases](https://vercel.com/docs/concepts/solutions/databases).
+
+For local development, configure a `.env` file with two database connection strings to whatever database you will use for local development. This can either be a Postgres instance running on your machine, or a dev instance in a cloud provider. E.g.:
+
+```
+DATABASE_URL="postgresql://dev:PASSWORD@HOSTNAME:25060/dev?schema=public"
+SHADOW_DATABASE_URL="postgresql://dev-shadow:PASSWORD@HOSTNAME:25060/dev-shadow?schema=public"
+```
+
+(The [shadow database](https://www.prisma.io/docs/concepts/components/prisma-migrate/shadow-database) is a Prisma concept used for development only.)
+
+In production environments, supply `DATABASE_URL` to the appropriate instance using environment variables accessible to your Node environment.
+
+### Setup commands
+
+When first setting up your database, run:
+
+```
+npm run db
+```
+
+which will execute a `prisma db push` command to create the database tables in your configured dev database and create the local client code.

@@ -39,10 +39,9 @@ export const Page: PageType = () => {
                 </p>
                 <h2>Keeping up with new versions</h2>
                 <p>
-                    Windrift is expected to be under active development through 2021 and at least
-                    early 2022. Keep an eye on the project{' '}
-                    <a href="https://github.com/lizadaly/windrift#readme">README</a> for any new
-                    release info and an updated roadmap.
+                    Windrift is expected to be under active development throughout 2022. Keep an eye
+                    on the project <a href="https://github.com/lizadaly/windrift#readme">README</a>{' '}
+                    for any new release info and an updated roadmap.
                 </p>
                 <p>
                     Windrift will not be released as an npm installable library (because it's
