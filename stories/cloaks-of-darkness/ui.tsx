@@ -65,6 +65,7 @@ const Content: React.FC = ({ children }) => {
                 ))
             }>
             {children}
+
             <DebugToolbar />
         </Grid>
     )

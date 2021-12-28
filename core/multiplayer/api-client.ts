@@ -188,6 +188,10 @@ export const usePresencePoll = (
         fetcher,
         { refreshInterval: 10000 }
     )
+    if (data) {
+        data.createdAt = new Date(data.createdAt)
+        data.updatedAt = new Date(data.updatedAt)
+    }
     return {
         presence: data,
         isLoading: !data && !error,
@@ -237,6 +241,11 @@ export const useChoicePoll = (
         (player ? `?playerId=${player.id}` : '')
 
     const { data, error } = useSWR<ChoiceApiResponse[]>(url, fetcher, options)
+    if (data) {
+        data.forEach((c) => {
+            c.createdAt = new Date(c.createdAt)
+        })
+    }
     return {
         choices: data || [],
         isError: error,

@@ -1,14 +1,18 @@
 import React from 'react'
+import { Duration } from 'luxon'
 
 import { C, R, Section, Chapter, Nav } from 'core/components'
 import { BaseList as D } from 'core/components/widgets'
 import { PageType } from 'core/types'
-import Only from 'core/multiplayer/components/only'
 
 import useCloak, { CloakStatus } from '../use-cloak'
+import { MultiplayerContext } from 'core/multiplayer/components/multiplayer'
+
 import Watch from 'core/multiplayer/components/watch'
 import Both from 'core/multiplayer/components/both'
-import { MultiplayerContext } from 'core/multiplayer/components/multiplayer'
+import Only from 'core/multiplayer/components/only'
+
+import Cycle from 'core/components/cycle'
 
 export const Page: PageType = () => {
     const cloak = useCloak()
@@ -60,6 +64,7 @@ export const Page: PageType = () => {
                 {cloak == CloakStatus.Hung && (
                     <p>There is a tiny snake-sized cloak hanging on the hook.</p>
                 )}
+
                 <Watch
                     enter={
                         <>
@@ -71,7 +76,53 @@ export const Page: PageType = () => {
                             <p>The {otherPlayer.name} leaves!</p>
                         </>
                     }
+                    here={
+                        <>
+                            <p>The {otherPlayer.name} is here!</p>
+                        </>
+                    }
                 />
+                <Cycle
+                    count={10}
+                    every={Duration.fromObject({ seconds: 5 })}
+                    duration={Duration.fromObject({ seconds: 4 })}>
+                    <>
+                        <Only playerName="raccoon">
+                            <>You excitedly rub your tiny hands together.</>
+                        </Only>
+                        <Both>
+                            <Only playerName="snake">
+                                <>The raccooon excitedly rub its tiny hands together.</>
+                            </Only>
+                        </Both>
+                    </>
+                    <>
+                        <Only playerName="raccoon">
+                            <>Your butt itches so you absently scratch it with a hind leg.</>
+                        </Only>
+                        <Both>
+                            <Only playerName="snake">
+                                <>
+                                    You are astonished by the raccoon's ability to scratch its own
+                                    butt.
+                                </>
+                            </Only>
+                        </Both>
+                    </>
+                    <>
+                        <Only playerName="raccoon">
+                            <>
+                                Your tummy rumbles and you wonder if there's any trash to be found
+                                here.
+                            </>
+                        </Only>
+                        <Both>
+                            <Only playerName="snake">
+                                <>The raccoon's stomach lets out an audible rumble.</>
+                            </Only>
+                        </Both>
+                    </>
+                </Cycle>
             </Section>
         </Chapter>
     )

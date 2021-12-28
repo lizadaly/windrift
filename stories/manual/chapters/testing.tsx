@@ -11,16 +11,16 @@ export const Page: PageType = () => {
                 <h2>Browser debugging tools</h2>
                 <p>
                     Windrift works well with both the official React Developer Tools and the Redux
-                    DevTools browser plugins, available for both Chrome and Firefox their respective
-                    app stores. The Redux DevTool is especially useful as it allows you to navigate
-                    the inventory.
+                    DevTools browser plugins, available for both Chrome and Firefox in their
+                    respective app stores. The Redux DevTool is especially useful as it allows you
+                    to navigate the inventory.
                 </p>
                 <h3>Debugging state and choices</h3>
                 <p>
                     Windrift uses a combination of{' '}
                     <a href="https://github.com/omnidan/redux-undo">redux-undo</a> and{' '}
                     <a href="https://github.com/rt2zz/redux-persist">redux-persist</a> to provide a
-                    history of current and paste choices, and to persist those to the browser using
+                    history of current and past choices, and to persist those to the browser using
                     local storage.
                 </p>
                 <p>
@@ -53,7 +53,7 @@ export const Page: PageType = () => {
                     If things have gone <em>really</em> wrong, though, the application might not
                     even be able to display the reset button. In that case deleting local storage
                     itself will absolutely start things over. The location varies by browser but you
-                    should be able to find it in the browser's developer tools, for example in
+                    should be able to find it in the browser's developer tools. For example, in
                     Firefox:
                 </p>
                 <aside>
@@ -96,8 +96,8 @@ export const Page: PageType = () => {
                         Cypress's support for skipping tests
                     </a>
                     . It's recommended to keep the tests around in your code base to facilitate
-                    merges from upstream, and you can always re-enable them if you're concerned one
-                    of your own changes may have affected default Windrift behavior.
+                    merges from upstream, and you can always re-enable them if you're concerned that
+                    one of your own changes may have affected default Windrift behavior.
                 </p>
                 <h3>Writing story tests</h3>
                 <p>

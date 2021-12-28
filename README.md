@@ -4,8 +4,6 @@ A JavaScript framework for writing mutable narratives, in major version 2.
 
 ![Integration tests](https://github.com/lizadaly/windrift/actions/workflows/cypress.yml/badge.svg)
 
-⚠️ **Version 2:** This branch is nearing a production release and is expected to be complete at the end of 2021. You could use it today to start a new Windrift story or migrate an earlier one.
-
 Windrift has been used to author interactive hypertext stories including the award-winning [Harmonia](https://lizadaly.com/pages/harmonia/) in 2017, [Stone
 Harbor](https://stoneharborgame.com/) in 2016, and [The Ballroom](https://lizadaly.com/projects/the-ballroom/) in 2019, all by Liza Daly. It was
 also used by Enrique Henestroza Anguiano to write <a
@@ -18,13 +16,13 @@ The [official manual](https://windrift.app/manual) is continuously published as 
 
 ## Example stories
 
-Stories demonstrating use of Windrift 2 from the basic to the advanced are available as part of the [official manual](https://windrift.app/manual) , as well as in the [Windrift Playground](https://playground.windrift.app/). Source code is available for alll example stories.
+Stories demonstrating use of Windrift 2 from the basic to the advanced are available as part of the [official manual](https://windrift.app/manual) , as well as in the [Windrift Playground](https://playground.windrift.app/). Source code is available for all example stories.
 
 ## Quick start
 
 ### Dependencies
 
-Windrift comes ready to deploy using Vercel, which requires a maximum Node version of 14. To ensure you're using a fully-compatible version of Node, use [Node Version Manager](https://github.com/nvm-sh/nvm). Follow its installation process for your platform and then run:
+To ensure you're using a fully-compatible version of Node, use [Node Version Manager](https://github.com/nvm-sh/nvm). Follow its installation process for your platform and then run:
 
 ```
 nvm install 14
@@ -36,6 +34,8 @@ Then to install Windrift:
 ```
 npm install
 ```
+
+(Windrift comes ready to deploy using Vercel, which requires a maximum Node version of 14. If you're deploying elsewhere you could use a Node version greater than 14.)
 
 ### To start a new story
 
