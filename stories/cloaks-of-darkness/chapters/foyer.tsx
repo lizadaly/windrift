@@ -71,8 +71,9 @@ export const Page: PageType = () => {
                                         />
                                     </Only>
                                     <Only playerName="snake">
-                                        It's a nice cozy hole with room to spare. You could easily{' '}
-                                        <Nav next="bar" text="slither through" tag="bar" />.
+                                        It's a nice cozy hole with room to spare, and you can sense
+                                        waves of heat radiating out from the room beyond. You could
+                                        easily <Nav next="bar" text="slither through" tag="bar" />.
                                     </Only>
                                 </aside>
                             </div>
