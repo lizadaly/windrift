@@ -39,7 +39,7 @@ export const Page: PageType = () => {
                                             You could{' '}
                                             <C options={[['pluck']]} tag="pluck" widget={D} /> the
                                             little cloak off the snake and hang it on the hook, if
-                                            you like.
+                                            you like.{' '}
                                         </Only>
                                     </Both>
                                 </>
@@ -61,6 +61,14 @@ export const Page: PageType = () => {
                         )
                     }}
                 />
+                <Only playerName="snake">
+                    <aside>
+                        Normally you find forgotten scarves and other still-warm items left behind
+                        by humans who just attended the opera, but the cloakroom is empty and cold.
+                        Perhaps the performances were cancelled tonight? You can sense warmth
+                        radiating from the east, though.
+                    </aside>
+                </Only>
                 {cloak == CloakStatus.Hung && (
                     <p>There is a tiny snake-sized cloak hanging on the hook.</p>
                 )}
@@ -68,31 +76,31 @@ export const Page: PageType = () => {
                 <Watch
                     enter={
                         <>
-                            <p>The {otherPlayer.name} enters!</p>
+                            <p>The {otherPlayer.name} has entered the room.</p>
                         </>
                     }
                     exit={
                         <>
-                            <p>The {otherPlayer.name} leaves!</p>
+                            <p>The {otherPlayer.name} has left the room.</p>
                         </>
                     }
                     here={
                         <>
-                            <p>The {otherPlayer.name} is here!</p>
+                            <p>The {otherPlayer.name} is here.</p>
                         </>
                     }
                 />
                 <Cycle
                     count={10}
-                    every={Duration.fromObject({ seconds: 5 })}
-                    duration={Duration.fromObject({ seconds: 4 })}>
+                    every={Duration.fromObject({ seconds: 20 })}
+                    duration={Duration.fromObject({ seconds: 10 })}>
                     <>
                         <Only playerName="raccoon">
                             <>You excitedly rub your tiny hands together.</>
                         </Only>
                         <Both>
                             <Only playerName="snake">
-                                <>The raccooon excitedly rub its tiny hands together.</>
+                                <>The raccoon excitedly rub its tiny hands together.</>
                             </Only>
                         </Both>
                     </>

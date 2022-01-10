@@ -91,7 +91,6 @@ const MutableChoice = ({
     const dispatch = useDispatch()
     const { filename } = React.useContext(ChapterContext)
     const { config } = React.useContext(StoryContext)
-
     const choice = useSelector((state: RootState) => {
         return state.choices.present[tag]
     })

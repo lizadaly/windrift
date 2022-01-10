@@ -10,6 +10,7 @@ import ShareButton from 'core/multiplayer/components/share-button'
 import Presence from 'core/multiplayer/components/examples/presence'
 
 import styles from 'public/stories/cloaks-of-darkness/styles/Content.module.scss'
+
 import useCloak, { CloakStatus } from './use-cloak'
 import DebugToolbar from 'core/multiplayer/components/debug'
 import { MultiplayerContext } from 'core/multiplayer/components/multiplayer'
@@ -50,14 +51,15 @@ const Content: React.FC = ({ children }) => {
                         <h3>You are a corn snake</h3>
                         <p>You are a fine, healthy snake with lustrous orange mottles.</p>
                         {cloakStatus === CloakStatus.Worn ? (
-                            <p>
-                                You are wearing a very tiny dark{' '}
-                                <C options={[['cloak']]} tag="cloak-desc" next={Next.None} />.
-                                <R
-                                    tag="cloak-desc"
-                                    options={{ cloak: " It's light-absorbing. " }}
-                                />
-                            </p>
+                            <>
+                                <p>
+                                    A well-meaning person put a very tiny cloak on you to keep you
+                                    warm, not understanding that ectothermic animals do not benefit
+                                    from clothing.
+                                </p>
+                                <p>Also for some reason the cloak absorbs light.</p>
+                                <p>You would take it off but you don't have any hands.</p>
+                            </>
                         ) : (
                             ''
                         )}
