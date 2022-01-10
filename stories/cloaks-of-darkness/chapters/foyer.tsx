@@ -9,17 +9,33 @@ export const Page: PageType = () => {
                 <h1>Foyer of the Opera House</h1>
                 <p>
                     You are in a spacious hall, splendidly decorated in red and gold, with
-                    glittering chandeliers overhead. The entrance from the street is{' '}
-                    <C options={[['back the way you came']]} tag="back" sync={false} />.
+                    glittering chandeliers overhead.
+                    <Only playerName="snake">
+                        {' '}
+                        The chandeliers are electric though, giving off useless amounts of light
+                        with no heat. The main entrance to the street is{' '}
+                        <C options={[['to the north.']]} tag="back" sync={false} />
+                    </Only>
+                    <Only playerName="raccoon">
+                        The entrance from the street is{' '}
+                        <C options={[['back the way you came.']]} tag="back" sync={false} />
+                    </Only>
                     <R
                         tag="back"
                         options={{
                             came: (
-                                <em>
+                                <>
                                     {' '}
-                                    You decide to stay inside—you've only just arrived, and besides,
-                                    the weather outside seems to be getting worse.
-                                </em>
+                                    but you decide to stay inside—you've only just arrived, and
+                                    besides, the weather outside seems to be getting worse.
+                                </>
+                            ),
+                            north: (
+                                <>
+                                    {' '}
+                                    but no way you're going there, it's cold as heck outside. You're
+                                    looking for a place that's even cozier.
+                                </>
                             )
                         }}
                     />{' '}
@@ -29,13 +45,7 @@ export const Page: PageType = () => {
                     Another <C options={[['door to the south']]} tag="south" sync={false} /> has
                     been recently boarded up.
                 </p>
-                <Only playerName="raccoon">
-                    <aside>
-                        This is a tragedy! The humans must've finally caught on that you've been
-                        scurrying into the bar and stealing from the garbage. You won't be able to
-                        complete this mission alone.
-                    </aside>
-                </Only>
+
                 <R
                     tag="south"
                     options={{
@@ -49,8 +59,10 @@ export const Page: PageType = () => {
                                 <aside>
                                     <Only playerName="raccoon">
                                         You flail your grabby little hands around the hole, but you
-                                        can barely get one arm in. You're much too large to fit
-                                        through.
+                                        can barely get one arm in. The humans must've finally caught
+                                        on that you've been scurrying into the bar and stealing from
+                                        the garbage. You won't be able to complete this mission
+                                        alone.
                                         <R
                                             tag="bar"
                                             options={{
