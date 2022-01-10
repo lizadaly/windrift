@@ -164,11 +164,17 @@ export const emitChoice = (
 }
 
 export const emitPresence = (identifier: string, instanceId: string, playerId: string): void => {
-    axios
-        .post(`${API_PREFIX}/${identifier}/${instanceId}/presence/`, {
-            playerId
-        })
-        .then()
+    // Presence POSTs are subject to Prisma upsert race condition (see https://github.com/prisma/prisma/issues/3242)
+    // use try/catch here until that's fixed to use real postgres UPSERT conflict resolution
+    try {
+        axios
+            .post(`${API_PREFIX}/${identifier}/${instanceId}/presence/`, {
+                playerId
+            })
+            .then()
+    } catch (error) {
+        console.error(error)
+    }
 }
 
 interface SWRResponse {
