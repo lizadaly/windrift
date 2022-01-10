@@ -1,5 +1,7 @@
 import { C, R, Section, Chapter, Nav } from 'core/components'
 import Only from 'core/multiplayer/components/only'
+import Both from 'core/multiplayer/components/both'
+
 import { PageType } from 'core/types'
 
 export const Page: PageType = () => {
@@ -58,15 +60,22 @@ export const Page: PageType = () => {
                                 </p>
                                 <aside>
                                     <Only playerName="raccoon">
-                                        You flail your grabby little hands around the hole, but you
-                                        can barely get one arm in. The humans must've finally caught
-                                        on that you've been scurrying into the bar and stealing from
-                                        the garbage. You won't be able to complete this mission
-                                        alone.
+                                        <p>
+                                            You flail your grabby little hands around the hole, but
+                                            you can barely get one arm in. The humans must've
+                                            finally caught on that you've been scurrying into the
+                                            bar and stealing from the garbage. You won't be able to
+                                            complete this mission alone.
+                                        </p>
                                         <R
                                             tag="bar"
                                             options={{
-                                                '*': 'The snake slithers past you and through the hole effortlessly'
+                                                '*': (
+                                                    <p>
+                                                        The snake slithers past you and through the
+                                                        hole effortlessly. Hmm!
+                                                    </p>
+                                                )
                                             }}
                                         />
                                     </Only>
@@ -80,6 +89,84 @@ export const Page: PageType = () => {
                         )
                     }}
                 />
+                <Only playerName="raccoon" alone={true}>
+                    <R
+                        tag="wrong"
+                        options={{
+                            '*': (
+                                <p>
+                                    A loud wailing sound is going off. As a raccoon you are very
+                                    familiar with it: it's a burglar alarm. The sound seems to be
+                                    coming from the{' '}
+                                    <C options={[['hole in the boards']]} tag="hole-with-alarm" />.
+                                </p>
+                            )
+                        }}
+                    />
+                    <R
+                        tag="hole-with-alarm"
+                        options={{
+                            '*': (
+                                <>
+                                    <p>
+                                        You bend over and peek through the hole. You see the snake
+                                        sinuously moving around the bar, as if exploring. What
+                                        appears to you to be a motion sensor is blinking in
+                                        response. The snake settles back by the oven (probably for
+                                        the warmth) and the alarm subsides.
+                                    </p>
+                                    <p>
+                                        The smell of cooked, discarded food that wafts in from the
+                                        bar is almost overwhelming. You notice suddenly that there's
+                                        a screwdriver lying on the floor by the oven, right
+                                        underneath the snake's tail. Maybe that could get the boards
+                                        off, if you could only reach for it?
+                                    </p>
+                                </>
+                            )
+                        }}
+                    />
+                    <R
+                        tag="eye-hole"
+                        options={{
+                            '*': (
+                                <>
+                                    <p>
+                                        The snake senses your presence and you jam your little arm
+                                        through the hole, pointing blindly at what you hope is the
+                                        direction of the screwdriver.
+                                    </p>
+                                </>
+                            )
+                        }}
+                    />
+                </Only>
+                <Both>
+                    <R
+                        tag="screwdriver"
+                        options={{
+                            '*': (
+                                <>
+                                    <Only playerName="raccoon">
+                                        <p>
+                                            The snake glides back through the hole, neatly guiding
+                                            the{' '}
+                                            <C tag="screwdriver-open" options={[['screwdriver']]} />{' '}
+                                            it has grasped in its tail. It looks at you expectantly.
+                                        </p>
+                                    </Only>
+                                    <Only playerName="snake">
+                                        <p>
+                                            You emerge from the hole dragging the screwdriver behind
+                                            you, and look steadily at the raccoon. Strange
+                                            bedfellows, but it's a strange night at the opera.
+                                        </p>
+                                    </Only>
+                                </>
+                            )
+                        }}
+                    />
+                </Both>
             </Section>
         </Chapter>
     )

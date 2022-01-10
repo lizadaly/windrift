@@ -154,7 +154,7 @@ const MoveButton = ({ identifier, instanceId, player, location }: MoveButtonProp
     )
 }
 const DebugToolbar = (): JSX.Element => {
-    const [isOpen, setOpen] = React.useState(true)
+    const [isOpen, setOpen] = React.useState(false)
     const { multiplayer } = React.useContext(MultiplayerContext)
     return (
         <>

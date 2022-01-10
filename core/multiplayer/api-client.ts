@@ -139,6 +139,7 @@ export const emitNavChange = (
             emitPresence(identifier, instanceId, playerId)
             console.log(`Posted nav change event for player ${playerId}`)
         })
+        .catch((error) => console.error(error))
 }
 
 export const emitChoice = (
