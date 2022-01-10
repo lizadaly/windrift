@@ -53,9 +53,9 @@ const Content: React.FC = ({ children }) => {
                         {cloakStatus === CloakStatus.Worn ? (
                             <>
                                 <p>
-                                    A well-meaning person put a very tiny cloak on you to keep you
-                                    warm, not understanding that ectothermic animals do not benefit
-                                    from clothing.
+                                    A well-meaning person put a very tiny black velvet cloak on you
+                                    to keep you warm, not understanding that ectothermic animals do
+                                    not benefit from clothing.
                                 </p>
                                 <p>Also for some reason the cloak absorbs light.</p>
                                 <p>You would take it off but you don't have any hands.</p>

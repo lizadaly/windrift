@@ -24,8 +24,10 @@ const Only: React.FC<Props> = ({ playerName, children, alone = false }) => {
     const player = playerFromName(playerName)
     if (current && current.playerId === player.id) {
         if (alone) {
-            if (current.chapterName !== other.chapterName) {
+            if (other && current.chapterName !== other.chapterName) {
                 return <>{children}</>
+            } else {
+                return null
             }
         }
         return <>{children}</>
