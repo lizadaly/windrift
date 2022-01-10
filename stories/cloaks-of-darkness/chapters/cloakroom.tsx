@@ -84,15 +84,15 @@ export const Page: PageType = () => {
                 />
                 <Cycle
                     count={10}
-                    every={Duration.fromObject({ seconds: 5 })}
-                    duration={Duration.fromObject({ seconds: 4 })}>
+                    every={Duration.fromObject({ seconds: 20 })}
+                    duration={Duration.fromObject({ seconds: 10 })}>
                     <>
                         <Only playerName="raccoon">
                             <>You excitedly rub your tiny hands together.</>
                         </Only>
                         <Both>
                             <Only playerName="snake">
-                                <>The raccooon excitedly rub its tiny hands together.</>
+                                <>The raccoon excitedly rub its tiny hands together.</>
                             </Only>
                         </Both>
                     </>

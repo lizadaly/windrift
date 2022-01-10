@@ -52,6 +52,12 @@ export const Watch = ({ enter, exit, here }: Props): JSX.Element => {
                     setExited(false)
                     setHere(false)
                 }
+                // Both players are here (same as <Both> but convenient to have expressed this way)
+                else {
+                    setHere(true)
+                    setEntered(false)
+                    setExited(false)
+                }
             }
             // if the other player's event was _from_ this location
             else if (
@@ -64,12 +70,6 @@ export const Watch = ({ enter, exit, here }: Props): JSX.Element => {
                     setEntered(false)
                     setHere(false)
                 }
-            }
-            // Both players are here (same as <Both> but convenient to have expressed this way)
-            else {
-                setHere(true)
-                setEntered(false)
-                setExited(false)
             }
         }
     }, [thisPlayerLocation, current, other])

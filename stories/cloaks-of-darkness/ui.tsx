@@ -51,14 +51,14 @@ const Content: React.FC = ({ children }) => {
                         <h3>You are a corn snake</h3>
                         <p>You are a fine, healthy snake with lustrous orange mottles.</p>
                         {cloakStatus === CloakStatus.Worn ? (
-                            <p>
-                                You are wearing a very tiny dark{' '}
-                                <C options={[['cloak']]} tag="cloak-desc" next={Next.None} />.
-                                <R
-                                    tag="cloak-desc"
-                                    options={{ cloak: " It's light-absorbing. " }}
-                                />
-                            </p>
+                            <>
+                                <p>
+                                    A well-meaning person put a very tiny cloak on you to keep you
+                                    warm, not understanding that ectothermic animals do not benefit
+                                    from clothing. Also for some reason the cloak absorbs light.
+                                </p>
+                                <p>You would take it off but you don't have any hands.</p>
+                            </>
                         ) : (
                             ''
                         )}
