@@ -7,12 +7,19 @@ export const Page: PageType = () => {
         <Chapter filename="foyer">
             <Section>
                 <Only playerName="raccoon">
-                    <p>
-                        Hurrying through the rainswept November night, you're glad to see the bright
-                        lights of the Opera House. It's surprising that there aren't more people
-                        about but, hey, that's great, since you're a raccoon, and you don't want any
-                        trouble...
-                    </p>
+                    <aside>
+                        <p>
+                            Hurrying through the rainswept November night, you're glad to see the
+                            bright lights of the Opera House—always a reliable source of foods
+                            scraps from its attached bar and restaurant. Your fur is soaked and
+                            you're starving!
+                        </p>
+                        <p>
+                            It's surprising that there aren't more people about but you're a raccoon
+                            and you take what you get. And what you want to get tonight is some
+                            delicious trash.
+                        </p>
+                    </aside>
                 </Only>
 
                 <h1>Foyer of the Opera House</h1>
@@ -38,26 +45,41 @@ export const Page: PageType = () => {
                     Another <C options={[['door to the south']]} tag="south" sync={false} /> has
                     been recently boarded up.
                 </p>
+                <Only playerName="raccoon">
+                    <aside>
+                        This is a tragedy! The humans must've finally caught on that you've been
+                        scurrying into the bar and stealing from the garbage. You won't be able to
+                        complete this mission alone.
+                    </aside>
+                </Only>
                 <R
                     tag="south"
                     options={{
                         '*': (
-                            <em>
-                                <Only playerName="raccoon">
-                                    You flail your grabby little hands around the hole, but you can
-                                    barely get one arm in. You're much too large to fit through.
-                                    <R
-                                        tag="bar"
-                                        options={{
-                                            '*': 'The snake slithers past you and through the hole effortlessly'
-                                        }}
-                                    />
-                                </Only>
-                                <Only playerName="snake">
-                                    It's a nice cozy hole with room to spare. You could easily{' '}
-                                    <Nav next="bar" text="slither through" tag="bar" />.
-                                </Only>
-                            </em>
+                            <div>
+                                <p>
+                                    Someone nailed boards across the entire doorway with haste. The
+                                    wood and nails look sturdy enough, but there's a gap at the
+                                    bottom corner, a few inches in diameter.
+                                </p>
+                                <aside>
+                                    <Only playerName="raccoon">
+                                        You flail your grabby little hands around the hole, but you
+                                        can barely get one arm in. You're much too large to fit
+                                        through.
+                                        <R
+                                            tag="bar"
+                                            options={{
+                                                '*': 'The snake slithers past you and through the hole effortlessly'
+                                            }}
+                                        />
+                                    </Only>
+                                    <Only playerName="snake">
+                                        It's a nice cozy hole with room to spare. You could easily{' '}
+                                        <Nav next="bar" text="slither through" tag="bar" />.
+                                    </Only>
+                                </aside>
+                            </div>
                         )
                     }}
                 />
