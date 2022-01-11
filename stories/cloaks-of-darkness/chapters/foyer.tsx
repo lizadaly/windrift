@@ -55,26 +55,58 @@ export const Page: PageType = () => {
                             <div>
                                 <p>
                                     Someone hastily nailed boards across the entire doorway. The
-                                    wood and nails look sturdy enough, but there's a gap at the
-                                    bottom corner, a few inches in diameter.
+                                    wood and nails look sturdy enough,{' '}
+                                    <R
+                                        tag="screwdriver-open"
+                                        options={{
+                                            screwdriver:
+                                                'though the bottom board has been pried open',
+                                            closed: "but there's a gap at the bottom corner, a few inches in diameter."
+                                        }}
+                                    />
+                                    .
                                 </p>
                                 <aside>
                                     <Only playerName="raccoon">
-                                        <p>
-                                            You flail your grabby little hands around the hole, but
-                                            you can barely get one arm in. The humans must've
-                                            finally caught on that you've been scurrying into the
-                                            bar and stealing from the garbage. You won't be able to
-                                            complete this mission alone.
-                                        </p>
                                         <R
-                                            tag="bar"
+                                            tag="screwdriver-open"
                                             options={{
-                                                '*': (
+                                                screwdriver: (
                                                     <p>
-                                                        The snake slithers past you and through the
-                                                        hole effortlessly. Hmm!
+                                                        {' '}
+                                                        You've managed to open a{' '}
+                                                        <Nav
+                                                            text="raccoon-sized gap"
+                                                            next="bar"
+                                                        />{' '}
+                                                        in the boarded-up doorway and the smell from
+                                                        beyond is enticing.
                                                     </p>
+                                                ),
+                                                closed: (
+                                                    <>
+                                                        <p>
+                                                            You flail your grabby little hands
+                                                            around the hole, but you can barely get
+                                                            one arm in. The humans must've finally
+                                                            caught on that you've been scurrying
+                                                            into the bar and stealing from the
+                                                            garbage. You won't be able to complete
+                                                            this mission alone.
+                                                        </p>
+                                                        <R
+                                                            tag="bar"
+                                                            options={{
+                                                                '*': (
+                                                                    <p>
+                                                                        The snake slithers past you
+                                                                        and through the hole
+                                                                        effortlessly. Hmm!
+                                                                    </p>
+                                                                )
+                                                            }}
+                                                        />
+                                                    </>
                                                 )
                                             }}
                                         />
@@ -151,7 +183,11 @@ export const Page: PageType = () => {
                                         <p>
                                             The snake glides back through the hole, neatly guiding
                                             the{' '}
-                                            <C tag="screwdriver-open" options={[['screwdriver']]} />{' '}
+                                            <C
+                                                tag="screwdriver-open"
+                                                defaultOption="closed"
+                                                options={[['screwdriver']]}
+                                            />{' '}
                                             it has grasped in its tail. It looks at you expectantly.
                                         </p>
                                     </Only>
@@ -160,6 +196,29 @@ export const Page: PageType = () => {
                                             You emerge from the hole dragging the screwdriver behind
                                             you, and look steadily at the raccoon. Strange
                                             bedfellows, but it's a strange night at the opera.
+                                        </p>
+                                    </Only>
+                                </>
+                            )
+                        }}
+                    />
+                    <R
+                        tag="screwdriver-open"
+                        options={{
+                            screwdriver: (
+                                <>
+                                    <Only playerName="raccoon">
+                                        <p>
+                                            You delicately pull the screwdriver from the snake's
+                                            tail (are corn snakes venomous?) and pry the bottom
+                                            board off the doorway. It's great to have hands!
+                                        </p>
+                                    </Only>
+                                    <Only playerName="snake">
+                                        <p>
+                                            The raccoon politely extracts the screwdriver from your
+                                            tail's grasp and, almost like a human, pries the lowest
+                                            board off the doorway. Now you can both fit through.
                                         </p>
                                     </Only>
                                 </>
