@@ -15,7 +15,7 @@ interface ResponseProps {
 /**
  * Given an inventory tag, display one or more responses based on the value selected by the user.
  *
- * If the `undefined` prop is passed, display that response if the player has not made any selection from that Chocie.
+ * If the `none` prop is passed, display that response if the player has not made any selection from that Chocie.
  *
  * @param tag the inventory tag to be referenced
  * @param options the JS Object containing a map of regular expression matches to JSX nodes or strings
