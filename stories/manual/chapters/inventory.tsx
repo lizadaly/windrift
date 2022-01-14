@@ -123,6 +123,7 @@ wordFromInventory(fruit, -2) // ${wordFromInventory(fruit, -2)}`}
                             orange: 'You picked a spherical orange.',
                             kiwi: 'You picked the fuzziest of kiwis.'
                         }}
+                        none={'Visit the Choice chapter to select an item here.'}
                     />
                 </aside>
                 <p>
@@ -151,12 +152,34 @@ wordFromInventory(fruit, -2) // ${wordFromInventory(fruit, -2)}`}
                             bulbous: 'This matches "bulbous orange."',
                             '*iw*': 'This also matches kiwi.'
                         }}
+                        none={'Visit the Choice chapter to select an item here.'}
                     />
                 </aside>
                 <p>
                     Because a <code>Response</code> match can be any React node, you can branch from
                     this point as much or as little as you like.
                 </p>
+                <h4>Displaying a response only when the tag is undefined</h4>
+                <p>
+                    Lastly, you can supply the <code>none</code> prop to display text if the user
+                    has not selected the choice at all. A common use case for this is when the{' '}
+                    <code>Choice</code> has not yet been made available to the user, but they could
+                    also have just not selected an option yet.
+                </p>
+                <SyntaxHighlighter language="tsx" style={prism}>{`<R tag="never-defined"
+    options={{
+      '*': 'This response is unreachable'
+    }}
+    none="This Choice tag was never defined, so this text is displayed." />`}</SyntaxHighlighter>
+                <aside>
+                    <R
+                        tag="never-defined"
+                        options={{
+                            '*': 'This response is unreachable'
+                        }}
+                        none="This Choice tag was never defined, so this text is displayed."
+                    />
+                </aside>
                 <h3>
                     Conditional text with <kbd>When</kbd>
                 </h3>

@@ -9,13 +9,25 @@ interface OptionsMap {
 interface ResponseProps {
     options: OptionsMap
     tag: Tag
+    none?: string | JSX.Element
 }
 
-const Response = ({ tag, options }: ResponseProps): JSX.Element => {
+/**
+ * Given an inventory tag, display one or more responses based on the value selected by the user.
+ *
+ * If the `undefined` prop is passed, display that response if the player has not made any selection from that Chocie.
+ *
+ * @param tag the inventory tag to be referenced
+ * @param options the JS Object containing a map of regular expression matches to JSX nodes or strings
+ * @param none optional definition of what to display if the tag is undefined or null
+ * @returns the matching text, or null if no match is found
+ */
+const Response = ({ tag, options, none = null }: ResponseProps): JSX.Element => {
     // Get the inventory item for this tag
     const [option] = useInventory([tag])
+
     if (!option) {
-        return null
+        return <>{none}</>
     }
 
     // Perform a case-insensitive match against the user's earlier choice pick
