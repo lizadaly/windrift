@@ -59,9 +59,9 @@ export const Page: PageType = () => {
                                         tag="screwdriver-open"
                                         options={{
                                             screwdriver:
-                                                'though the bottom board has been pried open',
-                                            closed: "but there's a gap at the bottom corner, a few inches in diameter."
+                                                'though the bottom board has been pried open'
                                         }}
+                                        none="but there's a gap at the bottom corner, a few inches in diameter"
                                     />
                                     .
                                 </p>
@@ -81,33 +81,32 @@ export const Page: PageType = () => {
                                                         in the boarded-up doorway and the smell from
                                                         beyond is enticing.
                                                     </p>
-                                                ),
-                                                undefined: (
-                                                    <>
-                                                        <p>
-                                                            You flail your grabby little hands
-                                                            around the hole, but you can barely get
-                                                            one arm in. The humans must've finally
-                                                            caught on that you've been scurrying
-                                                            into the bar and stealing from the
-                                                            garbage. You won't be able to complete
-                                                            this mission alone.
-                                                        </p>
-                                                        <R
-                                                            tag="bar"
-                                                            options={{
-                                                                '*': (
-                                                                    <p>
-                                                                        The snake slithers past you
-                                                                        and through the hole
-                                                                        effortlessly. Hmm!
-                                                                    </p>
-                                                                )
-                                                            }}
-                                                        />
-                                                    </>
                                                 )
                                             }}
+                                            none={
+                                                <>
+                                                    <p>
+                                                        You flail your grabby little hands around
+                                                        the hole, but you can barely get one arm in.
+                                                        The humans must've finally caught on that
+                                                        you've been scurrying into the bar and
+                                                        stealing from the garbage. You won't be able
+                                                        to complete this mission alone.
+                                                    </p>
+                                                    <R
+                                                        tag="bar"
+                                                        options={{
+                                                            '*': (
+                                                                <p>
+                                                                    The snake slithers past you and
+                                                                    through the hole effortlessly.
+                                                                    Hmm!
+                                                                </p>
+                                                            )
+                                                        }}
+                                                    />
+                                                </>
+                                            }
                                         />
                                     </Only>
                                     <Only playerName="snake">
@@ -182,11 +181,7 @@ export const Page: PageType = () => {
                                         <p>
                                             The snake glides back through the hole, neatly guiding
                                             the{' '}
-                                            <C
-                                                tag="screwdriver-open"
-                                                defaultOption="closed"
-                                                options={[['screwdriver']]}
-                                            />{' '}
+                                            <C tag="screwdriver-open" options={[['screwdriver']]} />{' '}
                                             it has grasped in its tail. It looks at you expectantly.
                                         </p>
                                     </Only>

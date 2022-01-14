@@ -11,19 +11,20 @@ export enum CloakStatus {
 }
 
 const useCloak = (): CloakStatus => {
-    const [cloak, pluck] = useInventory(['cloak', 'pluck'])
+    const [cloak, wear] = useInventory(['cloak', 'cloak-wear'])
     const dispatch = useDispatch()
 
+    // Set the default status of the Cloak to being hung on the hook
     useEffect(() => {
-        dispatch(init({ tag: 'cloak', option: CloakStatus.Worn }))
+        dispatch(init({ tag: 'cloak', option: CloakStatus.Hung }))
     }, [])
 
     useEffect(() => {
         // Condition under which the status changes to hung:
-        if (pluck === 'pluck') {
-            dispatch(update({ tag: 'cloak', option: CloakStatus.Hung }))
+        if (wear) {
+            dispatch(update({ tag: 'cloak', option: CloakStatus.Worn }))
         }
-    }, [cloak, pluck])
+    }, [cloak, wear])
     return (cloak as CloakStatus) || null
 }
 export default useCloak
