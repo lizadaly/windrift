@@ -11,9 +11,8 @@ export const Page: PageType = () => {
                 <h1>Foyer of the Opera House</h1>
                 <p>
                     You are in a spacious hall, splendidly decorated in red and gold, with
-                    glittering chandeliers overhead.
+                    glittering chandeliers overhead.{' '}
                     <Only playerName="snake">
-                        {' '}
                         The chandeliers are electric though, giving off useless amounts of light
                         with no heat. The main entrance to the street is{' '}
                         <C options={[['to the north.']]} tag="back" sync={false} />
@@ -83,7 +82,7 @@ export const Page: PageType = () => {
                                                         beyond is enticing.
                                                     </p>
                                                 ),
-                                                closed: (
+                                                undefined: (
                                                     <>
                                                         <p>
                                                             You flail your grabby little hands
