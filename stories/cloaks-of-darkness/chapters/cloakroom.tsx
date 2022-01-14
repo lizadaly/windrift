@@ -16,6 +16,7 @@ import Cycle from 'core/components/cycle'
 
 export const Page: PageType = () => {
     const cloak = useCloak()
+
     const { otherPlayer } = React.useContext(MultiplayerContext).multiplayer
 
     return (
@@ -24,28 +25,58 @@ export const Page: PageType = () => {
                 <h1>Cloakroom</h1>
                 <p>
                     The walls of this small room were clearly once lined with hooks, though now only{' '}
-                    <C options={[['one hook']]} tag="cl-hook" widget={D} sync={false} /> remains.{' '}
+                    <C
+                        options={[['one hook']]}
+                        last="one small brass hook"
+                        tag="hook"
+                        sync={false}
+                    />{' '}
+                    remains.{' '}
                     <R
-                        tag="cl-hook"
+                        tag="hook"
                         options={{
-                            hook: cloak === CloakStatus.Worn && (
+                            '*': (
                                 <>
-                                    <Only playerName="snake">
-                                        It looks like you could hang your cloak there, if you only
-                                        had hands.
-                                    </Only>
-                                    <Both>
-                                        <Only playerName="raccoon">
-                                            You could{' '}
-                                            <C options={[['pluck']]} tag="pluck" widget={D} /> the
-                                            little cloak off the snake and hang it on the hook, if
-                                            you like.{' '}
-                                        </Only>
-                                    </Both>
+                                    {cloak == CloakStatus.Hung ? (
+                                        <>
+                                            There is a{' '}
+                                            <C
+                                                tag="cloak-examine"
+                                                options={[['curiously small cloak']]}
+                                                sync={false}
+                                            />{' '}
+                                            hanging on the hook.
+                                            <R
+                                                tag="cloak-examine"
+                                                options={{
+                                                    '*': (
+                                                        <>
+                                                            {' '}
+                                                            The cloak appears to be absorbing the
+                                                            light around it
+                                                            <Only playerName="raccoon">
+                                                                {' '}
+                                                                and it looks like it might{' '}
+                                                                <C
+                                                                    tag="cloak-wear"
+                                                                    options={[['fit you']]}
+                                                                />
+                                                                , though you're not normally the
+                                                                clothes-wearing type
+                                                            </Only>
+                                                            .
+                                                        </>
+                                                    )
+                                                }}
+                                            />
+                                        </>
+                                    ) : (
+                                        'The hook is empty.'
+                                    )}
                                 </>
                             )
                         }}
-                    />
+                    />{' '}
                     The exit is a door to the <Nav text="east" next="foyer" />.
                 </p>
                 <R
@@ -69,9 +100,6 @@ export const Page: PageType = () => {
                         radiating from the east, though.
                     </aside>
                 </Only>
-                {cloak == CloakStatus.Hung && (
-                    <p>There is a tiny snake-sized cloak hanging on the hook.</p>
-                )}
 
                 <Watch
                     enter={
