@@ -36,7 +36,7 @@ $left-right-width: 1fr;
 .main {
 
     // Widen the right column to show the presence/log list
-    grid-template-columns: $left-right-width 3fr $left-right-width;
+    grid-template-columns: $left-right-width 3fr 0;
 
     .story {
         padding: 0 math.div(sizing.$gutter, 4) 0 math.div(sizing.$gutter, 4);
@@ -90,4 +90,7 @@ $left-right-width: 1fr;
 
 .left {
     padding: 0 0 0 math.div(sizing.$gutter, 4);
+}
+.right {
+    display: none;
 }
