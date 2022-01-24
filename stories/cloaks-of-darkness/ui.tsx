@@ -14,6 +14,7 @@ import styles from 'public/stories/cloaks-of-darkness/styles/Content.module.scss
 import useCloak, { CloakStatus } from './use-cloak'
 import DebugToolbar from 'core/multiplayer/components/debug'
 import { MultiplayerContext } from 'core/multiplayer/components/multiplayer'
+import Both from 'core/multiplayer/components/both'
 
 const Content: React.FC = ({ children }) => {
     const { ready, currentPlayer } = React.useContext(MultiplayerContext).multiplayer
@@ -38,7 +39,6 @@ const Content: React.FC = ({ children }) => {
                     )}
                 </nav>
             }
-            right={ready && <Presence />}
             left={
                 currentPlayer && // Story must have started
                 (currentPlayer.name === 'raccoon' ? (
@@ -55,11 +55,13 @@ const Content: React.FC = ({ children }) => {
                         ) : (
                             ''
                         )}
+                        <Both>There's a corn snake here.</Both>
                     </>
                 ) : (
                     <>
                         <h3>You are a corn snake</h3>
                         <p>You are a fine, healthy snake with lustrous orange mottles.</p>
+                        <Both>There's a raccoon here.</Both>
                     </>
                 ))
             }>

@@ -61,9 +61,22 @@ export const Page: PageType = () => {
                                             screwdriver:
                                                 'though the bottom board has been pried open'
                                         }}
-                                        none="but there's a gap at the bottom corner, a few inches in diameter"
+                                        none={
+                                            <>
+                                                but there's a gap at the bottom corner, a few inches
+                                                in diameter
+                                            </>
+                                        }
                                     />
                                     .
+                                    <Only playerName="raccoon">
+                                        {' '}
+                                        The gap is definitely too small for you to fit through.
+                                    </Only>
+                                    <Only playerName="snake">
+                                        {' '}
+                                        The gap is just the right size for you to fit through.
+                                    </Only>
                                 </p>
                                 <aside>
                                     <Only playerName="raccoon">
@@ -98,9 +111,9 @@ export const Page: PageType = () => {
                                                         options={{
                                                             '*': (
                                                                 <p>
-                                                                    The snake slithers past you and
-                                                                    through the hole effortlessly.
-                                                                    Hmm!
+                                                                    The much thinner corn snake has
+                                                                    slithered past you and through
+                                                                    the hole effortlessly. Hmm!
                                                                 </p>
                                                             )
                                                         }}
