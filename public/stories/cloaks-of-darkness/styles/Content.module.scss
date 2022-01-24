@@ -59,6 +59,11 @@ $left-right-width: 1fr;
         text-transform: uppercase;
         padding: 10px;
     }
+
+    button:disabled {
+        background: colors.$disabled;
+    }
+
     input {
         display: inline-block;
         margin-right: sizing.$gutter;
