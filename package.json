@@ -3,7 +3,7 @@
     "version": "2.1.0",
     "private": true,
     "scripts": {
-        "build": "prisma generate && prisma db push && prisma migrate deploy && next build",
+        "build": "prisma generate && prisma db push && next build",
         "cypress": "cypress open",
         "dev": "next dev",
         "export": "next build && next export",
@@ -17,7 +17,7 @@
         "vercel": "vercel"
     },
     "engines": {
-        "node": "=14"
+        "node": "^14"
     },
     "dependencies": {
         "@prisma/client": "^3.7.0",
