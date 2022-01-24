@@ -111,7 +111,7 @@ export const Page: PageType = () => {
                                                         options={{
                                                             '*': (
                                                                 <p>
-                                                                    The smuch thinner corn snake has
+                                                                    The much thinner corn snake has
                                                                     slithered past you and through
                                                                     the hole effortlessly. Hmm!
                                                                 </p>
