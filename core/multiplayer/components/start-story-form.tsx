@@ -9,15 +9,18 @@ const StartStory: React.FC = ({ children = 'Start a new story' }) => {
 
     const { config } = React.useContext(StoryContext)
 
+    const [clicked, setClicked] = React.useState(false)
+
     return (
         <>
             <button
+                disabled={clicked}
                 onClick={async () => {
+                    setClicked(true)
                     const multiplayer = await createStoryInstance(config.identifier)
-                    console.log(multiplayer)
                     setMultiplayer(multiplayer)
                 }}>
-                {children}
+                {clicked ? 'Setting up story...' : children}
             </button>
         </>
     )
