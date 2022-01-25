@@ -11,7 +11,7 @@
         "lint": "eslint --fix core/*",
         "new": "ts-node scripts/create-story $npm_config_first",
         "db": "prisma db push",
-        "start": "prisma db push && next build && next start",
+        "start": "next build && next start",
         "generate": "prisma generate",
         "test": "cypress run",
         "vercel": "vercel"
