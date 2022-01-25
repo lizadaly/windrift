@@ -49,4 +49,4 @@ jobs:
 
               env:
                   # The hostname used to communicate with the PostgreSQL service container
-                  DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/dev?schema=public"
+                  DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/dev?schema=public"
