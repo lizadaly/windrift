@@ -13,23 +13,27 @@ const presence = async (
 
     if (req.method === 'POST') {
         const { playerId } = req.body
-
-        await prisma.presence.upsert({
-            where: {
-                playerId_instanceId: {
+        try {
+            await prisma.presence.upsert({
+                where: {
+                    playerId_instanceId: {
+                        playerId,
+                        instanceId
+                    }
+                },
+                update: {
+                    updatedAt: new Date()
+                }, // Just increment the timestamp
+                create: {
                     playerId,
                     instanceId
                 }
-            },
-            update: {
-                updatedAt: new Date()
-            }, // Just increment the timestamp
-            create: {
-                playerId,
-                instanceId
-            }
-        })
-        res.status(201).end()
+            })
+            res.status(201).end()
+        } catch {
+            // Pass constraint check
+            res.status(200).end()
+        }
     }
     if (req.method === 'GET') {
         const playerId = req.query.playerId as string

@@ -37,6 +37,8 @@ import { Config, Toc, TocItem } from 'core/types'
 import { getChapter } from 'core/util'
 
 import prisma from 'core/multiplayer/db'
+import axios from 'axios'
+import { API_PREFIX } from 'core/multiplayer/api-client'
 
 export interface WindriftProps {
     toc: Toc
@@ -52,41 +54,17 @@ function getConfigYaml(story: string) {
 // Initialize any constant values from this story build into the global
 // database. Per-story instance values are initiated at story start
 async function initMultiplayerDb(story: string, configYaml: Record<string, any>) {
-    await prisma.story.upsert({
-        where: {
-            id: story
-        },
-        update: {
-            title: configYaml.title,
-            player1Name: configYaml.players[0].name,
-            player2Name: configYaml.players[1].name
-        },
-        create: {
-            id: story,
-            title: configYaml.title,
-            player1Name: configYaml.players[0].name,
-            player2Name: configYaml.players[1].name
-        }
+    axios.post(`${API_PREFIX}/create/`, {
+        id: story,
+        title: configYaml.title,
+        player1Name: configYaml.players[0].name,
+        player2Name: configYaml.players[1].name
     })
 
-    await Promise.all(
-        configYaml.chapters.map((item: TocItem) =>
-            prisma.chapter.upsert({
-                where: {
-                    filename_storyId: { filename: item.filename, storyId: story }
-                },
-                update: {
-                    title: item.title,
-                    filename: item.filename
-                },
-                create: {
-                    filename: item.filename,
-                    title: item.title,
-                    storyId: story
-                }
-            })
-        )
-    )
+    axios.post(`${API_PREFIX}/chapters/`, {
+        id: story,
+        chapters: configYaml.chapters
+    })
 }
 export const getStaticProps: GetStaticProps = async (context) => {
     const story = context.params.story as string

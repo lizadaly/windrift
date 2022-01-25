@@ -10,7 +10,7 @@ import { Multiplayer } from './components/multiplayer'
 import { StoryApiResponse } from 'pages/api/core/story/[story]/[instance]/get'
 import { PresenceApiResponse } from 'pages/api/core/story/[story]/[instance]/presence'
 
-const API_PREFIX = '/api/core/story'
+export const API_PREFIX = '/api/core/story'
 
 export const getStoryUrl = (instanceId: string): string => {
     const { protocol, hostname, port, pathname } = window.location
@@ -240,14 +240,16 @@ interface ChoicePollResponse {
 export const useChoicePoll = (
     identifier: string,
     instanceId: string,
-    player?: Player,
-    options?: { refreshInterval: 10000 }
+    player?: Player
 ): ChoicePollResponse => {
     const url =
         `${API_PREFIX}/${identifier}/${instanceId}/listen/` +
         (player ? `?playerId=${player.id}` : '')
 
-    const { data, error } = useSWR<ChoiceApiResponse[]>(url, fetcher, options)
+    const { data, error } = useSWR<ChoiceApiResponse[]>(url, fetcher, {
+        refreshInterval: 10000,
+        refreshWhenHidden: false
+    })
     if (data) {
         data.forEach((c) => {
             c.createdAt = new Date(c.createdAt)

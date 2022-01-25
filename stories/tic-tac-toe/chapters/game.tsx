@@ -85,10 +85,11 @@ export const Page: PageType = () => {
 
                 <h1>Tic-Tac-Toe</h1>
 
-                <p>
+                <div>
                     {nextMessage}
                     {completionMessage}
-                </p>
+                </div>
+                <br />
                 <Board
                     char={currentPlayer.name.replace('player ', '')}
                     myTurn={nextPlayer === currentPlayer}

@@ -2,8 +2,29 @@ describe('Plays a two-player game', () => {
     const api = '/api/core/story/tic-tac-toe'
     let instanceId, player1Id, player2Id
 
+    // Ensure these values match story.yaml exactly
+    it('Creates the tic-tac-toe demo game through the API', () => {
+        cy.request('POST', '/api/core/story/create/', {
+            id: 'tic-tac-toe',
+            title: 'Tic Tac Toe',
+            player1Name: 'player X',
+            player2Name: 'player O'
+        })
+    })
+    it('Creates the tic-tac-toe chapters through the API', () => {
+        cy.request('POST', '/api/core/story/chapters/', {
+            id: 'tic-tac-toe',
+            chapters: [
+                {
+                    title: 'Tic-Tac-Toe',
+                    filename: 'game'
+                }
+            ]
+        })
+    })
+
     it('Starts the tic-tac-toe demo game through the API', () => {
-        cy.request('POST', `${api}/init`).then((resp) => {
+        cy.request('POST', `${api}/init/`).then((resp) => {
             expect(resp.status).to.eq(201)
             expect(resp.body).to.have.property('story')
             expect(resp.body.instance).to.have.property('id')
@@ -15,17 +36,22 @@ describe('Plays a two-player game', () => {
 
     it('Starts the same game as player 2', () => {
         cy.visit(`/tic-tac-toe/?instance=${instanceId}&playerId=${player2Id}`)
+        cy.get('body').first().focus()
+
         cy.contains("It is the other player's turn")
         cy.contains('There are 9 moves left.')
     })
     it('Submits an API move for player 1', () => {
         cy.request({
-            url: `${api}/${instanceId}/choose`,
+            url: `${api}/${instanceId}/choose/`,
             body: {
                 id: undefined,
                 option: 'X',
                 playerId: player1Id,
-                tag: '1x1'
+                tag: '1x1',
+                chapterName: 'game',
+                synced: true,
+                next: 'NONE'
             },
             method: 'POST'
         }).then((resp) => {
@@ -43,12 +69,15 @@ describe('Plays a two-player game', () => {
     })
     it('Submits an API move for player 1', () => {
         cy.request({
-            url: `${api}/${instanceId}/choose`,
+            url: `${api}/${instanceId}/choose/`,
             body: {
                 id: undefined,
                 option: 'X',
                 playerId: player1Id,
-                tag: '1x2'
+                tag: '1x2',
+                chapterName: 'game',
+                synced: true,
+                next: 'NONE'
             },
             method: 'POST'
         }).then((resp) => {
@@ -63,12 +92,15 @@ describe('Plays a two-player game', () => {
     })
     it('Submits an API move for player 1', () => {
         cy.request({
-            url: `${api}/${instanceId}/choose`,
+            url: `${api}/${instanceId}/choose/`,
             body: {
                 id: undefined,
                 option: 'X',
                 playerId: player1Id,
-                tag: '3x2'
+                tag: '3x2',
+                chapterName: 'game',
+                synced: true,
+                next: 'NONE'
             },
             method: 'POST'
         }).then((resp) => {
