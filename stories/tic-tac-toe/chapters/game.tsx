@@ -23,10 +23,7 @@ export const Page: PageType = () => {
         nextPlayer = [currentPlayer, otherPlayer].filter((p) => p.name !== last.playerName)[0]
     }
     // is the game complete?
-    let movesLeft = 9 - Object.keys(inventory).length
-    const completitionMessage = `There ${movesLeft === 1 ? 'is' : 'are'} ${movesLeft} move${
-        movesLeft === 1 ? '' : 's'
-    }  left.`
+    let movesLeft = 9 - Object.values(inventory).filter((v) => v != null).length
 
     // Check for a winner
     let xWinner = false
@@ -38,11 +35,13 @@ export const Page: PageType = () => {
 
     for (const row of rows) {
         const rowItems: string[] = []
+        const colItems: string[] = []
         for (const col of cols) {
             rowItems.push(inventory[`${row}x${col}`])
+            colItems.push(inventory[`${col}x${row}`])
         }
-        xWinner = xWinner || playerWins(rowItems, 'X')
-        oWinner = oWinner || playerWins(rowItems, 'O')
+        xWinner = xWinner || playerWins(rowItems, 'X') || playerWins(colItems, 'X')
+        oWinner = oWinner || playerWins(rowItems, 'O') || playerWins(colItems, 'O')
     }
     // diags
     xWinner = xWinner || playerWins([inventory[`1x1`], inventory[`2x2`], inventory[`3x3`]], 'X')
@@ -53,12 +52,18 @@ export const Page: PageType = () => {
     if (xWinner) {
         winner = 'Player X wins.'
         movesLeft = 0
+        nextPlayer = null
     } else if (oWinner) {
         winner = 'Player O wins.'
         movesLeft = 0
+        nextPlayer = null
     } else if (movesLeft === 0) {
         winner = 'It was a tie.'
+        nextPlayer = null
     }
+    const completionMessage = `There ${movesLeft === 1 ? 'is' : 'are'} ${movesLeft} move${
+        movesLeft === 1 ? '' : 's'
+    }  left.`
 
     const nextMessage =
         movesLeft > 0 ? (
@@ -80,9 +85,10 @@ export const Page: PageType = () => {
 
                 <h1>Tic-Tac-Toe</h1>
 
-                {nextMessage}
-                {completitionMessage}
-
+                <p>
+                    {nextMessage}
+                    {completionMessage}
+                </p>
                 <Board
                     char={currentPlayer.name.replace('player ', '')}
                     myTurn={nextPlayer === currentPlayer}

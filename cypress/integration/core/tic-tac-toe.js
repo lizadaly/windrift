@@ -1,4 +1,4 @@
-describe.skip('Plays a two-player game', () => {
+describe('Plays a two-player game', () => {
     const api = '/api/core/story/tic-tac-toe'
     let instanceId, player1Id, player2Id
 
