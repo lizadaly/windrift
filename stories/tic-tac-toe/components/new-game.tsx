@@ -1,9 +1,15 @@
+import * as React from 'react'
+
+import { MultiplayerContext } from 'core/multiplayer/components/multiplayer'
 import StartStory from 'core/multiplayer/components/start-story-form'
 
 import styles from 'public/stories/tic-tac-toe/styles/NewGame.module.scss'
 
-const NewGame: React.FC = () => {
-    return (
+const NewGame: React.FC = ({ children }) => {
+    const { ready } = React.useContext(MultiplayerContext).multiplayer
+    return ready ? (
+        <>{children}</>
+    ) : (
         <div>
             <h1>Start a game of Tic-Tac-Toe</h1>
 

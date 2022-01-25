@@ -18,8 +18,10 @@ const NEXT_PUBLIC_POLL_EMIT_PRESENCE = 30000
 
 const Ready: React.FC = ({ children }): JSX.Element => {
     const { multiplayer } = React.useContext(MultiplayerContext)
-
     const { identifier, players } = React.useContext(StoryContext).config
+    console.log(multiplayer)
+
+    console.log(players)
 
     const { toc } = useSelector((state: RootState) => state.navigation.present)
 
@@ -30,7 +32,6 @@ const Ready: React.FC = ({ children }): JSX.Element => {
     // the per-player start if no global chapter start was provided.
     React.useEffect(() => {
         if (multiplayer.ready) {
-            console.log('Dispatching ready events')
             dispatch(
                 init({
                     instance: {
