@@ -39,7 +39,7 @@ jobs:
               uses: cypress-io/github-action@v2
               with:
                   start: |
-                    npm migrate
+                    npm run migrate
                     npm run start
                   # quote the url to be safe against YML parsing surprises
                   wait-on: 'http://localhost:3000/manual'
