@@ -76,6 +76,7 @@ export const Page: PageType = () => {
                                                             <C
                                                                 tag="screwdriver"
                                                                 options={[['thin metal tool']]}
+                                                                next={Next.None}
                                                             />{' '}
                                                             on the floor near you.{' '}
                                                         </>

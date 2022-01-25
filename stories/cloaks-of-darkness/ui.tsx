@@ -1,13 +1,9 @@
 import * as React from 'react'
 
-import { Next } from 'core/types'
-import { C, R } from 'core/components'
-
 import ResetButton from 'core/components/ui/reset-button'
 import Grid from 'core/components/ui/layouts/grid'
 
 import ShareButton from 'core/multiplayer/components/share-button'
-import Presence from 'core/multiplayer/components/examples/presence'
 
 import styles from 'public/stories/cloaks-of-darkness/styles/Content.module.scss'
 
@@ -15,11 +11,17 @@ import useCloak, { CloakStatus } from './use-cloak'
 import DebugToolbar from 'core/multiplayer/components/debug'
 import { MultiplayerContext } from 'core/multiplayer/components/multiplayer'
 import Both from 'core/multiplayer/components/both'
+import Watch from 'core/multiplayer/components/watch'
+import Cycle from 'core/components/cycle'
+import { Duration } from 'luxon'
+import Only from 'core/multiplayer/components/only'
 
 const Content: React.FC = ({ children }) => {
     const { ready, currentPlayer } = React.useContext(MultiplayerContext).multiplayer
+    const { otherPlayer } = React.useContext(MultiplayerContext).multiplayer
 
     const cloakStatus = useCloak()
+
     return (
         <Grid
             styles={styles}
@@ -40,30 +42,91 @@ const Content: React.FC = ({ children }) => {
                 </nav>
             }
             left={
-                currentPlayer && // Story must have started
-                (currentPlayer.name === 'raccoon' ? (
+                currentPlayer && ( // Story must have started
                     <>
-                        <h3>You are a raccoon</h3>
-                        <p>You have very dextrous hands and a lovely coat of fur.</p>
-                        {cloakStatus === CloakStatus.Worn ? (
+                        {currentPlayer.name === 'raccoon' ? (
                             <>
-                                <p>
-                                    You have adorned yourself with a fine black velvet cloak.
-                                    Darkness shimmers around you.
-                                </p>
+                                <h3>You are a raccoon</h3>
+                                <p>You have very dextrous hands and a lovely coat of fur.</p>
+                                {cloakStatus === CloakStatus.Worn ? (
+                                    <>
+                                        <p>
+                                            You have adorned yourself with a fine black velvet
+                                            cloak. Darkness shimmers around you.
+                                        </p>
+                                    </>
+                                ) : (
+                                    ''
+                                )}
                             </>
                         ) : (
-                            ''
+                            <>
+                                <h3>You are a corn snake</h3>
+                                <p>You are a fine, healthy snake with lustrous orange mottles.</p>
+                            </>
                         )}
-                        <Both>There's a corn snake here.</Both>
+                        <Watch
+                            enter={
+                                <>
+                                    <p>The {otherPlayer.name} has entered the room.</p>
+                                </>
+                            }
+                            exit={
+                                <>
+                                    <p>The {otherPlayer.name} has left the room.</p>
+                                </>
+                            }
+                            here={
+                                <>
+                                    <p>The {otherPlayer.name} is here.</p>
+                                </>
+                            }
+                        />
+                        <Cycle
+                            count={10}
+                            every={Duration.fromObject({ seconds: 20 })}
+                            duration={Duration.fromObject({ seconds: 10 })}>
+                            <>
+                                <Only playerName="raccoon">
+                                    <>You excitedly rub your tiny hands together.</>
+                                </Only>
+                                <Both>
+                                    <Only playerName="snake">
+                                        <>The raccoon excitedly rub its tiny hands together.</>
+                                    </Only>
+                                </Both>
+                            </>
+                            <>
+                                <Only playerName="raccoon">
+                                    <>
+                                        Your butt itches so you absently scratch it with a hind leg.
+                                    </>
+                                </Only>
+                                <Both>
+                                    <Only playerName="snake">
+                                        <>
+                                            You are astonished by the raccoon's ability to scratch
+                                            its own butt.
+                                        </>
+                                    </Only>
+                                </Both>
+                            </>
+                            <>
+                                <Only playerName="raccoon">
+                                    <>
+                                        Your tummy rumbles and you wonder if there's any trash to be
+                                        found here.
+                                    </>
+                                </Only>
+                                <Both>
+                                    <Only playerName="snake">
+                                        <>The raccoon's stomach lets out an audible rumble.</>
+                                    </Only>
+                                </Both>
+                            </>
+                        </Cycle>
                     </>
-                ) : (
-                    <>
-                        <h3>You are a corn snake</h3>
-                        <p>You are a fine, healthy snake with lustrous orange mottles.</p>
-                        <Both>There's a raccoon here.</Both>
-                    </>
-                ))
+                )
             }>
             {children}
 
