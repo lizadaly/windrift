@@ -17,8 +17,6 @@ import Cycle from 'core/components/cycle'
 export const Page: PageType = () => {
     const cloak = useCloak()
 
-    const { otherPlayer } = React.useContext(MultiplayerContext).multiplayer
-
     return (
         <Chapter filename="cloakroom">
             <Section>
@@ -100,65 +98,6 @@ export const Page: PageType = () => {
                         radiating from the east, though.
                     </aside>
                 </Only>
-
-                <Watch
-                    enter={
-                        <>
-                            <p>The {otherPlayer.name} has entered the room.</p>
-                        </>
-                    }
-                    exit={
-                        <>
-                            <p>The {otherPlayer.name} has left the room.</p>
-                        </>
-                    }
-                    here={
-                        <>
-                            <p>The {otherPlayer.name} is here.</p>
-                        </>
-                    }
-                />
-                <Cycle
-                    count={10}
-                    every={Duration.fromObject({ seconds: 20 })}
-                    duration={Duration.fromObject({ seconds: 10 })}>
-                    <>
-                        <Only playerName="raccoon">
-                            <>You excitedly rub your tiny hands together.</>
-                        </Only>
-                        <Both>
-                            <Only playerName="snake">
-                                <>The raccoon excitedly rub its tiny hands together.</>
-                            </Only>
-                        </Both>
-                    </>
-                    <>
-                        <Only playerName="raccoon">
-                            <>Your butt itches so you absently scratch it with a hind leg.</>
-                        </Only>
-                        <Both>
-                            <Only playerName="snake">
-                                <>
-                                    You are astonished by the raccoon's ability to scratch its own
-                                    butt.
-                                </>
-                            </Only>
-                        </Both>
-                    </>
-                    <>
-                        <Only playerName="raccoon">
-                            <>
-                                Your tummy rumbles and you wonder if there's any trash to be found
-                                here.
-                            </>
-                        </Only>
-                        <Both>
-                            <Only playerName="snake">
-                                <>The raccoon's stomach lets out an audible rumble.</>
-                            </Only>
-                        </Both>
-                    </>
-                </Cycle>
             </Section>
         </Chapter>
     )

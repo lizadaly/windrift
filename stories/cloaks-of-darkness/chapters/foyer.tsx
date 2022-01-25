@@ -1,10 +1,12 @@
-import { C, R, Section, Chapter, Nav } from 'core/components'
+import { C, R, Section, Chapter, Nav, When } from 'core/components'
 import Only from 'core/multiplayer/components/only'
 import Both from 'core/multiplayer/components/both'
 
 import { PageType } from 'core/types'
+import useLocation from 'core/multiplayer/hooks/use-location'
 
 export const Page: PageType = () => {
+    const { other } = useLocation()
     return (
         <Chapter filename="foyer">
             <Section>
@@ -110,11 +112,17 @@ export const Page: PageType = () => {
                                                         tag="bar"
                                                         options={{
                                                             '*': (
-                                                                <p>
-                                                                    The much thinner corn snake has
-                                                                    slithered past you and through
-                                                                    the hole effortlessly. Hmm!
-                                                                </p>
+                                                                <When
+                                                                    condition={
+                                                                        other.chapterName === 'bar'
+                                                                    }>
+                                                                    <p>
+                                                                        The much thinner corn snake
+                                                                        has slithered past you and
+                                                                        through the hole
+                                                                        effortlessly. Hmm!
+                                                                    </p>
+                                                                </When>
                                                             )
                                                         }}
                                                     />

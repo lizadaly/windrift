@@ -70,6 +70,10 @@ export const Watch = ({ enter, exit, here }: Props): JSX.Element => {
                     setEntered(false)
                     setHere(false)
                 }
+            } else {
+                setExited(false)
+                setEntered(false)
+                setHere(false)
             }
         }
     }, [thisPlayerLocation, current, other])
