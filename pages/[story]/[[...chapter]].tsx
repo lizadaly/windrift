@@ -26,6 +26,7 @@ import {
 } from 'redux-persist'
 import { PersistGate } from 'redux-persist/integration/react'
 import storage from 'redux-persist/lib/storage'
+import axios from 'axios'
 
 import { useRouter } from 'next/router'
 import { GetStaticProps, GetStaticPaths } from 'next'
@@ -36,8 +37,6 @@ import { Story, StoryContainer } from 'core/components'
 import { Config, Toc, TocItem } from 'core/types'
 import { getChapter } from 'core/util'
 
-import prisma from 'core/multiplayer/db'
-import axios from 'axios'
 import { API_PREFIX } from 'core/multiplayer/api-client'
 
 export interface WindriftProps {
