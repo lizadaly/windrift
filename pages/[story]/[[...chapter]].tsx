@@ -36,7 +36,6 @@ import { Story, StoryContainer } from 'core/components'
 import { Config, Toc, TocItem } from 'core/types'
 import { getChapter } from 'core/util'
 
-import prisma from 'core/multiplayer/db'
 import axios from 'axios'
 import { API_PREFIX } from 'core/multiplayer/api-client'
 
