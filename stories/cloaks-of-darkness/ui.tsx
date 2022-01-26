@@ -42,90 +42,102 @@ const Content: React.FC = ({ children }) => {
                 </nav>
             }
             left={
-                currentPlayer && ( // Story must have started
+                currentPlayer ? ( // Story must have started
                     <>
-                        {currentPlayer.name === 'raccoon' ? (
-                            <>
-                                <h3>You are a raccoon</h3>
-                                <p>You have very dextrous hands and a lovely coat of fur.</p>
-                                {cloakStatus === CloakStatus.Worn ? (
-                                    <>
-                                        <p>
-                                            You have adorned yourself with a fine black velvet
-                                            cloak. Darkness shimmers around you.
-                                        </p>
-                                    </>
-                                ) : (
-                                    ''
-                                )}
-                            </>
-                        ) : (
-                            <>
-                                <h3>You are a corn snake</h3>
-                                <p>You are a fine, healthy snake with lustrous orange mottles.</p>
-                            </>
-                        )}
-                        <Watch
-                            enter={
+                        <section className={`${styles.playerBlock}`}>
+                            {currentPlayer.name === 'raccoon' ? (
                                 <>
-                                    <p>The {otherPlayer.name} has entered the room.</p>
-                                </>
-                            }
-                            exit={
-                                <>
-                                    <p>The {otherPlayer.name} has left the room.</p>
-                                </>
-                            }
-                            here={
-                                <>
-                                    <p>The {otherPlayer.name} is here.</p>
-                                </>
-                            }
-                        />
-                        <Cycle
-                            count={10}
-                            every={Duration.fromObject({ seconds: 20 })}
-                            duration={Duration.fromObject({ seconds: 10 })}>
-                            <>
-                                <Only playerName="raccoon">
-                                    <>You excitedly rub your tiny hands together.</>
-                                </Only>
-                                <Both>
-                                    <Only playerName="snake">
-                                        <>The raccoon excitedly rub its tiny hands together.</>
-                                    </Only>
-                                </Both>
-                            </>
-                            <>
-                                <Only playerName="raccoon">
-                                    <>
-                                        Your butt itches so you absently scratch it with a hind leg.
-                                    </>
-                                </Only>
-                                <Both>
-                                    <Only playerName="snake">
+                                    <h3>You are a raccoon</h3>
+                                    <p>You have very dextrous hands and a lovely coat of fur.</p>
+                                    {cloakStatus === CloakStatus.Worn ? (
                                         <>
-                                            You are astonished by the raccoon's ability to scratch
-                                            its own butt.
+                                            <p>
+                                                You have adorned yourself with a fine black velvet
+                                                cloak. Darkness shimmers around you.
+                                            </p>
+                                        </>
+                                    ) : (
+                                        ''
+                                    )}
+                                </>
+                            ) : (
+                                <>
+                                    <h2>You are a corn snake</h2>
+                                    <p>
+                                        You are a fine, healthy snake with lustrous orange mottles.
+                                    </p>
+                                </>
+                            )}
+                            <div className={`${styles[currentPlayer.name]}`}></div>
+                        </section>
+                        <section className={styles.watch}>
+                            <Watch
+                                enter={
+                                    <>
+                                        <p>The {otherPlayer.name} has entered the room.</p>
+                                    </>
+                                }
+                                exit={
+                                    <>
+                                        <p>The {otherPlayer.name} has left the room.</p>
+                                    </>
+                                }
+                                here={
+                                    <>
+                                        <p>The {otherPlayer.name} is here.</p>
+                                    </>
+                                }
+                            />
+                        </section>
+                        <section className={styles.randomEvent}>
+                            <Cycle
+                                count={10}
+                                every={Duration.fromObject({ seconds: 20 })}
+                                duration={Duration.fromObject({ seconds: 10 })}>
+                                <>
+                                    <Only playerName="raccoon">
+                                        <>You excitedly rub your tiny hands together.</>
+                                    </Only>
+                                    <Both>
+                                        <Only playerName="snake">
+                                            <>The raccoon excitedly rub its tiny hands together.</>
+                                        </Only>
+                                    </Both>
+                                </>
+                                <>
+                                    <Only playerName="raccoon">
+                                        <>
+                                            Your butt itches so you absently scratch it with a hind
+                                            leg.
                                         </>
                                     </Only>
-                                </Both>
-                            </>
-                            <>
-                                <Only playerName="raccoon">
-                                    <>
-                                        Your tummy rumbles and you wonder if there's any trash to be
-                                        found here.
-                                    </>
-                                </Only>
-                                <Both>
-                                    <Only playerName="snake">
-                                        <>The raccoon's stomach lets out an audible rumble.</>
+                                    <Both>
+                                        <Only playerName="snake">
+                                            <>
+                                                You are astonished by the raccoon's ability to
+                                                scratch its own butt.
+                                            </>
+                                        </Only>
+                                    </Both>
+                                </>
+                                <>
+                                    <Only playerName="raccoon">
+                                        <>
+                                            Your tummy rumbles and you wonder if there's any trash
+                                            to be found here.
+                                        </>
                                     </Only>
-                                </Both>
-                            </>
-                        </Cycle>
+                                    <Both>
+                                        <Only playerName="snake">
+                                            <>The raccoon's stomach lets out an audible rumble.</>
+                                        </Only>
+                                    </Both>
+                                </>
+                            </Cycle>
+                        </section>
                     </>
+                ) : (
+                    <div className={styles.alcove}></div>
                 )
             }>
             {children}

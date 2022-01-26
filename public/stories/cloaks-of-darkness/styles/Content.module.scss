@@ -1,13 +1,20 @@
 @use 'sass:math';
+@use 'sass:color';
 
 @use '/public/styles/sizing';
 @use '/public/styles/colors' with (
-    $cool: rgb(79, 135, 101)
+    $cool: rgb(99, 106, 126)
+);
+
+@use '/public/styles/fonts' with (
+    $header: 'Poiret One',
+    $body: 'PT Sans'
 );
 
 @use '/public/styles/header' with (
     $background-color: colors.$cool,
 );
+
 @use '/public/styles/main';
 
 $left-right-width: 1fr;
@@ -30,6 +37,9 @@ $left-right-width: 1fr;
         .share {
             display: inline-block;
         }
+        h1 {
+            padding-left: math.div(sizing.$gutter, 4);
+        }
     }
 }
 
@@ -42,8 +52,12 @@ $left-right-width: 1fr;
         padding: 0 math.div(sizing.$gutter, 4) 0 math.div(sizing.$gutter, 4);
 
         aside {
-            background: rgb(227, 244, 254);
+            background: color.scale(colors.$cool, $lightness: 75%);
             padding: 1rem;
+            p {
+                font-size: 1.25em;
+                line-height: 1.75em;
+            }
         }
     }
     button {
@@ -84,11 +98,43 @@ $left-right-width: 1fr;
         text-transform: uppercase;
         padding: 10px;
     }
+    h1, h2, h3, h4, h5 {
+        font-family: fonts.$header;
+    }
 
 }
 
 .left {
     padding: 0 0 0 math.div(sizing.$gutter, 4);
+
+    .alcove {
+        background-image: url('/stories/cloaks-of-darkness/images/alcove.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        width: 100%;
+        height: 100%;
+    }
+    .playerBlock {
+
+        min-height: 300px;
+        min-width: 300px;
+
+    }
+    .raccoon {
+        background-image: url('/stories/cloaks-of-darkness/images/raccoon.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        width: 100%;
+        min-height: 300px;
+    }
+    .snake {
+
+        background-image: url('/stories/cloaks-of-darkness/images/snake.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        width: 100%;
+        min-height: 500px;
+    }
 }
 .right {
     display: none;

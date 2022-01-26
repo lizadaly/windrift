@@ -114,7 +114,7 @@ export const Page: PageType = () => {
                                                             '*': (
                                                                 <When
                                                                     condition={
-                                                                        other.chapterName === 'bar'
+                                                                        other?.chapterName === 'bar'
                                                                     }>
                                                                     <p>
                                                                         The much thinner corn snake
