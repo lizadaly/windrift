@@ -10,11 +10,14 @@ export const Page: PageType = () => {
                     <aside>
                         <p>
                             It's wet and dark and cold and it's time to find someplace warm to curl
-                            up for the evening. Human dwellings that are unoccupied at night are
-                            usually a reliable shelter for a wild snake who inexplicably lives in
-                            the big city. The local Opera House is an old favorite of yours because
-                            it has often just emptied out for the night and has enough residual heat
-                            to carry you through until sunrise.
+                            up for the evening.
+                        </p>
+                        <p>
+                            Human dwellings that are unoccupied at night are usually a reliable
+                            shelter for a wild snake who inexplicably lives in the big city. The
+                            local Opera House is an old favorite of yours because it has often just
+                            emptied out for the night and has enough residual heat to carry you
+                            through until sunrise.
                         </p>
                         <p>
                             There's a gap through some crumbly mortar that some helpful rats have

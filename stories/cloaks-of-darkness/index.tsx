@@ -14,6 +14,11 @@ const Index: React.FC = ({ children }) => {
             <Head>
                 <title>{config.title}</title>
                 <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+                <link rel="preconnect" href="https://fonts.googleapis.com" />
+                <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="crossorigin" />
+                <link
+                    href="https://fonts.googleapis.com/css2?family=Poiret+One&family=PT+Sans&display=block"
+                    rel="stylesheet"></link>
             </Head>
             <Multiplayer>
                 <UI>
