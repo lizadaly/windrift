@@ -4,7 +4,6 @@ import Both from 'core/multiplayer/components/both'
 
 import { Next, PageType } from 'core/types'
 import useCloak, { CloakStatus } from '../use-cloak'
-import next from 'next'
 
 export const Page: PageType = () => {
     const cloakStatus = useCloak()
@@ -109,7 +108,14 @@ export const Page: PageType = () => {
                         <R
                             tag="trash"
                             options={{
-                                unclicked: <p>The raccoon is here, nosing the air inquisitively.</p>
+                                '*': (
+                                    <p>
+                                        The raccoon scuttles past you towards the trash pile,
+                                        exhausts itself in a frenzy of eating, and then{' '}
+                                        <C tag="snake-join-raccoon" options={[['curls up']]} /> in
+                                        an inviting warm ball.
+                                    </p>
+                                )
                             }}
                         />
                     </Both>
@@ -117,13 +123,29 @@ export const Page: PageType = () => {
 
                 <Only playerName="raccoon">
                     <h1>In the bar</h1>
-                    <p>
-                        It's a combination bar and restaurant for patrons of the opera. You only
-                        care about the restaurant part. The small oven and food preparation section
-                        by the far wall is where the delicious smell is most concentrated. Surely
-                        there will be some{' '}
-                        <C tag="trash" options={[['trash']]} defaultOption="unclicked" /> there.
-                    </p>
+                    <When
+                        condition={cloakStatus === CloakStatus.Worn}
+                        otherwise={
+                            <p>
+                                As soon as you have waddled through the doorway, the motion detector
+                                up in the ceiling has begun blinking red and a furious alarm is
+                                going off. You can't think and you're consumed with panic! The only
+                                thing you can do is return <Nav text="north" next="foyer" />.
+                            </p>
+                        }>
+                        <aside>
+                            The cloak wrapped around you is covering you in a hazy shield of
+                            darkness. Up in the ceiling, the motion detector holds a steady green
+                            light. You are unseen!
+                        </aside>
+                        <p>
+                            It's a combination bar and restaurant for patrons of the opera. You only
+                            care about the restaurant part. The small oven and food preparation
+                            section by the far wall is where the delicious smell is most
+                            concentrated. Surely there will be some{' '}
+                            <C tag="trash" options={[['trash']]} /> there.
+                        </p>{' '}
+                    </When>
                 </Only>
             </Section>
             <Section>

@@ -8,6 +8,7 @@ interface Props {
     enter?: React.ReactNode
     exit?: React.ReactNode
     here?: React.ReactNode
+    elsewhere?: React.ReactNode
 }
 /**
  * Stateful component to track enter/exit of the other player.
@@ -20,6 +21,7 @@ interface Props {
  * @param enter Content to display when the other player enters.
  * @param exit Content to display when the other player exits.
  * @param here Content to display when the other player was already here when we arrived.
+ * @param elsewhere Content to display when the other player is not in the room and hasn't just left.
  *
  * @see {Only}
  * @see {Both}
@@ -28,7 +30,7 @@ interface Props {
  */
 
 // TODO have this listen to an emitted Nav Change, not just the current position
-export const Watch = ({ enter, exit, here }: Props): JSX.Element => {
+export const Watch = ({ enter, exit, here, elsewhere }: Props): JSX.Element => {
     const { current, other } = useLocation()
 
     const thisPlayerLocation = useChapter()?.filename
@@ -36,6 +38,7 @@ export const Watch = ({ enter, exit, here }: Props): JSX.Element => {
     const [entered, setEntered] = React.useState(false)
     const [exited, setExited] = React.useState(false)
     const [isHere, setHere] = React.useState(false)
+    const [isElsewhere, setElsewhere] = React.useState(false)
 
     React.useEffect(() => {
         // If there's any location data at all...
@@ -74,6 +77,7 @@ export const Watch = ({ enter, exit, here }: Props): JSX.Element => {
                 setExited(false)
                 setEntered(false)
                 setHere(false)
+                setElsewhere(true)
             }
         }
     }, [thisPlayerLocation, current, other])
@@ -86,6 +90,9 @@ export const Watch = ({ enter, exit, here }: Props): JSX.Element => {
     }
     if (isHere && here) {
         return <>{here}</>
+    }
+    if (isElsewhere && elsewhere) {
+        return <>{elsewhere}</>
     }
     return null
 }
