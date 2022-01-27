@@ -47,7 +47,9 @@ $left-right-width: 1fr;
 
     // Widen the right column to show the presence/log list
     grid-template-columns: $left-right-width 3fr 0;
-
+    p {
+        font-size: 1.25em;
+    }
     .story {
         padding: 0 math.div(sizing.$gutter, 4) 0 math.div(sizing.$gutter, 4);
 
@@ -55,7 +57,8 @@ $left-right-width: 1fr;
             background: color.scale(colors.$cool, $lightness: 75%);
             padding: 1rem;
             p {
-                font-size: 1.25em;
+
+
                 line-height: 1.75em;
             }
         }
@@ -107,6 +110,13 @@ $left-right-width: 1fr;
 .left {
     padding: 0 0 0 math.div(sizing.$gutter, 4);
 
+
+    p {
+        font-size: 1em;
+    }
+    h2 {
+        text-align: center;
+    }
     .alcove {
         background-image: url('/stories/cloaks-of-darkness/images/alcove.jpg');
         background-size: cover;
@@ -115,25 +125,28 @@ $left-right-width: 1fr;
         height: 100%;
     }
     .playerBlock {
-
-        min-height: 300px;
-        min-width: 300px;
-
+        width: 100%;
+    }
+    .imageBlock {
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: bottom center;
+        min-height: 200px;
     }
     .raccoon {
         background-image: url('/stories/cloaks-of-darkness/images/raccoon.png');
-        background-size: contain;
-        background-repeat: no-repeat;
-        width: 100%;
-        min-height: 300px;
     }
     .snake {
-
         background-image: url('/stories/cloaks-of-darkness/images/snake.png');
-        background-size: cover;
-        background-repeat: no-repeat;
-        width: 100%;
-        min-height: 500px;
+    }
+    .watch {
+        display: grid;
+        grid-template-columns: 50px 1fr;
+        column-gap: 20px;
+    }
+    .icon {
+        width: 50px;
+        height: 50px;
     }
 }
 .right {
