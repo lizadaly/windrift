@@ -20,10 +20,11 @@ const useLocation = (): Locations => {
         React.useContext(MultiplayerContext).multiplayer
 
     const { filename } = React.useContext(ChapterContext)
-
     const { navEntries } = useNavPoll(identifier, instanceId)
 
     // Before the API roundtrip has occurred, ensure we have local data for location checks like <Only>
+    // TODO possible to do this natively with SWR?
+
     let currentLocation: Nav = {
         playerId: currentPlayer.id,
         id: 'init',
