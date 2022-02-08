@@ -6,7 +6,7 @@ import { Player } from '@prisma/client'
 
 import { Config, RootState } from 'core/types'
 import { StoryContext } from 'pages/[story]/[[...chapter]]'
-import { emitNavChange, getStoryUrl, usePresencePoll } from 'core/multiplayer/api-client'
+import { emitNavChange, getStoryUrl, useSync, usePresencePoll } from 'core/multiplayer/api-client'
 
 import useLocation from '../hooks/use-location'
 
@@ -24,7 +24,8 @@ const Debug = (): JSX.Element => {
         <div className={debug.content}>
             <div>
                 <LocationSwitcher config={config} multiplayer={multiplayer} />
-                <UserSwitcher config={config} multiplayer={multiplayer} persistor={persistor} />
+                <UserSwitcher multiplayer={multiplayer} persistor={persistor} />
+                <SyncButton multiplayer={multiplayer} />
             </div>
             <div className={debug.log}>
                 <Log />
@@ -32,9 +33,19 @@ const Debug = (): JSX.Element => {
         </div>
     )
 }
+interface SyncProps {
+    multiplayer: Multiplayer
+}
+const SyncButton = ({ multiplayer }: SyncProps): JSX.Element => {
+    const doSync = useSync(multiplayer.identifier, multiplayer.instanceId, multiplayer.otherPlayer)
+    return (
+        <div>
+            <button onClick={() => doSync(true)}>Sync now</button>
+        </div>
+    )
+}
 
 interface UserSwitcherProps {
-    config: Config
     multiplayer: Multiplayer
     persistor: Persistor
 }

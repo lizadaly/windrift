@@ -1,4 +1,6 @@
-import useSWR from 'swr'
+import React from 'react'
+
+import useSWR, { useSWRConfig } from 'swr'
 import useSWRImmutable from 'swr/immutable'
 
 import { Nav, Player, Presence } from '@prisma/client'
@@ -247,8 +249,7 @@ export const useChoicePoll = (
         (player ? `?playerId=${player.id}` : '')
 
     const { data, error } = useSWR<ChoiceApiResponse[]>(url, fetcher, {
-        refreshInterval: 10000,
-        refreshWhenHidden: false
+        refreshInterval: 10000
     })
     if (data) {
         data.forEach((c) => {
@@ -260,4 +261,21 @@ export const useChoicePoll = (
         isError: error,
         isLoading: !error && !data
     }
+}
+
+/** Wrapper function to tell all relevant SWR calls to revalidate */
+export const useSync = (identifier: string, instanceId: string, player: Player): any => {
+    const [sync, doSync] = React.useState(false)
+    const { mutate } = useSWRConfig()
+    const choiceURL = `${API_PREFIX}/${identifier}/${instanceId}/listen/?playerId=${player.id}`
+    const navURL = `${API_PREFIX}/${identifier}/${instanceId}/nav/`
+
+    React.useEffect(() => {
+        if (sync) {
+            mutate(choiceURL)
+            mutate(navURL)
+            doSync(false)
+        }
+    })
+    return doSync
 }

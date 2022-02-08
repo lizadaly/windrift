@@ -19,9 +19,6 @@ const NEXT_PUBLIC_POLL_EMIT_PRESENCE = 30000
 const Ready: React.FC = ({ children }): JSX.Element => {
     const { multiplayer } = React.useContext(MultiplayerContext)
     const { identifier, players } = React.useContext(StoryContext).config
-    console.log(multiplayer)
-
-    console.log(players)
 
     const { toc } = useSelector((state: RootState) => state.navigation.present)
 
