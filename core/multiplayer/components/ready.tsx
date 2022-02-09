@@ -10,11 +10,10 @@ import { RootState } from 'core/types'
 import { gotoChapter } from 'core/features/navigation'
 import { emitNavChange, emitPresence, useChoicePoll } from '../api-client'
 import { useInterval } from 'usehooks-ts'
-import { MultiplayerContext } from './multiplayer'
+import { MultiplayerContext, POLL_FREQUENCY } from './multiplayer'
 import { init } from '../features/instance'
 import { makeChoice } from 'core/features/choice'
-
-const NEXT_PUBLIC_POLL_EMIT_PRESENCE = 30000
+import Pusher from './p2p/pusher'
 
 const Ready: React.FC = ({ children }): JSX.Element => {
     const { multiplayer } = React.useContext(MultiplayerContext)
@@ -58,7 +57,11 @@ const Ready: React.FC = ({ children }): JSX.Element => {
     return (
         <>
             {multiplayer.ready && <Polls />}
-            {children}
+            {process.env.NEXT_PUBLIC_PUSHER_KEY && multiplayer.ready ? (
+                <Pusher>{children}</Pusher>
+            ) : (
+                children
+            )}
         </>
     )
 }
@@ -96,10 +99,10 @@ const Polls = (): JSX.Element => {
             })
     }, [choices])
 
-    // Send presence
+    // Send presence manually if Pusher is not present
     useInterval(async () => {
         emitPresence(multiplayer.identifier, multiplayer.instanceId, multiplayer.currentPlayer.id)
-    }, NEXT_PUBLIC_POLL_EMIT_PRESENCE)
+    }, POLL_FREQUENCY)
 
     return null
 }

@@ -8,11 +8,23 @@ import axios from 'axios'
 import { TocItem, Tag } from 'core/types'
 import { ChoiceApiResponse } from 'pages/api/core/story/[story]/[instance]/listen'
 import { NavApiResponse } from 'pages/api/core/story/[story]/[instance]/nav'
-import { Multiplayer } from './components/multiplayer'
+import { Multiplayer, P2P_ENABLED, POLL_FREQUENCY } from './components/multiplayer'
 import { StoryApiResponse } from 'pages/api/core/story/[story]/[instance]/get'
 import { PresenceApiResponse } from 'pages/api/core/story/[story]/[instance]/presence'
 
 export const API_PREFIX = '/api/core/story'
+
+// Set our polling policy based on whether P2P refresh is enabled
+const SWR_CONFIG = P2P_ENABLED
+    ? {
+          revalidateIfStale: false,
+          revalidateOnFocus: false,
+          revalidateOnReconnect: false,
+          refreshWhenHidden: true
+      }
+    : {
+          refreshInterval: POLL_FREQUENCY
+      }
 
 export const getStoryUrl = (instanceId: string): string => {
     const { protocol, hostname, port, pathname } = window.location
@@ -195,7 +207,7 @@ export const usePresencePoll = (
     const { data, error } = useSWR<PresenceApiResponse>(
         `${API_PREFIX}/${identifier}/${instanceId}/presence/?playerId=${playerId}`,
         fetcher,
-        { refreshInterval: 10000 }
+        SWR_CONFIG
     )
     if (data) {
         data.createdAt = new Date(data.createdAt)
@@ -225,7 +237,7 @@ export const useNavPoll = (identifier: string, instanceId: string): NavPollRespo
     const { data, error } = useSWR<NavApiResponse>(
         `${API_PREFIX}/${identifier}/${instanceId}/nav/`,
         fetcher,
-        { refreshInterval: 10000 }
+        SWR_CONFIG
     )
     return {
         navEntries: data,
@@ -248,9 +260,7 @@ export const useChoicePoll = (
         `${API_PREFIX}/${identifier}/${instanceId}/listen/` +
         (player ? `?playerId=${player.id}` : '')
 
-    const { data, error } = useSWR<ChoiceApiResponse[]>(url, fetcher, {
-        refreshInterval: 10000
-    })
+    const { data, error } = useSWR<ChoiceApiResponse[]>(url, fetcher, SWR_CONFIG)
     if (data) {
         data.forEach((c) => {
             c.createdAt = new Date(c.createdAt)
