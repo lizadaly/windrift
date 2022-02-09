@@ -10,7 +10,7 @@ export const Page: PageType = () => {
     return (
         <Chapter filename="foyer">
             <Section>
-                <h1>Foyer of the Opera House</h1>
+                <h1>Foyer of the Opera House </h1>
                 <p>
                     You are in a spacious hall, splendidly decorated in red and gold, with
                     glittering chandeliers overhead.{' '}
