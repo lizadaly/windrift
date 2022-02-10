@@ -57,11 +57,7 @@ const Ready: React.FC = ({ children }): JSX.Element => {
     return (
         <>
             {multiplayer.ready && <Polls />}
-            {process.env.NEXT_PUBLIC_PUSHER_KEY && multiplayer.ready ? (
-                <Pusher>{children}</Pusher>
-            ) : (
-                children
-            )}
+            {children}
         </>
     )
 }

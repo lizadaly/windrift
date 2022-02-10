@@ -83,7 +83,7 @@ const LocationSwitcher = ({ config, multiplayer }: LocationSwitcherProps): JSX.E
     const otherPlayerIsActive = usePresencePoll(
         multiplayer.identifier,
         multiplayer.instanceId,
-        multiplayer.otherPlayer.id
+        multiplayer.otherPlayer
     )
 
     const { other } = useLocation()

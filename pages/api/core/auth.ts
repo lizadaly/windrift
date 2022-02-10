@@ -15,9 +15,9 @@ export default (req: NextApiRequest, res: NextApiResponse): void => {
             secret: PUSHER_SECRET,
             useTLS: true
         })
-        const { channel_name, socket_id, player } = req.body
+        const { channel_name, socket_id, playerId } = req.body
         const channelData = {
-            user_id: `${channel_name}--${player}`
+            user_id: `${channel_name}--${playerId}`
         }
         const auth = pusher.authenticate(socket_id, channel_name, channelData)
         res.send(auth)

@@ -1,4 +1,6 @@
-/** Implement Pusher auth/channel subscription for P2P events */
+/** Implement Pusher auth/channel subscription for P2P events. Safe to call even if
+ * the Pusher channel is not enabled; it will just pass through.
+ */
 
 import * as React from 'react'
 import debounce from 'lodash.debounce'
@@ -9,15 +11,18 @@ import {
     useEvent,
     usePresenceChannel
 } from '@harelpls/use-pusher'
-import { MultiplayerContext } from '../multiplayer'
+import { MultiplayerContext, PUSHER_ENABLED } from '../multiplayer'
 import { useSelector } from 'react-redux'
 import { RootState } from 'core/types'
-import { syncBuiltinESMExports } from 'module'
 import { useSync } from 'core/multiplayer/api-client'
 
 const Pusher: React.FC = ({ children }): JSX.Element => {
     const { otherPlayer } = React.useContext(MultiplayerContext).multiplayer
 
+    // Short circuit if Pusher specifically is not enabled or if we haven't yet initialized
+    if (!PUSHER_ENABLED || !otherPlayer) {
+        return <>{children}</>
+    }
     const config = {
         clientKey: process.env.NEXT_PUBLIC_PUSHER_KEY,
         cluster: process.env.NEXT_PUBLIC_PUSHER_CLUSTER,

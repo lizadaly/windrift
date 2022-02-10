@@ -26,7 +26,6 @@ import {
 } from 'redux-persist'
 import { PersistGate } from 'redux-persist/integration/react'
 import storage from 'redux-persist/lib/storage'
-import axios from 'axios'
 
 import { useRouter } from 'next/router'
 import { GetStaticProps, GetStaticPaths } from 'next'
@@ -37,7 +36,8 @@ import { Story, StoryContainer } from 'core/components'
 import { Config, Toc, TocItem } from 'core/types'
 import { getChapter } from 'core/util'
 
-import { API_PREFIX } from 'core/multiplayer/api-client'
+import { createStory } from 'pages/api/core/story/create'
+import { createChapters } from 'pages/api/core/story/chapters'
 
 export interface WindriftProps {
     toc: Toc
@@ -53,17 +53,8 @@ function getConfigYaml(story: string) {
 // Initialize any constant values from this story build into the global
 // database. Per-story instance values are initiated at story start
 async function initMultiplayerDb(story: string, configYaml: Record<string, any>) {
-    axios.post(`${API_PREFIX}/create/`, {
-        id: story,
-        title: configYaml.title,
-        player1Name: configYaml.players[0].name,
-        player2Name: configYaml.players[1].name
-    })
-
-    axios.post(`${API_PREFIX}/chapters/`, {
-        id: story,
-        chapters: configYaml.chapters
-    })
+    createStory(story, configYaml.title, configYaml.players[0].name, configYaml.players[1].name)
+    createChapters(story, configYaml.chapters)
 }
 export const getStaticProps: GetStaticProps = async (context) => {
     const story = context.params.story as string
@@ -76,6 +67,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     }))
     console.log(configYaml)
     if (configYaml.players && configYaml.players.length > 1) {
+        console.log(`initializing db for ${story}`)
         initMultiplayerDb(story, configYaml)
     }
     return {
