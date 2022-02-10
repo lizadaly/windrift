@@ -20,7 +20,7 @@ const RECENCY_WINDOW = DateTime.now().minus({ minutes: 10 })
  */
 const Presence: React.FC = () => {
     const { otherPlayer, instanceId, identifier } = React.useContext(MultiplayerContext).multiplayer
-    const { presence, isLoading, isError } = usePresencePoll(identifier, instanceId, otherPlayer.id)
+    const { presence, isLoading, isError } = usePresencePoll(identifier, instanceId, otherPlayer)
     const { other } = useLocation()
 
     if (isLoading) {

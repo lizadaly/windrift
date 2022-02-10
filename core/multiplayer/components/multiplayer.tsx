@@ -15,8 +15,9 @@ import { StoryContext } from 'pages/[story]/[[...chapter]]'
 import { useRouter } from 'next/router'
 import { Instance } from '../features/instance'
 
-export const POLL_FREQUENCY = process.env.NEXT_PUBLIC_PUSHER_KEY ? 100000 : 10000
-export const P2P_ENABLED = !!process.env.NEXT_PUBLIC_PUSHER_KEY
+export const PUSHER_ENABLED = !!process.env.NEXT_PUBLIC_PUSHER_KEY
+export const P2P_ENABLED = PUSHER_ENABLED // TODO define more P2P handlers here
+export const POLL_FREQUENCY = P2P_ENABLED ? 100000 : 10000
 
 export interface Multiplayer {
     identifier: string

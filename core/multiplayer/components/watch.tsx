@@ -3,6 +3,7 @@ import * as React from 'react'
 import useChapter from 'core/hooks/use-chapter'
 
 import useLocation from '../hooks/use-location'
+import { usePresence } from '../hooks/use-presence'
 
 interface Props {
     enter?: React.ReactNode
@@ -32,6 +33,8 @@ interface Props {
 // TODO have this listen to an emitted Nav Change, not just the current position
 export const Watch = ({ enter, exit, here, elsewhere }: Props): JSX.Element => {
     const { current, other } = useLocation()
+
+    usePresence()
 
     const thisPlayerLocation = useChapter()?.filename
 

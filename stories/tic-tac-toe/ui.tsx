@@ -9,37 +9,52 @@ import styles from 'public/stories/tic-tac-toe/styles/Content.module.scss'
 import ResetButton from 'core/components/ui/reset-button'
 import Grid from 'core/components/ui/layouts/grid'
 import { MultiplayerContext } from 'core/multiplayer/components/multiplayer'
+import Pusher from 'core/multiplayer/components/p2p/pusher'
 
 const Content: React.FC = ({ children }) => {
-    const multiplayer = React.useContext(MultiplayerContext).multiplayer
-    const { currentPlayer, ready } = multiplayer
+    const { ready } = React.useContext(MultiplayerContext).multiplayer
+    if (!ready) {
+        return (
+            <Grid
+                styles={styles}
+                header={
+                    <nav>
+                        <h1>Multiplayer Demo</h1>
+                    </nav>
+                }>
+                {children}
+            </Grid>
+        )
+    }
 
+    return (
+        <Pusher>
+            <Ready>{children}</Ready>
+        </Pusher>
+    )
+}
+const Ready: React.FC = ({ children }) => {
+    const { currentPlayer } = React.useContext(MultiplayerContext).multiplayer
     return (
         <Grid
             styles={styles}
             header={
                 <nav>
                     <h1>Multiplayer Demo</h1>
-                    {ready && (
-                        <>
-                            <div className={styles.player}>You are {currentPlayer.name} ⟶</div>
-                            <div className={styles.share}>
-                                <ShareButton />
-                            </div>
-                            <div className={styles.controls}>
-                                <ResetButton />
-                            </div>
-                        </>
-                    )}
+                    <div className={styles.player}>You are {currentPlayer.name} ⟶</div>
+                    <div className={styles.share}>
+                        <ShareButton />
+                    </div>
+                    <div className={styles.controls}>
+                        <ResetButton />
+                    </div>
                 </nav>
             }
             right={
-                multiplayer?.ready && (
-                    <>
-                        <Presence />
-                        <Log />
-                    </>
-                )
+                <>
+                    <Presence />
+                    <Log />
+                </>
             }>
             {children}
         </Grid>

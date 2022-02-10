@@ -202,10 +202,17 @@ interface PresencePollResponse extends SWRResponse {
 export const usePresencePoll = (
     identifier: string,
     instanceId: string,
-    playerId: string
+    player: Player
 ): PresencePollResponse => {
+    if (!player) {
+        return {
+            presence: null,
+            isLoading: true,
+            isError: false
+        }
+    }
     const { data, error } = useSWR<PresenceApiResponse>(
-        `${API_PREFIX}/${identifier}/${instanceId}/presence/?playerId=${playerId}`,
+        `${API_PREFIX}/${identifier}/${instanceId}/presence/?playerId=${player.id}`,
         fetcher,
         SWR_CONFIG
     )
