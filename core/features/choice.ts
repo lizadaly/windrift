@@ -81,7 +81,6 @@ export const makeChoice =
             resolved &&
             (!multiplayer || multiplayer.eventPlayer.id === multiplayer.currentPlayer.id)
         ) {
-            console.log('In resolved: ', multiplayer.eventPlayer, multiplayer.currentPlayer)
             if (next === Next.Section) {
                 dispatch(incrementSection({ filename }))
             } else if (next === Next.None) {
