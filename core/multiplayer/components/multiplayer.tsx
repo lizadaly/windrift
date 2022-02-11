@@ -52,19 +52,25 @@ const Multiplayer: React.FC = ({ children }) => {
     const { instance } = useSelector((state: RootState) => state.instance)
     const router = useRouter()
 
+    // Clear the local storage if it exists and our url params don't match
+    const clearStorage =
+        instance &&
+        (instance.instanceId !== router.query?.instance ||
+            instance.playerId !== router.query?.playerId)
     return (
         <MultiplayerContext.Provider
             value={{
                 multiplayer,
                 setMultiplayer
             }}>
-            {!multiplayer.ready && instance && <Rehydrate instance={instance} />}
+            {!multiplayer.ready && instance && !clearStorage && <Rehydrate instance={instance} />}
             {!multiplayer.ready && router.query.instance && router.query.playerId && (
                 <FromRouter
                     instanceId={router.query.instance as string}
                     playerId={router.query.playerId as string}
                 />
             )}
+
             <Ready>{children}</Ready>
         </MultiplayerContext.Provider>
     )
@@ -81,7 +87,7 @@ const Rehydrate = ({ instance }: RehydrateProps) => {
 
     React.useEffect(() => {
         if (multiplayer) {
-            console.log('Restarting story instance from Redux store')
+            console.log(`Restarting story instance ${instance.instanceId} from Redux store`)
             setMultiplayer(multiplayer)
             emitPresence(identifier, instance.instanceId, instance.playerId)
         }
@@ -96,14 +102,20 @@ interface FromRouterProps {
 }
 const FromRouter = ({ instanceId, playerId }: FromRouterProps) => {
     const { setMultiplayer } = React.useContext(MultiplayerContext)
-    const { identifier } = React.useContext(StoryContext).config
+    const { config, persistor } = React.useContext(StoryContext)
+    const { identifier } = config
     const { multiplayer } = useMultiplayer(identifier, instanceId, playerId)
 
     React.useEffect(() => {
         if (multiplayer) {
             console.log('Starting story instance from URL props')
-            setMultiplayer(multiplayer)
-            emitPresence(identifier, instanceId, playerId)
+            // Always clear the local storage first since it's at best stale
+            persistor.flush().then(() => {
+                persistor.purge().then(() => {
+                    setMultiplayer(multiplayer)
+                    emitPresence(identifier, instanceId, playerId)
+                })
+            })
         }
     }, [multiplayer])
 
