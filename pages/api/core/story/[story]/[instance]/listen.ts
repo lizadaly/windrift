@@ -5,7 +5,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import prisma from 'core/multiplayer/db'
 
 export type ChoiceApiResponse = Choice & {
-    player: Player
+    player?: Player
 }
 
 export default async (
@@ -18,11 +18,13 @@ export default async (
         const choices = await prisma.choice.findMany({
             where: {
                 instanceId,
-                synced: true,
                 playerId
             },
             include: {
                 player: true
+            },
+            orderBy: {
+                createdAt: 'asc' // Replay in order
             }
         })
         res.status(200).json(choices)

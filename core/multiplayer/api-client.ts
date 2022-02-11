@@ -151,7 +151,9 @@ export const emitNavChange = (
         })
         .then(() => {
             emitPresence(identifier, instanceId, playerId)
-            console.log(`Posted nav change event for player ${playerId}`)
+            console.log(
+                `Posted nav change event for player ${playerId} moving from ${from} to ${chapterName}`
+            )
         })
         .catch((error) => console.error(error))
 }
