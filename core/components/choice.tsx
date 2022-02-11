@@ -31,8 +31,6 @@ export interface ChoiceProps {
     className?: string
     /** For Multiplayer only, has no effect in single-player: whether to sync this choice to the remote player */
     sync?: boolean
-    /** For Multiplayer only, has no effect in single-player: whether a synced choice triggers the next parameter */
-    syncNext?: boolean
 }
 
 const Choice = ({
@@ -45,8 +43,7 @@ const Choice = ({
     last = null,
     defaultOption = null,
     className = null,
-    sync = true,
-    syncNext = false
+    sync = true
 }: ChoiceProps): JSX.Element => {
     const dispatch = useDispatch()
     const choice = useSelector((state: RootState) => {
@@ -69,7 +66,6 @@ const Choice = ({
                 last={last}
                 className={className}
                 sync={sync}
-                syncNext={syncNext}
             />
         )
     }
@@ -85,8 +81,7 @@ const MutableChoice = ({
     persist,
     last,
     className,
-    sync,
-    syncNext
+    sync
 }: ChoiceProps): JSX.Element => {
     const dispatch = useDispatch()
     const { filename } = React.useContext(ChapterContext)
@@ -104,7 +99,7 @@ const MutableChoice = ({
               identifier: config.identifier,
               instanceId: multiplayer.instanceId,
               sync,
-              syncNext
+              emit: true
           }
         : null
 

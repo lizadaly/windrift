@@ -68,11 +68,7 @@ const Polls = (): JSX.Element => {
 
     const dispatch = useDispatch()
 
-    const { choices } = useChoicePoll(
-        multiplayer.identifier,
-        multiplayer.instanceId,
-        multiplayer.otherPlayer
-    )
+    const { choices } = useChoicePoll(multiplayer.identifier, multiplayer.instanceId)
 
     // Poll for choices
     React.useEffect(() => {
@@ -81,6 +77,7 @@ const Polls = (): JSX.Element => {
             .filter((row) => !logIds.includes(row.id))
             .forEach((row) => {
                 const { id, tag, option, next, chapterName, player } = row
+                console.log(`Replaying event ${tag} / ${next}`)
                 dispatch(
                     makeChoice(tag, option, next, chapterName, {
                         eventPlayer: player,
@@ -88,8 +85,8 @@ const Polls = (): JSX.Element => {
                         identifier: multiplayer.identifier,
                         instanceId: multiplayer.instanceId,
                         sync: false,
-                        syncNext: false,
-                        choiceId: id
+                        choiceId: id,
+                        emit: false
                     })
                 )
             })

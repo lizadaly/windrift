@@ -41,7 +41,7 @@ export interface MultiplayerChoicePayload {
     identifier: string
     instanceId: string
     sync: boolean
-    syncNext: boolean
+    emit: boolean
     choiceId?: string
 }
 export const makeChoice =
@@ -74,15 +74,20 @@ export const makeChoice =
 
         const { resolved } = choices.present[tag]
 
+        console.log('Resolved: ', resolved)
         // If we've now exhausted the list of possible choices, invoke `next`
-        if (resolved) {
+        // In Multiplayer, only invoke next for choices made by the current player
+        if (
+            resolved &&
+            (!multiplayer || multiplayer.eventPlayer.id === multiplayer.currentPlayer.id)
+        ) {
             if (next === Next.Section) {
                 dispatch(incrementSection({ filename }))
             } else if (next === Next.None) {
                 // no-op
             } else if (typeof next === 'string') {
                 dispatch(gotoChapter({ filename: next }))
-                if (multiplayer) {
+                if (multiplayer && multiplayer.emit) {
                     emitNavChange(
                         multiplayer.identifier,
                         next, // Where they're going
@@ -92,12 +97,12 @@ export const makeChoice =
                     )
                 }
             }
-            if (multiplayer && multiplayer.eventPlayer === multiplayer.currentPlayer) {
+            if (multiplayer && multiplayer.emit) {
                 emitChoice(
                     choiceId,
                     tag,
                     option,
-                    multiplayer.syncNext ? next : null,
+                    next,
                     filename,
                     multiplayer.identifier,
                     multiplayer.instanceId,
