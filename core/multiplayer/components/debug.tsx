@@ -37,7 +37,7 @@ interface SyncProps {
     multiplayer: Multiplayer
 }
 const SyncButton = ({ multiplayer }: SyncProps): JSX.Element => {
-    const doSync = useSync(multiplayer.identifier, multiplayer.instanceId, multiplayer.otherPlayer)
+    const doSync = useSync(multiplayer.identifier, multiplayer.instanceId)
     return (
         <div>
             <button onClick={() => doSync(true)}>Sync now</button>

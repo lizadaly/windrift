@@ -41,11 +41,11 @@ const Pusher: React.FC = ({ children }): JSX.Element => {
 /** Subscribe to story channel */
 
 const Listener: React.FC = ({ children }): JSX.Element => {
-    const { instanceId, identifier, otherPlayer } = React.useContext(MultiplayerContext).multiplayer
+    const { instanceId, identifier } = React.useContext(MultiplayerContext).multiplayer
     const channelName = `presence-${instanceId}`
     const { channel } = usePresenceChannel(channelName)
     const trigger = useClientTrigger(channel)
-    const doSync = useSync(identifier, instanceId, otherPlayer)
+    const doSync = useSync(identifier, instanceId)
 
     // On any choice made by this player, indicate that they had a state change
     // TODO this will also fire on propagated changes; do we care?
