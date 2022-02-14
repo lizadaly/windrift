@@ -136,7 +136,7 @@ export const createStoryInstance = async (identifier: string): Promise<Multiplay
     const { instance, player1, player2 } = res.data
     const storyUrl = getStoryUrl(instance.id)
     return {
-        identifier: instance.identifier,
+        identifier,
         storyUrl,
         currentPlayer: player1,
         otherPlayer: player2,
@@ -227,6 +227,7 @@ export const usePresencePoll = (
         fetcher,
         SWR_CONFIG
     )
+
     if (data) {
         data.createdAt = new Date(data.createdAt)
         data.updatedAt = new Date(data.updatedAt)

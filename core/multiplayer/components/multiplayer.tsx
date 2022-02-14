@@ -49,12 +49,14 @@ const Multiplayer: React.FC = ({ children }) => {
         otherPlayer: null,
         ready: false
     })
+
     const { instance } = useSelector((state: RootState) => state.instance)
     const router = useRouter()
 
     // Clear the local storage if it exists and our url params don't match
     const clearStorage =
         instance &&
+        router.query?.instance &&
         (instance.instanceId !== router.query?.instance ||
             instance.playerId !== router.query?.playerId)
     return (

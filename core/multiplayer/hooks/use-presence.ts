@@ -24,22 +24,10 @@ export const usePresence = (): PresenceData => {
     const { otherPlayer, instanceId, identifier } = React.useContext(MultiplayerContext).multiplayer
     const channelName = `presence-${instanceId}`
 
-    const { presence, isLoading, isError } = usePresencePoll(identifier, instanceId, otherPlayer)
+    const { presence } = usePresencePoll(identifier, instanceId, otherPlayer)
     const { members, myID } = usePresenceChannel(channelName)
 
-    const response = {
-        isActive: false,
-        lastSeen: undefined
-    }
-    if (!otherPlayer) {
-        return response
-    }
-
-    if (isLoading || isError) {
-        return response
-    }
-
-    const lastSeen = DateTime.fromJSDate(presence.updatedAt)
+    const lastSeen = presence?.updatedAt ? DateTime.fromJSDate(presence.updatedAt) : null
     let isActive = false
 
     if (!P2P_ENABLED) {
