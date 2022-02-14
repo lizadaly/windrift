@@ -30,6 +30,15 @@ export const getStoryUrl = (instanceId: string): string => {
     const { protocol, hostname, port, pathname } = window.location
     return `${protocol}//${hostname}${port ? ':' + port : ''}${pathname}?instance=${instanceId}`
 }
+
+export const getChoiceListenerURL = (identifier: string, instanceId: string): string => {
+    return `${API_PREFIX}/${identifier}/${instanceId}/listen/`
+}
+
+export const getNavListenerURL = (identifier: string, instanceId: string): string => {
+    return `${API_PREFIX}/${identifier}/${instanceId}/nav/`
+}
+
 const fetcher = (url: string) => axios.get(url).then((res) => res.data)
 
 interface MultiplayerResponse {
@@ -266,8 +275,7 @@ export const useChoicePoll = (
     player?: Player
 ): ChoicePollResponse => {
     const url =
-        `${API_PREFIX}/${identifier}/${instanceId}/listen/` +
-        (player ? `?playerId=${player.id}` : '')
+        getChoiceListenerURL(identifier, instanceId) + (player ? `?playerId=${player.id}` : '')
 
     const { data, error } = useSWR<ChoiceApiResponse[]>(url, fetcher, SWR_CONFIG)
     if (data) {
@@ -283,16 +291,14 @@ export const useChoicePoll = (
 }
 
 /** Wrapper function to tell all relevant SWR calls to revalidate */
-export const useSync = (identifier: string, instanceId: string, player: Player): any => {
+export const useSync = (identifier: string, instanceId: string): any => {
     const [sync, doSync] = React.useState(false)
     const { mutate } = useSWRConfig()
-    const choiceURL = `${API_PREFIX}/${identifier}/${instanceId}/listen/?playerId=${player.id}`
-    const navURL = `${API_PREFIX}/${identifier}/${instanceId}/nav/`
 
     React.useEffect(() => {
         if (sync) {
-            mutate(choiceURL)
-            mutate(navURL)
+            mutate(getChoiceListenerURL(identifier, instanceId))
+            mutate(getNavListenerURL(identifier, instanceId))
             doSync(false)
         }
     })

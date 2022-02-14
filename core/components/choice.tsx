@@ -12,6 +12,8 @@ import { init as initInventory } from 'core/features/inventory'
 import useInventory from 'core/hooks/use-inventory'
 import { StoryContext } from 'pages/[story]/[[...chapter]]'
 import { MultiplayerContext } from 'core/multiplayer/components/multiplayer'
+import { useSWRConfig } from 'swr'
+import { getChoiceListenerURL, getNavListenerURL } from 'core/multiplayer/api-client'
 
 export interface ChoiceProps {
     tag: string
@@ -91,6 +93,7 @@ const MutableChoice = ({
     })
     const { multiplayer } = React.useContext(MultiplayerContext)
     const [inventory] = useInventory([tag])
+    const { mutate } = useSWRConfig()
 
     const multiplayerPayload: MultiplayerChoicePayload = multiplayer?.currentPlayer
         ? {
@@ -119,6 +122,10 @@ const MutableChoice = ({
             group = [last]
         } else {
             group = [inventory]
+        }
+        if (multiplayer) {
+            mutate(getChoiceListenerURL(multiplayer.identifier, multiplayer.instanceId))
+            mutate(getNavListenerURL(multiplayer.identifier, multiplayer.instanceId))
         }
     }
 

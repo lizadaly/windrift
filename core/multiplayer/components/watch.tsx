@@ -34,7 +34,7 @@ interface Props {
 export const Watch = ({ enter, exit, here, elsewhere }: Props): JSX.Element => {
     const { current, other } = useLocation()
 
-    usePresence()
+    const { isActive, lastSeen } = usePresence()
 
     const thisPlayerLocation = useChapter()?.filename
 

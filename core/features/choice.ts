@@ -7,7 +7,8 @@ import { Tag, ENTRY_TYPES, Next, Config, NextType, RootState } from 'core/types'
 import { gotoChapter, incrementSection } from 'core/features/navigation'
 import { increment } from 'core/features/counter'
 import { Player } from '@prisma/client'
-import { emitChoice, emitNavChange } from 'core/multiplayer/api-client'
+import { emitChoice, emitNavChange, useSync } from 'core/multiplayer/api-client'
+import { useSWRConfig } from 'swr'
 
 export type Option = string
 export type OptionGroup = Array<Option>
@@ -54,7 +55,6 @@ export const makeChoice =
     ) =>
     (dispatch: Dispatch, getState: () => RootState, config: Config): void => {
         const choiceId = multiplayer?.choiceId || uuidv4()
-
         dispatch(updateInventory({ tag, option }))
         dispatch(advance({ tag }))
         dispatch(
@@ -74,7 +74,6 @@ export const makeChoice =
 
         const { resolved } = choices.present[tag]
 
-        console.log('Resolved: ', resolved)
         // If we've now exhausted the list of possible choices, invoke `next`
         // In Multiplayer, only invoke next for choices made by the current player
         if (
