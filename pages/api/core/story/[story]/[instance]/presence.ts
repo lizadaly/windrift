@@ -51,7 +51,7 @@ const presence = async (
             }
         })
         if (presence === null) {
-            res.status(200).end() // FIXME use better handling
+            res.status(404).end()
         } else {
             res.status(200).json(presence)
         }
