@@ -1,20 +1,23 @@
+@use 'sass:color';
+
 @use '../colors';
 @use '../sizing';
 @use '../fonts';
 
 .clipboard {
-    border: 1px solid colors.$cool;
-    box-shadow: none;
-    border-radius: 0;
+    width: 350px;
+    height: 50px;
+    border: none;
     cursor: pointer;
-    background: colors.$cool;
+    background: colors.$disabled;
     color: colors.$contrast;
     padding: 5px;
     display: flex;
-    font-family: fonts.$body;
+    font-family: fonts.$header;
     font-size: 1rem;
     align-items: center;
     justify-content: center;
+
 
     span {
         display: inline-block;
@@ -24,20 +27,32 @@
         fill: colors.$cool;
         stroke: colors.$cool;
     }
+    &.offline {
+        animation: pulse 2s;
+        animation-iteration-count: infinite;
+        background: colors.$warm;
+        border: 2px solid colors.$very-light;
+
+    }
     &:hover {
-        border: 1px solid colors.$cool;
+        background: color.scale(colors.$warm, $lightness: 20%);
+        animation: none;
+
     }
     &:active {
         background: colors.$button;
-        animation: pulse .2s;
-        animation-fill-mode: forwards;
     }
     @keyframes pulse {
         0% {
-            transform: scale(1.0);
+            border-color: rgba(255, 255, 255, 0);
+        }
+
+        50% {
+            border-color: rgba(255, 255, 255, 1);
         }
         100% {
-            transform: scale(1.1);
+            border-color: rgba(255, 255, 255, 0);
+
         }
     }
 }

@@ -25,17 +25,20 @@ $left-right-width: 1fr;
 
     nav {
         // Add an extra column for the share button
-        grid-template-columns: 3fr 1fr 1fr 1fr;
+        grid-template-columns: 3fr 1fr 1fr;
 
         .player {
             display: inline-block;
             font-size: 1rem;
             justify-self: right;
             margin-right: 10px;
+            align-self: center;
         }
 
         .share {
             display: inline-block;
+            align-self: center;
+
         }
         h1 {
             padding-left: math.div(sizing.$gutter, 4);
