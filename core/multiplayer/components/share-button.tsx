@@ -14,7 +14,7 @@ const ShareButton = (): JSX.Element => {
                 onClick={() =>
                     navigator.clipboard.writeText(storyUrl + `&playerId=${otherPlayer.id}`)
                 }>
-                <span>Share story URL with {otherPlayer.name}</span>
+                <span>Share story link with {otherPlayer.name}</span>
                 <Image src="/images/clipboard.svg" width={25} height={25} alt="Copy to clipboard" />
             </button>
         </>

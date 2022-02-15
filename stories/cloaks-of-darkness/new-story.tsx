@@ -1,7 +1,6 @@
 import * as React from 'react'
 
 import StartStory from 'core/multiplayer/components/start-story-form'
-import ResumeStory from 'core/multiplayer/components/resume-story-form'
 import { MultiplayerContext } from 'core/multiplayer/components/multiplayer'
 
 /**
@@ -15,7 +14,7 @@ const NewStory: React.FC = ({ children }) => {
         <>{children}</>
     ) : (
         <div>
-            <h1>Start or join Cloaks of Darkness</h1>
+            <h1>Start a new Cloaks of Darkness</h1>
             <p>
                 This is a demo multiplayer hypertext story based on the
                 <i>Cloak of Darkness</i> starter interactive fiction story.
@@ -25,7 +24,10 @@ const NewStory: React.FC = ({ children }) => {
                 window):
             </p>
             <StartStory>Start a new Cloaks of Darkness</StartStory>
-            <ResumeStory>Resume an existing Cloaks of Darkness</ResumeStory>
+            <aside>
+                If you are trying to join an existing story, ask the other player to click the
+                "share story link" button and paste that link in a chat session with
+            </aside>
         </div>
     )
 }

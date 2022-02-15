@@ -2,23 +2,32 @@ import * as React from 'react'
 
 import { createStoryInstance } from 'core/multiplayer/api-client'
 import { StoryContext } from 'pages/[story]/[[...chapter]]'
-import { MultiplayerContext } from './multiplayer'
+import { useRouter } from 'next/router'
 
 const StartStory: React.FC = ({ children = 'Start a new story' }) => {
-    const { setMultiplayer } = React.useContext(MultiplayerContext)
-
     const { config } = React.useContext(StoryContext)
-
-    const [clicked, setClicked] = React.useState(false)
-
+    const router = useRouter()
+    const [clicked, setClicked] = React.useState(router.query.instance ? true : false)
     return (
         <>
             <button
                 disabled={clicked}
                 onClick={async () => {
                     setClicked(true)
-                    const multiplayer = await createStoryInstance(config.identifier)
-                    setMultiplayer(multiplayer)
+
+                    const resp = await createStoryInstance(config.identifier)
+                    // Rewrite the URL to include the query params
+                    router.push(
+                        {
+                            pathname: `/[story]/[[...chapter]]`,
+                            query: {
+                                instance: resp.instanceId,
+                                playerId: resp.currentPlayer.id
+                            }
+                        },
+                        `/${config.identifier}/?instance=${resp.instanceId}&playerId=${resp.currentPlayer.id}`,
+                        { shallow: true }
+                    )
                 }}>
                 {clicked ? 'Setting up story...' : children}
             </button>
