@@ -86,15 +86,6 @@ export const useMultiplayer = (
     }
 }
 
-// // Now immediately get any missed events, including our own
-// getAllChoices(identifier, instance.id, currentPlayer, dispatch, () => {
-//     if (start) {
-//         // Dispatch a start location if we got one from the API; otherwise this will fall back to the player default
-//         console.log('Dispatching gotchapter to ', start)
-//         dispatch(gotoChapter({ filename: start }))
-//     }
-// })
-
 export interface ResumeResponse {
     storyUrl?: string
     status?: number

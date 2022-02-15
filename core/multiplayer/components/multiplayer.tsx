@@ -8,12 +8,10 @@ import * as React from 'react'
 import { Player } from '@prisma/client'
 
 import Ready from 'core/multiplayer/components/ready'
-import { RootState } from 'core/types'
-import { useSelector } from 'react-redux'
+
 import { emitPresence, useMultiplayer } from '../api-client'
 import { StoryContext } from 'pages/[story]/[[...chapter]]'
 import { useRouter } from 'next/router'
-import { Instance } from '../features/instance'
 
 export const PUSHER_ENABLED = !!process.env.NEXT_PUBLIC_PUSHER_KEY
 export const P2P_ENABLED = PUSHER_ENABLED // TODO define more P2P handlers here
@@ -50,22 +48,14 @@ const Multiplayer: React.FC = ({ children }) => {
         ready: false
     })
 
-    const { instance } = useSelector((state: RootState) => state.instance)
     const router = useRouter()
 
-    // Clear the local storage if it exists and our url params don't match
-    const clearStorage =
-        instance &&
-        router.query?.instance &&
-        (instance.instanceId !== router.query?.instance ||
-            instance.playerId !== router.query?.playerId)
     return (
         <MultiplayerContext.Provider
             value={{
                 multiplayer,
                 setMultiplayer
             }}>
-            {!multiplayer.ready && instance && !clearStorage && <Rehydrate instance={instance} />}
             {!multiplayer.ready && router.query.instance && router.query.playerId && (
                 <FromRouter
                     instanceId={router.query.instance as string}
@@ -78,26 +68,6 @@ const Multiplayer: React.FC = ({ children }) => {
     )
 }
 
-/** Try rehydrating from the Redux store if not initialized */
-interface RehydrateProps {
-    instance: Instance
-}
-const Rehydrate = ({ instance }: RehydrateProps) => {
-    const { setMultiplayer } = React.useContext(MultiplayerContext)
-    const { identifier } = React.useContext(StoryContext).config
-    const { multiplayer } = useMultiplayer(identifier, instance.instanceId, instance.playerId)
-
-    React.useEffect(() => {
-        if (multiplayer) {
-            console.log(`Restarting story instance ${instance.instanceId} from Redux store`)
-            setMultiplayer(multiplayer)
-            emitPresence(identifier, instance.instanceId, instance.playerId)
-        }
-    }, [multiplayer])
-    return null
-}
-
-/** Try starting it from URL query parameters if we got a player id and instance id */
 interface FromRouterProps {
     instanceId: string
     playerId: string
@@ -110,14 +80,19 @@ const FromRouter = ({ instanceId, playerId }: FromRouterProps) => {
 
     React.useEffect(() => {
         if (multiplayer) {
-            console.log('Starting story instance from URL props')
-            // Always clear the local storage first since it's at best stale
-            persistor.flush().then(() => {
-                persistor.purge().then(() => {
+            // Try to avoid race conditions with purging local state before initializing it with the API response
+            persistor
+                .purge()
+                .then(() => {
+                    return persistor.flush()
+                })
+                .then(() => {
+                    persistor.pause()
+                })
+                .then(() => {
                     setMultiplayer(multiplayer)
                     emitPresence(identifier, instanceId, playerId)
                 })
-            })
         }
     }, [multiplayer])
 

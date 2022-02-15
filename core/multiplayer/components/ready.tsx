@@ -13,7 +13,6 @@ import { useInterval } from 'usehooks-ts'
 import { MultiplayerContext, POLL_FREQUENCY } from './multiplayer'
 import { init } from '../features/instance'
 import { makeChoice } from 'core/features/choice'
-import Pusher from './p2p/pusher'
 
 const Ready: React.FC = ({ children }): JSX.Element => {
     const { multiplayer } = React.useContext(MultiplayerContext)
