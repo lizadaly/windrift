@@ -23,8 +23,6 @@ const StartStory: React.FC = ({ children = 'Start a new story' }) => {
                             query: {
                                 instance: resp.instanceId,
                                 playerId: resp.currentPlayer.id
-                                // story: config.identifier,
-                                // chapter: null
                             }
                         },
                         `/${config.identifier}/?instance=${resp.instanceId}&playerId=${resp.currentPlayer.id}`,
