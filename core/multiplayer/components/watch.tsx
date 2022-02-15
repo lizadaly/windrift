@@ -10,6 +10,7 @@ interface Props {
     exit?: React.ReactNode
     here?: React.ReactNode
     elsewhere?: React.ReactNode
+    alone?: React.ReactNode
 }
 /**
  * Stateful component to track enter/exit of the other player.
@@ -23,6 +24,7 @@ interface Props {
  * @param exit Content to display when the other player exits.
  * @param here Content to display when the other player was already here when we arrived.
  * @param elsewhere Content to display when the other player is not in the room and hasn't just left.
+ * @param alone Content to display when the other player is not online.
  *
  * @see {Only}
  * @see {Both}
@@ -31,7 +33,7 @@ interface Props {
  */
 
 // TODO have this listen to an emitted Nav Change, not just the current position
-export const Watch = ({ enter, exit, here, elsewhere }: Props): JSX.Element => {
+export const Watch = ({ enter, exit, here, elsewhere, alone }: Props): JSX.Element => {
     const { current, other } = useLocation()
 
     const { isActive, lastSeen } = usePresence()
@@ -42,6 +44,7 @@ export const Watch = ({ enter, exit, here, elsewhere }: Props): JSX.Element => {
     const [exited, setExited] = React.useState(false)
     const [isHere, setHere] = React.useState(false)
     const [isElsewhere, setElsewhere] = React.useState(false)
+    const [isAlone, setAlone] = React.useState(true)
 
     React.useEffect(() => {
         // If there's any location data at all...
@@ -57,12 +60,16 @@ export const Watch = ({ enter, exit, here, elsewhere }: Props): JSX.Element => {
                     setEntered(true)
                     setExited(false)
                     setHere(false)
+                    setElsewhere(false)
+                    setAlone(false)
                 }
                 // Both players are here (same as <Both> but convenient to have expressed this way)
                 else {
                     setHere(true)
                     setEntered(false)
                     setExited(false)
+                    setElsewhere(false)
+                    setAlone(false)
                 }
             }
             // if the other player's event was _from_ this location
@@ -75,15 +82,25 @@ export const Watch = ({ enter, exit, here, elsewhere }: Props): JSX.Element => {
                     setExited(true)
                     setEntered(false)
                     setHere(false)
+                    setElsewhere(false)
+                    setAlone(false)
                 }
-            } else {
+            } else if (isActive) {
+                setElsewhere(true)
                 setExited(false)
                 setEntered(false)
                 setHere(false)
-                setElsewhere(true)
+                setAlone(false)
             }
         }
-    }, [thisPlayerLocation, current, other])
+        if (!isActive) {
+            setAlone(true)
+            setExited(false)
+            setEntered(false)
+            setHere(false)
+            setElsewhere(false)
+        }
+    }, [thisPlayerLocation, current, other, isActive])
 
     if (entered && enter) {
         return <>{enter}</>
@@ -96,6 +113,9 @@ export const Watch = ({ enter, exit, here, elsewhere }: Props): JSX.Element => {
     }
     if (isElsewhere && elsewhere) {
         return <>{elsewhere}</>
+    }
+    if (isAlone && alone) {
+        return <>{alone}</>
     }
     return null
 }

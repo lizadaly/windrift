@@ -43,10 +43,8 @@ const Content: React.FC = ({ children }) => {
 }
 
 const Ready: React.FC = ({ children }) => {
-    const { currentPlayer } = React.useContext(MultiplayerContext).multiplayer
-    const { otherPlayer } = React.useContext(MultiplayerContext).multiplayer
+    const { currentPlayer, otherPlayer } = React.useContext(MultiplayerContext).multiplayer
     const { isActive, lastSeen } = usePresence()
-
     const cloakStatus = useCloak()
 
     return (
@@ -55,7 +53,6 @@ const Ready: React.FC = ({ children }) => {
             header={
                 <nav>
                     <h1>Cloaks of Darkness</h1>
-                    <div className={styles.player}>You are player {currentPlayer.name} ⟶</div>
                     <div className={styles.share}>{<ShareButton />}</div>
                     <div className={styles.controls}>
                         <ResetButton />
@@ -102,6 +99,12 @@ const Ready: React.FC = ({ children }) => {
                                 enter={<>The {otherPlayer.name} has entered the room.</>}
                                 exit={<>The {otherPlayer.name} has left the room.</>}
                                 elsewhere={<>The {otherPlayer.name} is elsewhere.</>}
+                                alone={
+                                    <>
+                                        The {otherPlayer.name} is not online. Invite them using the
+                                        link at the top!
+                                    </>
+                                }
                                 here={
                                     <>
                                         The {otherPlayer.name} is here.{' '}
