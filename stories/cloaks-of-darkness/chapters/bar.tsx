@@ -154,9 +154,11 @@ export const Page: PageType = () => {
                             </>
                         }>
                         <aside>
-                            The cloak wrapped around you is covering you in a hazy shield of
-                            darkness. Up in the ceiling, the motion detector holds a steady green
-                            light. You are unseen!
+                            <p>
+                                The cloak wrapped around you is covering you in a hazy shield of
+                                darkness. Up in the ceiling, the motion detector holds a steady
+                                green light. You are unseen!
+                            </p>
                         </aside>
                         <p>
                             It's a combination bar and restaurant for patrons of the opera. You only
