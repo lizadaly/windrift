@@ -4,9 +4,12 @@ import Both from 'core/multiplayer/components/both'
 
 import { PageType } from 'core/types'
 import useLocation from 'core/multiplayer/hooks/use-location'
+import useInventory from 'core/hooks/use-inventory'
 
 export const Page: PageType = () => {
     const { other } = useLocation()
+    const [screwdriverOpen, screwdriver] = useInventory(['screwdriverOpen', 'screwdriver'])
+
     return (
         <Chapter filename="foyer">
             <Section>
@@ -58,7 +61,7 @@ export const Page: PageType = () => {
                                     Someone hastily nailed boards across the entire doorway. The
                                     wood and nails look sturdy enough,{' '}
                                     <R
-                                        tag="screwdriver-open"
+                                        tag="screwdriverOpen"
                                         options={{
                                             screwdriver:
                                                 'though the bottom board has been pried open'
@@ -83,7 +86,7 @@ export const Page: PageType = () => {
                                 <aside>
                                     <Only playerName="raccoon">
                                         <R
-                                            tag="screwdriver-open"
+                                            tag="screwdriverOpen"
                                             options={{
                                                 screwdriver: (
                                                     <p>
@@ -101,8 +104,6 @@ export const Page: PageType = () => {
                                             none={
                                                 <>
                                                     <p>
-                                                        You flail your grabby little hands around
-                                                        the hole, but you can barely get one arm in.
                                                         The humans must've finally caught on that
                                                         you've been scurrying into the bar and
                                                         stealing from the garbage. You won't be able
@@ -131,116 +132,132 @@ export const Page: PageType = () => {
                                         />
                                     </Only>
                                     <Only playerName="snake">
-                                        It's a nice cozy hole with room to spare, and you can sense
-                                        waves of heat radiating out from the room beyond. You could
-                                        easily <Nav next="bar" text="slither through" tag="bar" />.
+                                        <p>
+                                            It's a nice cozy hole with room to spare, and you can
+                                            sense waves of heat radiating out from the room beyond.
+                                            You could easily{' '}
+                                            <Nav next="bar" text="slither through" tag="bar" />.
+                                        </p>
                                     </Only>
                                 </aside>
                             </div>
                         )
                     }}
                 />
-                <Only playerName="raccoon" alone={true}>
-                    <R
-                        tag="wrong"
-                        options={{
-                            '*': (
-                                <p>
-                                    A loud wailing sound is going off. As a raccoon you are very
-                                    familiar with it: it's a burglar alarm. The sound seems to be
-                                    coming from the{' '}
-                                    <C options={[['hole in the boards']]} tag="hole-with-alarm" />.
-                                </p>
-                            )
-                        }}
-                    />
-                    <R
-                        tag="hole-with-alarm"
-                        options={{
-                            '*': (
-                                <>
+                <When condition={!screwdriverOpen}>
+                    <Only playerName="raccoon" alone={true}>
+                        <R
+                            tag="wrong"
+                            options={{
+                                '*': (
                                     <p>
-                                        You bend over and peek through the hole. You see the snake
-                                        sinuously moving around the bar, as if exploring. What
-                                        appears to you to be a motion sensor is blinking in
-                                        response. The snake settles back by the oven (probably for
-                                        the warmth) and the alarm subsides.
+                                        A loud wailing sound is going off. As a raccoon you are very
+                                        familiar with it: it's a burglar alarm. The sound seems to
+                                        be coming from the{' '}
+                                        <C
+                                            options={[['hole in the boards']]}
+                                            tag="hole-with-alarm"
+                                        />
+                                        .
                                     </p>
-                                    <p>
-                                        The smell of cooked, discarded food that wafts in from the
-                                        bar is almost overwhelming. You notice suddenly that there's
-                                        a screwdriver lying on the floor by the oven, right
-                                        underneath the snake's tail. Maybe that could get the boards
-                                        off, if you could only reach for it?
-                                    </p>
-                                </>
-                            )
-                        }}
-                    />
-                    <R
-                        tag="eye-hole"
-                        options={{
-                            '*': (
-                                <>
-                                    <p>
-                                        The snake senses your presence and you jam your little arm
-                                        through the hole, pointing blindly at what you hope is the
-                                        direction of the screwdriver.
-                                    </p>
-                                </>
-                            )
-                        }}
-                    />
-                </Only>
-                <Both>
-                    <R
-                        tag="screwdriver"
-                        options={{
-                            '*': (
-                                <>
-                                    <Only playerName="raccoon">
+                                )
+                            }}
+                        />
+                        <R
+                            tag="hole-with-alarm"
+                            options={{
+                                '*': (
+                                    <>
                                         <p>
-                                            The snake glides back through the hole, neatly guiding
-                                            the{' '}
-                                            <C tag="screwdriver-open" options={[['screwdriver']]} />{' '}
-                                            it has grasped in its tail. It looks at you expectantly.
+                                            You bend over and peek through the hole. You see the
+                                            snake sinuously moving around the bar, as if exploring,
+                                            and a motion sensor is blinking in response. The snake
+                                            settles back by the oven (probably for the warmth) and
+                                            the alarm subsides.
                                         </p>
-                                    </Only>
-                                    <Only playerName="snake">
                                         <p>
-                                            You emerge from the hole dragging the screwdriver behind
-                                            you, and look steadily at the raccoon. Strange
-                                            bedfellows, but it's a strange night at the opera.
+                                            The food smell that wafts in from the bar is almost
+                                            overwhelming. You notice some kind of tool lying on the
+                                            floor by the oven, right underneath the snake's tail.
+                                            Maybe that could get the boards off, if only the snake
+                                            would notice you!
                                         </p>
-                                    </Only>
-                                </>
-                            )
-                        }}
-                    />
-                    <R
-                        tag="screwdriver-open"
-                        options={{
-                            screwdriver: (
-                                <>
-                                    <Only playerName="raccoon">
+                                    </>
+                                )
+                            }}
+                        />
+                        <R
+                            tag="eye-hole"
+                            options={{
+                                '*': (
+                                    <>
                                         <p>
-                                            You delicately pull the screwdriver from the snake's
-                                            tail (are corn snakes venomous?) and pry the bottom
-                                            board off the doorway. It's great to have hands!
+                                            The snake senses your presence and you jam your little
+                                            arm through the hole, pointing blindly at what you hope
+                                            is the direction of the screwdriver.
                                         </p>
-                                    </Only>
-                                    <Only playerName="snake">
-                                        <p>
-                                            The raccoon politely extracts the screwdriver from your
-                                            tail's grasp and, almost like a human, pries the lowest
-                                            board off the doorway. Now you can both fit through.
-                                        </p>
-                                    </Only>
-                                </>
-                            )
-                        }}
-                    />
-                </Both>
+                                    </>
+                                )
+                            }}
+                        />
+                    </Only>
+                    <Both>
+                        <R
+                            tag="screwdriver"
+                            options={{
+                                '*': (
+                                    <>
+                                        <Only playerName="raccoon">
+                                            <p>
+                                                The snake glides back through the hole, neatly
+                                                guiding the{' '}
+                                                <C
+                                                    tag="screwdriverOpen"
+                                                    options={[['screwdriver']]}
+                                                />{' '}
+                                                it has grasped in its tail. It looks at you
+                                                expectantly.
+                                            </p>
+                                        </Only>
+                                        <Only playerName="snake">
+                                            <p>
+                                                You emerge from the hole dragging the screwdriver
+                                                behind you, and look steadily at the raccoon.
+                                                Strange bedfellows, but it's a strange night at the
+                                                opera.
+                                            </p>
+                                        </Only>
+                                    </>
+                                )
+                            }}
+                        />
+
+                        <R
+                            tag="screwdriverOpen"
+                            options={{
+                                screwdriver: (
+                                    <>
+                                        <Only playerName="raccoon">
+                                            <p>
+                                                You delicately pull the screwdriver from the snake's
+                                                tail (are corn snakes venomous?) and pry the bottom
+                                                board off the doorway. It's great to have hands!
+                                            </p>
+                                        </Only>
+                                        <Only playerName="snake">
+                                            <p>
+                                                The raccoon politely extracts the screwdriver from
+                                                your tail's grasp and, almost like a human, pries
+                                                the lowest board off the doorway. Now you can both
+                                                fit through.
+                                            </p>
+                                        </Only>
+                                    </>
+                                )
+                            }}
+                        />
+                    </Both>
+                </When>
             </Section>
         </Chapter>
     )
