@@ -58,7 +58,7 @@ export const Page: PageType = () => {
                                     Someone hastily nailed boards across the entire doorway. The
                                     wood and nails look sturdy enough,{' '}
                                     <R
-                                        tag="screwdriver-open"
+                                        tag="screwdriverOpen"
                                         options={{
                                             screwdriver:
                                                 'though the bottom board has been pried open'
@@ -83,7 +83,7 @@ export const Page: PageType = () => {
                                 <aside>
                                     <Only playerName="raccoon">
                                         <R
-                                            tag="screwdriver-open"
+                                            tag="screwdriverOpen"
                                             options={{
                                                 screwdriver: (
                                                     <p>
@@ -101,8 +101,6 @@ export const Page: PageType = () => {
                                             none={
                                                 <>
                                                     <p>
-                                                        You flail your grabby little hands around
-                                                        the hole, but you can barely get one arm in.
                                                         The humans must've finally caught on that
                                                         you've been scurrying into the bar and
                                                         stealing from the garbage. You won't be able
@@ -131,9 +129,12 @@ export const Page: PageType = () => {
                                         />
                                     </Only>
                                     <Only playerName="snake">
-                                        It's a nice cozy hole with room to spare, and you can sense
-                                        waves of heat radiating out from the room beyond. You could
-                                        easily <Nav next="bar" text="slither through" tag="bar" />.
+                                        <p>
+                                            It's a nice cozy hole with room to spare, and you can
+                                            sense waves of heat radiating out from the room beyond.
+                                            You could easily{' '}
+                                            <Nav next="bar" text="slither through" tag="bar" />.
+                                        </p>
                                     </Only>
                                 </aside>
                             </div>
@@ -161,17 +162,17 @@ export const Page: PageType = () => {
                                 <>
                                     <p>
                                         You bend over and peek through the hole. You see the snake
-                                        sinuously moving around the bar, as if exploring. What
-                                        appears to you to be a motion sensor is blinking in
-                                        response. The snake settles back by the oven (probably for
-                                        the warmth) and the alarm subsides.
+                                        sinuously moving around the bar, as if exploring, and a
+                                        motion sensor is blinking in response. The snake settles
+                                        back by the oven (probably for the warmth) and the alarm
+                                        subsides.
                                     </p>
                                     <p>
-                                        The smell of cooked, discarded food that wafts in from the
-                                        bar is almost overwhelming. You notice suddenly that there's
-                                        a screwdriver lying on the floor by the oven, right
-                                        underneath the snake's tail. Maybe that could get the boards
-                                        off, if you could only reach for it?
+                                        The food smell that wafts in from the bar is almost
+                                        overwhelming. You notice some kind of tool lying on the
+                                        floor by the oven, right underneath the snake's tail. Maybe
+                                        that could get the boards off, if only the snake would
+                                        notice you!
                                     </p>
                                 </>
                             )
@@ -202,7 +203,7 @@ export const Page: PageType = () => {
                                         <p>
                                             The snake glides back through the hole, neatly guiding
                                             the{' '}
-                                            <C tag="screwdriver-open" options={[['screwdriver']]} />{' '}
+                                            <C tag="screwdriverOpen" options={[['screwdriver']]} />{' '}
                                             it has grasped in its tail. It looks at you expectantly.
                                         </p>
                                     </Only>
@@ -218,7 +219,7 @@ export const Page: PageType = () => {
                         }}
                     />
                     <R
-                        tag="screwdriver-open"
+                        tag="screwdriverOpen"
                         options={{
                             screwdriver: (
                                 <>

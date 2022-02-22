@@ -15,7 +15,7 @@ export const Page: PageType = () => {
 
                     <p>
                         Some food must have been prepared here earlier in the evening, because the
-                        air tastes of meat and there's residual heat eminating from the surface of a
+                        air tastes of meat and there's residual heat emanating from the surface of a
                         large industrial oven. Vague shapes of objects surround you on all sides.
                     </p>
 
@@ -25,7 +25,16 @@ export const Page: PageType = () => {
                         go back through the hole to the{' '}
                         <Nav text="north" tag="north" next="foyer" />.
                     </p>
+
                     <p>Or you could just remain here. The dark warmth makes you quite drowsy!</p>
+                    <Both>
+                        <When condition={cloakStatus != CloakStatus.Worn}>
+                            <p>
+                                The raccoon is here too, but it looks very distraught and is shaking
+                                in response to some kind of sound vibration. Poor thing!
+                            </p>
+                        </When>
+                    </Both>
                     <Only playerName="snake" alone={true}>
                         <R
                             tag="wrong"
@@ -70,7 +79,7 @@ export const Page: PageType = () => {
                                                             {' '}
                                                             When you meet its gaze, the raccoon eye
                                                             disappears and is replaced by a wiggly
-                                                            raccoon arm. Its hand points its little
+                                                            raccoon arm. It points its little
                                                             fingers excitedly at a{' '}
                                                             <C
                                                                 tag="screwdriver"
@@ -126,12 +135,23 @@ export const Page: PageType = () => {
                     <When
                         condition={cloakStatus === CloakStatus.Worn}
                         otherwise={
-                            <p>
-                                As soon as you have waddled through the doorway, the motion detector
-                                up in the ceiling has begun blinking red and a furious alarm is
-                                going off. You can't think and you're consumed with panic! The only
-                                thing you can do is return <Nav text="north" next="foyer" />.
-                            </p>
+                            <>
+                                <p>
+                                    As soon as you have waddled through the doorway, the motion
+                                    detector up in the ceiling begins blinking red and a furious
+                                    alarm goes off. You can't think and you're consumed with panic!
+                                </p>
+                                <Both>
+                                    <p>
+                                        The snake is here too, but snakes don't have ears, so it's
+                                        just resting calmly by the warm oven.
+                                    </p>
+                                </Both>
+                                <p>
+                                    The only thing you can do is return{' '}
+                                    <Nav text="north" next="foyer" />.
+                                </p>
+                            </>
                         }>
                         <aside>
                             The cloak wrapped around you is covering you in a hazy shield of

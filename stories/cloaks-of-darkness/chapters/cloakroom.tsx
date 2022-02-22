@@ -85,10 +85,12 @@ export const Page: PageType = () => {
                 />
                 <Only playerName="snake">
                     <aside>
-                        Normally you find forgotten scarves and other still-warm items left behind
-                        by humans who just attended the opera, but the cloakroom is empty and cold.
-                        Perhaps the performances were cancelled tonight? You can sense warmth
-                        radiating from the east, though.
+                        <p>
+                            Normally you find forgotten scarves and other still-warm items left
+                            behind by humans who just attended the opera, but the cloakroom is empty
+                            and cold. Perhaps the performances were cancelled tonight? You can sense
+                            warmth radiating from the east, though.
+                        </p>
                     </aside>
                 </Only>
             </Section>

@@ -75,19 +75,22 @@ const Polls = (): JSX.Element => {
         choices
             .filter((row) => !logIds.includes(row.id))
             .forEach((row) => {
-                const { id, tag, option, next, chapterName, player } = row
-                console.log(`Replaying event ${tag} / ${next}`)
-                dispatch(
-                    makeChoice(tag, option, next, chapterName, {
-                        eventPlayer: player,
-                        currentPlayer: multiplayer.currentPlayer,
-                        identifier: multiplayer.identifier,
-                        instanceId: multiplayer.instanceId,
-                        sync: false,
-                        choiceId: id,
-                        emit: false
-                    })
-                )
+                const { id, tag, option, next, chapterName, player, synced } = row
+
+                if (player.id === multiplayer.currentPlayer.id || synced === true) {
+                    console.log(`Replaying event ${tag} / ${next}`)
+                    dispatch(
+                        makeChoice(tag, option, next, chapterName, {
+                            eventPlayer: player,
+                            currentPlayer: multiplayer.currentPlayer,
+                            identifier: multiplayer.identifier,
+                            instanceId: multiplayer.instanceId,
+                            sync: false,
+                            choiceId: id,
+                            emit: false
+                        })
+                    )
+                }
             })
     }, [choices])
 
