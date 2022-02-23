@@ -7,11 +7,12 @@ $max-height: 100px !default;
 $min-height: 10vh !default;
 $reset-background: colors.$button !default;
 $reset-color: colors.$very-light !default;
+$foreground-color: colors.$contrast !default;
 
 .header {
     min-height: $min-height;
     background-color: $background-color;
-    color: colors.$contrast;
+    color: $foreground-color;
 
     nav {
         display: grid;

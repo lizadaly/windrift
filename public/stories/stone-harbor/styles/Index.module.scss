@@ -13,11 +13,13 @@
    $max-height: 1vh,
    $background-color: colors.$very-light,
    $reset-background: colors.$very-light,
-   $reset-color: colors.$very-dark
+   $reset-color: colors.$very-dark,
+   $foreground-color: colors.$very-dark
 );
 
 @use '/public/styles/grid';
 
+@import url('https://fonts.googleapis.com/css2?family=STIX+Two+Math&family=Raleway&display=block');
 
 .main {
    /* Customizations can go here */
@@ -42,5 +44,12 @@
    }
    blockquote {
       font-style: italic;
+   }
+}
+.header {
+   nav {
+      .controls {
+         justify-items: left;
+      }
    }
 }
