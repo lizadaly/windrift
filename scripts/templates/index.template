@@ -6,7 +6,7 @@ import styles from 'public/stories/${story}/styles/Index.module.scss'
 
 const Index: React.FC = ({ children }) => {
     return (
-        <Grid styles={styles} head={<link></link>}>
+        <Grid styles={styles}>
             {children}
         </Grid>
     )

@@ -110,11 +110,7 @@ import styles from 'public/stories/<your-story>/styles/Index.module.scss'
 const Index: React.FC = ({ children }) => {
     return (
         <Grid
-            styles={styles}
-            head={ // Google fonts or other font imports
-                <link rel="stylesheet"
-                      href="https://fonts.googleapis.com/..." />
-            }>
+            styles={styles}>
             {children}
         </Grid>
     )

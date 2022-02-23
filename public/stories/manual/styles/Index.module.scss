@@ -1,3 +1,4 @@
+
 @use 'sass:color';
 
 @use '/public/styles/fonts' with (
@@ -12,6 +13,8 @@
 );
 @use '/public/styles/grid';
 @use '/public/styles/colors';
+
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@300&family=EB+Garamond&family=Elsie&family=Roboto&family=Roboto+Mono&display=block");
 
 
 .header {

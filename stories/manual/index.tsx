@@ -26,12 +26,6 @@ const Index: React.FC = ({ children }) => {
             head={
                 <>
                     <link
-                        href="https://fonts.googleapis.com/css2?family=Nunito:wght@300&family=EB+Garamond&family=Elsie&family=Roboto&&family=Roboto+Mono&display=block"
-                        rel="stylesheet"
-                    />
-                    <link rel="stylesheet" href="/stories/manual/styles/traditional.css" />
-
-                    <link
                         rel="apple-touch-icon"
                         sizes="180x180"
                         href="/images/apple-touch-icon.png"
