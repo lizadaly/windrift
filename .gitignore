@@ -35,3 +35,6 @@ yarn-error.log*
 # Don't save cypress artifacts
 cypress/videos
 cypress/screenshots
+
+# emacs
+*~

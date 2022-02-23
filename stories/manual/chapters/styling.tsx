@@ -192,91 +192,7 @@ const Index: React.FC = ({ children }) => (
                         is designed to match <code>Grid</code>.
                     </p>
                 </aside>
-                <h2>Fonts</h2>
-                <p>
-                    NextJS provides a good foundation for{' '}
-                    <a href="https://nextjs.org/docs/basic-features/font-optimization">
-                        font management
-                    </a>
-                    , and most authors can follow the defaults provided in the Windrift sample
-                    stories. You're encouraged to use{' '}
-                    <a href="https://fonts.google.com/">Google Fonts</a>, which load quickly and
-                    reliably, offer a huge range of character sets, and are optimized for screen
-                    (rather than print) usage.
-                </p>
-                <p>You'll need to do the following steps to add a new font to a story:</p>
-                <ol>
-                    <li>Import the font in the story template</li>
-                    <li>Assign the new font to the desired style</li>
-                </ol>
-                <h3>Step 1: Import the font in your story template</h3>
-                <p>
-                    The story template wraps every page in your story, so put the font import in the
-                    header. There should already be a placeholder from the story generator:
-                </p>
-                <SyntaxHighlighter language="tsx" style={prism}>
-                    {`// stories/manual/index.tsx
-<Grid styles={styles}
-    head={
-        <link
-            href="https://fonts.googleapis.com/css2?family=EB+Garamond&display=block"
-            rel="stylesheet"
-        />
-    }>
-    {children}
-</Grid>`}
-                </SyntaxHighlighter>
-                <p>
-                    Note the use of <code>display=block</code>. This instructs the browser to{' '}
-                    <em>block</em> (wait) for the font to be completely loaded before rendering the
-                    text content. This is <em>not</em> the usual web recommendation, where it's
-                    typically better to put some content in front of users as fast as possible and
-                    then switch in the correct font later. Hypertext stories are generally loaded
-                    all at once up-front, so using the <code>block</code> loading instruction
-                    provides a better user experience than a font that shifts midway into the
-                    introduction. (See{' '}
-                    <a href="https://font-display.glitch.me/">font-display tutorial</a> by Monica
-                    Dinculescu for an excellent summary of CSS font rendering options.)
-                </p>
-                <p>
-                    Don't use the shorter <code>@import</code> form of font loading that Google
-                    Fonts might suggest—NextJS will perform useful optimizations on the{' '}
-                    <code>&lt;link&gt;</code> syntax listed above only.
-                </p>
-                <h3>Step 2: Assign the new font as the default, or to a specific element</h3>
-                <p>
-                    The story generator will give you some basic CSS to work with. This will be
-                    discussed in more detail in the next section, but to use your new font as the
-                    default for all text, add the following:
-                </p>
-                <SyntaxHighlighter
-                    language="css"
-                    style={prism}>{`/* public/stories/<your-story-id>/Index.module.scss */
-@use '/public/styles/fonts' with (
-    $body: 'EB Garamond',
-);
 
-/* This next rule will be inserted by the story generator */
-.main {
-    /* Customizations can go here */
- }`}</SyntaxHighlighter>
-                <p>
-                    This combination of <a href="https://sass-lang.com/">Sass/CSS</a> and{' '}
-                    <a href="https://css-tricks.com/css-modules-part-1-need/">CSS Modules</a> may be
-                    unfamiliar to you, but will be discussed more in the next section.
-                </p>
-                <p>
-                    To limit your new font to only specific elements, such as{' '}
-                    <code>&lt;h1&gt;</code>, you can use a more familiar syntax:
-                </p>
-                <SyntaxHighlighter
-                    language="css"
-                    style={prism}>{`/* public/stories/<your-story-id>y/Index.module.scss */
-.main {
-    h1 {
-        font-family: 'EB Garamond';
-    }
-}`}</SyntaxHighlighter>
                 <h2>Styling</h2>
 
                 <p>
@@ -286,37 +202,7 @@ const Index: React.FC = ({ children }) => (
                     don't want to. However, there are a few Windrift-specific features to get
                     oriented on before customizing your story's styles.
                 </p>
-                <h3>Customizing CSS in the most simple way</h3>
-                <p>
-                    You can add a CSS or SCSS file to the head of your story template in the way you
-                    would for any HTML document. An example is provided in the head of the manual's{' '}
-                    <code>stories/manual/index.tsx</code>:
-                </p>
-                <SyntaxHighlighter language="tsx" style={prism}>
-                    {`<Grid styles={styles}
-    head={
-        <>
-            <link href="https://fonts.googleapis.com/..." rel="stylesheet" />
-            <link rel="stylesheet" href="/stories/manual/styles/traditional.css" />
-            <!-- Contents of traditional.css:
-                .traditional {
-                    color: white;
-                    background: purple;
-                }
-            -->
-        </>
-    }>...</Grid>`}
-                </SyntaxHighlighter>
-                <aside>
-                    This text is styled with a normal CSS class:{' '}
-                    <span className="traditional">this should be purple</span>. (Note that in React,
-                    you must use <code>className</code> rather than "class".)
-                </aside>
-                <p>
-                    While this method is simple and effective, the CSS Modules approach described
-                    next has many advantages, and will provide a lot of benefit for any
-                    significantly complex story or stories.
-                </p>
+
                 <h3>
                     Using the per-story <kbd>Index.module.scss</kbd> file
                 </h3>
@@ -437,6 +323,98 @@ export const Page: PageType = () => {
                         NextJS documentation on CSS support
                     </a>{' '}
                     for a full reference.
+                </aside>
+                <h2>Fonts</h2>
+                <p>
+                    You're encouraged to use <a href="https://fonts.google.com/">Google Fonts</a>,
+                    which load quickly and reliably, offer a huge range of character sets, and are
+                    optimized for screen (rather than print) usage.
+                </p>
+                <p>You'll need to do the following steps to add a new font to a story:</p>
+                <ol>
+                    <li>
+                        Import the font in the <code>Index.module.scss</code> file
+                    </li>
+                    <li>Assign the new font to the desired style</li>
+                </ol>
+                <h3>Step 1: Import the font in your story CSS</h3>
+                <p>
+                    After any SCSS `@use` declarations, add an import call to the specific fonts.
+                    Google Fonts will give you the correct syntax:
+                </p>
+                <SyntaxHighlighter language="css" style={prism}>
+                    {`/* public/stories/<your-story-id>/Index.module.scss */
+@use '/public/styles/grid';
+@use '/public/styles/colors';
+
+/* Add the import statement that Google Fonts generated for you: */
+@import url("https://fonts.googleapis.com/css2?family=EB+Garamond&display=block");
+
+.main {
+    /* Customizations can go here */
+ }
+`}
+                </SyntaxHighlighter>
+                <p>
+                    Note the use of <code>display=block</code>. This instructs the browser to{' '}
+                    <em>block</em> (wait) for the font to be completely loaded before rendering the
+                    text content. This is <em>not</em> the usual web recommendation, where it's
+                    typically better to put some content in front of users as fast as possible and
+                    then switch in the correct font later. Hypertext stories are generally loaded
+                    all at once up-front, so using the <code>block</code> loading instruction
+                    provides a better user experience than a font that shifts midway into the
+                    introduction. (See{' '}
+                    <a href="https://font-display.glitch.me/">font-display tutorial</a> by Monica
+                    Dinculescu for an excellent summary of CSS font rendering options.)
+                </p>
+
+                <h3>Step 2: Assign the new font as the default, or to a specific element</h3>
+                <p>
+                    To use your new font as the default for all text, make use of the built-in SCSS{' '}
+                    <code>$body</code> variable and assign it to your font:
+                </p>
+                <SyntaxHighlighter
+                    language="css"
+                    style={prism}>{`/* public/stories/<your-story-id>/Index.module.scss */
+
+/* Add this block: */
+@use '/public/styles/fonts' with (
+    $body: 'EB Garamond',
+);
+@use '/public/styles/grid';
+@use '/public/styles/colors';
+
+@import url("https://fonts.googleapis.com/css2?family=EB+Garamond&display=block");
+
+.main {
+    /* Customizations can go here */
+ }`}</SyntaxHighlighter>
+
+                <p>
+                    To limit your new font to only specific elements, such as{' '}
+                    <code>&lt;h1&gt;</code>, you can skip the inherited template and add a specific
+                    rule:
+                </p>
+                <SyntaxHighlighter
+                    language="css"
+                    style={prism}>{`/* public/stories/<your-story-id>y/Index.module.scss */
+
+@import url("https://fonts.googleapis.com/css2?family=EB+Garamond&display=block");
+
+.main {
+    h1 {
+        font-family: 'EB Garamond';
+    }
+}`}</SyntaxHighlighter>
+                <aside className={styles.warning}>
+                    NextJS has a framework for{' '}
+                    <a href="https://nextjs.org/docs/basic-features/font-optimization">
+                        Font Optimization
+                    </a>{' '}
+                    that offers attractive performance benefits but requires globally modifying your
+                    entire Windrift config and affecting all stories within it. These benefits are
+                    negligible for a hypertext story so it's recommended to follow the CSS-based{' '}
+                    <code>@import</code> process documented here for maximum flexibility.
                 </aside>
                 <h2>Animation</h2>
 
