@@ -170,8 +170,9 @@ export default Index`}
                     before or after <code>{`{children}`}</code>. For example, the table of contents
                     at the top of this manual is implemented as a custom component which is
                     prepended before all the chapter content:
-                    <SyntaxHighlighter language="tsx" style={prism}>
-                        {`// stories/manual/index.tsx
+                </p>
+                <SyntaxHighlighter language="tsx" style={prism}>
+                    {`// stories/manual/index.tsx
 import TableOfContents from './table-of-contents'
 
 const Index: React.FC = ({ children }) => (
@@ -179,8 +180,7 @@ const Index: React.FC = ({ children }) => (
         <TableOfContents />
         {children}
     </Grid>)`}
-                    </SyntaxHighlighter>
-                </p>
+                </SyntaxHighlighter>
                 <aside className={styles.advanced}>
                     <p>
                         You don't need to use <code>Grid</code> at all. A minimal layout{' '}
@@ -458,15 +458,13 @@ export const Page: PageType = () => {
         appear: <p>I will just appear.</p>
     }} />`}</SyntaxHighlighter>
                 <aside>
-                    <p>
-                        Select how you want the response to be displayed:{' '}
-                        <C
-                            tag="animation"
-                            options={[['fade', 'appear']]}
-                            persist={true}
-                            widget={BulletedList}
-                        />
-                    </p>
+                    <p>Select how you want the response to be displayed: </p>
+                    <C
+                        tag="animation"
+                        options={[['fade', 'appear']]}
+                        persist={true}
+                        widget={BulletedList}
+                    />
                     <p>
                         <R
                             tag="animation"
