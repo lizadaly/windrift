@@ -55,10 +55,11 @@ const Listener: React.FC = ({ children }): JSX.Element => {
     const triggerFunc = () => {
         console.log('Sending client-moved')
         trigger('client-moved', {})
+        doSync(true)
     }
     const debouncedTrigger = React.useMemo(() => debounce(triggerFunc, 300), [choice])
 
-    useEvent(channel, 'client-moved', ({ data }) => {
+    useEvent(channel, 'client-moved', () => {
         console.log('Got client-moved event')
         doSync(true)
     })

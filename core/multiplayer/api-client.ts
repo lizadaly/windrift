@@ -290,7 +290,8 @@ export const useSync = (identifier: string, instanceId: string): any => {
     React.useEffect(() => {
         if (sync) {
             mutate(getChoiceListenerURL(identifier, instanceId))
-            mutate(getNavListenerURL(identifier, instanceId))
+            // Clear the local state of the nav listener to have no data, then force revalidation
+            mutate(getNavListenerURL(identifier, instanceId), [], true)
             doSync(false)
         }
     })
