@@ -1,0 +1,12 @@
+title: Cease and Desist
+language: en
+chapters:
+  - filename: "chapter1"
+    title: "Initial"
+  - filename: "chapter2"
+    title: "Reply"
+players:
+  - name: "lawyer1"
+  - start: "chapter1"
+  - name: "lawyer2"
+  - start: "chapter2"
