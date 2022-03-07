@@ -11,13 +11,13 @@ export const Page: PageType = () => {
                         <p>
                             Hurrying through the rainswept November night, you're glad to see the
                             bright lights of the Opera House—always a reliable source of food scraps
-                            from its attached bar and restaurant. Your fur is soaked and you're
-                            starving!
+                            from its attached bar and restaurant. Your fur is thoroughly soaked and
+                            you're starving!
                         </p>
                         <p>
                             It's surprising that there aren't more people about but you're a raccoon
-                            and you take what you get. And what you want to get tonight is some
-                            delicious trash.
+                            and you don't much care for people anyway. They tend to take offense
+                            when you're just in search of some delicious trash to eat!
                         </p>
                     </aside>
                     <p>
