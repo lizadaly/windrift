@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { StoryContext } from 'pages/[story]/[[...chapter]]'
+import { StoryContext } from 'core/containers/store-container'
 
 /**
  * A minimal HTML layout for non-traditional UIs or heavily customized layout.

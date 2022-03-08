@@ -1,6 +1,6 @@
 # Windrift
 
-A JavaScript framework for writing mutable narratives, in major version 2.
+A JavaScript framework for writing mutable narratives
 
 ![Integration tests](https://github.com/lizadaly/windrift/actions/workflows/cypress.yml/badge.svg)
 
@@ -12,7 +12,7 @@ Imposter</a> (2018) and José Carlos Dias to produce the [Portuguese translation
 
 ## Documentation
 
-The [official manual](https://windrift.app/manual) is continuously published as features are added and is itself a Windrift story. The manual is the best way to quickly get an overview of Windrift v2. Corrections and requests for coverage are gratefully accepted.
+The [official manual](https://windrift.app/manual) is continuously published as features are added and is itself a Windrift story. The manual is the best way to quickly get an overview of Windrift. Corrections and requests for coverage are gratefully accepted.
 
 ## Example stories
 
