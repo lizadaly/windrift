@@ -74,25 +74,14 @@ interface FromRouterProps {
 }
 const FromRouter = ({ instanceId, playerId }: FromRouterProps) => {
     const { setMultiplayer } = React.useContext(MultiplayerContext)
-    const { config, persistor } = React.useContext(StoryContext)
+    const { config } = React.useContext(StoryContext)
     const { identifier } = config
     const { multiplayer } = useMultiplayer(identifier, instanceId, playerId)
 
     React.useEffect(() => {
         if (multiplayer) {
-            // Try to avoid race conditions with purging local state before initializing it with the API response
-            persistor
-                .purge()
-                .then(() => {
-                    return persistor.flush()
-                })
-                .then(() => {
-                    persistor.pause()
-                })
-                .then(() => {
-                    setMultiplayer(multiplayer)
-                    emitPresence(identifier, instanceId, playerId)
-                })
+            setMultiplayer(multiplayer)
+            emitPresence(identifier, instanceId, playerId)
         }
     }, [multiplayer])
 
