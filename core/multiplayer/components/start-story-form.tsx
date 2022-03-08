@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 import { createStoryInstance } from 'core/multiplayer/api-client'
-import { StoryContext } from 'pages/[story]/[[...chapter]]'
+import { StoryContext } from 'core/containers/store-container'
 import { useRouter } from 'next/router'
 
 const StartStory: React.FC = ({ children = 'Start a new story' }) => {

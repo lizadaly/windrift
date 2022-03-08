@@ -10,7 +10,7 @@ import { Player } from '@prisma/client'
 import Ready from 'core/multiplayer/components/ready'
 
 import { emitPresence, useMultiplayer } from '../api-client'
-import { StoryContext } from 'pages/[story]/[[...chapter]]'
+import { StoryContext } from 'core/containers/store-container'
 import { useRouter } from 'next/router'
 
 export const PUSHER_ENABLED = !!process.env.NEXT_PUBLIC_PUSHER_KEY
