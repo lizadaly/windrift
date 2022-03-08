@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 import { Player } from '@prisma/client'
 
 import { Config, RootState } from 'core/types'
-import { StoryContext } from 'pages/[story]/[[...chapter]]'
+import { StoryContext } from 'core/containers/store-container'
 import { emitNavChange, getStoryUrl, useSync, usePresencePoll } from 'core/multiplayer/api-client'
 
 import useLocation from '../hooks/use-location'

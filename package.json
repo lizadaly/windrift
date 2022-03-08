@@ -1,6 +1,6 @@
 {
     "name": "windrift",
-    "version": "2.1.1",
+    "version": "2.2.1-alpha",
     "private": true,
     "scripts": {
         "build": "prisma generate && prisma migrate deploy && next build",

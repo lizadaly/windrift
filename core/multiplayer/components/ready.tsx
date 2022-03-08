@@ -4,7 +4,7 @@
  */
 
 import * as React from 'react'
-import { StoryContext } from 'pages/[story]/[[...chapter]]'
+import { StoryContext } from 'core/containers/store-container'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'core/types'
 import { gotoChapter } from 'core/features/navigation'
