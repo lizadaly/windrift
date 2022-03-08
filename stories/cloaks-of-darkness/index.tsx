@@ -3,7 +3,7 @@ import * as React from 'react'
 
 import NewStory from './new-story'
 import UI from './ui'
-import { StoryContext } from 'pages/[story]/[[...chapter]]'
+import { StoryContext } from 'core/containers/store-container'
 import Multiplayer from 'core/multiplayer/components/multiplayer'
 
 const Index: React.FC = ({ children }) => {
