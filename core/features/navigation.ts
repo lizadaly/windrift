@@ -36,8 +36,8 @@ export const navSlice = createSlice({
         incrementSection: (state, action: PayloadAction<IncrementSectionPayload>) => {
             const { filename } = action.payload
             const item = getChapter(state.toc, filename)
-
-            item.bookmark = Math.min(item.bookmark + 1, item.sectionCount)
+            const sectionCount = item.sectionCount || 0 // Guard against sectionCount not being computed yet
+            item.bookmark = Math.min(item.bookmark + 1, sectionCount)
         },
         setSectionCount: (state, action: PayloadAction<CountSectionPayload>) => {
             const { filename, count } = action.payload
