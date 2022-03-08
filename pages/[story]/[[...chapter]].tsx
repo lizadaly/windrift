@@ -11,28 +11,10 @@ import * as React from 'react'
 import fs from 'fs'
 import path from 'path'
 import yaml from 'js-yaml'
-import { configureStore } from '@reduxjs/toolkit'
-import { Provider } from 'react-redux'
-import {
-    persistStore,
-    persistReducer,
-    Persistor,
-    FLUSH,
-    REHYDRATE,
-    PAUSE,
-    PERSIST,
-    PURGE,
-    REGISTER
-} from 'redux-persist'
-import { PersistGate } from 'redux-persist/integration/react'
-import storage from 'redux-persist/lib/storage'
-
+import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import { GetStaticProps, GetStaticPaths } from 'next'
-import dynamic from 'next/dynamic'
 
-import reducers from 'core/features'
-import { Story, StoryContainer } from 'core/components'
 import { Config, Toc, TocItem } from 'core/types'
 import { getChapter } from 'core/util'
 
@@ -85,12 +67,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
     return { paths, fallback: false }
 }
 
-type ContextProps = {
-    persistor: Persistor
-    config: Config
-}
-export const StoryContext = React.createContext<Partial<ContextProps>>({})
-
 export default function Start(props: WindriftProps): JSX.Element {
     const router = useRouter()
     const { story, chapter } = router.query
@@ -104,11 +80,6 @@ export default function Start(props: WindriftProps): JSX.Element {
         configYaml.extra
     )
 
-    const persistConfig = {
-        key: config.identifier,
-        storage: storage,
-        blacklist: ['config']
-    }
     if (chapter) {
         const chapters = Object.values(toc)
         chapters.filter((i) => i.visible).forEach((i) => (i.visible = false))
@@ -118,46 +89,8 @@ export default function Start(props: WindriftProps): JSX.Element {
     else if (config.players && config.players.length === 1) {
         getChapter(toc, config.players[0].start).visible = true
     }
-    const persistedReducers = persistReducer(persistConfig, reducers)
-
-    const store = configureStore({
-        reducer: persistedReducers,
-        middleware: (getDefaultMiddleware) =>
-            getDefaultMiddleware({
-                serializableCheck: {
-                    ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
-                },
-                thunk: {
-                    extraArgument: { config }
-                }
-            }),
-        preloadedState: {
-            navigation: {
-                past: [],
-                present: { toc },
-                future: []
-            },
-            choices: {
-                past: [],
-                present: {},
-                future: []
-            }
-        }
+    const StoreContainer = dynamic(() => import(`../../core/containers/store-container`), {
+        ssr: false
     })
-    const persistor = persistStore(store)
-
-    const Index = dynamic(() => import(`../../stories/${story}/index`))
-    return (
-        <Provider store={store}>
-            <PersistGate persistor={persistor}>
-                <StoryContainer config={config}>
-                    <StoryContext.Provider value={{ persistor, config }}>
-                        <Index>
-                            <Story story={story as string} />
-                        </Index>
-                    </StoryContext.Provider>
-                </StoryContainer>
-            </PersistGate>
-        </Provider>
-    )
+    return <StoreContainer toc={toc} config={config} />
 }

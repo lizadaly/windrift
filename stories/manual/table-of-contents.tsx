@@ -9,7 +9,7 @@ import { Nav } from 'core/components'
 import { RootState } from 'core/types'
 
 import styles from 'public/stories/manual/styles/Index.module.scss'
-import { StoryContext } from 'pages/[story]/[[...chapter]]'
+import { StoryContext } from 'core/containers/store-container'
 
 const TableOfContents = (): JSX.Element => {
     const { config } = React.useContext(StoryContext)
