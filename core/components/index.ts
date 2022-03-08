@@ -1,7 +1,6 @@
 export * from './link'
 
 export { default as Story } from './story'
-export { default as StoryContainer } from './story-container'
 export { default as Section } from './section'
 export { default as Chapter } from './chapter'
 export { default as Counter } from './counter'

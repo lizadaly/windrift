@@ -3,7 +3,7 @@ import { Persistor } from 'redux-persist'
 import { NextRouter, useRouter } from 'next/router'
 
 import { Config } from 'core/types'
-import { StoryContext } from 'pages/[story]/[[...chapter]]'
+import { StoryContext } from 'core/containers/store-container'
 
 /* Reset the story and remove the local storage */
 export const resetStory = (
