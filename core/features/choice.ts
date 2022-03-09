@@ -1,14 +1,16 @@
 import undoable, { excludeAction } from 'redux-undo'
 import { createSlice, Dispatch, PayloadAction } from '@reduxjs/toolkit'
 import { v4 as uuidv4 } from 'uuid'
+import { Player } from '@prisma/client'
+
+import { Tag, ENTRY_TYPES, Next, Config, NextType, RootState } from 'core/types'
 import { update as updateInventory } from 'core/features/inventory'
 import { update as logUpdate } from 'core/features/log'
-import { Tag, ENTRY_TYPES, Next, Config, NextType, RootState } from 'core/types'
 import { gotoChapter, incrementSection } from 'core/features/navigation'
 import { increment } from 'core/features/counter'
-import { Player } from '@prisma/client'
-import { emitChoice, emitNavChange, useSync } from 'core/multiplayer/api-client'
-import { useSWRConfig } from 'swr'
+
+import { notify } from 'core/multiplayer/features/trigger'
+import { emitChoice, emitNavChange } from 'core/multiplayer/api-client'
 
 export type Option = string
 export type OptionGroup = Array<Option>
@@ -108,6 +110,7 @@ export const makeChoice =
                     multiplayer.currentPlayer,
                     multiplayer.sync
                 )
+                dispatch(notify())
             }
         }
 

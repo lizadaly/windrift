@@ -150,63 +150,66 @@ export const Page: PageType = () => {
                         )
                     }}
                 />
-                <When condition={!screwdriverOpen && other?.chapterName === 'bar'}>
-                    <Only playerName="raccoon" alone={true}>
-                        <R
-                            tag="wrong"
-                            options={{
-                                '*': (
-                                    <p>
-                                        A loud wailing sound is going off. As a raccoon you are very
-                                        familiar with it: it's a burglar alarm. The sound seems to
-                                        be coming from the{' '}
-                                        <C
-                                            options={[['hole in the boards']]}
-                                            tag="hole-with-alarm"
-                                        />
-                                        .
-                                    </p>
-                                )
-                            }}
-                        />
-                        <R
-                            tag="hole-with-alarm"
-                            options={{
-                                '*': (
-                                    <>
+                <When condition={!screwdriverOpen}>
+                    <When condition={other?.chapterName === 'bar'}>
+                        <Only playerName="raccoon" alone={true}>
+                            <R
+                                tag="wrong"
+                                options={{
+                                    '*': (
                                         <p>
-                                            You bend over and peek through the hole. You see the
-                                            snake sinuously moving around the bar, as if exploring,
-                                            and a motion sensor is blinking in response. The snake
-                                            settles back by the oven (probably for the warmth) and
-                                            the alarm subsides.
+                                            A loud wailing sound is going off. As a raccoon you are
+                                            very familiar with it: it's a burglar alarm. The sound
+                                            seems to be coming from the{' '}
+                                            <C
+                                                options={[['hole in the boards']]}
+                                                tag="hole-with-alarm"
+                                            />
+                                            .
                                         </p>
-                                        <p>
-                                            The food smell that wafts in from the bar is almost
-                                            overwhelming. You notice some kind of tool lying on the
-                                            floor by the oven, right underneath the snake's tail.
-                                            Maybe that could get the boards off, if only the snake
-                                            would notice you!
-                                        </p>
-                                    </>
-                                )
-                            }}
-                        />
-                        <R
-                            tag="eye-hole"
-                            options={{
-                                '*': (
-                                    <>
-                                        <p>
-                                            The snake senses your presence and you jam your little
-                                            arm through the hole, pointing blindly at what you hope
-                                            is the direction of the screwdriver.
-                                        </p>
-                                    </>
-                                )
-                            }}
-                        />
-                    </Only>
+                                    )
+                                }}
+                            />
+                            <R
+                                tag="hole-with-alarm"
+                                options={{
+                                    '*': (
+                                        <>
+                                            <p>
+                                                You bend over and peek through the hole. You see the
+                                                snake sinuously moving around the bar, as if
+                                                exploring, and a motion sensor is blinking in
+                                                response. The snake settles back by the oven
+                                                (probably for the warmth) and the alarm subsides.
+                                            </p>
+                                            <p>
+                                                The food smell that wafts in from the bar is almost
+                                                overwhelming. You notice some kind of tool lying on
+                                                the floor by the oven, right underneath the snake's
+                                                tail. Maybe that could get the boards off, if only
+                                                the snake would notice you!
+                                            </p>
+                                        </>
+                                    )
+                                }}
+                            />
+                            <R
+                                tag="eye-hole"
+                                options={{
+                                    '*': (
+                                        <>
+                                            <p>
+                                                The snake senses your presence and you jam your
+                                                little arm through the hole, pointing blindly at
+                                                what you hope is the direction of the screwdriver.
+                                            </p>
+                                        </>
+                                    )
+                                }}
+                            />
+                        </Only>
+                    </When>
+
                     <Both>
                         <R
                             tag="screwdriver"
