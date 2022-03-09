@@ -1,16 +1,16 @@
 import undoable, { excludeAction } from 'redux-undo'
 import { createSlice, Dispatch, PayloadAction } from '@reduxjs/toolkit'
 import { v4 as uuidv4 } from 'uuid'
+import { Player } from '@prisma/client'
+
+import { Tag, ENTRY_TYPES, Next, Config, NextType, RootState } from 'core/types'
 import { update as updateInventory } from 'core/features/inventory'
 import { update as logUpdate } from 'core/features/log'
-import { Tag, ENTRY_TYPES, Next, Config, NextType, RootState } from 'core/types'
 import { gotoChapter, incrementSection } from 'core/features/navigation'
 import { increment } from 'core/features/counter'
-import { notify } from 'core/multiplayer/features/trigger'
 
-import { Player } from '@prisma/client'
-import { emitChoice, emitNavChange, useSync } from 'core/multiplayer/api-client'
-import { useSWRConfig } from 'swr'
+import { notify } from 'core/multiplayer/features/trigger'
+import { emitChoice, emitNavChange } from 'core/multiplayer/api-client'
 
 export type Option = string
 export type OptionGroup = Array<Option>
@@ -25,7 +25,6 @@ export interface ChoiceState {
         index: number
         lastIndex: number
         resolved: boolean
-        own: boolean // Whether the user made the choice themselves. Used to monitor state changes for syncing purposes.
     }
 }
 
@@ -35,7 +34,6 @@ interface InitChoicePayload {
 }
 interface OptionAdvancePayload {
     tag: Tag
-    own: boolean
 }
 
 const initialState: ChoiceState = null
@@ -59,9 +57,8 @@ export const makeChoice =
     ) =>
     (dispatch: Dispatch, getState: () => RootState, config: Config): void => {
         const choiceId = multiplayer?.choiceId || uuidv4()
-        const own = multiplayer && multiplayer?.eventPlayer?.id === multiplayer?.currentPlayer?.id
         dispatch(updateInventory({ tag, option }))
-        dispatch(advance({ tag, own }))
+        dispatch(advance({ tag }))
         dispatch(
             logUpdate({
                 entry: {
@@ -134,13 +131,12 @@ export const choicesSlice = createSlice({
             state[tag] = {
                 index: tag in state ? state[tag].index : 0,
                 resolved: tag in state ? state[tag].resolved : false,
-                own: true,
                 lastIndex
             }
         },
         // Advance to the next option group if one is available
         advance: (state, action: PayloadAction<OptionAdvancePayload>) => {
-            const { tag, own } = action.payload
+            const { tag } = action.payload
 
             if (tag in state) {
                 if (state[tag].index + 1 > state[tag].lastIndex) {
@@ -155,8 +151,7 @@ export const choicesSlice = createSlice({
                 state[tag] = {
                     resolved: true,
                     index: 0,
-                    lastIndex: 0,
-                    own
+                    lastIndex: 0
                 }
             }
         }
