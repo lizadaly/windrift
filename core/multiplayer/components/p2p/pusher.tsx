@@ -48,20 +48,19 @@ const Listener: React.FC = ({ children }): JSX.Element => {
     const doSync = useSync(identifier, instanceId)
 
     // On any choice made by this player, indicate that they had a state change
-    // TODO this will also fire on propagated changes; do we care?
     const choice = useSelector((state: RootState) => {
         return state.choices.present
     })
     const triggerFunc = () => {
         console.log('Sending client-moved')
         trigger('client-moved', {})
-        doSync(true)
+        // doSync(true) // Temporarily disable until infinite loop is addressed
     }
     const debouncedTrigger = React.useMemo(() => debounce(triggerFunc, 300), [choice])
 
     useEvent(channel, 'client-moved', () => {
         console.log('Got client-moved event')
-        doSync(true)
+        //doSync(true)
     })
 
     React.useEffect(() => {

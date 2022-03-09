@@ -18,14 +18,14 @@ export const Page: PageType = () => {
                     You are in a spacious hall, splendidly decorated in red and gold, with
                     glittering chandeliers overhead.{' '}
                     <Only playerName="snake">
-                        The chandeliers are electric though, giving off useless amounts of light
-                        with no heat. The main entrance to the street is{' '}
-                        <C options={[['to the north.']]} tag="back" sync={false} />
+                        The chandeliers are electric, giving off useless amounts of light with no
+                        heat. The main entrance to the street is{' '}
+                        <C options={[['to the north']]} tag="back" sync={false} />
                     </Only>
                     <Only playerName="raccoon">
                         The entrance from the street is{' '}
                         <C
-                            options={[['back the way you came.']]}
+                            options={[['back the way you came']]}
                             tag="back"
                             sync={false}
                             next={Next.None}
@@ -38,18 +38,19 @@ export const Page: PageType = () => {
                                 <>
                                     {' '}
                                     but you decide to stay inside—you've only just arrived, and
-                                    besides, the weather outside seems to be getting worse.
+                                    besides, the weather outside seems to be getting worse
                                 </>
                             ),
                             north: (
                                 <>
                                     {' '}
                                     but no way you're going there, it's cold as heck outside. You're
-                                    looking for a place that's even cozier.
+                                    looking for a place that's even cozier
                                 </>
                             )
                         }}
-                    />{' '}
+                    />
+                    .{' '}
                 </p>
                 <p>
                     There's a regular human-sized doorway <Nav text="west" next="cloakroom" />.
@@ -149,7 +150,7 @@ export const Page: PageType = () => {
                         )
                     }}
                 />
-                <When condition={!screwdriverOpen}>
+                <When condition={!screwdriverOpen && other?.chapterName === 'bar'}>
                     <Only playerName="raccoon" alone={true}>
                         <R
                             tag="wrong"

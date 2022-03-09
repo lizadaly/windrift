@@ -15,8 +15,8 @@ export const Page: PageType = () => {
 
                     <p>
                         Some food must have been prepared here earlier in the evening, because the
-                        air tastes of meat and there's residual heat emanating from the surface of a
-                        large industrial oven. Vague shapes of objects surround you on all sides.
+                        air tastes of meat and there's residual heat emanating from a large
+                        industrial oven. Furniture surround you on all sides.
                     </p>
 
                     <p>

@@ -292,6 +292,7 @@ export const useSync = (identifier: string, instanceId: string): any => {
             mutate(getChoiceListenerURL(identifier, instanceId))
             // Clear the local state of the nav listener to have no data, then force revalidation
             mutate(getNavListenerURL(identifier, instanceId), [], true)
+            //mutate(getNavListenerURL(identifier, instanceId))
             doSync(false)
         }
     })
