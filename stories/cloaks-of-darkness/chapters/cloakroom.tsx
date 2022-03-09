@@ -56,6 +56,12 @@ export const Page: PageType = () => {
                                                                 , though you're not normally the
                                                                 clothes-wearing type
                                                             </Only>
+                                                            <Only playerName="snake">
+                                                                {' '}
+                                                                and while interesting, you can't
+                                                                reach for it as you don't have any
+                                                                hands
+                                                            </Only>
                                                             .
                                                         </>
                                                     )

@@ -18,8 +18,8 @@ export const Page: PageType = () => {
                     You are in a spacious hall, splendidly decorated in red and gold, with
                     glittering chandeliers overhead.{' '}
                     <Only playerName="snake">
-                        The chandeliers are electric though, giving off useless amounts of light
-                        with no heat. The main entrance to the street is{' '}
+                        The chandeliers are electric, giving off useless amounts of light with no
+                        heat. The main entrance to the street is{' '}
                         <C options={[['to the north']]} tag="back" sync={false} />
                     </Only>
                     <Only playerName="raccoon">
@@ -150,7 +150,7 @@ export const Page: PageType = () => {
                         )
                     }}
                 />
-                <When condition={!screwdriverOpen}>
+                <When condition={!screwdriverOpen && other?.chapterName === 'bar'}>
                     <Only playerName="raccoon" alone={true}>
                         <R
                             tag="wrong"
