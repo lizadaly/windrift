@@ -39,9 +39,11 @@ const StoreContainer = ({ config, toc }: StoreProps): JSX.Element => {
         storage: storage,
         blacklist: ['config']
     }
-    const persistedReducers = persistReducer(persistConfig, reducers)
+    const isMultiplayer = config.players.length > 1
+
+    const storeReducer = isMultiplayer ? reducers : persistReducer(persistConfig, reducers)
     const store = configureStore({
-        reducer: persistedReducers,
+        reducer: storeReducer,
         middleware: (getDefaultMiddleware) =>
             getDefaultMiddleware({
                 serializableCheck: {
@@ -65,22 +67,36 @@ const StoreContainer = ({ config, toc }: StoreProps): JSX.Element => {
         },
         devTools: true
     })
-    const persistor = persistStore(store)
 
     const Index = dynamic(() => import(`../../stories/${config.identifier}/index`))
 
-    return (
-        <Provider store={store}>
-            <PersistGate persistor={persistor}>
+    if (isMultiplayer) {
+        return (
+            <Provider store={store}>
                 <StoryContainer config={config}>
-                    <StoryContext.Provider value={{ persistor, config }}>
+                    <StoryContext.Provider value={{ config }}>
                         <Index>
                             <Story story={config.identifier} />
                         </Index>
                     </StoryContext.Provider>
                 </StoryContainer>
-            </PersistGate>
-        </Provider>
-    )
+            </Provider>
+        )
+    } else {
+        const persistor = persistStore(store)
+        return (
+            <Provider store={store}>
+                <PersistGate persistor={persistor}>
+                    <StoryContainer config={config}>
+                        <StoryContext.Provider value={{ persistor, config }}>
+                            <Index>
+                                <Story story={config.identifier} />
+                            </Index>
+                        </StoryContext.Provider>
+                    </StoryContainer>
+                </PersistGate>
+            </Provider>
+        )
+    }
 }
 export default StoreContainer
