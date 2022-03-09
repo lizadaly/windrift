@@ -6,6 +6,7 @@ import navigation from './navigation'
 import log from './log'
 
 import instance from '../multiplayer/features/instance'
+import trigger from '../multiplayer/features/trigger'
 
 const rootReducer = combineReducers({
     inventory,
@@ -13,7 +14,8 @@ const rootReducer = combineReducers({
     choices,
     navigation,
     log,
-    instance
+    instance,
+    trigger
 })
 
 export type RootState = ReturnType<typeof rootReducer>

@@ -47,25 +47,25 @@ const Listener: React.FC = ({ children }): JSX.Element => {
     const trigger = useClientTrigger(channel)
     const doSync = useSync(identifier, instanceId)
 
-    // On any choice made by this player, indicate that they had a state change
-    const choice = useSelector((state: RootState) => {
-        return state.choices.present
+    // On any choice made by this player only, indicate that they had a state change
+    const triggerState = useSelector((state: RootState) => {
+        return state.trigger
     })
     const triggerFunc = () => {
-        console.log('Sending client-moved')
+        console.log('Sending client choice trigger')
         trigger('client-moved', {})
-        // doSync(true) // Temporarily disable until infinite loop is addressed
+        doSync(true)
     }
-    const debouncedTrigger = React.useMemo(() => debounce(triggerFunc, 300), [choice])
+    const debouncedTrigger = React.useMemo(() => debounce(triggerFunc, 300), [triggerState])
 
     useEvent(channel, 'client-moved', () => {
-        console.log('Got client-moved event')
-        //doSync(true)
+        console.log('Received client choice trigger')
+        doSync(true)
     })
 
     React.useEffect(() => {
         debouncedTrigger()
-    }, [choice])
+    }, [triggerState])
 
     return <>{children}</>
 }
