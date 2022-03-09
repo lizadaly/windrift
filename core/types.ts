@@ -38,8 +38,8 @@ export class Config {
     ) {
         this.identifier = identifier
         this.title = title
-        this.enableUndo = enableUndo
         this.players = players
+        this.enableUndo = players.length == 1 && enableUndo // Never enable undo for multiplayer
         this.language = language
         this.extra = extra
     }

@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { useSWRConfig } from 'swr'
 
 import { WidgetType, RootState, Next, Option, Options, NextType } from 'core/types'
 
@@ -8,11 +9,10 @@ import { InlineListEN } from 'core/components/widgets/inline-list'
 
 import { init, makeChoice, MultiplayerChoicePayload } from 'core/features/choice'
 import { init as initInventory } from 'core/features/inventory'
-
 import useInventory from 'core/hooks/use-inventory'
-import { StoryContext } from 'pages/[story]/[[...chapter]]'
+import { StoryContext } from 'core/containers/store-container'
+
 import { MultiplayerContext } from 'core/multiplayer/components/multiplayer'
-import { useSWRConfig } from 'swr'
 import { getChoiceListenerURL, getNavListenerURL } from 'core/multiplayer/api-client'
 
 export interface ChoiceProps {

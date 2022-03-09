@@ -3,7 +3,7 @@ import * as React from 'react'
 import Head from 'next/head'
 
 import ResetButton from 'core/components/ui/reset-button'
-import { StoryContext } from 'pages/[story]/[[...chapter]]'
+import { StoryContext } from 'core/containers/store-container'
 
 export type GridProps = {
     /**

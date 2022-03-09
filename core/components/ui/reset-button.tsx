@@ -3,7 +3,7 @@ import { Persistor } from 'redux-persist'
 import { NextRouter, useRouter } from 'next/router'
 
 import { Config } from 'core/types'
-import { StoryContext } from 'pages/[story]/[[...chapter]]'
+import { StoryContext } from 'core/containers/store-container'
 
 /* Reset the story and remove the local storage */
 export const resetStory = (
@@ -17,18 +17,26 @@ export const resetStory = (
     const url = '/' + router.basePath + config.identifier
     if (userInitiated) {
         if (confirm(message)) {
+            if (persistor) {
+                persistor.flush().then(() => {
+                    persistor.pause()
+                    localStorage.clear()
+                    window.location.replace(url)
+                })
+            } else {
+                window.location.replace(url)
+            }
+        }
+    } else {
+        if (persistor) {
             persistor.flush().then(() => {
                 persistor.pause()
                 localStorage.clear()
-                window.location.replace(url)
+                window.location.reload()
             })
-        }
-    } else {
-        persistor.flush().then(() => {
-            persistor.pause()
-            localStorage.clear()
+        } else {
             window.location.reload()
-        })
+        }
     }
 }
 type ResetType = {

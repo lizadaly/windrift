@@ -1,11 +1,10 @@
 import * as React from 'react'
-import { Persistor } from 'redux-persist'
 import { useSelector } from 'react-redux'
 
 import { Player } from '@prisma/client'
 
 import { Config, RootState } from 'core/types'
-import { StoryContext } from 'pages/[story]/[[...chapter]]'
+import { StoryContext } from 'core/containers/store-container'
 import { emitNavChange, getStoryUrl, useSync, usePresencePoll } from 'core/multiplayer/api-client'
 
 import useLocation from '../hooks/use-location'
@@ -19,12 +18,12 @@ import Log from './examples/log'
  */
 const Debug = (): JSX.Element => {
     const { multiplayer } = React.useContext(MultiplayerContext)
-    const { config, persistor } = React.useContext(StoryContext)
+    const { config } = React.useContext(StoryContext)
     return (
         <div className={debug.content}>
             <div>
                 <LocationSwitcher config={config} multiplayer={multiplayer} />
-                <UserSwitcher multiplayer={multiplayer} persistor={persistor} />
+                <UserSwitcher multiplayer={multiplayer} />
                 <SyncButton multiplayer={multiplayer} />
             </div>
             <div className={debug.log}>
@@ -47,27 +46,19 @@ const SyncButton = ({ multiplayer }: SyncProps): JSX.Element => {
 
 interface UserSwitcherProps {
     multiplayer: Multiplayer
-    persistor: Persistor
 }
 
-const UserSwitcher = ({ multiplayer, persistor }: UserSwitcherProps): JSX.Element => {
+const UserSwitcher = ({ multiplayer }: UserSwitcherProps): JSX.Element => {
     return (
         <div>
             Switch user to{' '}
             <button
                 onClick={() => {
-                    persistor.flush().then(() => {
-                        persistor.pause()
-                        persistor.purge().then(() => {
-                            localStorage.clear()
-                            persistor.persist()
-                            location.assign(
-                                getStoryUrl(multiplayer.instanceId) +
-                                    '&playerId=' +
-                                    multiplayer.otherPlayer.id
-                            )
-                        })
-                    })
+                    location.assign(
+                        getStoryUrl(multiplayer.instanceId) +
+                            '&playerId=' +
+                            multiplayer.otherPlayer.id
+                    )
                 }}>
                 {multiplayer.otherPlayer.name}
             </button>

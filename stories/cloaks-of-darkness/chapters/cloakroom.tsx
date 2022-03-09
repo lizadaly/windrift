@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { C, R, Section, Chapter, Nav } from 'core/components'
-import { PageType } from 'core/types'
+import { Next, PageType } from 'core/types'
 
 import useCloak, { CloakStatus } from '../use-cloak'
 
@@ -21,6 +21,7 @@ export const Page: PageType = () => {
                         last="one small brass hook"
                         tag="hook"
                         sync={false}
+                        next={Next.None}
                     />{' '}
                     remains.{' '}
                     <R

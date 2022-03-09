@@ -2,7 +2,7 @@ import { C, R, Section, Chapter, Nav, When } from 'core/components'
 import Only from 'core/multiplayer/components/only'
 import Both from 'core/multiplayer/components/both'
 
-import { PageType } from 'core/types'
+import { Next, PageType } from 'core/types'
 import useLocation from 'core/multiplayer/hooks/use-location'
 import useInventory from 'core/hooks/use-inventory'
 
@@ -24,7 +24,12 @@ export const Page: PageType = () => {
                     </Only>
                     <Only playerName="raccoon">
                         The entrance from the street is{' '}
-                        <C options={[['back the way you came']]} tag="back" sync={false} />
+                        <C
+                            options={[['back the way you came']]}
+                            tag="back"
+                            sync={false}
+                            next={Next.None}
+                        />
                     </Only>
                     <R
                         tag="back"
