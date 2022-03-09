@@ -14,11 +14,11 @@ import {
 import { PersistGate } from 'redux-persist/integration/react'
 import storage from 'redux-persist/lib/storage'
 import { configureStore } from '@reduxjs/toolkit'
-import dynamic from 'next/dynamic'
-import { Provider } from 'react-redux'
 
 import reducers from 'core/features'
 import { Config, Toc } from 'core/types'
+import dynamic from 'next/dynamic'
+import { Provider } from 'react-redux'
 import { Story } from 'core/components'
 import StoryContainer from 'core/containers/story-container'
 

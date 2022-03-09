@@ -41,7 +41,7 @@
         "react-error-boundary": "^3.1.0",
         "react-redux": "^7.2.5",
         "react-spring": "^9.3.2",
-        "react-syntax-highlighter": "^15.4.3",
+        "react-syntax-highlighter": "^15.4.5",
         "react-transition-group": "^4.4.2",
         "redux": "^4.0.5",
         "redux-devtools-extension": "^2.13.8",
