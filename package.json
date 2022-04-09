@@ -26,7 +26,7 @@
         "@use-it/interval": "^1.0.0",
         "json-schema": "^0.4.0",
         "lodash.clonedeep": "^4.5.0",
-        "moment": "^2.29.1",
+        "moment": "^2.29.2",
         "next": "^12.1.0",
         "react": "^17.0.2",
         "react-dom": "^17.0.2",
