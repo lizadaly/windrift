@@ -2,6 +2,7 @@ import { Transition, AnimatedComponent, animated, config } from '@react-spring/w
 
 interface Props {
     wrapper?: AnimatedComponent<any>
+    children: React.ReactNode
 }
 /**
  * Animate a fade-in transition for a single React node. This is typically used inside a <Response>.

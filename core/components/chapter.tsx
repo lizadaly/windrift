@@ -35,6 +35,7 @@ export const useChapterSetup = (filename: string, count: number): TocItem => {
 export interface ChapterType {
     filename: string
     showOnlyCurrentSection?: boolean
+    children: React.ReactNode
 }
 /**
  * Render a chapter containing some number of child nodes, usually Sections.

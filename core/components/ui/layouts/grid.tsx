@@ -26,6 +26,8 @@ export type GridProps = {
      * import styles from 'public/stories/manual/styles/Index.module.scss'
      */
     styles?: Record<string, string>
+
+    children: React.ReactNode
 }
 
 /**

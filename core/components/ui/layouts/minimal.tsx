@@ -12,7 +12,7 @@ import { StoryContext } from 'core/containers/store-container'
  *
  * Does not inject any styles properties; assumes they are all defined externally.
  */
-const Minimal: React.FC = ({ children }) => {
+const Minimal = (children: React.ReactNode): JSX.Element => {
     const { config } = React.useContext(StoryContext)
     return (
         <>

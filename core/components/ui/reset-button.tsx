@@ -33,8 +33,9 @@ export const resetStory = (
 }
 type ResetType = {
     message?: string
+    children?: React.ReactNode
 }
-const ResetButton: React.FC<ResetType> = ({ children = 'Reset', message }) => {
+const ResetButton = ({ children = 'Reset', message }: ResetType): JSX.Element => {
     const { persistor, config } = React.useContext(StoryContext)
     const router = useRouter()
     return (
