@@ -17,7 +17,7 @@ import { configureStore } from '@reduxjs/toolkit'
 
 import reducers from 'core/features'
 import { Config, Toc } from 'core/types'
-import dynamic from 'next/dynamic'
+import dynamic, { DynamicOptions } from 'next/dynamic'
 import { Provider } from 'react-redux'
 import { Story } from 'core/components'
 import StoryContainer from 'core/containers/story-container'
@@ -67,7 +67,12 @@ const StoreContainer = ({ config, toc }: StoreProps): JSX.Element => {
     })
     const persistor = persistStore(store)
 
-    const Index = dynamic(() => import(`../../stories/${config.identifier}/index`))
+    const Index = dynamic(
+        import(`../../stories/${config.identifier}/index`) as DynamicOptions<
+            Record<string, unknown>
+        >,
+        {}
+    )
 
     return (
         <Provider store={store}>
