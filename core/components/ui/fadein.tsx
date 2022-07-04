@@ -1,4 +1,5 @@
 import { Transition, AnimatedComponent, animated, config } from '@react-spring/web'
+import { ReactFCC } from 'core/types'
 
 interface Props {
     wrapper?: AnimatedComponent<any>
@@ -12,7 +13,7 @@ interface Props {
  * @param wrapper The animated HTML element type that will wrap the children; defaults to <span>
  * @returns
  */
-const FadeIn: React.FC<Props> = ({ children, wrapper = animated('span') }) => {
+const FadeIn: ReactFCC<Props> = ({ children, wrapper = animated('span') }) => {
     const AnimatedContent = wrapper
     return (
         <Transition

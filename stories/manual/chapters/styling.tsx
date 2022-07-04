@@ -107,9 +107,11 @@ export const Page: PageType = () => {
                     {`import * as React from 'react'
 
 import Grid from 'core/components/ui/layouts/grid'
+import { PageType } from 'core/types'
+
 import styles from 'public/stories/<your-story-id>/styles/Index.module.scss'
 
-const Index: React.FC = ({ children }) => {
+const Index: PageType = ({ children }) => {
     return (
         <Grid styles={styles}
               head={<link></link>}>
@@ -174,8 +176,9 @@ export default Index`}
                 <SyntaxHighlighter language="tsx" style={prism}>
                     {`// stories/manual/index.tsx
 import TableOfContents from './table-of-contents'
+import { PageType } from 'core/types'
 
-const Index: React.FC = ({ children }) => (
+const Index: PageType = ({ children }) => (
     <Grid ...>
         <TableOfContents />
         {children}

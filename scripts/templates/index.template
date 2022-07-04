@@ -1,10 +1,11 @@
 import * as React from 'react'
 
+import { ReactFCC } from 'core/types'
 import Grid from 'core/components/ui/layouts/grid'
 
 import styles from 'public/stories/${story}/styles/Index.module.scss'
 
-const Index: React.FC = ({ children }) => {
+const Index: ReactFCC = ({ children }) => {
     return (
         <Grid styles={styles}>
             {children}

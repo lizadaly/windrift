@@ -1,7 +1,5 @@
-import { useDispatch } from 'react-redux'
-
 import { R, Section, Chapter, Nav, When } from 'core/components'
-import { PageType } from 'core/types'
+import { PageType, useAppDispatch } from 'core/types'
 import useInventory from 'core/hooks/use-inventory'
 import { makeChoice } from 'core/features/choice'
 import { wordFromInventory } from 'core/util'
@@ -9,7 +7,7 @@ import { wordFromInventory } from 'core/util'
 import { SyntaxHighlighter, prism, styles, FooterNav } from '..'
 
 export const Page: PageType = () => {
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
     const [fruit, cravat, tree, byAuthor] = useInventory([
         'fruit',
         'cravat',
@@ -267,13 +265,13 @@ wordFromInventory(fruit, -2) // ${wordFromInventory(fruit, -2)}`}
                     <button
                         className={styles.warning}
                         onClick={() => {
-                            dispatch(makeChoice('set-by-author', 'pumpkin patch'))
+                            dispatch(() => makeChoice('set-by-author', 'pumpkin patch'))
                         }}>
                         Set the value
                     </button>{' '}
                     <button
                         onClick={() => {
-                            dispatch(makeChoice('set-by-author', undefined))
+                            dispatch(() => makeChoice('set-by-author', undefined))
                         }}>
                         Unset the value
                     </button>

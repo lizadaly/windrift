@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { WidgetType, RootState, Next, Option, Options, NextType } from 'core/types'
+import { WidgetType, RootState, Next, Option, Options, NextType, useAppDispatch } from 'core/types'
 
 import { ChapterContext } from 'core/components/chapter'
 import { InlineListEN } from 'core/components/widgets/inline-list'
@@ -10,6 +10,7 @@ import { init, makeChoice } from 'core/features/choice'
 import { init as initInventory } from 'core/features/inventory'
 
 import useInventory from 'core/hooks/use-inventory'
+import { ThunkDispatch } from '@reduxjs/toolkit'
 
 export interface ChoiceProps {
     tag: string
@@ -76,7 +77,7 @@ const MutableChoice = ({
     last,
     className
 }: ChoiceProps): JSX.Element => {
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
     const { filename } = React.useContext(ChapterContext)
 
     const choice = useSelector((state: RootState) => {
@@ -86,7 +87,7 @@ const MutableChoice = ({
 
     // Generic handler that a widget-specific handler will call once the player has made their choice
     let handler = (option: Option): void => {
-        dispatch(makeChoice(tag, option, next, filename))
+        dispatch(() => makeChoice(tag, option, next, filename))
     }
     let group = options[choice.index]
 

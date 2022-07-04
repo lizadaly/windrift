@@ -103,11 +103,12 @@ export const Page: PageType = () => (
                     {`// index.tsx
 // Optional layout provided by Windrift
 import Grid from 'core/components/ui/grid'
+import { PageType } from 'core/types'
 
 // Per-story CSS files
 import styles from 'public/stories/<your-story>/styles/Index.module.scss'
 
-const Index: React.FC = ({ children }) => {
+const Index: PageType = ({ children }) => {
     return (
         <Grid
             styles={styles}>

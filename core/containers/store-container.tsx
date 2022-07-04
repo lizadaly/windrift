@@ -33,14 +33,15 @@ type ContextProps = {
     config: Config
 }
 
-const StoreContainer = ({ config, toc }: StoreProps): JSX.Element => {
+function initStore(config: Config, toc: Toc) {
     const persistConfig = {
         key: config.identifier,
         storage: storage,
         blacklist: ['config']
     }
     const persistedReducers = persistReducer(persistConfig, reducers)
-    const store = configureStore({
+
+    return configureStore({
         reducer: persistedReducers,
         middleware: (getDefaultMiddleware) =>
             getDefaultMiddleware({
@@ -65,6 +66,10 @@ const StoreContainer = ({ config, toc }: StoreProps): JSX.Element => {
         },
         devTools: true
     })
+}
+
+const StoreContainer = ({ config, toc }: StoreProps): JSX.Element => {
+    const store = initStore(config, toc)
     const persistor = persistStore(store)
 
     const Index = dynamic(
@@ -89,3 +94,7 @@ const StoreContainer = ({ config, toc }: StoreProps): JSX.Element => {
     )
 }
 export default StoreContainer
+
+export type Store = ReturnType<typeof initStore>
+export type AppDispatch = Store['dispatch']
+export type RootState = ReturnType<Store['getState']>

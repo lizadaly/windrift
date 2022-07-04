@@ -2,8 +2,9 @@ import * as React from 'react'
 import Head from 'next/head'
 
 import Minimal from 'core/components/ui/layouts/minimal'
+import { ReactFCC } from 'core/types'
 
-const Index: React.FC = ({ children }) => {
+const Index: ReactFCC = ({ children }) => {
     return (
         <Minimal>
             <Head>

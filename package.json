@@ -18,7 +18,7 @@
         "node": "=14"
     },
     "dependencies": {
-        "@reduxjs/toolkit": "^1.6.2",
+        "@reduxjs/toolkit": "^1.8.3",
         "@types/lodash.clonedeep": "^4.5.6",
         "@types/react-motion": "0.0.32",
         "@types/uuid": "^8.3.0",
@@ -37,6 +37,7 @@
         "redux": "^4.2.0",
         "redux-devtools-extension": "^2.13.8",
         "redux-persist": "^6.0.0",
+        "redux-thunk": "^2.4.1",
         "redux-undo": "^1.0.1",
         "uuid": "^8.3.1",
         "voca": "^1.4.0"

@@ -1,4 +1,4 @@
-/** A compontent to display a navigable table of contents for all chapters in a story.
+/** A component to display a navigable table of contents for all chapters in a story.
  *  Feel free to use this as an example for custom navigation of your own.
  */
 import * as React from 'react'
