@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 import dynamic from 'next/dynamic'
 
 import { Toc, TocItem, RootState } from 'core/types'
+import Chapter from './chapter'
 
 interface ChapterComponent {
     component: JSX.Element
@@ -10,12 +11,21 @@ interface ChapterComponent {
 }
 const chapterComponents = (toc: Toc, story: string): Array<ChapterComponent> => {
     const chapters = Object.values(toc).map((item) => {
-        const component = React.createElement(
-            dynamic(() =>
-                import(`../../stories/${story}/chapters/${item.filename}`).then((mod) => mod.Page)
-            )
-        )
+        let component: React.ReactNode
 
+        if (item.filename.endsWith('.mdx')) {
+            component = React.createElement(
+                dynamic(() => import(`../../stories/${story}/chapters/${item.filename}`))
+            )
+        } else {
+            component = React.createElement(
+                dynamic(() =>
+                    import(`../../stories/${story}/chapters/${item.filename}`).then(
+                        (mod) => mod.Page
+                    )
+                )
+            )
+        }
         return {
             item,
             component

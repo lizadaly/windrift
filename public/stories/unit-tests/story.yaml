@@ -7,6 +7,8 @@ chapters:
     title: "Wrap Sections in a different tag than the default"
   - filename: 'no-wrapper-tag'
     title: "Wrap Sections in nothing"
+  - filename: 'mdx-support.mdx'
+    title: "Support MDX in chapters!!"
 
 players:
   - start: "leading-trailing-content"

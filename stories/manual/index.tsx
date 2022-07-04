@@ -18,8 +18,9 @@ import styles from 'public/stories/manual/styles/Index.module.scss'
 import TableOfContents from './table-of-contents'
 import { Nav } from 'core/components'
 import { NavProps } from 'core/components/nav'
+import { ReactFCC } from 'core/types'
 
-const Index = ({ children }) => {
+const Index: ReactFCC = ({ children }) => {
     return (
         <Grid
             styles={styles}
