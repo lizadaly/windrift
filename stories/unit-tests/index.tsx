@@ -1,9 +1,10 @@
 import * as React from 'react'
 
+import { PageType } from 'core/types'
+
 import Grid from 'core/components/ui/layouts/grid'
 
 import styles from 'public/stories/unit-tests/styles/Index.module.scss'
-import { PageType } from 'core/types'
 
 const Index: PageType = ({ children }) => {
     return (
