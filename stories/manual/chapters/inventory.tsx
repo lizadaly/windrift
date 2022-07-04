@@ -157,6 +157,19 @@ wordFromInventory(fruit, -2) // ${wordFromInventory(fruit, -2)}`}
                     Because a <code>Response</code> match can be any React node, you can branch from
                     this point as much or as little as you like.
                 </p>
+                <h4>Only displaying the picked option</h4>
+                <p>
+                    The <code>options</code> map is optional; omitting it will just return the
+                    option the user picked. This is the same behavior as the{' '}
+                    <code>useInventory</code> hook but can be called in contexts where hooks are
+                    inconvenient or disallowed.
+                </p>
+                <SyntaxHighlighter
+                    language="tsx"
+                    style={prism}>{`You picked <R tag="fruit" />.`}</SyntaxHighlighter>
+                <aside>
+                    You picked <R tag="fruit" />.
+                </aside>
                 <h4>Displaying a response only when the tag is undefined</h4>
                 <p>
                     Lastly, you can supply the <code>none</code> prop to display text if the user

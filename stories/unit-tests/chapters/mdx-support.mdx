@@ -1,9 +1,19 @@
-import { Section, Chapter, Nav } from 'core/components'
+import { Choice as C, Response as R, Section } from 'core/components'
 
-# hello page
 
-This is still a chapter
+<Section>
 
-<Nav next="alt-wrapper-tag" />
+# Hello MDX
+
+Do you want <C options={[['ripe banana', 'bulbous orange', 'fuzzy kiwi']]} tag="fruit" />?
+
+</Section>
+
+<Section>
+
+You picked <R tag="fruit" />.
+
+</Section>
+
 
 
