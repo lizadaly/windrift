@@ -25,6 +25,7 @@ const Link = ({ text, handler, tag }: LinkProps): JSX.Element => {
                     e.preventDefault()
                     const target = e.target as HTMLInputElement
                     const option = target.textContent
+                    console.log(option)
                     handler(option)
                 }}
                 dangerouslySetInnerHTML={{ __html: text }}

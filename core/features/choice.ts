@@ -1,11 +1,12 @@
 import undoable, { excludeAction } from 'redux-undo'
-import { createSlice, Dispatch, PayloadAction } from '@reduxjs/toolkit'
+import { AnyAction, createSlice, Dispatch, PayloadAction, ThunkAction } from '@reduxjs/toolkit'
 import { v4 as uuidv4 } from 'uuid'
 import { update as updateInventory } from 'core/features/inventory'
 import { update as logUpdate } from 'core/features/log'
 import { Tag, ENTRY_TYPES, Next, Config, NextType, RootState } from 'core/types'
 import { gotoChapter, incrementSection } from 'core/features/navigation'
 import { increment } from 'core/features/counter'
+import { AppDispatch } from 'core/containers/store-container'
 
 export type Option = string
 export type OptionGroup = Array<Option>
@@ -34,8 +35,13 @@ interface OptionAdvancePayload {
 const initialState: ChoiceState = null
 
 export const makeChoice =
-    (tag: Tag, option: Option, next?: NextType, filename?: string) =>
-    (dispatch: Dispatch, getState: () => RootState, config: Config): void => {
+    (
+        tag: Tag,
+        option: Option,
+        next?: NextType,
+        filename?: string
+    ): ThunkAction<void, RootState, unknown, AnyAction> =>
+    (dispatch: AppDispatch, getState: () => RootState, config: Config): void => {
         const choiceId = uuidv4()
 
         dispatch(updateInventory({ tag, option }))

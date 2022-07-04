@@ -265,13 +265,13 @@ wordFromInventory(fruit, -2) // ${wordFromInventory(fruit, -2)}`}
                     <button
                         className={styles.warning}
                         onClick={() => {
-                            dispatch(() => makeChoice('set-by-author', 'pumpkin patch'))
+                            dispatch(makeChoice('set-by-author', 'pumpkin patch'))
                         }}>
                         Set the value
                     </button>{' '}
                     <button
                         onClick={() => {
-                            dispatch(() => makeChoice('set-by-author', undefined))
+                            dispatch(makeChoice('set-by-author', undefined))
                         }}>
                         Unset the value
                     </button>
