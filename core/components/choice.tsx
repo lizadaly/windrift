@@ -1,7 +1,14 @@
 import * as React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
 
-import { WidgetType, RootState, Next, Option, Options, NextType } from 'core/types'
+import {
+    WidgetType,
+    Next,
+    Option,
+    Options,
+    NextType,
+    useAppDispatch,
+    useAppSelector
+} from 'core/types'
 
 import { ChapterContext } from 'core/components/chapter'
 import { InlineListEN } from 'core/components/widgets/inline-list'
@@ -40,8 +47,8 @@ const Choice = ({
     defaultOption = null,
     className = null
 }: ChoiceProps): JSX.Element => {
-    const dispatch = useDispatch()
-    const choice = useSelector((state: RootState) => {
+    const dispatch = useAppDispatch()
+    const choice = useAppSelector((state) => {
         return state.choices.present
     })
     React.useEffect(() => {
@@ -76,10 +83,10 @@ const MutableChoice = ({
     last,
     className
 }: ChoiceProps): JSX.Element => {
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
     const { filename } = React.useContext(ChapterContext)
 
-    const choice = useSelector((state: RootState) => {
+    const choice = useAppSelector((state) => {
         return state.choices.present[tag]
     })
     const [inventory] = useInventory([tag])

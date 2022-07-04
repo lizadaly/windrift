@@ -17,7 +17,7 @@ import { configureStore } from '@reduxjs/toolkit'
 
 import reducers from 'core/features'
 import { Config, Toc } from 'core/types'
-import dynamic from 'next/dynamic'
+import dynamic, { DynamicOptions } from 'next/dynamic'
 import { Provider } from 'react-redux'
 import { Story } from 'core/components'
 import StoryContainer from 'core/containers/story-container'
@@ -33,14 +33,15 @@ type ContextProps = {
     config: Config
 }
 
-const StoreContainer = ({ config, toc }: StoreProps): JSX.Element => {
+function initStore(config: Config, toc: Toc) {
     const persistConfig = {
         key: config.identifier,
         storage: storage,
         blacklist: ['config']
     }
     const persistedReducers = persistReducer(persistConfig, reducers)
-    const store = configureStore({
+
+    return configureStore({
         reducer: persistedReducers,
         middleware: (getDefaultMiddleware) =>
             getDefaultMiddleware({
@@ -65,9 +66,18 @@ const StoreContainer = ({ config, toc }: StoreProps): JSX.Element => {
         },
         devTools: true
     })
+}
+
+const StoreContainer = ({ config, toc }: StoreProps): JSX.Element => {
+    const store = initStore(config, toc)
     const persistor = persistStore(store)
 
-    const Index = dynamic(() => import(`../../stories/${config.identifier}/index`))
+    const Index = dynamic(
+        import(`../../stories/${config.identifier}/index`) as DynamicOptions<
+            Record<string, unknown>
+        >,
+        {}
+    )
 
     return (
         <Provider store={store}>
@@ -84,3 +94,7 @@ const StoreContainer = ({ config, toc }: StoreProps): JSX.Element => {
     )
 }
 export default StoreContainer
+
+export type Store = ReturnType<typeof initStore>
+export type AppDispatch = Store['dispatch']
+export type RootState = ReturnType<Store['getState']>

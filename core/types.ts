@@ -1,8 +1,12 @@
 /* Re-export common types */
 
+import { AppDispatch, RootState } from 'core/containers/store-container'
+import { PropsWithChildren } from 'react'
+import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
+
 export type { Option, Options, OptionGroup } from 'core/features/choice'
 export { ENTRY_TYPES } from 'core/features/log'
-export type { RootState } from 'core/features'
+export type { RootState } from 'core/containers/store-container'
 export { Next } from 'core/features/navigation'
 export type { NextType } from 'core/features/navigation'
 export type { CounterState } from 'core/features/counter'
@@ -61,4 +65,8 @@ export type Toc = {
     [c: string]: TocItem
 }
 
-export type PageType = React.FC
+export type ReactFCC<P = Record<string, unknown>> = React.FC<PropsWithChildren<P>>
+export type PageType = ReactFCC
+
+export const useAppDispatch: () => AppDispatch = useDispatch
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector

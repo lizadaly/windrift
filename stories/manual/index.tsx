@@ -19,7 +19,7 @@ import TableOfContents from './table-of-contents'
 import { Nav } from 'core/components'
 import { NavProps } from 'core/components/nav'
 
-const Index: React.FC = ({ children }) => {
+const Index = ({ children }) => {
     return (
         <Grid
             styles={styles}

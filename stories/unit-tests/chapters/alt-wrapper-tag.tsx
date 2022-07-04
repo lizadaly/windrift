@@ -10,17 +10,17 @@ import * as React from 'react'
 
 import { Section, Nav } from 'core/components'
 import { ChapterContext, renderChapterContent, useChapterSetup } from 'core/components/chapter'
-import { PageType } from 'core/types'
+import { PageType, ReactFCC } from 'core/types'
 interface AltWrapperProps {
     id: string
 }
-const AltWrapper: React.FC<AltWrapperProps> = ({ children, id }) => {
+const AltWrapper: ReactFCC<AltWrapperProps> = ({ children, id }) => {
     return <div id={id}>{children}</div>
 }
 
 const filename = 'alt-wrapper-tag'
 
-const AltChapter: React.FC = ({ children }) => {
+const AltChapter: ReactFCC = ({ children }) => {
     const item = useChapterSetup(filename, React.Children.count(children))
 
     return (

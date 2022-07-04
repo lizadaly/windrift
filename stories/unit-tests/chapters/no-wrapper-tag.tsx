@@ -6,11 +6,11 @@ import * as React from 'react'
 
 import { Section } from 'core/components'
 import { ChapterContext, renderChapterContent, useChapterSetup } from 'core/components/chapter'
-import { PageType } from 'core/types'
+import { PageType, ReactFCC } from 'core/types'
 
 const filename = 'no-wrapper-tag'
 
-const AltChapter: React.FC = ({ children }) => {
+const AltChapter: ReactFCC = ({ children }) => {
     const item = useChapterSetup(filename, React.Children.count(children))
 
     return (

@@ -4,6 +4,7 @@ import Head from 'next/head'
 
 import ResetButton from 'core/components/ui/reset-button'
 import { StoryContext } from 'core/containers/store-container'
+import { ReactFCC } from 'core/types'
 
 export type GridProps = {
     /**
@@ -26,6 +27,8 @@ export type GridProps = {
      * import styles from 'public/stories/manual/styles/Index.module.scss'
      */
     styles?: Record<string, string>
+
+    children: React.ReactNode
 }
 
 /**
@@ -36,7 +39,7 @@ export type GridProps = {
  * @see stories/manual/index for an example implementation
  *
  */
-const Grid: React.FC<GridProps> = ({ children, head, header, left, right, styles }) => {
+const Grid: ReactFCC<GridProps> = ({ children, head, header, left, right, styles }) => {
     const { config } = React.useContext(StoryContext)
 
     return (

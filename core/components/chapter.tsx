@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import { setSectionCount } from 'core/features/navigation'
 import { getChapter } from 'core/util'
-import { RootState, TocItem } from 'core/types'
+import { ReactFCC, RootState, TocItem } from 'core/types'
 
 type ContextProps = {
     filename: string
@@ -43,7 +43,7 @@ export interface ChapterType {
  * @param showOnlyCurrentSection Whether to show all sections up to the current (the default) or to only show the current
  * @returns the chapter
  */
-const Chapter: React.FC<ChapterType> = ({ children, filename, showOnlyCurrentSection = false }) => {
+const Chapter: ReactFCC<ChapterType> = ({ children, filename, showOnlyCurrentSection = false }) => {
     const [thisFilename] = React.useState({ filename })
 
     const item = useChapterSetup(filename, React.Children.count(children))
