@@ -14,9 +14,11 @@ const chapterComponents = (toc: Toc, story: string): Array<ChapterComponent> => 
         let component: React.ReactNode
 
         if (item.filename.endsWith('.mdx')) {
-            component = React.createElement(
-                dynamic(() => import(`../../stories/${story}/chapters/${item.filename}`))
-            )
+            component = React.createElement(Chapter, { filename: item.filename }, [
+                React.createElement(
+                    dynamic(() => import(`../../stories/${story}/chapters/${item.filename}`))
+                )
+            ])
         } else {
             component = React.createElement(
                 dynamic(() =>
