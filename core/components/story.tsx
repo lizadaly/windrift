@@ -45,8 +45,13 @@ interface StoryProps {
 
 const Story = ({ story }: StoryProps): JSX.Element => {
     const toc = useSelector((state: RootState) => state.navigation.present.toc)
-    const [components] = React.useState(() => chapterComponents(toc, story))
-    return (
+    const [components, setComponents] = React.useState<ChapterComponent[]>(null)
+
+    React.useEffect(() => {
+        setComponents(chapterComponents(toc, story))
+    }, [])
+
+    return components ? (
         <>
             {Object.values(toc)
                 .filter((c) => c.visible)
@@ -60,6 +65,6 @@ const Story = ({ story }: StoryProps): JSX.Element => {
                     </div>
                 ))}
         </>
-    )
+    ) : null
 }
 export default Story
