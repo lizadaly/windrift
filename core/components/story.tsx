@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic'
 
 import { Toc, TocItem, RootState } from 'core/types'
 import Chapter from './chapter'
+import { MDXContent } from 'mdx/types'
 
 interface ChapterComponent {
     component: JSX.Element
@@ -12,16 +13,16 @@ interface ChapterComponent {
 const chapterComponents = (toc: Toc, story: string): Array<ChapterComponent> => {
     const chapters = Object.values(toc).map((item) => {
         let component: React.ReactNode
+        const c = dynamic(
+            () => import(`../../stories/${story}/chapters/${item.filename}`)
+        ) as MDXContent
+        const e = React.createElement(c)
+        const m = React.Children.toArray(e)[0]
 
+        console.log(m.type)
         if (item.filename.endsWith('.mdx')) {
             component = React.createElement(
-                Chapter,
-                { filename: item.filename },
-                [
-                    React.createElement(
-                        dynamic(() => import(`../../stories/${story}/chapters/${item.filename}`))
-                    )
-                ].map((c) => <div key={item.filename}>{c}</div>)
+                dynamic(() => import(`../../stories/${story}/chapters/${item.filename}`))
             )
         } else {
             component = React.createElement(
