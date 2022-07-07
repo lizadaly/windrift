@@ -19,12 +19,11 @@ the `useInventory()` hook--use the `Response` component instead.
 
 This chapter is itself written in MDX! You can use it as an example to follow.
 
-An MDX chapter is considerably simpler than a standard Windrift chapter, with the following constraints:
+An MDX chapter structurally similar to a standard Windrift chapter, with the following constraints:
 
 * The filename **must** end in `.mdx`.
 * It **must** be defined in `story.yaml` including the `.mdx` extension, unlike JSX/TSX chapters which omit the extension.
 * Similarly, references to it in `Next` components or similar chapter names must include the `.mdx` extension.
-* It does _not_ need to define a `Chapter` component or its own filename inside; Windrift will supply that.x
 * It _can_ use any Windrift component such as `Choice` or `Response` components.
 * It _cannot_ use any React Hooks like `useInventory`.
 * You may divide it up into revealed `Section` components like a normal Windrift `Chapter`, but if you aren't incrementally
@@ -34,12 +33,19 @@ revealing passages you can have none at all.
 {`// stories/manual/writing-in-md.mdx
 # A simple MDX chapter.
 
-import { C, R } from 'core/components'
+import { C, R, Chapter, Section } from 'core/components'
 
-Do you want <C options={[['ripe banana', 'bulbous orange', 'fuzzy kiwi']]} tag="fruit" />?
+<Chapter filename="writing-in-md.mdx">
 
-You picked <R tag="fruit" />.
+    <Section>
+        Do you want <C options={[['ripe banana', 'bulbous orange', 'fuzzy kiwi']]} tag="fruit" />?
+    </Section>
 
+    <Section>
+        You picked <R tag="fruit" />.
+    </Section>
+
+</Chapter>
 )`}
 </SyntaxHighlighter>
 <aside>
@@ -56,5 +62,7 @@ You picked <R tag="fruit" />.
 
 </aside>
 </Section>
+
+<FooterNav text="Next steps and further resources..." next="next" />
 
 </Chapter>
