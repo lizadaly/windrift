@@ -13,13 +13,7 @@ interface ChapterComponent {
 const chapterComponents = (toc: Toc, story: string): Array<ChapterComponent> => {
     const chapters = Object.values(toc).map((item) => {
         let component: React.ReactNode
-        const c = dynamic(
-            () => import(`../../stories/${story}/chapters/${item.filename}`)
-        ) as MDXContent
-        const e = React.createElement(c)
-        const m = React.Children.toArray(e)[0]
 
-        console.log(m.type)
         if (item.filename.endsWith('.mdx')) {
             component = React.createElement(
                 dynamic(() => import(`../../stories/${story}/chapters/${item.filename}`))
