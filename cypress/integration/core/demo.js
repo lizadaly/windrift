@@ -112,9 +112,9 @@ describe('Full test of the built-in stories', () => {
 
         // Deploying
         cy.contains('Deploying your story').should('exist')
+        cy.get('a:contains("Writing in Markdown")').click()
 
         // Markdown
-        cy.contains('Writing in Markdown').should('exist')
         cy.get('a:contains("ripe banana")').click()
         cy.contains('You picked a ripe banana')
 
