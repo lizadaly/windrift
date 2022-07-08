@@ -136,7 +136,7 @@ _next/           global.scss      minimal/         stone-harbor-pt/ styles/
                     </a>{' '}
                     for the most current instructions on deploying with Vercel.
                 </p>
-                <FooterNav text="Writing in Markdown..." next="writing-in-md.mdx" />
+                <FooterNav text="How to write in Markdown..." next="writing-in-md.mdx" />
             </Section>
         </Chapter>
     )
