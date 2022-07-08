@@ -3,6 +3,8 @@ import { useSelector } from 'react-redux'
 import dynamic from 'next/dynamic'
 
 import { Toc, TocItem, RootState } from 'core/types'
+import Chapter from './chapter'
+import { MDXContent } from 'mdx/types'
 
 interface ChapterComponent {
     component: JSX.Element
@@ -10,12 +12,21 @@ interface ChapterComponent {
 }
 const chapterComponents = (toc: Toc, story: string): Array<ChapterComponent> => {
     const chapters = Object.values(toc).map((item) => {
-        const component = React.createElement(
-            dynamic(() =>
-                import(`../../stories/${story}/chapters/${item.filename}`).then((mod) => mod.Page)
-            )
-        )
+        let component: React.ReactNode
 
+        if (item.filename.endsWith('.mdx')) {
+            component = React.createElement(
+                dynamic(() => import(`../../stories/${story}/chapters/${item.filename}`))
+            )
+        } else {
+            component = React.createElement(
+                dynamic(() =>
+                    import(`../../stories/${story}/chapters/${item.filename}`).then(
+                        (mod) => mod.Page
+                    )
+                )
+            )
+        }
         return {
             item,
             component
@@ -29,8 +40,13 @@ interface StoryProps {
 
 const Story = ({ story }: StoryProps): JSX.Element => {
     const toc = useSelector((state: RootState) => state.navigation.present.toc)
-    const [components] = React.useState(() => chapterComponents(toc, story))
-    return (
+    const [components, setComponents] = React.useState<ChapterComponent[]>(null)
+
+    React.useEffect(() => {
+        setComponents(chapterComponents(toc, story))
+    }, [])
+
+    return components ? (
         <>
             {Object.values(toc)
                 .filter((c) => c.visible)
@@ -44,6 +60,6 @@ const Story = ({ story }: StoryProps): JSX.Element => {
                     </div>
                 ))}
         </>
-    )
+    ) : null
 }
 export default Story

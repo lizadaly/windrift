@@ -23,6 +23,8 @@ chapters:
     title: "Debugging and testing"
   - filename: "deploying"
     title: "Deploying to the web"
+  - filename: "writing-in-md.mdx"
+    title: "Writing in Markdown"
   - filename: "next"
     title: "Next steps and further resources"
 extra:

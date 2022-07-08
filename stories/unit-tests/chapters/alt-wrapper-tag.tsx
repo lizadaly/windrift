@@ -36,7 +36,7 @@ export const Page: PageType = () => {
     return (
         <AltChapter>
             <Section>
-                this should be wrapped in a div with an id
+                this should be wrapped in a div with an id{' '}
                 <Nav text="no-wrapper-tag" next="no-wrapper-tag" />
             </Section>
         </AltChapter>

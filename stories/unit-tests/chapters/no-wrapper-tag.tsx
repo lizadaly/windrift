@@ -4,7 +4,7 @@
 
 import * as React from 'react'
 
-import { Section } from 'core/components'
+import { Section, Nav } from 'core/components'
 import { ChapterContext, renderChapterContent, useChapterSetup } from 'core/components/chapter'
 import { PageType, ReactFCC } from 'core/types'
 
@@ -23,6 +23,7 @@ export const Page: PageType = () => {
     return (
         <AltChapter>
             <Section>this should be rendered</Section>
+            <Nav text="mdx-support.mdx" next="mdx-support.mdx" />
         </AltChapter>
     )
 }

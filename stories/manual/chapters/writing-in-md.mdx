@@ -1,0 +1,79 @@
+import { C, R, Section, Chapter } from 'core/components'
+
+import { SyntaxHighlighter, prism, styles, FooterNav } from '..'
+
+<Chapter filename="writing-in-md.mdx">
+
+<Section>
+
+# Writing in Markdown (experimental)
+
+Windrift has preliminary support for using Markdown-in-JSX ([MDX](https://github.com/mdx-js/mdx)) to write stories.
+
+MDX syntax mixes Markdown and React syntax. Not everything that can be done in full React JSX
+can be done in MDX--any functionality that depends on specific
+parts of the React component lifecycle are awkward or not available in Markdown. The most relevant to Windrift authors is
+the `useInventory()` hook--use the `Response` component instead.
+
+## Usage
+
+This chapter is itself written in MDX! You can use it as an example to follow.
+
+An MDX chapter structurally similar to a standard Windrift chapter, with the following constraints:
+
+* The filename **must** end in `.mdx`.
+* It **must** be defined in `story.yaml` with its `filename` field including the `.mdx` extension. JSX/TSX chapters omit the extension.
+* Similarly, references to it in `Next` components or similar chapter names must include the `.mdx` extension.
+* It _can_ use any Windrift component such as `Choice` or `Response` components.
+* It _cannot_ use any React Hooks like `useInventory`.
+* You may divide it up into revealed `Section` components like a normal Windrift `Chapter`, but if you aren't incrementally
+revealing passages you can have none at all. `Chapter` is required though.
+
+
+<SyntaxHighlighter language="tsx" style={prism}>
+{`// stories/manual/writing-in-md.mdx
+# A simple MDX chapter.
+
+import { C, R, Chapter, Section } from 'core/components'
+
+<Chapter filename="writing-in-md.mdx">
+
+<Section>
+
+    ### Question
+    Do _you_ want <C options={[['ripe banana', 'bulbous orange', 'fuzzy kiwi']]} tag="markdown" />?
+
+</Section>
+
+<Section>
+
+    ### Answer
+    **You** picked <R tag="markdown" />!
+
+</Section>
+
+</Chapter>
+`}
+</SyntaxHighlighter>
+
+<aside>
+    ### Question
+
+    Do _you_ want <C options={[['ripe banana', 'bulbous orange', 'fuzzy kiwi']]} tag="markdown" />?
+
+</aside>
+
+</Section>
+
+<Section>
+    <aside>
+
+        ### Answer
+        **You** picked <R tag="markdown" />.
+
+    </aside>
+</Section>
+
+<FooterNav text="Next steps and further resources..." next="next" />
+
+</Chapter>

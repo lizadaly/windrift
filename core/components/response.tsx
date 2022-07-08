@@ -7,7 +7,7 @@ interface OptionsMap {
     [tag: Tag]: string | JSX.Element
 }
 interface ResponseProps {
-    options: OptionsMap
+    options?: OptionsMap
     tag: Tag
     none?: string | JSX.Element
 }
@@ -26,6 +26,10 @@ const Response = ({ tag, options, none = null }: ResponseProps): JSX.Element => 
     // Get the inventory item for this tag
     const [option] = useInventory([tag])
 
+    // If no options map was supplied, just return the chosen option
+    if (!options) {
+        return <>{option}</>
+    }
     if (!option) {
         return <>{none}</>
     }

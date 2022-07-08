@@ -109,8 +109,16 @@ describe('Full test of the built-in stories', () => {
         cy.get('a:contains("browser testing")').click()
         cy.contains('Testing').should('exist')
         cy.get('a:contains("How to deploy")').click()
-        cy.contains('Deploying your story').should('exist')
 
+        // Deploying
+        cy.contains('Deploying your story').should('exist')
+        cy.get('a:contains("How to write in Markdown")').click()
+
+        // Markdown
+        cy.get('a:contains("ripe banana")').click()
+        cy.contains('You picked ripe banana')
+
+        // Next steps
         cy.get('a[data-option="Next steps and further resources"]').click()
         cy.contains('Next steps').should('exist')
     })

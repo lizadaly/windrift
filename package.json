@@ -1,6 +1,6 @@
 {
     "name": "windrift",
-    "version": "2.1.2",
+    "version": "2.2.0",
     "private": true,
     "scripts": {
         "build": "next build",
@@ -18,8 +18,11 @@
         "node": "=14"
     },
     "dependencies": {
+        "@mdx-js/loader": "^2.1.2",
+        "@next/mdx": "^12.2.0",
         "@reduxjs/toolkit": "^1.8.3",
         "@types/lodash.clonedeep": "^4.5.6",
+        "@types/mdx": "^2.0.2",
         "@types/react-motion": "0.0.32",
         "@types/uuid": "^8.3.0",
         "@use-it/interval": "^1.0.0",
