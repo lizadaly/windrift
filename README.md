@@ -25,8 +25,8 @@ Stories demonstrating use of Windrift 2 from the basic to the advanced are avail
 To ensure you're using a fully-compatible version of Node, use [Node Version Manager](https://github.com/nvm-sh/nvm). Follow its installation process for your platform and then run:
 
 ```
-nvm install 14
-nvm use 14
+nvm install 18
+nvm use 18
 ```
 
 Then to install Windrift:
@@ -34,8 +34,6 @@ Then to install Windrift:
 ```
 npm install
 ```
-
-(Windrift comes ready to deploy using Vercel, which requires a maximum Node version of 14. If you're deploying elsewhere you could use a Node version greater than 14.)
 
 ### To start a new story
 
