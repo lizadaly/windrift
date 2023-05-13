@@ -38,7 +38,9 @@ test.describe('Full test of the built-in stories', () => {
         cy.contains('here: magenta')
 
         // Response none
-        cy.get('aside:contains("This Choice tag was never defined")').should('exist')
+        await expect(
+            page.getByRole('complementary').filter({ hasText: 'This Choice tag was never defined' })
+        ).toBeVisible()
 
         // When component
         cy.contains('You selected either a fruit or a tree')
