@@ -9,7 +9,7 @@ test.describe('Full test of the built-in stories', () => {
         cy.get("a:contains('about choices')").click()
 
         // Ensure no new sections are unspooled yet
-        cy.get('a:contains("fine choices")').should('not.exist')
+        await expect(page.getByRole('link').filter({ hasText: 'fine choices' })).not.toBeVisible()
 
         // Select choices
         cy.get('a:contains("ripe banana")').click()
@@ -20,7 +20,7 @@ test.describe('Full test of the built-in stories', () => {
         cy.contains('too many delicious things')
 
         cy.get('a:contains("marmot")').click()
-        cy.get('a:contains("marmot")').should('not.exist')
+        await expect(page.getByRole('link').filter({ hasText: 'marmot' })).not.toBeVisible()
 
         cy.get('a:contains("elm")').click()
         cy.contains('elm (selected)')
@@ -66,7 +66,7 @@ test.describe('Full test of the built-in stories', () => {
         cy.contains('Your companion will be your best friend.')
         cy.get('a:contains("Start your ascent")').click()
         cy.get('img').should('be.visible')
-        cy.get('a:contains("climbs up")').should('not.exist')
+        await expect(page.getByRole('link').filter({ hasText: 'climbs up' })).not.toBeVisible()
         await expect(page.getByText('climbs up')).toBeVisible()
         cy.contains('found 1 out of 4').should('not.exist')
         cy.get('a:contains("rock wall")').click()
