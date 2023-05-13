@@ -1,10 +1,10 @@
-import { test } from '@playwright/test'
+import { expect, test } from '@playwright/test'
 
 test.describe('Full test of the built-in stories', () => {
     test('Runs through the manual application', async ({ page }) => {
         // Initial page
         await page.goto('/manual')
-        cy.contains('Introduction').should('exist')
+        await expect(page.getByText('Introduction')).toBeVisible()
         cy.get("a:contains('Start learning')").click()
         cy.get("a:contains('about choices')").click()
 
@@ -54,7 +54,7 @@ test.describe('Full test of the built-in stories', () => {
         // navigation
         cy.get('a:contains("Click me")').click()
         cy.get('a:contains("no-op")').click()
-        cy.contains('Clicked!').should('exist')
+        await expect(page.getByText('Clicked!')).toBeVisible()
         cy.get('a:contains("Click for more")').click()
         cy.get('a:contains("example story")').click()
 
@@ -65,24 +65,24 @@ test.describe('Full test of the built-in stories', () => {
         cy.get('a:contains("Start your ascent")').click()
         cy.get('img').should('be.visible')
         cy.get('a:contains("climbs up")').should('not.exist')
-        cy.contains('climbs up').should('exist')
+        await expect(page.getByText('climbs up')).toBeVisible()
         cy.contains('found 1 out of 4').should('not.exist')
         cy.get('a:contains("rock wall")').click()
         cy.get('a:contains("chipmunk")').click()
-        cy.contains('found 1 out of 4').should('exist')
+        await expect(page.getByText('found 1 out of 4')).toBeVisible()
         cy.get('a:contains("climbs up")').click()
 
         // Sample (summit)
-        cy.contains('found 1 out of 4').should('exist')
+        await expect(page.getByText('found 1 out of 4')).toBeVisible()
         cy.get('img').should('be.visible')
         cy.get('a:contains("boulder")').click()
         cy.get('a:contains("snake")').click()
-        cy.contains('found 2 out of 4').should('exist')
+        await expect(page.getByText('found 2 out of 4')).toBeVisible()
         cy.contains('time to meet up with your best friend').should('not.exist')
 
         cy.get('a:contains("bird")').click()
-        cy.contains('found 3 out of 4').should('exist')
-        cy.contains('time to meet up with your best friend').should('exist')
+        await expect(page.getByText('found 3 out of 4')).toBeVisible()
+        await expect(page.getByText('time to meet up with your best friend')).toBeVisible()
         cy.get('a:contains("continues north")').click()
 
         // Sample (descent)
@@ -93,27 +93,27 @@ test.describe('Full test of the built-in stories', () => {
         cy.get('img[src="../stories/manual/images/example1.jpg"]').should('be.visible')
         cy.get('img[src="../stories/manual/images/skyscrapers.jpg"]').should('be.visible')
         cy.get('img[src="../stories/manual/images/camera.jpg"]').should('be.visible')
-        cy.contains("You haven't made a choice yet").should('exist')
+        await expect(page.getByText("You haven't made a choice yet")).toBeVisible()
         cy.get('button[data-tag="image"][data-option="camera"]').click()
         cy.contains("You haven't made a choice yet").should('not.exist')
-        cy.contains('You chose camera').should('exist')
-        cy.contains("You haven't made a final choice yet").should('exist')
+        await expect(page.getByText('You chose camera')).toBeVisible()
+        await expect(page.getByText("You haven't made a final choice yet")).toBeVisible()
         cy.get('button[data-tag="image-once"][data-option="skyscrapers"]').click()
-        cy.contains('You chose skyscrapers').should('exist')
+        await expect(page.getByText('You chose skyscrapers')).toBeVisible()
         cy.get('button[data-tag="image-once"].windrift--image-choice-chooseable-true').should(
             'not.exist'
         )
         cy.get('a:contains("Explore how to")').click()
 
-        cy.contains('Layout, styling, and animation').should('exist')
+        await expect(page.getByText('Layout, styling, and animation')).toBeVisible()
 
         // Browser testing
         cy.get('a:contains("browser testing")').click()
-        cy.contains('Testing').should('exist')
+        await expect(page.getByText('Testing')).toBeVisible()
         cy.get('a:contains("How to deploy")').click()
 
         // Deploying
-        cy.contains('Deploying your story').should('exist')
+        await expect(page.getByText('Deploying your story')).toBeVisible()
         cy.get('a:contains("How to write in Markdown")').click()
 
         // Markdown
@@ -122,6 +122,6 @@ test.describe('Full test of the built-in stories', () => {
 
         // Next steps
         cy.get('a[data-option="Next steps and further resources"]').click()
-        cy.contains('Next steps').should('exist')
+        await expect(page.getByText('Next steps')).toBeVisible()
     })
 })
