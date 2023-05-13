@@ -1,8 +1,9 @@
 import { test } from '@playwright/test'
 
 test.describe('Full test of browser forward/back features', () => {
-    test('Checks back', () => {
-        cy.visit('/manual')
+    test('Checks back', async ({ page }) => {
+        await page.goto('/manual')
+        //cy.visit('/manual')
         cy.get("a:contains('Start learning')").click()
         cy.get('a:contains("about choices")').click()
         cy.get('a:contains("ripe banana")').should('exist')
