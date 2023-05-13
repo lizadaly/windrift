@@ -38,3 +38,8 @@ cypress/screenshots
 
 # emacs
 *~
+
+# Playwright
+/test-results/
+/playwright-report/
+/playwright/.cache/
