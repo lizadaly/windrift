@@ -1,5 +1,7 @@
-describe('Full test of the built-in stories', () => {
-    it('Runs through the manual application', () => {
+import { test } from '@playwright/test'
+
+test.describe('Full test of the built-in stories', () => {
+    test('Runs through the manual application', () => {
         // Initial page
         cy.visit('/manual')
         cy.contains('Introduction').should('exist')
