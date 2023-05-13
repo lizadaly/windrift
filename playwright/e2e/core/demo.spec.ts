@@ -1,9 +1,9 @@
 import { test } from '@playwright/test'
 
 test.describe('Full test of the built-in stories', () => {
-    test('Runs through the manual application', () => {
+    test('Runs through the manual application', async ({ page }) => {
         // Initial page
-        cy.visit('/manual')
+        await page.goto('/manual')
         cy.contains('Introduction').should('exist')
         cy.get("a:contains('Start learning')").click()
         cy.get("a:contains('about choices')").click()
