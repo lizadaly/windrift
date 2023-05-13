@@ -1,5 +1,7 @@
-describe('Full test of browser forward/back features', () => {
-    it('Checks back', () => {
+import { test } from '@playwright/test'
+
+test.describe('Full test of browser forward/back features', () => {
+    test('Checks back', () => {
         cy.visit('/manual')
         cy.get("a:contains('Start learning')").click()
         cy.get('a:contains("about choices")').click()
