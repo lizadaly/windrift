@@ -1,8 +1,9 @@
+/* eslint-disable cypress/no-async-tests */
 import { test } from '@playwright/test'
 
 test.describe('Full test of the Portuguese Stone Harbor demo', () => {
-    test('Checks that Stone Harbor Portuguese works', () => {
-        cy.visit('/stone-harbor-pt')
+    test('Checks that Stone Harbor Portuguese works', async ({ page }) => {
+        await page.goto('/stone-harbor-pt')
         cy.get('a').contains('roupas').click()
         cy.get('a').contains('anel').click()
         cy.get('a').contains('Nancy?').click()
