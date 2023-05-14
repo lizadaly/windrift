@@ -17,6 +17,6 @@ test.describe('Unit test individual features', () => {
 
         cy.get("a:contains('mdx-support.mdx')").click()
         cy.get("a:contains('ripe banana')").click()
-        cy.contains('You picked ripe banana')
+        await expect(page.getByText('You picked ripe banana')).toBeVisible()
     })
 })
