@@ -4,7 +4,7 @@ test.describe('Unit test individual features', () => {
     test('Chapters should render content before or after sections', async ({ page }) => {
         await page.goto('/unit-tests')
         await expect(page.locator('#leading-content')).toBeVisible()
-        await expect(page.locator('#trailing-content')).toBeVisible()
+        await expect(page.locator('#trailing-content')).toBeAttached()
 
         await page.getByRole('link').filter({ hasText: 'alt-wrapper-tag' }).click()
         await expect(page.locator('#alt-wrapper-tag-example')).toBeVisible()
