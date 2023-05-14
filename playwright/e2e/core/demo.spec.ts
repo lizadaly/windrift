@@ -47,9 +47,9 @@ test.describe('Full test of the built-in stories', () => {
 
         // Set/unset values
         await expect(page.getByText('Current value: undefined')).toBeVisible()
-        cy.get('button:contains("Set the value")').click()
+        await page.getByRole('button').filter({ hasText: 'Set the value' }).click()
         await expect(page.getByText('Current value: pumpkin patch')).toBeVisible()
-        cy.get('button:contains("Unset the value")').click()
+        await page.getByRole('button').filter({ hasText: 'Unset the value' }).click()
         await expect(page.getByText('Current value: undefined')).toBeVisible()
         await page.getByRole('link').filter({ hasText: 'navigation...' }).click()
 
