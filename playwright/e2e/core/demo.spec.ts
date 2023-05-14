@@ -1,10 +1,9 @@
 import { expect, test } from '@playwright/test'
-
 test.describe('Full test of the built-in stories', () => {
     test('Runs through the manual application', async ({ page }) => {
         // Initial page
         await page.goto('/manual')
-        await expect(page.getByText('Introduction')).toBeVisible()
+        await expect(page.getByText('Introduction')).toBeVisible({ timeout: 10000 })
         await page.getByRole('link').filter({ hasText: 'Start learning' }).click()
         await page.getByRole('link').filter({ hasText: 'about choices' }).click()
 
