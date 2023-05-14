@@ -8,7 +8,9 @@ test.describe('Unit test individual features', () => {
 
         cy.get("a:contains('alt-wrapper-tag')").click()
         await expect(page.locator('#alt-wrapper-tag-example')).toBeVisible()
-        cy.get('#alt-wrapper-tag-example').contains('this should be wrapped').should('exist')
+        await expect(
+            page.locator('#alt-wrapper-tag-example').filter({ hasText: 'this should be wrapped' })
+        ).toBeVisible()
 
         cy.get("a:contains('no-wrapper-tag')").click()
         await expect(
