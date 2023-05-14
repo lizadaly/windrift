@@ -105,9 +105,11 @@ test.describe('Full test of the built-in stories', () => {
         // Images
         await expect(page.locator('img[src="../stories/manual/images/example1.jpg"]')).toBeVisible()
         await expect(
-            page.locator('img[src="../stories/manual/images/skyscrapers.jpg"]')
+            page.locator('button[data-tag="image-once"][data-option="skyscrapers"]')
         ).toBeVisible()
-        await expect(page.locator('img[src="../stories/manual/images/camera.jpg"]')).toBeVisible()
+        await expect(
+            page.locator('button[data-tag="image-once"][data-option="camera"]')
+        ).toBeVisible()
         await expect(page.getByText("You haven't made a choice yet")).toBeVisible()
         await page.locator('button[data-tag="image"][data-option="camera"]').click()
         await expect(page.getByText("You haven't make a choice yet")).not.toBeVisible()
@@ -115,9 +117,9 @@ test.describe('Full test of the built-in stories', () => {
         await expect(page.getByText("You haven't made a final choice yet")).toBeVisible()
         await page.locator('button[data-tag="image-once"][data-option="skyscrapers"]').click()
         await expect(page.getByText('You chose skyscrapers')).toBeVisible()
-        cy.get('button[data-tag="image-once"].windrift--image-choice-chooseable-true').should(
-            'not.exist'
-        )
+        await expect(
+            page.locator('button[data-tag="image-once"].windrift--image-choice-chooseable-true')
+        ).not.toBeVisible()
         await page.getByRole('link').filter({ hasText: 'Explore how to' }).click()
 
         await expect(page.getByText('Layout, styling, and animation')).toBeVisible()
