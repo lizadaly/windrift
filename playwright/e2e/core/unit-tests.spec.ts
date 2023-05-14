@@ -1,13 +1,13 @@
-import { test } from '@playwright/test'
+import { expect, test } from '@playwright/test'
 
 test.describe('Unit test individual features', () => {
     test('Chapters should render content before or after sections', async ({ page }) => {
         await page.goto('/unit-tests')
-        cy.get('#leading-content').should('exist')
-        cy.get('#trailing-content').should('exist')
+        await expect(page.locator('#leading-content')).toBeVisible()
+        await expect(page.locator('#trailing-content')).toBeVisible()
 
         cy.get("a:contains('alt-wrapper-tag')").click()
-        cy.get('#alt-wrapper-tag-example').should('exist')
+        await expect(page.locator('#alt-wrapper-tag-example')).toBeVisible()
         cy.get('#alt-wrapper-tag-example').contains('this should be wrapped').should('exist')
 
         cy.get("a:contains('no-wrapper-tag')").click()
