@@ -4,19 +4,19 @@ import { test } from '@playwright/test'
 test.describe('Full test of refresh/rehydration features', () => {
     test('Checks refresh', async ({ page }) => {
         await page.goto('/manual')
-        cy.get("a:contains('Start learning')").click()
-        cy.get('a:contains("about choices")').click()
+        await page.getByRole('link').filter({ hasText: 'Start learning' }).click()
+        await page.getByRole('link').filter({ hasText: 'about choices' }).click()
         cy.get('a:contains("ripe banana")')
-        cy.get('a:contains("bulbous orange")').click()
+        await page.getByRole('link').filter({ hasText: 'bulbous orange' }).click()
         cy.reload()
         cy.get('a:contains("ripe banana")').should('not.exist')
-        cy.get('a:contains("fine choices")').click()
-        cy.get('a:contains("orange kale")').click()
-        cy.get('a:contains("cheesecake")').click()
+        await page.getByRole('link').filter({ hasText: 'fine choices' }).click()
+        await page.getByRole('link').filter({ hasText: 'orange kale' }).click()
+        await page.getByRole('link').filter({ hasText: 'cheesecake' }).click()
 
-        cy.get('a:contains("marmot")').click()
+        await page.getByRole('link').filter({ hasText: 'marmot' }).click()
 
-        cy.get('a:contains("elm")').click()
+        await page.getByRole('link').filter({ hasText: 'elm' }).click()
         cy.contains('elm (selected)')
         cy.reload()
         cy.contains('elm (selected)')
