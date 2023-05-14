@@ -19,7 +19,7 @@ test.describe('Full test of the Portuguese Stone Harbor demo', () => {
         await page.getByRole('link').filter({ hasText: 'luva' }).click()
         await page.getByRole('link').filter({ hasText: 'luva' }).click()
         await expect(page.getByText('e tudo muda')).toBeVisible()
-        cy.get('img').should('have.attr', 'alt').and('contains', 'Um escritório pequeno')
+        await expect(page.locator('img[alt*="Um escritório pequeno"]')).toBeVisible()
         await page.getByRole('link').filter({ hasText: 'bibelôs' }).click()
         await page.getByRole('link').filter({ hasText: 'fotografia' }).click()
         await expect(page.getByText('objetos pessoais')).toBeVisible()
