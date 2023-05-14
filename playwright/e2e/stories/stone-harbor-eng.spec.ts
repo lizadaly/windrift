@@ -1,5 +1,5 @@
 /* eslint-disable cypress/no-async-tests */
-import { test } from '@playwright/test'
+import { expect, test } from '@playwright/test'
 
 test.describe('Full test of the English Stone Harbor demo', () => {
     test('Checks that Stone Harbor English works', async ({ page }) => {
@@ -10,20 +10,20 @@ test.describe('Full test of the English Stone Harbor demo', () => {
         await page.getByRole('link').filter({ hasText: 'Nadine?' }).click()
         await page.getByRole('link').filter({ hasText: 'appearance' }).click()
         await page.getByRole('link').filter({ hasText: 'sunburn' }).click()
-        cy.contains('pick up some cues')
-        cy.contains('time outdoors')
-        cy.contains('His ring also')
+        await expect(page.getByText('pick up some cues')).toBeVisible()
+        await expect(page.getByText('time outdoors')).toBeVisible()
+        await expect(page.getByText('His ring also')).toBeVisible()
         await page.getByRole('link').filter({ hasText: 'card' }).click()
-        cy.contains('which you flip over')
+        await expect(page.getByText('which you flip over')).toBeVisible()
         await page.getByRole('link').filter({ hasText: 'glove' }).click()
         await page.getByRole('link').filter({ hasText: 'glove' }).click()
-        cy.contains('and everything changes')
+        await expect(page.getByText('and everything changes')).toBeVisible()
         cy.get('img').should('have.attr', 'alt').and('contains', 'small, cluttered')
         await page.getByRole('link').filter({ hasText: 'knickknacks' }).click()
         await page.getByRole('link').filter({ hasText: 'photograph' }).click()
-        cy.contains('personal effects')
-        cy.contains('You examine the picture')
+        await expect(page.getByText('personal effects')).toBeVisible()
+        await expect(page.getByText('You examine the picture')).toBeVisible()
         await page.getByRole('link').filter({ hasText: 'angry glove' }).click()
-        cy.contains('Healey was murdered')
+        await expect(page.getByText('Healey was murdered')).toBeVisible()
     })
 })
