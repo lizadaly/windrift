@@ -1,5 +1,7 @@
-describe('Full test of refresh/rehydration features', () => {
-    it('Checks refresh', () => {
+import { test } from '@playwright/test'
+
+test.describe('Full test of refresh/rehydration features', () => {
+    test('Checks refresh', () => {
         cy.visit('/manual')
         cy.get("a:contains('Start learning')").click()
         cy.get('a:contains("about choices")').click()
