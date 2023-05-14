@@ -61,36 +61,36 @@ test.describe('Full test of the built-in stories', () => {
         await page.getByRole('link').filter({ hasText: 'example story' }).click()
 
         // Sample (ascent)
-        cy.get('a:contains("sample story")').click()
-        cy.get('a:contains("your best friend")').click()
+        await page.getByRole('link').filter({ hasText: 'sample story' }).click()
+        await page.getByRole('link').filter({ hasText: 'your best friend' }).click()
         await expect(page.getByText('Your companion will be your best friend.')).toBeVisible()
-        cy.get('a:contains("Start your ascent")').click()
+        await page.getByRole('link').filter({ hasText: 'Start your ascent' }).click()
         await expect(page.getByRole('img')).toBeVisible()
         await expect(page.getByRole('link').filter({ hasText: 'climbs up' })).not.toBeVisible()
         await expect(page.getByText('climbs up')).toBeVisible()
         await expect(page.getByText('found 1 out of 4')).not.toBeVisible()
-        cy.get('a:contains("rock wall")').click()
-        cy.get('a:contains("chipmunk")').click()
+        await page.getByRole('link').filter({ hasText: 'rock wall' }).click()
+        await page.getByRole('link').filter({ hasText: 'chipmunk' }).click()
         await expect(page.getByText('found 1 out of 4')).toBeVisible()
-        cy.get('a:contains("climbs up")').click()
+        await page.getByRole('link').filter({ hasText: 'climbs up' }).click()
 
         // Sample (summit)
         await expect(page.getByText('found 1 out of 4')).toBeVisible()
         await expect(page.getByRole('img')).toBeVisible()
-        cy.get('a:contains("boulder")').click()
-        cy.get('a:contains("snake")').click()
+        await page.getByRole('link').filter({ hasText: 'boulder' }).click()
+        await page.getByRole('link').filter({ hasText: 'snake' }).click()
         await expect(page.getByText('found 2 out of 4')).toBeVisible()
         await expect(page.getByText('time to meet up with your best friend')).not.toBeVisible()
 
-        cy.get('a:contains("bird")').click()
+        await page.getByRole('link').filter({ hasText: 'bird' }).click()
         await expect(page.getByText('found 3 out of 4')).toBeVisible()
         await expect(page.getByText('time to meet up with your best friend')).toBeVisible()
-        cy.get('a:contains("continues north")').click()
+        await page.getByRole('link').filter({ hasText: 'continues north' }).click()
 
         // Sample (descent)
         await expect(page.getByRole('img')).toBeVisible()
-        cy.get('a:contains("Return to the manual")').click()
-        cy.get('a:contains("continue with the next section")').click()
+        await page.getByRole('link').filter({ hasText: 'Return to the manual' }).click()
+        await page.getByRole('link').filter({ hasText: 'continue with the next section' }).click()
         // Images
         cy.get('img[src="../stories/manual/images/example1.jpg"]').should('be.visible')
         cy.get('img[src="../stories/manual/images/skyscrapers.jpg"]').should('be.visible')
@@ -105,21 +105,21 @@ test.describe('Full test of the built-in stories', () => {
         cy.get('button[data-tag="image-once"].windrift--image-choice-chooseable-true').should(
             'not.exist'
         )
-        cy.get('a:contains("Explore how to")').click()
+        await page.getByRole('link').filter({ hasText: 'Explore how to' }).click()
 
         await expect(page.getByText('Layout, styling, and animation')).toBeVisible()
 
         // Browser testing
-        cy.get('a:contains("browser testing")').click()
+        await page.getByRole('link').filter({ hasText: 'browser testing' }).click()
         await expect(page.getByText('Testing')).toBeVisible()
-        cy.get('a:contains("How to deploy")').click()
+        await page.getByRole('link').filter({ hasText: 'How to deploy' }).click()
 
         // Deploying
         await expect(page.getByText('Deploying your story')).toBeVisible()
-        cy.get('a:contains("How to write in Markdown")').click()
+        await page.getByRole('link').filter({ hasText: 'How to write in Markdown' }).click()
 
         // Markdown
-        cy.get('a:contains("ripe banana")').click()
+        await page.getByRole('link').filter({ hasText: 'ripe banana' }).click()
         await expect(page.getByText('You picked ripe banana')).toBeVisible()
 
         // Next steps
