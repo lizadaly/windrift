@@ -107,11 +107,11 @@ test.describe('Full test of the built-in stories', () => {
         cy.get('img[src="../stories/manual/images/skyscrapers.jpg"]').should('be.visible')
         cy.get('img[src="../stories/manual/images/camera.jpg"]').should('be.visible')
         await expect(page.getByText("You haven't made a choice yet")).toBeVisible()
-        cy.get('button[data-tag="image"][data-option="camera"]').click()
+        await page.locator('button[data-tag="image"][data-option="camera"]').click()
         await expect(page.getByText("You haven't make a choice yet")).not.toBeVisible()
         await expect(page.getByText('You chose camera')).toBeVisible()
         await expect(page.getByText("You haven't made a final choice yet")).toBeVisible()
-        cy.get('button[data-tag="image-once"][data-option="skyscrapers"]').click()
+        await page.locator('button[data-tag="image-once"][data-option="skyscrapers"]').click()
         await expect(page.getByText('You chose skyscrapers')).toBeVisible()
         cy.get('button[data-tag="image-once"].windrift--image-choice-chooseable-true').should(
             'not.exist'
@@ -134,7 +134,7 @@ test.describe('Full test of the built-in stories', () => {
         await expect(page.getByText('You picked ripe banana')).toBeVisible()
 
         // Next steps
-        cy.get('a[data-option="Next steps and further resources"]').click()
+        await page.locator('a[data-option="Next steps and further resources"]').click()
         await expect(page.getByText('Next steps')).toBeVisible()
     })
 })
