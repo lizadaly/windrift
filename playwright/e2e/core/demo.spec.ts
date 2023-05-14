@@ -17,7 +17,9 @@ test.describe('Full test of the built-in stories', () => {
         await page.getByRole('link').filter({ hasText: 'orange kale' }).click()
 
         await page.getByRole('link').filter({ hasText: 'cheesecake' }).click()
-        await expect(page.getByText('too many delicious things')).toBeVisible()
+        await expect(
+            page.getByRole('complementary').filter({ hasText: 'too many delicious things' })
+        ).toBeVisible()
 
         await page.getByRole('link').filter({ hasText: 'marmot' }).click()
         await expect(page.getByRole('link').filter({ hasText: 'marmot' })).not.toBeVisible()
@@ -30,11 +32,13 @@ test.describe('Full test of the built-in stories', () => {
         await page.getByRole('link').filter({ hasText: 'displaying inventory' }).click()
         await expect(page.getByText('// ripe banana')).toBeVisible()
         await expect(page.getByText('// banana')).toBeVisible()
-        await expect(page.getByText('// ripe')).toBeVisible()
+        await expect(page.getByText('// ripe', { exact: true })).toBeVisible()
 
         // Response maps
         await expect(page.getByText('You picked a nice banana')).toBeVisible()
-        await expect(page.getByText('This also matches banana')).toBeVisible()
+        await expect(
+            page.getByRole('complementary').filter({ hasText: 'This also matches banana' })
+        ).toBeVisible()
         await expect(page.getByText('here: magenta')).toBeVisible()
 
         // Response none
@@ -43,11 +47,18 @@ test.describe('Full test of the built-in stories', () => {
         ).toBeVisible()
 
         // When component
-        await expect(page.getByText('You selected either a fruit or a tree')).toBeVisible()
+        await expect(
+            page
+                .getByRole('complementary')
+                .filter({ hasText: 'You selected either a fruit or a tree' })
+        ).toBeVisible()
 
         // Set/unset values
         await expect(page.getByText('Current value: undefined')).toBeVisible()
-        await page.getByRole('button').filter({ hasText: 'Set the value' }).click()
+        await page
+            .getByRole('button')
+            .filter({ hasText: 'Set the value', hasNotText: 'Unset' })
+            .click()
         await expect(page.getByText('Current value: pumpkin patch')).toBeVisible()
         await page.getByRole('button').filter({ hasText: 'Unset the value' }).click()
         await expect(page.getByText('Current value: undefined')).toBeVisible()
@@ -56,7 +67,7 @@ test.describe('Full test of the built-in stories', () => {
         // navigation
         await page.getByRole('link').filter({ hasText: 'Click me' }).click()
         await page.getByRole('link').filter({ hasText: 'no-op' }).click()
-        await expect(page.getByText('Clicked!')).toBeVisible()
+        await expect(page.getByRole('complementary').filter({ hasText: 'Clicked!' })).toBeVisible()
         await page.getByRole('link').filter({ hasText: 'Click for more' }).click()
         await page.getByRole('link').filter({ hasText: 'example story' }).click()
 
