@@ -1,8 +1,8 @@
 import { test } from '@playwright/test'
 
 test.describe('Unit test individual features', () => {
-    test('Chapters should render content before or after sections', () => {
-        cy.visit('/unit-tests')
+    test('Chapters should render content before or after sections', async ({ page }) => {
+        await page.goto('/unit-tests')
         cy.get('#leading-content').should('exist')
         cy.get('#trailing-content').should('exist')
 
