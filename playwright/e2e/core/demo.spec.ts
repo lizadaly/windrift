@@ -24,7 +24,7 @@ test.describe('Full test of the built-in stories', () => {
 
         cy.get('a:contains("elm")').click()
         await expect(page.getByText('elm (selected)')).toBeVisible()
-        cy.get('a:contains("Puce")')
+        await expect(page.getByRole('link').filter({ hasText: 'Puce' })).toBeVisible()
 
         // useInventory
         cy.get('a:contains("displaying inventory")').click()
