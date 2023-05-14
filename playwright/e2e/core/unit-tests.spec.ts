@@ -13,9 +13,7 @@ test.describe('Unit test individual features', () => {
         ).toBeVisible()
 
         await page.getByRole('link').filter({ hasText: 'no-wrapper-tag' }).click()
-        await expect(
-            page.getByRole('region').filter({ hasText: 'this should be rendered' })
-        ).toBeVisible()
+        await expect(page.getByText('this should be rendered')).toBeVisible()
 
         await page.getByRole('link').filter({ hasText: 'mdx-support.mdx' }).click()
         await page.getByRole('link').filter({ hasText: 'ripe banana' }).click()
