@@ -1,4 +1,3 @@
-/* eslint-disable cypress/no-async-tests */
 import { expect, test } from '@playwright/test'
 
 test.describe('Full test of the Portuguese Stone Harbor demo', () => {
