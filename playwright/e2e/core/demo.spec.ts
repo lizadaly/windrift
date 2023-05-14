@@ -5,29 +5,29 @@ test.describe('Full test of the built-in stories', () => {
         // Initial page
         await page.goto('/manual')
         await expect(page.getByText('Introduction')).toBeVisible()
-        cy.get("a:contains('Start learning')").click()
-        cy.get("a:contains('about choices')").click()
+        await page.getByRole('link').filter({ hasText: 'Start learning' }).click()
+        await page.getByRole('link').filter({ hasText: 'about choices' }).click()
 
         // Ensure no new sections are unspooled yet
         await expect(page.getByRole('link').filter({ hasText: 'fine choices' })).not.toBeVisible()
 
         // Select choices
-        cy.get('a:contains("ripe banana")').click()
-        cy.get('a:contains("fine choices")').click()
-        cy.get('a:contains("orange kale")').click()
+        await page.getByRole('link').filter({ hasText: 'ripe banana' }).click()
+        await page.getByRole('link').filter({ hasText: 'fine choices' }).click()
+        await page.getByRole('link').filter({ hasText: 'orange kale' }).click()
 
-        cy.get('a:contains("cheesecake")').click()
+        await page.getByRole('link').filter({ hasText: 'cheesecake' }).click()
         await expect(page.getByText('too many delicious things')).toBeVisible()
 
-        cy.get('a:contains("marmot")').click()
+        await page.getByRole('link').filter({ hasText: 'marmot' }).click()
         await expect(page.getByRole('link').filter({ hasText: 'marmot' })).not.toBeVisible()
 
-        cy.get('a:contains("elm")').click()
+        await page.getByRole('link').filter({ hasText: 'elm' }).click()
         await expect(page.getByText('elm (selected)')).toBeVisible()
         await expect(page.getByRole('link').filter({ hasText: 'Puce' })).toBeVisible()
 
         // useInventory
-        cy.get('a:contains("displaying inventory")').click()
+        await page.getByRole('link').filter({ hasText: 'displaying inventory' }).click()
         await expect(page.getByText('// ripe banana')).toBeVisible()
         await expect(page.getByText('// banana')).toBeVisible()
         await expect(page.getByText('// ripe')).toBeVisible()
@@ -51,14 +51,14 @@ test.describe('Full test of the built-in stories', () => {
         await expect(page.getByText('Current value: pumpkin patch')).toBeVisible()
         cy.get('button:contains("Unset the value")').click()
         await expect(page.getByText('Current value: undefined')).toBeVisible()
-        cy.get('a:contains("navigation...")').click()
+        await page.getByRole('link').filter({ hasText: 'navigation...' }).click()
 
         // navigation
-        cy.get('a:contains("Click me")').click()
-        cy.get('a:contains("no-op")').click()
+        await page.getByRole('link').filter({ hasText: 'Click me' }).click()
+        await page.getByRole('link').filter({ hasText: 'no-op' }).click()
         await expect(page.getByText('Clicked!')).toBeVisible()
-        cy.get('a:contains("Click for more")').click()
-        cy.get('a:contains("example story")').click()
+        await page.getByRole('link').filter({ hasText: 'Click for more' }).click()
+        await page.getByRole('link').filter({ hasText: 'example story' }).click()
 
         // Sample (ascent)
         cy.get('a:contains("sample story")').click()
