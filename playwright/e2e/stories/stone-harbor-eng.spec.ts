@@ -18,7 +18,7 @@ test.describe('Full test of the English Stone Harbor demo', () => {
         await page.getByRole('link').filter({ hasText: 'glove' }).click()
         await page.getByRole('link').filter({ hasText: 'glove' }).click()
         await expect(page.getByText('and everything changes')).toBeVisible()
-        cy.get('img').should('have.attr', 'alt').and('contains', 'small, cluttered')
+        await expect(page.locator('img[alt*="small, cluttered"]')).toBeVisible()
         await page.getByRole('link').filter({ hasText: 'knickknacks' }).click()
         await page.getByRole('link').filter({ hasText: 'photograph' }).click()
         await expect(page.getByText('personal effects')).toBeVisible()
