@@ -11,7 +11,7 @@
         "lint": "eslint --fix core/*",
         "new": "ts-node scripts/create-story $npm_config_first",
         "start": "next build && next start",
-        "test": "cypress run",
+        "test": "npx playwright test",
         "vercel": "vercel"
     },
     "engines": {
