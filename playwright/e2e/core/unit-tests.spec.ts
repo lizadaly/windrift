@@ -11,7 +11,9 @@ test.describe('Unit test individual features', () => {
         cy.get('#alt-wrapper-tag-example').contains('this should be wrapped').should('exist')
 
         cy.get("a:contains('no-wrapper-tag')").click()
-        cy.get('section').contains('this should be rendered').should('exist')
+        await expect(
+            page.getByRole('region').filter({ hasText: 'this should be rendered' })
+        ).toBeVisible()
 
         cy.get("a:contains('mdx-support.mdx')").click()
         cy.get("a:contains('ripe banana')").click()
