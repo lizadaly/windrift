@@ -139,6 +139,8 @@ test.describe('Full test of the built-in stories', () => {
 
         // Next steps
         await page.locator('a[data-option="Next steps and further resources"]').click()
-        await expect(page.getByText('Next steps')).toBeVisible()
+        await expect(
+            page.getByRole('heading').filter({ hasText: 'Next steps and further resources' })
+        ).toBeVisible()
     })
 })
