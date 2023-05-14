@@ -5,6 +5,6 @@ test.describe('Check the main index page', () => {
         page
     }) => {
         await page.goto('/')
-        cy.get("a:contains('stone-harbor-pt')").click()
+        await page.getByRole('link').filter({ hasText: 'stone-harbor-pt' }).click()
     })
 })
