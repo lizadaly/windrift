@@ -17,25 +17,25 @@ test.describe('Full test of the built-in stories', () => {
         cy.get('a:contains("orange kale")').click()
 
         cy.get('a:contains("cheesecake")').click()
-        cy.contains('too many delicious things')
+        await expect(page.getByText('too many delicious things')).toBeVisible()
 
         cy.get('a:contains("marmot")').click()
         await expect(page.getByRole('link').filter({ hasText: 'marmot' })).not.toBeVisible()
 
         cy.get('a:contains("elm")').click()
-        cy.contains('elm (selected)')
+        await expect(page.getByText('elm (selected)')).toBeVisible()
         cy.get('a:contains("Puce")')
 
         // useInventory
         cy.get('a:contains("displaying inventory")').click()
-        cy.contains('// ripe banana')
-        cy.contains('// banana')
-        cy.contains('// ripe ')
+        await expect(page.getByText('// ripe banana')).toBeVisible()
+        await expect(page.getByText('// banana')).toBeVisible()
+        await expect(page.getByText('// ripe')).toBeVisible()
 
         // Response maps
-        cy.contains('You picked a nice banana')
-        cy.contains('This also matches banana')
-        cy.contains('here: magenta')
+        await expect(page.getByText('You picked a nice banana')).toBeVisible()
+        await expect(page.getByText('This also matches banana')).toBeVisible()
+        await expect(page.getByText('here: magenta')).toBeVisible()
 
         // Response none
         await expect(
@@ -43,14 +43,14 @@ test.describe('Full test of the built-in stories', () => {
         ).toBeVisible()
 
         // When component
-        cy.contains('You selected either a fruit or a tree')
+        await expect(page.getByText('You selected either a fruit or a tree')).toBeVisible()
 
         // Set/unset values
-        cy.contains('Current value: undefined')
+        await expect(page.getByText('Current value: undefined')).toBeVisible()
         cy.get('button:contains("Set the value")').click()
-        cy.contains('Current value: pumpkin patch')
+        await expect(page.getByText('Current value: pumpkin patch')).toBeVisible()
         cy.get('button:contains("Unset the value")').click()
-        cy.contains('Current value: undefined')
+        await expect(page.getByText('Current value: undefined')).toBeVisible()
         cy.get('a:contains("navigation...")').click()
 
         // navigation
@@ -63,7 +63,7 @@ test.describe('Full test of the built-in stories', () => {
         // Sample (ascent)
         cy.get('a:contains("sample story")').click()
         cy.get('a:contains("your best friend")').click()
-        cy.contains('Your companion will be your best friend.')
+        await expect(page.getByText('Your companion will be your best friend.')).toBeVisible()
         cy.get('a:contains("Start your ascent")').click()
         cy.get('img').should('be.visible')
         await expect(page.getByRole('link').filter({ hasText: 'climbs up' })).not.toBeVisible()
@@ -120,7 +120,7 @@ test.describe('Full test of the built-in stories', () => {
 
         // Markdown
         cy.get('a:contains("ripe banana")').click()
-        cy.contains('You picked ripe banana')
+        await expect(page.getByText('You picked ripe banana')).toBeVisible()
 
         // Next steps
         cy.get('a[data-option="Next steps and further resources"]').click()
