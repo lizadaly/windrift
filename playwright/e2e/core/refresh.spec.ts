@@ -1,15 +1,15 @@
 /* eslint-disable cypress/no-async-tests */
-import { test } from '@playwright/test'
+import { expect, test } from '@playwright/test'
 
 test.describe('Full test of refresh/rehydration features', () => {
     test('Checks refresh', async ({ page }) => {
         await page.goto('/manual')
         await page.getByRole('link').filter({ hasText: 'Start learning' }).click()
         await page.getByRole('link').filter({ hasText: 'about choices' }).click()
-        cy.get('a:contains("ripe banana")')
+        await expect(page.getByRole('link').filter({ hasText: 'ripe banana' })).toBeVisible()
         await page.getByRole('link').filter({ hasText: 'bulbous orange' }).click()
         await page.reload()
-        cy.get('a:contains("ripe banana")').should('not.exist')
+        await expect(page.getByRole('link').filter({ hasText: 'ripe banana' })).not.toBeVisible()
         await page.getByRole('link').filter({ hasText: 'fine choices' }).click()
         await page.getByRole('link').filter({ hasText: 'orange kale' }).click()
         await page.getByRole('link').filter({ hasText: 'cheesecake' }).click()
@@ -17,8 +17,8 @@ test.describe('Full test of refresh/rehydration features', () => {
         await page.getByRole('link').filter({ hasText: 'marmot' }).click()
 
         await page.getByRole('link').filter({ hasText: 'elm' }).click()
-        cy.contains('elm (selected)')
+        await expect(page.getByText('elm (selected)')).toBeVisible()
         await page.reload()
-        cy.contains('elm (selected)')
+        await expect(page.getByText('elm (selected)')).toBeVisible()
     })
 })
