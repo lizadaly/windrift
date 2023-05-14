@@ -1,5 +1,5 @@
 /* eslint-disable cypress/no-async-tests */
-import { test } from '@playwright/test'
+import { expect, test } from '@playwright/test'
 
 test.describe('Full test of the Portuguese Stone Harbor demo', () => {
     test('Checks that Stone Harbor Portuguese works', async ({ page }) => {
@@ -8,23 +8,23 @@ test.describe('Full test of the Portuguese Stone Harbor demo', () => {
         await page.getByRole('link').filter({ hasText: 'anel' }).click()
         await page.getByRole('link').filter({ hasText: 'Nancy?' }).click()
         await page.getByRole('link').filter({ hasText: 'Nadine?' }).click()
-        cy.contains('casamento')
+        await expect(page.getByText('casamento')).toBeVisible()
         await page.getByRole('link').filter({ hasText: 'aparência' }).click()
         await page.getByRole('link').filter({ hasText: 'o escaldão a pelar' }).click()
-        cy.contains('consegues algumas pistas')
-        cy.contains('passar tempo ao ar livre')
-        cy.contains('anel também ficou esquecido')
+        await expect(page.getByText('consegues algumas pistas')).toBeVisible()
+        await expect(page.getByText('passar tempo ao ar livre')).toBeVisible()
+        await expect(page.getByText('anel também ficou esquecido')).toBeVisible()
         await page.getByRole('link').filter({ hasText: 'cartão' }).click()
-        cy.contains('cartão, que viras e lês')
+        await expect(page.getByText('cartão, que viras e lês')).toBeVisible()
         await page.getByRole('link').filter({ hasText: 'luva' }).click()
         await page.getByRole('link').filter({ hasText: 'luva' }).click()
-        cy.contains('e tudo muda')
+        await expect(page.getByText('e tudo muda')).toBeVisible()
         cy.get('img').should('have.attr', 'alt').and('contains', 'Um escritório pequeno')
         await page.getByRole('link').filter({ hasText: 'bibelôs' }).click()
         await page.getByRole('link').filter({ hasText: 'fotografia' }).click()
-        cy.contains('objetos pessoais')
-        cy.contains('Examinas a imagem.')
+        await expect(page.getByText('objetos pessoais')).toBeVisible()
+        await expect(page.getByText('Examinas a imagem.')).toBeVisible()
         await page.getByRole('link').filter({ hasText: 'luva zangada' }).click()
-        cy.contains('Healey foi assassinado.')
+        await expect(page.getByText('Healey foi assassinado.')).toBeVisible()
     })
 })
