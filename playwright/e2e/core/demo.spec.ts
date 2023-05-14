@@ -103,9 +103,11 @@ test.describe('Full test of the built-in stories', () => {
         await page.getByRole('link').filter({ hasText: 'Return to the manual' }).click()
         await page.getByRole('link').filter({ hasText: 'continue with the next section' }).click()
         // Images
-        cy.get('img[src="../stories/manual/images/example1.jpg"]').should('be.visible')
-        cy.get('img[src="../stories/manual/images/skyscrapers.jpg"]').should('be.visible')
-        cy.get('img[src="../stories/manual/images/camera.jpg"]').should('be.visible')
+        await expect(page.locator('img[src="../stories/manual/images/example1.jpg"]')).toBeVisible()
+        await expect(
+            page.locator('img[src="../stories/manual/images/skyscrapers.jpg"]')
+        ).toBeVisible()
+        await expect(page.locator('img[src="../stories/manual/images/camera.jpg"]')).toBeVisible()
         await expect(page.getByText("You haven't made a choice yet")).toBeVisible()
         await page.locator('button[data-tag="image"][data-option="camera"]').click()
         await expect(page.getByText("You haven't make a choice yet")).not.toBeVisible()
