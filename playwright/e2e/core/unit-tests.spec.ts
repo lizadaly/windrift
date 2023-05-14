@@ -6,19 +6,19 @@ test.describe('Unit test individual features', () => {
         await expect(page.locator('#leading-content')).toBeVisible()
         await expect(page.locator('#trailing-content')).toBeVisible()
 
-        cy.get("a:contains('alt-wrapper-tag')").click()
+        await page.getByRole('link').filter({ hasText: 'alt-wrapper-tag' }).click()
         await expect(page.locator('#alt-wrapper-tag-example')).toBeVisible()
         await expect(
             page.locator('#alt-wrapper-tag-example').filter({ hasText: 'this should be wrapped' })
         ).toBeVisible()
 
-        cy.get("a:contains('no-wrapper-tag')").click()
+        await page.getByRole('link').filter({ hasText: 'no-wrapper-tag' }).click()
         await expect(
             page.getByRole('region').filter({ hasText: 'this should be rendered' })
         ).toBeVisible()
 
-        cy.get("a:contains('mdx-support.mdx')").click()
-        cy.get("a:contains('ripe banana')").click()
+        await page.getByRole('link').filter({ hasText: 'mdx-support.mdx' }).click()
+        await page.getByRole('link').filter({ hasText: 'ripe banana' }).click()
         await expect(page.getByText('You picked ripe banana')).toBeVisible()
     })
 })
