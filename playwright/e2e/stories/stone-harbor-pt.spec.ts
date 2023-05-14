@@ -1,5 +1,7 @@
-describe('Full test of the Portuguese Stone Harbor demo', () => {
-    it('Checks that Stone Harbor Portuguese works', () => {
+import { test } from '@playwright/test'
+
+test.describe('Full test of the Portuguese Stone Harbor demo', () => {
+    test('Checks that Stone Harbor Portuguese works', () => {
         cy.visit('/stone-harbor-pt')
         cy.get('a').contains('roupas').click()
         cy.get('a').contains('anel').click()
