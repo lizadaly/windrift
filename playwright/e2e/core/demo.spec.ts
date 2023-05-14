@@ -65,7 +65,7 @@ test.describe('Full test of the built-in stories', () => {
         cy.get('a:contains("your best friend")').click()
         await expect(page.getByText('Your companion will be your best friend.')).toBeVisible()
         cy.get('a:contains("Start your ascent")').click()
-        cy.get('img').should('be.visible')
+        await expect(page.getByRole('img')).toBeVisible()
         await expect(page.getByRole('link').filter({ hasText: 'climbs up' })).not.toBeVisible()
         await expect(page.getByText('climbs up')).toBeVisible()
         await expect(page.getByText('found 1 out of 4')).not.toBeVisible()
@@ -76,7 +76,7 @@ test.describe('Full test of the built-in stories', () => {
 
         // Sample (summit)
         await expect(page.getByText('found 1 out of 4')).toBeVisible()
-        cy.get('img').should('be.visible')
+        await expect(page.getByRole('img')).toBeVisible()
         cy.get('a:contains("boulder")').click()
         cy.get('a:contains("snake")').click()
         await expect(page.getByText('found 2 out of 4')).toBeVisible()
@@ -88,7 +88,7 @@ test.describe('Full test of the built-in stories', () => {
         cy.get('a:contains("continues north")').click()
 
         // Sample (descent)
-        cy.get('img').should('be.visible')
+        await expect(page.getByRole('img')).toBeVisible()
         cy.get('a:contains("Return to the manual")').click()
         cy.get('a:contains("continue with the next section")').click()
         // Images
