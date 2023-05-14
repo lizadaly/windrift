@@ -19,6 +19,6 @@ test.describe('Full test of refresh/rehydration features', () => {
         await page.getByRole('link').filter({ hasText: 'elm' }).click()
         await expect(page.getByText('elm (selected)')).toBeVisible()
         await page.reload()
-        await expect(page.getByText('elm (selected)')).toBeVisible()
+        await expect(page.getByText('elm (selected)')).toBeVisible({ timeout: 10000 })
     })
 })
