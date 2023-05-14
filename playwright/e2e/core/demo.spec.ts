@@ -72,7 +72,7 @@ test.describe('Full test of the built-in stories', () => {
         await page.getByRole('link').filter({ hasText: 'example story' }).click()
 
         // Sample (ascent)
-        await page.getByRole('link').filter({ hasText: 'sample story' }).click()
+        await page.getByRole('link').filter({ hasText: 'Begin the sample story' }).click()
         await page.getByRole('link').filter({ hasText: 'your best friend' }).click()
         await expect(page.getByText('Your companion will be your best friend.')).toBeVisible()
         await page.getByRole('link').filter({ hasText: 'Start your ascent' }).click()
