@@ -1,5 +1,7 @@
-describe('Unit test individual features', () => {
-    it('Chapters should render content before or after sections', () => {
+import { test } from '@playwright/test'
+
+test.describe('Unit test individual features', () => {
+    test('Chapters should render content before or after sections', () => {
         cy.visit('/unit-tests')
         cy.get('#leading-content').should('exist')
         cy.get('#trailing-content').should('exist')
