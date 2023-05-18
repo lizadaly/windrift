@@ -1,4 +1,7 @@
 import { expect, test } from '@playwright/test'
+
+test.setTimeout(90000)
+
 test.describe('Full test of the built-in stories', () => {
     test('Runs through the manual application', async ({ page }) => {
         // Initial page

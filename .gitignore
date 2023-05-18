@@ -32,10 +32,6 @@ yarn-error.log*
 .vercel
 *.code-workspace
 
-# Don't save cypress artifacts
-cypress/videos
-cypress/screenshots
-
 # emacs
 *~
 
