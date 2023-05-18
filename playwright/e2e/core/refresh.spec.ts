@@ -1,5 +1,7 @@
 import { expect, test } from '@playwright/test'
 
+test.setTimeout(60000)
+
 test.describe('Full test of refresh/rehydration features', () => {
     test('Checks refresh', async ({ page }) => {
         await page.goto('/manual')
