@@ -2,7 +2,7 @@
 
 A JavaScript framework for writing mutable narratives
 
-![Integration tests](https://github.com/lizadaly/windrift/actions/workflows/cypress.yml/badge.svg)
+![Integration tests](https://github.com/lizadaly/windrift/actions/workflows/playwright.yml/badge.svg)
 
 Windrift has been used to author interactive hypertext stories including the award-winning [Harmonia](https://lizadaly.com/pages/harmonia/) in 2017, [Stone
 Harbor](https://stoneharborgame.com/) in 2016, and [The Ballroom](https://lizadaly.com/projects/the-ballroom/) in 2019, all by Liza Daly. It was
@@ -62,3 +62,7 @@ Windrift 2 unifies them into a single NextJS application, capable of hosting mul
 Because the core Windrift code is bundled with each story repository, authors can fully modify or alter any fundamental behavior of the library.
 
 The [v1 branch](https://github.com/lizadaly/windrift/tree/v1) is no longer receiving updates.
+
+## Contributor acknowledgment
+
+* 6notes: Playwright test suite conversion
