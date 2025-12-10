@@ -25,7 +25,7 @@ export interface WindriftProps {
 
 function getConfigYaml(story: string) {
     const configPath = path.join(process.cwd(), `public/stories/${story}/story.yaml`)
-    const configYaml = yaml.safeLoad(fs.readFileSync(configPath, 'utf8')) as Record<string, any>
+    const configYaml = yaml.load(fs.readFileSync(configPath, 'utf8')) as Record<string, any>
     return configYaml
 }
 

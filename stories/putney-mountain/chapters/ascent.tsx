@@ -54,10 +54,11 @@ export const Page: PageType = () => {
             <Section className={styles.sample}>
                 <Image
                     src="../stories/manual/images/the-trout-pool-whittredge.jpg"
-                    unoptimized={true}
+                    unoptimized
                     alt="A painting of a forest in autumn with deep trees rendered in orange and gold"
-                    width="1000"
-                    height="406"
+                    width={1000}
+                    height={406}
+                    style={{ maxWidth: '100%', height: 'auto' }}
                 />
                 <h2>Putney Mountain Ascent</h2>
                 <p>
