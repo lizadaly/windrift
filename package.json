@@ -14,7 +14,7 @@
         "vercel": "vercel"
     },
     "engines": {
-        "node": "=18"
+        "node": "22.x"
     },
     "dependencies": {
         "@mdx-js/loader": "^2.1.2",
