@@ -258,12 +258,12 @@ export const Page: PageType = () => {
                     }}>
                     <Image
                         src="../stories/stone-harbor/images/study.jpg"
-                        loader={({ src }) => src}
                         alt="A small, cluttered study, with pictures and a wicker chair before a
                             desk, in sepia tones."
-                        layout="fill"
-                        objectFit="cover"
-                        priority={true}
+                        fill
+                        style={{ objectFit: 'cover' }}
+                        unoptimized
+                        priority
                     />
                 </div>
                 <h3>In the study</h3>

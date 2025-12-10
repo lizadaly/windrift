@@ -55,7 +55,7 @@ export const Page: PageType = () => {
                 </p>
                 <div style={{ textAlign: 'center' }}>
                     <img
-                        src="/stories/manual/images/page-template.svg"
+                        src="../stories/manual/images/page-template.svg"
                         alt="Diagram of default page layout"
                     />
                 </div>
@@ -141,7 +141,7 @@ export default Index`}
                         </p>
                     </div>
                     <img
-                        src="/stories/manual/images/rendered-template.svg"
+                        src="../stories/manual/images/rendered-template.svg"
                         alt="Diagram of layout populated with page contents"
                     />
                     <div>
@@ -163,7 +163,7 @@ export default Index`}
                         </SyntaxHighlighter>
                     </div>
                     <img
-                        src="/stories/manual/images/left.svg"
+                        src="../stories/manual/images/left.svg"
                         alt="Diagram of layout with left nav"
                     />
                 </div>
