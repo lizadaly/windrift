@@ -3,8 +3,6 @@ import { useSelector } from 'react-redux'
 import dynamic from 'next/dynamic'
 
 import { Toc, TocItem, RootState } from 'core/types'
-import Chapter from './chapter'
-import { MDXContent } from 'mdx/types'
 
 interface ChapterComponent {
     component: JSX.Element
