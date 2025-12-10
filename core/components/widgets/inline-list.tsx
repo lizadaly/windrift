@@ -18,9 +18,9 @@ export interface InlineListProps extends WidgetProps {
      */
     conjunction: string
 }
-declare function InlineListType(props: InlineListProps): JSX.Element
+type InlineListType = (props: InlineListProps) => JSX.Element
 
-export const InlineList: typeof InlineListType = ({
+export const InlineList: InlineListType = ({
     separator = ', ',
     conjunction = 'or',
     group = null,

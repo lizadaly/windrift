@@ -7,9 +7,9 @@ import * as React from 'react'
 import Link from 'core/components/link'
 import { WidgetProps } from '.'
 
-declare function BaseListType(props: WidgetProps): JSX.Element
+type BaseListType = (props: WidgetProps) => JSX.Element
 
-const BaseList: typeof BaseListType = ({
+const BaseList: BaseListType = ({
     group = null,
     handler = null,
     tag = null,

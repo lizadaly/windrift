@@ -14,8 +14,7 @@ export type { CounterState } from 'core/features/counter'
 export type Tag = string
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-declare function Widget(props: any): JSX.Element
-export type WidgetType = typeof Widget
+export type WidgetType = (props: any) => JSX.Element
 
 /* Config */
 

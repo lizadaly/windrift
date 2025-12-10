@@ -12,10 +12,10 @@ import { isEqual } from 'lodash'
 import Link from 'core/components/link'
 import { WidgetProps } from '.'
 
-declare function BulletedListType(props: WidgetProps): JSX.Element
+type BulletedListType = (props: WidgetProps) => JSX.Element
 
 // Passing initialChoices means you can leave the existing ones there
-const InlineList: typeof BulletedListType = ({
+const InlineList: BulletedListType = ({
     group = [],
     handler = null,
     tag = null,
