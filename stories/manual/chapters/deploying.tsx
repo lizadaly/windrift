@@ -29,43 +29,25 @@ export const Page: PageType = () => {
                     install, you'll get this manual plus all other included sample stories:
                 </p>
                 <SyntaxHighlighter language="bash" style={prism}>
-                    {`$ npm run build
+                    {`$ npm run export
 [...]
 
-Page                              Size     First Load JS
-┌   /_app                         0 B            69.2 kB
-├ ● /[story]/[[...chapter]]       59.5 kB         129 kB
-├   ├ /manual
-├   ├ /minimal
-├   ├ /stone-harbor
-├   └ /stone-harbor-pt
-└ ○ /404                          194 B          69.4 kB
-+ First Load JS shared by all     69.2 kB
-  ├ chunks/framework.c93ed7.js    42.6 kB
-  ├ chunks/main.1f2c59.js         23.6 kB
-  ├ chunks/pages/_app.dbf9d9.js   576 B
-  ├ chunks/webpack.9c0dc3.js      2.46 kB
-  └ css/c02acf3b427bae0b01cb.css  339 B
+Route (pages)                             Size     First Load JS
+┌ ●  /                                    1.49 kB        83.4 kB
+├    /_app                                0 B            81.9 kB
+├ ●  /[story]/[[...chapter]]              16.7 kB        98.6 kB
+├    ├ /manual
+├    ├ /minimal
+├    ├ /stone-harbor
+├    └ /stone-harbor-pt
+└ ○  /404                                 180 B          82.1 kB
 
-λ  (Server)  server-side renders at runtime (uses getInitialProps or getServerSideProps)
-○  (Static)  automatically rendered as static HTML (uses no initial props)
-●  (SSG)     automatically generated as static HTML + JSON (uses getStaticProps)
-   (ISR)     incremental static regeneration (uses revalidate in getStaticProps)
-
-info  - Loaded env from /Users/liza/github/windrift/.env
-info  - Using webpack 5. Reason: Enabled by default https://nextjs.org/docs/messages/webpack5
-info  - using build directory: /Users/liza/github/windrift/.next
-info  - Copying "static build" directory
-info  - No "exportPathMap" found in "next.config.js". Generating map from "./pages"
-info  - Launching 9 workers
-info  - Copying "public" directory
-info  - Exporting (1/1)
-Export successful. Files written to /Users/liza/github/windrift/out
-
+○  (Static)  prerendered as static content
+●  (SSG)     prerendered as static HTML (uses getStaticProps)
 
 $ ls -F out
-404/             manual/            images/          stone-harbor/    stories/
-_next/           global.scss      minimal/         stone-harbor-pt/ styles/
+404/             manual/          stone-harbor/    stories/
+_next/           minimal/         stone-harbor-pt/ styles/
 `}
                 </SyntaxHighlighter>
                 <p>

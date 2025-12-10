@@ -17,10 +17,11 @@ export const Page: PageType = () => {
                 <p>You emerge from tree cover beneath an overcast sky.</p>
                 <Image
                     src="../stories/manual/images/bouquet-valley-richards.jpg"
-                    unoptimized={true}
+                    unoptimized
                     alt="An impressionist painting of a valley with autumn trees"
-                    width="806"
-                    height="297"
+                    width={806}
+                    height={297}
+                    style={{ maxWidth: '100%', height: 'auto' }}
                 />
                 <h2>Putney Mountain Summit</h2>
                 <p>

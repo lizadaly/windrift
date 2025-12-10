@@ -17,10 +17,11 @@ export const Page: PageType = () => {
                 </p>
                 <Image
                     src="../stories/manual/images/an-evening-in-the-woods-whittredge.jpg"
-                    unoptimized={true}
+                    unoptimized
                     alt="A painting of dark wood, with a distant light in the center and a creek in the foreground"
-                    width="1000"
-                    height="419"
+                    width={1000}
+                    height={419}
+                    style={{ maxWidth: '100%', height: 'auto' }}
                 />
                 <p>
                     This last stretch joins up a fast-moving creek that wound down from the eastward
