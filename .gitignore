@@ -40,3 +40,4 @@ yarn-error.log*
 /playwright-report/
 /playwright/.cache/
 CLAUDE.md
+.env*.local
