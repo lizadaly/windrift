@@ -1,5 +1,5 @@
 import undoable, { excludeAction } from 'redux-undo'
-import { AnyAction, createSlice, Dispatch, PayloadAction, ThunkAction } from '@reduxjs/toolkit'
+import { AnyAction, createSlice, PayloadAction, ThunkAction } from '@reduxjs/toolkit'
 import { v4 as uuidv4 } from 'uuid'
 import { update as updateInventory } from 'core/features/inventory'
 import { update as logUpdate } from 'core/features/log'
