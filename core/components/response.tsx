@@ -1,4 +1,4 @@
-import minimatch from 'minimatch'
+import { minimatch } from 'minimatch'
 
 import { Tag, Option } from 'core/types'
 import useInventory from 'core/hooks/use-inventory'

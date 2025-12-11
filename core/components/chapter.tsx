@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { CSSTransition, TransitionGroup } from 'react-transition-group'
+import { useTransition, animated, config } from '@react-spring/web'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { setSectionCount } from 'core/features/navigation'
@@ -47,39 +47,94 @@ const Chapter: ReactFCC<ChapterType> = ({ children, filename, showOnlyCurrentSec
     const [thisFilename] = React.useState({ filename })
 
     const item = useChapterSetup(filename, React.Children.count(children))
+    const visibleSections = getVisibleSections(children, item, showOnlyCurrentSection)
+
+    const transitions = useTransition(visibleSections, {
+        keys: (section) => section.key,
+        from: { opacity: 0 },
+        enter: { opacity: 1 },
+        leave: { opacity: 1 }, // Sections accumulate, they don't leave
+        config: config.molasses
+    })
 
     return (
         <ChapterContext.Provider value={thisFilename}>
-            <TransitionGroup component={null}>
-                {renderChapterContent(children, item, showOnlyCurrentSection, {
-                    component: CSSTransition,
-                    props: SectionTransition
-                })}
-            </TransitionGroup>
+            {transitions((style, section) => (
+                <animated.div style={style} aria-live="polite" className="windrift--section">
+                    {section.element}
+                </animated.div>
+            ))}
         </ChapterContext.Provider>
     )
 }
 
+interface VisibleSection {
+    key: string
+    element: React.ReactNode
+}
+
 /**
- * Return currently-visible chapter content containing any number of child nodes, usually Sections. Sections are checked
- * for visibility and wrapped in a wrapper node, which could be null (</>).
+ * Return currently-visible sections as an array for use with useTransition.
  * @param children The child nodes of the chapter
  * @param item The TOC item represented by this chapter
  * @param showOnlyCurrentSection Whether to show all sections up to the current (the default) or to only show the current
- * @param sectionWrapper Wrapper for any Section nodes found in the chapter; defaults to </>
-
- * @returns
+ * @returns Array of visible sections with keys
  */
+const getVisibleSections = (
+    children: React.ReactNode,
+    item: TocItem,
+    showOnlyCurrentSection: boolean
+): VisibleSection[] => {
+    const sections: VisibleSection[] = []
+    let index = -1
 
+    React.Children.forEach(children, (child) => {
+        if (React.isValidElement(child)) {
+            const fc = child.type as React.FunctionComponent
+
+            if (fc.displayName === 'Section') {
+                index += 1
+                const condition = showOnlyCurrentSection
+                    ? index === item.bookmark
+                    : index <= item.bookmark
+
+                if (condition) {
+                    sections.push({
+                        key: `section-${index}`,
+                        element: child
+                    })
+                }
+            } else {
+                sections.push({
+                    key: `content-${sections.length}`,
+                    element: child
+                })
+            }
+        }
+    })
+
+    return sections
+}
+
+/**
+ * Return currently-visible chapter content containing any number of child nodes, usually Sections.
+ * Sections are checked for visibility and wrapped in a wrapper node.
+ * @param children The child nodes of the chapter
+ * @param item The TOC item represented by this chapter
+ * @param showOnlyCurrentSection Whether to show all sections up to the current (the default) or to only show the current
+ * @param sectionWrapper Wrapper for any Section nodes found in the chapter; defaults to React.Fragment
+ * @returns Array of wrapped visible sections
+ */
 export const renderChapterContent = (
     children: React.ReactNode,
     item: TocItem,
     showOnlyCurrentSection: boolean,
-    sectionWrapper = { component: null, props: {} }
+    sectionWrapper = { component: React.Fragment as React.ComponentType<any>, props: {} }
 ): React.ReactNode[] => {
-    // Display all visible child nodes, only checking Sections for bookmark counts
+    const sections: React.ReactNode[] = []
     let index = -1
-    const kids = React.Children.map(children, (child) => {
+
+    React.Children.forEach(children, (child) => {
         if (React.isValidElement(child)) {
             const fc = child.type as React.FunctionComponent
 
@@ -91,24 +146,21 @@ export const renderChapterContent = (
 
                 if (condition) {
                     const Wrapper = sectionWrapper.component
-                    return <Wrapper {...sectionWrapper.props}>{child}</Wrapper>
+                    sections.push(
+                        <Wrapper key={`section-${index}`} {...sectionWrapper.props}>
+                            {child}
+                        </Wrapper>
+                    )
                 }
             } else {
-                return <>{child}</>
+                sections.push(
+                    <React.Fragment key={`content-${sections.length}`}>{child}</React.Fragment>
+                )
             }
         }
     })
-    return kids
+
+    return sections
 }
 
-// Wraps the "new section" display in a CSS transformation
-const SectionTransition = {
-    classNames: 'windrift--section',
-    timeout: {
-        appear: 500,
-        enter: 500,
-        exit: 300
-    },
-    ariaLive: 'polite'
-}
 export default Chapter

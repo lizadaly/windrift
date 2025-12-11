@@ -1,5 +1,5 @@
 import undoable, { excludeAction } from 'redux-undo'
-import { AnyAction, createSlice, PayloadAction, ThunkAction } from '@reduxjs/toolkit'
+import { UnknownAction, createSlice, PayloadAction, ThunkAction } from '@reduxjs/toolkit'
 import { v4 as uuidv4 } from 'uuid'
 import { update as updateInventory } from 'core/features/inventory'
 import { update as logUpdate } from 'core/features/log'
@@ -40,7 +40,7 @@ export const makeChoice =
         option: Option,
         next?: NextType,
         filename?: string
-    ): ThunkAction<void, RootState, unknown, AnyAction> =>
+    ): ThunkAction<void, RootState, unknown, UnknownAction> =>
     (dispatch: AppDispatch, getState: () => RootState, config: Config): void => {
         const choiceId = uuidv4()
 

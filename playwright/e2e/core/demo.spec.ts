@@ -78,7 +78,7 @@ test.describe('Full test of the built-in stories', () => {
         await page.getByRole('link').filter({ hasText: 'your best friend' }).click()
         await expect(page.getByText('Your companion will be your best friend.')).toBeVisible()
         await page.getByRole('link').filter({ hasText: 'Start your ascent' }).click()
-        await expect(page.getByRole('img')).toBeVisible()
+        await expect(page.getByRole('img', { name: 'A painting of a forest in' })).toBeVisible()
         await expect(page.getByRole('link').filter({ hasText: 'climbs up' })).not.toBeVisible()
         await expect(page.getByText('climbs up')).toBeVisible()
         await expect(page.getByText('found 1 out of 4')).not.toBeVisible()
@@ -89,7 +89,7 @@ test.describe('Full test of the built-in stories', () => {
 
         // Sample (summit)
         await expect(page.getByText('found 1 out of 4')).toBeVisible()
-        await expect(page.getByRole('img')).toBeVisible()
+        await expect(page.getByRole('img', { name: /painting/ })).toBeVisible()
         await page.getByRole('link').filter({ hasText: 'boulder' }).click()
         await page.getByRole('link').filter({ hasText: 'snake' }).click()
         await expect(page.getByText('found 2 out of 4')).toBeVisible()
