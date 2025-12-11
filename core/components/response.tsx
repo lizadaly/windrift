@@ -1,15 +1,16 @@
-import minimatch from 'minimatch'
+import * as React from 'react'
+import { minimatch } from 'minimatch'
 
 import { Tag, Option } from 'core/types'
 import useInventory from 'core/hooks/use-inventory'
 
 interface OptionsMap {
-    [tag: Tag]: string | JSX.Element
+    [tag: Tag]: string | React.ReactElement
 }
 interface ResponseProps {
     options?: OptionsMap
     tag: Tag
-    none?: string | JSX.Element
+    none?: string | React.ReactElement
 }
 
 /**
@@ -22,7 +23,7 @@ interface ResponseProps {
  * @param none optional definition of what to display if the tag is undefined or null
  * @returns the matching text, or null if no match is found
  */
-const Response = ({ tag, options, none = null }: ResponseProps): JSX.Element => {
+const Response = ({ tag, options, none = null }: ResponseProps): React.ReactElement => {
     // Get the inventory item for this tag
     const [option] = useInventory([tag])
 
@@ -53,7 +54,7 @@ const Response = ({ tag, options, none = null }: ResponseProps): JSX.Element => 
     }
     return returnMatch(options, resp[0])
 }
-const returnMatch = (options: OptionsMap, response: string): JSX.Element => {
+const returnMatch = (options: OptionsMap, response: string): React.ReactElement => {
     const output = options[response]
 
     if (typeof output === 'string') {
@@ -90,7 +91,7 @@ interface MultiResponseProps {
  * @param param0
  * @returns
  */
-export const MultiResponse = ({ tags, options }: MultiResponseProps): JSX.Element => {
+export const MultiResponse = ({ tags, options }: MultiResponseProps): React.ReactElement => {
     const inventory = useInventory(tags)
     const resp = tags
         .filter((t, i) => inventory[i] != null)

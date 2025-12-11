@@ -29,7 +29,7 @@ const Nav = ({
     persist = true,
     tag = undefined,
     className = undefined
-}: NavProps): JSX.Element => {
+}: NavProps): React.ReactElement => {
     const { filename } = useContext(ChapterContext)
 
     return (

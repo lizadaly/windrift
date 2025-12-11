@@ -12,7 +12,7 @@ import { isEqual } from 'lodash'
 import Link from 'core/components/link'
 import { WidgetProps } from '.'
 
-type BulletedListType = (props: WidgetProps) => JSX.Element
+type BulletedListType = (props: WidgetProps) => React.ReactElement
 
 // Passing initialChoices means you can leave the existing ones there
 const InlineList: BulletedListType = ({
@@ -21,7 +21,7 @@ const InlineList: BulletedListType = ({
     tag = null,
     initialOptions = [],
     className = null
-}: WidgetProps): JSX.Element => {
+}: WidgetProps): React.ReactElement => {
     return (
         <ul>
             {[...initialOptions[0]].map((t, i) => (

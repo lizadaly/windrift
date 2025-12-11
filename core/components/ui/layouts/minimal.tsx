@@ -15,7 +15,7 @@ import { StoryContext } from 'core/containers/store-container'
 type Props = {
     children: React.ReactNode
 }
-const Minimal = ({ children }: Props): JSX.Element => {
+const Minimal = ({ children }: Props): React.ReactElement => {
     const { config } = React.useContext(StoryContext)
     return (
         <>

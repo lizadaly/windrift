@@ -35,7 +35,7 @@ type ResetType = {
     message?: string
     children?: React.ReactNode
 }
-const ResetButton = ({ children = 'Reset', message }: ResetType): JSX.Element => {
+const ResetButton = ({ children = 'Reset', message }: ResetType): React.ReactElement => {
     const { persistor, config } = React.useContext(StoryContext)
     const router = useRouter()
     return (

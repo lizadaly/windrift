@@ -422,26 +422,15 @@ export const Page: PageType = () => {
                 <h2>Animation</h2>
 
                 <p>
-                    Windrift comes bundled with two methods for animating or transitioning elements:{' '}
-                    <a href="https://reactcommunity.org/react-transition-group/">
-                        react-transition-group
-                    </a>{' '}
-                    and <a href="https://react-spring.io/">react-spring</a>. React Transition Group
-                    applies and removes CSS classes when React elements enter or leave the DOM and
-                    is good for animations that don't require complex timings or dependency chains.
-                    React Spring is a powerful library that uses spring physics to animate value
-                    changes and apply them to any value, including position, opacity, or scale.
+                    Windrift uses <a href="https://react-spring.dev/">react-spring</a> for
+                    animations. React Spring is a powerful library that uses spring physics to
+                    animate value changes and apply them to any value, including position, opacity,
+                    or scale.
                 </p>
                 <p>
-                    React Transition Group is used in the core library for the default fade-in
-                    animation for new Sections.
-                </p>
-                <p>
-                    The timings for the section fade-in are controlled in{' '}
-                    <code>public/styles/_transitions.scss</code>. You can override these transition
-                    classes with different values in your story's CSS, but note that you'll need to
-                    use "traditional" CSS (not CSS Modules), as those classes are defined outside
-                    the scope of your specific story.
+                    React Spring is used in the core library for the default fade-in animation for
+                    new Sections. The animation is configured directly in the Chapter component
+                    using react-spring's <code>useTransition</code> hook.
                 </p>
                 <h3>
                     Using <kbd>FadeIn</kbd>

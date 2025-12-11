@@ -7,7 +7,7 @@ import styles from 'public/stories/putney-mountain/styles/Index.module.scss'
 type Props = {
     children: React.ReactNode
 }
-const Index = ({ children }: Props): JSX.Element => {
+const Index = ({ children }: Props): React.ReactElement => {
     return <Grid styles={styles}>{children}</Grid>
 }
 

@@ -15,6 +15,8 @@
                             persist={true}
                         />
  *  */
+import * as React from 'react'
+
 import { Option } from 'core/types'
 import { WidgetProps } from '.'
 
@@ -25,7 +27,7 @@ interface ImageChoiceProps extends WidgetProps {
     width?: number | string
     height?: number | string
 }
-type ImageChoiceType = (props: ImageChoiceProps) => JSX.Element
+type ImageChoiceType = (props: ImageChoiceProps) => React.ReactElement
 
 const ImageChoice: ImageChoiceType = ({
     handler,

@@ -4,6 +4,8 @@ string will be rendered but do not embed React components; they won't work.
 
 This typically occurs for the last item in a Choice list. */
 
+import * as React from 'react'
+
 import { Tag } from 'core/types'
 
 interface LinkProps {
@@ -12,7 +14,7 @@ interface LinkProps {
     handler: any
     tag?: Tag
 }
-const Link = ({ text, handler, tag }: LinkProps): JSX.Element => {
+const Link = ({ text, handler, tag }: LinkProps): React.ReactElement => {
     if (handler) {
         return (
             // eslint-disable-next-line jsx-a11y/anchor-is-valid
