@@ -18,7 +18,7 @@ export interface InlineListProps extends WidgetProps {
      */
     conjunction: string
 }
-type InlineListType = (props: InlineListProps) => JSX.Element
+type InlineListType = (props: InlineListProps) => React.ReactElement
 
 export const InlineList: InlineListType = ({
     separator = ', ',
@@ -27,7 +27,7 @@ export const InlineList: InlineListType = ({
     handler = null,
     tag = null,
     className = null
-}: InlineListProps): JSX.Element => {
+}: InlineListProps): React.ReactElement => {
     if (conjunction.length > 0) {
         conjunction = ` ${conjunction} `
     }
@@ -53,7 +53,7 @@ export const InlineListEN: typeof InlineList = ({
     handler = null,
     tag = null,
     className = null
-}: InlineListProps): JSX.Element =>
+}: InlineListProps): React.ReactElement =>
     InlineList({ separator, conjunction, group, handler, tag, className })
 
 /** Portuguese version of an inline list with an "or" conjunction */
@@ -64,5 +64,5 @@ export const InlineListPT: typeof InlineList = ({
     handler = null,
     tag = null,
     className = null
-}: InlineListProps): JSX.Element =>
+}: InlineListProps): React.ReactElement =>
     InlineList({ separator, conjunction, group, handler, tag, className })

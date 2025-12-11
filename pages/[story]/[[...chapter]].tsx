@@ -67,7 +67,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     return { paths, fallback: false }
 }
 
-export default function Start(props: WindriftProps): JSX.Element {
+export default function Start(props: WindriftProps): React.ReactElement {
     const router = useRouter()
     const { story, chapter } = router.query
     const { toc, configYaml } = props

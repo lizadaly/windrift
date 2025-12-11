@@ -5,8 +5,6 @@
    (recommended where possible) as part of a CSS module.
 */
 
-@use 'styles/transitions';
-
 /* Removing all padding allows you to set background colors and margins per story */
 html, body {
     margin: 0;

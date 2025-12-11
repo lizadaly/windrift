@@ -138,7 +138,7 @@ export const Page: PageType = () => {
 }
 export const allFindables: Option[] = ['chipmunk', 'mushroom', 'snake', 'hawk']
 
-export const Score = (): JSX.Element => {
+export const Score = (): React.ReactElement => {
     const findables = useInventory(allFindables).filter((f) => !!f)
     const [companion] = useInventory(['companion'])
     return (

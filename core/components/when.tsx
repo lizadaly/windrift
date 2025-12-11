@@ -6,7 +6,7 @@ interface WhenProps {
     children?: React.ReactNode
 }
 
-const When = ({ children, condition, otherwise }: WhenProps): JSX.Element => {
+const When = ({ children, condition, otherwise }: WhenProps): React.ReactElement => {
     // eslint-disable-next-line no-extra-boolean-cast
     if (!!condition) {
         return <>{children}</>

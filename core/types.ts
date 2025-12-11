@@ -1,5 +1,6 @@
 /* Re-export common types */
 
+import * as React from 'react'
 import { AppDispatch, RootState } from 'core/containers/store-container'
 import { PropsWithChildren } from 'react'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
@@ -14,7 +15,7 @@ export type { CounterState } from 'core/features/counter'
 export type Tag = string
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type WidgetType = (props: any) => JSX.Element
+export type WidgetType = (props: any) => React.ReactElement
 
 /* Config */
 

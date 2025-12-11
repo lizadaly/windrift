@@ -57,7 +57,7 @@ const Index: ReactFCC = ({ children }) => {
     )
 }
 
-export const FooterNav = ({ text, next }: NavProps): JSX.Element => (
+export const FooterNav = ({ text, next }: NavProps): React.ReactElement => (
     <Nav text={text} next={next} className={styles.nav} />
 )
 

@@ -1,3 +1,4 @@
+import * as React from 'react'
 import { GetStaticProps } from 'next'
 import Head from 'next/head'
 import fs from 'fs'
@@ -22,7 +23,7 @@ export const getStaticProps: GetStaticProps = async () => {
     }
 }
 
-function Index({ paths }: StoryProps): JSX.Element {
+function Index({ paths }: StoryProps): React.ReactElement {
     return (
         <>
             <Head>

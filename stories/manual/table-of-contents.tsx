@@ -11,7 +11,7 @@ import { RootState } from 'core/types'
 import styles from 'public/stories/manual/styles/Index.module.scss'
 import { StoryContext } from 'core/containers/store-container'
 
-const TableOfContents = (): JSX.Element => {
+const TableOfContents = (): React.ReactElement => {
     const { config } = React.useContext(StoryContext)
     const { extra } = config
     const omitToc: string[] = extra.omitToc as string[]

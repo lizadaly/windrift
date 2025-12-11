@@ -46,7 +46,7 @@ const Choice = ({
     last = null,
     defaultOption = null,
     className = null
-}: ChoiceProps): JSX.Element => {
+}: ChoiceProps): React.ReactElement => {
     const dispatch = useAppDispatch()
     const choice = useAppSelector((state) => {
         return state.choices.present
@@ -82,7 +82,7 @@ const MutableChoice = ({
     persist,
     last,
     className
-}: ChoiceProps): JSX.Element => {
+}: ChoiceProps): React.ReactElement => {
     const dispatch = useAppDispatch()
     const { filename } = React.useContext(ChapterContext)
 

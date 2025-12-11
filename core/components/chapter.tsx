@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { useTransition, animated, config } from '@react-spring/web'
+import { useTransition, animated } from '@react-spring/web'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { setSectionCount } from 'core/features/navigation'
@@ -53,8 +53,9 @@ const Chapter: ReactFCC<ChapterType> = ({ children, filename, showOnlyCurrentSec
         keys: (section) => section.key,
         from: { opacity: 0 },
         enter: { opacity: 1 },
-        leave: { opacity: 1 }, // Sections accumulate, they don't leave
-        config: config.molasses
+        leave: { opacity: 0 },
+        config: { duration: 200 },
+        expires: 0
     })
 
     return (

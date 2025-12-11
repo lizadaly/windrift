@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic'
 import { Toc, TocItem, RootState } from 'core/types'
 
 interface ChapterComponent {
-    component: JSX.Element
+    component: React.ReactElement
     item: TocItem
 }
 const chapterComponents = (toc: Toc, story: string): Array<ChapterComponent> => {
@@ -36,7 +36,7 @@ interface StoryProps {
     story: string
 }
 
-const Story = ({ story }: StoryProps): JSX.Element => {
+const Story = ({ story }: StoryProps): React.ReactElement => {
     const toc = useSelector((state: RootState) => state.navigation.present.toc)
     const [components, setComponents] = React.useState<ChapterComponent[]>(null)
 

@@ -7,11 +7,13 @@
  * that can only be supported by a custom App, know that these will apply to all stories
  * hosted in this Windrift installation.
  */
+import * as React from 'react'
+
 import 'public/global.scss'
 
 import type { AppProps } from 'next/app'
 
-function WindriftApp({ Component, pageProps }: AppProps): JSX.Element {
+function WindriftApp({ Component, pageProps }: AppProps): React.ReactElement {
     return <Component {...pageProps} />
 }
 

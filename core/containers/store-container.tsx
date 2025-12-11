@@ -63,12 +63,12 @@ function initStore(config: Config, toc: Toc) {
                 present: {},
                 future: []
             }
-        },
+        } as any,
         devTools: true
     })
 }
 
-const StoreContainer = ({ config, toc }: StoreProps): JSX.Element => {
+const StoreContainer = ({ config, toc }: StoreProps): React.ReactElement => {
     const store = initStore(config, toc)
     const persistor = persistStore(store)
 
