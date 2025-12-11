@@ -12,8 +12,7 @@
         "plugin:@typescript-eslint/recommended",
         "plugin:@typescript-eslint/eslint-recommended",
         "plugin:jsx-a11y/recommended",
-        // Prettier plugin and recommended rules
-        "prettier/@typescript-eslint",
+        "prettier",
         "plugin:prettier/recommended"
     ],
     "rules": {

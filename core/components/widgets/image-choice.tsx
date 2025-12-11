@@ -25,9 +25,9 @@ interface ImageChoiceProps extends WidgetProps {
     width?: number | string
     height?: number | string
 }
-declare function ImageChoiceType(props: ImageChoiceProps): JSX.Element
+type ImageChoiceType = (props: ImageChoiceProps) => JSX.Element
 
-const ImageChoice: typeof ImageChoiceType = ({
+const ImageChoice: ImageChoiceType = ({
     handler,
     option,
     tag,
