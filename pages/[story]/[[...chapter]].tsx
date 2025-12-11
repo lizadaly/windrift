@@ -21,6 +21,7 @@ import { getChapter } from 'core/util'
 export interface WindriftProps {
     toc: Toc
     configYaml: Config
+    storyId: string
 }
 
 function getConfigYaml(story: string) {
@@ -43,7 +44,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
     return {
         props: {
             toc,
-            configYaml
+            configYaml,
+            storyId: story
         }
     }
 }
@@ -69,10 +71,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export default function Start(props: WindriftProps): React.ReactElement {
     const router = useRouter()
-    const { story, chapter } = router.query
-    const { toc, configYaml } = props
+    const { chapter } = router.query
+    const { toc, configYaml, storyId } = props
     const config = new Config(
-        story as string,
+        storyId,
         configYaml.title,
         configYaml.enableUndo,
         configYaml.players,
@@ -80,14 +82,17 @@ export default function Start(props: WindriftProps): React.ReactElement {
         configYaml.extra
     )
 
-    if (chapter) {
-        const chapters = Object.values(toc)
-        chapters.filter((i) => i.visible).forEach((i) => (i.visible = false))
-        getChapter(toc, chapter[0]).visible = true
-    }
-    // In a single player story, set the visible chapter as the start
-    else if (config.players && config.players.length === 1) {
-        getChapter(toc, config.players[0].start).visible = true
+    // Try to use chapter from URL, fall back to player start
+    const chapterFromUrl = chapter ? getChapter(toc, chapter[0]) : null
+    const startChapter =
+        chapterFromUrl ||
+        (config.players?.length === 1 ? getChapter(toc, config.players[0].start) : null)
+
+    if (startChapter) {
+        Object.values(toc)
+            .filter((i) => i.visible)
+            .forEach((i) => (i.visible = false))
+        startChapter.visible = true
     }
     const StoreContainer = dynamic(() => import(`../../core/containers/store-container`), {
         ssr: false
