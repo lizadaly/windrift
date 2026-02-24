@@ -71,7 +71,7 @@
         "ts-node": "^8.9.1",
         "typescript": "^5.0.0",
         "undefined": "^0.1.0",
-        "vercel": "^49.1.2",
+        "vercel": "^50.23.0",
         "yargs": "^17.0.0-candidate.0"
     }
 }
