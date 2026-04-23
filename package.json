@@ -40,7 +40,7 @@
         "redux": "^5.0.1",
         "redux-persist": "^6.0.0",
         "redux-undo": "^1.0.1",
-        "uuid": "^8.3.1",
+        "uuid": "^14.0.0",
         "voca": "^1.4.0"
     },
     "devDependencies": {
