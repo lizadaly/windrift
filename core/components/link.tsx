@@ -17,7 +17,6 @@ interface LinkProps {
 const Link = ({ text, handler, tag }: LinkProps): React.ReactElement => {
     if (handler) {
         return (
-            // eslint-disable-next-line jsx-a11y/anchor-is-valid
             <a
                 href="#"
                 tabIndex={0}
