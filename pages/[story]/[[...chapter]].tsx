@@ -10,7 +10,7 @@
 import * as React from 'react'
 import fs from 'fs'
 import path from 'path'
-import yaml from 'js-yaml'
+import { load as loadYaml } from 'js-yaml'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import { GetStaticProps, GetStaticPaths } from 'next'
@@ -26,7 +26,7 @@ export interface WindriftProps {
 
 function getConfigYaml(story: string) {
     const configPath = path.join(process.cwd(), `public/stories/${story}/story.yaml`)
-    const configYaml = yaml.load(fs.readFileSync(configPath, 'utf8')) as Record<string, any>
+    const configYaml = loadYaml(fs.readFileSync(configPath, 'utf8')) as Record<string, any>
     return configYaml
 }
 
