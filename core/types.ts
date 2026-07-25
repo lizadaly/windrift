@@ -14,7 +14,6 @@ export type { CounterState } from 'core/features/counter'
 
 export type Tag = string
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type WidgetType = (props: any) => React.ReactElement
 
 /* Config */
