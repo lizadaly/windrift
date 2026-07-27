@@ -7,7 +7,6 @@
  */
 
 import * as React from 'react'
-import { isEqual } from 'lodash'
 
 import Link from 'core/components/link'
 import { WidgetProps } from '.'
@@ -22,16 +21,18 @@ const InlineList: BulletedListType = ({
     initialOptions = [],
     className = null
 }: WidgetProps): React.ReactElement => {
+    // Once the player has picked something, the remaining group no longer matches the
+    // original list, and the picked entries get marked as selected
+    const narrowed =
+        initialOptions[0].length !== group.length ||
+        group.some((g, i) => g !== initialOptions[0][i])
+
     return (
         <ul>
             {[...initialOptions[0]].map((t, i) => (
                 <li key={i} className={className}>
                     <Link handler={handler} text={t} tag={tag} />
-                    {group.map((g) => {
-                        if (!isEqual(initialOptions[0], group) && g === t) {
-                            return ' (selected)'
-                        }
-                    })}
+                    {narrowed && group.includes(t) ? ' (selected)' : null}
                 </li>
             ))}
         </ul>

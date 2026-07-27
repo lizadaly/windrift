@@ -1,6 +1,5 @@
 import undoable, { excludeAction } from 'redux-undo'
 import { UnknownAction, createSlice, PayloadAction, ThunkAction } from '@reduxjs/toolkit'
-import { v4 as uuidv4 } from 'uuid'
 import { update as updateInventory } from 'core/features/inventory'
 import { update as logUpdate } from 'core/features/log'
 import { Tag, ENTRY_TYPES, Next, Config, NextType, RootState } from 'core/types'
@@ -42,7 +41,7 @@ export const makeChoice =
         filename?: string
     ): ThunkAction<void, RootState, unknown, UnknownAction> =>
     (dispatch: AppDispatch, getState: () => RootState, config: Config): void => {
-        const choiceId = uuidv4()
+        const choiceId = crypto.randomUUID()
 
         dispatch(updateInventory({ tag, option }))
         dispatch(advance({ tag }))
