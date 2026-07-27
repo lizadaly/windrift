@@ -1,4 +1,3 @@
-import { capitalize } from 'lodash'
 import Image from 'next/image'
 
 import { C, R, Section, Chapter, Nav, When } from 'core/components'
@@ -44,9 +43,10 @@ export const Page: PageType = () => {
                     It casts long shadows, dappling through the trees, hiding nature's mysteries.
                 </p>
                 <p>
-                    {capitalize(companion)} said to call when you're done exploring, and to promise
-                    not to lose track of time. You, in turn, promised you'd limit yourself to
-                    observing just three natural wonders on this short hike up old Putney Mountain.
+                    {companion && companion[0].toUpperCase() + companion.slice(1)} said to call when
+                    you're done exploring, and to promise not to lose track of time. You, in turn,
+                    promised you'd limit yourself to observing just three natural wonders on this
+                    short hike up old Putney Mountain.
                 </p>
                 <Nav text="Start your ascent..." next={Next.Section} />
             </Section>

@@ -1,18 +1,15 @@
-import yargs from 'yargs'
 import fs from 'fs'
-import { hideBin } from 'yargs/helpers'
-import compile from 'es6-template-strings/compile'
-import resolveToString from 'es6-template-strings/resolve-to-string'
 
-const argv = yargs(hideBin(process.argv))
-    .command(
-        'create-story <story-identifier>',
-        'create new story boilerplate with the identifier <story-identifer>'
-    )
-    .demandCommand(1)
-    .parse()
+const story = process.argv[2]
 
-const story = argv._[0] as string
+if (!story) {
+    console.error('Usage: npm run new --first=<story-identifier>')
+    process.exit(1)
+}
+
+// Templates use `${story}` as their only interpolation
+const render = (template: string) =>
+    fs.readFileSync(`scripts/templates/${template}`, 'utf8').replaceAll('${story}', story)
 
 const publicDir = `public/stories/${story}`
 const storyDir = `stories/${story}`
@@ -24,33 +21,20 @@ if (!fs.existsSync(publicDir)) {
     fs.mkdirSync(`${publicDir}/images`, { recursive: true })
 
     // make yaml
-    fs.writeFileSync(
-        `${publicDir}/story.yaml`,
-        resolveToString(compile(fs.readFileSync('scripts/templates/story.yaml')), { story })
-    )
+    fs.writeFileSync(`${publicDir}/story.yaml`, render('story.yaml'))
 
     // Make CSS template
-    fs.writeFileSync(
-        `${publicDir}/styles/Index.module.scss`,
-        resolveToString(compile(fs.readFileSync('scripts/templates/Index.module.template')), {
-            story
-        })
-    )
+    fs.writeFileSync(`${publicDir}/styles/Index.module.scss`, render('Index.module.template'))
 }
 if (!fs.existsSync(storyDir)) {
     fs.mkdirSync(`${storyDir}/chapters`, { recursive: true })
     console.log(`Creating ${storyDir} for chapters and story intro...`)
 
     // make index.tsx
-    fs.writeFileSync(
-        `${storyDir}/index.tsx`,
-        resolveToString(compile(fs.readFileSync('scripts/templates/index.template')), { story })
-    )
+    fs.writeFileSync(`${storyDir}/index.tsx`, render('index.template'))
+
     // Make default chapter1
-    fs.writeFileSync(
-        `${storyDir}/chapters/chapter1.tsx`,
-        resolveToString(compile(fs.readFileSync('scripts/templates/chapter1.template')), { story })
-    )
+    fs.writeFileSync(`${storyDir}/chapters/chapter1.tsx`, render('chapter1.template'))
 }
 
 export {}
