@@ -1,0 +1,35 @@
+version: 2
+
+# This project is in maintenance mode, so Dependabot is deliberately held to
+# security updates only — no scheduled version-update PRs.
+#
+# Two things are going on below:
+#
+#   * open-pull-requests-limit: 0 keeps version updates switched off. They were
+#     already off (this repo previously had no dependabot.yml, which means only
+#     security updates ran), so this preserves the status quo rather than
+#     turning on a new firehose by adding an `updates` block.
+#
+#   * The ignore block keeps major bumps out if version updates are ever turned
+#     back on by raising the limit above.
+#
+# Caveat worth knowing: `update-types: version-update:*` ignores apply ONLY to
+# version updates. Dependabot security updates disregard them and will still
+# open a PR carrying a major bump when the patched release is only available in
+# a new major — that is what PR #383 was, dragging in Next 16 to patch a postcss
+# advisory. The only setting that suppresses those is a bare `dependency-name`
+# ignore with no `update-types`, which silences *every* security alert for that
+# package, patches included. None are set here on purpose; prefer pinning the
+# transitive dependency via `overrides` in package.json, as postcss is.
+updates:
+  - package-ecosystem: npm
+    directory: '/'
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 0
+    ignore:
+      - dependency-name: '*'
+        update-types:
+          - version-update:semver-major
+          - version-update:semver-minor
+          - version-update:semver-patch
