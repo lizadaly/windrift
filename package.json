@@ -43,7 +43,7 @@
         "eslint": "^10.8.0",
         "eslint-config-prettier": "^10.1.8",
         "eslint-plugin-prettier": "^5.5.4",
-        "js-yaml": "^5.2.2",
+        "js-yaml": "^5.4.1",
         "prettier": "^3.7.4",
         "sass": "^1.29.0",
         "ts-node": "^8.9.1",
