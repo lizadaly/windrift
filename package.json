@@ -21,7 +21,7 @@
         "@react-spring/web": "^10.0.3",
         "@reduxjs/toolkit": "^2.11.1",
         "@types/mdx": "^2.0.2",
-        "minimatch": "^9.0.7",
+        "minimatch": "^11.0.1",
         "next": "^15.5.21",
         "react": "^19.0.0",
         "react-dom": "^19.0.0",
